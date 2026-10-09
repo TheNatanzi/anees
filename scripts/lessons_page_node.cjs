@@ -67,11 +67,14 @@ const rows = C.models(words, catalog, events, []);
 function outcome(e) { const p = C.points(e); if (e.grammar_only || e.classification === 'grammar') return 'Grammar · not vocabulary'; return e.self_corrected && p === 1 ? 'Correct · self-corrected' : e.confusion_pair && p === 0 ? 'Wrong · linked word confusion' : e.ignored && !e.immediate_repeat && !e.is_echo ? 'Not scored' : e.rehear_hold ? 'Not scored · second listen no longer hears this word (needs a look)' : e.observation_only ? 'Said here · another word intended' : e.scored_in_event ? 'Same attempt · counted once' : p === 1 ? 'Correct' : p === .5 ? 'Partial' : p === 0 ? 'Wrong' : e.immediate_repeat || e.is_echo ? 'Repeat · not scored' : 'Ignored pending review'; }
 
 const byKey = new Map(words.map(w => [w.key, w]));
-const scored = [];
+const scored = [], unscored = [];
 for (const r of rows) for (const f of r.entries) for (const e of f.events) {
   if (e.speaker !== 'Medi') continue;
   const p = C.points(e);
-  if (p === null) continue;
+  // WS-30 / WS-31 (Medi 2026-10-09): every word of his shows a state on the transcript - the ones the Word Bank does not
+  // score (a repeat of the tutor's fix, a grammar word, an open question) go out with their reason
+  if (p === null) { unscored.push({ id: e.id, date: C.date(e), word_key: e.word_key, t_start: e.t_start, t_end: e.t_end, text: e.text,
+    reason: e.reason || null, repeat: !!(e.immediate_repeat || e.is_echo), repeat_of: e.repeat_of || null, grammar_only: !!e.grammar_only }); continue; }
   const said = C.sentence(e);
   const w = byKey.get(e.word_key) || {};
   scored.push({
@@ -167,5 +170,5 @@ const ratings = {}; for (const s of scored) if (s.word_key && !ratings[s.word_ke
 
 // every word with a scored use, not only the ones scored here (a slip on a word with no Word Bank use yet)
 if (slipDoc) for (const e of slipDoc.events) if (!ratings[e.word_key]) ratings[e.word_key] = rating(e.word_key);
-fs.writeFileSync(process.argv[3], JSON.stringify({ scored, firstSeen, wordInfo, arabizi, sheet, ratings, slips: slipDoc, stale_reviews: reviewed.stale.length }));
+fs.writeFileSync(process.argv[3], JSON.stringify({ scored, unscored, firstSeen, wordInfo, arabizi, sheet, ratings, slips: slipDoc, stale_reviews: reviewed.stale.length }));
 console.log('scored', scored.length, 'stale reviews', reviewed.stale.length);

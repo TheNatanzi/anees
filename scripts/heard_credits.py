@@ -99,6 +99,8 @@ def build(rows=None, words=None, evidence=None, lessons=None):
     for r in rows:
         if r.get("by") != "medi" or r.get("who") != "Medi" or not r.get("heard") or r.get("set_who") or r.get("set_t") is not None:
             continue
+        if r.get("credit") == "none":
+            continue                      # WS-30: his own 'no credit' on this line (10-08 00:42 keefak, fixed by him to keefek)
         d = str(r["date"])
         a = anchors.get(d)
         if not a:

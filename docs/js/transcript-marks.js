@@ -9,11 +9,12 @@
 var FILTERS = [['all', 'All'], ['marked', 'Only marked'], ['wrong', 'Only ✗'], ['vocab', 'Vocab'], ['grammar', 'Grammar'], ['fix', "The tutor's fixes"]];
 var LEGEND = [
   ['correct', '✓', 'Correct'], ['partial', '◐', 'Partial · got there with help'], ['asked', '◐', 'Asked the tutor for the word'],
-  ['wrong', '✗', 'Wrong'], ['fix', '←', "The tutor's fix (how she flagged it)"], ['na', '–', 'Not scored (reason on the chip)'],
+  ['wrong', '✗', 'Wrong'], ['repeat', '↻', "Repeat · said right after the tutor gave it: no credit, not a mistake"],
+  ['fix', '←', "The tutor's fix (how she flagged it)"], ['na', '–', 'Not scored (reason on the chip)'],
   ['medi', '?', 'Open question · two judges disagree; the tutor decides on her Tutor hub, counted as before until she answers']
 ];
-var WORD = { correct: 'Correct', partial: 'Partial', asked: 'Asked', wrong: 'Wrong', fix: "The tutor's fix", na: 'Not scored', medi: 'Open question' };
-var SIGN = { correct: '✓', partial: '◐', asked: '◐', wrong: '✗', fix: '←', na: '–', medi: '?' };
+var WORD = { correct: 'Correct', partial: 'Partial', asked: 'Asked', wrong: 'Wrong', repeat: 'Repeat', fix: "The tutor's fix", na: 'Not scored', medi: 'Open question' };
+var SIGN = { correct: '✓', partial: '◐', asked: '◐', wrong: '✗', repeat: '↻', fix: '←', na: '–', medi: '?' };
 
 function isArabic(s) { return /[؀-ۿ]/.test(s || ''); }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -57,10 +58,12 @@ function chipModel(c, toArabizi) {
   else if (c.s === 'fix') tip = "The tutor's fix: she " + c.sig + (c.said || c.right ? ' · ' + pair(c.said, c.right, toArabizi) : '') +
     (c.english ? ' · she said it in English: «' + c.english + '»' : '');
   else if (c.s === 'medi') tip = (c.label || 'Open question') + ' ' + (c.why || '');
+  // WS-31 / GR-32 (Medi 2026-10-09 "Mark as repeat if I am repeating one of amals corrections and dont give me credit for it")
+  else if (c.s === 'repeat') tip = 'Repeat · not credited, not a mistake' + (c.amal_line ? ' · the tutor at ' + clock(c.amal_t) + ': «' + c.amal_line + '»' : '') + (c.why ? ' · ' + c.why : '');
   else tip = 'Not scored: ' + (c.why || '');
   var arSrc = [c.said, c.right].filter(isArabic).join(' → ');
   return {
-    sign: SIGN[c.s] || '', word: WORD[c.s] || '', kind: s.kind, main: c.s === 'na' || c.s === 'medi' ? (c.why || '') : s.main,
+    sign: SIGN[c.s] || '', word: WORD[c.s] || '', kind: s.kind, main: c.s === 'na' || c.s === 'medi' ? (c.why || '') : c.s === 'repeat' && c.k === 'grammar' ? s.main + ' · ' + (c.said || '') : s.main,
     ar: s.ar, tip: tip, tipAr: arSrc, sig: c.s === 'fix' ? c.sig : ''
   };
 }

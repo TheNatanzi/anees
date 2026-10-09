@@ -9172,6 +9172,203 @@
     "t": "0:45",
     "note": "his self-fix keefik showed as keefak; now keefek"
    }
+  },
+  {
+   "id": "WS-30",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every Arabic word Medi says gets a visible judgment. From 2026-10-08 on (scripts/word_coverage.py FROM), every Arabic word on his lines AFTER the overlay (the second listen and his own fixes; Latin letters read by scripts/arabizi_reader.py, only her words and only sure ones inside an English sentence) is either a Word Bank mark (right / partial / wrong / repeat) or a grey chip with the reason (not on her word list, a preposition = grammar, two list words spelled the same, one word of a longer list phrase, a verb form the Word Bank does not list yet, his own note, broken off, off-lesson). A word on her list with no Word Bank event becomes one (review-overlay addition by 'word-coverage', with its own clip cut from the lesson audio), judged by the context rules (WS-31; a cue from her right after = the readers decide); a word said alone counts like any other (no more 'Isolated production' limbo: 10-08 00:10 مرحبا). Why: the matcher read the engine's words, and the engine wrote most of his 10-08 Arabic in English-ear Latin ('Ayan', 'Shui', 'rasa biwaja'); the second listen fixed the lines but made no Word Bank event, so 388 of his 508 Arabic words on 10-08 had no mark. After: 0. The 20 earlier lessons are counted (1,793 new credits, 686 repeats) and wait for Medi's yes (PR-05).",
+   "plain": "Every Arabic word you say gets a mark: right, half, wrong, repeat, or a grey chip that says why it is not scored (for example: not on the tutor's list).",
+   "plain_for": "7c78be7f",
+   "topic": "word scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "ok lets open a new chip. Before I continue I want you to audit oct 8 again. You are missing some major things. I want you to be sure that any time I speak ANY arabic word that you are giving me credit or marking as incorrect.",
+     "session": "f5d90041"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def plan(date, detail, events, keys, off=(), rulings=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "COVER = WC.refresh("
+    },
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "def add_coverage(tmarks, rep, chips):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_every_arabic_word_of_his_on_10_08_carries_a_mark"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_30_a_word_said_alone_is_judged_not_left_unresolved"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "02:21",
+    "note": "خطيبتي شوي عيان (engine 'PTT, Shui, Ayan'): no mark before; now شوي, عيان, خطيبتي each judged"
+   }
+  },
+  {
+   "id": "WS-31",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A word Medi says within 15 s after Amal GAVE it - her recast of his line, the fix a counted slip names, her answer to his 'how do I say', her typed chat line (scripts/word_coverage.py supplies()) - or his pure echo of her line, is a REPEAT: chip ↻ Repeat on the transcript, no credit, not a mistake (Word Bank immediate_repeat). Her own question wording ('شو اليوم؟') is not a fix: used in his own new answer it stays as before (3+ words independent, shorter half credit). From 2026-10-08 on; on 10-08: 70 word repeats (04:06 راسها / بيوجع after her 04:04 راسها بيوجع; 02:25 عيانة after her 02:22 recast). The 20 earlier lessons wait for Medi's yes (PR-05): there, 75 half credits (helped) and 105 full credits after her fix would become repeats.",
+   "plain": "A word you say right after the tutor gave it to you (her fix, her recast, her typed line) is a repeat: no credit, and not a mistake.",
+   "plain_for": "2252f98d",
+   "topic": "word scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Mark as repeat if I am repeating one of amals corrections and dont give me credit for it.",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "shouldnt count as correct it was a repeat.  Lets mark repeats as repeats",
+     "session": "f5d90041"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def judge_word(turns, i, word, key, key_of, sup):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/transcript-marks.js",
+     "contains": "else if (c.s === 'repeat')"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_31_a_word_said_after_her_fix_is_a_repeat_not_a_credit"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_10_08_his_answer_key_moments"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "04:06",
+    "note": "هي راسها بيوجع right after her راسها بيوجع: repeat, not credited"
+   }
+  },
+  {
+   "id": "GR-32",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A grammar use on Medi's line whose words Amal gave him in the 30 s before (her correction or recast of his line, the fix a counted slip names, her answer to his 'how do I say' - word_coverage.supplies(); her questions are not fixes) is not a use: scripts/detect_grammar_usage.py grammar_repeat() lists it in not_uses_auto with repeat: true and the reason, and the transcript chip reads ↻ Repeat. The form must be hers letter for letter (el- counts): his wrong عيان again after her عيانة is the slip again, never her word - on 10-08 02:21 she fixed it a second time and that is its own A8 slip (his note). GR-28 (his own earlier line repeated) now shows as a repeat chip too. From 2026-10-08 on; on 10-08: 33 uses became repeats. The 20 earlier lessons wait for Medi's yes (PR-05): 489 uses there.",
+   "plain": "A grammar form you repeat right after the tutor corrected you is a repeat: it is not counted as a use.",
+   "plain_for": "1cd70311",
+   "topic": "grammar scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "You are also doing a poor job of realizing for grammar errors that I am being corrected and repeating the correctiong. THese should also be marked as repeat and uncounted.",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "shouldnt count as correct it was a repeat.  Lets mark repeats as repeats",
+     "session": "f5d90041"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "def grammar_repeat(Tw, i, hit, sup):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "\"k\": \"grammar\", \"s\": \"repeat\""
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "(GR-32 / WS-31, Medi 2026-10-09)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_gr_32_the_grammar_use_in_the_repeat_is_not_a_use_but_his_own_first_try_is"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_gr_32_his_wrong_form_again_is_not_a_repeat_of_her_right_one"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "04:06",
+    "note": "B1 بيوجع in هي راسها بيوجع after her 04:04 راسها بيوجع: repeat, not a use"
+   }
+  },
+  {
+   "id": "GR-33",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "When the tutor praises his line right after it - 'Excellent', 'Great job', 'Perfect', ممتاز, برافو, شاطر - within 8 s and before his next line, with no fix in between (no 'but / no / بس / لا', no Arabic word he did not say, not the slip's right form; echoing his own words is fine), he said it right: a reader's slip on that line is kept, rejected (scripts/full_audit_build.py apply_praise, rule GR-33). From 2026-10-08 on; on 10-08 it dropped 23:51 واحدة شمس (her 'Mm-hmm. واحدة.' then 'Great job.'). Her ممتاز at 32:41 came 40 s after the 32:00 بعيد slip, not right after, so that slip stays. The earlier lessons wait for Medi's yes (PR-05): 4 slips there (09-04 x2, 09-30 x2).",
+   "plain": "When the tutor praises your line right after it (Excellent, Great job, ممتاز), you said it right: no mistake there.",
+   "plain_for": "34abcc9f",
+   "topic": "grammar scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "if she is saying praises like excellent or great jobs you can assume I said it right",
+     "session": "f5d90041"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/full_audit_build.py",
+     "contains": "def apply_praise(rows, lessons=None, scope_from=None):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_gr_33_her_praise_right_after_means_he_said_it_right"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "23:51",
+    "note": "واحدة شمس, then her 'Great job.': not a slip"
+   }
   }
  ]
 }

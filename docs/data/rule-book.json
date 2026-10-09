@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-09",
- "total": 212,
+ "total": 216,
  "replaced": 8,
  "counts": {
-  "Automatic": 130,
+  "Automatic": 134,
   "Written down": 70,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -810,7 +810,7 @@
    "key": "words",
    "title": "Words: what counts and what doesn't",
    "intro": "Which words you said get scored, and which don't.",
-   "count": 29,
+   "count": 31,
    "sections": [
     {
      "kind": "error",
@@ -944,6 +944,39 @@
          "who": "Medi",
          "date": "2026-09-05",
          "quote": "we only want to count the words I say"
+        }
+       ]
+      },
+      {
+       "id": "WS-30",
+       "text": "Every Arabic word you say gets a mark: right, half, wrong, repeat, or a grey chip that says why it is not scored (for example: not on the tutor's list).",
+       "status": "enforced",
+       "topic": "word scoring",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "ok lets open a new chip. Before I continue I want you to audit oct 8 again. You are missing some major things. I want you to be sure that any time I speak ANY arabic word that you are giving me credit or marking as incorrect."
+        }
+       ]
+      },
+      {
+       "id": "WS-31",
+       "text": "A word you say right after the tutor gave it to you (her fix, her recast, her typed line) is a repeat: no credit, and not a mistake.",
+       "status": "enforced",
+       "topic": "word scoring",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "Mark as repeat if I am repeating one of amals corrections and dont give me credit for it."
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "shouldnt count as correct it was a repeat.  Lets mark repeats as repeats"
         }
        ]
       }
@@ -1270,7 +1303,7 @@
    "key": "grammar",
    "title": "Grammar slips: what counts and what doesn't",
    "intro": "When a grammar mistake counts as a slip, and when it doesn't.",
-   "count": 31,
+   "count": 33,
    "sections": [
     {
      "kind": "error",
@@ -1410,6 +1443,39 @@
          "who": "Medi",
          "date": "2026-10-09",
          "quote": "remvoe the [lauging] grammar errors"
+        }
+       ]
+      },
+      {
+       "id": "GR-32",
+       "text": "A grammar form you repeat right after the tutor corrected you is a repeat: it is not counted as a use.",
+       "status": "enforced",
+       "topic": "grammar scoring",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "You are also doing a poor job of realizing for grammar errors that I am being corrected and repeating the correctiong. THese should also be marked as repeat and uncounted."
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "shouldnt count as correct it was a repeat.  Lets mark repeats as repeats"
+        }
+       ]
+      },
+      {
+       "id": "GR-33",
+       "text": "When the tutor praises your line right after it (Excellent, Great job, ممتاز), you said it right: no mistake there.",
+       "status": "enforced",
+       "topic": "grammar scoring",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "if she is saying praises like excellent or great jobs you can assume I said it right"
         }
        ]
       },

@@ -26534,6 +26534,260 @@
    },
    "at": "2026-10-09T09:46:48-07:00",
    "run_id": "fec7c7e0d2cd4be98e5ffdadd4910d32"
+  },
+  {
+   "uid": "FA-dfb8e833",
+   "date": "2026-10-08",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi offered singular «غيم», Amal immediately prompted with something like «فيها/واحدة؟», and Medi then changed to plural «غيوم».",
+   "evidence": {
+    "t_start": 996.0,
+    "t_end": 1029.0,
+    "quote": "Medi: «غيم» / Amal: «... واحدة؟» / Medi: «غيوم»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-dfb8e833_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "b32b43c0fec2d767631c5a16cc2bbf38ab89ff848a4d31faae9654aeb82dac87",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-dfb8e833_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "0acca366c585d336cf7a223375fa6714da397b17759e64b882b50c1b05d09887",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-dfb8e833_mixed_lesson.mp3",
+      "sha256": "f4f86d8aea0530ce0b5c34e44fbf216a3fe0c7100c05f3fdd15325da72ad816b",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "مرحباً بكم في هذا الفيديو اه",
+     "Amal": "السماء is sky يلا شوفي بالسماء تفايمة واحدة؟ الشمس مسكلين ولا فامينين؟ صح هل تعرفت من قبل أنني أسألك؟",
+     "mixed": "السماء السماء ماذا يوجد في السماء؟ مقيمة مقيمة واحدة مضيوم والشمس الشمس مسكلاً أم فاميناً؟ فاميناً هل تعرفت من قبل أنني سألتك أم"
+    }
+   },
+   "claim": {
+    "wrong": "غيم",
+    "right": "غيوم",
+    "bucket": "A9",
+    "tier": null
+   },
+   "at": "2026-10-09T11:52:10-07:00",
+   "run_id": "b99ea4dc857041fdb0353ff546004207"
+  },
+  {
+   "uid": "FA-89b3ee97",
+   "date": "2026-10-08",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi explicitly said he forgot the word and guessed/produced «سجر», while Amal supplied and repeated «فجر». This is a did-not-know/supplied-word case.",
+   "evidence": {
+    "t_start": 1112.0,
+    "t_end": 1150.0,
+    "quote": "Medi: «أنا نسيت الكلمة ... سجر؟» / Amal: «فجر»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-89b3ee97_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "506e333e94c6a57ba8b8cccfc782f9504cfb01669d434256b8036813d6609962",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-89b3ee97_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "13f70a19ce14858b16d0b7cf800115dcb5ac9d1e48b81daeb07525253cd8b0e7",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-89b3ee97_mixed_lesson.mp3",
+      "sha256": "637490a1803e9f0e02e494909b5b115342fa2ad7d1bf127543cd25aad6fffece",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "Does it have to do with azan? No? Is it azan? أنا نسيت الكلمة سجر Okay I knew that was the word you were looking for سجر أو سجر سجر سجر",
+     "Amal": "أذان؟ لا أذان is the call to prayer فجر فجر you could have just said صبح بكير بس مش مشكلة no I wasn't looking for فجر فجأة فجأة",
+     "mixed": "هل يتعلق بالعزان؟ لا؟ عزان؟ هل يتعلق بالعزان؟ لا عزان هو تسمى للصلاة أنا نسيت الكلمة فجر سجر سجر؟ فجر يمكنك أن تقول صباح بكير، لكن ليس مشكلة كنت أعلم أن هذا هو الكلمة التي كنت تبحث عنها لا، لم أبحث عن فجر سجر او سجر? سجر. سجر. اوكي."
+    }
+   },
+   "claim": {
+    "wrong": null,
+    "right": "فجر",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-09T11:52:10-07:00",
+   "run_id": "b99ea4dc857041fdb0353ff546004207"
+  },
+  {
+   "uid": "FA-1e5f6a44",
+   "date": "2026-10-08",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "high",
+   "reason": "The evidence shows Medi did say «غير», so the issue was not dropping it; Amal recast the phrase without the definite article after «غير».",
+   "evidence": {
+    "t_start": 1193.0,
+    "t_end": 1232.0,
+    "quote": "Medi: «غير الشمس واليوم، ماذا يوجد؟» / Amal: «بس غير شمس ويوم»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-1e5f6a44_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "c7033019f3953f4b213c5ce4794ed1be0f9a03bac8d85d0a71bf53bbf79d59f4",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-1e5f6a44_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "6233746647753a32faf96aabe1b63aa5d82141502d954ea971b032d275e09f49",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-1e5f6a44_mixed_lesson.mp3",
+      "sha256": "d12ef1546976d5b9ce4f6367261f5fe981ebbdbb543e07e6146efc743d847e14",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "ماذا يتعلق بلاو؟ حسنًا فَيْرِ الْشَمْسُ وُيُمْ شُوْفِي هل ليس السماء السماء؟ هل ليس السماء السماء؟ غير الشمس؟ أو لا غير؟ غير لا يأخذ",
+     "Amal": "حتى لو بس غير شمس ويوم شوفي يلا ترجمة نانسي قنقر",
+     "mixed": "ماذا يتعلق بالله؟ حتى لو حسنا غير الشمس واليوم، ماذا يوجد؟ لكن غير الشمس واليوم، ماذا يوجد؟ isn't the sun the sun isn't it the sun قير الشمس or no قير قير شمس قيوم شفي yeah"
+    }
+   },
+   "claim": {
+    "wrong": "الشمس و يوم شو في",
+    "right": "غير شمس و يوم شو في",
+    "bucket": "A16",
+    "tier": null
+   },
+   "at": "2026-10-09T11:52:10-07:00",
+   "run_id": "b99ea4dc857041fdb0353ff546004207",
+   "changed_to": {
+    "wrong": "غير الشمس واليوم",
+    "right": "غير شمس ويوم"
+   }
+  },
+  {
+   "uid": "FA-55e628d3",
+   "date": "2026-10-08",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi was reaching for 'different' and produced something transcribed as «بعيد/قيد/طير»; Amal prompted «What's the word?» and then supplied the construction with «غير».",
+   "evidence": {
+    "t_start": 1910.0,
+    "t_end": 1948.0,
+    "quote": "Medi: «... is different ... بعيد» / Amal: «What's the word؟ ... غير takes عن»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-55e628d3_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "0a3974a21f0c627287dc996b9be4321656e7a41c5ac4e95452135f90e77d5667",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-55e628d3_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "f36086875debed9cd32f5bcd88929749e22d637fc10f53ef55bfdbd15a7cde54",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-55e628d3_mixed_lesson.mp3",
+      "sha256": "dd8cf07b36e2c8b9375d2a6a5aba0e09e0df3cc27ee2454ae90f6c272f0c38db",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اوه لا الهوى هو مختلف. اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه فاير من because it's comparative right فاير always takes end and okay فاير ان",
+     "Amal": "ثم ما هو الوصف غير تقسع عن",
+     "mixed": "اوه لا الهوى هون. مختلف. لذا اه طيب. اه هم. ثم. ما هو الوضع؟ اه من لانه مقارنة صحيح؟ يجب عليك أن تقوم بإستخدام نعم عن عن حسنا بئر عن"
+    }
+   },
+   "claim": {
+    "wrong": "بعيد",
+    "right": "غير",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-09T11:52:10-07:00",
+   "run_id": "b99ea4dc857041fdb0353ff546004207"
+  },
+  {
+   "uid": "FA-27b0290c",
+   "date": "2026-10-08",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi guessed «رمل» for dirt, and Amal immediately clarified that «رمل» means sand before supplying «تراب» as dirt/soil.",
+   "evidence": {
+    "t_start": 2908.0,
+    "t_end": 2941.0,
+    "quote": "Medi: «Is it ... رمل؟» / Amal: «رمل sand ... تراب is dirt or soil»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-27b0290c_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "083e21d05fd69ebc0ba3ef18c3f26985fa67b7402e50ec2e3d0708546eb458be",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-27b0290c_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "4f221e0551b3162ebc043e016d47679c499acc2b7c1f32e6dbb43bb5e4590754",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-27b0290c_mixed_lesson.mp3",
+      "sha256": "1dcc6c1477212d36e567291d35c198b4d19e80c55440acfcbf6cc25ef483fe2a",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "تحت الزرق تحت الأرض هل هو رمان؟ مباراة مرحبا مرحبا مرحبا",
+     "Amal": "شاني ديرت. راميل الساند. بس يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو يو",
+     "mixed": "في الأسفل. في الأسفل. في الأسفل. في الأسفل. في الأسفل. في الأسفل. في الأسفل. في الأسفل. في الأسفل. في الأسفل. في الأسفل. في الأسفل. في الأسفل. جيد جيد جيد جيد جيد جيد جيد جيد جيد جيد جيد جيد جيد جيد"
+    }
+   },
+   "claim": {
+    "wrong": "رمل",
+    "right": "تراب",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-09T11:52:10-07:00",
+   "run_id": "b99ea4dc857041fdb0353ff546004207"
   }
  ]
 }

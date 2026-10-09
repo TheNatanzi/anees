@@ -174,6 +174,68 @@ def apply_misheard(rows, fixes=None):
     return n
 
 
+PRAISE = re.compile(r"^\W*(?:(?:uh|um|mm|mm-hmm|oh|wow|yes|yeah|اه|أه|إيه|ايوه)\W+)*(excellent|great job|good job|great|perfect|well done|amazing|wonderful|very good|"
+                    r"ممتاز|ممتازة|برافو|شاطر|شاطرة|عظيم|رائع|كتير منيح|عفارم|يا سلام)\b", re.I)
+PRAISE_BUT = re.compile(r"\b(but|no|not|instead|although|actually)\b|(?:^|\s)(بس|لا|مش|لكن)(?:\s|[.،؟?]|$)", re.I)
+
+
+def praised(turns, t, right=None):
+    """GR-33 / WS-32: within 8 s after his line at t (before his next line), the tutor praises it ('Excellent', 'Great
+    job', ممتاز, برافو ...) and none of her lines there gives a fix: no 'but / no / بس / لا', no Arabic word that is not
+    on his line (she may echo his words: 10-08 23:52 'Mm-hmm. واحدة.' then 23:58 'Great job.'), not his slip's right
+    form. -> her praise line or None."""
+    T = sorted(turns, key=lambda u: float(u["t"]))
+    k = next((k for k, u in enumerate(T) if u.get("who") == "Medi" and float(u["t"]) - 2 <= t <= float(u.get("end") or u["t"]) + 2), None)
+    if k is None:
+        return None
+    me = T[k]
+    end = float(me.get("end") or me["t"])
+    mine = set(re.findall(r"[\u0621-\u064A]+", norm(me.get("text") or "")))
+    for u in T[k + 1:]:
+        if float(u["t"]) - end > 8 or u.get("who") == "Medi":
+            return None
+        if u.get("who") != "Amal":
+            continue
+        txt = u.get("text") or ""
+        if PRAISE_BUT.search(txt) or (right and norm(right) and norm(right) in norm(txt) and norm(right) not in norm(me.get("text") or "")):
+            return None
+        if PRAISE.search(txt):
+            return u
+        if set(re.findall(r"[\u0621-\u064A]+", norm(txt))) - mine:
+            return None                   # she said a word he did not: a fix or a new question, not a plain echo
+    return None
+
+
+def apply_praise(rows, lessons=None, scope_from=None):
+    """GR-33 / WS-32 (Medi 2026-10-09 "if she is saying praises like excellent or great jobs you can assume I said it
+    right"): a slip whose line the tutor praised right after (praised()) is not his slip: kept, rejected, with the reason.
+    From word_coverage.FROM on (the earlier lessons wait for Medi's yes, PR-05). -> how many rows it dropped."""
+    import word_coverage as WC
+    scope_from = scope_from or WC.FROM
+    n = 0
+    cache = {}
+    for r in rows:
+        if r.get("kind") == "rejected" or str(r.get("date")) < scope_from:
+            continue
+        d = str(r["date"])
+        if d not in cache:
+            cache[d] = (lessons or {}).get(d)
+            if cache[d] is None:
+                p_ = os.path.join(REPO, "docs", "data", "lessons", d + ".json")
+                cache[d] = json.load(open(p_, encoding="utf-8")).get("turns", []) if os.path.exists(p_) else []
+        t = sec(r.get("t"))
+        if t is None:
+            continue
+        her = praised(cache[d], t, r.get("right"))
+        if her is not None:
+            r["kind_before_rejection"] = r["kind"]
+            r.update(kind="rejected", rejected_rule="GR-33",
+                     rejected_why="GR-33: the tutor praised it right after (%02d:%02d «%s»), so he said it right" % (
+                         int(float(her["t"])) // 60, int(float(her["t"])) % 60, (her.get("text") or "")[:60]))
+            n += 1
+    return n
+
+
 WITHHELD_WHY = ("its wrong piece exists only in a re-heard line that the blind spot check withheld on 2026-10-05; "
                 "not scored until Medi adjudicates the line (old or new)")
 
@@ -695,6 +757,7 @@ def gather(carry=None, preserved=None, write_report=True):
     apply_el_prompt(rows)
     apply_demonstrative(rows)
     apply_misheard(rows)
+    apply_praise(rows)                # GR-33 (Medi 2026-10-09): her 'Excellent' / 'Great job' right after = he said it right
     apply_withheld(rows, carry=carry)
     import medi_corrections as MC     # PR-15: Medi's corrections (page table mirror + the ones he gave in chat)
     import hashlib as _hl

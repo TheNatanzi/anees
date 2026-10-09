@@ -146,6 +146,17 @@ el- missing), Amal "الـ.", 07:38 Medi "على العشرة" -> one A1 slip at
 just fixed', not scored. Code: scripts/detect_grammar_usage.py repeat_of_fixed(). His own self-fix with no Amal between is
 GR-22, not this.
 
+## A repeat of Amal's correction is a repeat, never a use or a credit (GR-32 / WS-31, Medi 2026-10-09)
+
+"Mark as repeat if I am repeating one of amals corrections and dont give me credit for it ... for grammar errors that I
+am being corrected and repeating the correctiong. THese should also be marked as repeat and uncounted." When Amal gives
+him a form (she recasts his line, gives the fix, answers his 'how do I say', types it) and he says it back within 30 s,
+that line is a REPEAT: never a fresh correct use, never a new slip, no word credit. Example: 10-08 03:55 Medi "هي بيوجع",
+04:00 Amal "هي راسها بيوجع.", 04:04 "راسها بيوجع.", 04:06 Medi "هي راسها بيوجع" -> ONE C9 slip at 03:55; the 04:06 line
+is a repeat. Code: scripts/word_coverage.py supplies() + scripts/detect_grammar_usage.py grammar_repeat(). The slip
+itself still counts (his first try); if he says the WRONG form again after her fix and she fixes it again, that is its
+own slip (10-08 02:21 عيان after her 02:00 عيانة?, fixed again at 02:22).
+
 ## Sound-alike words (TR-26, Medi 2026-10-05)
 
 data/lesson-work/confusables.json lists the words the engine keeps swapping (3ala / ila / allah; el-3ashrah / el-3asha;

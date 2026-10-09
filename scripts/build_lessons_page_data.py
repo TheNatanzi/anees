@@ -1138,6 +1138,19 @@ def build():
         HC.refresh(log=lambda *a: print(*a))
     except Exception as e:  # noqa: BLE001 - never stops a build; the credits wait for the next one
         print("heard_credits: not refreshed (%s)" % type(e).__name__)
+    COVER = {}
+    try:   # WS-30 / WS-31 (Medi 2026-10-09): every Arabic word of his judged; a repeat of the tutor's fix is not credited
+        import word_coverage as WC
+        _toks = WC.tokens_for_sheet(per)
+        _SH = run_node([], sheet=[t + "" for t in _toks])["sheet"] if _toks else {}
+        _offs = {d: [(sec(o.get("from")), sec(o.get("to"))) for o in ((TYPE_READS.get(d) or {}).get("off_lesson") or [])
+                     if isinstance(o, dict) and sec(o.get("from")) is not None and sec(o.get("to")) is not None] for d in per}
+        COVER = WC.refresh(per, {t: _SH.get(t + "") or {} for t in _toks}, _offs, log=lambda *a: print(*a))
+        WC.ensure_clips(log=lambda *a: print(*a))     # the Word Bank audit needs a playable clip for every word event
+    except Exception as e:  # noqa: BLE001 - never stops a build; the words wait for the next one (the guard's coverage test fails)
+        import traceback
+        traceback.print_exc()
+        print("word_coverage: not refreshed (%s)" % type(e).__name__)
     patches = (J(os.path.join(DOCS, "data", "word-bank-review.json")).get("patches") or {})
     EV = {e["id"]: e for e in J(os.path.join(DOCS, "data", "word-bank-evidence.json")).get("events", [])}
     for _a in J(os.path.join(DOCS, "data", "word-bank-review.json")).get("additions", []):
@@ -1307,6 +1320,9 @@ def build():
         v["tmarks"], v["marks_report"] = TM.build(d, v, U.get("uses", {}), buckets, AMAL.not_taught,
                                                   U.get("ruled_out", []), U.get("not_uses_auto", []),
                                                   (TYPE_READS.get(d) or {}).get("off_lesson") or [], ledger=ledgers.get(d))
+        if d in COVER:
+            v["tmarks"] = TM.add_coverage(v["tmarks"], v["marks_report"],
+                                          WC.chips(d, v, COVER[d], [x for x in NO2.get("unscored") or [] if x.get("date") == d]))
         r = v["marks_report"]
         print(f"transcript marks {d}: {r['placed']}/{r['scored']} placed ({r['rate']}%), Amal fixes {r['fix_placed']}/{r['fix_wanted']}, "
               f"underlines {r['ul_exact']} exact + {len(r['ul_closest'])} closest + {len(r['ul_none'])} none of {r['ul_wanted']}")

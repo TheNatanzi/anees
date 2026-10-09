@@ -226,6 +226,19 @@ def _src(e, own=None):
     return out
 
 
+def add_coverage(tmarks, rep, chips):
+    """WS-30 / WS-31 (Medi 2026-10-09 "any time I speak ANY arabic word ... credit or marking as incorrect. Mark as repeat
+    if I am repeating one of amals corrections"): the chips scripts/word_coverage.py made for his Arabic words that no
+    chip above judges - a repeat (↻, not credited, not a mistake) or a grey reason. Ids w1.. (repeat) / n1.. (grey)."""
+    n = {"w": 0, "n": 0}
+    for i, chip in chips or ():
+        p = "w" if chip.get("s") == "repeat" else "n"
+        n[p] += 1
+        tmarks.setdefault(str(i), {"c": [], "u": []})["c"].append(dict(chip, id="%s%d" % (p, n[p])))
+    rep["repeats"], rep["coverage_grey"] = n["w"], n["n"]
+    return {k: tmarks[k] for k in sorted(tmarks, key=int)}
+
+
 def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_uses=(), off_lesson=(), ledger=None):
     """detail = the per-lesson JSON (turns, vocab_errors, vocab_correct, grammar_errors, grammar_not_counted, not_errors).
     Returns (tmarks, report): tmarks = {turn index: {"c": [chips], "u": [underlines]}}."""
@@ -346,7 +359,7 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
     for e in detail.get("vocab_correct") or []:
         s = "correct" if e.get("kind") == "correct" else "partial"
         scored_item(e["t"], {"id": nid("v"), "k": "vocab", "s": s, "w": e.get("arabizi"), "ar": e.get("arabic"),
-                             "en": e.get("english"), "said": e.get("said"), **_src(e)}, e.get("arabic"), "vocab " + str(e.get("word_key")))
+                             "en": e.get("english"), "said": e.get("said"), **({"key": e["word_key"]} if e.get("word_key") else {}), **_src(e)}, e.get("arabic"), "vocab " + str(e.get("word_key")))
     for e in detail.get("vocab_errors") or []:
         if e.get("on_sheet") is False:
             grey(e["t"], "not on her word list (left out of the Words %)", "vocab", e.get("wrong"))
@@ -354,6 +367,7 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
         s = "asked" if e.get("kind") == "asked" else "wrong"
         sig = e.get("signal")
         chip = {"id": nid("v"), "k": "vocab", "s": s, "w": e.get("arabizi"), "ar": e.get("arabic"), "en": e.get("english"),
+                **({"key": e.get("word_key") or e.get("sheet_key")} if (e.get("word_key") or e.get("sheet_key")) else {}),
                 "said": e.get("wrong") or e.get("said"), "right": e.get("fix") or e.get("arabic"),
                 "signal": sig, "sig": SIGNAL_WORDS.get(sig), **_src(e)}
         i = scored_item(e["t"], chip, e.get("wrong"), "vocab " + str(e.get("arabic")))
@@ -409,6 +423,18 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
                                  "said": u.get("hit"), "src": "use:%s:%s" % (b, u["t"])}, u.get("hit"), "use " + b)
     for r in list(ruled_out) + list(not_uses):
         if r.get("date") == date:
+            if r.get("repeat"):
+                # GR-28 / GR-32 (Medi 2026-10-09 "I am being corrected and repeating the correctiong. THese should also be
+                # marked as repeat and uncounted"): a repeat chip, not a plain grey one
+                p = place(turns, r.get("t"), "Medi", r.get("hit"))
+                if not p:
+                    rep["grey_missed"] += 1
+                    continue
+                b = r.get("bucket")
+                put(p[0], {"id": nid("y"), "k": "grammar", "s": "repeat", "rule": b, "name": (buckets.get(b) or {}).get("name") if b else None,
+                           "said": r.get("hit") or "", "why": r.get("why"), **({"amal_t": r["amal_t"], "amal_line": r.get("amal_line")} if r.get("amal_t") is not None else {})})
+                rep["grammar_repeats"] = rep.get("grammar_repeats", 0) + 1
+                continue
             grey(r.get("t"), r.get("why") or "not a use", "grammar" + (" · " + r["bucket"] if r.get("bucket") else ""), r.get("hit"))
 
     # ---------------- LS-11: a moment two judges disagree on and no rule decides: an orange "Medi?" chip, counted as before

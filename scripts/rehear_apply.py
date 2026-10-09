@@ -144,8 +144,13 @@ def verify(date, rows, others=None):
             bad.append({"t": a["t"], "why": "a line changed that is not exactly one row's own uncorrected line", "before": a["text"], "after": b["text"]})
         else:
             hit[mine[0]] = hit.get(mine[0], 0) + 1
+    # Medi 2026-10-04 (transcript_fixes.apply): a line HE corrects keeps his correction and loses the second listen's text -
+    # that row lands on no line by design (10-08 01:25 'ok Jaahez not a7san': his جاهز over the re-hear's أحسن)
+    eng = {u["_id"]: u for u in builder_turns(date)}
+    his = lambda r: any(o.get("by") == "medi" and not o.get("heard_line") and TF._lands(o, u) for o in others for u in eng.values()
+                        if u["who"] == r["who"] and abs(float(r["t"]) - float(u["t"])) <= 1.0 and u.get("text") == r["line"])
     for n, r in enumerate(rows):
-        if hit.get(n, 0) != 1:
+        if hit.get(n, 0) != 1 and not (hit.get(n, 0) == 0 and his(r)):
             bad.append({"t": r["t"], "why": "the row lands on %d lines" % hit.get(n, 0), "line": r["line"]})
         if spans(r["line"], r["heard_line"]) != (r["heard_line"], r["spans"]) or (r.get("engine_wrote"), r.get("heard")) != (r["line"], r["heard_line"]):
             bad.append({"t": r["t"], "why": "the row's spans / aliases are not the ones its two lines give", "line": r["line"]})

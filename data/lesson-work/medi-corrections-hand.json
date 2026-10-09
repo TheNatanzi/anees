@@ -1,1523 +1,1712 @@
 {
- "about": "Medi's corrections given in chat, in the same row shape as the transcript_corrections table (migration 022), applied by scripts/medi_corrections.py exactly like the ones he saves on the page. Hand-made: never delete a row; an undo is a new row with undoes.",
- "rows": [
-  {
-   "id": "chat-20261002-hadi-subu7",
-   "lesson_date": "2026-10-02",
-   "turn_t": 502.9,
-   "turn_who": "Medi",
-   "kind": "classify",
-   "target": {
-    "k": "vocab",
-    "wrong": "عادي الصباح",
-    "src": "FA-d3ecce97"
-   },
-   "payload": {
-    "to": "grammar",
-    "rule": "A10",
-    "wrong": "هادي الصباح",
-    "right": "الصبح",
-    "turn_end": 504
-   },
-   "note": "you can tell from her cotext I said hadi el not 3aadi el ... she even corrected it ... this should be a grammar error for not using hadi for the morning",
-   "ts": "2026-10-02T23:40:00-07:00",
-   "by": "medi (chat)",
-   "repointed": "2026-10-04 after the re-read on the re-heard transcript: the readers now write this moment as a grammar row with wrong 'هادي الصباح' (his line is re-heard as هادي الصباح, no longer the engine's عادي الصباح), so the target's kind + wrong piece no longer found it and his A10 ruling stopped applying (the row sat in a proposed bucket). target.src names the row (same uid FA-d3ecce97 before and after); his words are unchanged"
-  },
-  {
-   "id": "chat-20261003-laazem-3utle",
-   "lesson_date": "2026-10-02",
-   "turn_t": 575.8,
-   "turn_who": "Medi",
-   "kind": "add",
-   "target": {
-    "k": "grammar",
-    "said": "أنا لازم آآآ عطلة",
-    "rule": "B2"
-   },
-   "payload": {
-    "k": "grammar",
-    "rule": "B2",
-    "wrong": "أنا لازم آآآ عطلة",
-    "right": "أنا لازم آخد عطلة",
-    "right_en": "take",
-    "turn_end": 580.0,
-    "t_amal": "09:41",
-    "amal_said": "لازم you should take.",
-    "line": "أنا لازم / آآآ عطلة و"
-   },
-   "note": "i dont know what grammer rule this would fall under but you \"take\" a day off, it cant be 3utle by itself",
-   "ts": "2026-10-03T11:30:00-07:00",
-   "by": "medi (chat)",
-   "rule": "GR-27"
-  },
-  {
-   "id": "chat-20261003-re7le-a5eera",
-   "lesson_date": "2026-10-02",
-   "turn_t": 2130.94,
-   "turn_who": "Medi",
-   "kind": "add",
-   "target": {
-    "k": "grammar",
-    "said": "أخيرة",
-    "rule": "A1"
-   },
-   "payload": {
-    "k": "grammar",
-    "rule": "A1",
-    "wrong": "أخيرة",
-    "right": "الأخيرة",
-    "turn_end": 2132.82,
-    "t_amal": "35:34",
-    "amal_said": "الأخيرة.",
-    "line": "الرحلة أخيرة."
-   },
-   "note": "my first attempt didnt have the \"el\" in the second word and amal corrected",
-   "ts": "2026-10-03T13:10:00-07:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261003-3ashrah-da2aye2",
-   "lesson_date": "2026-10-02",
-   "turn_t": 2699.41,
-   "turn_who": "Medi",
-   "kind": "add",
-   "target": {
-    "k": "grammar",
-    "said": "عشرة دقايق",
-    "rule": "E1"
-   },
-   "payload": {
-    "k": "grammar",
-    "rule": "E1",
-    "wrong": "عشرة دقايق",
-    "right": "عشر دقايق",
-    "turn_end": 2702.9,
-    "t_amal": "45:05",
-    "amal_said": "عشر y.",
-    "line": "آخر عشرة دقايق. عشرة دقايق؟"
-   },
-   "note": "grammar incorrect, when counting its not 3asharah, its 3ashar",
-   "ts": "2026-10-03T13:40:00-07:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261003-aa5er-el-moazafa",
-   "lesson_date": "2026-10-02",
-   "turn_t": 2826.79,
-   "turn_who": "Medi",
-   "kind": "add",
-   "target": {
-    "k": "grammar",
-    "said": "آخر الموظفة",
-    "rule": "A1"
-   },
-   "payload": {
-    "k": "grammar",
-    "rule": "A1",
-    "wrong": "آخر الموظفة",
-    "right": "آخر موظفة",
-    "right_en": "the end of the employees",
-    "turn_end": 2829.0,
-    "t_amal": "47:09",
-    "amal_said": "The end of the employees?",
-    "line": "آخر الموظفة, right?"
-   },
-   "note": "I said it wrong the first time and amal corrected in english and I said the right the 2nd time / I said \"2aa5er EL Moazafa, right?\"",
-   "ts": "2026-10-03T13:55:00-07:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-undo-0d6f47a9",
-   "lesson_date": "2026-10-08",
-   "turn_t": 48.45,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "0d6f47a9-8c93-461c-b11d-7aeded1c9e9a",
-   "note": "his note 'Um, and then is supposed to be um tamam' is the engine mishearing his تمام, not a slip of his (the auto-reader made it a vocab mistake against him)",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-undo-4b122412",
-   "lesson_date": "2026-10-08",
-   "turn_t": 111.95,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "4b122412-e5a1-4df3-9eba-f4d0d23ef5c3",
-   "note": "the old box took his whole sentence as one word; replaced by one row per piece (يومي منيح خطيبتي شوي)",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-undo-29e5502f",
-   "lesson_date": "2026-10-08",
-   "turn_t": 215.79,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "29e5502f-74d4-4369-8df1-1a2162d6779b",
-   "note": "his note says he did not understand her question; the line's words were right, nothing to replace",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-undo-0cc1683f",
-   "lesson_date": "2026-10-08",
-   "turn_t": 222.43,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "0cc1683f-a2ed-4c26-bd78-337400b576ba",
-   "note": "the words he names are on the next lines (3:50 biwaja, 3:55 he biwaja, 3:58 rasa); inserting them again doubled them. One row per piece instead",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-undo-13993235",
-   "lesson_date": "2026-10-08",
-   "turn_t": 222.43,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "13993235-33f1-4439-8d1c-087fb2d2f125",
-   "note": "the words he names are on the next lines (3:50 biwaja, 3:55 he biwaja, 3:58 rasa); inserting them again doubled them. One row per piece instead",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-undo-6c8d5df3",
-   "lesson_date": "2026-10-08",
-   "turn_t": 222.43,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "6c8d5df3-f58d-433b-8ad7-286864574d16",
-   "note": "the words he names are on the next lines (3:50 biwaja, 3:55 he biwaja, 3:58 rasa); inserting them again doubled them. One row per piece instead",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-undo-6d5caaca",
-   "lesson_date": "2026-10-08",
-   "turn_t": 308.73,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "6d5caaca-0e57-46ae-b06b-d23ef530aba0",
-   "note": "replaced by a row per piece / in Arabic letters (her Doc spelling) so the words are matched and credited",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-undo-42bf1a07",
-   "lesson_date": "2026-10-08",
-   "turn_t": 330.29,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "42bf1a07-2189-43eb-8fea-03539d7d4f36",
-   "note": "replaced by a row per piece / in Arabic letters (her Doc spelling) so the words are matched and credited",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-undo-baae41db",
-   "lesson_date": "2026-10-08",
-   "turn_t": 339.17,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "baae41db-962d-4ddc-8dc4-17b883152355",
-   "note": "replaced by a row per piece / in Arabic letters (her Doc spelling) so the words are matched and credited",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-undo-59fbcd62",
-   "lesson_date": "2026-10-08",
-   "turn_t": 92.61,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "59fbcd62-25a3-4859-bfb4-c13098451bdf",
-   "note": "replaced by a row per piece / in Arabic letters (her Doc spelling) so the words are matched and credited",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-undo-41b716a2",
-   "lesson_date": "2026-10-08",
-   "turn_t": 337.61,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "41b716a2-d44b-433c-882d-ecda4c8557b8",
-   "note": "replaced by a row per piece / in Arabic letters (her Doc spelling) so the words are matched and credited",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-undo-bb2314d8",
-   "lesson_date": "2026-10-08",
-   "turn_t": 346.65,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "bb2314d8-ae0b-49e9-a7d1-a43ce100673a",
-   "note": "replaced by a row per piece / in Arabic letters (her Doc spelling) so the words are matched and credited",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-keefak",
-   "lesson_date": "2026-10-08",
-   "turn_t": 42.69,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "Defect"
-   },
-   "payload": {
-    "engine_wrote": "Defect",
-    "heard": "كيفك",
-    "turn_end": 43.25,
-    "raw": "Defect. Defect. is Keefak, Keefik (Correcting himself) - first try: keefak",
-    "read_from": "dd9bc4ad-f7db-4f43-8612-2d7448b3cc4b",
-    "credit_note": "no credit: keefak (m) to a woman, fixed by him to keefik a second later (I fixed it first)"
-   },
-   "note": "Defect. Defect. is Keefak, Keefik (Correcting himself) - first try: keefak",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-keefik",
-   "lesson_date": "2026-10-08",
-   "turn_t": 45.51,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "Defect"
-   },
-   "payload": {
-    "engine_wrote": "Defect",
-    "heard": "كيفِك",
-    "turn_end": 46.15,
-    "raw": "Defect. Defect. is Keefak, Keefik (Correcting himself) - he fixed it himself to keefik (she is female)",
-    "read_from": "dd9bc4ad-f7db-4f43-8612-2d7448b3cc4b",
-    "word_key": "kIfek"
-   },
-   "note": "Defect. Defect. is Keefak, Keefik (Correcting himself) - he fixed it himself to keefik (she is female)",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-tamam",
-   "lesson_date": "2026-10-08",
-   "turn_t": 48.45,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "and then"
-   },
-   "payload": {
-    "engine_wrote": "and then",
-    "heard": "تمام",
-    "turn_end": 55.71,
-    "raw": "Um, and then is supposed to be um tamam",
-    "read_from": "91c35706-5784-414d-b9ac-72efada192b8"
-   },
-   "note": "Um, and then is supposed to be um tamam",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-mashi",
-   "lesson_date": "2026-10-08",
-   "turn_t": 92.61,
-   "turn_who": "Amal",
-   "kind": "text",
-   "target": {
-    "word": "ناسي"
-   },
-   "payload": {
-    "engine_wrote": "ناسي",
-    "heard": "ماشي",
-    "turn_end": 93.67,
-    "raw": "keef yomak mashi",
-    "read_from": "7cab6e82-bf21-4f8b-ab90-9293a677f358"
-   },
-   "note": "keef yomak mashi",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-yomi-1",
-   "lesson_date": "2026-10-08",
-   "turn_t": 104.15,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "Yomi, me"
-   },
-   "payload": {
-    "engine_wrote": "Yomi, me",
-    "heard": "يومي منيح",
-    "turn_end": 105.25,
-    "raw": "yoami mnee7 khatibti shue ayan",
-    "read_from": "ec4d3e62-7e1f-449b-a534-5a38036d361d"
-   },
-   "note": "yoami mnee7 khatibti shue ayan",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-khatibti-1",
-   "lesson_date": "2026-10-08",
-   "turn_t": 109.41,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "PTT"
-   },
-   "payload": {
-    "engine_wrote": "PTT",
-    "heard": "خطيبتي",
-    "turn_end": 109.81,
-    "raw": "yoami mnee7 khatibti shue ayan",
-    "read_from": "ec4d3e62-7e1f-449b-a534-5a38036d361d"
-   },
-   "note": "yoami mnee7 khatibti shue ayan",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-shwai-1",
-   "lesson_date": "2026-10-08",
-   "turn_t": 111.95,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "Shui"
-   },
-   "payload": {
-    "engine_wrote": "Shui",
-    "heard": "شوي",
-    "turn_end": 112.47,
-    "raw": "yoami mnee7 khatibti shue ayan",
-    "read_from": "ec4d3e62-7e1f-449b-a534-5a38036d361d"
-   },
-   "note": "yoami mnee7 khatibti shue ayan",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-yomi-2",
-   "lesson_date": "2026-10-08",
-   "turn_t": 138.83,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "Yomi, me"
-   },
-   "payload": {
-    "engine_wrote": "Yomi, me",
-    "heard": "يومي منيح",
-    "turn_end": 139.57,
-    "raw": "yoami mnee7 khatibti shue ayan",
-    "read_from": "ec4d3e62-7e1f-449b-a534-5a38036d361d"
-   },
-   "note": "yoami mnee7 khatibti shue ayan",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-khatibti-2",
-   "lesson_date": "2026-10-08",
-   "turn_t": 141.11,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "PTT"
-   },
-   "payload": {
-    "engine_wrote": "PTT",
-    "heard": "خطيبتي",
-    "turn_end": 143.79,
-    "raw": "yoami mnee7 khatibti shue ayan",
-    "read_from": "ec4d3e62-7e1f-449b-a534-5a38036d361d"
-   },
-   "note": "yoami mnee7 khatibti shue ayan",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-shwai-2",
-   "lesson_date": "2026-10-08",
-   "turn_t": 141.11,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "Shui"
-   },
-   "payload": {
-    "engine_wrote": "Shui",
-    "heard": "شوي",
-    "turn_end": 143.79,
-    "raw": "yoami mnee7 khatibti shue ayan",
-    "read_from": "ec4d3e62-7e1f-449b-a534-5a38036d361d"
-   },
-   "note": "yoami mnee7 khatibti shue ayan",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-heyye-1",
-   "lesson_date": "2026-10-08",
-   "turn_t": 222.43,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "he"
-   },
-   "payload": {
-    "engine_wrote": "he",
-    "heard": "هي",
-    "turn_end": 228.11,
-    "raw": "uhhh heyye byewajje3a heyye byewajje3a raasha",
-    "read_from": "c1787ac2-a203-4f6e-8f70-9edc7b71fdbf"
-   },
-   "note": "uhhh heyye byewajje3a heyye byewajje3a raasha",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-bywajje3a-1",
-   "lesson_date": "2026-10-08",
-   "turn_t": 230.45,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "biwaja"
-   },
-   "payload": {
-    "engine_wrote": "biwaja",
-    "heard": "بيوجعها",
-    "turn_end": 231.33,
-    "raw": "uhhh heyye byewajje3a heyye byewajje3a raasha",
-    "read_from": "c1787ac2-a203-4f6e-8f70-9edc7b71fdbf"
-   },
-   "note": "uhhh heyye byewajje3a heyye byewajje3a raasha",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-heyye-2",
-   "lesson_date": "2026-10-08",
-   "turn_t": 235.85,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "he biwaja"
-   },
-   "payload": {
-    "engine_wrote": "he biwaja",
-    "heard": "هي بيوجعها",
-    "turn_end": 237.11,
-    "raw": "uhhh heyye byewajje3a heyye byewajje3a raasha",
-    "read_from": "c1787ac2-a203-4f6e-8f70-9edc7b71fdbf"
-   },
-   "note": "uhhh heyye byewajje3a heyye byewajje3a raasha",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-raasha",
-   "lesson_date": "2026-10-08",
-   "turn_t": 238.83,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "rasa"
-   },
-   "payload": {
-    "engine_wrote": "rasa",
-    "heard": "راسها",
-    "turn_end": 239.59,
-    "raw": "uhhh heyye byewajje3a heyye byewajje3a raasha",
-    "read_from": "c1787ac2-a203-4f6e-8f70-9edc7b71fdbf"
-   },
-   "note": "uhhh heyye byewajje3a heyye byewajje3a raasha",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-allah-ysalmik",
-   "lesson_date": "2026-10-08",
-   "turn_t": 289.13,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "alayhi salmik"
-   },
-   "payload": {
-    "engine_wrote": "alayhi salmik",
-    "heard": "الله يسلمك",
-    "turn_end": 294.19,
-    "raw": "I should get credit for knowing \"alayhi salmik\"",
-    "read_from": "6bb988cf-e55d-4e88-9c08-09be146a754b",
-    "word_key": "alah isalmek",
-    "credit": "independent"
-   },
-   "note": "I should get credit for knowing \"alayhi salmik\"",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-elyom",
-   "lesson_date": "2026-10-08",
-   "turn_t": 308.73,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "Elion"
-   },
-   "payload": {
-    "engine_wrote": "Elion",
-    "heard": "اليوم",
-    "turn_end": 309.27,
-    "raw": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
-    "read_from": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4"
-   },
-   "note": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-yom-el",
-   "lesson_date": "2026-10-08",
-   "turn_t": 311.35,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "ion el"
-   },
-   "payload": {
-    "engine_wrote": "ion el",
-    "heard": "يوم الـ",
-    "turn_end": 311.79,
-    "raw": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
-    "read_from": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4"
-   },
-   "note": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-yom-el-5amees",
-   "lesson_date": "2026-10-08",
-   "turn_t": 313.71,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "ion el khamis"
-   },
-   "payload": {
-    "engine_wrote": "ion el khamis",
-    "heard": "يوم الخميس",
-    "turn_end": 314.63,
-    "raw": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
-    "read_from": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4"
-   },
-   "note": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-tamania",
-   "lesson_date": "2026-10-08",
-   "turn_t": 317.57,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "mania"
-   },
-   "payload": {
-    "engine_wrote": "mania",
-    "heard": "تمانية",
-    "turn_end": 319.73,
-    "raw": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
-    "read_from": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4"
-   },
-   "note": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-3ashara",
-   "lesson_date": "2026-10-08",
-   "turn_t": 321.09,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "ashara"
-   },
-   "payload": {
-    "engine_wrote": "ashara",
-    "heard": "عشرة",
-    "turn_end": 321.69,
-    "raw": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
-    "read_from": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4"
-   },
-   "note": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-alfein",
-   "lesson_date": "2026-10-08",
-   "turn_t": 324.05,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "alfin sita ashira"
-   },
-   "payload": {
-    "engine_wrote": "alfin sita ashira",
-    "heard": "ألفين ستة وعشرين",
-    "turn_end": 325.39,
-    "raw": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
-    "read_from": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4"
-   },
-   "note": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-elsaa3a",
-   "lesson_date": "2026-10-08",
-   "turn_t": 330.29,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "Elsa"
-   },
-   "payload": {
-    "engine_wrote": "Elsa",
-    "heard": "الساعة",
-    "turn_end": 331.47,
-    "raw": "el sa3aa talat ella tult",
-    "read_from": "cdecf3ab-6220-47a2-9b9f-6edca9a03dc7"
-   },
-   "note": "el sa3aa talat ella tult",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-talat-ella-tult",
-   "lesson_date": "2026-10-08",
-   "turn_t": 334.01,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "halat el tod"
-   },
-   "payload": {
-    "engine_wrote": "halat el tod",
-    "heard": "تلاتة إلا تلت",
-    "turn_end": 336.27,
-    "raw": "el sa3aa talat ella tult",
-    "read_from": "cdecf3ab-6220-47a2-9b9f-6edca9a03dc7"
-   },
-   "note": "el sa3aa talat ella tult",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-amal-talat",
-   "lesson_date": "2026-10-08",
-   "turn_t": 337.61,
-   "turn_who": "Amal",
-   "kind": "text",
-   "target": {
-    "word": "خلاص"
-   },
-   "payload": {
-    "engine_wrote": "خلاص",
-    "heard": "تلاتة",
-    "turn_end": 338.19,
-    "raw": "Talat? not 5alas",
-    "read_from": "24e4a578-d8ee-494b-a907-4a2a7eb400aa"
-   },
-   "note": "Talat? not 5alas",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-tintein",
-   "lesson_date": "2026-10-08",
-   "turn_t": 339.17,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "fin tain el tod"
-   },
-   "payload": {
-    "engine_wrote": "fin tain el tod",
-    "heard": "تنتين إلا تلت",
-    "turn_end": 340.89,
-    "raw": "no, tintein ella tult (20 til 2 (time))",
-    "read_from": "bc876203-7fc4-4de0-91fb-6c4a7dd000f2"
-   },
-   "note": "no, tintein ella tult (20 til 2 (time))",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-shob",
-   "lesson_date": "2026-10-08",
-   "turn_t": 346.65,
-   "turn_who": "Amal",
-   "kind": "text",
-   "target": {
-    "word": "shop"
-   },
-   "payload": {
-    "engine_wrote": "shop",
-    "heard": "شوب",
-    "turn_end": 349.15,
-    "raw": "shob not shop",
-    "read_from": "ba2e2b83-694e-4d18-9808-75f9152266eb"
-   },
-   "note": "shob not shop",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-malha-repeat",
-   "lesson_date": "2026-10-08",
-   "turn_t": 204.33,
-   "turn_who": "Medi",
-   "kind": "not-use",
-   "target": {
-    "rule": "A8",
-    "said": "مالحة",
-    "src": "use:A8:77222cd3cf",
-    "t": 204.3
-   },
-   "payload": {
-    "reason": "asking",
-    "raw": "shouldnt count as correct grammar because he was repeating her",
-    "turn_end": 206.05
-   },
-   "note": "shouldnt count as correct grammar because he was repeating her",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-marhaba-credit",
-   "lesson_date": "2026-10-08",
-   "turn_t": 10.37,
-   "turn_who": "Medi",
-   "kind": "text",
-   "target": {
-    "word": "مرحبا"
-   },
-   "payload": {
-    "engine_wrote": "مرحبا",
-    "heard": "مرحبا",
-    "credit": "independent",
-    "word_key": "marhaba",
-    "turn_end": 10.71,
-    "raw": "Merhaba should count as a vocab",
-    "read_from": "bf0cf071-e281-4151-bad6-59dd501572e0"
-   },
-   "note": "Merhaba should count as a vocab",
-   "ts": "2026-10-09T08:30:00+00:00",
-   "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
-  },
-  {
-   "id": "chat-20261009-clear-bf0cf071-e281",
-   "lesson_date": "2026-10-08",
-   "turn_t": 10.37,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "bf0cf071-e281-4151-bad6-59dd501572e0",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-dd9bc4ad-f7db",
-   "lesson_date": "2026-10-08",
-   "turn_t": 37.85,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "dd9bc4ad-f7db-4f43-8612-2d7448b3cc4b",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-c52b6716-2e51",
-   "lesson_date": "2026-10-08",
-   "turn_t": 10.37,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "c52b6716-2e51-4ed1-816f-9035c8835f64",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-a67b7741-f70b",
-   "lesson_date": "2026-10-08",
-   "turn_t": 37.85,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "a67b7741-f70b-4e79-ac46-18875504cc52",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-91c35706-5784",
-   "lesson_date": "2026-10-08",
-   "turn_t": 48.45,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "91c35706-5784-414d-b9ac-72efada192b8",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-7cab6e82-bf21",
-   "lesson_date": "2026-10-08",
-   "turn_t": 92.61,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "7cab6e82-bf21-4f8b-ab90-9293a677f358",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-ec4d3e62-7e1f",
-   "lesson_date": "2026-10-08",
-   "turn_t": 133.55,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "ec4d3e62-7e1f-449b-a534-5a38036d361d",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-c7212863-bd94",
-   "lesson_date": "2026-10-08",
-   "turn_t": 150.91,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "c7212863-bd94-40c3-8597-3bbcd0998da5",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-e4ce4b1f-b4ab",
-   "lesson_date": "2026-10-08",
-   "turn_t": 48.45,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "e4ce4b1f-b4ab-445d-bd95-21c638b05e58",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-dd6b042f-3ab0",
-   "lesson_date": "2026-10-08",
-   "turn_t": 92.61,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "dd6b042f-3ab0-465f-89c2-c5c1439df453",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-ddac8da6-0db1",
-   "lesson_date": "2026-10-08",
-   "turn_t": 133.55,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "ddac8da6-0db1-43f2-9da6-f2b7b9b22668",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-908f5c39-a694",
-   "lesson_date": "2026-10-08",
-   "turn_t": 150.91,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "908f5c39-a694-4606-aadc-1716c985a864",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-abc2f517-b2c2",
-   "lesson_date": "2026-10-08",
-   "turn_t": 215.79,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "abc2f517-b2c2-45dc-8fe9-a1afca4d0486",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-fbe73f1c-b018",
-   "lesson_date": "2026-10-08",
-   "turn_t": 204.33,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "fbe73f1c-b018-4631-8595-ecd00ccdf79c",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-c1787ac2-a203",
-   "lesson_date": "2026-10-08",
-   "turn_t": 222.43,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "c1787ac2-a203-4f6e-8f70-9edc7b71fdbf",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-54eb88e0-7386",
-   "lesson_date": "2026-10-08",
-   "turn_t": 260.21,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "54eb88e0-7386-48cf-be12-f18d37526f6f",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-1852e0a4-d71c",
-   "lesson_date": "2026-10-08",
-   "turn_t": 215.79,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "1852e0a4-d71c-4e57-a303-7615ff5ddf57",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-fccb3c1d-bd17",
-   "lesson_date": "2026-10-08",
-   "turn_t": 204.33,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "fccb3c1d-bd17-436e-b080-4233b3779804",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-8d3a3bdd-e32b",
-   "lesson_date": "2026-10-08",
-   "turn_t": 222.43,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "8d3a3bdd-e32b-43d8-b7e2-51e2467262bf",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-6bb988cf-e55d",
-   "lesson_date": "2026-10-08",
-   "turn_t": 287.47,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "6bb988cf-e55d-4e88-9c08-09be146a754b",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-72bd9dd2-cdad",
-   "lesson_date": "2026-10-08",
-   "turn_t": 308.73,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-cdecf3ab-6220",
-   "lesson_date": "2026-10-08",
-   "turn_t": 330.29,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "cdecf3ab-6220-47a2-9b9f-6edca9a03dc7",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-24e4a578-d8ee",
-   "lesson_date": "2026-10-08",
-   "turn_t": 337.61,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "24e4a578-d8ee-494b-a907-4a2a7eb400aa",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-bc876203-7fc4",
-   "lesson_date": "2026-10-08",
-   "turn_t": 339.17,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "bc876203-7fc4-4de0-91fb-6c4a7dd000f2",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-ba2e2b83-694e",
-   "lesson_date": "2026-10-08",
-   "turn_t": 346.65,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "ba2e2b83-694e-4d18-9808-75f9152266eb",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-9358357d-a411",
-   "lesson_date": "2026-10-08",
-   "turn_t": 260.21,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "9358357d-a411-4453-8b3e-c8b1dbee5db9",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-2da05389-cc28",
-   "lesson_date": "2026-10-08",
-   "turn_t": 287.47,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "2da05389-cc28-43e0-b1c6-106eff678268",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-9650e8bd-bdf0",
-   "lesson_date": "2026-10-08",
-   "turn_t": 308.73,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "9650e8bd-bdf0-488c-b0f8-ddeb9b0399a9",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-3d2b6e63-342d",
-   "lesson_date": "2026-10-08",
-   "turn_t": 330.29,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "3d2b6e63-342d-43bf-a1d1-a2286ee2f8cf",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-8f376019-6e34",
-   "lesson_date": "2026-10-08",
-   "turn_t": 337.61,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "8f376019-6e34-4711-9362-9e152be5aca2",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-71c96ec1-6e76",
-   "lesson_date": "2026-10-08",
-   "turn_t": 339.17,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "71c96ec1-6e76-407e-b1b8-c6950071964a",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-9067d739-3846",
-   "lesson_date": "2026-10-08",
-   "turn_t": 346.65,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "9067d739-3846-4a66-815f-5a32d694991d",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 321.09,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-3ashara",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 324.05,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-alfein",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 289.13,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-allah-ysalmik",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 337.61,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "chat-20261009-amal-talat",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 230.45,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-bywajje3a-1",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 330.29,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-elsaa3a",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 308.73,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-elyom",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 222.43,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-heyye-1",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 235.85,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-heyye-2",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 42.69,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-keefak",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 45.51,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-keefik",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 109.41,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-khatibti-1",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 141.11,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-khatibti-2",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 204.33,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-malha-repeat",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 10.37,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-marhaba-credit",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 92.61,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "chat-20261009-mashi",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 238.83,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-raasha",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 346.65,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "chat-20261009-shob",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 111.95,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-shwai-1",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 141.11,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-shwai-2",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 334.01,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-talat-ella-tult",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 48.45,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-tamam",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 317.57,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-tamania",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 339.17,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-tintein",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 311.35,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-yom-el",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 313.71,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-yom-el-5amees",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 104.15,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-yomi-1",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-chat-20261009",
-   "lesson_date": "2026-10-08",
-   "turn_t": 138.83,
-   "turn_who": "Medi",
-   "kind": "undo",
-   "undoes": "chat-20261009-yomi-2",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-1814b92d-5a38",
-   "lesson_date": "2026-10-08",
-   "turn_t": 356.17,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "1814b92d-5a38-4d61-a0ea-b09554715f19",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-64cfc13a-9585",
-   "lesson_date": "2026-10-08",
-   "turn_t": 356.17,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "64cfc13a-9585-47da-ba2a-afc6bb5bb276",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  },
-  {
-   "id": "chat-20261009-clear-cd85fc94-8b6d",
-   "lesson_date": "2026-10-08",
-   "turn_t": 356.17,
-   "turn_who": "Amal",
-   "kind": "undo",
-   "undoes": "cd85fc94-8b6d-48d6-aa2a-f27f8d599d6d",
-   "note": "clear my corrections from the last recording, I want to grade the transcription",
-   "ts": "2026-10-09T17:10:00+00:00",
-   "by": "medi (chat)"
-  }
- ]
+  "about": "Medi's corrections given in chat, in the same row shape as the transcript_corrections table (migration 022), applied by scripts/medi_corrections.py exactly like the ones he saves on the page. Hand-made: never delete a row; an undo is a new row with undoes.",
+  "rows": [
+    {
+      "id": "chat-20261002-hadi-subu7",
+      "lesson_date": "2026-10-02",
+      "turn_t": 502.9,
+      "turn_who": "Medi",
+      "kind": "classify",
+      "target": {
+        "k": "vocab",
+        "wrong": "عادي الصباح",
+        "src": "FA-d3ecce97"
+      },
+      "payload": {
+        "to": "grammar",
+        "rule": "A10",
+        "wrong": "هادي الصباح",
+        "right": "الصبح",
+        "turn_end": 504
+      },
+      "note": "you can tell from her cotext I said hadi el not 3aadi el ... she even corrected it ... this should be a grammar error for not using hadi for the morning",
+      "ts": "2026-10-02T23:40:00-07:00",
+      "by": "medi (chat)",
+      "repointed": "2026-10-04 after the re-read on the re-heard transcript: the readers now write this moment as a grammar row with wrong 'هادي الصباح' (his line is re-heard as هادي الصباح, no longer the engine's عادي الصباح), so the target's kind + wrong piece no longer found it and his A10 ruling stopped applying (the row sat in a proposed bucket). target.src names the row (same uid FA-d3ecce97 before and after); his words are unchanged"
+    },
+    {
+      "id": "chat-20261003-laazem-3utle",
+      "lesson_date": "2026-10-02",
+      "turn_t": 575.8,
+      "turn_who": "Medi",
+      "kind": "add",
+      "target": {
+        "k": "grammar",
+        "said": "أنا لازم آآآ عطلة",
+        "rule": "B2"
+      },
+      "payload": {
+        "k": "grammar",
+        "rule": "B2",
+        "wrong": "أنا لازم آآآ عطلة",
+        "right": "أنا لازم آخد عطلة",
+        "right_en": "take",
+        "turn_end": 580.0,
+        "t_amal": "09:41",
+        "amal_said": "لازم you should take.",
+        "line": "أنا لازم / آآآ عطلة و"
+      },
+      "note": "i dont know what grammer rule this would fall under but you \"take\" a day off, it cant be 3utle by itself",
+      "ts": "2026-10-03T11:30:00-07:00",
+      "by": "medi (chat)",
+      "rule": "GR-27"
+    },
+    {
+      "id": "chat-20261003-re7le-a5eera",
+      "lesson_date": "2026-10-02",
+      "turn_t": 2130.94,
+      "turn_who": "Medi",
+      "kind": "add",
+      "target": {
+        "k": "grammar",
+        "said": "أخيرة",
+        "rule": "A1"
+      },
+      "payload": {
+        "k": "grammar",
+        "rule": "A1",
+        "wrong": "أخيرة",
+        "right": "الأخيرة",
+        "turn_end": 2132.82,
+        "t_amal": "35:34",
+        "amal_said": "الأخيرة.",
+        "line": "الرحلة أخيرة."
+      },
+      "note": "my first attempt didnt have the \"el\" in the second word and amal corrected",
+      "ts": "2026-10-03T13:10:00-07:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261003-3ashrah-da2aye2",
+      "lesson_date": "2026-10-02",
+      "turn_t": 2699.41,
+      "turn_who": "Medi",
+      "kind": "add",
+      "target": {
+        "k": "grammar",
+        "said": "عشرة دقايق",
+        "rule": "E1"
+      },
+      "payload": {
+        "k": "grammar",
+        "rule": "E1",
+        "wrong": "عشرة دقايق",
+        "right": "عشر دقايق",
+        "turn_end": 2702.9,
+        "t_amal": "45:05",
+        "amal_said": "عشر y.",
+        "line": "آخر عشرة دقايق. عشرة دقايق؟"
+      },
+      "note": "grammar incorrect, when counting its not 3asharah, its 3ashar",
+      "ts": "2026-10-03T13:40:00-07:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261003-aa5er-el-moazafa",
+      "lesson_date": "2026-10-02",
+      "turn_t": 2826.79,
+      "turn_who": "Medi",
+      "kind": "add",
+      "target": {
+        "k": "grammar",
+        "said": "آخر الموظفة",
+        "rule": "A1"
+      },
+      "payload": {
+        "k": "grammar",
+        "rule": "A1",
+        "wrong": "آخر الموظفة",
+        "right": "آخر موظفة",
+        "right_en": "the end of the employees",
+        "turn_end": 2829.0,
+        "t_amal": "47:09",
+        "amal_said": "The end of the employees?",
+        "line": "آخر الموظفة, right?"
+      },
+      "note": "I said it wrong the first time and amal corrected in english and I said the right the 2nd time / I said \"2aa5er EL Moazafa, right?\"",
+      "ts": "2026-10-03T13:55:00-07:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-undo-0d6f47a9",
+      "lesson_date": "2026-10-08",
+      "turn_t": 48.45,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "0d6f47a9-8c93-461c-b11d-7aeded1c9e9a",
+      "note": "his note 'Um, and then is supposed to be um tamam' is the engine mishearing his تمام, not a slip of his (the auto-reader made it a vocab mistake against him)",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-undo-4b122412",
+      "lesson_date": "2026-10-08",
+      "turn_t": 111.95,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "4b122412-e5a1-4df3-9eba-f4d0d23ef5c3",
+      "note": "the old box took his whole sentence as one word; replaced by one row per piece (يومي منيح خطيبتي شوي)",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-undo-29e5502f",
+      "lesson_date": "2026-10-08",
+      "turn_t": 215.79,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "29e5502f-74d4-4369-8df1-1a2162d6779b",
+      "note": "his note says he did not understand her question; the line's words were right, nothing to replace",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-undo-0cc1683f",
+      "lesson_date": "2026-10-08",
+      "turn_t": 222.43,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "0cc1683f-a2ed-4c26-bd78-337400b576ba",
+      "note": "the words he names are on the next lines (3:50 biwaja, 3:55 he biwaja, 3:58 rasa); inserting them again doubled them. One row per piece instead",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-undo-13993235",
+      "lesson_date": "2026-10-08",
+      "turn_t": 222.43,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "13993235-33f1-4439-8d1c-087fb2d2f125",
+      "note": "the words he names are on the next lines (3:50 biwaja, 3:55 he biwaja, 3:58 rasa); inserting them again doubled them. One row per piece instead",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-undo-6c8d5df3",
+      "lesson_date": "2026-10-08",
+      "turn_t": 222.43,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "6c8d5df3-f58d-433b-8ad7-286864574d16",
+      "note": "the words he names are on the next lines (3:50 biwaja, 3:55 he biwaja, 3:58 rasa); inserting them again doubled them. One row per piece instead",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-undo-6d5caaca",
+      "lesson_date": "2026-10-08",
+      "turn_t": 308.73,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "6d5caaca-0e57-46ae-b06b-d23ef530aba0",
+      "note": "replaced by a row per piece / in Arabic letters (her Doc spelling) so the words are matched and credited",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-undo-42bf1a07",
+      "lesson_date": "2026-10-08",
+      "turn_t": 330.29,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "42bf1a07-2189-43eb-8fea-03539d7d4f36",
+      "note": "replaced by a row per piece / in Arabic letters (her Doc spelling) so the words are matched and credited",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-undo-baae41db",
+      "lesson_date": "2026-10-08",
+      "turn_t": 339.17,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "baae41db-962d-4ddc-8dc4-17b883152355",
+      "note": "replaced by a row per piece / in Arabic letters (her Doc spelling) so the words are matched and credited",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-undo-59fbcd62",
+      "lesson_date": "2026-10-08",
+      "turn_t": 92.61,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "59fbcd62-25a3-4859-bfb4-c13098451bdf",
+      "note": "replaced by a row per piece / in Arabic letters (her Doc spelling) so the words are matched and credited",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-undo-41b716a2",
+      "lesson_date": "2026-10-08",
+      "turn_t": 337.61,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "41b716a2-d44b-433c-882d-ecda4c8557b8",
+      "note": "replaced by a row per piece / in Arabic letters (her Doc spelling) so the words are matched and credited",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-undo-bb2314d8",
+      "lesson_date": "2026-10-08",
+      "turn_t": 346.65,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "bb2314d8-ae0b-49e9-a7d1-a43ce100673a",
+      "note": "replaced by a row per piece / in Arabic letters (her Doc spelling) so the words are matched and credited",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-keefak",
+      "lesson_date": "2026-10-08",
+      "turn_t": 42.69,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "Defect"
+      },
+      "payload": {
+        "engine_wrote": "Defect",
+        "heard": "كيفك",
+        "turn_end": 43.25,
+        "raw": "Defect. Defect. is Keefak, Keefik (Correcting himself) - first try: keefak",
+        "read_from": "dd9bc4ad-f7db-4f43-8612-2d7448b3cc4b",
+        "credit_note": "no credit: keefak (m) to a woman, fixed by him to keefik a second later (I fixed it first)"
+      },
+      "note": "Defect. Defect. is Keefak, Keefik (Correcting himself) - first try: keefak",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-keefik",
+      "lesson_date": "2026-10-08",
+      "turn_t": 45.51,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "Defect"
+      },
+      "payload": {
+        "engine_wrote": "Defect",
+        "heard": "كيفِك",
+        "turn_end": 46.15,
+        "raw": "Defect. Defect. is Keefak, Keefik (Correcting himself) - he fixed it himself to keefik (she is female)",
+        "read_from": "dd9bc4ad-f7db-4f43-8612-2d7448b3cc4b",
+        "word_key": "kIfek"
+      },
+      "note": "Defect. Defect. is Keefak, Keefik (Correcting himself) - he fixed it himself to keefik (she is female)",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-tamam",
+      "lesson_date": "2026-10-08",
+      "turn_t": 48.45,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "and then"
+      },
+      "payload": {
+        "engine_wrote": "and then",
+        "heard": "تمام",
+        "turn_end": 55.71,
+        "raw": "Um, and then is supposed to be um tamam",
+        "read_from": "91c35706-5784-414d-b9ac-72efada192b8"
+      },
+      "note": "Um, and then is supposed to be um tamam",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-mashi",
+      "lesson_date": "2026-10-08",
+      "turn_t": 92.61,
+      "turn_who": "Amal",
+      "kind": "text",
+      "target": {
+        "word": "ناسي"
+      },
+      "payload": {
+        "engine_wrote": "ناسي",
+        "heard": "ماشي",
+        "turn_end": 93.67,
+        "raw": "keef yomak mashi",
+        "read_from": "7cab6e82-bf21-4f8b-ab90-9293a677f358"
+      },
+      "note": "keef yomak mashi",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-yomi-1",
+      "lesson_date": "2026-10-08",
+      "turn_t": 104.15,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "Yomi, me"
+      },
+      "payload": {
+        "engine_wrote": "Yomi, me",
+        "heard": "يومي منيح",
+        "turn_end": 105.25,
+        "raw": "yoami mnee7 khatibti shue ayan",
+        "read_from": "ec4d3e62-7e1f-449b-a534-5a38036d361d"
+      },
+      "note": "yoami mnee7 khatibti shue ayan",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-khatibti-1",
+      "lesson_date": "2026-10-08",
+      "turn_t": 109.41,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "PTT"
+      },
+      "payload": {
+        "engine_wrote": "PTT",
+        "heard": "خطيبتي",
+        "turn_end": 109.81,
+        "raw": "yoami mnee7 khatibti shue ayan",
+        "read_from": "ec4d3e62-7e1f-449b-a534-5a38036d361d"
+      },
+      "note": "yoami mnee7 khatibti shue ayan",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-shwai-1",
+      "lesson_date": "2026-10-08",
+      "turn_t": 111.95,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "Shui"
+      },
+      "payload": {
+        "engine_wrote": "Shui",
+        "heard": "شوي",
+        "turn_end": 112.47,
+        "raw": "yoami mnee7 khatibti shue ayan",
+        "read_from": "ec4d3e62-7e1f-449b-a534-5a38036d361d"
+      },
+      "note": "yoami mnee7 khatibti shue ayan",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-yomi-2",
+      "lesson_date": "2026-10-08",
+      "turn_t": 138.83,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "Yomi, me"
+      },
+      "payload": {
+        "engine_wrote": "Yomi, me",
+        "heard": "يومي منيح",
+        "turn_end": 139.57,
+        "raw": "yoami mnee7 khatibti shue ayan",
+        "read_from": "ec4d3e62-7e1f-449b-a534-5a38036d361d"
+      },
+      "note": "yoami mnee7 khatibti shue ayan",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-khatibti-2",
+      "lesson_date": "2026-10-08",
+      "turn_t": 141.11,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "PTT"
+      },
+      "payload": {
+        "engine_wrote": "PTT",
+        "heard": "خطيبتي",
+        "turn_end": 143.79,
+        "raw": "yoami mnee7 khatibti shue ayan",
+        "read_from": "ec4d3e62-7e1f-449b-a534-5a38036d361d"
+      },
+      "note": "yoami mnee7 khatibti shue ayan",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-shwai-2",
+      "lesson_date": "2026-10-08",
+      "turn_t": 141.11,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "Shui"
+      },
+      "payload": {
+        "engine_wrote": "Shui",
+        "heard": "شوي",
+        "turn_end": 143.79,
+        "raw": "yoami mnee7 khatibti shue ayan",
+        "read_from": "ec4d3e62-7e1f-449b-a534-5a38036d361d"
+      },
+      "note": "yoami mnee7 khatibti shue ayan",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-heyye-1",
+      "lesson_date": "2026-10-08",
+      "turn_t": 222.43,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "he"
+      },
+      "payload": {
+        "engine_wrote": "he",
+        "heard": "هي",
+        "turn_end": 228.11,
+        "raw": "uhhh heyye byewajje3a heyye byewajje3a raasha",
+        "read_from": "c1787ac2-a203-4f6e-8f70-9edc7b71fdbf"
+      },
+      "note": "uhhh heyye byewajje3a heyye byewajje3a raasha",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-bywajje3a-1",
+      "lesson_date": "2026-10-08",
+      "turn_t": 230.45,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "biwaja"
+      },
+      "payload": {
+        "engine_wrote": "biwaja",
+        "heard": "بيوجعها",
+        "turn_end": 231.33,
+        "raw": "uhhh heyye byewajje3a heyye byewajje3a raasha",
+        "read_from": "c1787ac2-a203-4f6e-8f70-9edc7b71fdbf"
+      },
+      "note": "uhhh heyye byewajje3a heyye byewajje3a raasha",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-heyye-2",
+      "lesson_date": "2026-10-08",
+      "turn_t": 235.85,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "he biwaja"
+      },
+      "payload": {
+        "engine_wrote": "he biwaja",
+        "heard": "هي بيوجعها",
+        "turn_end": 237.11,
+        "raw": "uhhh heyye byewajje3a heyye byewajje3a raasha",
+        "read_from": "c1787ac2-a203-4f6e-8f70-9edc7b71fdbf"
+      },
+      "note": "uhhh heyye byewajje3a heyye byewajje3a raasha",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-raasha",
+      "lesson_date": "2026-10-08",
+      "turn_t": 238.83,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "rasa"
+      },
+      "payload": {
+        "engine_wrote": "rasa",
+        "heard": "راسها",
+        "turn_end": 239.59,
+        "raw": "uhhh heyye byewajje3a heyye byewajje3a raasha",
+        "read_from": "c1787ac2-a203-4f6e-8f70-9edc7b71fdbf"
+      },
+      "note": "uhhh heyye byewajje3a heyye byewajje3a raasha",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-allah-ysalmik",
+      "lesson_date": "2026-10-08",
+      "turn_t": 289.13,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "alayhi salmik"
+      },
+      "payload": {
+        "engine_wrote": "alayhi salmik",
+        "heard": "الله يسلمك",
+        "turn_end": 294.19,
+        "raw": "I should get credit for knowing \"alayhi salmik\"",
+        "read_from": "6bb988cf-e55d-4e88-9c08-09be146a754b",
+        "word_key": "alah isalmek",
+        "credit": "independent"
+      },
+      "note": "I should get credit for knowing \"alayhi salmik\"",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-elyom",
+      "lesson_date": "2026-10-08",
+      "turn_t": 308.73,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "Elion"
+      },
+      "payload": {
+        "engine_wrote": "Elion",
+        "heard": "اليوم",
+        "turn_end": 309.27,
+        "raw": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
+        "read_from": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4"
+      },
+      "note": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-yom-el",
+      "lesson_date": "2026-10-08",
+      "turn_t": 311.35,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "ion el"
+      },
+      "payload": {
+        "engine_wrote": "ion el",
+        "heard": "يوم الـ",
+        "turn_end": 311.79,
+        "raw": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
+        "read_from": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4"
+      },
+      "note": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-yom-el-5amees",
+      "lesson_date": "2026-10-08",
+      "turn_t": 313.71,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "ion el khamis"
+      },
+      "payload": {
+        "engine_wrote": "ion el khamis",
+        "heard": "يوم الخميس",
+        "turn_end": 314.63,
+        "raw": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
+        "read_from": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4"
+      },
+      "note": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-tamania",
+      "lesson_date": "2026-10-08",
+      "turn_t": 317.57,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "mania"
+      },
+      "payload": {
+        "engine_wrote": "mania",
+        "heard": "تمانية",
+        "turn_end": 319.73,
+        "raw": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
+        "read_from": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4"
+      },
+      "note": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-3ashara",
+      "lesson_date": "2026-10-08",
+      "turn_t": 321.09,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "ashara"
+      },
+      "payload": {
+        "engine_wrote": "ashara",
+        "heard": "عشرة",
+        "turn_end": 321.69,
+        "raw": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
+        "read_from": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4"
+      },
+      "note": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-alfein",
+      "lesson_date": "2026-10-08",
+      "turn_t": 324.05,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "alfin sita ashira"
+      },
+      "payload": {
+        "engine_wrote": "alfin sita ashira",
+        "heard": "ألفين ستة وعشرين",
+        "turn_end": 325.39,
+        "raw": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
+        "read_from": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4"
+      },
+      "note": "Elyoam yoam el 5amees, tamania, 3ashara, alfein sita w 3ashreen (the date)",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-elsaa3a",
+      "lesson_date": "2026-10-08",
+      "turn_t": 330.29,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "Elsa"
+      },
+      "payload": {
+        "engine_wrote": "Elsa",
+        "heard": "الساعة",
+        "turn_end": 331.47,
+        "raw": "el sa3aa talat ella tult",
+        "read_from": "cdecf3ab-6220-47a2-9b9f-6edca9a03dc7"
+      },
+      "note": "el sa3aa talat ella tult",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-talat-ella-tult",
+      "lesson_date": "2026-10-08",
+      "turn_t": 334.01,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "halat el tod"
+      },
+      "payload": {
+        "engine_wrote": "halat el tod",
+        "heard": "تلاتة إلا تلت",
+        "turn_end": 336.27,
+        "raw": "el sa3aa talat ella tult",
+        "read_from": "cdecf3ab-6220-47a2-9b9f-6edca9a03dc7"
+      },
+      "note": "el sa3aa talat ella tult",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-amal-talat",
+      "lesson_date": "2026-10-08",
+      "turn_t": 337.61,
+      "turn_who": "Amal",
+      "kind": "text",
+      "target": {
+        "word": "خلاص"
+      },
+      "payload": {
+        "engine_wrote": "خلاص",
+        "heard": "تلاتة",
+        "turn_end": 338.19,
+        "raw": "Talat? not 5alas",
+        "read_from": "24e4a578-d8ee-494b-a907-4a2a7eb400aa"
+      },
+      "note": "Talat? not 5alas",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-tintein",
+      "lesson_date": "2026-10-08",
+      "turn_t": 339.17,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "fin tain el tod"
+      },
+      "payload": {
+        "engine_wrote": "fin tain el tod",
+        "heard": "تنتين إلا تلت",
+        "turn_end": 340.89,
+        "raw": "no, tintein ella tult (20 til 2 (time))",
+        "read_from": "bc876203-7fc4-4de0-91fb-6c4a7dd000f2"
+      },
+      "note": "no, tintein ella tult (20 til 2 (time))",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-shob",
+      "lesson_date": "2026-10-08",
+      "turn_t": 346.65,
+      "turn_who": "Amal",
+      "kind": "text",
+      "target": {
+        "word": "shop"
+      },
+      "payload": {
+        "engine_wrote": "shop",
+        "heard": "شوب",
+        "turn_end": 349.15,
+        "raw": "shob not shop",
+        "read_from": "ba2e2b83-694e-4d18-9808-75f9152266eb"
+      },
+      "note": "shob not shop",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-malha-repeat",
+      "lesson_date": "2026-10-08",
+      "turn_t": 204.33,
+      "turn_who": "Medi",
+      "kind": "not-use",
+      "target": {
+        "rule": "A8",
+        "said": "مالحة",
+        "src": "use:A8:77222cd3cf",
+        "t": 204.3
+      },
+      "payload": {
+        "reason": "asking",
+        "raw": "shouldnt count as correct grammar because he was repeating her",
+        "turn_end": 206.05
+      },
+      "note": "shouldnt count as correct grammar because he was repeating her",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-marhaba-credit",
+      "lesson_date": "2026-10-08",
+      "turn_t": 10.37,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "مرحبا"
+      },
+      "payload": {
+        "engine_wrote": "مرحبا",
+        "heard": "مرحبا",
+        "credit": "independent",
+        "word_key": "marhaba",
+        "turn_end": 10.71,
+        "raw": "Merhaba should count as a vocab",
+        "read_from": "bf0cf071-e281-4151-bad6-59dd501572e0"
+      },
+      "note": "Merhaba should count as a vocab",
+      "ts": "2026-10-09T08:30:00+00:00",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-clear-bf0cf071-e281",
+      "lesson_date": "2026-10-08",
+      "turn_t": 10.37,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "bf0cf071-e281-4151-bad6-59dd501572e0",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-dd9bc4ad-f7db",
+      "lesson_date": "2026-10-08",
+      "turn_t": 37.85,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "dd9bc4ad-f7db-4f43-8612-2d7448b3cc4b",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-c52b6716-2e51",
+      "lesson_date": "2026-10-08",
+      "turn_t": 10.37,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "c52b6716-2e51-4ed1-816f-9035c8835f64",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-a67b7741-f70b",
+      "lesson_date": "2026-10-08",
+      "turn_t": 37.85,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "a67b7741-f70b-4e79-ac46-18875504cc52",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-91c35706-5784",
+      "lesson_date": "2026-10-08",
+      "turn_t": 48.45,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "91c35706-5784-414d-b9ac-72efada192b8",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-7cab6e82-bf21",
+      "lesson_date": "2026-10-08",
+      "turn_t": 92.61,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "7cab6e82-bf21-4f8b-ab90-9293a677f358",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-ec4d3e62-7e1f",
+      "lesson_date": "2026-10-08",
+      "turn_t": 133.55,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "ec4d3e62-7e1f-449b-a534-5a38036d361d",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-c7212863-bd94",
+      "lesson_date": "2026-10-08",
+      "turn_t": 150.91,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "c7212863-bd94-40c3-8597-3bbcd0998da5",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-e4ce4b1f-b4ab",
+      "lesson_date": "2026-10-08",
+      "turn_t": 48.45,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "e4ce4b1f-b4ab-445d-bd95-21c638b05e58",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-dd6b042f-3ab0",
+      "lesson_date": "2026-10-08",
+      "turn_t": 92.61,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "dd6b042f-3ab0-465f-89c2-c5c1439df453",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-ddac8da6-0db1",
+      "lesson_date": "2026-10-08",
+      "turn_t": 133.55,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "ddac8da6-0db1-43f2-9da6-f2b7b9b22668",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-908f5c39-a694",
+      "lesson_date": "2026-10-08",
+      "turn_t": 150.91,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "908f5c39-a694-4606-aadc-1716c985a864",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-abc2f517-b2c2",
+      "lesson_date": "2026-10-08",
+      "turn_t": 215.79,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "abc2f517-b2c2-45dc-8fe9-a1afca4d0486",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-fbe73f1c-b018",
+      "lesson_date": "2026-10-08",
+      "turn_t": 204.33,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "fbe73f1c-b018-4631-8595-ecd00ccdf79c",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-c1787ac2-a203",
+      "lesson_date": "2026-10-08",
+      "turn_t": 222.43,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "c1787ac2-a203-4f6e-8f70-9edc7b71fdbf",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-54eb88e0-7386",
+      "lesson_date": "2026-10-08",
+      "turn_t": 260.21,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "54eb88e0-7386-48cf-be12-f18d37526f6f",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-1852e0a4-d71c",
+      "lesson_date": "2026-10-08",
+      "turn_t": 215.79,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "1852e0a4-d71c-4e57-a303-7615ff5ddf57",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-fccb3c1d-bd17",
+      "lesson_date": "2026-10-08",
+      "turn_t": 204.33,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "fccb3c1d-bd17-436e-b080-4233b3779804",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-8d3a3bdd-e32b",
+      "lesson_date": "2026-10-08",
+      "turn_t": 222.43,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "8d3a3bdd-e32b-43d8-b7e2-51e2467262bf",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-6bb988cf-e55d",
+      "lesson_date": "2026-10-08",
+      "turn_t": 287.47,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "6bb988cf-e55d-4e88-9c08-09be146a754b",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-72bd9dd2-cdad",
+      "lesson_date": "2026-10-08",
+      "turn_t": 308.73,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "72bd9dd2-cdad-4f83-85ec-f32e4ed5b9c4",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-cdecf3ab-6220",
+      "lesson_date": "2026-10-08",
+      "turn_t": 330.29,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "cdecf3ab-6220-47a2-9b9f-6edca9a03dc7",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-24e4a578-d8ee",
+      "lesson_date": "2026-10-08",
+      "turn_t": 337.61,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "24e4a578-d8ee-494b-a907-4a2a7eb400aa",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-bc876203-7fc4",
+      "lesson_date": "2026-10-08",
+      "turn_t": 339.17,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "bc876203-7fc4-4de0-91fb-6c4a7dd000f2",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-ba2e2b83-694e",
+      "lesson_date": "2026-10-08",
+      "turn_t": 346.65,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "ba2e2b83-694e-4d18-9808-75f9152266eb",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-9358357d-a411",
+      "lesson_date": "2026-10-08",
+      "turn_t": 260.21,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "9358357d-a411-4453-8b3e-c8b1dbee5db9",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-2da05389-cc28",
+      "lesson_date": "2026-10-08",
+      "turn_t": 287.47,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "2da05389-cc28-43e0-b1c6-106eff678268",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-9650e8bd-bdf0",
+      "lesson_date": "2026-10-08",
+      "turn_t": 308.73,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "9650e8bd-bdf0-488c-b0f8-ddeb9b0399a9",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-3d2b6e63-342d",
+      "lesson_date": "2026-10-08",
+      "turn_t": 330.29,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "3d2b6e63-342d-43bf-a1d1-a2286ee2f8cf",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-8f376019-6e34",
+      "lesson_date": "2026-10-08",
+      "turn_t": 337.61,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "8f376019-6e34-4711-9362-9e152be5aca2",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-71c96ec1-6e76",
+      "lesson_date": "2026-10-08",
+      "turn_t": 339.17,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "71c96ec1-6e76-407e-b1b8-c6950071964a",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-9067d739-3846",
+      "lesson_date": "2026-10-08",
+      "turn_t": 346.65,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "9067d739-3846-4a66-815f-5a32d694991d",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 321.09,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-3ashara",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 324.05,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-alfein",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 289.13,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-allah-ysalmik",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 337.61,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "chat-20261009-amal-talat",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 230.45,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-bywajje3a-1",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 330.29,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-elsaa3a",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 308.73,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-elyom",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 222.43,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-heyye-1",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 235.85,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-heyye-2",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 42.69,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-keefak",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 45.51,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-keefik",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 109.41,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-khatibti-1",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 141.11,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-khatibti-2",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 204.33,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-malha-repeat",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 10.37,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-marhaba-credit",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 92.61,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "chat-20261009-mashi",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 238.83,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-raasha",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 346.65,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "chat-20261009-shob",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 111.95,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-shwai-1",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 141.11,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-shwai-2",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 334.01,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-talat-ella-tult",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 48.45,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-tamam",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 317.57,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-tamania",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 339.17,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-tintein",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 311.35,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-yom-el",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 313.71,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-yom-el-5amees",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 104.15,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-yomi-1",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-chat-20261009",
+      "lesson_date": "2026-10-08",
+      "turn_t": 138.83,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "undoes": "chat-20261009-yomi-2",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-1814b92d-5a38",
+      "lesson_date": "2026-10-08",
+      "turn_t": 356.17,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "1814b92d-5a38-4d61-a0ea-b09554715f19",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-64cfc13a-9585",
+      "lesson_date": "2026-10-08",
+      "turn_t": 356.17,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "64cfc13a-9585-47da-ba2a-afc6bb5bb276",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "id": "chat-20261009-clear-cd85fc94-8b6d",
+      "lesson_date": "2026-10-08",
+      "turn_t": 356.17,
+      "turn_who": "Amal",
+      "kind": "undo",
+      "undoes": "cd85fc94-8b6d-48d6-aa2a-f27f8d599d6d",
+      "note": "clear my corrections from the last recording, I want to grade the transcription",
+      "ts": "2026-10-09T17:10:00+00:00",
+      "by": "medi (chat)"
+    },
+    {
+      "lesson_date": "2026-10-08",
+      "turn_t": 37.85,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "target": null,
+      "payload": null,
+      "note": "Claude 2026-10-09 (repeats chip): note reader misread 'I said Keefak the keefik to correct myself': he fixed it himself before Amal, so it is not a slip (WS-07 / GR-22); the moment is written as two text rows on 00:42 / 00:45",
+      "undoes": "e0fbcdcd-1334-411d-938e-1bc2194487fa",
+      "proposal": null,
+      "answer": null,
+      "ts": "2026-10-09T18:31:04.000Z",
+      "tz_offset_min": 0,
+      "id": "chat-20261009-reparse-e0fbcdcd-1334",
+      "by": "claude (his 10-08 notes re-read; the AI note reader misread them)"
+    },
+    {
+      "lesson_date": "2026-10-08",
+      "turn_t": 81.35,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "target": null,
+      "payload": null,
+      "note": "Claude 2026-10-09 (repeats chip): note reader put 'ok Jaahez not a7san' on the 01:21 'Okay.' line; the a7san he means is the 01:25 line (second listen wrote أحسن), now a text row there",
+      "undoes": "4367bbaf-3a00-488f-af88-32c46f17cd10",
+      "proposal": null,
+      "answer": null,
+      "ts": "2026-10-09T18:31:04.000Z",
+      "tz_offset_min": 0,
+      "id": "chat-20261009-reparse-4367bbaf-3a00",
+      "by": "claude (his 10-08 notes re-read; the AI note reader misread them)"
+    },
+    {
+      "lesson_date": "2026-10-08",
+      "turn_t": 222.43,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "target": null,
+      "payload": null,
+      "note": "Claude 2026-10-09 (repeats chip): note reader turned 'credit for all of these words, bywajje3 raas' into credits for um / he / uh / like; those rows also wiped the second listen's text of 03:42. bywajje3 / raas are judged by WS-30",
+      "undoes": "5292344e-eb3e-4329-9e25-570d2f290f75",
+      "proposal": null,
+      "answer": null,
+      "ts": "2026-10-09T18:31:04.000Z",
+      "tz_offset_min": 0,
+      "id": "chat-20261009-reparse-5292344e-eb3e",
+      "by": "claude (his 10-08 notes re-read; the AI note reader misread them)"
+    },
+    {
+      "lesson_date": "2026-10-08",
+      "turn_t": 222.43,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "target": null,
+      "payload": null,
+      "note": "Claude 2026-10-09 (repeats chip): note reader turned 'credit for all of these words, bywajje3 raas' into credits for um / he / uh / like; those rows also wiped the second listen's text of 03:42. bywajje3 / raas are judged by WS-30",
+      "undoes": "5f4a74bb-e29a-4d3b-8ed0-d4cc89b4972b",
+      "proposal": null,
+      "answer": null,
+      "ts": "2026-10-09T18:31:04.000Z",
+      "tz_offset_min": 0,
+      "id": "chat-20261009-reparse-5f4a74bb-e29a",
+      "by": "claude (his 10-08 notes re-read; the AI note reader misread them)"
+    },
+    {
+      "lesson_date": "2026-10-08",
+      "turn_t": 222.43,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "target": null,
+      "payload": null,
+      "note": "Claude 2026-10-09 (repeats chip): note reader turned 'credit for all of these words, bywajje3 raas' into credits for um / he / uh / like; those rows also wiped the second listen's text of 03:42. bywajje3 / raas are judged by WS-30",
+      "undoes": "ba5bfc6f-c7bf-4d27-887c-0106a8dbc723",
+      "proposal": null,
+      "answer": null,
+      "ts": "2026-10-09T18:31:04.000Z",
+      "tz_offset_min": 0,
+      "id": "chat-20261009-reparse-ba5bfc6f-c7bf",
+      "by": "claude (his 10-08 notes re-read; the AI note reader misread them)"
+    },
+    {
+      "lesson_date": "2026-10-08",
+      "turn_t": 222.43,
+      "turn_who": "Medi",
+      "kind": "undo",
+      "target": null,
+      "payload": null,
+      "note": "Claude 2026-10-09 (repeats chip): note reader turned 'credit for all of these words, bywajje3 raas' into credits for um / he / uh / like; those rows also wiped the second listen's text of 03:42. bywajje3 / raas are judged by WS-30",
+      "undoes": "ce420db3-5949-4351-89c8-bf12cbafa354",
+      "proposal": null,
+      "answer": null,
+      "ts": "2026-10-09T18:31:04.000Z",
+      "tz_offset_min": 0,
+      "id": "chat-20261009-reparse-ce420db3-5949",
+      "by": "claude (his 10-08 notes re-read; the AI note reader misread them)"
+    },
+    {
+      "id": "chat-20261009-keefak-1",
+      "lesson_date": "2026-10-08",
+      "turn_t": 42.69,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "Defect"
+      },
+      "payload": {
+        "engine_wrote": "Defect",
+        "heard": "كيفك",
+        "word_key": "kIfak",
+        "credit": "none",
+        "turn_end": 43.25,
+        "raw": "I said Keefak the keefik to correct myself",
+        "read_from": "a6addd43-8309-4c52-bbee-03eeb9a1b866"
+      },
+      "note": "I said Keefak the keefik to correct myself (first try keefak, to a woman: no credit, not a slip - he fixed it himself)",
+      "ts": "2026-10-09T18:31:04.000Z",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-keefak-2",
+      "lesson_date": "2026-10-08",
+      "turn_t": 45.51,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "Defect"
+      },
+      "payload": {
+        "engine_wrote": "Defect",
+        "heard": "كيفك",
+        "word_key": "kIfek",
+        "credit": "independent",
+        "turn_end": 46.15,
+        "raw": "I said Keefak the keefik to correct myself",
+        "read_from": "a6addd43-8309-4c52-bbee-03eeb9a1b866"
+      },
+      "note": "I said Keefak the keefik to correct myself (keefek, his own fix before Amal: credit, WS-07)",
+      "ts": "2026-10-09T18:31:04.000Z",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-jaahez",
+      "lesson_date": "2026-10-08",
+      "turn_t": 85.25,
+      "turn_who": "Medi",
+      "kind": "text",
+      "target": {
+        "word": "Yes"
+      },
+      "payload": {
+        "engine_wrote": "Yes",
+        "heard": "جاهز",
+        "word_key": "jAhez",
+        "turn_end": 85.45,
+        "raw": "ok Jaahez not a7san",
+        "read_from": "ced82a31-a7dc-4ad0-b90e-77b7e066af50",
+        "note_on_target": "his fix wins over the second listen's أحسن on this line (Medi 2026-10-04)"
+      },
+      "note": "ok Jaahez not a7san",
+      "ts": "2026-10-09T18:31:04.000Z",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)"
+    },
+    {
+      "id": "chat-20261009-3ayaana-again",
+      "lesson_date": "2026-10-08",
+      "turn_t": 141.11,
+      "turn_who": "Medi",
+      "kind": "add",
+      "target": {
+        "k": "grammar",
+        "said": "عيان",
+        "rule": "A8"
+      },
+      "payload": {
+        "k": "grammar",
+        "rule": "A8",
+        "wrong": "عيان",
+        "right": "عيانة",
+        "turn_end": 143.79,
+        "t_amal": "02:22",
+        "amal_said": "لسة الخطيب بتاع عيانة.",
+        "line": "uh, خطيبتي شوي عيان",
+        "read_from": "95d35bc8-ef02-4f53-a708-fee3eacac8ca"
+      },
+      "note": "she corrected 3ayaana feminine test I should get marked for a grammar error",
+      "ts": "2026-10-09T18:31:04.000Z",
+      "by": "medi (his page note 2026-10-09, read by Claude: the auto-reader misread it)",
+      "rule": "one-off: she voiced the fix a second time (02:22) on his second عيان, so it is its own slip, not GR-12's one-moment repeat"
+    }
+  ]
 }

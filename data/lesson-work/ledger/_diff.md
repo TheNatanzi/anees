@@ -24,7 +24,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-02 | 84.0 | 75 | 90.6 | 27 | 286 | 1 / 0 |
 | 2026-10-05 | 83.5 | 115 | 90.6 | 24 | 256 | 0 / 1 |
 | 2026-10-06 | 80.0 | 90 | 85.4 | 33 | 212 | 1 / 0 |
-| 2026-10-08 | 86.4 | 81 | 91.5 | 23 | 259 | 0 / 0 |
+| 2026-10-08 | 86.4 -> **93.5** | 81 -> **162** | 91.5 -> **89.0** | 23 -> **26** | 259 -> **228** | 1 / 2 |
 
 
 ## Conflicts
@@ -56,10 +56,13 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-02 27:18 C1r both stand: اليوم (word-bank right) vs اليوم -> المرة (readers wrong) - the Word Bank's context review already settled it: unchanged
 - 2026-10-05 37:34 C1q Medi?: إشي. (word-bank right) vs إشي -> واحدة (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-10-06 28:37 C3 settled: التاني  الفستان (use-counter use) vs التاني الـ الفستان -> الفستان التاني (readers slip A7) - one turn was both a use and a slip of the same rule: one attempt, wrong
+- 2026-10-08 31:42 C1 settled: الأول (word-bank right) vs الأول -> الهوا (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-10-08 32:00 C1q Medi?: بعيد (word-bank right) vs بعيد -> غير (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-10-08 48:38 C1q Medi?: رمل (word-bank right) vs رمل -> تراب (readers wrong) - which word of the phrase was wrong: Medi
 
 ## Medi's corrections (PR-15)
 
-- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2, chat-20261003-aa5er-el-moazafa
+- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2, chat-20261003-aa5er-el-moazafa, chat-20261009-3ayaana-again
 - orphaned (match nothing, re-check): none
 - waiting for Amal: none
 - standing rules: none

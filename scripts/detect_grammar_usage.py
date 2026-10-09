@@ -474,7 +474,59 @@ def repeat_of_fixed(T, i, window=30.0):
     return None
 
 
+# 4. GR-32 (Medi 2026-10-09 on 10-08: "You are also doing a poor job of realizing for grammar errors that I am being
+#    corrected and repeating the correctiong. THese should also be marked as repeat and uncounted"): from
+#    word_coverage.FROM on, a use whose words the tutor GAVE him in the 30 s before - her correction or recast of his line
+#    or the fix a counted slip names (word_coverage.supplies), or the line he says back word for word - is not a use
+#    (10-08 04:06 هي راسها بيوجع after her 04:00 هي راسها بيوجع: the B1 use). GR-28 is the case of his own earlier line.
+def audit_fix_times(date, path=None):
+    """Times of the tutor's fixes the counted slips name (the full audit's sweep_compat rows, grammar and words)."""
+    p = path or os.path.join(os.path.dirname(DOCS), "data", "full-audit-2026-09-26.json")
+    try:
+        sc = json.load(open(p, encoding="utf-8"))["sweep_compat"]
+    except (OSError, ValueError, KeyError):
+        return []
+    out = []
+    for r in (sc.get("rows") or []) + (sc.get("vocab") or []):
+        if r.get("date") == date and r.get("t_amal"):
+            try:
+                out.append(_secs(r["t_amal"]))
+            except ValueError:
+                pass
+    return out
+
+
+def as_turns(T):
+    return [{"who": "Medi" if t["speaker"] == "Medi" else "Amal", "t": t["start"], "end": t.get("end", t["start"]), "text": t["text"]} for t in T]
+
+
+def grammar_repeat(Tw, i, hit, sup):
+    """The tutor line (index) whose words give this use, or None (GR-32): every word of the hit is one of hers (el- and
+    w- aside, letter for letter otherwise - his عيان after her عيانة is NOT her word, it is the slip again), and her line
+    is a correction / recast / a form she gave (sup)."""
+    import word_coverage as WC
+    same = lambda w: re.sub(r"^و(?=ال)", "", WC.norm(w))       # the form itself: el- counts (her قمر, his القمر = his own el-)
+    hw = [same(w) for w, cut in WC.arabic_tokens(hit) if not cut]
+    if not hw:
+        return None
+    for j in WC.tutor_before(Tw, i, WC.GRAMMAR_REPEAT_S):
+        if j not in sup:
+            continue                      # only her correction / recast / given form (a question of hers is not one)
+        hers = {same(w) for w, cut in WC.arabic_tokens(Tw[j].get("text")) if not cut}
+        if all(h in hers for h in hw):
+            return j
+    return None
+
+
+def repeat_row(date, t, j_turn, bid, hit, said):
+    return {"date": date, "t": round(t, 1), "said": said[:300], "bucket": bid, "hit": hit, "repeat": True,
+            "amal_t": round(float(j_turn["t"]), 1), "amal_line": (j_turn.get("text") or "")[:160], "rule": "GR-32",
+            "why": "repeat of the tutor's correction at %02d:%02d («%s»): said after she gave it, not a use (GR-32, Medi 2026-10-09)"
+                   % (int(j_turn["t"]) // 60, int(j_turn["t"]) % 60, (j_turn.get("text") or "")[:60])}
+
+
 if __name__ == "__main__":
+    import word_coverage as WC
     dates = sorted(d for d in os.listdir(ANEES) if re.fullmatch(r"\d{4}-\d{2}-\d{2}", d))
     # only lessons with a published page (same list as full_audit_build.py), so the Lessons page and the console add up
     dates = [d for d in dates if os.path.exists(os.path.join(DOCS, "lessons", d + ".html"))]
@@ -494,6 +546,8 @@ if __name__ == "__main__":
         seen_here = Counter()
         n_turns = n_latin = 0
         read = {}
+        TW = as_turns(T)
+        SUP = WC.supplies(TW, audit_fix_times(date)) if WC.in_scope(date) else {}
 
         def add(t, bid, hit, read_as, back, joined=None):
             if back:
@@ -526,7 +580,7 @@ if __name__ == "__main__":
                 continue
             prev = repeat_of_fixed(T, i)
             if prev is not None:
-                not_uses.append({"date": date, "t": round(t["start"], 1), "said": t["text"][:300],
+                not_uses.append({"date": date, "t": round(t["start"], 1), "said": t["text"][:300], "repeat": True, "rule": "GR-28",
                                  "why": "repeat of the line Amal just fixed (%02d:%02d): one moment with the slip, not a new use (GR-28, Medi 2026-10-05)"
                                         % (int(prev["start"]) // 60, int(prev["start"]) % 60)})
                 continue
@@ -537,6 +591,10 @@ if __name__ == "__main__":
                                         "(automatic rule, Medi 2026-10-02)"})
                 del found["E5"]
             for bid, hit in found.items():
+                j = grammar_repeat(TW, i, unmask(hit, back) if back else hit, SUP) if SUP else None
+                if j is not None:
+                    not_uses.append(repeat_row(date, t["start"], TW[j], bid, unmask(hit, back) if back else hit, t["text"]))
+                    continue
                 add(t, bid, hit, read_as, back)
         for run in stretches(T):
             run = [i for i in run if not _is_farsi(T[i]["text"])]
@@ -552,6 +610,10 @@ if __name__ == "__main__":
                     continue                        # inside one turn: already counted there
                 first = hit.split()[0]
                 at = next((i for i in run if i in read and first in read[i][0]), run[0])
+                j = grammar_repeat(TW, at, unmask(hit, back), SUP) if SUP else None
+                if j is not None:
+                    not_uses.append(repeat_row(date, T[at]["start"], TW[j], bid, unmask(hit, back), T[at]["text"]))
+                    continue
                 add(T[at], bid, hit, unmask(joined_txt, back), back, joined=[round(T[i]["start"], 1) for i in run])
         per_lesson[date] = {
             "source": src,
