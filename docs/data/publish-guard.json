@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-09T12:19:35-07:00",
+ "updated": "2026-10-09T13:09:40-07:00",
  "result": "pass",
- "source": "manual: clear Medi's 10-08 repeat note",
- "checked_commit": "f942abe6067a",
- "secs": 81.3,
+ "source": "manual: transcript colour key + one chip per word (PG-39), 08:36 credits",
+ "checked_commit": "b5fca0df9fdd",
+ "secs": 78.3,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.0,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "119 JSON files parse"
   },
@@ -33,9 +33,9 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 224 rules: enforced 134 (code 125, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
+   "detail": "rule_registry: OK - 225 rules: enforced 135 (code 126, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
   {
    "id": "lesson_coverage",
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.4,
+   "secs": 2.3,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 0.9,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 1.5,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 719 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 2.1,
+   "secs": 2.0,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...6 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,9 +105,9 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.2,
+   "secs": 4.9,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
-   "detail": "pages OK: 71 pages, every link, data file and clip resolves (122 references to unpublished clips play from the full lesson recording)"
+   "detail": "pages OK: 71 pages, every link, data file and clip resolves (120 references to unpublished clips play from the full lesson recording)"
   },
   {
    "id": "arabizi_gaps",
@@ -129,9 +129,9 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 58.8,
+   "secs": 56.7,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 99%] | ......                                                                   [100%] | 722 passed, 1 skipped, 3 xfailed in 55.42s"
+   "detail": "............................. [ 98%] | ..........                                                               [100%] | 726 passed, 1 skipped, 3 xfailed in 54.65s"
   },
   {
    "id": "tests_node",
@@ -139,7 +139,7 @@
    "ok": true,
    "secs": 1.2,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1126.8817"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1134.7117"
   },
   {
    "id": "rehear_rows",
@@ -160,10 +160,10 @@
   {
    "id": "data_freshness",
    "required": false,
-   "ok": true,
+   "ok": false,
    "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
-   "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
+   "detail": "Amal's answers last checked 2 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
   },
   {
    "id": "medi_corrections",
@@ -184,17 +184,18 @@
  ],
  "warnings": [
   "review_freshness: 2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it",
+  "data_freshness: Amal's answers last checked 2 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-09T12:15:22-07:00",
-  "source": "manual: clear Medi's 10-08 repeat note",
+  "at": "2026-10-09T13:08:11-07:00",
+  "source": "manual: transcript colour key + one chip per word (PG-39), 08:36 credits",
   "outcome": "blocked",
-  "sha": "dd8b2503f0b5e235352bc06225e7b88fe7ff537e",
-  "reason": "tests_py: exit 1: FAILED tests/test_repeats_coverage.py::test_every_arabic_word_of_his_on_10_08_carries_a_mark | 1 failed, 721 passed, 1 skipped, 3 xfailed in 53.99s",
-  "secs": 79.2,
+  "sha": "4c231da30679e8ec1766211106299a602aef4698",
+  "reason": "tests_node: exit 1: ✖ filters: All, Only marked, Only ✗, Vocab, Grammar, Amal's fixes (11.4338ms) | }",
+  "secs": 78.2,
   "commits_waiting": "1"
  },
- "blocks_before_this_pass": 3,
+ "blocks_before_this_pass": 1,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
