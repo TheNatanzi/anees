@@ -133,3 +133,12 @@ test('PG-37 after Send his words stay on the line with Edit (reopens the box pre
  assert.ok(js.includes('(replaces || []).forEach(function (r) { undo(r); });'),'an edit undoes the old rows (append-only) before the new ones');
  assert.ok(fs.readFileSync(path.join(ROOT,'docs','css','lessons.css'),'utf8').includes('.tc-note-line'),'styled');
 });
+
+test('PG-37 editing a saved fix shows Save (Enter) and Cancel (Escape); a second tap on the line button closes the box',()=>{
+ const js=fs.readFileSync(path.join(ROOT,'docs','js','transcript-corrections.js'),'utf8');
+ assert.ok(js.includes("editing ? 'Save' : 'Send'"),'Save in edit mode');
+ assert.ok(js.includes("editing ? 'Cancel' : 'Close'"),'Cancel in edit mode');
+ assert.ok(js.includes("if (e.key === 'Escape') { e.preventDefault(); P.remove(); }"),'Escape cancels');
+ assert.ok(js.includes("if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); doSend(); }"),'Enter saves');
+ assert.ok(js.includes("if (row.querySelector('.tc-panel.tc-one')) { closePanels(row); return; }"),'same button again closes');
+});

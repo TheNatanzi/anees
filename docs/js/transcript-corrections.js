@@ -358,6 +358,7 @@ async function askAI(text, part) {
   } catch (e) { return { status: 'error', items: [] }; }
 }
 function moreMenu(row, x, turn, parts, prefill, replaces) {
+  if (row.querySelector('.tc-panel.tc-one')) { closePanels(row); return; }   // same button again = close (Medi 2026-10-08)
   closePanels(row);
   var P = el('div', 'tc-panel tc-one'), main = row.querySelector('.tm-main') || row, part = (parts || [])[0] || turn;
   var other = part.who === 'Medi' ? 'Amal' : 'Medi', PR = PARSER();
@@ -371,8 +372,11 @@ function moreMenu(row, x, turn, parts, prefill, replaces) {
   var ta = el('textarea'); ta.placeholder = 'Write the fix in your own words'; ta.setAttribute('dir', 'auto'); ta.setAttribute('aria-label', 'Write the fix in your own words');
   ta.rows = 2; ta.enterKeyHint = 'send';
   var read = el('div', 'tc-read'), why = el('div', 'tc-reading', 'e.g. "this was the tutor" · "time 2:13" · "missing word ya3ni" · "I said عشرة not العشاء" · "ومه should be أمه"');
-  var bar = el('div', 'tc-row'), send = btn('tc-big tc-primary tc-send', 'Send', function () { doSend(); }); send.disabled = true;
-  bar.appendChild(send); bar.appendChild(btn('tc-small tc-close', 'Close', function () { P.remove(); }));
+  var editing = !!(replaces && replaces.length);
+  var bar = el('div', 'tc-row'), send = btn('tc-big tc-primary tc-send', editing ? 'Save' : 'Send', function () { doSend(); }); send.disabled = true;
+  send.title = editing ? 'Save the change and close (Enter)' : 'Save and close (Enter)';
+  bar.appendChild(send); bar.appendChild(btn('tc-small tc-close', editing ? 'Cancel' : 'Close', function () { P.remove(); }, 'Close without saving (Escape)'));
+  P.addEventListener('keydown', function (e) { if (e.key === 'Escape') { e.preventDefault(); P.remove(); } });
   P.appendChild(ta); P.appendChild(read); P.appendChild(why); P.appendChild(bar);
   main.appendChild(P);
   if (prefill) { ta.value = prefill; }
@@ -429,7 +433,7 @@ function moreMenu(row, x, turn, parts, prefill, replaces) {
   async function doSend() {
     var text = ta.value.trim();
     if (!text) { ta.focus(); return; }
-    if (!sure && aiBusy) { send.disabled = true; send.textContent = 'Reading…'; try { await aiBusy; } catch (e) { /* saved as a note */ } send.textContent = 'Send'; }
+    if (!sure && aiBusy) { send.disabled = true; send.textContent = 'Reading…'; try { await aiBusy; } catch (e) { /* saved as a note */ } send.textContent = editing ? 'Save' : 'Send'; }
     if (!items.length) items = [noteOf()];
     var saved = [];
     (replaces || []).forEach(function (r) { undo(r); });   // an edit replaces the earlier rows: undo + new rows, append-only
@@ -491,8 +495,9 @@ function decorate(row, x, turn, parts) {
   var mine = lineRows(x.date, parts || [turn]);
   if (mine.length) {
     var last = mine[mine.length - 1];
-    head.appendChild(btn('tc-tag', '✎ yours' + (mine.length > 1 ? ' ×' + mine.length : ''), function () { undo(last); },
-      'Your correction (' + (KIND_WORDS[last.kind] || last.kind) + '). Tap to undo the last one.'));
+    var lastRaw = (last.payload || {}).raw || '', lastSame = lastRaw ? mine.filter(function (r) { return (r.payload || {}).raw === lastRaw; }) : [last];
+    head.appendChild(btn('tc-tag', '✎ yours' + (mine.length > 1 ? ' ×' + mine.length : ''), function () { if (lastRaw) moreMenu(row, x, turn, parts, lastRaw, lastSame); else undo(last); },
+      'Your correction (' + (KIND_WORDS[last.kind] || last.kind) + '). Tap to ' + (lastRaw ? 'edit it (tap again to close).' : 'undo it.')));
     row.classList.add('tc-has');
   }
   head.appendChild(btn('tc-more', '✎ more', function () { moreMenu(row, x, turn, parts); }, 'Write the fix in your own words: wrong speaker, wrong time, a missing word, or a mistake nobody marked'));
