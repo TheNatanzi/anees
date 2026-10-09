@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-09T09:16:47-07:00",
+ "updated": "2026-10-09T09:22:34-07:00",
  "result": "pass",
- "source": "manual: TR-29 second listen sent + page rebuild on chip change (Medi 2026-10-09)",
- "checked_commit": "476d95dfbe49",
- "secs": 92.3,
+ "source": "manual: clear resolved second-listen alerts (Medi 2026-10-09)",
+ "checked_commit": "7a57f67df59f",
+ "secs": 90.3,
  "checks": [
   {
    "id": "step_failures",
@@ -41,7 +41,7 @@
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.6,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 21 lessons reach every page"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 3.0,
+   "secs": 2.8,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.9,
+   "secs": 1.7,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 719 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 2.3,
+   "secs": 2.4,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...8 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.7,
+   "secs": 5.9,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 71 pages, every link, data file and clip resolves (13 references to unpublished clips play from the full lesson recording)"
   },
@@ -129,9 +129,9 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 67.7,
+   "secs": 66.4,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "................... [ 90%] | .................................................................        [100%] | 709 passed, 1 skipped, 3 xfailed in 63.89s (0:01:03)"
+   "detail": "................... [ 90%] | .................................................................        [100%] | 709 passed, 1 skipped, 3 xfailed in 62.30s (0:01:02)"
   },
   {
    "id": "tests_node",
@@ -139,13 +139,13 @@
    "ok": true,
    "secs": 1.2,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1154.8504"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1122.8439"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.4,
+   "secs": 4.9,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -169,7 +169,7 @@
    "id": "medi_corrections",
    "required": false,
    "ok": false,
-   "secs": 0.2,
+   "secs": 0.1,
    "what": "Medi's transcript corrections: none orphaned, held or quarantined, no rule paused by probation (PR-15; a warning only, never blocks)",
    "detail": "exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)"
   },
