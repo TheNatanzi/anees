@@ -142,3 +142,11 @@ test('PG-37 editing a saved fix shows Save (Enter) and Cancel (Escape); a second
  assert.ok(js.includes("if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); doSend(); }"),'Enter saves');
  assert.ok(js.includes("if (row.querySelector('.tc-panel.tc-one')) { closePanels(row); return; }"),'same button again closes');
 });
+
+test('PG-37 no clicking on words: a word tap does nothing, only the box (Medi 2026-10-09 "get rid of all the clicking on words")',()=>{
+ const js=fs.readFileSync(path.join(ROOT,'docs','js','transcript-corrections.js'),'utf8');
+ assert.ok(!js.includes('function openWordPanel'),'guess panel gone');
+ assert.ok(!js.includes("'Type what you said'"),'its box gone');
+ assert.ok(js.includes('function wordTap() { return false; }'),'a word tap is a no-op');
+ assert.ok(!fs.readFileSync(path.join(ROOT,'docs','css','lessons.css'),'utf8').includes('.ls-turntext{cursor:text}'),'no text cursor inviting a tap');
+});

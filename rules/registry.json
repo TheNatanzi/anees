@@ -8647,9 +8647,9 @@
    "scope": "pages",
    "status": "enforced",
    "change": "new",
-   "statement": "The '✎ more' panel on a transcript line is ONE box ('Write the fix in your own words') and one Send, plus the one-tap 'This was Amal / Medi' button. The text is read into the same structured rows the seven boxes made: first a rule layer (docs/js/correction-parse.js: 'this was Amal', 'time 2:13', 'missing word X', 'I said X not Y', 'X should be Y' with Arabic or Arabizi on either side); when the rules are not sure, ONE Claude Haiku read (supabase/functions/parse-correction, prompt scripts/correction_parse_prompt.md, cost in api_spend and mirrored to data/budget.json + the run log by scripts/correction_parse.py); the reading shows as plain-words chips he taps to edit or drops before Send; nothing parsed = a 'note' row with his words (migration 024) that the hourly job reads with the same prompt (scripts/correction_parse.py read-notes, one logged call per note). Every row keeps his raw words in payload.raw; Undo stays one tap (AM-17 pattern); storage and the builders are unchanged. After Send his words stay under the line ('Your fix: «…»') with Edit (reopens the box with his words; Send undoes the earlier rows and saves the new ones, append-only) and Undo. Editing a saved fix shows Save (Enter) and Cancel (Escape); tapping ✎ more or ✎ yours again closes the box.",
-   "plain": "The fix panel on a transcript line is one box: write the fix in your own words and tap Send. Anees reads your words into the same corrections as before (speaker, time, a dropped word, what the engine misheard, a mistake), shows its reading as chips you can change, and keeps your exact words with the correction. After Send your words stay under the line with Edit and Undo; editing shows Save and Cancel, and tapping the line's button again closes the box. The one-tap 'This was Amal' button stays.",
-   "plain_for": "45d3a2e4",
+   "statement": "The '✎ more' panel on a transcript line is ONE box ('Write the fix in your own words') and one Send, plus the one-tap 'This was Amal / Medi' button. The text is read into the same structured rows the seven boxes made: first a rule layer (docs/js/correction-parse.js: 'this was Amal', 'time 2:13', 'missing word X', 'I said X not Y', 'X should be Y' with Arabic or Arabizi on either side); when the rules are not sure, ONE Claude Haiku read (supabase/functions/parse-correction, prompt scripts/correction_parse_prompt.md, cost in api_spend and mirrored to data/budget.json + the run log by scripts/correction_parse.py); the reading shows as plain-words chips he taps to edit or drops before Send; nothing parsed = a 'note' row with his words (migration 024) that the hourly job reads with the same prompt (scripts/correction_parse.py read-notes, one logged call per note). Every row keeps his raw words in payload.raw; Undo stays one tap (AM-17 pattern); storage and the builders are unchanged. After Send his words stay under the line ('Your fix: «…»') with Edit (reopens the box with his words; Send undoes the earlier rows and saves the new ones, append-only) and Undo. Editing a saved fix shows Save (Enter) and Cancel (Escape); tapping ✎ more or ✎ yours again closes the box. Tapping a word does nothing (the 'What did you say?' guess menu of PG-24 is gone); only ✎ more opens the box.",
+   "plain": "The fix panel on a transcript line is one box: tap ✎ more, write the fix in your own words, tap Send. Tapping a word does nothing. Anees reads your words into the same corrections as before, shows its reading as chips you can change, and keeps your exact words. After Send your words stay under the line with Edit and Undo; editing shows Save and Cancel. The one-tap 'This was Amal' button stays.",
+   "plain_for": "c44f6d0c",
    "topic": "your corrections",
    "source": [
     {
@@ -8669,6 +8669,18 @@
      "date": "2026-10-08",
      "quote": "there doesnt seem to be a way to save and close",
      "session": "acc9909b"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-08",
+     "quote": "I dont like this clicking feature.  We will just write the full correction for you",
+     "session": "66753f1f"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "get rid of all the clicking on words.  Just enable a box and we will type a reponse ourself",
+     "session": "66753f1f"
     }
    ],
    "enforcement": [
@@ -8727,6 +8739,10 @@
     {
      "path": "tests/test_correction_parse.cjs",
      "contains": "test('PG-37 editing a saved fix shows Save (Enter) and Cancel (Escape)"
+    },
+    {
+     "path": "tests/test_correction_parse.cjs",
+     "contains": "test('PG-37 no clicking on words: a word tap does nothing"
     }
    ],
    "example": {

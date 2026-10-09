@@ -3,7 +3,7 @@
    the corrections. Have it make rules for every correction if possible").
    - The fix lives inside the chip detail: ✗ → "Not a mistake" (one tap asks why); ✓ vocab → "Was wrong"; ✓ grammar →
      "Not a use"; Amal's fix → "Not a correction"; a grey dropped word → "It was a mistake".
-   - Tap a word on a line → "What did you say?" with 2-3 guesses (her chat words, Amal's next line, list words) + a box.
+   - Tapping a word does nothing (Medi 2026-10-09: "get rid of all the clicking on words"); only "✎ more" opens the box.
    - "✎ more" on each line: ONE box, "Write the fix in your own words" + Send (PG-37, Medi 2026-10-08) - read by
      docs/js/correction-parse.js (rules) or one Claude Haiku call (supabase/functions/parse-correction) into the same
      rows (speaker / time / missing / text / add, or a note); his raw words ride along in payload.raw.
@@ -273,66 +273,14 @@ function ctxFor(x, turn) {
   });
   return { chat: chat, amal: amal, list: WORDS || [] };
 }
-function wordTap(ev, x, row, turn, parts) {
-  var hit = null, box = ev.target.closest('.gc-latin, .gc-arabic');
-  if (!box) return false;
-  var r = doc.caretRangeFromPoint ? doc.caretRangeFromPoint(ev.clientX, ev.clientY) : null;
-  if (!r && doc.caretPositionFromPoint) { var cp = doc.caretPositionFromPoint(ev.clientX, ev.clientY); r = cp && { startContainer: cp.offsetNode, startOffset: cp.offset }; }
-  var full = box.textContent, at = 0;
-  if (r && r.startContainer && r.startContainer.nodeType === 3) {
-    var walk = doc.createTreeWalker(box, NodeFilter.SHOW_TEXT, null), n;
-    while ((n = walk.nextNode())) { if (n === r.startContainer) { at += r.startOffset; break; } at += n.nodeValue.length; }
-    var a = at, b = at;
-    while (a > 0 && !/\s/.test(full[a - 1])) a--;
-    while (b < full.length && !/\s/.test(full[b])) b++;
-    hit = full.slice(a, b).replace(/^[.…,،؟?!:;"“”()]+|[.…,،؟?!:;"“”()]+$/g, '');
-    if (box.classList.contains('gc-latin') && /[؀-ۿ]/.test(turn.text)) {      // Arabizi line: map by word position
-      var li = words(full.slice(0, a)).length, aw = words(turn.text), lw = words(full);
-      hit = aw.length === lw.length ? aw[li] : null;
-    }
-  }
-  openWordPanel(row, x, turn, parts, hit);
-  return true;
-}
+// Medi 2026-10-09 "get rid of all the clicking on words. Just enable a box and we will type a response ourself": a tap on a
+// word does nothing; only "✎ more" opens the one box. Kept as a no-op so lessons-page.js needs no change.
+function wordTap() { return false; }
 function partFor(parts, word) {
   var p = (parts || []).filter(function (q) { return word && q.text.indexOf(word) >= 0; })[0];
   return p || (parts || [])[0];
 }
 function closePanels(row) { Array.prototype.forEach.call(row.querySelectorAll('.tc-panel'), function (n) { n.remove(); }); }
-function openWordPanel(row, x, turn, parts, word) {
-  closePanels(row);
-  var P = el('div', 'tc-panel'), main = row.querySelector('.tm-main') || row;
-  P.setAttribute('role', 'group');
-  if (!word) {
-    P.appendChild(el('div', 'tc-q', 'Which word did the engine get wrong?'));
-    var ws = el('div', 'tc-row');
-    words(turn.text).forEach(function (w) { ws.appendChild(arabic(btn('tc-word', w, function () { openWordPanel(row, x, turn, parts, w); }))); });
-    P.appendChild(ws);
-  } else {
-    var part = partFor(parts, word);
-    var q = el('div', 'tc-q'); q.appendChild(document.createTextNode('What did you say? The engine wrote '));
-    if (H.toArabizi && /[؀-ۿ]/.test(word)) q.appendChild(el('b', '', H.toArabizi(word).text + ' '));
-    q.appendChild(arabic(el('small', '', word)));
-    P.appendChild(q);
-    var g = guesses(word, ctxFor(x, part), H.toArabizi), gr = el('div', 'tc-row');
-    g.forEach(function (o) {
-      var b = btn('tc-big tc-guess', '', function () { save(x, part, 'text', { word: word }, { engine_wrote: word, heard: o.w, from: o.from }); });
-      // S1: Arabizi big, Arabic small
-      var isAr = /[؀-ۿ]/.test(o.w), big = o.az || (isAr && H.toArabizi ? H.toArabizi(o.w).text : o.w);
-      b.appendChild(el('span', 'tc-g', big)); if (isAr) b.appendChild(arabic(el('small', '', ' ' + o.w))); b.appendChild(el('small', 'tc-from', ' · ' + o.from));
-      gr.appendChild(b);
-    });
-    P.appendChild(gr);
-    var f = el('form', 'tc-type'), inp = el('input'); inp.type = 'text'; inp.placeholder = 'Type what you said'; inp.setAttribute('dir', 'auto'); inp.setAttribute('aria-label', 'What you said');
-    f.appendChild(inp); f.appendChild(btn('tc-big', 'Save', function () { if (inp.value.trim()) save(x, part, 'text', { word: word }, { engine_wrote: word, heard: inp.value.trim(), from: 'typed' }); }));
-    f.addEventListener('submit', function (e) { e.preventDefault(); if (inp.value.trim()) save(x, part, 'text', { word: word }, { engine_wrote: word, heard: inp.value.trim(), from: 'typed' }); });
-    P.appendChild(f);
-  }
-  P.appendChild(btn('tc-small tc-close', 'Close', function () { P.remove(); }));
-  main.appendChild(P);
-  var i = P.querySelector('input'); if (i && !g_len(P)) i.focus();
-}
-function g_len(P) { return P.querySelectorAll('.tc-guess').length; }
 
 /* ---------- "✎ more": ONE box per line (PG-37; Medi 2026-10-08 "Can we turn this into just 1 box and we can write the
    correction, not try and separate into so many boxes?") ---------- */
@@ -581,7 +529,7 @@ async function loadWords() {
 function mountLesson(body, x) {
   var box = el('section', 'tc-box');
   box.setAttribute('aria-label', 'Your corrections');
-  var intro = el('p', 'ab-mini tc-intro', 'Correct anything: tap a chip (Not a mistake / Was wrong / Not a use), tap a word the engine got wrong, or ✎ more on a line and write the fix in your own words. ');
+  var intro = el('p', 'ab-mini tc-intro', 'Correct anything: tap a chip (Not a mistake / Was wrong / Not a use), or ✎ more on a line and write the fix in your own words. ');
   intro.appendChild(el('span', 'tc-sync', statusText()));
   box.appendChild(intro);
   var props = el('div', 'tc-props');
