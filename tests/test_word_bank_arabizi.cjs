@@ -78,7 +78,12 @@ test('S1 / AZ-05 / AZ-10: an as-said row with scope "lessons" is Arabizi on the 
  assert.equal(reread.length,430);
  assert.equal(reread.filter(v=>v.method==='as-said').length,188);
  assert.ok(reread.filter(v=>v.method==='as-said').every(v=>v.scope==='lessons'));
- assert.equal(Object.values(W).filter(v=>v.scope).length,192);   // 188 + 4 as-said rows of the 2026-10-07 re-read (TR-27 text)
+ // every scoped row is an as-said row, and every as-said row added from the 2026-10-04 re-read on carries the Lessons scope
+ // (each new lesson's review adds its own: 192 on 10-07, +36 from lesson 2026-10-08; a frozen total broke the next lesson)
+ const scoped=Object.values(W).filter(v=>v.scope);
+ assert.ok(scoped.length>=192);
+ assert.ok(scoped.every(v=>v.method==='as-said'&&v.scope==='lessons'));
+ assert.ok(Object.values(W).filter(v=>v.method==='as-said'&&String(v.added||'')>='2026-10-04').every(v=>v.scope==='lessons'));
  for(const f of ['scripts/arabizi_gaps.cjs','scripts/lessons_page_node.cjs','docs/js/lessons-page.js'])assert.ok(fs2.readFileSync(p2.join(__dirname,'..',f),'utf8').includes("scope: 'lessons'"),f+' must ask for the Lessons scope');
  for(const f of ['docs/js/grammar-console.js','docs/js/transcript-arabizi.js','docs/js/fluency-ladder.js','docs/js/fluency-unknowns.js','docs/js/vocab-unknowns.js'])assert.ok(!fs2.readFileSync(p2.join(__dirname,'..',f),'utf8').includes("scope: 'lessons'"),f+' is not the Lessons page');
 });
