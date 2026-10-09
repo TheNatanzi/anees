@@ -11,9 +11,9 @@
   "threshold_pct": 95.0,
   "words": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 83.9,
+   "unverified_avg_pct": 83.8,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 1724,
+   "eligible": 1727,
    "excluded": 7,
    "pending": 6
   },
@@ -22,11 +22,11 @@
    "unverified_avg_pct": 86.9,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 1,
-   "eligible": 664,
+   "eligible": 663,
    "excluded": 39,
-   "pending": 20
+   "pending": 21
   },
-  "verification_queue": 26,
+  "verification_queue": 27,
   "word_bank": {
    "occurrences": 3446,
    "eligible": 1500,
@@ -1160,32 +1160,33 @@
    "date": "2026-10-08",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 59.6 %; 2 consecutive passes at >= 95 % are needed",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4032 s) compared with a second model"
+    "reader agreement: pass 1 63.8 %; 2 consecutive passes at >= 95 % are needed",
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4032 s) compared with a second model",
+    "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
    ],
    "words": {
-    "pct": 91.1,
-    "eligible_pct": 91.1,
+    "pct": 88.4,
+    "eligible_pct": 88.4,
     "verified_pct": null,
-    "scored": 96,
-    "eligible": 96,
+    "scored": 99,
+    "eligible": 99,
     "excluded": 0,
     "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 91.2,
+    "pct": 91.5,
     "verified_pct": null,
-    "mistakes": 24,
-    "uses": 262,
-    "eligible": 24,
+    "mistakes": 23,
+    "uses": 259,
+    "eligible": 23,
     "excluded": 0,
-    "pending": 0,
+    "pending": 1,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
-     "6 slips are in rules the counter found 0 uses of in this lesson",
-     "4 rules have more slips than counted uses (A7, B18, C1, D2)"
+     "5 slips are in rules the counter found 0 uses of in this lesson",
+     "4 rules have more slips than counted uses (A7, A9, B18, D2)"
     ]
    },
    "coverage": {
@@ -1205,7 +1206,7 @@
     "timing": "engine"
    },
    "agreement": [
-    59.6
+    63.8
    ],
    "between_passes": []
   }

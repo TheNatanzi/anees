@@ -1,7 +1,7 @@
 {
  "about": "Rows two AIs disagree on (Claude readers: a mistake Amal signalled; Codex, listening to an independent transcription of the audio: not so, or cannot tell). Built by scripts/codex_rejudge.py. Amal answers on the Tutor page; her 'Correction is correct' makes the row a scored mistake, her reason drops it (scripts/apply_amal_audit_rulings.py).",
- "built": "2026-10-09T01:14:05-07:00",
- "count": 26,
+ "built": "2026-10-09T09:46:49-07:00",
+ "count": 27,
  "items": [
   {
    "id": "verify:FA-6350dadb",
@@ -548,6 +548,27 @@
    "codex_verdict": "unsure",
    "audio": "lessons/2026-10-01/audio/lesson.mp3#t=1137,1198",
    "sec": 1147.0
+  },
+  {
+   "id": "verify:FA-f2eab111",
+   "uid": "FA-f2eab111",
+   "date": "2026-10-08",
+   "t": "47:21",
+   "t_amal": "47:24",
+   "kind": "grammar",
+   "bucket": "A9",
+   "tier": null,
+   "medi_said": "Uh, الوردة / El ward.",
+   "amal_said": "وحدات؟",
+   "chat": null,
+   "wrong": "الوردة",
+   "right": "وردات",
+   "english": "flowers",
+   "readers_say": "Asked what things are on the land he gave singular الوردة; Amal's prompt (engine وحدات؟, likely وردات؟) offered a plural, he said وردات and she said Mm. Low: his collective الورد (fine) is stamped at the same second as her prompt, so it may be a self-fix, and her word is uncertain.",
+   "codex_says": "Medi says «الوردة/الورد», but Amal's own-track evidence sounds like «وحدة» rather than a clear plural prompt, and there is no reliable correction to «وردات».",
+   "codex_verdict": "rejected",
+   "audio": "lessons/2026-10-08/audio/lesson.mp3#t=2831,2865",
+   "sec": 2841.0
   }
  ],
  "answered": [
