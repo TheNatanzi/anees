@@ -30,7 +30,10 @@
     'laughs': 'laughs', 'laughing': 'laughs', 'laughter': 'laughs', 'laugh': 'laughs', 'chuckles': 'laughs', 'giggles': 'laughs',
     'coughs': 'cough', 'cough': 'cough', 'coughing': 'cough', 'clears throat': 'clears throat', 'sighs': 'sighs', 'sigh': 'sighs',
     'breathes': 'breathes', 'breathing': 'breathes', 'inhales': 'breathes', 'exhales': 'breathes', 'sniffs': 'sniffs',
-    'background noise': 'background noise', 'noise': 'background noise', 'music': 'music', 'applause': 'clapping', 'clapping': 'clapping',
+    'background noise': 'background noise', 'noise': 'background noise', 'background chatter': 'background noise',
+    'background chattering': 'background noise', 'background conversation': 'background noise', 'background voices': 'background noise',
+    'foreign language': 'speaking another language', 'in arabic': 'speaking Arabic', 'in spanish': 'speaking Spanish', 'beep': 'beep',
+    'gasps': 'gasp', 'gasp': 'gasp', 'keyboard clicking': 'typing', 'typing': 'typing', 'static': 'static', 'non-verbal response': 'sound', 'music': 'music', 'applause': 'clapping', 'clapping': 'clapping',
     'speaking arabic': 'speaking Arabic', 'speaks arabic': 'speaking Arabic', 'speaking in arabic': 'speaking Arabic',
     'speaking foreign language': 'speaking another language', 'speaking in foreign language': 'speaking another language',
     'speaking farsi': 'speaking Farsi', 'speaking persian': 'speaking Farsi', 'inaudible': 'unclear speech', 'unintelligible': 'unclear speech', 'crosstalk': 'crosstalk'

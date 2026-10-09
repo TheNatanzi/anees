@@ -2,12 +2,12 @@
  "date": "2026-10-08",
  "pass": 1,
  "counts": {
-  "r1": 44,
+  "r1": 40,
   "r2": 47,
-  "agreed": 37,
-  "disputed": 15,
-  "agreement_pct": 71.2,
-  "r3_kept": 7,
+  "agreed": 31,
+  "disputed": 21,
+  "agreement_pct": 59.6,
+  "r3_kept": 13,
   "r3_dropped": 8,
   "r3_unruled": 0,
   "r3_added": 0,
@@ -15,17 +15,17 @@
   "final": 44
  },
  "coverage": {
-  "r1": "No echo-candidates file for 2026-10-08. Opening 01:44-02:21 and 05:09-05:39 (date/time) are Latin-transliterated and unclear (Yomi me PTT Shui; halat el tod) - left out. 06:18-06:53 'احنا بين الـ worried' / 'احنا الآن' unclear (maybe قلقانين misheard); Amal never supplied the word, left out. 06:10 'dangerous' not on her sheet - not an error. 08:36 'pantalon' is بنطلون (on sheet), 'talvez' likely engine for لابس. 36:45 تلجات vs her تَلَّجَت is shadda/vowel (sound) - left out. 18:47 سجر for فجر is a sound slip folded into the أذان row. 32:00 بيد accepted by Amal (ممتاز) - word unclear in engine. 1:06:49 'عافيا فيكي' closing, left. Names (Palestine, Amsterdam 'Adam', أمريكا) not counted.",
-  "r2": "Long Latin-transliterated stretches for Medi (01:43-05:51, 30:11-30:36, 40:00-41:02, 45:38-48:16, 55:17-59:47) - read from Latin. Echo-candidates file for 2026-10-08 not present. Engine: 'talvez' 08:36 likely لابس, 'pantalon' likely بنطلون (sheet word, said in Arabic) - not tier 3; echo: شكرًا = شجر (49:10, 49:59); 52:50 'بير حجر' = غير حجر; 43:06 بهدئ = بيحرق; 32:14 زعلتكش عن = بيختلف عن. 'Adam'/الإدام 51:19 treated as the name Amsterdam per task. 06:27 'worried' is a meta English question, not tier 3. 11:35 repeat of ديرت بالي ختيفتي (Amal named على again) folded into the 09:49 row."
+  "r1": "Long stretches are Latin-transliterated by the engine (03:07, 05:51-06:10, 30:11-30:36, 40:24-41:01, 44:03-49:05, 55:17-59:47). Garbled/unclear: 02:23 Amal line, 05:51 'Lisa hom shob', 08:36 'اليوم talvez' (likely لابس), 09:02 'لا ما بعذر action', 16:51 'ممكن اليوم' (likely غيوم/مغيم), 45:01 'Parut', 49:10/49:59 'شكرًا' (likely شو كمان). Echo: 32:00/32:12 'بيد' = غير (different); 32:25/32:33 'and' = عن. 07:04-07:21 'worried' never supplied in Arabic. 'Adam'/'الإدام' 51:19 treated as a name per task list. Pronunciation only (S4) not filed: ختيفتي, قير, الهاوا/الهوا, بتلا/بتطلع, nadabet/نظفتها, سجر/فجر letter.",
+  "r2": "Arabic mixed with Latin-transliterated stretches (03:07 amalit tilha, 05:51 Lisa hom shob, 40:24-41:01 il hawa, 44:03 el nar, 45:38-46:08 el ard / nadabet, 47-49 shajar/zariya/tarab, 55-59 mufaddal). Engine: 'pantalon' 08:42 = بنطلون (not flagged); 16:55/20:05 اليوم = غيم (Amal غير شمس و يوم); 23:46 'بي البنية' = في الدنيا; 32:00 بيد = likely بيختلف/مختلف (Amal accepted); 43:06 بهدئ = بحرق; 49:10 and 49:59 شكرًا = engine for a list word (likely شجر); 09:02 'لا ما بعذر action' unclear, skipped. echo: no Arabic sound-alikes among the candidates (all real English). 05:34 تلاتة->تنتين is a fact fix, not language. 50:27 حجور/حجرات/حجار and 30:29 تلات مرة->مرات self-fixed before Amal. 1:04-1:06 English-only admin talk. Names (Palestine, Damascus, Middle East, Amsterdam = Adam/الإدام, America) not flagged."
  },
- "r3_note": "Engine wrote Latin for many of his lines (Ayan, aju, heret, nadabet); trust Amal's echoes (40:30 عجا = aja). Names: Palestine, Adam = Amsterdam (الإدام 51:20), أمريكا are names, not vocab. D3 and D10 are the same sky moment - one row (D10).",
+ "r3_note": "Duplicate pairs across readers: D2=D14 (الدرس إنه, kept at 14:42), D3=D16 (sky/سما), D5=D21 (زريعة). D19 dropped: Amal's echo عجا shows engine wrote aju. 1:03:04 فيهن is likely engine for في هون. Names (Amsterdam/El Adam, America, Palestine) not flagged.",
  "rows": [
   {
-   "id": "A1",
+   "id": "1008-r3-10",
    "t": "01:57",
    "t_amal": "02:00",
-   "medi_said": "Ayan, Ayan is sick.",
-   "amal_said": "عيانة؟",
+   "medi_said": "Ayan, Ayan is sick. / خطيبتي, شوي, Ayan.",
+   "amal_said": "عيانة؟ ... لسة الخطيب بتاع عيانة.",
    "chat": null,
    "wrong": "Ayan",
    "right": "عيانة",
@@ -35,49 +35,49 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "recast",
-   "confidence": "high",
-   "why": "He used the masculine adjective for his fiancee; Amal recast it feminine and he took it ('Yeah, Ayana').",
-   "english": "She is sick.",
+   "confidence": "medium",
+   "why": "He used masculine عيان for his fiancée; Amal echoed the feminine عيانة (02:00 and 02:23) and he took it ('Yeah, Ayana').",
+   "english": "my fiancée is a bit sick",
    "ids": [
-    "1008-1",
     "1008-1"
    ],
-   "agreed_by": "r1+r2",
+   "agreed_by": "r3",
+   "r3_why": "Her echo gives the feminine and he repeats it - recast.",
    "fid": "1008-001"
   },
   {
-   "id": "A2",
+   "id": "A1",
    "t": "03:56",
    "t_amal": "04:01",
-   "medi_said": "he biwaja rasa.",
-   "amal_said": "هي راسها بيوجع.",
+   "medi_said": "هي بيوجعها راسها.",
+   "amal_said": "هي راسها بيوجع. ... راسها بيوجع.",
    "chat": null,
-   "wrong": "he biwaja rasa",
+   "wrong": "هي بيوجعها راسها",
    "right": "هي راسها بيوجع",
    "kind": "grammar",
    "tier": null,
    "bucket": "C9",
-   "bucket2": "A4",
+   "bucket2": null,
    "mode": "speaking",
    "signal": "recast",
    "confidence": "medium",
-   "why": "He put the verb before 'her head' and left the owner ending loose; Amal recast the order (راسها بيوجع) and he repeated 'He rasa biwaja'.",
+   "why": "Amal recast his order (verb with -ha before راسها) to راسها بيوجع twice and he repeated it back ('He rasa biwaja').",
    "english": "Her head hurts.",
    "ids": [
-    "1008-2",
+    "1008-1",
     "1008-2"
    ],
    "agreed_by": "r1+r2",
    "fid": "1008-002"
   },
   {
-   "id": "A3",
+   "id": "1008-r3-11",
    "t": "04:15",
    "t_amal": "04:20",
    "medi_said": "I don't know how to say cough. She has a cough.",
    "amal_said": "They say but كح. I say كحة.",
    "chat": null,
-   "wrong": "cough",
+   "wrong": "None",
    "right": "كحة",
    "kind": "vocab-A",
    "tier": 0,
@@ -86,20 +86,45 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "Didn't-know: he asked how to say cough and Amal supplied كحة.",
-   "english": "cough",
+   "why": "Didn't-know: he asked for 'cough' and Amal supplied كحة.",
+   "english": "she has a cough",
    "ids": [
-    "1008-3",
     "1008-3"
    ],
-   "agreed_by": "r1+r2",
+   "agreed_by": "r3",
+   "r3_why": "Real didn't-know, she supplied the word.",
    "fid": "1008-003"
   },
   {
-   "id": "A4",
-   "t": "07:04",
+   "id": "1008-r3-1",
+   "t": "06:51",
+   "t_amal": null,
+   "medi_said": "احنا الآن، الآن.",
+   "amal_said": null,
+   "chat": null,
+   "wrong": "الآن",
+   "right": "هلا",
+   "kind": "vocab-B",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "none",
+   "confidence": "medium",
+   "why": "MSA الآن for 'now'; sheet row 'now | Halla | هلا | hala'; Amal only said 'إحنا group. أها.' and let it pass.",
+   "english": "we now...",
+   "ids": [
+    "1008-2"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Real: he used MSA الآن where her sheet has هلا; she gave no signal, so vocab-B.",
+   "fid": "1008-004"
+  },
+  {
+   "id": "A2",
+   "t": "07:14",
    "t_amal": "07:21",
-   "medi_said": "الـ or لا الـ نار.",
+   "medi_said": "لا الـ نار for fire",
    "amal_said": "You're worried about. You're worried from. ... Men، men.",
    "chat": null,
    "wrong": "لا الـ نار",
@@ -111,24 +136,24 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "Worried takes من; he used لا الـ, Amal said 'You're worried from' / 'Men' and he said من نار.",
-   "english": "(we're worried) about fire",
+   "why": "He reached for لـ for 'worried about fire'; Amal said worried takes من ('Men, men') and he said من نار.",
+   "english": "(worried) about the fire.",
    "ids": [
-    "1008-4",
-    "1008-5"
+    "1008-3",
+    "1008-6"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-004"
+   "fid": "1008-005"
   },
   {
-   "id": "A5",
+   "id": "A3",
    "t": "07:44",
    "t_amal": "07:50",
    "medi_said": "Uh, يبدأ?",
    "amal_said": "no. There's another word for that.",
    "chat": null,
    "wrong": "يبدأ",
-   "right": "(another word for a fire starting; Amal put it aside, not given)",
+   "right": "(another verb for a fire starting; not given)",
    "kind": "vocab-A",
    "tier": 1,
    "bucket": null,
@@ -136,23 +161,23 @@
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "medium",
-   "why": "He used يبدأ (begin) for a fire starting; Amal said no, another word is used, but did not supply it.",
-   "english": "(a fire) starts",
+   "why": "He offered يبدأ for a fire starting; Amal said no, there is another word (she did not supply it).",
+   "english": "(a fire) starts.",
    "ids": [
-    "1008-5",
-    "1008-6"
+    "1008-4",
+    "1008-7"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-005"
+   "fid": "1008-006"
   },
   {
-   "id": "A6",
+   "id": "A4",
    "t": "09:10",
    "t_amal": "09:15",
    "medi_said": "do I know how to say taking care or like caring for?",
    "amal_said": "ديرت بالي.",
    "chat": null,
-   "wrong": "taking care",
+   "wrong": null,
    "right": "ديرت بالي",
    "kind": "vocab-A",
    "tier": 0,
@@ -161,20 +186,20 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "Didn't-know: he asked how to say taking care; Amal supplied ديرت بالي.",
-   "english": "I took care",
+   "why": "He asked how to say 'take care of'; Amal supplied ديرت بالي.",
+   "english": "I took care.",
    "ids": [
-    "1008-6",
-    "1008-7"
+    "1008-5",
+    "1008-8"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-006"
+   "fid": "1008-007"
   },
   {
-   "id": "A7",
-   "t": "09:44",
+   "id": "A5",
+   "t": "09:47",
    "t_amal": "09:51",
-   "medi_said": "di- uh, ديرت بالـ ختيفتي، ختيفتي.",
+   "medi_said": "ديرت بالـ ختيفتي، ختيفتي.",
    "amal_said": "باله. ... بالي على خطيبتي.",
    "chat": null,
    "wrong": "ديرت بالـ ختيفتي",
@@ -186,71 +211,46 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "دير بال takes على; Amal recast with على (and the -ي ending on بال).",
-   "english": "I took care of my fiancee",
-   "ids": [
-    "1008-7",
-    "1008-8"
-   ],
-   "agreed_by": "r1+r2",
-   "fid": "1008-007"
-  },
-  {
-   "id": "1008-r3-1",
-   "t": "11:35",
-   "t_amal": "11:45",
-   "medi_said": "So, uh, ديرت بالي ختيفتي.",
-   "amal_said": "على. بدير بالي takes على.",
-   "chat": null,
-   "wrong": "ديرت بالي ختيفتي",
-   "right": "ديرت بالي على خطيبتي",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "named-rule",
-   "confidence": "high",
-   "why": "He dropped على after دير بالي again ~2 min after A7; Amal named the rule ('بدير بالي takes على') and he said ديرت بالي على ختيفتي at 11:50. A separate moment: she fixed it a second time, not a GR-28 repeat (>30 s later).",
+   "why": "Missing على after دير بال (Amal 11:45 'بدير بالي takes على') and missing -i on بال; her recast بالي على خطيبتي. He repeated the على-less form at 11:35 (same slip, one row).",
    "english": "I took care of my fiancée.",
    "ids": [
-    "1008-8"
+    "1008-6",
+    "1008-9"
    ],
-   "agreed_by": "r3",
-   "r3_why": "Real, second voiced fix of the same rule, separate from A7.",
+   "agreed_by": "r1+r2",
    "fid": "1008-008"
   },
   {
-   "id": "A8",
+   "id": "A6",
    "t": "12:10",
    "t_amal": "12:13",
-   "medi_said": "Uh, ديري باليك?",
+   "medi_said": "ديري باليك? Or ديري...",
    "amal_said": "دير بالك is actually the command form.",
    "chat": null,
    "wrong": "ديري باليك",
    "right": "دير بالك",
    "kind": "grammar",
    "tier": null,
-   "bucket": "A4",
-   "bucket2": "B10",
+   "bucket": "B10",
+   "bucket2": "A4",
    "mode": "speaking",
-   "signal": "recast",
+   "signal": "named-rule",
    "confidence": "medium",
-   "why": "For the 'take care' command he said باليك; Amal gave دير بالك (the -ak ending, no extra -i-).",
-   "english": "take care!",
+   "why": "Asked for another example he produced ديري باليك; Amal gave دير بالك and named it as the command form (and بالك, not باليك).",
+   "english": "Take care.",
    "ids": [
-    "1008-9",
-    "1008-9"
+    "1008-7",
+    "1008-10"
    ],
    "agreed_by": "r1+r2",
    "fid": "1008-009"
   },
   {
-   "id": "1008-r3-5",
+   "id": "1008-r3-14",
    "t": "14:42",
    "t_amal": null,
-   "medi_said": "الدرس إنه إنتي... / خلينا نعمل الدرس إنه، تفتتلي.",
-   "amal_said": null,
+   "medi_said": "الدرس إنه إنتي... / خلينا نعمل الدرس إنه، إنه تفتتلي.",
+   "amal_said": "كيف يعني؟",
    "chat": null,
    "wrong": "الدرس إنه",
    "right": "الدرس اللي",
@@ -261,17 +261,17 @@
    "mode": "speaking",
    "signal": "none",
    "confidence": "medium",
-   "why": "He said twice (14:42, 15:00) 'the lesson that you planned' (his own English at 15:13) with إنه instead of اللي; Amal's كيف يعني؟ was about تفتتلي (A10), not the relative word, so she let it pass.",
-   "english": "Let's do the lesson that you planned.",
+   "why": "'The lesson that you planned' needs اللي, not إنه (he said so at 15:13: 'the lesson that you planned'); Amal only asked what he meant, no fix voiced. Said first at 14:42, again at 15:00.",
+   "english": "let's do the lesson that you planned",
    "ids": [
-    "1008-12"
+    "1008-11"
    ],
    "agreed_by": "r3",
-   "r3_why": "Real relative-clause slip she did not address.",
+   "r3_why": "Real relative-clause slip; her كيف يعني is not understanding, not a fix, so grammar-B. Kept at the first occurrence (14:42); D2 merged here.",
    "fid": "1008-010"
   },
   {
-   "id": "A9",
+   "id": "A7",
    "t": "14:47",
    "t_amal": "14:53",
    "medi_said": "So خلينا عملنا--",
@@ -286,48 +286,74 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "After خلينا the verb is a bare present; he used the past عملنا, Amal said نعمل and he repeated it.",
-   "english": "Let's do",
+   "why": "After خلينا the verb is a bare present; he used past عملنا, Amal said نعمل and he repeated it.",
+   "english": "Let's do...",
    "ids": [
-    "1008-10",
-    "1008-10"
+    "1008-8",
+    "1008-12"
    ],
    "agreed_by": "r1+r2",
    "fid": "1008-011"
   },
   {
-   "id": "A10",
+   "id": "A8",
    "t": "15:03",
    "t_amal": "15:11",
-   "medi_said": "إنه تفت-- uh, تفتتلي.",
+   "medi_said": "إنه تفتتلي.",
    "amal_said": "كيف يعني؟",
    "chat": null,
    "wrong": "تفتتلي",
-   "right": "خططتيلي (B reading; sheet: i planned | Ana 5a66atet | أنا خططت)",
+   "right": "خططتي (your planned; reader's reading)",
    "kind": "vocab-B",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
    "mode": "speaking",
    "signal": "none",
-   "confidence": "medium",
-   "why": "Non-word for 'you planned for me'; Amal only asked what he meant and never supplied the word (my reading from the sheet's خطط).",
-   "english": "the lesson that you planned for me",
+   "confidence": "low",
+   "why": "تفتتلي is not a word for 'you planned' (he says so at 15:13); Amal asked كيف يعني and moved on; best reading خططتي.",
+   "english": "that you planned",
    "ids": [
-    "1008-11",
-    "1008-11"
+    "1008-10",
+    "1008-13"
    ],
    "agreed_by": "r1+r2",
+   "r3_challenge": "تفتتلي is unreadable engine text (he meant 'you planned', said in English at 15:13); Amal's كيف يعني only shows she did not understand. The wrong word cannot be read from the transcript - audio check.",
    "fid": "1008-012"
   },
   {
-   "id": "1008-r3-6",
-   "t": "16:33",
-   "t_amal": "16:35",
-   "medi_said": "أنا نسيتو.",
-   "amal_said": "سما.",
+   "id": "1008-r3-15",
+   "t": "15:30",
+   "t_amal": null,
+   "medi_said": "أنا راح، um، عمله، uh، قلات كتير بس.",
+   "amal_said": "Okay، يعني you're up to trying without.",
    "chat": null,
-   "wrong": "(sky)",
+   "wrong": "أنا راح عمله",
+   "right": "أنا رح أعمله",
+   "kind": "grammar-B",
+   "tier": null,
+   "bucket": "B13",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "none",
+   "confidence": "low",
+   "why": "ra7 + bare verb needs the person prefix (أعمله); engine wrote عمله after a pause. Low: the أ can be swallowed by the engine. Amal let it pass.",
+   "english": "I'll do it, (with) a lot of mistakes",
+   "ids": [
+    "1008-14"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Plausible B13 slip with no signal; low because the dropped أ could be the engine.",
+   "fid": "1008-013"
+  },
+  {
+   "id": "1008-r3-16",
+   "t": "16:22",
+   "t_amal": "16:35",
+   "medi_said": "Oh, is it، أسف؟ ... oh my gosh, what was sky? ... أنا نسيتو.",
+   "amal_said": "No، عصافير is birds. ... It's a girl's name ... سما.",
+   "chat": null,
+   "wrong": "None",
    "right": "سما",
    "kind": "vocab-A",
    "tier": 0,
@@ -336,24 +362,24 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "He could not recall sky (guessed أسف = عصفور, 'No. That's bird'); Amal supplied سما. Sheet: 'sky | Sama | سما'.",
-   "english": "I forgot it (sky).",
+   "why": "Didn't-know: he guessed أسف (bird) for 'sky', Amal said no, he said he forgot and she supplied سما (sheet 'sky | Sama | سما').",
+   "english": "sky",
    "ids": [
-    "1008-13"
+    "1008-15"
    ],
    "agreed_by": "r3",
-   "r3_why": "Didn't-know, Amal supplied the word; absorbs D3.",
-   "fid": "1008-013"
+   "r3_why": "One didn't-know row for sky; D3 merged here.",
+   "fid": "1008-014"
   },
   {
-   "id": "A11",
+   "id": "A9",
    "t": "17:51",
    "t_amal": "17:55",
    "medi_said": "When, when do you look at the sky? When do you watch the sky?",
-   "amal_said": "No، امتى بتتطلع على الشمس would be when do you watch the sky؟ امتى الشمس بتطلع؟ ... When does the sun go up؟",
+   "amal_said": "No، امتى بتتطلع على الشمس would be when do you watch the sky؟ امتى الشمس بتطلع؟",
    "chat": null,
-   "wrong": "بتطلع = watch",
-   "right": "بتطلع = goes up / rises",
+   "wrong": "look at / watch (for بتطلع)",
+   "right": "When does the sun go up / rise (بتطلع)",
    "kind": "vocab-A",
    "tier": 1,
    "bucket": null,
@@ -361,24 +387,23 @@
    "mode": "listening",
    "signal": "explicit-no",
    "confidence": "high",
-   "why": "He understood her امتى الشمس بتطلع as 'when do you watch the sky'; Amal said no, it is 'when does the sun go up'.",
+   "why": "Listening: he understood her امتى الشمس بتطلع as 'when do you watch the sky'; Amal said no, it means when does the sun rise.",
    "english": "When does the sun rise?",
    "ids": [
-    "1008-14",
-    "1008-14"
+    "1008-12",
+    "1008-16"
    ],
    "agreed_by": "r1+r2",
-   "r3_challenge": "Not a speaking slip: he mistranslated Amal's question امتى الشمس بتطلع؟ as 'when do you watch the sky?' - he misread her Arabic, so it should be mode = listening (kept apart), not a speaking vocab-A.",
-   "fid": "1008-014"
+   "fid": "1008-015"
   },
   {
-   "id": "A12",
-   "t": "18:37",
-   "t_amal": "18:36",
-   "medi_said": "Is it Azan? ... بس سجر. سجر؟",
-   "amal_said": "أذان؟ No. أذان is the call to prayer. فجر.",
+   "id": "A10",
+   "t": "18:42",
+   "t_amal": "18:50",
+   "medi_said": "أنا نسي تلك الكلمة بس سجر. سجر؟",
+   "amal_said": "فجر. You could have just said الصبح بكير",
    "chat": null,
-   "wrong": "أذان",
+   "wrong": "سجر",
    "right": "فجر",
    "kind": "vocab-A",
    "tier": 0,
@@ -387,24 +412,50 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "medium",
-   "why": "He guessed أذان for dawn (as a question), Amal said no and supplied فجر; his سجر is the same word with a sound slip (S4).",
+   "why": "He said he forgot the word (guessed Azan, then سجر); Amal supplied فجر.",
    "english": "dawn",
    "ids": [
-    "1008-15",
-    "1008-15"
+    "1008-13",
+    "1008-17"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-015"
+   "fid": "1008-016"
   },
   {
-   "id": "A13",
+   "id": "A11",
    "t": "18:42",
    "t_amal": null,
    "medi_said": "أنا نسي تلك الكلمة",
-   "amal_said": null,
+   "amal_said": "فجر.",
    "chat": null,
-   "wrong": "تلك الكلمة",
-   "right": "هاي الكلمة",
+   "wrong": "نسي",
+   "right": "نسيت",
+   "kind": "grammar-B",
+   "tier": null,
+   "bucket": "B5",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "none",
+   "confidence": "medium",
+   "why": "Past 'I forgot' needs the -t ending (نسيت); he said نسي, Amal let it pass.",
+   "english": "I forgot that word.",
+   "ids": [
+    "1008-14",
+    "1008-18"
+   ],
+   "agreed_by": "r1+r2",
+   "r3_challenge": "'أنا نسي تلك الكلمة': نسيت + تلك runs t-t together, so the engine likely dropped his final ت; no voiced fix from Amal. Needs an audio check before counting as a B5 slip.",
+   "fid": "1008-017"
+  },
+  {
+   "id": "A12",
+   "t": "18:42",
+   "t_amal": null,
+   "medi_said": "أنا نسي تلك الكلمة",
+   "amal_said": "فجر.",
+   "chat": null,
+   "wrong": "تلك",
+   "right": "هاي / هديك",
    "kind": "vocab-B",
    "tier": 1,
    "bucket": null,
@@ -412,21 +463,21 @@
    "mode": "speaking",
    "signal": "none",
    "confidence": "low",
-   "why": "تلك is MSA, not Levantine (هاي / هديك); she let it pass. My reading.",
-   "english": "I forgot that word",
+   "why": "MSA تلك for 'that'; sheet: 'that (f) | Hadeek | هديك | hadIk'. Amal let it pass.",
+   "english": "that word",
    "ids": [
-    "1008-16",
-    "1008-17"
+    "1008-15",
+    "1008-19"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-016"
+   "fid": "1008-018"
   },
   {
-   "id": "A14",
+   "id": "A13",
    "t": "19:41",
    "t_amal": "19:48",
    "medi_said": "قير لاو. قير لاو.",
-   "amal_said": "Yes. No لو. غير.",
+   "amal_said": "No لو. غير.",
    "chat": null,
    "wrong": "قير لاو",
    "right": "غير",
@@ -437,24 +488,24 @@
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "high",
-   "why": "He added لو to غير (other than); Amal said 'No لو. غير' and explained لو belongs to حتى لو.",
+   "why": "He said 'غير لو' for 'other than'; Amal: 'No لو. غير.' (ق for غ is pronunciation, not counted).",
    "english": "other than",
    "ids": [
-    "1008-17",
-    "1008-18"
+    "1008-16",
+    "1008-20"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-017"
+   "fid": "1008-019"
   },
   {
-   "id": "A15",
+   "id": "A14",
    "t": "20:03",
    "t_amal": "20:12",
-   "medi_said": "قير الشمس و اليوم",
+   "medi_said": "قير الشمس و اليوم شو، شو في.",
    "amal_said": "بس غير شمس و يوم.",
    "chat": null,
-   "wrong": "قير الشمس",
-   "right": "غير شمس",
+   "wrong": "قير الشمس و اليوم",
+   "right": "غير شمس و يوم",
    "kind": "grammar",
    "tier": null,
    "bucket": "A16",
@@ -462,20 +513,20 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "غير never takes el- on the next noun; Amal recast غير شمس و يوم and repeated it at 20:30 when he asked.",
-   "english": "other than the sun and clouds",
+   "why": "غير takes the bare noun; Amal recast without el- (again 20:30) and he asked 'قير never takes...'.",
+   "english": "Other than the sun and the day, what is there?",
    "ids": [
-    "1008-18",
-    "1008-19"
+    "1008-17",
+    "1008-21"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-018"
+   "fid": "1008-020"
   },
   {
-   "id": "A16",
+   "id": "A15",
    "t": "21:32",
    "t_amal": "21:43",
-   "medi_said": "بس في الـ، الـ، الليل سما. في الليل سما",
+   "medi_said": "بس في الـ، الـ، الليل سما. في الليل سما،",
    "amal_said": "السما بالليل.",
    "chat": null,
    "wrong": "في الليل سما",
@@ -487,48 +538,23 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "The sky needs el- and comes first; Amal recast السما بالليل and he repeated الـ سما بي الليل.",
+   "why": "سما needs el- (السما) and comes first; Amal recast السما بالليل and he repeated 'الـ سما بي الليل'.",
    "english": "the sky at night",
    "ids": [
-    "1008-19",
-    "1008-20"
+    "1008-18",
+    "1008-22"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-019"
+   "fid": "1008-021"
   },
   {
-   "id": "1008-r3-2",
-   "t": "22:05",
-   "t_amal": "22:05",
-   "medi_said": "الـ سما بي الليل بي قمر. الـ قمر. الـ قمر.",
-   "amal_said": "Mm. قمر. قمر.",
-   "chat": null,
-   "wrong": "الـ قمر",
-   "right": "(في) قمر",
-   "kind": "grammar-B",
-   "tier": null,
-   "bucket": "A1",
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
-   "why": "After في (there is) the new noun takes no el-; he first said بي قمر (right) then switched to الـ قمر; Amal said قمر twice over him but he kept الـ قمر at 22:09 - unclear if her قمر was a recast or an echo of 22:03, so B / low.",
-   "english": "In the sky at night there is a moon.",
-   "ids": [
-    "1008-20"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "Existential في takes an indefinite noun; Amal's قمر may be a recast but it is not clear, so grammar-B low.",
-   "fid": "1008-020"
-  },
-  {
-   "id": "A17",
+   "id": "1008-r3-17",
    "t": "22:48",
    "t_amal": "22:50",
-   "medi_said": "Yeah, أنا نسيته.",
+   "medi_said": "Yeah، أنا نسيته.",
    "amal_said": "عتمة.",
    "chat": null,
-   "wrong": "dark",
+   "wrong": "None",
    "right": "عتمة",
    "kind": "vocab-A",
    "tier": 0,
@@ -537,21 +563,21 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "Didn't-know: he forgot the word for dark; Amal supplied عتمة.",
-   "english": "it's dark",
+   "why": "Didn't-know: Amal asked how to say 'it's dark at night', he said he forgot, she supplied عتمة (sheet 'darkness | 3etme | عتمة').",
+   "english": "darkness",
    "ids": [
-    "1008-21",
-    "1008-21"
+    "1008-23"
    ],
-   "agreed_by": "r1+r2",
-   "fid": "1008-021"
+   "agreed_by": "r3",
+   "r3_why": "Real didn't-know.",
+   "fid": "1008-022"
   },
   {
-   "id": "A18",
+   "id": "A16",
    "t": "23:51",
    "t_amal": "23:52",
    "medi_said": "واحدة شمس.",
-   "amal_said": "Mm. Mm-hmm. واحدة.",
+   "amal_said": "Mm. Mm-hmm. واحدة. Great job.",
    "chat": null,
    "wrong": "واحدة شمس",
    "right": "شمس وحدة",
@@ -561,19 +587,18 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "none",
-   "confidence": "low",
-   "why": "'One' goes after the noun (شمس وحدة); Amal let it pass with 'Great job'.",
-   "english": "one sun",
+   "confidence": "medium",
+   "why": "'One' follows the noun (شمس وحدة); he put it first and Amal praised the feminine without fixing the order.",
+   "english": "There is one sun.",
    "ids": [
-    "1008-22",
-    "1008-22"
+    "1008-19",
+    "1008-24"
    ],
    "agreed_by": "r1+r2",
-   "r3_challenge": "Amal accepted واحدة شمس ('Mm-hmm. واحدة. Great job.') - fine as grammar-B, but she clearly did not correct it; check it is never scored as a voiced fix.",
-   "fid": "1008-022"
+   "fid": "1008-023"
   },
   {
-   "id": "A19",
+   "id": "A17",
    "t": "24:50",
    "t_amal": "24:52",
    "medi_said": "في نجمة تاني",
@@ -583,29 +608,29 @@
    "right": "نجمة تانية",
    "kind": "grammar",
    "tier": null,
-   "bucket": "A8",
+   "bucket": "A14",
    "bucket2": "A8",
    "mode": "speaking",
    "signal": "prompt-then-fix",
-   "confidence": "medium",
-   "why": "نجمة is feminine so the adjective is تانية; Amal echoed تاني back and he fixed it to تانية, she said مهم.",
-   "english": "there is another star",
+   "confidence": "high",
+   "why": "noun + taani = another, agrees in gender: نجمة is feminine so تانية; Amal echoed تاني and he fixed to تانية.",
+   "english": "There is another star.",
    "ids": [
-    "1008-23",
-    "1008-23"
+    "1008-20",
+    "1008-25"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-023"
+   "fid": "1008-024"
   },
   {
-   "id": "A20",
+   "id": "A18",
    "t": "26:00",
    "t_amal": "26:06",
-   "medi_said": "I see. So بشوف اليوم.",
+   "medi_said": "So بشوف اليوم.",
    "amal_said": "Point it back to جملة.",
    "chat": null,
-   "wrong": "هذي أول نجمة بشوف اليوم",
-   "right": "هذي أول نجمة بشوفها اليوم",
+   "wrong": "بشوف",
+   "right": "بشوفها",
    "kind": "grammar",
    "tier": null,
    "bucket": "C2",
@@ -613,23 +638,23 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "Amal prompted the pointer ending and he said بشوفها ('I forgot the pointer').",
-   "english": "This is the first star I see today",
+   "why": "Fronted object (هذي أول نجمة) needs the pointer ending; Amal prompted and he said بشوفها ('I forgot the pointer').",
+   "english": "This is the first star I see today.",
    "ids": [
-    "1008-24",
-    "1008-24"
+    "1008-21",
+    "1008-26"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-024"
+   "fid": "1008-025"
   },
   {
-   "id": "A21",
+   "id": "A19",
    "t": "28:46",
    "t_amal": "28:59",
    "medi_said": "since is لـ-لـ-lessa, right? ... Is it لا؟",
    "amal_said": "No. Since-- لا is until. ... من.",
    "chat": null,
-   "wrong": "لسه / لا",
+   "wrong": "lessa / لا",
    "right": "من",
    "kind": "vocab-A",
    "tier": 0,
@@ -638,49 +663,24 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "Didn't-know asked as guesses: لسه, then لا (until); Amal said no and supplied من.",
+   "why": "He did not know 'since' (asked لسه? لا?); Amal said no and supplied من.",
    "english": "since",
    "ids": [
-    "1008-25",
-    "1008-25"
-   ],
-   "agreed_by": "r1+r2",
-   "fid": "1008-025"
-  },
-  {
-   "id": "A22",
-   "t": "30:11",
-   "t_amal": "30:16",
-   "medi_said": "So mara-mara-maratat.",
-   "amal_said": "مطرت.",
-   "chat": null,
-   "wrong": "maratat",
-   "right": "مطرت",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "recast",
-   "confidence": "medium",
-   "why": "Past 'it rained' (feminine) is مطرت; Amal recast and he repeated 'Matarat'.",
-   "english": "it rained",
-   "ids": [
-    "1008-27",
-    "1008-26"
+    "1008-22",
+    "1008-27"
    ],
    "agreed_by": "r1+r2",
    "fid": "1008-026"
   },
   {
-   "id": "A23",
+   "id": "A20",
    "t": "32:12",
-   "t_amal": "32:21",
+   "t_amal": "32:14",
    "medi_said": "آآ، بيد من because it's comparative, right?",
    "amal_said": "مم. زعلتكش عن. ... عن.",
    "chat": null,
-   "wrong": "بيد من",
-   "right": "بيد عن (مختلف عن)",
+   "wrong": "من",
+   "right": "عن",
    "kind": "grammar",
    "tier": null,
    "bucket": "D2",
@@ -688,17 +688,17 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "'Different' takes عن not من; Amal said عن (engine wrote زعلتكش عن) and he took it ('بيد always takes and').",
-   "english": "is different from",
+   "why": "'Different from' takes عن; he used من and Amal said عن twice; he then said 'بيد and (عن) الهاوا هناك'.",
+   "english": "The air here is different from the air there.",
    "ids": [
-    "1008-28",
-    "1008-27"
+    "1008-23",
+    "1008-29"
    ],
    "agreed_by": "r1+r2",
    "fid": "1008-027"
   },
   {
-   "id": "A24",
+   "id": "A21",
    "t": "34:48",
    "t_amal": "34:52",
    "medi_said": "آخر، آخ- آآ، آخر المرة.",
@@ -713,17 +713,17 @@
    "mode": "speaking",
    "signal": "named-rule",
    "confidence": "high",
-   "why": "آخر + el- = the end of; 'the last time' is آخر مرة with no el-.",
+   "why": "aa5er + el- = 'the end of'; for 'the last time' it is آخر مرة, Amal explained and he took it.",
    "english": "the last time",
    "ids": [
-    "1008-29",
-    "1008-28"
+    "1008-24",
+    "1008-30"
    ],
    "agreed_by": "r1+r2",
    "fid": "1008-028"
   },
   {
-   "id": "A25",
+   "id": "A22",
    "t": "35:30",
    "t_amal": "35:34",
    "medi_said": "was three years ago. كان.",
@@ -738,17 +738,17 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "مرة is feminine so كانت; Amal prompted 'مرة is' and he said كانت.",
-   "english": "was",
+   "why": "Subject مرة is feminine so kaan must be كانت; Amal prompted 'مرة is' and he said 'feminine. كانت'.",
+   "english": "(The last time) was...",
    "ids": [
-    "1008-30",
-    "1008-29"
+    "1008-25",
+    "1008-32"
    ],
    "agreed_by": "r1+r2",
    "fid": "1008-029"
   },
   {
-   "id": "A26",
+   "id": "A23",
    "t": "36:03",
    "t_amal": "36:06",
    "medi_said": "سنين، سنين، ثلاث سنين الماضي.",
@@ -763,24 +763,49 @@
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "high",
-   "why": "He used الماضي (past/last) for 'ago'; Amal said no, ago is قبل.",
+   "why": "He used الماضي for 'ago'; Amal said no (that means 'the last three years'), 'ago' is قبل.",
    "english": "three years ago",
    "ids": [
-    "1008-31",
-    "1008-30"
+    "1008-26",
+    "1008-33"
    ],
    "agreed_by": "r1+r2",
    "fid": "1008-030"
   },
   {
-   "id": "1008-r3-3",
-   "t": "40:24",
-   "t_amal": "40:30",
-   "medi_said": "Il hawa aju ktir il sabah",
-   "amal_said": "إيش يعني عجل؟ ... عجا كتير الصباح؟ إيش يعني؟ ... Tell me it was very strong. The wind was very strong in the mornings.",
+   "id": "A24",
+   "t": "36:45",
+   "t_amal": "36:47",
+   "medi_said": "آخر مرة تلجات،",
+   "amal_said": "تَلَّجَت.",
    "chat": null,
-   "wrong": "aju",
-   "right": "kaan 2awi",
+   "wrong": "تلجات",
+   "right": "تَلَّجَت",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "B5",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "low",
+   "why": "Amal recast the past form with vowels (tallajat) after his تلجات; may be only pronunciation of the doubled ل (S4) - she had said ممتاز at 35:27.",
+   "english": "The last time it snowed...",
+   "ids": [
+    "1008-27",
+    "1008-31"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1008-031"
+  },
+  {
+   "id": "1008-r3-4",
+   "t": "40:24",
+   "t_amal": "40:45",
+   "medi_said": "Il hawa aju ktir il sabah ... Aja ktir.",
+   "amal_said": "إيش يعني عجل؟ ... عجا كتير الصباح؟ إيش يعني؟ ... Tell me it was very strong.",
+   "chat": null,
+   "wrong": "aja (إجا)",
+   "right": "كان قوي",
    "kind": "vocab-A",
    "tier": 1,
    "bucket": null,
@@ -788,18 +813,17 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "medium",
-   "why": "Engine wrote aju; Amal's echo عجا كتير shows he said aja (singular), so no number slip. The error is the wrong verb: اجا (came) for the wind being strong; she did not understand ('إيش يعني') and gave the English rephrase 'it was very strong'; he then said il hawa kaan awi ktir.",
-   "english": "The wind was very strong this morning.",
+   "why": "He used إجا ('came', he said so at 40:32) for the wind blowing; Amal asked twice what it means and steered him to 'it was very strong', which he said (il hawa kaan awi ktir). Engine wrote aju; her echo عجا shows he said aja.",
+   "english": "the wind was very strong this morning",
    "ids": [
-    "1008-32",
-    "1008-32"
+    "1008-28"
    ],
    "agreed_by": "r3",
-   "r3_why": "Trust Amal's echo عجا (singular), so not B18; the fix she voiced is the word choice -> vocab-A tier 1.",
-   "fid": "1008-031"
+   "r3_why": "Amal voiced a meaning challenge twice and gave the replacement; wrong lexical item = vocab tier 1.",
+   "fid": "1008-032"
   },
   {
-   "id": "A27",
+   "id": "A25",
    "t": "44:20",
    "t_amal": "44:22",
    "medi_said": "El nar, nar heret me. Does that count correct?",
@@ -813,22 +837,22 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "recast",
-   "confidence": "high",
-   "why": "'Me' rides on the verb as -ني; he said 'heret me', Amal recast حرقتني.",
-   "english": "The fire burned me",
+   "confidence": "medium",
+   "why": "Object 'me' rides on the verb (-ni); he said English 'me', Amal recast النار حرقتني.",
+   "english": "The fire burned me.",
    "ids": [
-    "1008-33",
-    "1008-34"
+    "1008-29",
+    "1008-36"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-032"
+   "fid": "1008-033"
   },
   {
-   "id": "A28",
+   "id": "A26",
    "t": "46:03",
    "t_amal": "46:06",
    "medi_said": "nadabti, nadabet.",
-   "amal_said": "It. ... نظفتها.",
+   "amal_said": "It.",
    "chat": null,
    "wrong": "nadabet",
    "right": "نظفتها",
@@ -839,23 +863,23 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "The object 'it' (the floor) rides on the verb; Amal prompted 'It.' and he said Nadabet ha, she recast نظفتها.",
-   "english": "I cleaned it",
+   "why": "'I cleaned it' needs the -ha ending; Amal prompted 'It.' and he said 'Nadabet ha', she recast نظفتها.",
+   "english": "I cleaned it.",
    "ids": [
-    "1008-34",
-    "1008-35"
+    "1008-30",
+    "1008-37"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-033"
+   "fid": "1008-034"
   },
   {
-   "id": "A29",
-   "t": "47:38",
-   "t_amal": "47:44",
-   "medi_said": "Is it bee? Is it bee plants? ... what's the bee?",
-   "amal_said": "زبيب؟ ... زريعة.",
+   "id": "1008-r3-21",
+   "t": "47:33",
+   "t_amal": "47:46",
+   "medi_said": "Is it the bee? Is it the bee plants? ... what's the bee?",
+   "amal_said": "زبيب؟ ... Z-z-zبيب is raisins, I think. Is... زريعة.",
    "chat": null,
-   "wrong": "bee plants",
+   "wrong": "None",
    "right": "زريعة",
    "kind": "vocab-A",
    "tier": 0,
@@ -864,23 +888,23 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "Didn't-know: he asked for the word for plants; Amal supplied زريعة.",
+   "why": "Didn't-know: he groped for 'plants' and Amal supplied زريعة (sheet 'plants (domestic) | Zri3a | زريعة'); he took it ('Plant. Zariya, okay').",
    "english": "plants",
    "ids": [
-    "1008-35",
-    "1008-36"
+    "1008-38"
    ],
-   "agreed_by": "r1+r2",
-   "fid": "1008-034"
+   "agreed_by": "r3",
+   "r3_why": "Real didn't-know; D5 merged here.",
+   "fid": "1008-035"
   },
   {
-   "id": "A30",
+   "id": "A27",
    "t": "50:13",
    "t_amal": "50:16",
    "medi_said": "أنا ما بعرف.",
    "amal_said": "حجر.",
    "chat": null,
-   "wrong": "stones",
+   "wrong": null,
    "right": "حجر",
    "kind": "vocab-A",
    "tier": 0,
@@ -889,42 +913,17 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "Didn't-know: he could not recall stone; Amal supplied حجر.",
+   "why": "Asked for 'stones', he said he does not know; Amal supplied حجر.",
    "english": "stone",
    "ids": [
-    "1008-36",
-    "1008-37"
+    "1008-32",
+    "1008-39"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1008-035"
-  },
-  {
-   "id": "1008-r3-7",
-   "t": "50:41",
-   "t_amal": "51:03",
-   "medi_said": "ما بعرف.",
-   "amal_said": "I don't know. صخر is under the sea, under the ocean.",
-   "chat": null,
-   "wrong": "(rocks)",
-   "right": "صخر",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "asked",
-   "confidence": "medium",
-   "why": "Amal asked 'طيب rocks', he said ما بعرف, and she supplied صخر. Sheet: 'rock | Sa5ra | صخرة'.",
-   "english": "I don't know (rocks).",
-   "ids": [
-    "1008-38"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "Didn't-know, Amal supplied the word.",
    "fid": "1008-036"
   },
   {
-   "id": "A31",
+   "id": "A28",
    "t": "51:09",
    "t_amal": "51:12",
    "medi_said": "الشارع قديمة.",
@@ -939,21 +938,21 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "He meant 'the streets' (plural) but said the singular with a feminine adjective; Amal recast الشوارع and he repeated it.",
-   "english": "The streets are old",
+   "why": "He meant the streets (plural; شارع is masc so قديمة did not fit); Amal recast الشوارع and he repeated it.",
+   "english": "The streets are old.",
    "ids": [
-    "1008-37",
-    "1008-39"
+    "1008-33",
+    "1008-40"
    ],
    "agreed_by": "r1+r2",
    "fid": "1008-037"
   },
   {
-   "id": "A32",
+   "id": "1008-r3-6",
    "t": "51:34",
    "t_amal": "51:45",
    "medi_said": "were made. عملت ما حجر.",
-   "amal_said": "Or just حجر. Are stone. ... Made of is different than made.",
+   "amal_said": "Or just حجر. Are stone. ... Made of is different than made. ... الشوارع الإدام في أمريكا حجر.",
    "chat": null,
    "wrong": "عملت ما حجر",
    "right": "حجر",
@@ -964,17 +963,18 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "medium",
-   "why": "No verb needed for 'are (made of) stone'; Amal dropped عملت: الشوارع ... حجر.",
-   "english": "The streets in Amsterdam are stone",
+   "why": "'The streets (in Amsterdam) are stone' takes no verb in Arabic; he built 'were made (of) stone' with عملت and Amal said just حجر: الشوارع ... حجر.",
+   "english": "the streets in Amsterdam are made of stone",
    "ids": [
-    "1008-38",
-    "1008-40"
+    "1008-34",
+    "1008-41"
    ],
-   "agreed_by": "r1+r2",
+   "agreed_by": "r3",
+   "r3_why": "Her fix removes the verb entirely (no 'to be'), so the transcript supports grammar C1, not a vocab word swap.",
    "fid": "1008-038"
   },
   {
-   "id": "A33",
+   "id": "A29",
    "t": "53:47",
    "t_amal": "53:53",
    "medi_said": "Okay، حجر تاني كان...",
@@ -989,42 +989,43 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "حجر تاني means 'another stone'; for 'the second stone' it is تاني حجر or الحجر التاني.",
-   "english": "the second stone",
+   "why": "For 'the second stone' taani goes before the noun (or الحجر التاني); حجر تاني means 'another stone'. Amal recast and he said تاني حجر.",
+   "english": "The second stone was...",
    "ids": [
-    "1008-39",
-    "1008-41"
+    "1008-35",
+    "1008-42"
    ],
    "agreed_by": "r1+r2",
    "fid": "1008-039"
   },
   {
-   "id": "A34",
+   "id": "1008-r3-7",
    "t": "54:09",
    "t_amal": "54:14",
    "medi_said": "تاني حجر كان مفضل لي.",
-   "amal_said": "So you could either say my favorite stone or my favorite using عندي. المفضل عندي.",
+   "amal_said": "So you could either say my favorite stone or my favorite using عندي. المفضل عندي. ... الـ، المفضل عندي.",
    "chat": null,
    "wrong": "مفضل لي",
    "right": "المفضل عندي",
    "kind": "grammar",
    "tier": null,
-   "bucket": "D1",
-   "bucket2": "A1",
+   "bucket": "A7",
+   "bucket2": null,
    "mode": "speaking",
-   "signal": "recast",
+   "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "'My favorite' alone is المفضل عندي (el- + عندي), not مفضل لي.",
-   "english": "was my favorite",
+   "why": "'My favorite' standing alone is المفضل عندي (adjective with el-); he said مفضل لي, Amal gave المفضل عندي and prompted 'الـ' again at 54:25 when he repeated مفضل عندي.",
+   "english": "the second stone was my favorite",
    "ids": [
-    "1008-40",
-    "1008-42"
+    "1008-36",
+    "1008-43"
    ],
-   "agreed_by": "r1+r2",
+   "agreed_by": "r3",
+   "r3_why": "A7 (adjective and where el- sits) covers the el- she prompted; same rule as agreed A30, so no PROPOSE needed.",
    "fid": "1008-040"
   },
   {
-   "id": "A35",
+   "id": "A30",
    "t": "54:42",
    "t_amal": "54:46",
    "medi_said": "I was gonna say الـ مفضل حجر.",
@@ -1038,68 +1039,69 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "named-rule",
-   "confidence": "high",
-   "why": "The adjective goes after the noun; Amal named it.",
+   "confidence": "medium",
+   "why": "Adjective مفضل goes after the noun; Amal named it ('المفضل is an adjective') and gave الحجر المفضل.",
    "english": "the favorite stone",
    "ids": [
-    "1008-41",
-    "1008-43"
+    "1008-37",
+    "1008-44"
    ],
    "agreed_by": "r1+r2",
    "fid": "1008-041"
   },
   {
-   "id": "A36",
+   "id": "A31",
    "t": "54:58",
    "t_amal": "55:04",
    "medi_said": "So الـ حجري الـ مفضل.",
    "amal_said": "حجري المفضل. No ال first.",
    "chat": null,
    "wrong": "الـ حجري",
-   "right": "حجري المفضل",
+   "right": "حجري",
    "kind": "grammar",
    "tier": null,
    "bucket": "A4",
-   "bucket2": "A1",
+   "bucket2": "A7",
    "mode": "speaking",
    "signal": "named-rule",
    "confidence": "high",
-   "why": "A noun with a possessive ending never takes el-; Amal: 'No ال first'.",
+   "why": "A noun with a possessive ending takes no el-; Amal: 'حجري المفضل. No ال first.'",
    "english": "my favorite stone",
    "ids": [
-    "1008-42",
-    "1008-44"
+    "1008-38",
+    "1008-45"
    ],
    "agreed_by": "r1+r2",
    "fid": "1008-042"
   },
   {
-   "id": "A37",
+   "id": "1008-r3-8",
    "t": "58:23",
    "t_amal": "58:26",
-   "medi_said": "So mufaddal andi.",
+   "medi_said": "hadha il-dars. ... So mufaddal andi.",
    "amal_said": "But al-mufaddal is an adjective, so it follows ders. ... هاد الدرس المفضل عندي.",
    "chat": null,
    "wrong": "mufaddal andi",
    "right": "المفضل عندي",
    "kind": "grammar",
    "tier": null,
-   "bucket": "A1",
-   "bucket2": "A7",
+   "bucket": "A7",
+   "bucket2": null,
    "mode": "speaking",
    "signal": "named-rule",
    "confidence": "high",
-   "why": "Standing alone 'my favorite' needs el-: المفضل عندي; Amal explained it is an adjective following الدرس.",
-   "english": "This lesson is my favorite",
+   "why": "Again 'my favorite' without el-; Amal named the rule (al-mufaddal is an adjective, follows ders) and gave هاد الدرس المفضل عندي. New sentence 4 min after 54:09, so a separate row.",
+   "english": "this lesson is my favorite",
    "ids": [
-    "1008-43",
-    "1008-45"
+    "1008-39",
+    "1008-46"
    ],
-   "agreed_by": "r1+r2",
+   "agreed_by": "r3",
+   "r3_why": "She named the adjective rule; A7 fits.",
    "fid": "1008-043"
   },
   {
-   "id": "1008-r3-4",
+   "id": "1008-r3-9",
    "t": "1:03:04",
    "t_amal": "1:03:05",
    "medi_said": "مش فيهن، ما فيهن.",
@@ -1114,14 +1116,14 @@
    "mode": "speaking",
    "signal": "named-rule",
    "confidence": "high",
-   "why": "He used في (there is) as the verb 'is' in 'his favorite book isn't here'; Amal named the rule 'في is not is, في is there is' - Arabic needs no 'to be': just مش هون. He took it ('مش هون. Okay, you're right').",
-   "english": "His favorite book isn't here.",
+   "why": "He used في ('there is') as 'is' in 'isn't here' (engine likely merged في هون into فيهن); Amal: 'مش في. مش هون ... في is not is', and he took it ('مش هون. Okay, you're right').",
+   "english": "his favorite book isn't here",
    "ids": [
-    "1008-44",
-    "1008-46"
+    "1008-40",
+    "1008-47"
    ],
    "agreed_by": "r3",
-   "r3_why": "Amal named a grammar rule (no word for 'is'), so grammar C1, not vocab.",
+   "r3_why": "Her explanation is about في wrongly standing in for 'is' (no 'to be' in Arabic) - grammar C1, not a missing word for 'here'.",
    "fid": "1008-044"
   }
  ]

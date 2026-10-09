@@ -43,6 +43,13 @@ function create(words=[],catalog={},extra={},opts={}){
  // else the word falls through to the Arabic + "Unverified spelling stays in Arabic" (Codex final approval 2026-10-05).
  const built=new Map(),asSaid=new Set();for(const [ar,e] of Object.entries(extra.words||{}))if(e&&e.latin&&(!e.scope||e.scope===opts.scope)){built.set(norm(ar),e.latin);if(e.method==='as-said'||e.scope)asSaid.add(norm(ar));}
  const sheetPairs=[];   // AZ-snap: [norm Arabic, her Latin] from her own sheet rows only
+ // AZ-13 (Medi's 10-08 note "Defect. Defect. is Keefak, Keefik (Correcting himself)"): her Doc has a male and a female row
+ // for one Arabic spelling (كيفك? keefak (Male) / keefek (Female)). A vowel mark on the last letter's carrier says which:
+ // ـِك (kasra) = her female row, ـَك (fatha) = her male row; without a mark the first row stays (as before).
+ const gendered=new Map();
+ for(const w of words){const g=/\((?:female|f)\)/i.test(w.english||'')?'f':/\((?:male|m)\)/i.test(w.english||'')?'m':null;const lat=String(w.house_spelling||w.arabizi||'').replace(/[?؟.!]+$/,'').trim();
+  if(g&&lat&&!/\s/.test(lat)){const k=norm(String(w.arabic||'').replace(/[?؟.!]/g,'').trim());if(k&&!/\s/.test(k)){const o=gendered.get(k)||{};o[g]=o[g]||lat;gendered.set(k,o);}}}
+ function genderOf(raw){return /ِك$/.test(raw)?'f':/َك$/.test(raw)?'m':null;}
  function add(ar,latin){
   // Her Doc adds notes in brackets: "أسبوع (أسبوعين" / "Usboo3", "3ain (F)". Keep the word, drop the note.
   const clean=x=>String(x||'').replace(/\([^)]*\)?/g,' ').replace(/\s+/g,' ').trim();
@@ -73,7 +80,8 @@ function create(words=[],catalog={},extra={},opts={}){
  }
  function word(raw){
   if(/^آ+ه?$/.test(raw))return {text:raw.endsWith("ه")?"aaah":"aaa",approximate:false};
-  const n=norm(raw);if(lexicon.has(n))return {text:lexicon.get(n),approximate:false};
+  const n=norm(raw);
+  const gk=genderOf(raw),gv=gk&&gendered.get(n);if(gv&&gv[gk])return {text:gv[gk],approximate:false};if(lexicon.has(n))return {text:lexicon.get(n),approximate:false};
   if(exact.has(raw))return {text:exact.get(raw),approximate:false};
   for(const [prefix,latin] of [['وال','w-el-'],['بال','b-el-'],['لل','l-el-'],['ال','el-'],['و','w-']]){
    if(n.startsWith(prefix)&&lexicon.has(n.slice(prefix.length)))return {text:latin+lexicon.get(n.slice(prefix.length)),approximate:false};
