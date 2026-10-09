@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-09T13:09:40-07:00",
+ "updated": "2026-10-09T13:33:08-07:00",
  "result": "pass",
- "source": "manual: transcript colour key + one chip per word (PG-39), 08:36 credits",
- "checked_commit": "b5fca0df9fdd",
- "secs": 78.3,
+ "source": "manual: Arabizi from her one-word row (AZ-14)",
+ "checked_commit": "d9a16fcccbc5",
+ "secs": 95.3,
  "checks": [
   {
    "id": "step_failures",
@@ -35,13 +35,13 @@
    "ok": true,
    "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 225 rules: enforced 135 (code 126, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
+   "detail": "rule_registry: OK - 226 rules: enforced 136 (code 127, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
   {
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.4,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 21 lessons reach every page"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.3,
+   "secs": 2.5,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 0.9,
+   "secs": 1.1,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.5,
+   "secs": 1.7,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 719 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 2.0,
+   "secs": 3.2,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...6 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.9,
+   "secs": 5.0,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 71 pages, every link, data file and clip resolves (120 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 1.6,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 56.7,
+   "secs": 64.9,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 98%] | ..........                                                               [100%] | 726 passed, 1 skipped, 3 xfailed in 54.65s"
+   "detail": "................... [ 98%] | ...........                                                              [100%] | 727 passed, 1 skipped, 3 xfailed in 62.79s (0:01:02)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.2,
+   "secs": 6.5,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1134.7117"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6403.5147"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.4,
+   "secs": 5.7,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -188,12 +188,12 @@
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-09T13:08:11-07:00",
-  "source": "manual: transcript colour key + one chip per word (PG-39), 08:36 credits",
+  "at": "2026-10-09T13:30:19-07:00",
+  "source": "manual: Arabizi from her one-word row (AZ-14)",
   "outcome": "blocked",
-  "sha": "4c231da30679e8ec1766211106299a602aef4698",
-  "reason": "tests_node: exit 1: ✖ filters: All, Only marked, Only ✗, Vocab, Grammar, Amal's fixes (11.4338ms) | }",
-  "secs": 78.2,
+  "sha": "f4e53e1c28c54d662e618651e88843454dfd70af",
+  "reason": "tests_node: exit 1: ✖ written who and from remain distinct without correcting raw ASR spelling (1.7669ms) | }",
+  "secs": 92.8,
   "commits_waiting": "1"
  },
  "blocks_before_this_pass": 1,
