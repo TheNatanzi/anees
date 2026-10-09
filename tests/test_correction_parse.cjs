@@ -125,3 +125,11 @@ test('PG-37 the panel is one box: transcript-corrections.js has no time / missin
  assert.ok(/raw:\s*raw|payload\.raw|raw: *text/.test(js),'raw saved with the row');
  assert.ok(fs.readFileSync(path.join(ROOT,'docs','lessons.html'),'utf8').includes("'correction-parse'"),'lessons.html loads the parser');
 });
+
+test('PG-37 after Send his words stay on the line with Edit (reopens the box prefilled, replaces the rows) and Undo',()=>{
+ const js=fs.readFileSync(path.join(ROOT,'docs','js','transcript-corrections.js'),'utf8');
+ assert.ok(js.includes("'Your fix: '"),'his words shown under the line');
+ assert.ok(js.includes("'Edit', function () { moreMenu(row, x, turn, parts, raw, same); }"),'Edit reopens the box with his words');
+ assert.ok(js.includes('(replaces || []).forEach(function (r) { undo(r); });'),'an edit undoes the old rows (append-only) before the new ones');
+ assert.ok(fs.readFileSync(path.join(ROOT,'docs','css','lessons.css'),'utf8').includes('.tc-note-line'),'styled');
+});

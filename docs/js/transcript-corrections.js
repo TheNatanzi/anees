@@ -357,7 +357,7 @@ async function askAI(text, part) {
     return await r.json();
   } catch (e) { return { status: 'error', items: [] }; }
 }
-function moreMenu(row, x, turn, parts) {
+function moreMenu(row, x, turn, parts, prefill, replaces) {
   closePanels(row);
   var P = el('div', 'tc-panel tc-one'), main = row.querySelector('.tm-main') || row, part = (parts || [])[0] || turn;
   var other = part.who === 'Medi' ? 'Amal' : 'Medi', PR = PARSER();
@@ -375,7 +375,9 @@ function moreMenu(row, x, turn, parts) {
   bar.appendChild(send); bar.appendChild(btn('tc-small tc-close', 'Close', function () { P.remove(); }));
   P.appendChild(ta); P.appendChild(read); P.appendChild(why); P.appendChild(bar);
   main.appendChild(P);
+  if (prefill) { ta.value = prefill; }
   ta.focus();
+  if (prefill) { reparse(); }
 
   function noteOf() { return { kind: 'note', label: 'Note: ' + ta.value.trim(), payload: { raw: ta.value.trim() } }; }
   function paintChips() {
@@ -430,6 +432,7 @@ function moreMenu(row, x, turn, parts) {
     if (!sure && aiBusy) { send.disabled = true; send.textContent = 'Reading…'; try { await aiBusy; } catch (e) { /* saved as a note */ } send.textContent = 'Send'; }
     if (!items.length) items = [noteOf()];
     var saved = [];
+    (replaces || []).forEach(function (r) { undo(r); });   // an edit replaces the earlier rows: undo + new rows, append-only
     items.forEach(function (it) {
       var r = rowFor(it);
       r.payload.raw = text;
@@ -493,6 +496,19 @@ function decorate(row, x, turn, parts) {
     row.classList.add('tc-has');
   }
   head.appendChild(btn('tc-more', '✎ more', function () { moreMenu(row, x, turn, parts); }, 'Write the fix in your own words: wrong speaker, wrong time, a missing word, or a mistake nobody marked'));
+  // PG-37 (Medi 2026-10-08 "when I fill the box have the note show with an edit button"): what he wrote stays visible
+  // under the line, with Edit (reopens the box with his words; Send replaces the rows) and Undo.
+  var typed = mine.filter(function (r) { return (r.payload || {}).raw; });
+  if (typed.length) {
+    var raw = typed[typed.length - 1].payload.raw, same = typed.filter(function (r) { return r.payload.raw === raw; });
+    var note = el('div', 'tc-note-line');
+    note.appendChild(el('span', 'tc-note-tag', 'Your fix: '));
+    note.appendChild(arabic(el('span', 'tc-note-text', raw)));
+    note.appendChild(el('span', 'ab-mini', ' · ' + same.map(function (r) { return KIND_WORDS[r.kind] || r.kind; }).join(' + ')));
+    note.appendChild(btn('tc-small tc-note-edit', 'Edit', function () { moreMenu(row, x, turn, parts, raw, same); }, 'Change what you wrote'));
+    note.appendChild(btn('tc-small', 'Undo', function () { same.forEach(undo); }, 'Take this fix back'));
+    row.appendChild(note);
+  }
   if (turn.engine_who) row.appendChild(el('div', 'ab-mini ls-heard', 'Recording engine put this on ' + turn.engine_who));
   if (turn.engine_t != null) row.appendChild(el('div', 'ab-mini ls-heard', 'Recording engine time: ' + mmss(turn.engine_t)));
 }
