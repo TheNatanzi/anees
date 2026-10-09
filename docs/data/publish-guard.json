@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-09T01:18:02-07:00",
+ "updated": "2026-10-09T01:24:20-07:00",
  "result": "pass",
- "source": "hourly: 2 local commit(s)",
- "checked_commit": "136d0201d4f4",
- "secs": 74.8,
+ "source": "manual: sound tags PG-38, AZ-12/13, PR-19, WS-29, TR-29 second listen auto, PR-22, his 10-08 notes + re-audit (Medi 2026-10-09)",
+ "checked_commit": "756d023c746c",
+ "secs": 78.9,
  "checks": [
   {
    "id": "step_failures",
@@ -35,7 +35,7 @@
    "ok": true,
    "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 212 rules: enforced 122 (code 113, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
+   "detail": "rule_registry: OK - 220 rules: enforced 129 (code 120, brief 9), written 70, moment-only 12, needs Medi 1, superseded 8"
   },
   {
    "id": "lesson_coverage",
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.5,
+   "secs": 2.4,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.5,
+   "secs": 1.6,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 719 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 2.1,
+   "secs": 2.0,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...8 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,9 +105,9 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.4,
+   "secs": 5.2,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
-   "detail": "pages OK: 71 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
+   "detail": "pages OK: 71 pages, every link, data file and clip resolves (14 references to unpublished clips play from the full lesson recording)"
   },
   {
    "id": "arabizi_gaps",
@@ -129,17 +129,17 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 53.1,
+   "secs": 57.5,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 92%] | ..................................................                       [100%] | 694 passed, 1 skipped, 3 xfailed in 51.41s"
+   "detail": "............................. [ 91%] | .............................................................            [100%] | 705 passed, 1 skipped, 3 xfailed in 54.22s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.4,
+   "secs": 1.2,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1290.7206"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1109.5117"
   },
   {
    "id": "rehear_rows",
@@ -152,10 +152,10 @@
   {
    "id": "review_freshness",
    "required": false,
-   "ok": false,
-   "secs": 0.1,
+   "ok": true,
+   "secs": 0.2,
    "what": "the two readers read the transcript the pages show now",
-   "detail": "2026-10-08: transcript changed after the readers read it"
+   "detail": "21 lessons audited on their current transcript"
   },
   {
    "id": "data_freshness",
@@ -183,18 +183,17 @@
   }
  ],
  "warnings": [
-  "review_freshness: 2026-10-08: transcript changed after the readers read it",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-09T00:17:07-07:00",
-  "source": "hourly: tutor refresh",
+  "at": "2026-10-09T01:22:43-07:00",
+  "source": "manual: sound tags PG-38, AZ-12/13, PR-19, WS-29, TR-29 second listen auto, PR-22, his 10-08 notes + re-audit (Medi 2026-10-09)",
   "outcome": "blocked",
-  "sha": "ecc57789caa8b4a36b6b9eb1602163b20a92f238",
-  "reason": "step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/tutor-notes.json: rebuild pending (open since 2026-10-08T23:34, tutor)",
-  "secs": 72.5,
-  "commits_waiting": "19"
+  "sha": "756d023c746c4306ee8b94938ad9d019ebe82a10",
+  "reason": "clean_tree: 2 uncommitted change(s) in what would be published, e.g. docs/data/build.json, docs/js/build.js",
+  "secs": 77.9,
+  "commits_waiting": "7"
  },
- "blocks_before_this_pass": 0,
+ "blocks_before_this_pass": 4,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
