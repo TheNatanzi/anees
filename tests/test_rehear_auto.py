@@ -83,7 +83,7 @@ def test_tr_29_the_chip_says_waiting_for_allowance_and_the_hourly_job_steps_it()
     src = open(os.path.join(ROOT, "scripts", "hourly_lessons.py"), encoding="utf-8").read()
     assert "rh = RH.step(log=log)" in src and "'data/lesson-work/rehear'" in src
     spend = json.load(open(os.path.join(ROOT, "data", "lesson-work", "rehear", "spend.json"), encoding="utf-8"))
-    assert spend["backfill"]["spent_usd"] == 43.99 and spend["new_lessons"]["per_lesson_usd"] == 2.5 and spend["new_lessons"]["monthly_usd"] is None
+    assert spend["backfill"]["spent_usd"] == 43.99 and spend["new_lessons"]["per_lesson_usd"] == 4.0 and spend["new_lessons"]["monthly_usd"] is None
 
 
 def test_tr_29_tests_never_step_the_paid_listen():

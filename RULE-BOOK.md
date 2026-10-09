@@ -104,8 +104,8 @@ _What gets written down from the lesson recording, and what is left out._
   <br><sub>Written by Claude, 2026-09-05</sub>
 - The lesson runs from Amal's first word to her last word; talk outside that is not scored. `TR-05` _Written down_
   <br><sub>Medi, 2026-09-04: “recognize when the class starts”</sub>
-- The second Google listen runs by itself on every new lesson, up to $2.50 a lesson with no monthly cap. If a lesson needs more, it says so on its chip. `TR-29` _Automatic_
-  <br><sub>Medi, 2026-10-09: “why the fuck wasnt it applied?” · Medi, 2026-10-09: “go and fix it permanently” · Medi, 2026-10-09: “im going to bed, please be thorough.  Im so disappointed in this, I htought google was supposed to be a huge improvement but its worse than 11 so far” · Medi, 2026-10-09: “no budget 2.50 per lesson is fine”</sub>
+- The second Google listen runs by itself on every new lesson, up to $4 a lesson with no monthly cap. If a lesson needs more, it says so on its chip. `TR-29` _Automatic_
+  <br><sub>Medi, 2026-10-09: “why the fuck wasnt it applied?” · Medi, 2026-10-09: “go and fix it permanently” · Medi, 2026-10-09: “im going to bed, please be thorough.  Im so disappointed in this, I htought google was supposed to be a huge improvement but its worse than 11 so far” · Medi, 2026-10-09: “no budget 2.50 per lesson is fine” · Medi, 2026-10-09: “ok 4$ just to be safe”</sub>
 - Each of your lines can be re-heard by an AI that listens to your microphone with the lesson around it. It may only change a word it also hears without the context, so your real mistakes stay. `TR-22` _Written down_
   <br><sub>Medi, 2026-10-03: “Maybe you can figure out a process to go through the transcript and try and actualyl figure out what I am saying using judgement and context.  this is awful as is.”</sub>
 

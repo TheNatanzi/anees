@@ -8965,9 +8965,9 @@
    "scope": "transcription",
    "status": "enforced",
    "change": "new",
-   "statement": "The second listen (Gemini re-hear, TR-22) runs by itself on every new lesson: each hour scripts/rehear_auto.py moves every published lesson after the backfill that is not applied one step (freeze, the 3 paid base runs, collect, two-clip runs, proposals, apply with the TR-27 holds, then the three readers read the lesson again), with the same recipe and rules as the backfill. Money: a lesson after 10-02 draws only on Medi's limits in data/lesson-work/rehear/spend.json, never raised by code - since 2026-10-09 $2.50 per lesson and no monthly cap ('no budget 2.50 per lesson is fine'); every job is checked against what its lesson has spent or owes; no room = the lesson waits, its chip says 'Second listen: waiting for allowance' with the dollars, and one LS-04 line says so (runs already paid are kept and go on when the limit allows). The backfill's own $45 is checked against the committed record, never less than $43.99 (its job files are git-ignored in another checkout, so from the hourly checkout it looked untouched). Found 2026-10-09: 10-05, 10-06 and 10-08 sat pending with ElevenLabs-only text; nothing ever ran the listen after the one-time backfill. Tests never step it (ANEES_REHEAR_AUTO=off).",
-   "plain": "The second Google listen runs by itself on every new lesson, up to $2.50 a lesson with no monthly cap. If a lesson needs more, it says so on its chip.",
-   "plain_for": "5b258143",
+   "statement": "The second listen (Gemini re-hear, TR-22) runs by itself on every new lesson: each hour scripts/rehear_auto.py moves every published lesson after the backfill that is not applied one step (freeze, the 3 paid base runs, collect, two-clip runs, proposals, apply with the TR-27 holds, then the three readers read the lesson again), with the same recipe and rules as the backfill. Money: a lesson after 10-02 draws only on Medi's limits in data/lesson-work/rehear/spend.json, never raised by code - since 2026-10-09 $4 per lesson and no monthly cap ('no budget 2.50 per lesson is fine', then 'ok 4$ just to be safe'; the 18 backfilled lessons cost $1.23-$3.03, average $2.10); every job is checked against what its lesson has spent or owes; no room = the lesson waits, its chip says 'Second listen: waiting for allowance' with the dollars, and one LS-04 line says so (runs already paid are kept and go on when the limit allows). The backfill's own $45 is checked against the committed record, never less than $43.99 (its job files are git-ignored in another checkout, so from the hourly checkout it looked untouched). Found 2026-10-09: 10-05, 10-06 and 10-08 sat pending with ElevenLabs-only text; nothing ever ran the listen after the one-time backfill. Tests never step it (ANEES_REHEAR_AUTO=off).",
+   "plain": "The second Google listen runs by itself on every new lesson, up to $4 a lesson with no monthly cap. If a lesson needs more, it says so on its chip.",
+   "plain_for": "e82a62c3",
    "topic": "the second listen",
    "source": [
     {
@@ -8992,6 +8992,12 @@
      "by": "medi",
      "date": "2026-10-09",
      "quote": "no budget 2.50 per lesson is fine",
+     "session": "1fc084ad"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "ok 4$ just to be safe",
      "session": "1fc084ad"
     }
    ],
