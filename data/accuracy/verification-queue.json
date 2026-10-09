@@ -1,6 +1,6 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 26,
+ "count": 27,
  "by_date": {
   "2026-08-25": 1,
   "2026-09-04": 2,
@@ -16,7 +16,8 @@
   "2026-09-26": 1,
   "2026-09-28": 1,
   "2026-09-30": 1,
-  "2026-10-01": 1
+  "2026-10-01": 1,
+  "2026-10-08": 1
  },
  "rows": [
   {
@@ -674,6 +675,32 @@
    },
    "listen_from": "18:57",
    "listen_to": "24:07"
+  },
+  {
+   "uid": "FA-f2eab111",
+   "date": "2026-10-08",
+   "t": "47:21",
+   "t_amal": "47:24",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A9",
+   "medi_said": "Uh, الوردة / El ward.",
+   "amal_said": "وحدات؟",
+   "wrong": "الوردة",
+   "right": "وردات",
+   "why_check": [
+    "reader confidence low",
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi says «الوردة/الورد», but Amal's own-track evidence sounds like «وحدة» rather than a clear plural prompt, and there is no reliable correction to «وردات»."
+   },
+   "listen_from": "47:11",
+   "listen_to": "47:44"
   }
  ]
 }
