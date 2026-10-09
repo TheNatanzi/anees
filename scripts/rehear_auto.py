@@ -171,6 +171,8 @@ def step(log=print, dates=None):
     out = {"stages": {}, "problems": [], "changed": False}
     if os.environ.get("ANEES_REHEAR_AUTO") == "off":           # kill switch (and tests: never a paid call)
         return out
+    import rehear_status as RS
+    before = json.dumps(RS.load().get("lessons") or {}, sort_keys=True)
     try:
         ds = todo() if dates is None else dates
     except Exception as e:  # noqa: BLE001
@@ -187,6 +189,8 @@ def step(log=print, dates=None):
         except Exception as e:  # noqa: BLE001 - a failed lesson waits for the next hour
             log("rehear_auto", d, "failed:", "".join(traceback.format_exception_only(type(e), e)).strip()[:300])
             out["problems"].append({"key": "rehear:" + d, "kind": "rehear", "date": d, "cause": "second listen step failed: %s" % type(e).__name__})
+    # a lesson's chip moved (pending -> submitted / waiting / applied): the pages that show it must be rebuilt this hour
+    out["status_changed"] = json.dumps(RS.load().get("lessons") or {}, sort_keys=True) != before
     try:
         out["changed"] = record_spend() or out["changed"]
     except Exception as e:  # noqa: BLE001

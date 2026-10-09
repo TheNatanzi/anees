@@ -656,6 +656,12 @@ def _main():
         rh = RH.step(log=log)
         if rh['problems']:
             alerts(load_problems + rh['problems'])
+        if rh.get('status_changed'):
+            # the chip on the Lessons list and each lesson page changed: rebuild the page data + ledgers so the guard's
+            # LS-11 / PG-27 checks see one truth (2026-10-09 09:13: the push was blocked on 'ledger older than its inputs')
+            f = []
+            run_step('build_lessons_page_data.py (second listen status)', [sys.executable, str(HERE / 'build_lessons_page_data.py')], f, timeout=1800)
+            G.set_open_failures(ROOT, 'rehear-pages', f); run_failures += f
         nxt = RH.reread_next()
         if nxt and not batch:
             f = []

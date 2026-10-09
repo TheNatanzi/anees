@@ -89,6 +89,8 @@ def test_tr_29_the_chip_says_waiting_for_allowance_and_the_hourly_job_steps_it()
 def test_tr_29_tests_never_step_the_paid_listen():
     assert os.environ.get("ANEES_REHEAR_AUTO") == "off"
     assert RH.step(dates=["2026-10-08"]) == {"stages": {}, "problems": [], "changed": False}
+    src = open(os.path.join(ROOT, "scripts", "hourly_lessons.py"), encoding="utf-8").read()
+    assert "if rh.get('status_changed'):" in src     # a moved chip rebuilds the page data the same hour
 
 
 def test_tr_29_medi_s_limit_is_per_lesson_with_no_monthly_cap(monkeypatch):

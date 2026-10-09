@@ -97,6 +97,9 @@ def test_the_second_listen_marks_say_ai_agreement_and_name_the_mixed_recordings(
             # TR-29 (2026-10-09): a pending lesson may say why it waits (the Google allowance); never more than that
             assert (r["note"] == "" or r["note"].startswith("Waiting for the Google allowance"))                 and not os.path.exists(os.path.join(ROOT, "data", "lesson-work", "rehear", d, "apply-plan.json")), d
             continue
+        if r["status"] in ("submitted", "proposed"):                    # TR-29 (2026-10-09): sent by the hourly job, answers not applied yet
+            assert not os.path.exists(os.path.join(ROOT, "data", "lesson-work", "rehear", d, "apply-plan.json")) or r["status"] == "proposed", d
+            continue
         applied += 1
         P = J("data", "lesson-work", "rehear", d, "apply-plan.json")["summary"]
         assert "The tutor's lines: unchanged" in r["note"], d
