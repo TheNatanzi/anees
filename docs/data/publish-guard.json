@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-09T09:55:04-07:00",
+ "updated": "2026-10-09T09:58:07-07:00",
  "result": "pass",
  "source": "manual: second listen applied 10-05/06/08 + 10-08 re-read (Medi 2026-10-09)",
- "checked_commit": "e0d73532eded",
- "secs": 76.9,
+ "checked_commit": "3807d5bf697f",
+ "secs": 76.0,
  "checks": [
   {
    "id": "step_failures",
@@ -41,7 +41,7 @@
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.4,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 21 lessons reach every page"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.0,
+   "secs": 0.9,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 55.5,
+   "secs": 54.7,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 90%] | ..................................................................       [100%] | 710 passed, 1 skipped, 3 xfailed in 53.50s"
+   "detail": "............................. [ 90%] | ..................................................................       [100%] | 710 passed, 1 skipped, 3 xfailed in 52.71s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.2,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1032.2835"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1163.6039"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.3,
+   "secs": 5.1,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -188,14 +188,14 @@
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-09T09:53:15-07:00",
+  "at": "2026-10-09T09:56:45-07:00",
   "source": "manual: second listen applied 10-05/06/08 + 10-08 re-read (Medi 2026-10-09)",
   "outcome": "blocked",
-  "sha": "e2b8ccca736b1dc2d4d78a04b75e31778c1f8adf",
-  "reason": "tests_py: exit 1: FAILED tests/test_amal_checks.py::test_the_lists_medi_asked_for_with_their_counts | 1 failed, 709 passed, 1 skipped, 3 xfailed in 52.39s",
-  "secs": 75.7,
-  "commits_waiting": "4"
+  "sha": "3807d5bf697fd2a695043fb89f62d87e158d6959",
+  "reason": "clean_tree: 1 uncommitted change(s) in what would be published, e.g. docs/data/tutor-notes.json",
+  "secs": 77.0,
+  "commits_waiting": "6"
  },
- "blocks_before_this_pass": 2,
+ "blocks_before_this_pass": 4,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
