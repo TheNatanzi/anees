@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-09T00:02:36-07:00",
+ "updated": "2026-10-09T00:22:06-07:00",
  "result": "pass",
- "source": "manual: PG-37 no clicking on words (Medi 2026-10-09)",
- "checked_commit": "3bbf46864a95",
- "secs": 81.2,
+ "source": "hourly: 21 local commit(s)",
+ "checked_commit": "f2e21223050e",
+ "secs": 69.5,
  "checks": [
   {
    "id": "step_failures",
@@ -17,7 +17,7 @@
    "id": "clean_tree",
    "required": true,
    "ok": true,
-   "secs": 0.0,
+   "secs": 0.1,
    "what": "what is checked is exactly what gets published",
    "detail": "nothing uncommitted under docs, data/full-audit-2026-09-26.json, data/accuracy, RULE-BOOK.md, data/lesson-work/ledger, data/lesson-work/ledger-amal.json"
   },
@@ -33,7 +33,7 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 0.2,
+   "secs": 0.3,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
    "detail": "rule_registry: OK - 212 rules: enforced 122 (code 113, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
@@ -41,7 +41,7 @@
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.4,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 21 lessons reach every page"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 2.0,
+   "secs": 2.1,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...1 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,15 +105,15 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.3,
+   "secs": 4.7,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
-   "detail": "pages OK: 71 pages, every link, data file and clip resolves (336 references to unpublished clips play from the full lesson recording)"
+   "detail": "pages OK: 71 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
   {
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.3,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.6,
+   "secs": 0.5,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,33 +129,33 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 59.2,
+   "secs": 49.2,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 92%] | ..................................................                       [100%] | 694 passed, 1 skipped, 3 xfailed in 55.91s"
+   "detail": "............................. [ 92%] | ..................................................                       [100%] | 694 passed, 1 skipped, 3 xfailed in 46.67s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.2,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1035.2036"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1123.2501"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.1,
+   "secs": 4.1,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
   {
    "id": "review_freshness",
    "required": false,
-   "ok": true,
-   "secs": 0.2,
+   "ok": false,
+   "secs": 0.1,
    "what": "the two readers read the transcript the pages show now",
-   "detail": "21 lessons audited on their current transcript"
+   "detail": "2026-10-08: transcript changed after the readers read it"
   },
   {
    "id": "data_freshness",
@@ -163,7 +163,7 @@
    "ok": false,
    "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
-   "detail": "Amal's answers last checked 8 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
+   "detail": "nothing published for 24 h (129 blocked pushes; last: step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/tutor-notes)"
   },
   {
    "id": "medi_corrections",
@@ -177,16 +177,25 @@
    "id": "foreign_script",
    "required": false,
    "ok": false,
-   "secs": 0.2,
+   "secs": 0.1,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)",
    "detail": "exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
   }
  ],
  "warnings": [
-  "data_freshness: Amal's answers last checked 8 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
+  "review_freshness: 2026-10-08: transcript changed after the readers read it",
+  "data_freshness: nothing published for 24 h (129 blocked pushes; last: step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/tutor-notes)",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
- "last_block": null,
- "blocks_before_this_pass": 0,
+ "last_block": {
+  "at": "2026-10-09T00:17:07-07:00",
+  "source": "hourly: tutor refresh",
+  "outcome": "blocked",
+  "sha": "ecc57789caa8b4a36b6b9eb1602163b20a92f238",
+  "reason": "step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/tutor-notes.json: rebuild pending (open since 2026-10-08T23:34, tutor)",
+  "secs": 72.5,
+  "commits_waiting": "19"
+ },
+ "blocks_before_this_pass": 129,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
