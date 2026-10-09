@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""WS-30 / WS-31 / GR-32 / GR-33 / PG-39 (Medi 2026-10-09 on the 10-08 lesson: "any time I speak ANY arabic word that you are giving me
+"""WS-30 / WS-31 / GR-32 / GR-33 / PG-39 / AZ-14 (Medi 2026-10-09 on the 10-08 lesson: "any time I speak ANY arabic word that you are giving me
 credit or marking as incorrect. Mark as repeat if I am repeating one of amals corrections and dont give me credit for it
 ... for grammar errors that I am being corrected and repeating the correctiong. THese should also be marked as repeat
 and uncounted")."""
@@ -176,3 +176,15 @@ def test_ws_30_10_08_08_36_every_word_of_his_outfit_line_is_credited():
                     ok |= {WC.core(w) for x in [c] + (c.get("words") or []) for w in re.split(r"[\s/]+", str(x.get("ar") or "")) if w}
     for w in ("اليوم", "بلبس", "بلوزة", "سودة", "بنطلون", "أزرق", "فاتح"):
         assert WC.core(w) in ok, w
+
+
+def test_az_14_her_one_word_row_spells_the_word():
+    """AZ-14 (Medi 2026-10-09 "are we using amals arabizi? I dont see 3ala for the preposition"): على is her 3ala, not the
+    'ala of her phrase 'tesbah 'ala kheir'; من stays her Min (from), never her chat's Meen (who)."""
+    node = os.environ.get("ANEES_NODE") or r"C:\dev\tools\node-v24.18.0-win-x64\node.exe"
+    js = r"""const path=require('path'),fs=require('fs');const R=%s;const J=f=>JSON.parse(fs.readFileSync(path.join(R,'data',f),'utf8'));
+const h=J('house_spelling.json').items||{};const w=(J('words.json').items||[]).map(x=>{const y=h[x.match_loose];return y&&y.house?{...x,house_spelling:y.house}:x;});
+const r=require(path.join(R,'js','word-bank-arabizi.js')).create(w,J('word-bank-catalog.json'),J('arabizi-extra.json'),{scope:'lessons',snap:true});
+console.log(JSON.stringify(['على. بدير بالي takes على.','من','مع','تسعة'].map(s=>r(s).text)));""" % json.dumps(os.path.join(ROOT, "docs"))
+    out = subprocess.run([node, "-e", js], capture_output=True, text=True, encoding="utf-8", check=True).stdout.strip()
+    assert json.loads(out) == ["3ala. badir baali takes 3ala.", "min", "Ma3", "tes3ah"]

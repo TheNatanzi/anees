@@ -9454,6 +9454,43 @@
     "t": "07:29",
     "note": "من نار: three chips before, one ↻ Repeat · grammar D1 now"
    }
+  },
+  {
+   "id": "AZ-14",
+   "kind": "error",
+   "scope": "arabizi",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A word's Arabizi on the pages is her ONE-word row for it, never the spelling of the same Arabic inside one of her phrases: على = her 3ala row, not the 'ala of 'tesbah 'ala kheir' / ''ala albak' (docs/js/word-bank-arabizi.js create(): a phrase only fills a gap). Only when all her one-word rows for that Arabic agree, and never for a capital letter alone. Two-meaning words are pinned: من = her Min (from; her chat's Meen is 'who'), بعت = ba3at (sent; her only row is be3et 'I sold'). 2026-10-09: 13 words changed on display, e.g. tes'ah -> tes3ah, ma' -> Ma3, 'ala -> 3ala, noun -> Esem. Display only (S1): no score changes.",
+   "plain": "Words show in the tutor's own Arabizi from her one-word list row (على is 3ala), not from a phrase she wrote it in.",
+   "plain_for": "65f26ff4",
+   "topic": "Arabizi spelling",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "are we using amals arabizi? I dont see 3ala for the preposition",
+     "session": "f5d90041"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/word-bank-arabizi.js",
+     "contains": "AZ-14: her one-word row spells the word"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_az_14_her_one_word_row_spells_the_word"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "11:45",
+    "note": "Amal: على. بدير بالي takes على. showed ''ala', now 3ala"
+   }
   }
  ]
 }

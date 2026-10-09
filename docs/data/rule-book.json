@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-09",
- "total": 217,
+ "total": 218,
  "replaced": 8,
  "counts": {
-  "Automatic": 135,
+  "Automatic": 136,
   "Written down": 70,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -587,8 +587,28 @@
    "key": "spelling",
    "title": "Spelling (the tutor's Arabizi)",
    "intro": "How Arabic words are spelled on screen. Arabizi = Arabic in Latin letters and numbers (3 = ع, 7 = ح).",
-   "count": 12,
+   "count": 13,
    "sections": [
+    {
+     "kind": "error",
+     "heading": "Counts",
+     "rules": [
+      {
+       "id": "AZ-14",
+       "text": "Words show in the tutor's own Arabizi from her one-word list row (على is 3ala), not from a phrase she wrote it in.",
+       "status": "enforced",
+       "topic": "Arabizi spelling",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "are we using amals arabizi? I dont see 3ala for the preposition"
+        }
+       ]
+      }
+     ]
+    },
     {
      "kind": "display",
      "heading": "How it's shown",

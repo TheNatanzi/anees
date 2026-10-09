@@ -36,7 +36,7 @@ const spoken={
  'تمنتاش':'tmanta3sh','تمانين':'tamanin','ثمانين':'thamanin','تلاتة':'tlate','خمسة':'5amse','وعشرين':'w-3ishrin','ونص':'w-nu99','بسرعة':'bisur3a'
 };
 function create(words=[],catalog={},extra={},opts={}){
- const exact=new Map(),lexicon=new Map();
+ const exact=new Map(),lexicon=new Map(),single=new Map();
  // Words she never typed whole: sound-alike matches and her own pieces, checked against the sentence (arabizi-extra.json).
  // A row with a scope ("lessons": his own wrong / cut-off / unclear forms, method as-said) is used only by the page that
  // asks for that scope - the Lessons page error cards and transcript lines (RULES.md S1, AZ-05 / AZ-10). Everywhere
@@ -56,10 +56,16 @@ function create(words=[],catalog={},extra={},opts={}){
   ar=clean(ar);latin=clean(latin);
   if(!ar||!latin||AR.test(latin)||/[\/|()[\]]/.test(ar+latin)||!AR.test(ar))return;
   const a=ar.split(/\s+/),b=latin.split(/\s+/);if(a.length!==b.length)return;
-  a.forEach((s,i)=>{if(AR.test(s)&&/^[\p{L}0-9'’\-]+$/u.test(b[i])){if(!lexicon.has(norm(s)))lexicon.set(norm(s),b[i]);sheetPairs.push([norm(s).replace(/[^ء-ي]/g,''),b[i]]);}});
+  // AZ-14 (Medi 2026-10-09 "are we using amals arabizi? I dont see 3ala for the preposition"): her ONE-word row is the
+  // word's spelling; a word taken out of one of her phrases ("tesbah 'ala kheir") only fills a gap
+  a.forEach((s,i)=>{if(AR.test(s)&&/^[\p{L}0-9'’\-]+$/u.test(b[i])){const k=norm(s);if(a.length===1){const o=single.get(k)||new Set();o.add(b[i].toLowerCase());single.set(k,o);}if(!lexicon.has(k))lexicon.set(k,b[i]);sheetPairs.push([k.replace(/[^ء-ي]/g,''),b[i]]);}});
  }
  for(const w of words)add(w.arabic,w.house_spelling||w.arabizi);
  for(const g of catalog.groups||[])for(const f of g.entries||[]){add(f.arabic,f.word);for(const p of f.persons||[])if(p.provenance==='document')add(p.arabic,p.word);}
+ // AZ-14: her one-word row spells the word (على = her 3ala, not "'ala" out of "tesbah 'ala kheir"); only when all her one-word
+ // rows for it agree (من is her Meen 'who' AND min 'from': not decided here) and not for a capital letter alone
+ for(const [k,set] of single){if(set.size!==1)continue;const lat=[...words].map(w=>{const a=String(w.arabic||'').replace(/\([^)]*\)?/g,' ').trim();return norm(a)===k&&!/\s/.test(a)?String(w.house_spelling||w.arabizi||'').replace(/\([^)]*\)?/g,' ').trim():null;}).find(Boolean);
+  const cur=lexicon.get(k);if(lat&&!/\s/.test(lat)&&cur&&cur.toLowerCase()!==lat.toLowerCase())lexicon.set(k,lat);}
  // Pronouns in documented conjugations disambiguate homographs such as Hayy (here’s) versus heyye (she).
  for(const [key,ar] of [['heiye ','هي'],['huwe ','هو'],['i7na ','إحنا'],['intu ','إنتو'],['hume ','هم']]){const form=words.find(w=>w.key?.startsWith(key)&&w.arabizi);if(form)lexicon.set(norm(ar),form.arabizi.split(/\s+/)[0]);}
  for(const [ar,latin] of Object.entries(spoken)){exact.set(ar,latin);if(!lexicon.has(norm(ar)))lexicon.set(norm(ar),latin);}
@@ -67,7 +73,7 @@ function create(words=[],catalog={},extra={},opts={}){
  // Her own spellings only (Marra = 'one time' row; Tenein = her 'two' row minus a stray V; Kam = her 'how many' row,
  // not Kum 'sleeve' - Medi 2026-10-02).
  // 3indna = her own chat spelling (9x; Medi 2026-10-03 "I said e7na 3endna (we have)" - the page showed 3inna).
- for(const [ar,latin] of [['مرة','Marra'],['تنين','Tenein'],['كم','Kam'],['عندنا','3indna'],['طريق','6aree2'],['قانون','qanoon']])lexicon.set(norm(ar),latin);   // 6aree2: her '3ala el-6aree2' (was 6ariq)
+ for(const [ar,latin] of [['مرة','Marra'],['تنين','Tenein'],['كم','Kam'],['عندنا','3indna'],['طريق','6aree2'],['قانون','qanoon'],['من','min'],['بعت','ba3at']])lexicon.set(norm(ar),latin);   // min: her 'From' row (Min) (her chat's 'Meen' is 'who', AZ-14)   // 6aree2: her '3ala el-6aree2' (was 6ariq)
  // Homograph by context (Medi 2026-10-03 "not saanye, taanye (another shirt as written later)"): ثانية is her list's Saanie
  // (a second, Units of Time) only after a number or kam ('khamas thawaani', 'kam saanie'); everywhere else it is taanye,
  // second / another (her chat: 'marra tanye', 'el-tayyara el-taanya') - 'blooze taanye'.
