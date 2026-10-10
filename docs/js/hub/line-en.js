@@ -7,7 +7,7 @@
 (function () {
   'use strict';
   const src = (document.currentScript && document.currentScript.src) || location.href;
-  const URL_ = new URL('../../data/tutor-line-en.json', src).href;
+  const URL_ = new URL('../../' + 'data/tutor-line-en.json', src).href;
   const AR = /[ء-ي]/;
   const norm = s => String(s || '').replace(/[\s.,?!،؟…\-—:;"'()«»\[\]]+/g, ' ').trim();
   const PICK = 'span,p,div,td,li,q,blockquote,em,i,b,button,label';
