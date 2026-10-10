@@ -1,5 +1,5 @@
 {
-  "built": "2026-10-08",
+  "built": "2026-10-10",
   "patterns": [
     {
       "id": "p-present-no-b",
@@ -23,7 +23,8 @@
         "FA-6a189634",
         "FA-cb73ffba",
         "FA-407ececa",
-        "FA-c6dd2687"
+        "FA-c6dd2687",
+        "FA-f826c9d7"
       ]
     },
     {
@@ -631,6 +632,25 @@
       ]
     },
     {
+      "id": "p-year-2026-said-wrong",
+      "kind": "vocab",
+      "bucket": null,
+      "tier": 1,
+      "title": "The year 2026 said wrong (alfein u sab3a 3eshreen / alfein u sitta3ash -> alfein u sitte u 3eshreen)",
+      "wrong": "alfein u sab3a 3eshreen / alfein u sitta3ash",
+      "right": "alfein u sitte u 3eshreen",
+      "wrong_arabic": "ألفين وسبعة عشرين / ألفين وستة عشر",
+      "right_arabic": "ألفين وستة وعشرين",
+      "wrong_arabizi": null,
+      "right_arabizi": null,
+      "why": "Giving the year 2026 he gets the units or tens wrong (seven for six, or sixteen for twenty-six), and 2026 is alfein u sitte u 3eshreen (her pattern: alfein u 5amsa u 3eshrin; the 2016 one may be the engine).",
+      "english": "two thousand twenty-six",
+      "rows": [
+        "FA-a25640de",
+        "FA-2a43e610"
+      ]
+    },
+    {
       "id": "p-b-dropped-after-enno",
       "kind": "grammar",
       "bucket": "B3",
@@ -1204,24 +1224,6 @@
       "english": "meetings",
       "rows": [
         "FA-8921b46c"
-      ]
-    },
-    {
-      "id": "p-year-2026-said-wrong",
-      "kind": "vocab",
-      "bucket": null,
-      "tier": 1,
-      "title": "The year 2026 said as alfein u sab3a 3eshreen (-> alfein u sitte u 3eshreen)",
-      "wrong": "alfein u sab3a 3eshreen",
-      "right": "alfein u sitte u 3eshreen",
-      "wrong_arabic": "ألفين وسبعة عشرين",
-      "right_arabic": "ألفين وستة وعشرين",
-      "wrong_arabizi": null,
-      "right_arabizi": null,
-      "why": "Giving the year he said seven where 2026 needs six and left out the u between the units and the tens (her pattern: alfein u 5amsa u 3eshrin).",
-      "english": "two thousand twenty-six",
-      "rows": [
-        "FA-a25640de"
       ]
     },
     {
@@ -1816,6 +1818,78 @@
       "english": "I'll do it, (with) a lot of mistakes",
       "rows": [
         "FA-1d3d0563"
+      ]
+    },
+    {
+      "id": "p-salamtak-reply-echoed",
+      "kind": "vocab",
+      "bucket": null,
+      "tier": 1,
+      "title": "Wrong reply to salamtak ('3ala salamtak' -> Allah ysalmek)",
+      "wrong": "3ala salamtak",
+      "right": "Allah ysalmek",
+      "wrong_arabic": "علي سلامتك",
+      "right_arabic": "الله يسلمك",
+      "wrong_arabizi": null,
+      "right_arabizi": "Allah ysalmek",
+      "why": "When she wishes him well with salamtak he echoes the wish back instead of giving the fixed reply Allah ysalmek.",
+      "english": "Thanks (reply to 'get well')",
+      "rows": [
+        "FA-58aa4283"
+      ]
+    },
+    {
+      "id": "p-object-ending-wrong-person",
+      "kind": "grammar",
+      "bucket": "D4",
+      "tier": null,
+      "title": "Object ending on the wrong person: -ha (her) for -ni (me) (bawja3ha -> bewja3ni)",
+      "wrong": "bawja3ha",
+      "right": "bewja3ni",
+      "wrong_arabic": "بواجها",
+      "right_arabic": "بوجعني",
+      "wrong_arabizi": null,
+      "right_arabizi": null,
+      "why": "He means 'it hurts me' but puts the -ha (her) ending on the verb, and it should be -ni (me).",
+      "english": "My stomach hurts (me)",
+      "rows": [
+        "FA-596bdfb8"
+      ]
+    },
+    {
+      "id": "p-7abb-plus-fi",
+      "kind": "grammar",
+      "bucket": "D2",
+      "tier": null,
+      "title": "7abb given an extra fi (and masculine you to Amal): ma bt7eb fi hada -> ma bet7ebbi hada",
+      "wrong": "ma bt7eb fi hada",
+      "right": "ma bet7ebbi hada",
+      "wrong_arabic": "ما بتحب في هذه",
+      "right_arabic": "ما بتحبي هاد",
+      "wrong_arabizi": null,
+      "right_arabizi": "7ebb",
+      "why": "He puts fi after 7abb, which takes its object directly, and uses the masculine you-form to Amal (fi may be a restart, so please confirm).",
+      "english": "If you don't like this beach",
+      "rows": [
+        "FA-3a2b718b"
+      ]
+    },
+    {
+      "id": "p-awal-missing-el-beginning",
+      "kind": "grammar",
+      "bucket": "A13",
+      "tier": null,
+      "title": "'The beginning of' said without el- (awal lu3be -> awal el-lu3be)",
+      "wrong": "awal lu3be",
+      "right": "awal el-lu3be",
+      "wrong_arabic": "أول لعبة",
+      "right_arabic": "أول اللعبة",
+      "wrong_arabizi": null,
+      "right_arabizi": "awal alnoun",
+      "why": "For 'the beginning of the game' he says awal + bare noun (which means 'the first game'), and 'the beginning of' needs awal + el- + noun.",
+      "english": "the beginning of the game",
+      "rows": [
+        "FA-f3f75038"
       ]
     }
   ],
