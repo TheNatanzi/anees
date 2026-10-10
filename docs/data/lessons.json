@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T00:11:16-07:00",
+ "updated": "2026-10-10T00:44:49-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -88,7 +88,7 @@
     "maybe_counted_twice": 1,
     "eligible": 33,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -251,8 +251,7 @@
      "reader agreement: pass 1 79.3 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
      "grammar % provisional: re-read, but the recording has no separate microphone track, so almost no line was re-heard; 5 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -344,9 +343,9 @@
     "provisional": "re-read, but the recording has no separate microphone track, so almost no line was re-heard; 9 of its slips come from the first read only and wait for a check",
     "first_read_cards": 9,
     "maybe_counted_twice": 5,
-    "eligible": 42,
-    "excluded": 1,
-    "pending": 2,
+    "eligible": 41,
+    "excluded": 2,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -523,8 +522,7 @@
      "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
      "coverage: speaker labels agree with an independent check on only 86.7 % of 875 lines (voice pitch per line (Medi < 155 Hz, Amal > 180 Hz) vs the engine's diarization labels)",
      "grammar % provisional: re-read, but the recording has no separate microphone track, so almost no line was re-heard; 9 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -616,9 +614,9 @@
     "first_read_cards": 4,
     "provisional": "4 of its slips come from the first read only and wait for a check",
     "maybe_counted_twice": 2,
-    "eligible": 35,
-    "excluded": 2,
-    "pending": 1,
+    "eligible": 34,
+    "excluded": 3,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -781,8 +779,7 @@
      "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
      "coverage: speaker labels agree with an independent check on only 89.8 % of 659 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "grammar % provisional: 4 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 9 excerpts (241 s of 3762 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 9 excerpts (241 s of 3762 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -876,7 +873,7 @@
     "maybe_counted_twice": 2,
     "eligible": 39,
     "excluded": 4,
-    "pending": 4,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -1086,8 +1083,7 @@
      "reader agreement: pass 1 54.5 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: line times estimated from each person's recording by silence detection (no engine word timings)",
      "grammar % provisional: 5 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 21 excerpts (519 s of 3762 s) compared with a second model",
-     "checks: 4 scored rows need an audio or human check (0 words, 4 grammar)"
+     "speech recognition not reviewed: nobody listened; 21 excerpts (519 s of 3762 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -1179,9 +1175,9 @@
     "first_read_cards": 6,
     "provisional": "6 of its slips come from the first read only and wait for a check",
     "maybe_counted_twice": 2,
-    "eligible": 32,
-    "excluded": 10,
-    "pending": 1,
+    "eligible": 31,
+    "excluded": 11,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -1317,8 +1313,7 @@
      "coverage: 18 stretches of Medi's speech written as '[speaking ...]' markers (03:22 in all)",
      "coverage: 10 stretches of Amal's speech written as '[speaking ...]' markers (00:58 in all)",
      "grammar % provisional: 6 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -1537,7 +1532,7 @@
     "unique_rows": 109,
     "eligible": 217,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "eligible_pct": 97.0,
     "excluded_why": {},
     "verified_pct": null
@@ -1551,9 +1546,9 @@
     "unscored_mistakes": 0,
     "first_read_cards": 4,
     "provisional": "4 of its slips come from the first read only and wait for a check",
-    "eligible": 42,
-    "excluded": 2,
-    "pending": 1,
+    "eligible": 41,
+    "excluded": 3,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -1717,8 +1712,7 @@
     "reasons": [
      "reader agreement: pass 1 73.2 %; 2 consecutive passes at >= 95 % are needed",
      "grammar % provisional: 4 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3768 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (1 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3768 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -1809,9 +1803,9 @@
     "first_read_cards": 9,
     "provisional": "9 of its slips come from the first read only and wait for a check",
     "maybe_counted_twice": 4,
-    "eligible": 44,
-    "excluded": 0,
-    "pending": 1,
+    "eligible": 43,
+    "excluded": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -1958,8 +1952,7 @@
     "reasons": [
      "reader agreement: pass 1 66.7 %; 2 consecutive passes at >= 95 % are needed",
      "grammar % provisional: 9 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4026 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4026 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -3009,9 +3002,9 @@
     "provisional": "re-read, but the recording has no separate microphone track, so almost no line was re-heard; 11 of its slips come from the first read only and wait for a check",
     "first_read_cards": 11,
     "maybe_counted_twice": 4,
-    "eligible": 32,
-    "excluded": 1,
-    "pending": 1,
+    "eligible": 31,
+    "excluded": 2,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -3188,8 +3181,7 @@
      "reader agreement: pass 1 76.5 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: speakers guessed by voice pitch on one mixed recording",
      "grammar % provisional: re-read, but the recording has no separate microphone track, so almost no line was re-heard; 11 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -3265,11 +3257,13 @@
     "first_read_cards": 3,
     "rehear_word_conflicts": 0,
     "unique_rows": 54,
-    "eligible": 84,
-    "excluded": 0,
-    "pending": 1,
-    "eligible_pct": 86.9,
-    "excluded_why": {},
+    "eligible": 83,
+    "excluded": 1,
+    "pending": 0,
+    "eligible_pct": 88.0,
+    "excluded_why": {
+     "rejected on a human check by Amal": 1
+    },
     "verified_pct": null
    },
    "grammar": {
@@ -3280,9 +3274,9 @@
     "scored_mistakes": 3,
     "unscored_mistakes": 0,
     "first_read_cards": 0,
-    "eligible": 3,
-    "excluded": 0,
-    "pending": 1,
+    "eligible": 2,
+    "excluded": 1,
+    "pending": 0,
     "denominator": {
      "valid": true,
      "reasons": [],
@@ -3410,8 +3404,7 @@
      "reader agreement: pass 1 71.1 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: 2 stretches of Medi's speech written as '[speaking ...]' markers (00:17 in all)",
      "coverage: 10 stretches of Amal's speech written as '[speaking ...]' markers (01:08 in all)",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3726 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (1 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3726 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -3551,7 +3544,7 @@
     "unique_rows": 181,
     "eligible": 460,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "eligible_pct": 94.3,
     "excluded_why": {},
     "verified_pct": null
@@ -3568,7 +3561,7 @@
     "maybe_counted_twice": 7,
     "eligible": 62,
     "excluded": 2,
-    "pending": 3,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -3721,8 +3714,7 @@
     "reasons": [
      "reader agreement: pass 1 66.3 %; 2 consecutive passes at >= 95 % are needed",
      "grammar % provisional: 8 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4332 s) compared with a second model",
-     "checks: 4 scored rows need an audio or human check (1 words, 3 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4332 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -3845,12 +3837,13 @@
     "first_read_cards": 3,
     "rehear_word_conflicts": 0,
     "unique_rows": 87,
-    "eligible": 165,
-    "excluded": 6,
-    "pending": 2,
-    "eligible_pct": 90.6,
+    "eligible": 163,
+    "excluded": 8,
+    "pending": 0,
+    "eligible_pct": 91.7,
     "excluded_why": {
      "Medi's speech": 2,
+     "rejected on a human check by Amal": 2,
      "his line": 4
     },
     "verified_pct": null
@@ -3867,7 +3860,7 @@
     "maybe_counted_twice": 1,
     "eligible": 33,
     "excluded": 6,
-    "pending": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -4069,8 +4062,7 @@
      "reader agreement: pass 1 72.9 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: 30 stretches of Medi's speech written as '[speaking ...]' markers (05:09 in all)",
      "grammar % provisional: 7 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model",
-     "checks: 3 scored rows need an audio or human check (2 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -4354,9 +4346,9 @@
     "first_read_cards": 2,
     "provisional": "2 of its slips come from the first read only and wait for a check",
     "maybe_counted_twice": 2,
-    "eligible": 35,
-    "excluded": 0,
-    "pending": 1,
+    "eligible": 34,
+    "excluded": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -4703,8 +4695,7 @@
      "coverage: speaker labels agree with an independent check on only 87.7 % of 1002 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "coverage: Amal 00:00-20:17 comes from the mixed Meet recording, speakers split by diarization (their own track is silent there)",
      "grammar % provisional: 2 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4188 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4188 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -4874,7 +4865,7 @@
     "provisional": "5 of its slips come from the first read only and wait for a check",
     "eligible": 22,
     "excluded": 3,
-    "pending": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -5115,8 +5106,7 @@
      "coverage: 10 stretches of Medi's speech written as '[speaking ...]' markers (02:00 in all)",
      "coverage: speaker labels agree with an independent check on only 87.3 % of 874 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "grammar % provisional: 5 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3948 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3948 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -5372,11 +5362,13 @@
     "first_read_cards": 3,
     "rehear_word_conflicts": 0,
     "unique_rows": 115,
-    "eligible": 226,
-    "excluded": 0,
-    "pending": 1,
-    "eligible_pct": 94.2,
-    "excluded_why": {},
+    "eligible": 225,
+    "excluded": 1,
+    "pending": 0,
+    "eligible_pct": 94.7,
+    "excluded_why": {
+     "rejected on a human check by Amal": 1
+    },
     "verified_pct": null
    },
    "grammar": {
@@ -5603,8 +5595,7 @@
     "status": "not verified",
     "reasons": [
      "reader agreement: pass 1 86.5 %; 2 consecutive passes at >= 95 % are needed",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3942 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3942 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -5847,7 +5838,7 @@
     "unscored_mistakes": 1,
     "eligible": 15,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -5983,8 +5974,7 @@
      "coverage: Amal not transcribed 09:57-14:05 while the other person talks",
      "coverage: Amal not transcribed 18:46-23:14 while the other person talks",
      "coverage: speaker labels agree with an independent check on only 88.3 % of 792 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -7588,9 +7578,9 @@
     "estimate": false,
     "scored_mistakes": 26,
     "unscored_mistakes": 0,
-    "eligible": 26,
-    "excluded": 0,
-    "pending": 1,
+    "eligible": 25,
+    "excluded": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -7908,8 +7898,7 @@
     "status": "not verified",
     "reasons": [
      "reader agreement: pass 1 71.2 %; 2 consecutive passes at >= 95 % are needed",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4032 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4032 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
