@@ -1,6 +1,7 @@
 """Public lesson transcript page: one playable lesson recording, every line seeks the audio, Amal's typed chat lines merged.
 
   python scripts/build_lesson_page.py 2026-09-21 --lesson-dir <dir with speaking-evidence.json> [--chat <Meet chat file>] [--chat-offset 12.3]
+  python scripts/build_lesson_page.py --restyle-all     PG-47: every published lesson page gets the chat colours
 
 Pure helpers (chat parsing, row merge, HTML) are tested in tests/test_build_lesson_page.py. The audio is a low-bitrate mono mix
 of the saved participant tracks placed on the lesson timeline (ffmpeg adelay), so timestamps on the page equal the audio clock.
@@ -61,12 +62,22 @@ def clock(seconds):
     return f'{s // 60:02d}:{s % 60:02d}'
 
 
+# PG-47 (Medi 2026-10-10 "lets put that back in with a different color"): a Google Meet chat line is typed, not spoken -
+# its own colour, the Sabz teal pair (sabz-tokens.css --sabz-state-rinad-drifting-text / -fill; these pages carry their own
+# small stylesheet, so the hexes are copied): not a speaker colour, not a chip colour (PG-39).
+CHAT_LIGHT = ('p.chat{background:#D3EEF2;border-left:4px dashed #0B5966}p.chat b{color:#0B5966}'
+              'p.chat b::after{content:" · chat (typed)";font-weight:400;color:#0B5966;font-size:14px}')
+CHAT_DARK = 'p.chat{background:#0F3D46;border-left-color:#7EDCEA}p.chat b,p.chat b::after{color:#7EDCEA}'
+# the chat style every lesson page carried before PG-47 -> restyle() swaps it in place (display only, S2)
+OLD_CHAT = (('p.chat{background:#eef6f2}p.chat b::after{content:" · typed in chat";font-weight:400;color:#60746e;font-size:14px}', CHAT_LIGHT),
+            ('p.chat{background:#16261f}', CHAT_DARK))
+
 STYLE = ('body{font:18px/1.65 system-ui;background:#f4f6f2;color:#18312e;margin:0}main{max-width:850px;margin:auto;padding:0 16px 48px}'
          'p{padding:10px 12px;margin:0;border-bottom:1px solid #dbe4df;overflow-wrap:anywhere}small{color:#60746e}a{color:#146c54}'
          '.note{background:#fff5df;padding:14px 16px;margin:12px 0}.bar{position:sticky;top:0;background:#f4f6f2;padding:10px 0;z-index:2;border-bottom:1px solid #dbe4df}'
          '.bar audio{width:100%}button.t{font:inherit;font-size:14px;color:#146c54;background:none;border:1px solid #bcd3ca;border-radius:6px;padding:0 6px;margin-right:6px;cursor:pointer}'
-         'p.chat{background:#eef6f2}p.chat b::after{content:" · typed in chat";font-weight:400;color:#60746e;font-size:14px}p.on{background:#dff0e8}'
-         '@media (prefers-color-scheme:dark){body,.bar{background:#101a18;color:#e3ece8}p{border-color:#24332f}.note{background:#3a3120}p.chat{background:#16261f}p.on{background:#1d3a2f}a,button.t{color:#7fd3b3}small{color:#9fb3ac}}')
+         + CHAT_LIGHT + 'p.on{background:#dff0e8}'
+         '@media (prefers-color-scheme:dark){body,.bar{background:#101a18;color:#e3ece8}p{border-color:#24332f}.note{background:#3a3120}' + CHAT_DARK + 'p.on{background:#1d3a2f}a,button.t{color:#7fd3b3}small{color:#9fb3ac}}')
 
 SCRIPT = ('<script>(function(){var a=document.getElementById("lesson-audio");if(!a)return;var on=null;'
           'document.addEventListener("click",function(e){var b=e.target.closest("button.t");if(!b)return;'
@@ -116,6 +127,25 @@ def mix_tracks(tracks, out, bitrate='32k'):
     return out
 
 
+def restyle(page):
+    """A lesson page's HTML with the PG-47 chat colours (an older page's chat style swapped; lines untouched)."""
+    for old, new in OLD_CHAT:
+        page = page.replace(old, new, 1)
+    return page
+
+
+def restyle_all(docs=None):
+    """Every published lesson page gets the PG-47 chat colours. -> dates whose page changed."""
+    out = []
+    for f in sorted(Path(docs or DOCS).glob('20??-??-??.html')):
+        old = f.read_text(encoding='utf-8')
+        new = restyle(old)
+        if new != old:
+            f.write_text(new, encoding='utf-8')
+            out.append(f.stem)
+    return out
+
+
 def write_page(date, data, *, chat=(), chat_offset=0.0, note, audio_rel=None, minutes=None):
     merged = merge(data['rows'], chat, chat_offset)
     words = sum(i.get('type') == 'word' for r in data['rows'] for i in r['items'])
@@ -129,6 +159,10 @@ def write_page(date, data, *, chat=(), chat_offset=0.0, note, audio_rel=None, mi
 
 
 if __name__ == '__main__':
+    import sys
+    if sys.argv[1:] == ['--restyle-all']:
+        print(json.dumps({'restyled': restyle_all()}))
+        raise SystemExit(0)
     p = argparse.ArgumentParser()
     p.add_argument('date'); p.add_argument('--lesson-dir', required=True); p.add_argument('--chat'); p.add_argument('--chat-offset', type=float, default=0.0)
     p.add_argument('--note', default='Unreviewed speech recognition. Timestamps use the lesson timeline.'); p.add_argument('--audio')

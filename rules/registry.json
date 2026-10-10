@@ -10510,6 +10510,56 @@
     "t": "32:05",
     "note": "first version: بيد (misheard, he said غير); 25.6% of 442 Arabic words tracked, 331 mistakes"
    }
+  },
+  {
+   "id": "PG-47",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The Google Meet chat is part of every lesson transcript: each typed line sits at its time among the spoken lines, in its own colour (the Sabz teal pair --sabz-state-rinad-drifting-text / -fill: not Medi's green or the tutor's purple, not a chip colour, PG-39) with the label 'Chat · typed by Tutor' / 'Chat · typed by Student' on the Lessons page (docs/js/lessons-page.js chatWho, docs/css/lessons.css .ls-turn-chat) and the same teal on each lesson's own page (scripts/build_lesson_page.py CHAT_LIGHT / CHAT_DARK). A chat line is never his speech: word coverage and his word counts read who 'Medi' lines only. The hourly job re-merges a lesson's chat whenever its published page has no chat line though the host chat has tutor lines (scripts/hourly_lessons.py page_chat_lines): 10-08's 64 typed lines were merged at 16:21 on 10-08, then a rebase kept master's chat-less page and the old marker stopped the step for good. Frozen second-listen rows find their line by time when a merged chat shifts the indexes (scripts/rehear_apply.py at).",
+   "plain": "The typed Google Meet chat is back in every lesson transcript, in its own teal colour with a label saying whether the tutor or the student typed it; it is never counted as anything he said.",
+   "plain_for": "50dfd7ce",
+   "topic": "the lessons page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "also why did you remove the written chat from google meet? lets put that back in with a different color? into the transcript"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/css/lessons.css",
+     "contains": "--ls-chat:var(--sabz-state-rinad-drifting-text)"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "function chatWho(t)"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lesson_page.py",
+     "contains": "CHAT_LIGHT = ("
+    },
+    {
+     "type": "code",
+     "path": "scripts/hourly_lessons.py",
+     "contains": "def page_chat_lines(date, root=None):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_meet_chat.py",
+     "contains": "def test_pg_47_meet_chat_is_in_the_transcript_in_its_own_colour"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "note": "0 chat lines on every published 10-08 page until 2026-10-10; now 64 typed lines (offset +59.9 s, match 0.88), e.g. 05:51 'el-yoam yoam el-5amees, tamanya 3ashara ...'"
+   }
   }
  ]
 }

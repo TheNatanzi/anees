@@ -88051,6 +88051,30 @@
         "vocab_points": 1
       }
     },
+    "6262a0c5f02ae70f53a77c071efb005e1bc6a019b994b146654caf9cef9f91ce": {
+      "expected": {
+        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
+        "row_id": "anees-20261008-recall-medi:row:4476",
+        "word_key": "7ajar",
+        "text": "حجر",
+        "t_start": 3216.261813522,
+        "t_end": 3216.941813522,
+        "assessment": "independent",
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
+      },
+      "changes": {
+        "assessment": "helped",
+        "reason": "Repeat of the tutor's typed line in the chat at 53:22 («ward, zri3a, shajar, ramel, traab, 7ajar (7jaar),»): not credited, not a mistake (WS-31)",
+        "by": "word-coverage",
+        "rule": "WS-31",
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 3202.9,
+          "text": "ward, zri3a, shajar, ramel, traab, 7ajar (7jaar),"
+        }
+      }
+    },
     "d261da3d0bde2ec94fc9974aefd2b32ce0ae5c23026adea0d5de9f9b1db01487": {
       "expected": {
         "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
@@ -88197,14 +88221,14 @@
       },
       "changes": {
         "assessment": "helped",
-        "reason": "Repeat of the tutor's recast of his line at 54:37 («Or you could say تاني حجر كان حجري المفضل. عادي.»): not credited, not a mistake (WS-31)",
+        "reason": "Repeat of the tutor's typed line in the chat at 54:39 («el-shwaare3 el-2daam fi Amrica 7ajar»): not credited, not a mistake (WS-31)",
         "by": "word-coverage",
         "rule": "WS-31",
         "immediate_repeat": true,
         "repeat": true,
         "repeat_of": {
-          "t": 3277.43,
-          "text": "Or you could say تاني حجر كان حجري المفضل. عادي."
+          "t": 3279.9,
+          "text": "el-shwaare3 el-2daam fi Amrica 7ajar"
         }
       }
     },
@@ -88365,29 +88389,6 @@
         "ignored": true,
         "classification": "ignored",
         "reason": "said again right after his own سما at 21:31 with nothing from the tutor between: one try, counted once (WS-36)",
-        "by": "word-coverage",
-        "rule": "WS-36",
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat"
-      }
-    },
-    "c84a17b96ecfd7bba2d367c353d0af614a046b01f14e96c3d0180c28ffb4b3e9": {
-      "expected": {
-        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
-        "row_id": "anees-20261008-recall-medi:row:4488",
-        "word_key": "7ajar",
-        "text": "حجر",
-        "t_start": 3224.081813522,
-        "t_end": 3224.441813522,
-        "assessment": "independent",
-        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
-      },
-      "changes": {
-        "assessment": "unresolved",
-        "vocab_points": null,
-        "ignored": true,
-        "classification": "ignored",
-        "reason": "said again right after his own حجر at 53:35 with nothing from the tutor between: one try, counted once (WS-36)",
         "by": "word-coverage",
         "rule": "WS-36",
         "audit_bin": "not_counted",
@@ -250066,7 +250067,7 @@
         "text": "بيوجع",
         "original_text": "he biwaja",
         "match_method": "word_coverage",
-        "assessment": "unresolved",
+        "assessment": "independent",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -250081,15 +250082,12 @@
             "timeline_end": 237.11
           }
         ],
-        "reason": "said again right after his own بيوجع at 03:50 with nothing from the tutor between: one try, counted once (WS-36)",
-        "rule": "WS-36",
-        "classification": "ignored",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
         "coverage": true,
-        "vocab_points": null,
-        "entry_id": "ana bawaje3:present",
-        "ignored": true,
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat"
+        "vocab_points": 1,
+        "entry_id": "ana bawaje3:present"
       },
       "by": "word-coverage"
     },

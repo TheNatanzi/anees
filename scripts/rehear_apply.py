@@ -157,6 +157,17 @@ def verify(date, rows, others=None):
     return bad
 
 
+def at(turns, r):
+    """The index on the CURRENT page data of the line a frozen row r names (r["i"] is the freeze's index). Rule PG-47:
+    a Meet chat merged after the freeze (2026-10-08: 64 typed lines) shifts the indexes, never the times - so the line
+    is found by its own time and engine text when the old index no longer holds it. None when no line matches."""
+    i = r["i"]
+    if i < len(turns) and turns[i].get("who") != "chat" and abs(turns[i]["t"] - r["t"]) < 0.01:
+        return i
+    c = [k for k, u in enumerate(turns) if u.get("who") != "chat" and abs(u["t"] - r["t"]) < 0.01 and RL.raw(u) == r.get("engine")]
+    return c[0] if len(c) == 1 else (i if i < len(turns) else None)
+
+
 def plan(date):
     d, man, lines, amal, prompts = RL.load(date)
     P = BC.J(os.path.join(d, "proposals.json"))
@@ -193,8 +204,9 @@ def plan(date):
 
     def make_row(r, how):
         """-> (row, lines_changed entry) or (None, why the engine's text stays)."""
-        u = turns[r["i"]] if r["i"] < len(turns) else None
-        e = eturns[order[r["i"]]["_id"]] if u else None            # the same line as the builder holds it, before any row
+        k = at(turns, r)
+        u = turns[k] if k is not None else None
+        e = eturns[order[k]["_id"]] if u else None            # the same line as the builder holds it, before any row
         if not (u and u["who"] == "Medi" and not e.get("chat") and abs(u["t"] - r["t"]) < 0.01 and RL.raw(u) == r["engine"] and e["text"] == r["engine"]):
             return None, "the page line changed since the freeze"
         if any(TF._lands(x, e) for x in others):                  # the line carries a correction: it stays as it is
@@ -217,7 +229,7 @@ def plan(date):
         row, x = make_row(r, how)
         if row is None:
             if x == "kept_overlay":
-                out["kept_overlay"].append(dict(base_, now=turns[r["i"]]["text"], gemini=r["heard"]))
+                out["kept_overlay"].append(dict(base_, now=turns[at(turns, r) if at(turns, r) is not None else r["i"]]["text"], gemini=r["heard"]))
             else:
                 out["skipped"].append(dict(base_, why=x))
             return
@@ -271,7 +283,7 @@ def plan(date):
         row, x = make_row(r, how)
         if row is None:
             if x == "kept_overlay":
-                out["kept_overlay"].append(dict(base_, now=turns[r["i"]]["text"], gemini=r["heard"]))
+                out["kept_overlay"].append(dict(base_, now=turns[at(turns, r) if at(turns, r) is not None else r["i"]]["text"], gemini=r["heard"]))
             else:
                 out["skipped"].append(dict(base_, why=x))
             continue
@@ -297,8 +309,9 @@ def plan(date):
         if r["status"] != "proposed":
             out["amal"]["no_agreement"] += 1
             continue
-        u = turns[r["i"]] if r["i"] < len(turns) else None
-        e = eturns[order[r["i"]]["_id"]] if u else None
+        k = at(turns, r)
+        u = turns[k] if k is not None else None
+        e = eturns[order[k]["_id"]] if u else None
         if not (u and u["who"] == "Amal" and not e.get("chat") and abs(u["t"] - r["t"]) < 0.01 and RL.raw(u) == r["engine"] and e["text"] == r["engine"]):
             out["amal"]["skipped"].append(dict(b_, why="the page line changed since the freeze"))
             continue

@@ -77,19 +77,28 @@ def chat_has_tutor(recording):
     return side.exists() and any(c['who'] == 'Amal' for c in P.parse_chat(side.read_text(encoding='utf-8', errors='replace')))
 
 
-def plan(ledger, bots, recordings, loaded_dates, raw, decided=(), half_done=(), has_chat=None):
+def page_chat_lines(date, root=None):
+    """How many Meet chat lines the published lesson page carries (rule PG-47); 0 when there is no page."""
+    p = Path(root or ROOT) / 'docs' / 'lessons' / f'{date}.html'
+    return p.read_text(encoding='utf-8').count('class="chat"') if p.exists() else 0
+
+
+def plan(ledger, bots, recordings, loaded_dates, raw, decided=(), half_done=(), has_chat=None, page_chat=None):
     """What this hour should do. Tracks win over a Meet file; a loaded date is never re-transcribed.
     half_done = dates with a database row but no published page (a run that failed after loading): republish them.
     chat = a Recall-tracks lesson loaded before the host Meet recording reached Drive (Meet uploads it ~1 h after the call,
     the Recall tracks are ready sooner): once its '- Chat Transcript' with Amal's lines lands, the page is re-made with
     her typed lines (load_lesson --page-only, events untouched) and the lesson is re-fed + re-read. Marker: the raw
-    folder's meet-chat-transcript.txt, which load_lesson writes when it merges a chat."""
+    folder's meet-chat-transcript.txt, which load_lesson writes when it merges a chat - AND the published page carrying the
+    chat lines (page_chat): rule PG-47, 2026-10-08's 64 typed lines were merged at 16:21 but a rebase kept master's chat-less
+    page (G1, the page had been committed before the chat landed) and the marker stopped the step from ever running again."""
     has_chat = has_chat or chat_has_tutor
+    page_chat = page_chat or page_chat_lines
     todo, new_rows = [{'kind': 'republish', 'date': d} for d in sorted(half_done)], merge_bots(ledger, bots)
     loaded_dates = set(loaded_dates) | set(half_done)
     for d in sorted({r[2] for r in recordings}):
         if (d >= CHAT_LATE_START and d in loaded_dates and d not in half_done and (Path(raw) / d / 'tracks' / 'tracks.json').exists()
-                and not (Path(raw) / d / 'meet-chat-transcript.txt').exists()
+                and not ((Path(raw) / d / 'meet-chat-transcript.txt').exists() and page_chat(d))
                 and any(r[2] == d and has_chat(r[0]) for r in recordings)):
             todo.append({'kind': 'chat', 'date': d})
     by_bot = {b['id']: b for b in bots}

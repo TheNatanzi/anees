@@ -744,13 +744,18 @@ function sentences(turns, tm) {
   flush();
   return out;
 }
+// PG-47 (Medi 2026-10-10 'lets put that back in with a different color'): a Google Meet chat line is TYPED, not
+// spoken: its own colour (.ls-turn-chat, --ls-chat) and a label naming who typed it. Never scored as speech.
+function chatWho(t) {
+  return 'Chat · typed by ' + (t.typed_by === 'Medi' ? 'Student' : t.typed_by === 'Amal' || !t.typed_by ? 'Tutor' : t.typed_by);
+}
 function tmRow(x, t, m, i) {
   var TMK = window.AneesTranscriptMarks;
   if (!TMK || !m) return turnRow(x, t, []);
   var r = el('div', 'ls-turn ls-turn-' + (t.who === 'Medi' ? 'medi' : t.who === 'chat' ? 'chat' : 'amal'));
   r.dataset.turn = i;
   var h = el('div', 'ls-turnhead');
-  h.appendChild(el('span', 'ls-who', t.who === 'Medi' ? 'Student' : t.who === 'Amal' ? 'Tutor' : t.who === 'chat' ? 'Tutor · chat' : t.who === '?' ? 'Unknown' : t.who));
+  h.appendChild(el('span', 'ls-who', t.who === 'Medi' ? 'Student' : t.who === 'Amal' ? 'Tutor' : t.who === 'chat' ? chatWho(t) : t.who === '?' ? 'Unknown' : t.who));
   h.appendChild(timeButton(x.date, t.t, t.who));
   r.appendChild(h);
   var main = el('div', 'tm-main');
@@ -819,7 +824,7 @@ function openChip(list, id, x, chips) {
 function turnRow(x, t, marks) {
   var r = el('div', 'ls-turn ls-turn-' + (t.who === 'Medi' ? 'medi' : t.who === 'chat' ? 'chat' : 'amal'));
   var h = el('div', 'ls-turnhead');
-  h.appendChild(el('span', 'ls-who', t.who === 'Medi' ? 'Student' : t.who === 'Amal' ? 'Tutor' : t.who === 'chat' ? 'Tutor · chat' : t.who === '?' ? 'Unknown' : t.who));
+  h.appendChild(el('span', 'ls-who', t.who === 'Medi' ? 'Student' : t.who === 'Amal' ? 'Tutor' : t.who === 'chat' ? chatWho(t) : t.who === '?' ? 'Unknown' : t.who));
   h.appendChild(timeButton(x.date, t.t, t.who));
   r.appendChild(h);
   r.appendChild(speech('ls-turntext', markText(t.text, marks || []), null));
