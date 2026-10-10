@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T01:40:48-07:00",
+ "updated": "2026-10-10T01:47:48-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -7553,18 +7553,18 @@
     ]
    },
    "words": {
-    "unique": 104,
-    "right": 244,
+    "unique": 105,
+    "right": 245,
     "wrong": 5,
     "partial": 11,
     "pct": 96.0,
-    "scored": 260,
+    "scored": 261,
     "audit_wrong": 5,
     "audit_partial": 6,
     "not_on_sheet": 9,
     "rehear_word_conflicts": 2,
-    "unique_rows": 102,
-    "eligible": 260,
+    "unique_rows": 103,
+    "eligible": 261,
     "excluded": 0,
     "pending": 0,
     "eligible_pct": 96.0,
@@ -7572,7 +7572,7 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 209,
+    "uses": 210,
     "mistakes": 26,
     "pct": 87.6,
     "estimate": false,
@@ -7586,7 +7586,7 @@
      "reasons": [
       "1 rules have more slips than counted uses (D2)"
      ],
-     "uses": 185,
+     "uses": 186,
      "slips": 26,
      "slips_latin": 0,
      "slips_in_zero_use_rules": 0,
@@ -7820,13 +7820,13 @@
     "turns": 1159,
     "chat_lines": 0,
     "vocab_errors": 20,
-    "vocab_correct": 249,
+    "vocab_correct": 250,
     "grammar_errors": 26,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-08.json",
-    "marks": 599,
+    "marks": 600,
     "conflicts": 4,
     "resolved": 2,
     "needs_medi": 2,

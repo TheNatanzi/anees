@@ -23,7 +23,12 @@ def load(path=FIXES_P, medi=True):
     if medi and path == FIXES_P:
         try:
             import medi_corrections as MC
-            rows = rows + MC.text_rows() + MC.rule_text_rows()
+            # a row that changes nothing (heard = what the engine wrote, e.g. an AI read of a note that just copied the
+            # line: 10-08 08:36 'اليوم talvez' -> 'اليوم talvez') is no fix: it must not replace the second listen's
+            # text (بلبس) with the engine's (TR-18, Medi's own rows only)
+            rows = rows + [r for r in MC.text_rows() + MC.rule_text_rows()
+                           if r.get("set_who") or r.get("set_t") is not None or r.get("heard_line") is not None
+                           or " ".join(str(r.get("heard") or "").split()) != " ".join(str(r.get("engine_wrote") or "").split())]
         except Exception as e:  # noqa: BLE001 - a bad corrections file never stops a build (council 5)
             print("transcript_fixes: Medi's corrections not applied (%s)" % type(e).__name__)
     return rows
