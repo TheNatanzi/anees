@@ -2,8 +2,8 @@
   "version": "2026-09-21-reliability-v1+silence+zibdeh-wrong-form+azra2-gender-form+ustaaz-vocab-miss+context-sweep-0925+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+lessons-1009+vocab-unresolved-audit-0928",
   "checks": {
     "learner_occurrences": 7406,
-    "initial_pending": 1788,
-    "extra_checked": 1835,
+    "initial_pending": 1789,
+    "extra_checked": 1836,
     "integrity_failures": 0
   },
   "ledger": [
@@ -227116,7 +227116,27 @@
           "grouping_lossless": true
         }
       },
-      "status": "Correct",
+      "extra": {
+        "pass4": {
+          "method": "wider available source context",
+          "rows": 39,
+          "context_sha256": "31ae7e1179713746ba1bd5a8376de18d5c206c75bd6d52f9bc0a3114d5d88abe"
+        },
+        "pass5": {
+          "method": "catalog identity and alternative transcript check",
+          "catalog_candidates": [
+            "alyoum"
+          ],
+          "transcript_status": "asr",
+          "raw_source_preserved": true
+        },
+        "pass6": {
+          "method": "final counterexample check: repetition, grammar, prompt versus supplied answer, self-correction, false ASR binding",
+          "outcome": "Needs review",
+          "remaining_reason": "El-yom is used as today; nearby hesitation, another word’s correction, or its presence in Amal’s question is not an error on el-yom."
+        }
+      },
+      "status": "Needs review",
       "reason": "El-yom is used as today; nearby hesitation, another word’s correction, or its presence in Amal’s question is not an error on el-yom."
     },
     {

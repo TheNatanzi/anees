@@ -525,8 +525,13 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
             lst = "vocab_correct" if m["verdict"] in ("right", "partial") else "vocab_errors"
             m.update(verdict="not-scored", why=why, why_by="TR-18", was=m["verdict"])
             actions["move"].append((lst, m["id"], why, "TR-18"))
+            # a Word Bank review patch that already sets observation_only (an older context audit crediting the word) would
+            # hide this call (lesson_ledger.check): Medi's own heard-word row then rides on its own key, heard_other
+            # (10-08 20:05: the audit credited اليوم 'today', his note says he said يوم)
+            pt = (review_patches or {}).get(m["by"]["ref"]) or {}
+            key = "heard_other" if "observation_only" in (set(pt.get("changes") or {}) | set(pt.get("expected") or {})) else "observation_only"
             actions["overrides"].append({"event_id": m["by"]["ref"], "date": date, "mark": m["id"], "was": m["was"],
-                                         "changes": {"observation_only": True, "ledger": m["id"], "ledger_reason": why}})
+                                         "changes": {key: True, "ledger": m["id"], "ledger_reason": why}})
     on_turn = collections.defaultdict(list)
     for m in marks:
         if m["turn"] is not None:

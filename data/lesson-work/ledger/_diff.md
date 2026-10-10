@@ -25,7 +25,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-05 | 95.2 | 273 -> **272** | 88.5 | 24 | 209 | 2 / 1 |
 | 2026-10-06 | 93.1 | 210 | 81.4 | 33 | 177 | 1 / 0 |
 | 2026-10-08 | 96.0 | 263 -> **260** | 87.7 -> **87.6** | 26 | 211 -> **209** | 2 / 2 |
-| 2026-10-09 | None -> **96.7** | None -> **261** | None -> **87.4** | None -> **33** | None -> **262** | 2 / 0 |
+| 2026-10-09 | None -> **96.7** | None -> **261** | None -> **86.2** | None -> **33** | None -> **239** | 1 / 0 |
 
 
 ## Conflicts
@@ -125,7 +125,6 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-08 48:38 C1q Medi?: رمل (word-bank right) vs رمل -> تراب (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-10-09 19:28 C1 settled: جبال (word-bank right) vs جبال -> جبل (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-10-09 1:05:03 C1r both stand: أحسن. (word-bank right) vs أحسن -> بتبسط أكتر (readers not-scored) - the Word Bank's context review already settled it: unchanged
-- 2026-10-09 1:08:28 C3 settled: آخر لعبة (use-counter use) vs آخر الـ lobe إلي -> آخر لعبة إلي (readers slip A15) - one turn was both a use and a slip of the same rule: one attempt, wrong
 
 ## Medi's corrections (PR-15)
 
