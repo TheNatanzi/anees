@@ -140,9 +140,92 @@ def run(date, workers=4, log=print):
     return len(got)
 
 
+# ------------------------------------------------------------------ the tutor's cards (PG-48)
+# Medi 2026-10-10 "lets add the english translations for the transcript for Amal as well": every transcript line her Tutor
+# page shows (the student's and her lines on her cards, the lines around a moment, the two versions of a listen check)
+# gets the same one-sentence English. The lesson's own translation is used when the card quotes the line as the page has
+# it; any other line (a joined sentence, a cut piece, an older wording) is translated here once, cached by its text.
+TUTOR_CACHE = os.path.join(OUT, "tutor.json")
+TUTOR_MAP = os.path.join(REPO, "docs", "data", "tutor-line-en.json")
+LINE_KEYS = {"medi_said": "Student", "amal_said": "Tutor", "line": "Line", "text": "Line", "a": "Line", "b": "Line",
+             "example": "Tutor"}
+
+
+def tnorm(s):
+    """The match key docs/js/hub/line-en.js uses too: punctuation and spaces folded to one space."""
+    return re.sub(r"[\s.,?!،؟…\-—:;\"'()«»\[\]]+", " ", str(s or "")).strip()
+
+
+def tutor_lines(repo=REPO):
+    """{norm text: (label, text)} - every Arabic transcript line on her Tutor data files (the paused blocks left out)."""
+    out = {}
+
+    def walk(o, key=None):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if k != "paused":
+                    walk(v, k)
+        elif isinstance(o, list):
+            for x in o:
+                walk(x, key)
+        elif isinstance(o, str) and key in LINE_KEYS and AR.search(o) and len(o) <= 400:
+            n = tnorm(o)
+            if n and n not in out:
+                out[n] = (LINE_KEYS[key], o.strip())
+    for f in sorted(os.listdir(os.path.join(repo, "docs", "data"))):
+        if f.startswith("amal-") and f.endswith(".json"):
+            walk(J(os.path.join(repo, "docs", "data", f), {}) or {})
+    return out
+
+
+def tutor(repo=REPO, workers=4, log=print):
+    """Translate her card lines that have no English yet (unless ANEES_TRANSLATE=off) and write docs/data/tutor-line-en.json."""
+    lines = tutor_lines(repo)
+    known = {}
+    for f in os.listdir(os.path.join(repo, "docs", "data", "lessons")):
+        if f.endswith(".json"):
+            for u in (J(os.path.join(repo, "docs", "data", "lessons", f), {}) or {}).get("turns") or []:
+                if u.get("en") and not AR.search(u["en"]):
+                    for t in (u.get("text"), u.get("engine")):
+                        if t:
+                            known.setdefault(tnorm(t), u["en"])
+    cache = {k: v for k, v in ((J(TUTOR_CACHE, {}) or {}).get("lines") or {}).items() if not AR.search(v or "")}
+    ck = lambda n: hashlib.sha1(n.encode("utf-8")).hexdigest()[:12]
+    todo = [(ck(n), lab, txt) for n, (lab, txt) in lines.items() if n not in known and ck(n) not in cache]
+    if todo and os.environ.get("ANEES_TRANSLATE") != "off":
+        got = {}
+        with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as ex:
+            for res in ex.map(_call, [todo[i:i + BATCH] for i in range(0, len(todo), BATCH)]):
+                got.update(res)
+        ids = {i for i, _, _ in todo}
+        cache.update({k: v for k, v in got.items() if k in ids})
+        os.makedirs(OUT, exist_ok=True)
+        with open(TUTOR_CACHE, "w", encoding="utf-8", newline="\n") as f:
+            json.dump({"about": "English of the transcript lines on the tutor's cards that the lesson pages do not have as "
+                                "they are (scripts/translate_lines.py tutor, PG-48). Display only.", "model": MODEL,
+                       "lines": dict(sorted(cache.items()))}, f, ensure_ascii=False, indent=1)
+            f.write("\n")
+        log("translate_lines tutor: %d of %d new lines translated" % (len([k for k in got if k in ids]), len(todo)))
+    m = {}
+    for n in lines:
+        en = known.get(n) or cache.get(ck(n))
+        if en:
+            m[n] = en
+    with open(TUTOR_MAP, "w", encoding="utf-8", newline="\n") as f:
+        json.dump({"about": "English under each transcript line on the Tutor page (PG-48): key = the line with punctuation "
+                            "folded (docs/js/hub/line-en.js). Built by scripts/translate_lines.py tutor.",
+                   "lines": dict(sorted(m.items()))}, f, ensure_ascii=False, indent=1)
+        f.write("\n")
+    log("tutor-line-en: %d of %d card lines have English" % (len(m), len(lines)))
+    return len(m), len(lines)
+
+
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     args = sys.argv[1:]
+    if args == ["tutor"]:
+        tutor()
+        args = []
     if args == ["all"]:
         args = sorted(f[:10] for f in os.listdir(os.path.join(REPO, "docs", "data", "lessons")) if f.endswith(".json"))
     for d in args:

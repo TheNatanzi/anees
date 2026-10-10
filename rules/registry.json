@@ -10560,6 +10560,47 @@
     "date": "2026-10-08",
     "note": "0 chat lines on every published 10-08 page until 2026-10-10; now 64 typed lines (offset +59.9 s, match 0.88), e.g. 05:51 'el-yoam yoam el-5amees, tamanya 3ashara ...'"
    }
+  },
+  {
+   "id": "PG-48",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every transcript line on the Tutor page (her cards' student and tutor lines, the lines around a moment, the two versions of a listen check, the new-word lines) shows one English sentence small under it, like the Lessons page (PG-40). scripts/translate_lines.py tutor collects the Arabic lines of docs/data/amal-*.json (paused blocks left out), reuses the lesson page's English when the card quotes the line as the page has it, translates the rest once (cache data/lesson-work/translations/tutor.json, kill switch ANEES_TRANSLATE=off) and writes docs/data/tutor-line-en.json; the hourly Tutor refresh runs it. docs/js/hub/line-en.js (on tutor.html and every amal/*.html) puts the English under each element whose whole text is such a line, never twice when the card already gives the English.",
+   "plain": "Every Arabic line on the tutor's page shows its English underneath, the same way the lessons page does.",
+   "plain_for": "fc212109",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "lets add the english translations for the transcript for Amal as well"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/translate_lines.py",
+     "contains": "def tutor(repo=REPO"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/line-en.js",
+     "contains": "window.AneesLineEn"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_line_en.py",
+     "contains": "def test_pg_48_tutor_card_lines_have_english"
+    }
+   ],
+   "example": {
+    "date": "2026-10-09",
+    "t": "25:53",
+    "note": "her mistakes card: أول beginning would be-- Yeah, أول لعبة. -> The first beginning would be, yeah, the first game."
+   }
   }
  ]
 }
