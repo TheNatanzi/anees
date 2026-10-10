@@ -9668,6 +9668,49 @@
     "t": "35:19",
     "note": "مرة. Um, تلجت: was ✓ Murra (bitter) and grey 'part of a phrase'; now ✓ Marra and ★ new word tallajat"
    }
+  },
+  {
+   "id": "PG-42",
+   "kind": "process",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Lines the engine split at pauses show as one sentence for the tutor too, not only for him (PG-23): consecutive lines of the same speaker with nobody else between join when the pause is 6 s or less, or up to 15 s when the line clearly goes on - it does not end a sentence (no . ? ! ؟ after its fillers) or the next piece starts lowercase (10-08 28:04 'Since the beginning' + 28:09 'of the day, ...'; 28:29 'It rained' + 28:34 'three times.'). Display only (docs/js/lessons-page.js sentences): every piece keeps its chips, underlines and English; nothing is scored differently.",
+   "plain": "When the engine splits one sentence at a pause, the page shows it as one sentence again, for the tutor and for you.",
+   "plain_for": "26783717",
+   "topic": "the lessons page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "I know there are long pauses here but can you tell its the same sentence ?",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "join",
+     "session": "f5d90041"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "function goesOn(prev, t, gap)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_marks.cjs",
+     "contains": "test('PG-42 the tutor"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "28:04",
+    "note": "Since the beginning / of the day, ... -> one line"
+   }
   }
  ]
 }

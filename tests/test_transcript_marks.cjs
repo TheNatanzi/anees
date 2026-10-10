@@ -88,3 +88,18 @@ test('PG-23 Amal typing in the chat while he speaks does not break his sentence 
  assert.deepEqual(g.map(x=>x.turn.who),['Medi','chat','Amal']);
  assert.equal(g[0].turn.text,'Juma already. Uh, Talat Asha Alfayn Sitwa Ashrin.');
 });
+test('PG-42 the tutor\'s lines join too, and a longer pause joins when the line clearly goes on (10-08 28:04)',()=>{
+ const src=fs.readFileSync(path.join(DOCS,'js','lessons-page.js'),'utf8');
+ const sentences=new Function(src.slice(src.indexOf('var JOIN_GAP'),src.indexOf('function tmRow('))+'; return sentences;')();
+ const turns=[{t:1664.2,end:1665.3,who:'Amal',text:'كيف بحكي؟'},{t:1674.5,end:1675,who:'Amal',text:'Mm.'},
+  {t:1684.2,end:1686.1,who:'Amal',text:'Since the beginning'},{t:1688.9,end:1692.4,who:'Amal',text:"of the day, it's a bit-- sounds weird, sorry."},
+  {t:1709.2,end:1710.2,who:'Amal',text:'It rained'},{t:1714.6,end:1715.4,who:'Amal',text:'three times.'},
+  {t:1717.5,end:1722.8,who:'Medi',text:'Since the beginning of the day, it rained three times.'}];
+ const g=sentences(turns,{});
+ assert.ok(g.some(x=>x.turn.text==="Since the beginning of the day, it's a bit-- sounds weird, sorry."));
+ assert.ok(g.some(x=>x.turn.text==='It rained three times.'));
+ assert.equal(g[g.length-1].turn.who,'Medi');
+ // a finished sentence and a 12 s pause: two lines
+ const h=sentences([{t:0,end:1,who:'Amal',text:'Good.'},{t:13,end:14,who:'Amal',text:'Next one.'}],{});
+ assert.equal(h.length,2);
+});
