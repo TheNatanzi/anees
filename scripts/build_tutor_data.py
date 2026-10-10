@@ -13,7 +13,7 @@ same-day review (review_lesson.py step 7c); safe to run any time.
 import re, datetime, json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE); DOCS = os.path.join(REPO, "docs")
 sys.path.insert(0, HERE)
-OUT = os.path.join(DOCS, "data", "tutor.json")
+OUT = HUB_OUT = os.path.join(DOCS, "data", "tutor.json")
 # Hand-kept cards: none since 2026-10-01 (her grammar Google Doc card became the Anees grammar-notes card below).
 KEEP_KINDS = set()
 NOTES = os.path.join(DOCS, "data", "amal-grammar-notes.json")
@@ -244,6 +244,12 @@ def write_notes(rows, items):
 
 def main():
     import db
+    import tutor_scope
+    # AM-28 (Medi 2026-10-10 "put a pause on everything before that"): every list file of her page is scoped to lessons
+    # on/after TUTOR_FROM first (open items of older lessons move to the file's paused block; answered ones stay)
+    # (a run that writes its hub file elsewhere - a test - never rewrites the shared list files)
+    scoped = tutor_scope.scope_all() if os.path.abspath(OUT) == os.path.abspath(HUB_OUT) else {}
+    paused_links = []
     now = datetime.datetime.now(datetime.timezone.utc)
     cur = json.load(open(OUT, encoding="utf-8")) if os.path.exists(OUT) else {"open": [], "closed": []}
     kept = [x for x in cur.get("open", []) if x.get("kind") in KEEP_KINDS]
@@ -298,6 +304,11 @@ def main():
         elif r["kind"] in ("after", "before"):
             title = ("After the lesson · " if r["kind"] == "after" else "Before the lesson · ") + pretty(r.get("lesson_date") or "")
             n = len(p.get("questions") or []) + len(p.get("homework") or []) + len(p.get("prompts") or []) if r["kind"] == "after" else len(p.get("suggestions") or p.get("items") or [])
+            if live and not tutor_scope.in_scope(r.get("lesson_date")):     # AM-28: an open link of an older lesson waits (not deleted)
+                if not any(x["kind"] == r["kind"] and x.get("lesson_date") == r.get("lesson_date") for x in paused_links):
+                    paused_links.append({"id": f"{r['kind']}-{r.get('lesson_date')}", "title": title, "kind": r["kind"], "lesson_date": r.get("lesson_date"),
+                                         "token": r["token"], "total": n, "expires": day(r["expires_at"])})
+                continue
             if live:
                 if any(x["kind"] == r["kind"] and x.get("lesson_date") == r.get("lesson_date") for x in open_):
                     continue                                   # one card per lesson: the newest link wins
@@ -330,6 +341,10 @@ def main():
             items = p.get("items") or []
             total = len(items)
             live = r["expires_at"] > now.isoformat() and not r.get("done_at")
+            if live and p.get("lesson") and not tutor_scope.in_scope(p.get("lesson")):     # AM-28: a list about an older lesson waits
+                paused_links.append({"id": f"{kind}-{r['token'][:6]}", "title": title + f" · {pretty(p.get('lesson'))}", "kind": kind,
+                                     "lesson_date": p.get("lesson"), "token": r["token"], "total": total, "expires": day(r["expires_at"])})
+                continue
             if live:
                 n_open += 1
                 lvl = " · list 2 (endings and prepositions)" if p.get("kind") == "verb-addons" else (" · list 1" if kind == "verb_check" else "")
@@ -350,10 +365,14 @@ def main():
             if k in x:
                 x[k] = on_screen(x[k])
     # keep the old stamp when nothing changed, so the hourly job does not commit a new file every hour
-    same = cur.get("open") == kept + open_ and cur.get("closed") == closed
+    paused = {"why": tutor_scope.WHY, "from": tutor_scope.TUTOR_FROM, "links": paused_links,
+              "lists": {f: v for f, v in sorted(scoped.items()) if any(v.values())}}
+    same = (cur.get("open") == kept + open_ and cur.get("closed") == closed and cur.get("paused") == paused
+            and cur.get("tutor_from") == tutor_scope.TUTOR_FROM)
     out = {"updated": cur.get("updated") if same and cur.get("updated") else now.astimezone().isoformat(timespec="seconds"),
            "note": "What Amal needs to check right now. Rebuilt by scripts/build_tutor_data.py every hour and after every same-day lesson review; "
                    "answered counts are read live from Supabase with each link's own token. Medi sends every link himself; the app never contacts Amal.",
+           "tutor_from": tutor_scope.TUTOR_FROM, "paused": paused,      # AM-28: docs/js/tutor.js reads tutor_from (never hard-coded)
            "open": kept + open_, "closed": closed}
     try:      # AM-27: her notes (amal_rules source note, latest per card, an undo wipes it) -> docs/data/tutor-notes.json for the Student tab
         write_notes(db.select("amal_rules", {"select": "kind,word_key,payload,created_at,token", "source": "eq.note", "order": "created_at.asc"}, undo=False), open_ + closed)
@@ -364,6 +383,9 @@ def main():
         print(f"open   {x['id']:22} {x.get('total', x.get('done', '')):>5}  {x['title']}")
     for x in closed:
         print(f"closed {x['id']:22}        {x['title']} - {x['why']}")
+    for x in paused_links:
+        print(f"paused {x['id']:22} {x.get('total', ''):>5}  {x['title']} (AM-28: before {tutor_scope.TUTOR_FROM})")
+    print("paused (AM-28, before %s):" % tutor_scope.TUTOR_FROM, paused["lists"] or "nothing")
 
 
 if __name__ == "__main__":

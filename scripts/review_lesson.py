@@ -293,6 +293,10 @@ def new_words_step(d, dry_run, failures, repo=None, reader=None, run=None):
     import amal_new_words
     if d < amal_new_words.START:          # Medi 2026-10-02: from the 10-01 lesson on (older lessons were never asked)
         return []
+    import tutor_scope
+    if not tutor_scope.in_scope(d):       # AM-28 (Medi 2026-10-10): no new questions for lessons before TUTOR_FROM (paused)
+        log(f"new words for {d} not asked: lessons before {tutor_scope.TUTOR_FROM} are paused (AM-28)")
+        return []
     repo = repo or REPO
     reader = reader or claude
     run = run or (lambda *args: py(*args, check=False))
@@ -501,7 +505,10 @@ def main():
     b_rows = [r["uid"] for r in A["rows"] if r["date"] == d and r.get("kind") in ("vocab-B", "grammar-B")]
     pats = json.load(open(os.path.join(WORK, "patterns.json"), encoding="utf-8")) if os.path.exists(os.path.join(WORK, "patterns.json")) else {"patterns": []}
     placed = {u for p in pats["patterns"] for u in p.get("rows", [])}
-    if [u for u in b_rows if u not in placed]:
+    import tutor_scope                    # AM-28: the pattern read only feeds her list; a lesson before TUTOR_FROM is paused
+    if not tutor_scope.in_scope(d):
+        log(f"slip patterns for {d} not read: lessons before {tutor_scope.TUTOR_FROM} are paused (AM-28)")
+    elif [u for u in b_rows if u not in placed]:
         if a.dry_run:
             log("dry-run: %d B rows of %s not yet in patterns.json; they would be grouped by claude, then shown as one-row patterns until then" % (len([u for u in b_rows if u not in placed]), d))
         else:

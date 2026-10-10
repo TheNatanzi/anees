@@ -42,12 +42,17 @@ def reuse_for(rows, kind, lesson_date, now_iso):
 
 def create(kind, lesson_date, payload, force=False):
     now = datetime.datetime.now(datetime.timezone.utc)
+    import tutor_scope
     if not force:
         rows = db.select('amal_links', {'select': 'token,kind,lesson_date,created_at,expires_at,done_at,answers', 'kind': f'eq.{kind}', 'lesson_date': f'eq.{lesson_date}'})
         keep = reuse_for(rows, kind, lesson_date, now.isoformat())
         if keep:
             print(f'{kind} link for {lesson_date} kept (already {"answered" if answered(keep) else "open"}); no new link (AM-18)')
             return keep['token'], url(kind, keep['token'])
+        if tutor_scope.link_paused(kind, lesson_date):
+            # AM-28 (Medi 2026-10-10 "put a pause on everything before that"): no new question for a lesson before TUTOR_FROM
+            print(f'{kind} link for {lesson_date} not made: lessons before {tutor_scope.TUTOR_FROM} are paused (AM-28)')
+            return None, None
     token = secrets.token_urlsafe(24)
     row = {'token': token, 'kind': kind, 'lesson_date': lesson_date, 'created_at': now.isoformat(),
            'expires_at': (now + datetime.timedelta(days=DAYS)).isoformat(), 'payload': payload}

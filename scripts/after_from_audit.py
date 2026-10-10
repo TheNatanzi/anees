@@ -61,6 +61,9 @@ def payload(date):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("date"); ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
+    import tutor_scope
+    if tutor_scope.link_paused("after", a.date):      # AM-28: no after-lesson questions for a lesson before TUTOR_FROM
+        print(f"no after link for {a.date}: lessons before {tutor_scope.TUTOR_FROM} are paused (AM-28)"); return
     p = payload(a.date)
     if len(p["questions"]) < 1:
         print("no questions for", a.date); return

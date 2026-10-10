@@ -1,6 +1,21 @@
 {
- "updated": "2026-10-10T09:32:42-07:00",
+ "updated": "2026-10-10T11:17:41-07:00",
  "note": "What Amal needs to check right now. Rebuilt by scripts/build_tutor_data.py every hour and after every same-day lesson review; answered counts are read live from Supabase with each link's own token. Medi sends every link himself; the app never contacts Amal.",
+ "tutor_from": "2026-10-08",
+ "paused": {
+  "why": "AM-28 (Medi 2026-10-10): questions about lessons before 2026-10-08 are paused until the process is honed; kept here unchanged, shown again when TUTOR_FROM moves back. Answered ones stay in her history.",
+  "from": "2026-10-08",
+  "links": [],
+  "lists": {
+   "amal-ledger.json": {
+    "items": 14
+   },
+   "amal-review.json": {
+    "patterns": 45,
+    "new_words": 61
+   }
+  }
+ },
  "open": [
   {
    "id": "slips-review",
@@ -10,8 +25,8 @@
    "what": "Mistakes the student made (a wrong word or wrong grammar) that you let pass in the lesson, grouped by kind, with the real moments to play. For each kind you say: yes, count it, or no, he was fine. New lessons add their patterns here the same day.",
    "who": "You answer · the student sends the link",
    "url": "amal/review.html?t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
-   "total": 57,
-   "moments": 57,
+   "total": 12,
+   "moments": 12,
    "expires": "2026-10-26"
   },
   {

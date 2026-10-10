@@ -75,14 +75,14 @@ def _run(*args):
 
 
 def test_AM_11_a_reader_that_leaves_words_unjudged_fails_the_lesson(tmp_path):
-    repo, failures, calls = _repo(tmp_path, "2026-10-05", ["bajarreb", "laffe"]), [], []
-    left = RL.new_words_step("2026-10-05", False, failures, repo=str(repo), reader=lambda *a, **k: calls.append(a[1]), run=_run)
-    assert calls == ["2026-10-05 new words"] and len(left) == 2
-    assert any("2 candidate(s) of 2026-10-05 not judged" in f for f in failures)
+    repo, failures, calls = _repo(tmp_path, "2026-10-08", ["bajarreb", "laffe"]), [], []
+    left = RL.new_words_step("2026-10-08", False, failures, repo=str(repo), reader=lambda *a, **k: calls.append(a[1]), run=_run)
+    assert calls == ["2026-10-08 new words"] and len(left) == 2
+    assert any("2 candidate(s) of 2026-10-08 not judged" in f for f in failures)
 
 
 def test_AM_11_every_candidate_judged_passes_and_new_ones_reach_the_tutor_card(tmp_path):
-    d = "2026-10-05"
+    d = "2026-10-08"
     repo, failures = _repo(tmp_path, d, ["bajarreb", "كتير"]), []
     vp = repo / "data" / "lesson-work" / "amal-new-words-verdicts.json"
     rows = [{"date": d, "key": "bajarreb", "verdict": "new", "arabizi": "bajarreb", "english": "I try", "t": 1.0},

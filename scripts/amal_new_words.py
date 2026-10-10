@@ -611,12 +611,18 @@ def main():
     if bad:
         print("verdict rows without date/key/known verdict:", bad[:3]); return 1
     prev = json.load(open(OUT, encoding="utf-8")) if os.path.exists(OUT) else None
+    if prev and (prev.get("paused") or {}).get("lists"):     # AM-28: cards an earlier build paused are still cards (statuses kept)
+        import tutor_scope
+        prev = {**prev, "items": tutor_scope.all_items(prev)}
     taps = None if a.offline else load_taps()
     if taps is None and os.environ.get("ANEES_STRICT") == "1" and not a.offline:
         print("FAILED: Amal's taps could not be read (ANEES_STRICT)"); return 1
     out = build(V, taps, prev, glue=True, taught=taught_entries())
     out["unjudged"] = unjudged(V)
     json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    import tutor_scope       # AM-28: open cards of lessons before TUTOR_FROM are paused (kept in the file's paused block)
+    tutor_scope.scope_file(OUT, None if a.offline else tutor_scope.answered_keys())
+    out = json.load(open(OUT, encoding="utf-8"))
     print("amal-new-words", out["counts"], "excluded", out["excluded"], "unjudged", out["unjudged"], "taught", out.get("taught_counts"))
     return 0
 

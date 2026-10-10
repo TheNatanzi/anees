@@ -100,6 +100,8 @@ def main(argv=None):
                     "word_key 'listen:<id>', payload.choice a / b / both_wrong / same (+ typed). Built by scripts/build_amal_listen.py.",
             "items": items}
     (ROOT / "docs" / "data" / "amal-listen.json").write_text(json.dumps(page, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    sys.path.insert(0, str(ROOT / "scripts")); import tutor_scope   # AM-28: unanswered lines of lessons before TUTOR_FROM are paused
+    tutor_scope.scope_file(str(ROOT / "docs" / "data" / "amal-listen.json"), tutor_scope.answered_keys())
     keydoc = {"set": SEED, "about": "Unblinding key for docs/data/amal-listen.json (never published). a / b = which engine wrote that "
                                     "version; agree = how many of Gemini's 3 runs agreed; i = the line in rehear/<date>/amal/proposals.json.",
               "counts": {f"{d} agree {g}": sum(1 for k in key if k["date"] == d and k["agree"] == g) for d in DATES for g in (3, 2)},

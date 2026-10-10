@@ -292,8 +292,10 @@ def test_LS_12_committed_hub_cards_are_the_open_amal_questions():
     D = json.load(open(os.path.join(ROOT, "docs", "data", "amal-ledger.json"), encoding="utf-8"))
     L = json.load(open(os.path.join(ROOT, "docs", "data", "lessons.json"), encoding="utf-8"))["lessons"]
     want = sorted("ledger:" + it["id"] for x in L for it in (x.get("ledger") or {}).get("items") or [] if it.get("ask") == "amal")
-    assert sorted(i["id"] for i in D["items"]) == want
-    for i in D["items"]:
+    import tutor_scope        # AM-28: cards of lessons before TUTOR_FROM wait in the file's paused block (still cards, never deleted)
+    assert sorted(i["id"] for i in tutor_scope.all_items(D)) == want
+    assert all(tutor_scope.in_scope(i["date"]) for i in D["items"])
+    for i in tutor_scope.all_items(D):
         assert i["audio"] and i["medi_said"] and i["question"] and len(i["options"]) >= 2
 
 

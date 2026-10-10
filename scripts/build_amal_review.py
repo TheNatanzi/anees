@@ -174,6 +174,9 @@ def main(clips=True):
            "counts": {"patterns": len(patterns), "rows": len(B), "vocab": sum(1 for p in patterns if p["kind"] == "vocab"), "grammar": sum(1 for p in patterns if p["kind"] == "grammar"), "new_words": len(new_words),
                       "loanwords_skipped": len(skipped_loan)}}
     json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    import tutor_scope       # AM-28 (Medi 2026-10-10): open patterns / words of lessons before TUTOR_FROM are paused, never deleted
+    tutor_scope.scope_file(OUT, tutor_scope.answered_keys())
+    out = json.load(open(OUT, encoding="utf-8"))
     print("patterns", out["counts"], "clips", sum(1 for p in patterns for e in p["examples"] if e.get("clip")))
 
 

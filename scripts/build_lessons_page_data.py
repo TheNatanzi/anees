@@ -1366,6 +1366,8 @@ def build():
         json.dump({"about": "Moments where two of Anees' judges disagree about one of the student's Arabic words (LS-11/LS-12). The tutor's tap "
                             "settles each: amal_rules source 'review', word_key = the item id, kind 'ledger_pick', payload.answer.",
                    "items": cards, "answered": done_cards}, f, ensure_ascii=False, indent=1)
+    import tutor_scope       # AM-28 (Medi 2026-10-10): open cards of lessons before TUTOR_FROM are paused, never deleted
+    tutor_scope.scope_file(os.path.join(DOCS, "data", "amal-ledger.json"), tutor_scope.answered_keys())
     LL.write_diff(published, lessons, ledgers)
     os.makedirs(os.path.join(DOCS, "data", "lessons"), exist_ok=True)
     for d, v in per.items():

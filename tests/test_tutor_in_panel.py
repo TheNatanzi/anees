@@ -99,6 +99,8 @@ def test_PG_18_expired_links_keep_their_questions_and_one_lesson_is_one_row(tmp_
         return {"amal_links": links, "amal_rules": rules}.get(table, [])
     monkeypatch.setitem(sys.modules, "db", types.SimpleNamespace(select=select))
     monkeypatch.setattr(B, "OUT", str(tmp_path / "tutor.json"))
+    import tutor_scope        # AM-28 pauses lessons before 10-08; this 10-01 fixture tests the row merging, not the pause
+    monkeypatch.setattr(tutor_scope, "TUTOR_FROM", "2026-09-01")
     import datetime as _dt
 
     class FakeDT(_dt.datetime):

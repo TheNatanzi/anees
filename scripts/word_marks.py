@@ -81,7 +81,7 @@ def resolved_ages(marks=None, new_words=None):
     M = (marks if marks is not None else load()).get("marks") or []
     N = new_words if new_words is not None else (json.load(open(NEW_WORDS, encoding="utf-8")) if os.path.exists(NEW_WORDS) else {})
     out = []
-    for it in N.get("items") or []:
+    for it in list(N.get("items") or []) + list(((N.get("paused") or {}).get("lists") or {}).get("items") or []):   # AM-28: paused cards too
         age, by = resolve((mark_for(it, {"marks": M}) or {}).get("mark"), it.get("tap"))
         if age:
             out.append({"arabic": it.get("arabic"), "arabizi": it.get("arabizi"), "key": it.get("key"), "age": age, "by": by})

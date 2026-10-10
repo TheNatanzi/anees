@@ -162,7 +162,8 @@ def tutor_new_words(date, repo=None):
                 out[v["key"]] = {"arabic": v.get("arabic"), "arabizi": v.get("arabizi"), "english": v.get("english")}
     np_ = os.path.join(repo, *NEW_WORDS.split("/"))
     if os.path.exists(np_):
-        for it in json.load(open(np_, encoding="utf-8")).get("items") or []:
+        N = json.load(open(np_, encoding="utf-8"))
+        for it in list(N.get("items") or []) + list(((N.get("paused") or {}).get("lists") or {}).get("items") or []):   # AM-28: paused cards too
             if it.get("date") == date and it.get("source") not in ("glue", "taught") and it.get("key"):   # AM-19: taught cards come FROM the read
                 out.setdefault(it["key"], {"arabic": it.get("arabic"), "arabizi": it.get("arabizi"), "english": it.get("english")})
     return out

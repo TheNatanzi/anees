@@ -347,6 +347,7 @@ def main(argv=None):
     if a.list:
         L = amal_list()
         W(AMAL_LIST_P, L)
+        import tutor_scope; tutor_scope.scope_file(AMAL_LIST_P, tutor_scope.answered_keys())   # AM-28: lessons before TUTOR_FROM paused
         print("Amal's list:", L["count"], "rows")
         return 0
     Q = J(QUEUE_P)["rows"]
@@ -407,6 +408,7 @@ def main(argv=None):
         print(f"  codex {k + len(chunk)}/{len(todo)}: " + " ".join(f"{r['uid'][-4:]}={r['verdict'][:4]}" for r in recs), flush=True)
     L = amal_list()
     W(AMAL_LIST_P, L)
+    import tutor_scope; tutor_scope.scope_file(AMAL_LIST_P, tutor_scope.answered_keys())   # AM-28: lessons before TUTOR_FROM paused
     print(f"done: {n_ok} ruled, {n_fail} failed | Amal's list {L['count']}")
     return 0 if not n_fail else 1
 

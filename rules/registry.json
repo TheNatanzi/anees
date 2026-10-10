@@ -8515,6 +8515,71 @@
    "aliases": []
   },
   {
+   "id": "AM-28",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The Tutor page asks only about lessons on/after TUTOR_FROM (2026-10-08), one line in scripts/tutor_scope.py mirrored into the page data (tutor.json and every list file carry tutor_from; docs/js/tutor.js reads it, never hard-codes it). An OPEN question about an older lesson is paused: it moves unchanged from the file's shown list (slip patterns by their newest example, not-on-sheet words, moments to check, which-word-was-wrong cards, new words, listen / check lists, open after / before / word-review links) to that file's paused block - no row deleted, none of her answers undone; an item she already answered stays in her Completed history with its Undo (AM-17); an item with no lesson date (verb forms, grammar notes, materials, uploads, homework, the student's questions, Grammar / Vocab / Decay) keeps showing. The hourly job makes no new question for an older lesson: amal_links.py create and after_from_audit.py make no after link, review_lesson.py skips the new-words read (step 7d) and the pattern read (step 7), and every builder of her lists (build_amal_review.py, amal_new_words.py, codex_rejudge.py, build_lessons_page_data.py, build_amal_listen.py, build_amal_checks.py, build_tutor_data.py) scopes the file it writes. Lifting the pause = change TUTOR_FROM and rebuild; paused items come back.",
+   "plain": "Your tutor's page only asks about lessons from Oct 8 on. Open questions about older lessons are paused, not deleted, and come back when the pause is lifted; anything she already answered stays in her history, and no new questions are made for older lessons.",
+   "plain_for": "af538bff",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "set an agent to make sure that Amal's tutor portal with all the questions is up to date now. For now, I know we've only done 10, 8, and 10-9. Let's put a pause on everything before that until we can get the process honed down a little bit, and then we'll go back and clean everything up."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/tutor_scope.py",
+     "contains": "TUTOR_FROM = \"2026-10-08\""
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_scope.py",
+     "contains": "def scope_file(path, answers=None, start=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_data.py",
+     "contains": "\"tutor_from\": tutor_scope.TUTOR_FROM"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_links.py",
+     "contains": "tutor_scope.link_paused(kind, lesson_date)"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "if not tutor_scope.in_scope(d):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/tutor.js",
+     "contains": "const FROM = String(T.tutor_from || '')"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_scope.py",
+     "contains": "def test_am_28_old_open_item_paused_new_kept_answered_kept_in_history"
+    },
+    {
+     "path": "tests/test_tutor_scope.py",
+     "contains": "def test_am_28_hourly_job_makes_no_new_question_for_an_older_lesson"
+    }
+   ],
+   "example": {
+    "date": "2026-10-10",
+    "note": "First build: 120 open questions about lessons 08-25 to 10-06 paused (45 slip patterns, 61 not-on-sheet words, 14 which-word-was-wrong cards); 10-08 shows 7 open, 10-09 shows 9, as before; her 38 answered patterns, 63 answered moments and every answered listen / check item stay in her history."
+   },
+   "aliases": []
+  },
+  {
    "id": "TR-28",
    "kind": "data",
    "scope": "transcription",

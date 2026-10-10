@@ -306,15 +306,19 @@
   async function main() {
     try { T = await (await fetch('data/tutor.json', { cache: 'no-store' })).json(); window.ANEES_TUTOR = T; }   // AM-27: the note box's fallback token
     catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The Tutor list could not load. Refresh to try again.</div>'; return; }
-    const work = T.open.filter(x => ['after', 'before', 'review', 'verb_check', 'word_review', 'listen', 'check'].includes(x.kind));
+    // AM-28 (Medi 2026-10-10 "put a pause on everything before that"): the first lesson her page asks about comes from the
+    // data (tutor.json tutor_from, set once in scripts/tutor_scope.py TUTOR_FROM) - an open question of an older lesson waits
+    const FROM = String(T.tutor_from || ''), inScope = d => !FROM || !d || String(d).slice(0, 10) >= FROM;
+    const work = T.open.filter(x => ['after', 'before', 'review', 'verb_check', 'word_review', 'listen', 'check'].includes(x.kind) && inScope(x.lesson_date));
     const lives = await Promise.all(work.map(live));
     tasks = work.map((it, i) => taskOf(it, lives[i]));
     try {   // the moments to check (tutor-verify): answers are amal_rules rows word_key verify:<uid> on the review token
       const V = await (await fetch('data/amal-verify.json', { cache: 'no-store' })).json(), rv = T.open.find(x => x.kind === 'review');
       const ans = rv ? await rest('amal_rules?select=kind,word_key&source=eq.review&word_key=like.verify:*&order=created_at.asc&token=eq.' + encodeURIComponent(rv.token), rv.token) : [];
       // AM-17: the moments she already answered stay listed (with Undo); latest action per moment wins
-      const lat = AneesUndo.latest(ans), seen = new Set(), items = (V.rows || V.items || []).concat(V.answered || []).filter(r => !seen.has(r.id) && seen.add(r.id));
+      const lat = AneesUndo.latest(ans), seen = new Set();
       const isDone = r => { const a = lat[r.id]; return a ? AneesUndo.isAnswer(a) : !!r.answered; };
+      const items = (V.rows || V.items || []).concat(V.answered || []).filter(r => !seen.has(r.id) && seen.add(r.id)).filter(r => inScope(r.date) || isDone(r));   // AM-28
       verifyN = { total: items.length, done: items.filter(isDone).length };
       if (items.length) tasks.push({ id: 'verify', kind: 'verify', item: {}, title: 'Check these moments', total: verifyN.total, done: verifyN.done, left: verifyN.total - verifyN.done, unit: 'moments', rank: 2, date: '', finished: verifyN.done >= verifyN.total });
     } catch (e) {}

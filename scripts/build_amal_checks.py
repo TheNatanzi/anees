@@ -501,6 +501,8 @@ def main(argv=None):
     (ROOT / "docs" / "data" / "amal-checks.json").write_text(json.dumps({"set": SET, "note": "Amal's listening / checking lists (scripts/build_amal_checks.py). "
                                                                            "scripts/build_tutor_data.py puts one row per list on her Tutor hub.",
                                                                            "lists": index}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    sys.path.insert(0, str(ROOT / "scripts")); import tutor_scope   # AM-28: unanswered items of lessons before TUTOR_FROM are paused
+    tutor_scope.scope_all(str(ROOT))
     print("total clips %.2f MB in %d lists" % (sum(x["clip_bytes"] for x in index) / 1e6, len(index)))
 
 
