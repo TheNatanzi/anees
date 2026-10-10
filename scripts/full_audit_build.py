@@ -179,7 +179,11 @@ PRAISE = re.compile(r"^\W*(?:(?:uh|um|mm|mm-hmm|oh|wow|yes|yeah|اه|أه|إيه
 PRAISE_BUT = re.compile(r"\b(but|no|not|instead|although|actually)\b|(?:^|\s)(بس|لا|مش|لكن)(?:\s|[.،؟?]|$)", re.I)
 
 
-def praised(turns, t, right=None):
+NOD = re.compile(r"^(?:\W*(?:m+|m+-?hm+|mhm+|uh-huh|yes|yeah|yep|مهم|ممم|مم|اه|أه|آه|ايوه|أيوه|صح|اها|أها)\W*)+$", re.I)
+NOD_FROM = "2026-10-08"   # GR-36: Medi chose 10-08 and 10-09 only (2026-10-10); earlier lessons wait for his yes
+
+
+def praised(turns, t, right=None, date=None):
     """GR-33 / WS-32: within 8 s after his line at t (before his next line), the tutor praises it ('Excellent', 'Great
     job', ممتاز, برافو ...) and none of her lines there gives a fix: no 'but / no / بس / لا', no Arabic word that is not
     on his line (she may echo his words: 10-08 23:52 'Mm-hmm. واحدة.' then 23:58 'Great job.'), not his slip's right
@@ -201,9 +205,36 @@ def praised(turns, t, right=None):
             return None
         if PRAISE.search(txt):
             return u
+        if (str(date or "") >= NOD_FROM and NOD.match(txt.strip()) and float(u["t"]) >= end - 0.3 and his_line(T, t) is me
+                and not _fix_after(T, k, u, end, mine, right)):
+            return u                      # GR-36 (Medi 2026-10-10 "mmhhmm can be a signal for 'correct' like mumtaz")
         if set(re.findall(r"[\u0621-\u064A]+", norm(txt))) - mine:
             return None                   # she said a word he did not: a fix or a new question, not a plain echo
     return None
+
+
+def his_line(T, t):
+    """GR-36: his line the slip is on - the one whose start is nearest the slip's time."""
+    return min((u for u in T if u.get("who") == "Medi"), key=lambda u: abs(float(u["t"]) - t), default=None)
+
+
+def _fix_after(T, k, nod, end, mine, right):
+    """GR-36: does a line of hers after her nod (within 8 s of his line, before his next line) still fix him? Then the
+    nod was only 'I hear you' (10-08 07:26 'Mm-hmm. Men، men.')."""
+    seen = False
+    for u in T[k + 1:]:
+        if u is nod:
+            seen = True
+            continue
+        if not seen:
+            continue
+        if float(u["t"]) - end > 8 or u.get("who") == "Medi":
+            return False
+        txt = u.get("text") or ""
+        if u.get("who") == "Amal" and (PRAISE_BUT.search(txt) or (right and norm(right) and norm(right) in norm(txt))
+                                       or set(re.findall(r"[ء-ي]+", norm(txt))) - mine):
+            return True
+    return False
 
 
 def apply_praise(rows, lessons=None, scope_from=None):
@@ -226,11 +257,13 @@ def apply_praise(rows, lessons=None, scope_from=None):
         t = sec(r.get("t"))
         if t is None:
             continue
-        her = praised(cache[d], t, r.get("right"))
+        her = praised(cache[d], t, r.get("right"), d)
         if her is not None:
             r["kind_before_rejection"] = r["kind"]
-            r.update(kind="rejected", rejected_rule="GR-33",
-                     rejected_why="GR-33: the tutor praised it right after (%02d:%02d «%s»), so he said it right" % (
+            nod = bool(NOD.match((her.get("text") or "").strip()))
+            r.update(kind="rejected", rejected_rule="GR-36" if nod else "GR-33",
+                     rejected_why=("GR-36: the tutor's mm-hmm right after (%02d:%02d «%s»), with no fix after it, says he said it right"
+                                   if nod else "GR-33: the tutor praised it right after (%02d:%02d «%s»), so he said it right") % (
                          int(float(her["t"])) // 60, int(float(her["t"])) % 60, (her.get("text") or "")[:60]))
             n += 1
     return n

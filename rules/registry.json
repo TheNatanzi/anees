@@ -9601,6 +9601,42 @@
    }
   },
   {
+   "id": "GR-36",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "From 10-08 on (10-08 and 10-09 only, Medi's scope 2026-10-10), the tutor's mm-hmm (Mm-hmm, مهم, أها, صح, yes) right after his line is a signal that he said it right, like ممتاز (GR-33): a slip on that line is not his slip - unless a line of hers after the nod, before his next line, still fixes him ('Mm-hmm. قلت انتين، بس very good.' 10-09 61:53), or the nod came before his line (it answered something else: 10-08 53:46 أها). scripts/full_audit_build.py praised / NOD / _fix_after. On 10-08 and 10-09 it changes 0 of 96 slips: every mm-hmm after a slip came with a fix.",
+   "plain": "The tutor's mm-hmm right after your line means you said it right, like ممتاز, unless she still corrects you right after it.",
+   "plain_for": "1264260f",
+   "topic": "grammar scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "mmhhmm can be a signal for \"correct\" like mumtaz"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/full_audit_build.py",
+     "contains": "def _fix_after(T, k, nod, end, mine, right):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_2026_10_10.py",
+     "contains": "def test_gr_36_her_mm_hmm_with_no_fix_after_says_he_said_it_right"
+    }
+   ],
+   "example": {
+    "date": "2026-10-09",
+    "t": "61:51",
+    "note": "her Mm-hmm then 'بس very good' with the fix: still a slip"
+   }
+  },
+  {
    "id": "PG-39",
    "kind": "process",
    "scope": "pages",

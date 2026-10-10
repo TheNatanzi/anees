@@ -162,3 +162,15 @@ def test_ws_37_merhaba_counts_and_hadi_is_this():
     for date, t in (("2026-10-08", 10.37), ("2026-10-09", 94.5)):
         assert any(c.get("k") == "vocab" and c.get("s") == "correct" for c in chips_at(lesson(date), t)[1]), date
     assert any(c.get("w") == "Hadi" for c in chips_at(lesson("2026-10-09"), 4084.3)[1] + chips_at(lesson("2026-10-09"), 4090.3)[1])
+
+
+def test_gr_36_her_mm_hmm_with_no_fix_after_says_he_said_it_right():
+    """GR-36, Medi 2026-10-10: 'mmhhmm can be a signal for "correct" like mumtaz'."""
+    import full_audit_build as F
+    T = [{"t": 10.0, "end": 12.0, "who": "Medi", "text": "على اثنتين."}, {"t": 12.2, "end": 12.6, "who": "Amal", "text": "Mm-hmm."}]
+    assert F.praised(T, 10.0, "على التنتين", "2026-10-09") is not None
+    assert F.praised(T, 10.0, "على التنتين", "2026-10-06") is None                       # earlier lessons wait for his yes
+    fixed = T + [{"t": 13.0, "end": 15.0, "who": "Amal", "text": "قلت انتين، بس very good."}]
+    assert F.praised(fixed, 10.0, "على التنتين", "2026-10-09") is None                    # a fix after the nod: not 'correct'
+    before = [{"t": 9.0, "end": 9.4, "who": "Amal", "text": "Mm-hmm."}] + T[:1]
+    assert F.praised(before, 10.0, None, "2026-10-09") is None                            # her nod before his line answers something else
