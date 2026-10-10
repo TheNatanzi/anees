@@ -356,6 +356,15 @@ def main():
     f = lambda name: os.path.join(WORK, f"{d}{name}")
     failures = []                        # fail closed: any entry = exit 1 and no push
     log("=== review_lesson", d, "dry-run" if a.dry_run else "")
+    # 0 TR-32 (Medi 2026-10-10 "theres no way we can address these? can we ask gemini?"): the words the engine misheard are
+    # fixed where the tutor's own words prove them, BEFORE the readers read the transcript; the page data is rebuilt when a
+    # word changed. A failure never blocks (the words simply stay as the engine wrote them).
+    if not a.dry_run:
+        fx = os.path.join(REPO, "data", "lesson-work", "transcript-fixes.json")
+        before = os.path.getmtime(fx) if os.path.exists(fx) else 0
+        r = py(os.path.join(HERE, "misheard_check.py"), d, check=False)
+        if r.returncode == 0 and os.path.exists(fx) and os.path.getmtime(fx) != before:
+            py(os.path.join(HERE, "build_lessons_page_data.py"), check=False)
     # 1 prep (one lesson): ALWAYS rewrite the transcript dump, Amal's sheet and the buckets from today's data (it used to
     # run only when <date>.txt was missing, so a grown transcript or a new rule never reached the readers)
     old_txt = open(f(".txt"), encoding="utf-8").read() if os.path.exists(f(".txt")) else None
@@ -517,6 +526,11 @@ def main():
     # Unjudged candidates are never shown to Amal; a reader that fails leaves them unjudged (counted) and fails the run.
     new_words_step(d, a.dry_run, failures)
     taught_cross_step(d, a.dry_run, failures)
+    # 7e the lesson audit's checks (scripts/lesson_audit.py, plan/LESSON-AUDIT-RUNBOOK.md): logged every run so a missing
+    # mark, Latin on an Arabic line or a word credited twice is seen the same day; it reports, it never blocks
+    r_ = subprocess.run([sys.executable, os.path.join(HERE, "lesson_audit.py"), d], cwd=REPO, capture_output=True, text=True,
+                        encoding="utf-8", env={**os.environ, "PYTHONIOENCODING": "utf-8"})
+    log("lesson audit:", ((r_.stdout or "").strip().splitlines() or ["(no output)"])[-1])
     # 7c the Tutor page (Medi's menu) lists every open link with its total - rebuilt so the new after link shows up
     rc = py(os.path.join(HERE, "build_tutor_data.py"), check=False).returncode
     if rc:

@@ -174,3 +174,28 @@ def test_gr_36_her_mm_hmm_with_no_fix_after_says_he_said_it_right():
     assert F.praised(fixed, 10.0, "على التنتين", "2026-10-09") is None                    # a fix after the nod: not 'correct'
     before = [{"t": 9.0, "end": 9.4, "who": "Amal", "text": "Mm-hmm."}] + T[:1]
     assert F.praised(before, 10.0, None, "2026-10-09") is None                            # her nod before his line answers something else
+
+
+def test_tr_32_misheard_words_are_fixed_only_on_her_words():
+    """TR-32, Medi 2026-10-10: 'theres no way we can address these? can we ask gemini?' - the reader's answer is kept only
+    when her quote is really there; her fix of a counted slip and his own next try never replace his word."""
+    import misheard_check as M
+    T = [{"t": 10.0, "end": 11.0, "who": "Medi", "text": "تيني"}, {"t": 12.0, "end": 13.0, "who": "Amal", "text": "Give me three papers."}]
+    chat = [{"t": 30.0, "text": "a3tini talat wara2aat"}]
+    s = {"t": 10.0, "end": 11.0, "word": "تيني", "line": "تيني", "i": 0, "date": "2026-10-09"}
+    M.SLIP_T["2026-10-09"] = []
+    words = json.load(open(os.path.join(ROOT, "docs", "data", "words.json"), encoding="utf-8"))["items"]
+    K = WC.Keys(words)
+    chat2 = [{"t": 30.0, "text": "a8lab el-byoot fi Amrica"}]
+    assert M.proven(s, {"heard": "أغلب", "quote": "a8lab el-byoot fi Amrica"}, T, chat2, K)["heard"] == "أغلب"   # her chat, her list word
+    assert M.proven(s, {"heard": "تيني", "quote": "made up words"}, T, chat, K) is None                    # a quote that is not hers
+    M.SLIP_T["2026-10-09"] = [10.5]
+    assert M.guarded(s, "أعطيني", T)                                                                       # a slip on the line: her fix
+    M.SLIP_T["2026-10-09"] = []
+    T2 = T + [{"t": 14.0, "end": 15.0, "who": "Medi", "text": "أعطيني"}]
+    assert M.guarded(s, "أعطيني", T2)                                                                      # his own next try
+    assert M.clean("ٱسْأِلَة") == "اسألة"
+    fx = json.load(open(os.path.join(ROOT, "data", "lesson-work", "transcript-fixes.json"), encoding="utf-8"))["rows"]
+    auto = [r for r in fx if r.get("by") == "claude-misheard"]
+    assert auto and all(r.get("rule") == "TR-31" and "tutor" in r["why"] for r in auto)
+    assert not [r for r in fx if r.get("by") == "gemini-misheard"]                                      # Gemini only suggests

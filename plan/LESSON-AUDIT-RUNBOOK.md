@@ -13,6 +13,10 @@ Windows: `set PYTHONIOENCODING=utf-8`, `ANEES_REHEAR_AUTO=off`, `ANEES_TRANSLATE
 3. Second listen (TR-22 / TR-29), applied; the tutor-listen cases wait for Amal.
 4. English under every line: `python scripts/translate_lines.py <date>` (PG-40; run again after any text fix).
 
+1b. Automatic (TR-32): `scripts/misheard_check.py <date>` runs as step 0 of the review - misheard words fixed where her
+    own words prove them; Gemini's picks only listed (data/lesson-work/misheard/<date>.json). The review logs the lesson
+    audit (step 7e). A lesson whose transcript changed is queued for the readers (data/lesson-work/rehear/reread-queue.json).
+
 ## B. Medi's own notes on the page (when he has graded the lesson)
 5. `python scripts/medi_corrections.py pull` (his rows + the note reader's rows).
 6. `python scripts/lesson_audit.py <date> --notes` lists every note with today's chips. Read EACH one:

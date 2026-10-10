@@ -9126,6 +9126,52 @@
    }
   },
   {
+   "id": "TR-32",
+   "kind": "process",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The misheard-word check runs by itself on every new lesson from 10-08 on (scripts/misheard_check.py, step 0 of scripts/review_lesson.py, before the readers read the transcript; ANEES_MISHEARD=off stops it). Every suspect word of his ('not on her word list', a form the Word Bank cannot place, a Latin Arabizi line with no mark) goes to ONE Claude read with his line, her lines of the 25 s around it and her chat lines of the 2 minutes around it; a fix is written (rule TR-31, by claude-misheard, the quote in 'why') only when her quoted words are really there and the word is in the quote or on her list. Guards: a counted slip on his line (her word is her FIX, his wrong form stays: 10-09 66:04 اللابات), his own next try (24:11 بتتبسط then بتبسط), a place he names in English. Gemini re-hears the rest (his own microphone, her list's nearest words as the choices, at most 25 words and $0.50 a lesson) but its picks are only listed in data/lesson-work/misheard/<date>.json, never applied: on 2026-10-10 9 of its 10 sure picks were wrong (لا -> هلا, عيد -> إيد). First runs: 10-09 7 fixed (الجو, في, من, شجر, أغلب x2, إلي), 10-08 2 (مالها, نظفتها). The lesson audit's report is logged on every review (step 7e); 10-08 and 10-09 were queued for the readers to read their changed transcripts again.",
+   "plain": "Misheard words are now checked by themselves on every new lesson: fixed only when the tutor's own words or chat prove it; Gemini only suggests.",
+   "plain_for": "80c511d0",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "theres no way we can address these? can we ask gemini?"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "both all everything do it deploy"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/misheard_check.py",
+     "contains": "def guarded(s, heard, T):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "misheard_check.py"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_2026_10_10.py",
+     "contains": "def test_tr_32_misheard_words_are_fixed_only_on_her_words"
+    }
+   ],
+   "example": {
+    "date": "2026-10-09",
+    "t": "54:21",
+    "note": "'aqlab' -> أغلب (her chat 'a8lab as2ilti muhemmeen')"
+   }
+  },
+  {
    "id": "PR-22",
    "kind": "process",
    "scope": "process",
