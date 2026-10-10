@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-10T03:35:20-07:00",
+ "updated": "2026-10-10T09:34:43-07:00",
  "result": "pass",
- "source": "manual: 10-09 audit pass 5 (WS-36, WS-37)",
- "checked_commit": "ffb6c040ae42",
- "secs": 99.2,
+ "source": "manual: mm-hmm = correct (GR-36)",
+ "checked_commit": "e2637db1bfe6",
+ "secs": 109.5,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.2,
+   "secs": 1.8,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "121 JSON files parse"
   },
@@ -35,7 +35,7 @@
    "ok": true,
    "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 241 rules: enforced 151 (code 142, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
+   "detail": "rule_registry: OK - 242 rules: enforced 152 (code 143, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
   {
    "id": "lesson_coverage",
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.8,
+   "secs": 2.9,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 3.4,
+   "secs": 6.9,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...6 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.6,
+   "secs": 6.0,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 72 pages, every link, data file and clip resolves (48 references to unpublished clips play from the full lesson recording)"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 66.6,
+   "secs": 73.4,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "................... [ 94%] | ...........................................                              [100%] | 759 passed, 1 skipped, 3 xfailed in 64.37s (0:01:04)"
+   "detail": "................... [ 94%] | ............................................                             [100%] | 760 passed, 1 skipped, 3 xfailed in 69.79s (0:01:09)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 6.6,
+   "secs": 5.7,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6589.7579"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5643.3805"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.8,
+   "secs": 5.5,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -153,7 +153,7 @@
    "id": "review_freshness",
    "required": false,
    "ok": false,
-   "secs": 0.3,
+   "secs": 0.4,
    "what": "the two readers read the transcript the pages show now",
    "detail": "2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it"
   },
@@ -163,15 +163,15 @@
    "ok": false,
    "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
-   "detail": "Amal's answers last checked 3 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
+   "detail": "Amal's answers last checked 9 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
   },
   {
    "id": "medi_corrections",
    "required": false,
-   "ok": true,
+   "ok": false,
    "secs": 0.1,
    "what": "Medi's transcript corrections: none orphaned, held or quarantined, no rule paused by probation (PR-15; a warning only, never blocks)",
-   "detail": "corrections: none orphaned, none held, no paused rule"
+   "detail": "exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)"
   },
   {
    "id": "foreign_script",
@@ -184,7 +184,8 @@
  ],
  "warnings": [
   "review_freshness: 2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it",
-  "data_freshness: Amal's answers last checked 3 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
+  "data_freshness: Amal's answers last checked 9 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
+  "medi_corrections: exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
@@ -196,6 +197,6 @@
   "secs": 97.8,
   "commits_waiting": "2"
  },
- "blocks_before_this_pass": 2,
+ "blocks_before_this_pass": 0,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
