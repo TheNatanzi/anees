@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-10T09:34:43-07:00",
+ "updated": "2026-10-10T10:08:57-07:00",
  "result": "pass",
- "source": "manual: mm-hmm = correct (GR-36)",
- "checked_commit": "e2637db1bfe6",
- "secs": 109.5,
+ "source": "manual: misheard-word check (TR-32)",
+ "checked_commit": "2614a0d7f5d3",
+ "secs": 97.0,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.8,
+   "secs": 1.2,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "121 JSON files parse"
   },
@@ -35,7 +35,7 @@
    "ok": true,
    "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 242 rules: enforced 152 (code 143, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
+   "detail": "rule_registry: OK - 243 rules: enforced 153 (code 144, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
   {
    "id": "lesson_coverage",
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.9,
+   "secs": 3.0,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 2.1,
+   "secs": 2.0,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 743 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 6.9,
+   "secs": 3.4,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...6 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,15 +105,15 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 6.0,
+   "secs": 5.6,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
-   "detail": "pages OK: 72 pages, every link, data file and clip resolves (48 references to unpublished clips play from the full lesson recording)"
+   "detail": "pages OK: 72 pages, every link, data file and clip resolves (49 references to unpublished clips play from the full lesson recording)"
   },
   {
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 1.8,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.6,
+   "secs": 0.7,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 73.4,
+   "secs": 65.3,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "................... [ 94%] | ............................................                             [100%] | 760 passed, 1 skipped, 3 xfailed in 69.79s (0:01:09)"
+   "detail": "................... [ 94%] | .............................................                            [100%] | 761 passed, 1 skipped, 3 xfailed in 63.12s (0:01:03)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 5.7,
+   "secs": 6.1,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5643.3805"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6030.8003"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.5,
+   "secs": 5.2,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -153,7 +153,7 @@
    "id": "review_freshness",
    "required": false,
    "ok": false,
-   "secs": 0.4,
+   "secs": 0.2,
    "what": "the two readers read the transcript the pages show now",
    "detail": "2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it"
   },
@@ -189,14 +189,14 @@
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-10T03:33:36-07:00",
-  "source": "manual: 10-09 audit pass 5 (WS-36, WS-37)",
+  "at": "2026-10-10T10:07:11-07:00",
+  "source": "manual: misheard-word check (TR-32)",
   "outcome": "blocked",
-  "sha": "ffb6c040ae42a1f5e4f90c511807cc86e9ce7761",
-  "reason": "clean_tree: 1 uncommitted change(s) in what would be published, e.g. docs/data/tutor-notes.json",
-  "secs": 97.8,
-  "commits_waiting": "2"
+  "sha": "b3e1951e57306b377a509eca4ba843ee2fefbcb5",
+  "reason": "check_pages: exit 1: pages NOT OK: 2 dead audio clip problems. First: lessons/2026-10-09.html: plays clips from data/word-bank-audit.json (2 missing, e.g. lessons/2026-10-09/clips/context-a92cfba4791b2c2e.mp3) but does not load js/clip-fallback.js, so they are silent",
+  "secs": 99.8,
+  "commits_waiting": "1"
  },
- "blocks_before_this_pass": 0,
+ "blocks_before_this_pass": 1,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
