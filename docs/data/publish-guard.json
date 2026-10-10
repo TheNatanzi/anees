@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-09T17:41:38-07:00",
+ "updated": "2026-10-09T17:58:43-07:00",
  "result": "pass",
- "source": "manual: meaning-aware homographs, chat words are new (WS-33)",
- "checked_commit": "8de0d78ee3e9",
- "secs": 105.2,
+ "source": "manual: sound-swapped letters find her word (WS-33)",
+ "checked_commit": "98f7b4945d06",
+ "secs": 93.2,
  "checks": [
   {
    "id": "step_failures",
@@ -17,7 +17,7 @@
    "id": "clean_tree",
    "required": true,
    "ok": true,
-   "secs": 0.1,
+   "secs": 0.0,
    "what": "what is checked is exactly what gets published",
    "detail": "nothing uncommitted under docs, data/full-audit-2026-09-26.json, data/accuracy, RULE-BOOK.md, data/lesson-work/ledger, data/lesson-work/ledger-amal.json"
   },
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.9,
+   "secs": 1.2,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "119 JSON files parse"
   },
@@ -33,7 +33,7 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
    "detail": "rule_registry: OK - 229 rules: enforced 139 (code 130, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
@@ -41,7 +41,7 @@
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.4,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 21 lessons reach every page"
   },
@@ -65,7 +65,7 @@
    "id": "taught_words_cross_check",
    "required": true,
    "ok": true,
-   "secs": 0.2,
+   "secs": 0.1,
    "what": "every Tutor new word of a lesson is in its taught words (or says why not); no off-lesson window hides Amal teaching",
    "detail": "11 lesson type read(s) cover their Tutor new words; no off-lesson window has Amal teaching"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 3.0,
+   "secs": 2.6,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.3,
+   "secs": 1.1,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 2.2,
+   "secs": 1.9,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 719 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 7.3,
+   "secs": 3.3,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...6 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.9,
+   "secs": 5.1,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 71 pages, every link, data file and clip resolves (134 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 1.7,
+   "secs": 1.6,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.7,
+   "secs": 0.6,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 68.2,
+   "secs": 62.7,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "................... [ 98%] | ..............                                                           [100%] | 730 passed, 1 skipped, 3 xfailed in 65.97s (0:01:05)"
+   "detail": "............................. [ 97%] | ...............                                                          [100%] | 731 passed, 1 skipped, 3 xfailed in 59.47s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 5.9,
+   "secs": 6.2,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5806.7363"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6145.5365"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.3,
+   "secs": 5.5,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -153,7 +153,7 @@
    "id": "review_freshness",
    "required": false,
    "ok": false,
-   "secs": 0.4,
+   "secs": 0.2,
    "what": "the two readers read the transcript the pages show now",
    "detail": "2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it"
   },
@@ -177,7 +177,7 @@
    "id": "foreign_script",
    "required": false,
    "ok": false,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)",
    "detail": "exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
   }
@@ -189,14 +189,14 @@
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-09T14:00:41-07:00",
-  "source": "lesson_pipeline: Lesson 2099-01-01: report page + clips",
+  "at": "2026-10-09T17:53:53-07:00",
+  "source": "manual: sound-swapped letters find her word (WS-33)",
   "outcome": "blocked",
-  "sha": null,
-  "reason": "lesson_coverage: 21 gap(s): 2026-08-25 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-04 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-05 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-10 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-11 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-14 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/) (+15 more); arabizi_gaps: output does not show /\\b0 words\\b/: ",
-  "secs": 2.1,
-  "commits_waiting": ""
+  "sha": "38d566397e66ab844d505abdd24c679ad06b919b",
+  "reason": "tests_py: exit 1: FAILED tests/test_final_approval_2026_10_05.py::test_word_credits_the_second_listen_no_longer_hears_are_listed_and_not_scored | 1 failed, 730 passed, 1 skipped, 3 xfailed in 60.84s (0:01:00)",
+  "secs": 93.7,
+  "commits_waiting": "1"
  },
- "blocks_before_this_pass": 0,
+ "blocks_before_this_pass": 1,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
