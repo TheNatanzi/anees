@@ -154,3 +154,11 @@ def test_gr_35_teacher_read():
     assert D.asks_more("Would it be مفضلة؟") and D.asks_more("So there's no الـ... Uh, no هذي القبة.") and not D.asks_more("هذا الشاطئ")
     u = json.load(open(os.path.join(ROOT, "docs", "data", "grammar-usage.json"), encoding="utf-8"))
     assert not any(x["date"] == "2026-10-09" and x["mmss"] == "06:36" for x in u["uses"].get("A1", []))   # اليوم today
+
+
+def test_ws_37_merhaba_counts_and_hadi_is_this():
+    """Medi 2026-10-09 on 10-08 00:10 'merhaba vocab should count': the second listen's مرحبا for his Latin 'Marhaba' is the
+    same word of hers (10-09 01:34 too); هادي is her 'This (F)' unless the line is about calm."""
+    for date, t in (("2026-10-08", 10.37), ("2026-10-09", 94.5)):
+        assert any(c.get("k") == "vocab" and c.get("s") == "correct" for c in chips_at(lesson(date), t)[1]), date
+    assert any(c.get("w") == "Hadi" for c in chips_at(lesson("2026-10-09"), 4084.3)[1] + chips_at(lesson("2026-10-09"), 4090.3)[1])

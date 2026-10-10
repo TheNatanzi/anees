@@ -544,6 +544,7 @@ class Keys:
                         if h and h[1] == "one":
                             hits.add(h[0])
         hits -= preps()                   # a sound match never makes a word a preposition (10-08 51:19 إدام is not قدام)
+        hits = {k for k in hits if (self.group.get(k) or {}).get("type") != "Verb"}   # nor a verb form (10-09 9:44 قارة)
         return next(iter(hits)) if len(hits) == 1 else None
 
     def is_plural(self, w):
@@ -905,6 +906,9 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                 prv = norm(toks[n - 1]["ar"]) if n > 0 else ""
                 verbish = prv in PRONOUN_WORDS or prv in ("لازم", "بدي", "رح", "راح", "ما", "بدك")
                 key, how = (next((k for k in key if k != "8air"), key[0]) if verbish else "8air"), "one"   # WS-35
+            if how == "unclear" and date >= AGAIN_FROM and set(key) == {"hAdi", "hadi"}:
+                # WS-37: هادي is her 'This (F)' (hadi); 'Calm' (hAdi) only on a line about calm / quiet
+                key, how = ("hAdi" if re.search(r"calm|quiet|relax", u.get("text") or "", re.I) else "hadi"), "one"
             if how == "unclear" and date >= AGAIN_FROM and set(key) == {"nafas", "nafs"}:
                 # WS-37: نفس before a word is her 'Same' (nafs); 'Breath' (nafas) only with خد / take a breath
                 key, how = ("nafas" if re.search(r"خد|خذ|breath", u.get("text") or "") else "nafs"), "one"
@@ -987,7 +991,9 @@ def plan(date, detail, events, keys, off=(), rulings=None):
             if e is not None and e.get("text") and core(e["text"].strip(" .،,؟?!")) != core(w) and date >= AGAIN_FROM and any(
                     h.get("correction") and core(w) in [core(x) for x, c_ in arabic_tokens(h.get("heard"))] for h in u.get("heard") or []):
                 e = None                  # WS-29: HIS own fix put this word on the line (20:05 اليوم -> غيوم): judged as said
-            if e is not None and e.get("text") and core(e["text"].strip(" .،,؟?!")) != core(w) and not re.search(r"[A-Za-z]", w):
+            if e is not None and date >= AGAIN_FROM and e.get("word_key") == key and re.search(r"[A-Za-z]", e.get("text") or ""):
+                pass                      # WS-37: the second listen wrote his Latin 'Marhaba' as مرحبا - the same word of hers
+            elif e is not None and e.get("text") and core(e["text"].strip(" .،,؟?!")) != core(w) and not re.search(r"[A-Za-z]", w):
                 # the second listen changed this word (engine فاتح -> heard فاتحة): the tutor's listen decides it (TR-27),
                 # never this file
                 rows.append(dict(row, state="na", why="the second listen changed this word; the tutor's listen decides it (TR-27)"))
@@ -1150,6 +1156,8 @@ def said_again(date, turns, rows, adds, patches, evs, window=10.0):
             if not TUTOR_NOD.match(u.get("text") or ""):
                 prev = None
             continue
+        if prev is not None and i not in credited and not [x for x in word_tokens(u.get("text")) if not x["cut"]]:
+            continue                      # his filler line (آآآم.) between two tries does not break them apart
         if prev is not None and float(u["t"]) - float(turns[prev].get("end") or turns[prev]["t"]) <= window:
             before = {r["key"]: r for r in credited.get(prev, [])}
             for r in credited.get(i, []):

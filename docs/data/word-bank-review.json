@@ -75262,29 +75262,6 @@
         "audit_created": true
       }
     },
-    "1ab2ae8d5f71e04d3c8aadbd59074ab148797036d3fed8a01c22c98039557483": {
-      "expected": {
-        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
-        "row_id": "anees-20261008-recall-medi:row:3948",
-        "word_key": "ard",
-        "text": "ard",
-        "t_start": 2738.181813522,
-        "t_end": 2738.681813522,
-        "assessment": "unresolved",
-        "reason": "Isolated production; insufficient evidence of independent contextual success"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "open",
-        "audit_kind": "question",
-        "audit_note": "",
-        "contextual_audit": true,
-        "audit_question": "Not classified by the audit: Isolated production; insufficient evidence of independent contextual success",
-        "audit_created": true
-      }
-    },
     "245bc14be789e85d557965f747102200eea30afc1caecfe53a2769dbd5822290": {
       "expected": {
         "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
@@ -75841,52 +75818,6 @@
         "audit_note": "",
         "contextual_audit": true,
         "audit_question": "Not classified by the audit: Ambiguous vocabulary or unresolved transcript wording",
-        "audit_created": true
-      }
-    },
-    "d0a63998fe96b83204733599916720365e46f54e9ff06ae7d10213fe89201724": {
-      "expected": {
-        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
-        "row_id": "anees-20261008-recall-medi:row:3458",
-        "word_key": "sama",
-        "text": "Sama,",
-        "t_start": 2315.7518135220002,
-        "t_end": 2316.331813522,
-        "assessment": "unresolved",
-        "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "open",
-        "audit_kind": "question",
-        "audit_note": "",
-        "contextual_audit": true,
-        "audit_question": "Not classified by the audit: Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error",
-        "audit_created": true
-      }
-    },
-    "e6b315a5ef250172a03d8ed0db8e2db8ca2d1f997d70d4e918058ac86c47251d": {
-      "expected": {
-        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
-        "row_id": "anees-20261008-recall-medi:row:4892",
-        "word_key": "mufadal",
-        "text": "Mufaddal.",
-        "t_start": 3459.025813522,
-        "t_end": 3459.805813522,
-        "assessment": "unresolved",
-        "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "open",
-        "audit_kind": "question",
-        "audit_note": "",
-        "contextual_audit": true,
-        "audit_question": "Not classified by the audit: Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error",
         "audit_created": true
       }
     },
@@ -76973,29 +76904,6 @@
         "audit_note": "",
         "contextual_audit": true,
         "audit_question": "Not classified by the audit: Ambiguous vocabulary or unresolved transcript wording",
-        "audit_created": true
-      }
-    },
-    "f96770f97040b69e99b3a895d779e738c9baca3abcab99d3006f8d340fccf9d6": {
-      "expected": {
-        "source_sha256": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
-        "row_id": "anees-20261009-recall-medi:row:58",
-        "word_key": "marhaba",
-        "text": "Marhaba.",
-        "t_start": 94.75642256699999,
-        "t_end": 95.25642256699999,
-        "assessment": "unresolved",
-        "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "open",
-        "audit_kind": "question",
-        "audit_note": "",
-        "contextual_audit": true,
-        "audit_question": "Not classified by the audit: Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error",
         "audit_created": true
       }
     },
@@ -87758,12 +87666,15 @@
         "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
       },
       "changes": {
-        "assessment": "independent",
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other) (WS-30)",
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "ignored": true,
+        "classification": "ignored",
+        "reason": "said again right after his own هون at 31:34 with nothing from the tutor between: one try, counted once (WS-36)",
         "by": "word-coverage",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "vocab_points": 1
+        "rule": "WS-36",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
       }
     },
     "9bc4e45fabc6c8cf78a66f94f8e4d68cb7913746dcf82360402906491c1cb242": {
@@ -87926,6 +87837,46 @@
           "t": 2174.3,
           "text": "Ago is قبل. So قبل ثلاث سنين."
         }
+      }
+    },
+    "d0a63998fe96b83204733599916720365e46f54e9ff06ae7d10213fe89201724": {
+      "expected": {
+        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
+        "row_id": "anees-20261008-recall-medi:row:3458",
+        "word_key": "sama",
+        "text": "Sama,",
+        "t_start": 2315.7518135220002,
+        "t_end": 2316.331813522,
+        "assessment": "unresolved",
+        "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
+      },
+      "changes": {
+        "assessment": "independent",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other) (WS-30)",
+        "by": "word-coverage",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "vocab_points": 1
+      }
+    },
+    "1ab2ae8d5f71e04d3c8aadbd59074ab148797036d3fed8a01c22c98039557483": {
+      "expected": {
+        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
+        "row_id": "anees-20261008-recall-medi:row:3948",
+        "word_key": "ard",
+        "text": "ard",
+        "t_start": 2738.181813522,
+        "t_end": 2738.681813522,
+        "assessment": "unresolved",
+        "reason": "Isolated production; insufficient evidence of independent contextual success"
+      },
+      "changes": {
+        "assessment": "independent",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other) (WS-30)",
+        "by": "word-coverage",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "vocab_points": 1
       }
     },
     "d8f67b14f747cec56deb3feffd2a92a0698c54511a2bcfee0972ce1c02388709": {
@@ -88329,6 +88280,50 @@
         }
       }
     },
+    "e1058c561699d7a4851baad1e9c98ca324e2aee4d712b67050ad8e14e62b0287": {
+      "expected": {
+        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
+        "row_id": "anees-20261008-recall-medi:row:4796",
+        "word_key": "awal",
+        "text": "awal",
+        "t_start": 3405.8858135220003,
+        "t_end": 3406.265813522,
+        "assessment": "helped",
+        "reason": "Same vocabulary supplied by Amal within 15 seconds; repetition is practice, not independent credit"
+      },
+      "changes": {
+        "assessment": "helped",
+        "reason": "Repeat of the tutor's recast of his line at 56:33 («There's two ways to say it, either أَوَّل واحد or ٱلْأَوَّل.»): not credited, not a mistake (WS-31)",
+        "by": "word-coverage",
+        "rule": "WS-31",
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 3393.18,
+          "text": "There's two ways to say it, either أَوَّل واحد or ٱلْأَوَّل."
+        }
+      }
+    },
+    "e6b315a5ef250172a03d8ed0db8e2db8ca2d1f997d70d4e918058ac86c47251d": {
+      "expected": {
+        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
+        "row_id": "anees-20261008-recall-medi:row:4892",
+        "word_key": "mufadal",
+        "text": "Mufaddal.",
+        "t_start": 3459.025813522,
+        "t_end": 3459.805813522,
+        "assessment": "unresolved",
+        "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
+      },
+      "changes": {
+        "assessment": "independent",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other) (WS-30)",
+        "by": "word-coverage",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "vocab_points": 1
+      }
+    },
     "812b9820ae134e66379d2088445a135e4867ace5acc4f127143978e3eadc4cc5": {
       "expected": {
         "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
@@ -88370,6 +88365,29 @@
         "ignored": true,
         "classification": "ignored",
         "reason": "said again right after his own سما at 21:31 with nothing from the tutor between: one try, counted once (WS-36)",
+        "by": "word-coverage",
+        "rule": "WS-36",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
+      }
+    },
+    "c84a17b96ecfd7bba2d367c353d0af614a046b01f14e96c3d0180c28ffb4b3e9": {
+      "expected": {
+        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
+        "row_id": "anees-20261008-recall-medi:row:4488",
+        "word_key": "7ajar",
+        "text": "حجر",
+        "t_start": 3224.081813522,
+        "t_end": 3224.441813522,
+        "assessment": "independent",
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
+      },
+      "changes": {
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "ignored": true,
+        "classification": "ignored",
+        "reason": "said again right after his own حجر at 53:35 with nothing from the tutor between: one try, counted once (WS-36)",
         "by": "word-coverage",
         "rule": "WS-36",
         "audit_bin": "not_counted",
@@ -88494,6 +88512,26 @@
           "t": 3583.8,
           "text": "الدرس المفضل."
         }
+      }
+    },
+    "f96770f97040b69e99b3a895d779e738c9baca3abcab99d3006f8d340fccf9d6": {
+      "expected": {
+        "source_sha256": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
+        "row_id": "anees-20261009-recall-medi:row:58",
+        "word_key": "marhaba",
+        "text": "Marhaba.",
+        "t_start": 94.75642256699999,
+        "t_end": 95.25642256699999,
+        "assessment": "unresolved",
+        "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
+      },
+      "changes": {
+        "assessment": "independent",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other) (WS-30)",
+        "by": "word-coverage",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "vocab_points": 1
       }
     },
     "af118bd35da8552303ef102e4fea5cf4856e8ee32033102de45e611835648d65": {
@@ -89881,6 +89919,29 @@
         "rule": "WS-30",
         "classification": "lexical",
         "vocab_points": 1
+      }
+    },
+    "f2895267a29fc1d642af60a2e2ebc3250f50a27703b57678d40f45e8ba99758f": {
+      "expected": {
+        "source_sha256": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
+        "row_id": "anees-20261009-recall-medi:row:451",
+        "word_key": "shwai",
+        "text": "شوي",
+        "t_start": 479.008422567,
+        "t_end": 479.24842256700003,
+        "assessment": "independent",
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
+      },
+      "changes": {
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "ignored": true,
+        "classification": "ignored",
+        "reason": "said again right after his own شوي at 07:44 with nothing from the tutor between: one try, counted once (WS-36)",
+        "by": "word-coverage",
+        "rule": "WS-36",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
       }
     },
     "bfbc87858ca1b585e629537d73a4b3b0194db9de3c2c8b71b0fb2146e8eba377": {
@@ -250005,7 +250066,7 @@
         "text": "بيوجع",
         "original_text": "he biwaja",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "unresolved",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -250020,12 +250081,15 @@
             "timeline_end": 237.11
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
-        "classification": "lexical",
+        "reason": "said again right after his own بيوجع at 03:50 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
         "coverage": true,
-        "vocab_points": 1,
-        "entry_id": "ana bawaje3:present"
+        "vocab_points": null,
+        "entry_id": "ana bawaje3:present",
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
       },
       "by": "word-coverage"
     },
@@ -262241,7 +262305,7 @@
         "text": "الكلمة",
         "original_text": "طبيعة. الكلمة الطبيعة.",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "unresolved",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -262256,11 +262320,14 @@
             "timeline_end": 515.97
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
-        "classification": "lexical",
+        "reason": "said again right after his own الكلمة at 08:23 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
         "coverage": true,
-        "vocab_points": 1
+        "vocab_points": null,
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
       },
       "by": "word-coverage"
     },
@@ -263764,7 +263831,7 @@
         "text": "البحر",
         "original_text": "البحر",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "unresolved",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -263779,11 +263846,14 @@
             "timeline_end": 1230.76
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
-        "classification": "lexical",
+        "reason": "said again right after his own البحر at 20:20 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
         "coverage": true,
-        "vocab_points": 1
+        "vocab_points": null,
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
       },
       "by": "word-coverage"
     },
@@ -264242,7 +264312,7 @@
         "text": "بتبسط",
         "original_text": "بتبسط. It's بتب-- Yeah، بتبسط",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "unresolved",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -264257,12 +264327,15 @@
             "timeline_end": 1463.86
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
-        "classification": "lexical",
+        "reason": "said again right after his own بتبسط at 24:16 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
         "coverage": true,
-        "vocab_points": 1,
-        "entry_id": "ana babse6:present"
+        "vocab_points": null,
+        "entry_id": "ana babse6:present",
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
       },
       "by": "word-coverage"
     },
@@ -270942,6 +271015,52 @@
       "anchor_id": "f96770f97040b69e99b3a895d779e738c9baca3abcab99d3006f8d340fccf9d6",
       "expected_source": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
       "event": {
+        "id": "d05c2ee4f389453c93f89297a27322cc10572824a9b94b8e207412589bf50938",
+        "lesson_date": "2026-10-09",
+        "word_key": "hadi",
+        "local_start": 3997.474,
+        "local_end": 4002.154,
+        "candidate_keys": [
+          "hadi"
+        ],
+        "source_id": "anees-20261009-recall-medi",
+        "source_sha256": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
+        "row_id": "cover:2026-10-09:3998.41",
+        "item_ids": [],
+        "t_start": 3998.41,
+        "t_end": 4003.09,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "هادي",
+        "original_text": "هادي نفس",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-10-09:3998.41",
+            "speaker": "Medi",
+            "text": "هادي نفس",
+            "timeline_start": 3998.41,
+            "timeline_end": 4003.09
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "f96770f97040b69e99b3a895d779e738c9baca3abcab99d3006f8d340fccf9d6",
+      "expected_source": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
+      "event": {
         "id": "292350a06e8734404ea579e35911fd7c7fda11c1aec15a99d15afcc58ebecf86",
         "lesson_date": "2026-10-09",
         "word_key": "nafs",
@@ -271332,6 +271451,101 @@
       "anchor_id": "f96770f97040b69e99b3a895d779e738c9baca3abcab99d3006f8d340fccf9d6",
       "expected_source": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
       "event": {
+        "id": "a91915752d86877aabbceb91fe2a25edea5b2564299a0436db11ffd79971b48e",
+        "lesson_date": "2026-10-09",
+        "word_key": "hadi",
+        "local_start": 4083.814,
+        "local_end": 4084.114,
+        "candidate_keys": [
+          "hadi"
+        ],
+        "source_id": "anees-20261009-recall-medi",
+        "source_sha256": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
+        "row_id": "cover:2026-10-09:4084.75",
+        "item_ids": [],
+        "t_start": 4084.75,
+        "t_end": 4085.05,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "هادي",
+        "original_text": "آآآ هادي.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-10-09:4084.75",
+            "speaker": "Medi",
+            "text": "آآآ هادي.",
+            "timeline_start": 4084.75,
+            "timeline_end": 4085.05
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "f96770f97040b69e99b3a895d779e738c9baca3abcab99d3006f8d340fccf9d6",
+      "expected_source": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
+      "event": {
+        "id": "0ed1d817a4eeb1bcd7e264fcc9bee7b0100da0fa21af3d089c8683ca95257ebe",
+        "lesson_date": "2026-10-09",
+        "word_key": "hadi",
+        "local_start": 4089.334,
+        "local_end": 4092.624,
+        "candidate_keys": [
+          "hadi"
+        ],
+        "source_id": "anees-20261009-recall-medi",
+        "source_sha256": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
+        "row_id": "cover:2026-10-09:4090.27",
+        "item_ids": [],
+        "t_start": 4090.27,
+        "t_end": 4093.56,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "هادي",
+        "original_text": "هادي.",
+        "match_method": "word_coverage",
+        "assessment": "unresolved",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-10-09:4090.27",
+            "speaker": "Medi",
+            "text": "هادي.",
+            "timeline_start": 4090.27,
+            "timeline_end": 4093.56
+          }
+        ],
+        "reason": "said again right after his own هادي at 68:04 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
+        "coverage": true,
+        "vocab_points": null,
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "f96770f97040b69e99b3a895d779e738c9baca3abcab99d3006f8d340fccf9d6",
+      "expected_source": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
+      "event": {
         "id": "be8aa69268ee2b1abc29ac45a451f7d8db567840f315e91bd394b86a340d378a",
         "lesson_date": "2026-10-09",
         "word_key": "2A5er",
@@ -271413,6 +271627,52 @@
           }
         ],
         "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "f96770f97040b69e99b3a895d779e738c9baca3abcab99d3006f8d340fccf9d6",
+      "expected_source": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
+      "event": {
+        "id": "551d7dfd05225f635f06308347f8c3b325a4fab17a06460b3b0ee396ebea6aa5",
+        "lesson_date": "2026-10-09",
+        "word_key": "hadi",
+        "local_start": 4099.114,
+        "local_end": 4105.884,
+        "candidate_keys": [
+          "hadi"
+        ],
+        "source_id": "anees-20261009-recall-medi",
+        "source_sha256": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
+        "row_id": "cover:2026-10-09:4100.05",
+        "item_ids": [],
+        "t_start": 4100.05,
+        "t_end": 4106.82,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "هادي",
+        "original_text": "هادي آخر الـ lobe إلي.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-10-09:4100.05",
+            "speaker": "Medi",
+            "text": "هادي آخر الـ lobe إلي.",
+            "timeline_start": 4100.05,
+            "timeline_end": 4106.82
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
         "rule": "WS-30",
         "classification": "lexical",
         "coverage": true,
@@ -271515,6 +271775,52 @@
         "ignored": true,
         "audit_bin": "not_counted",
         "audit_kind": "repeat"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "f96770f97040b69e99b3a895d779e738c9baca3abcab99d3006f8d340fccf9d6",
+      "expected_source": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
+      "event": {
+        "id": "cf50257fa8c01d265e41737d45b5470670f0a398a925cf98358b793ece3b25ec",
+        "lesson_date": "2026-10-09",
+        "word_key": "hadi",
+        "local_start": 4107.014,
+        "local_end": 4120.684,
+        "candidate_keys": [
+          "hadi"
+        ],
+        "source_id": "anees-20261009-recall-medi",
+        "source_sha256": "f162b8afcf1c900637754aab496c1641606d0b9fef395d0e97d7bef5692e6cc5",
+        "row_id": "cover:2026-10-09:4107.95",
+        "item_ids": [],
+        "t_start": 4107.95,
+        "t_end": 4121.62,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "هادي",
+        "original_text": "This is the last. Oh، هادي آخر lobe إلي.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-10-09:4107.95",
+            "speaker": "Medi",
+            "text": "This is the last. Oh، هادي آخر lobe إلي.",
+            "timeline_start": 4107.95,
+            "timeline_end": 4121.62
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
       },
       "by": "word-coverage"
     },
