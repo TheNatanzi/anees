@@ -22,3 +22,8 @@ def test_pg_48_line_en_script_on_every_tutor_page():
     pages = ["tutor.html"] + ["amal/" + f for f in ("after.html", "check.html", "listen-check.html", "review.html", "word-review.html")]
     for p in pages:
         assert "hub/line-en.js" in io.open(os.path.join(ROOT, "docs", p), encoding="utf-8").read(), p
+
+
+def test_pg_49_transcript_time_has_a_play_icon():
+    css = io.open(os.path.join(ROOT, "docs", "css", "lessons.css"), encoding="utf-8").read()
+    assert 'button.ls-time::before{content:"\25B6"' in css

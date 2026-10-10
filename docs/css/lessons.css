@@ -242,3 +242,6 @@
 #anees-bank .ls-turn > .ls-turnhead{grid-row:span 2}
 #anees-bank .ls-heard{line-height:1.45;overflow-wrap:anywhere}
 #anees-bank .ls-line-en{font-size:12px;line-height:1.4;color:var(--ab-muted);font-style:italic;margin-top:2px;overflow-wrap:anywhere}
+/* PG-49 (Medi 2026-10-10 "can you add a play icon here to make it more clear its audio"): the time under the speaker plays
+   the lesson from there - a small ▶ in front says so (inline-block, so the dotted underline stays on the time only). */
+#anees-bank button.ls-time::before{content:"\25B6";display:inline-block;font-size:9px;margin-right:4px;vertical-align:1px;text-decoration:none}

@@ -10601,6 +10601,42 @@
     "t": "25:53",
     "note": "her mistakes card: أول beginning would be-- Yeah, أول لعبة. -> The first beginning would be, yeah, the first game."
    }
+  },
+  {
+   "id": "PG-49",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "On the Lessons page transcript the time under each speaker (the button that plays the lesson from that moment) carries a small ▶ in front of it, so it reads as audio (docs/css/lessons.css button.ls-time::before).",
+   "plain": "The time next to each line on the transcript has a small play triangle, so it is clear it plays the audio.",
+   "plain_for": "bc4af434",
+   "topic": "the lessons page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "can you add a play icon here to make it more clear its audio"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/css/lessons.css",
+     "contains": "button.ls-time::before"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_line_en.py",
+     "contains": "def test_pg_49_transcript_time_has_a_play_icon"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "01:59",
+    "note": "TUTOR 01:59 -> ▶ 01:59"
+   }
   }
  ]
 }
