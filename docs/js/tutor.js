@@ -44,7 +44,12 @@
       if (item.kind === 'review') {   // AM-17: the latest action per pattern counts (an undo puts it back)
         const rows = (await rest('amal_rules?select=kind,word_key&source=eq.review&order=created_at.asc&token=eq.' + encodeURIComponent(item.token), item.token))
           .filter(r => !/^(verify|newword|ledger):/.test(String(r.word_key || '')));
-        return { ok: true, done: Object.values(AneesUndo.latest(rows)).filter(AneesUndo.isAnswer).length };
+        // AM-28: count only the cards the list shows now (its patterns + new words), never her answers to paused or
+        // older cards - 38 old answers against 12 shown patterns hid the whole card (2026-10-10)
+        const R = await (await fetch('data/amal-review.json', { cache: 'no-store' })).json();
+        const cards = (R.patterns || []).concat(R.new_words || []), lat = AneesUndo.latest(rows);
+        const done = cards.filter(c => { const a = lat[c.id]; return a ? AneesUndo.isAnswer(a) : !!c.answered; }).length;
+        return { ok: true, done, total: cards.length };
       }
       if (item.kind === 'listen') {   // her listening check: the latest tap per line counts (an undo puts it back)
         const rows = await rest('amal_rules?select=kind,word_key&source=eq.listen-check&word_key=like.listen:*&order=created_at.asc&token=eq.' + encodeURIComponent(item.token), item.token);
@@ -63,7 +68,7 @@
   const MIN_EACH = { proposals: 1.5, attention: 1, after: 0.7, before: 0.7, verify: 0.4, ledger: 0.5, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3, listen: 0.25 };
   const UNIT = { after: 'moments', before: 'questions', review: 'kinds of mistake', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', ledger: 'moments', newwords: 'words', listen: 'lines' };
   function taskOf(it, L) {
-    const total = it.total || 0, d = Math.min(total, (L && L.done) || 0), left = Math.max(0, total - d);
+    const total = (L && L.total != null) ? L.total : (it.total || 0), d = Math.min(total, (L && L.done) || 0), left = Math.max(0, total - d);
     const title = it.kind === 'after' ? 'After the lesson · ' + pretty(it.lesson_date)
       : it.kind === 'review' ? 'The student\u2019s mistakes to review' : it.kind === 'verb_check' ? it.title.replace('Verb check', 'Verb forms') : it.title;
     const rank = it.kind === 'before' ? 0 : it.kind === 'after' ? 1 : it.kind === 'review' ? 3 : it.kind === 'word_review' ? 4 : it.kind === 'listen' ? 3.5 : it.kind === 'check' ? 3.6 : 5;

@@ -77,3 +77,12 @@ def test_am_28_built_files_pause_only_open_items_of_older_lessons():
                 assert date and date < TS.TUTOR_FROM, (n, key, x.get("id"))
                 assert x.get("status") in (None, "open"), (n, x.get("id"))      # an answered card is never paused
     assert os.path.isdir(d)
+
+
+def test_am_28_review_card_counts_only_the_cards_it_shows():
+    """2026-10-10: her 38 old pattern answers were counted against the 12 shown patterns, so the To do card read 0 left
+    and vanished. The count is now over the shown patterns + new words only."""
+    import io
+    js = io.open(os.path.join(ROOT, "docs", "js", "tutor.js"), encoding="utf-8").read()
+    assert "const cards = (R.patterns || []).concat(R.new_words || [])" in js
+    assert "L.total != null" in js
