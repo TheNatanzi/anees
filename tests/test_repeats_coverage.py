@@ -349,8 +349,95 @@ def test_ws_34_the_plural_he_finds_after_her_singular_is_his_own():
 def test_ws_34_10_08_moments():
     rows = {(r["t"], r["word"]): r for r in WC.report("2026-10-08")}
     assert rows[("50:27", "حجار")]["state"] == "correct"
-    assert rows[("50:27", "حجور")]["state"] == "na"            # his wrong tries keep their own marks
+    assert rows[("50:27", "حجور")]["state"] == "new"           # his own tries keep their own marks (WS-35: her حجر of 50:16)
     assert rows[("34:15", "بتلج")]["state"] == "correct"
     for t, w in (("05:24", "وعشرين"), ("16:55", "والشمس"), ("14:41", "إنه"), ("21:17", "طيارات"), ("22:19", "نجوم")):
         assert rows[(t, w)]["state"] == "correct", (t, w, rows[(t, w)])
     assert all("one word of a longer list phrase" not in (r["why"] or "") for r in rows.values())
+
+
+# ---------------------------------------------------------------- WS-35 (Medi 2026-10-09 "fix all": the 10-08 words still grey that
+# were her words - taught that day, spelled by the engine with swapped letters, غير by meaning, the bare verb after رح / بدي)
+def test_ws_35_a_word_she_taught_that_day_in_another_form_is_new():
+    assert WC.taught_match("بدير", "ديرت") and WC.taught_match("بدير", "ديري")      # her verb, his past / to a woman
+    assert WC.taught_match("مطرت", "بمطر")                                            # 29:40 before her 30:16
+    assert WC.taught_match("خطيبتي", "ختيفتي")                                        # the engine's ت / ف for her ط / ب
+    assert WC.taught_match("حجر", "حجور")                                             # a long vowel added
+    assert WC.taught_match("فجر", "سجر", 1116, 1126) and not WC.taught_match("فجر", "سجر", 1116, 1500)
+    assert not WC.taught_match("حجر", "حجار", loose=False)                            # her list word keeps its list match
+
+
+def test_ws_35_a_word_she_says_back_is_new_and_a_short_word_never_is():
+    turns = [{"t": 3079.0, "end": 3080.0, "who": "Medi", "text": "إدام؟"},
+             {"t": 3080.5, "end": 3081.5, "who": "Amal", "text": "أها، الإدام."},
+             {"t": 3082.0, "end": 3083.0, "who": "Medi", "text": "لا"},
+             {"t": 3083.5, "end": 3084.0, "who": "Amal", "text": "لا."}]
+    assert WC.said_back(turns, 0, "إدام") == "51:20"
+    assert WC.said_back(turns, 2, "لا") is None
+
+
+def test_ws_35_ghair_is_other_by_meaning_and_the_bare_verb_is_her_verb():
+    words = [{"key": "8air", "arabic": "غير", "arabizi": "8eir", "english": "other/different/else"},
+             {"key": "8aiyer", "arabic": "غيّر", "arabizi": "8ayyer", "english": "Change"},
+             {"key": "hawa", "arabic": "هوا", "arabizi": "Hawa", "english": "Air"}]
+    k = WC.Keys(words, catalog={"groups": []})
+    assert k.lookup("غير")[1] == "unclear"
+    anchor = {"id": "a", "lesson_date": "2026-10-09", "speaker": "Medi", "t_start": 1, "local_start": 1, "source_sha256": "h"}
+    detail = {"turns": [{"t": 1972.0, "end": 1975.0, "who": "Medi", "text": "الهواء هون غير عن الهواء هناك"}], "grammar_errors": [], "vocab_errors": []}
+    _, _, rows = WC.plan("2026-10-09", detail, [anchor], k, rulings=[])
+    assert next(r for r in rows if r["word"] == "غير")["key"] == "8air"
+    assert k.lookup("الهواء") == ("hawa", "one") and k.lookup("الهاوا") == ("hawa", "one")
+    cat = {"groups": [{"key": "ana ba3mal", "type": "Verb", "keys": ["ana ba3mal"], "entries": [
+        {"id": "p", "label": "Present", "word": "ba3mal", "arabic": "بعمل", "persons": [{"word": "Ana ba3mal", "arabic": "أنا بعمل"},
+                                                                                     {"word": "i7na bne3mal", "arabic": "إحنا بنعمل"}]},
+        {"id": "f", "label": "Future", "word": "ra7 a3mal", "arabic": "", "persons": []}]}]}
+    kv = WC.Keys([{"key": "ana ba3mal", "arabic": "أنا بعمل", "arabizi": "Ana ba3mal", "english": "I do"}], catalog=cat)
+    assert kv.lookup("نعمل") == ("ana ba3mal", "one") and kv.entry("ana ba3mal", "نعمل") == "f"
+    assert kv.entry("ana ba3mal", "أعمله") == "f"
+
+
+def test_ws_35_10_08_moments():
+    rows = {(r["t"], r["word"]): r for r in WC.report("2026-10-08")}
+    for t, w in (("09:44", "ديرت"), ("12:09", "ديري"), ("09:48", "ختيفتي"), ("18:46", "سجر"), ("29:40", "بمطر"),
+                 ("50:27", "حجور"), ("51:19", "إدام"), ("51:22", "الإدام"), ("03:24", "مالها")):
+        assert rows[(t, w)]["state"] == "new", (t, w, rows[(t, w)])
+    assert rows[("31:34", "الهاوا")]["state"] == "correct" and rows[("52:50", "غير")]["state"] == "correct"
+    assert rows[("15:33", "أعمله")]["state"] == "correct" and rows[("50:27", "حجار")]["state"] == "correct"
+
+
+# ---------------------------------------------------------------- GR-34 (Medi 2026-10-09 "I feel like you arent catching a lot of
+# the correct grammar. Just for 10-8 go line by line for me and challenge every single grammar rule for each sentence." / "fix")
+def test_gr_34_the_counter_reads_her_grammar_the_way_a_teacher_does():
+    got = lambda txt: D.detect(txt)
+    assert "A8" not in got("تاني") and "A8" not in got("مفضل")                  # a lone adjective agrees with nothing
+    assert "B1" not in got("ديري باليك")                                        # بال 'mind' + your, not a b- verb
+    assert "B5" not in got("خلينا نروح")                                        # 'let's' is a command
+    assert "C3" not in got("أول يوم")                                           # أول is A13, not a comparative
+    assert "D1" not in got("في عصافير") and "D1" in got("بنام في البيت")         # 'there is' vs 'in'
+    assert "E3" not in got("يوم الخميس") and got("يوم الخميس").get("A2")       # a bare يوم; day + Thursday is possession
+    assert got("يومي منيح").get("A4") == "يومي" and got("يومي منيح").get("C1")   # 'my day' + no word for 'is'
+    assert "A4" not in got("طيارة") and "A4" not in got("ستة")                  # ة is not 'his'
+    assert got("بلوزة سودا").get("A7") and got("الشارع قديمة").get("C1")
+    assert "A7" not in got("الدرس مفضّل")                                        # el- on one side only: a sentence
+    assert got("و بنطلون").get("C5") and got("والشمس").get("A1")
+    assert got("نجوم").get("A9") and "A9" not in got("ثلاث")                    # her plural, never a number
+
+
+def test_gr_34_a_reply_in_kind_is_his_own_and_an_echo_is_letter_for_letter():
+    """Medi 2026-10-10 on 66:56 'شكراً. بشوفك. Bye.': "this isnt a repeat ... I replied to see you, with see you"."""
+    turns = [{"t": 4013.0, "end": 4015.0, "who": "Amal", "text": "يلا بشوفك."},
+             {"t": 4016.0, "end": 4018.0, "who": "Medi", "text": "شكراً. بشوفك. Bye."}]
+    assert not WC.echo_of(turns, 1, 0)
+    assert WC.judge_word(turns, 1, "بشوفك", "bashufak", lambda w: "bashufak", {})[0] == "independent"
+    tw = [{"t": 3020.8, "end": 3026.0, "who": "Amal", "text": "شجر وحجر، صح. إيه شو plural حجر؟"},
+          {"t": 3027.2, "end": 3028.0, "who": "Medi", "text": "حجار."}]
+    assert not D._same_words(tw, 1, 0)                                            # his حجار is not her حجر
+
+
+def test_gr_34_10_08_moments():
+    u = json.load(open(os.path.join(ROOT, "docs", "data", "grammar-usage.json"), encoding="utf-8"))
+    at = lambda b, t: any(x["date"] == "2026-10-08" and abs(x["t"] - t) < 1.5 for x in u["uses"].get(b, []))
+    assert at("A4", 138.4) or at("A4", 138.0)                                   # 02:18 يومي منيح
+    assert at("A9", 1281.7) or at("A9", 1282.0) or any(x["date"] == "2026-10-08" and x["mmss"] == "21:17" for x in u["uses"].get("A9", []))
+    assert not any(x["date"] == "2026-10-08" and x["mmss"] in ("14:36", "14:47") for x in u["uses"].get("B5", []))   # خلينا
+    assert any(x["date"] == "2026-10-08" and x["mmss"] == "66:56" for x in u["uses"].get("B1", []))                  # his بشوفك counts

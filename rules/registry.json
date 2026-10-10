@@ -9401,6 +9401,78 @@
    }
   },
   {
+   "id": "GR-34",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The grammar counter reads a line the way a teacher does (scripts/detect_grammar_usage.py). Not a use: an adjective with no noun or pronoun before it (a lone تاني / غير / مفضل; the tool words are A13-A17, never A8); بالي / باليك (بال 'mind' + an ending) as a b- verb; خلينا 'let's' as past tense; أول as a comparative; في opening a clause before a bare noun ('there is', في عصافير) as the preposition; a bare يوم as a time-unit form; his line that says her line back word for word (her question included); a use whose words are the counted slip itself (آخر المرة is the A15 slip, not A15 + A1 + A2); talk about a rule ('غير never takes', 'Is it فجر or سجر'). A use: a possessive ending on her noun (A4 يومي, خطيبتي, راسها), her Doc's plural (A9 نجوم, غيوم, طيارات), noun + adjective with el- on both or neither (A7 بلوزة سودا), a subject + adjective with no verb (C1 يومي منيح, احنا قلقانين, الشارع قديمة), و (C5), هادا / هذاك + el- (A10 / A10b), يوم الخميس (A2). A greeting, thanks or goodbye answered in kind is his own (66:56 بشوفك after her يلا بشوفك), for words and grammar. The 10-08 line-by-line read (Claude, 4 readers, every rule on 296 lines) found 58 missed right uses and 69 wrong ones; the general rules catch 26 and 43, the rest are moments in data/grammar-usage-additions.json (32 added) and data/grammar-usage-rulings.json (24 ruled out). 10-08: 184 -> 186 uses, Grammar 88.4% -> 87.7%; every lesson moves (e.g. 09-04 69.0 -> 65.3, 09-28 86.9 -> 88.6).",
+   "plain": "Grammar is counted the way a teacher reads it: 'my day', plurals, noun + adjective and 'no word for is' now count; a lone adjective, your repeat of her line, a word that is the counted mistake itself, or talk about a rule do not. Answering 'see you' with 'see you' is your own.",
+   "plain_for": "77000b48",
+   "topic": "grammar scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "I feel like you arent catching a lot of the correct grammar.  Just for 10-8 go line by line for me and challenge every single grammar rule for each sentence.",
+     "session": "8e1ec2e9"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "fix",
+     "session": "8e1ec2e9"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "this is isnt a repeat but I can see why you marked it this way.  I replied to see you, with see you.",
+     "session": "8e1ec2e9"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "def slip_here(slips, t, bid, hit):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "def is_adj(n, raw=\"\"):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "grammar-usage-additions.json"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def is_reply(words):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_gr_34_the_counter_reads_her_grammar_the_way_a_teacher_does"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_gr_34_a_reply_in_kind_is_his_own_and_an_echo_is_letter_for_letter"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_gr_34_10_08_moments"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "02:18",
+    "note": "يومي منيح: was no grammar use; now A4 (my day) + C1 (no 'is')"
+   }
+  },
+  {
    "id": "PG-39",
    "kind": "process",
    "scope": "pages",
@@ -9456,7 +9528,7 @@
     {
      "type": "code",
      "path": "scripts/word_coverage.py",
-     "contains": "def taught_match(a, w):"
+     "contains": "def taught_match(a, w"
     }
    ],
    "test": [
@@ -9756,6 +9828,71 @@
     "date": "2026-10-08",
     "t": "50:27",
     "note": "حجور or حجرات؟ حجار: حجار was grey 'one word of a longer list phrase (7ajar)'; now ✓ (her 7ajar, plural 7jaar); حجور stays grey, حجرات ↻"
+   }
+  },
+  {
+   "id": "WS-35",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A word the tutor taught that day is a ★ new word in any form he says it (scripts/word_coverage.py taught_match): another form of the verb she taught (ديرت / ديري of her بدير, بمطر of her مطرت), the engine's sound-swapped spelling (ختيفتي = her خطيبتي), a long vowel added (حجور of her حجر), or one letter off within 90 s of her teaching it (سجر for her فجر); a word that is on her list keeps its list match (50:27 حجار ✓). A word not on her list that she says back to him right after, in a short line, is ★ new (51:19 إدام, her 'أها، الإدام'; 03:24 مالها), and the same new word later in the lesson too; never a short function word or a dish. Her word of the minute before said a letter off is that word (الهاوا / الهواء = her هوا). غير alone is her 8air 'other / different' unless a pronoun or a verb word comes before it. The bare verb after رح / بدي (أعمل, نعمل, تعمل, يعمل) is her present verb without its b- (the Word Bank's Future entry: 14:53 نعمل, 15:33 أعمله). Every lesson: 'not on her list' 1,511 -> 1,200; ★ new 429 -> 475; ✓ +143.",
+   "plain": "A word the tutor taught that lesson is a yellow new word in any form you say it (another form of her verb, the engine's misspelling of it, a try at it right after she taught it). A word she says back to you right after is new too. غير alone is her 'other', and the verb after رح / بدي is her verb.",
+   "plain_for": "3a47c5a9",
+   "topic": "word scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "fix all",
+     "session": "8e1ec2e9"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "why isnt the new word in yellow if its not on the list",
+     "session": "8e1ec2e9"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def taught_match(a, w, ta=None, tw=None, loose=True):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def said_back(turns, i, w, window=6.0):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def recent_word(turns, i, w, keys, window=60.0):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_35_a_word_she_taught_that_day_in_another_form_is_new"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_35_a_word_she_says_back_is_new_and_a_short_word_never_is"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_35_ghair_is_other_by_meaning_and_the_bare_verb_is_her_verb"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_35_10_08_moments"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "09:44",
+    "note": "ديرت was grey 'not on her word list'; now ★ new (her بدير بالي, taught 09:15)"
    }
   },
   {

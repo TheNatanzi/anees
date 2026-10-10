@@ -223,9 +223,30 @@ def tutor_before(turns, i, window):
     return [j for j in range(i - 1, -1, -1) if _is_amal(turns[j]) and 0 <= t - float(turns[j]["t"]) <= window][:12]
 
 
+# GR-34 (Medi 2026-10-10 on 10-08 66:56 "شكراً. بشوفك. Bye.": "this isnt a repeat ... I replied to see you, with see
+# you"): greetings, thanks and goodbyes are answered in kind - his بشوفك after her يلا بشوفك is his own reply, never a
+# repeat of her word (words and grammar alike)
+REPLY_WORDS = {"بشوفك", "بشوفكم", "مرحبا", "مرحبتين", "اهلا", "اهلين", "شكرا", "سلام", "السلامه", "مع", "يعطيك", "يعطيكي",
+               "العافيه", "الله", "يعافيك", "يعافيكي", "تصبح", "تصبحي", "على", "خير", "الخير", "صباح", "مسا", "مساء", "كيفك",
+               "كيفكم", "منيح", "منيحه", "الحمدلله", "الحمد", "لله", "يلا", "باي", "وانت", "وانتي", "من", "اهله", "تسلم",
+               "تسلمي", "عفوا", "اهلًا", "شكراً", "ماشي", "تمام"}
+
+
+REPLY_ONE = {"بشوفك", "بشوفكم", "مرحبا", "مرحبتين", "اهلا", "اهلين", "شكرا", "سلام", "باي", "يعطيك", "يعطيكي", "يعافيك",
+             "يعافيكي", "تصبح", "تصبحي", "تسلم", "تسلمي", "عفوا"}
+
+
+def is_reply(words):
+    """GR-34: his Arabic is only greeting / thanks / goodbye words - a reply in kind, not a repeat."""
+    ws = [jsnorm(w).replace("ة", "ه") for w in words]
+    return bool(ws) and all(w in REPLY_WORDS or jsnorm(w) in REPLY_WORDS for w in ws)
+
+
 def echo_of(turns, i, j):
     """His whole Arabic on line i is words of her line j (he says her words back)."""
     mine = [w for w, cut in arabic_tokens(turns[i].get("text")) if not cut]
+    if is_reply(mine):
+        return False
     hers = [w for w, cut in arabic_tokens(turns[j].get("text")) if not cut]
     return bool(mine) and bool(hers) and all(any(similar(a, b) for b in hers) for a in mine)
 
@@ -239,6 +260,9 @@ def judge_word(turns, i, word, key, key_of, sup, plural=None):
     """(state, reason, tutor turn index or None) for one word of his line i. state: repeat | helped | independent |
     unresolved. key_of(word) -> list key or None (her words matched the same way as his)."""
     same = []
+    if jsnorm(word).replace("ة", "ه") in REPLY_ONE and any(  # GR-34
+            is_reply([w for w, c in arabic_tokens(turns[j].get("text")) if not c][-2:]) for j in tutor_before(turns, i, REPEAT_S)):
+        return "independent", "His own reply in kind (a greeting, thanks or goodbye): counts like any word (GR-34)", None
     for j in tutor_before(turns, i, REPEAT_S):
         # WS-34: when she ASKS for a form ('شو plural حجر؟'), only her exact form is hers; the form he finds (حجار) is his
         ask = j not in sup and re.search(r"[?؟]", turns[j].get("text") or "")
@@ -335,6 +359,19 @@ class Keys:
                     n = jsnorm(form)
                     if n and " " not in n:
                         self.forms.setdefault(n, set()).add((g["key"], f["id"], documented))
+            # WS-35: the bare form after رح / بدي / لازم is the present without its b- (her بعمل: أعمل, نعمل, تعمل,
+            # يعمل) - the Word Bank's Future entry, whose Arabic her catalog leaves empty (10-08 14:53 نعمل, 15:33 أعمله)
+            fut = next((f for f in g.get("entries") or [] if f.get("label") == "Future"), None)
+            pres = next((f for f in g.get("entries") or [] if f.get("label") == "Present"), None)
+            if fut and pres and g.get("type") == "Verb":
+                for p_ in pres.get("persons") or []:
+                    n = jsnorm(PRONOUNS.sub("", str(p_.get("arabic") or "")))
+                    m = re.fullmatch(r"ب([تين])(\S{2,})", n) or re.fullmatch(r"ب(\S{3,})", n)
+                    if not m or " " in n:
+                        continue
+                    bare = (m.group(1) + m.group(2)) if m.re.groups == 2 else "ا" + m.group(1)
+                    if not any(k == g["key"] for k, _, _ in self.forms.get(bare, ())):   # her own entry for it wins
+                        self.forms.setdefault(bare, set()).add((g["key"], fut["id"], False))
 
     def of(self, w):
         k = self.lookup(w)
@@ -450,6 +487,11 @@ class Keys:
         raw = raw[1:] if raw[:1] == "و" and len(jsnorm(raw)) >= 4 else raw
         c = core(MSA.get(jsnorm(w), w))
         tries = ([(jsnorm(w), False)] if jsnorm(w) != c else []) + [(c, False)]
+        for x in (jsnorm(w), c):          # WS-35: the MSA ـاء (الهواء) and a long a written in (الهاوا) of her الهوا
+            if x.endswith("اء") and len(x) >= 4:
+                tries.append((x[:-1], False))
+            if x.endswith("ا") and "ا" in x[1:-1] and len(x) >= 4:
+                tries += [(x[:k] + x[k + 1:], False) for k in range(1, len(x) - 1) if x[k] == "ا"]
         m = re.match(r"(?:بال|لل|عال|فال)(\S{3,})$", jsnorm(w))
         if m:                             # بالأرض = her أرض with 'in the'
             tries += [("ال" + m.group(1), False), (m.group(1), False)]
@@ -630,14 +672,81 @@ def preps():
         return set()
 
 
-def taught_match(a, w):
-    """Is his word w the taught word a (the word itself, + an ending, or one letter off in a 4+ letter word)?"""
+PHON = str.maketrans({"ط": "ت", "ث": "ت", "ص": "س", "ش": "س", "ض": "د", "ظ": "د", "ذ": "د", "ف": "ب", "ق": "ك", "ة": "ه"})
+
+
+def recent_word(turns, i, w, keys, window=60.0):
+    """WS-35: (key, 'one') when his word is, a letter off, a word of her list the tutor said in the minute before
+    (10-08 31:34 الهاوا after her الهوا), else None. Only 4+ letter words, only one list word."""
+    cw = core(w)
+    if len(cw) < 4:
+        return None
+    for j in tutor_before(turns, i, window):
+        for hw in her_words(turns, j):
+            ch = core(hw)
+            if len(ch) >= 4 and ch != cw and difflib.SequenceMatcher(None, ch, cw).ratio() >= 0.8:
+                k, how = keys.lookup(hw)
+                if how == "one":
+                    return k, "one"
+    return None
+
+
+def said_back(turns, i, w, window=6.0):
+    """WS-35: the time (mm:ss) of the tutor's short line right after his that says his word back ('أها، الإدام'), else
+    None. Only a content word of 4+ letters (never لا, اللي, فيها), never a dish or name (WS-15), and her line is a short
+    confirmation (3 Arabic words at most), not her own sentence that happens to use it."""
+    import loanwords
+    if len(core(w)) < 4 or core(w) in FUNCTION or norm(w) in FUNCTION or _loan(loanwords, w):
+        return None
+    end = float(turns[i].get("end") or turns[i]["t"])
+    for u in turns[i + 1:i + 4]:
+        if not _is_amal(u) or u.get("who") == "chat" or float(u["t"]) - end > window:
+            continue
+        hers = [x for x, cut in arabic_tokens(u.get("text")) if not cut]
+        if len(hers) <= 3 and any(core(x) == core(w) for x in hers):
+            return mmss(u["t"])
+    return None
+
+
+def _verb_stem(w):
+    """WS-35: a verb's stem without its person / tense pieces (بدير, ديرت, ديري -> دير; بمطر, مطرت -> مطر)."""
+    n = core(w)
+    n = re.sub(r"^(?:بي|بت|بن|ب|ي|ت|ن|ا)(?=\S{3})", "", n)
+    return re.sub(r"(?<=\S{3})(?:تي|تو|نا|وا|ت|و|ي|ه|ها)$", "", n)
+
+
+def taught_match(a, w, ta=None, tw=None, loose=True):
+    """Is his word w the taught word a? The word itself, + an ending, one letter off in a 4+ letter word; and (WS-35)
+    another form of the verb she taught (ديرت of her بدير), the same word with letters the engine swaps by sound (ختيفتي
+    of her خطيبتي), a long vowel added inside a three-letter word (حجور of her حجر), or - when he says it within 90 s of
+    her teaching it (ta, tw in seconds) - the same word with one letter off (سجر for her فجر)."""
     ca, cw = core(a), core(w)
     if not ca or not cw:
         return False
     if ca == cw or (len(ca) >= 3 and cw.startswith(ca) and len(cw) - len(ca) <= 3):
         return True
-    return min(len(ca), len(cw)) >= 4 and difflib.SequenceMatcher(None, ca, cw).ratio() >= 0.8
+    if min(len(ca), len(cw)) >= 4 and difflib.SequenceMatcher(None, ca, cw).ratio() >= 0.8:
+        return True
+    if not loose:                         # a word found on her list keeps its list match (50:27 حجار = her 7ajar)
+        return False
+    sa, sw = _verb_stem(a), _verb_stem(w)
+    if len(sa) >= 3 and sa == sw:
+        return True
+    fa, fw = ca.translate(PHON), cw.translate(PHON)
+    if min(len(fa), len(fw)) >= 4 and (fa == fw or difflib.SequenceMatcher(None, fa, fw).ratio() >= 0.85):
+        return True
+    if len(ca) == 3 and len(cw) == 4 and any(cw[:k] + cw[k + 1:] == ca and cw[k] in "اوي" for k in range(1, 3)):
+        return True
+    if ta is not None and tw is not None and abs(tw - ta) <= 90 and len(ca) == len(cw) >= 3 and sum(x != y for x, y in zip(ca, cw)) == 1:
+        return True
+    return False
+
+
+def _sec(t):
+    try:
+        return sum(float(x) * 60 ** k for k, x in enumerate(reversed(str(t).split(":"))))
+    except ValueError:
+        return None
 
 
 def taught_today(date, repo=REPO):
@@ -676,6 +785,7 @@ def plan(date, detail, events, keys, off=(), rulings=None):
     mine = his_rulings(date, rulings)
     PREP = preps()
     taught = taught_today(date)
+    fresh_today = {}                      # WS-35: core -> why, the words already ★ new in this lesson
     try:                                  # her Meet chat of this lesson (lesson_turns.chat_lines)
         import lesson_turns
         chat = [c["text"] for c in lesson_turns.chat_lines(date) if c.get("speaker") == "Amal"]
@@ -706,6 +816,10 @@ def plan(date, detail, events, keys, off=(), rulings=None):
             key, how = keys.lookup(w)
             if how == "unclear" and "mara~time" in key:
                 key, how = ("mara" if re.search(r"مرت|زوج|wife|woman", u.get("text") or "") else "mara~time"), "one"
+            if how == "unclear" and "8air" in key and core(w) == "غير":
+                prv = norm(toks[n - 1]["ar"]) if n > 0 else ""
+                verbish = prv in PRONOUN_WORDS or prv in ("لازم", "بدي", "رح", "راح", "ما", "بدك")
+                key, how = (next((k for k in key if k != "8air"), key[0]) if verbish else "8air"), "one"   # WS-35
             if how == "unclear" and set(key) == {"ra7", "rA7"}:
                 nxt = toks[n + 1]["ar"] if n + 1 < len(toks) else ""
                 key, how = ("ra7" if re.match(r"[اأنتيب]\S{2,}", norm(nxt) or "") and norm(nxt) not in FUNCTION else "rA7"), "one"
@@ -721,7 +835,9 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                     "%s '%s'" % (k, (keys.words.get(k) or {}).get("english") or "") for k in key)))
                 continue
             via = keys.via if how == "one" else None
-            new = next((t_ for a, t_ in taught if taught_match(a, w)), None)
+            new = next((t_ for a, t_ in taught if taught_match(a, w, _sec(t_), t0, loose=how != "one")), None)
+            if new is None and how == "none" and core(w) in fresh_today:
+                new = fresh_today[core(w)]        # the same new word again later in the lesson (51:22 الإدام)
             lat = (EXTRA.get(w) or EXTRA.get(norm(w)) or {}).get("latin")
             typed = "she typed '%s' in the chat" % lat if lat and lat.lower() in chat_words else None
             if new is None and how in ("none", "sheet", "part"):
@@ -739,8 +855,18 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                 rows.append(dict(row, state="na", why="not on her list by itself: she has it only inside her phrase %s '%s' (%s), "
                                  "so it is left out of the Words %%" % (d_.get("arabic") or key, d_.get("english") or "", key)))
                 continue
+            if how == "none" and new is None:
+                near = recent_word(turns, i, w, keys)
+                if near:
+                    key, how = near
+                else:
+                    back = said_back(turns, i, w)
+                    if back:
+                        new = "she said it back to you at %s" % back
             if (how in ("none", "sheet", "part") or via) and new is not None:
-                rows.append(dict(row, state="new", key=key, why="new word: the tutor taught it in this lesson (%s); not on her list yet, not scored" % new))
+                fresh_today.setdefault(core(w), new)
+                rows.append(dict(row, state="new", key=key, why=("new word: not on her list, and %s; not scored" % new) if new.startswith("she said")
+                                 else "new word: the tutor taught it in this lesson (%s); not on her list yet, not scored" % new))
                 continue
             if how in ("none", "sheet"):
                 import loanwords

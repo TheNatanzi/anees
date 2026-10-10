@@ -66,7 +66,8 @@ def _forms(topic, first_only=False):
     return out
 
 
-NOT_PAST = {nrm(w) for w in ("عندي", "عندك", "عنده", "عندها", "عندنا", "عندكم", "عندهم", "راح", "كان", "كانت",
+NOT_PAST = {nrm(w) for w in ("خلينا", "خليني", "خليه", "خليها", "خلي",   # GR-34: 'let's / let me' is a command
+                              "عندي", "عندك", "عنده", "عندها", "عندنا", "عندكم", "عندهم", "راح", "كان", "كانت",
                               "كنت", "كانوا", "اكل", "أكل", "شغل", "كل", "مش", "حدا", "شي", "إشي", "اشي", "غير", "مرة")}
 # a past form ends in a past person ending, or is the bare he-form (خرب, شرب) - never
 # a noun in ة or an I-form in أ...ي
@@ -97,6 +98,19 @@ for x in _items:
         NOUNS.add(nrm(ws[0]))
 NOUNS -= ADJ | PAST | COMMAND | PRONOUN_WORDS | {nrm(w) for w in ("هادي", "نفس", "مرة", "يوم", "شي", "إشي")}
 POSS = ("ي", "ك", "ه", "ها", "نا", "هم", "كم")
+# GR-34 (Medi 2026-10-09 "I feel like you arent catching a lot of the correct grammar. Just for 10-8 go line by line ...
+# challenge every single grammar rule for each sentence" / "fix"): the line-by-line read of 10-08 found 58 right uses the
+# counter missed and 69 it gave wrongly. The general rules:
+# - A8 (adjective gender) needs a noun or a pronoun the adjective agrees with, right before it: a lone تاني / غير / مفضل is
+#   no agreement; the tool words أول / تاني / آخر / غير / نفس are their own rules (A13-A17), never A8
+TOOL_ADJ = {nrm(w) for w in ("أول", "اول", "أولى", "تاني", "ثاني", "تانية", "ثانية", "آخر", "اخر", "أخير", "غير", "نفس")}
+ADJ_A8 = (ADJ | {nrm(w) for w in ("منيح", "كويس", "عيان", "تعبان", "مبسوط", "زعلان", "جوعان", "مريض", "مشغول", "قلقان",
+                                   "قوي", "وسخ", "نضيف", "قديم", "جديد")}) - TOOL_ADJ   # her everyday state words too
+NOT_HEAD = {nrm(w) for w in ("و", "في", "من", "مع", "على", "عن", "يعني", "شو", "مش", "بس", "كمان", "لما", "إذا", "اذا",
+                             "إنه", "انه", "إنو", "انو", "عشان", "ما", "لا", "أو", "او", "كتير", "شوي", "كان", "كانت", "صار",
+                             "بدي", "لازم", "كيف", "ليش", "وين", "مين", "هيك", "هون", "هناك", "اه", "إيه", "ايه", "اوكي")}
+# - A4: a noun of hers with a possessive ending (يومي, راسها, محلي, خطيبتي)
+A4_NOUNS = NOUNS | {nrm(w) for w in ("يوم", "شغل", "بيت", "اسم", "عمر", "حال", "راس", "محل", "بال")}
 
 
 def is_past(w):
@@ -104,6 +118,8 @@ def is_past(w):
 
 
 def is_b_present(w):
+    if w.startswith("بال"):                 # GR-34: بالي / باليك is the noun بال 'mind' + my / your, not a b- verb
+        return False
     for p in ("بت", "بن", "بي", "ب"):
         if w.startswith(p) and len(w) - len(p) >= 2:
             for x in strip_pron(w[len(p):]):
@@ -132,8 +148,8 @@ P = {
  "A7":  [r"(?:^|\s)(?!اليوم|الله)ال[\u0621-\u064A]{2,}\s+(?!اللي|اليوم|الله)ال[\u0621-\u064A]{2,}"],
  "A9":  [r"(?:^|\s)(?:بيوت|أيام|ايام|ساعات|ولاد|بنات|شبابيك|أبواب|كتب|ألوان|أشياء|ناس|زلام|نسوان|مطاعم|صور|خطط|دول|مرات)" + E],
  "A9b": [r"(?:^|\s)(?:بيوت|بواب|شبابيك|سيوف|عيون|مكاتب|مساجد|مطاعم|أولاد|ولاد)" + E],
- "A10": [r"(?:^|\s)(?:هاد|هادي|هدول|هذا|هذي|هداك|هديك|هاي)" + E],
- "A10b":[r"(?:^|\s)(?:هاد|هادي|هدول|هذا|هذي|هاي|هداك|هديك|هدولاك)\s+ال[\u0621-\u064A]{2,}"],
+ "A10": [r"(?:^|\s)(?:هاد|هادا|هادي|هدول|هذا|هذي|هداك|هذاك|هديك|هاي)" + E],
+ "A10b":[r"(?:^|\s)(?:هاد|هادا|هادي|هدول|هذا|هذي|هاي|هداك|هذاك|هديك|هدولاك)\s+ال[\u0621-\u064A]{2,}"],
  "A11": [r"(?:^|\s)الكل" + E, r"(?:^|\s)كل\s+(?:حدا|إشي|اشي|شي|يوم|الناس|ال[\u0621-\u064A]{2,})"],
  # GR-30 (2026-10-07): the Oct 2 tool words before or after a noun (A13 awal / oola, A14 taani, A15 aa5er / a5eer, A16 8eir,
  # A17 nafs). A use = the tool word with a noun next to it (a function word after it is not a noun). The wrong forms
@@ -166,7 +182,7 @@ P = {
 
  "C1":  [r"(?:^|\s)(?:أنا|انا|هو|هي|إنت|انت|احنا|إحنا)\s+(?:مبسوط|مبسوطة|تعبان|تعبانة|جاهز|جاهزة|مشغول|مشغولة|هون|هناك|من|في|متأكد|متأكدة|منيح|منيحة|كويس|تمام)" + E],
  "C2":  [r"(?:^|\s)اللي\s+[\u0621-\u064A]{3,}(?:ه|ها|هم)" + E],
- "C3":  [r"(?:^|\s)(?:أكتر|اكتر|أكثر|أحسن|احسن|أقل|اقل|أسوأ|أصعب|أسهل|أكبر|أصغر|أحلى|أول)" + E],
+ "C3":  [r"(?:^|\s)(?:أكتر|اكتر|أكثر|أحسن|احسن|أقل|اقل|أسوأ|أصعب|أسهل|أكبر|أصغر|أحلى)" + E],   # أول is A13 (GR-34)
  "C4":  [r"(?:^|\s)مش" + E, r"(?:^|\s)ما\s+ب[\u0621-\u064A]{2,}", r"(?:^|\s)(?:أبدا|ابدا|أبدًا|ابدًا)"],
  "C4b": [r"(?:^|\s)(?:أبدا|ابدا|أبدًا|ابدًا)\s+ما(?:\s|$)", r"(?:^|\s)ولا\s+(?:إشي|اشي|شي|حدا|مرة)"],
  "C5":  [r"(?:^|\s)أو" + E, r"(?:^|\s)ولا" + E],
@@ -176,7 +192,10 @@ P = {
  "C9":  [r"(?:^|\s)(?!بال)(?:ب|بي|بت|بن)[\u0621-\u064A]{3,}\s+ال[\u0621-\u064A]{2,}"],
  "C10": [r"(?:^|\s)(?:من وين|لوين|على شو|عن شو|مع مين|لمين|من مين|من إمتى|من امتى|بشو)" + E],
 
- "D1":  [r"(?:^|\s)(?:من|على|في|مع|عن)\s+(?!ما(?:\s|$)|في(?:\s|$))[\u0621-\u064A]{2,}"],
+ # GR-34: في opening a clause before a bare noun is 'there is' (في عصافير, في نجمة), not the preposition 'in'
+ "D1":  [r"(?:^|\s)(?:من|على|مع|عن)\s+(?!ما(?:\s|$)|في(?:\s|$))[\u0621-\u064A]{2,}",
+         r"[\u0621-\u064A]\s+في\s+(?!ما(?:\s|$)|في(?:\s|$))[\u0621-\u064A]{2,}",
+         r"(?:^|\s)في\s+ال[\u0621-\u064A]{2,}"],
  "D2":  [r"(?:^|\s)(?:بطلب|أطلب|خايف|خايفة|مشتاق|مشتاقة|قلقان|مختلف|بدفع|أدفع|انبسطت|انبسطنا|بتأسف|اتأسف|زعلان|زعلانة)\s+(?:من|ل|على|عن|مع|في|ب)"],
  "D3":  [r"(?:^|\s)(?:معي|معك|معه|معها|معنا|منك|منه|منها|منهم|مني|عندي|عندك|عنده|عندها|عندنا|عندهم|عنا|عليه|عليها|علي|إلي|إلك|إلهم|فيه|فيها|فيهم)" + E],
  "D4":  [r"(?:^|\s)(?:ب|ت|ي|ن|أ|ا)[\u0621-\u064A]{2,}(?:لك|لي|له|لها|لهم|ني)" + E],
@@ -186,7 +205,7 @@ P = {
  "E1":  [r"(?:^|\s)(?:يومين|ساعتين|شهرين|سنتين|مرتين)" + E,
          r"(?:^|\s)(?:تلات|تلاتة|ثلاث|أربع|أربعة|خمس|خمسة|ست|ستة|سبع|سبعة|تمان|تمانية|تسع|تسعة|عشر|عشرة|عشرين|تلاتين)\s+(?:يوم|أيام|ايام|ساعة|ساعات|دقيقة|دقايق|مرة|مرات|سنة|سنين|شهر|شهور|أسبوع|اسابيع)" + E],
  "E2":  [r"(?:^|\s)الساعة" + E, r"(?:^|\s)(?:ونص|وربع|إلا ربع|الا ربع|إلا ثلث|الا ثلث|إلا تلت|الا تلت)" + E],
- "E3":  [r"(?:^|\s)(?:دقيقة|دقيقتين|دقايق|ساعة|ساعتين|ساعات|يوم|يومين|أيام|ايام|أسبوع|اسبوعين)" + E],
+ "E3":  [r"(?:^|\s)(?:دقيقة|دقيقتين|دقايق|ساعة|ساعتين|ساعات|يومين|أيام|ايام|أسبوع|اسبوعين)" + E],   # a bare يوم is no form of it (GR-34)
  "E4":  [r"(?:^|\s)(?:الاتنين|الإتنين|الاثنين|التلاتا|الثلاثاء|الأربعا|الاربعا|الخميس|الجمعة|السبت|الأحد|الاحد)" + E,
          r"(?:^|\s)(?:مبارح|امبارح|بكرا|بكرة)" + E,
          r"(?:^|\s)(?:يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر|أيلول|تشرين|آب|تموز)" + E,
@@ -235,7 +254,7 @@ def _noun(w):
     n = nrm(w)
     if w.startswith("ال") or n in ADJ or "ً" in w:      # tanween (عادةً) is an adverb, not a noun
         return False
-    return n in NOUNS or (n.endswith("ت") and n[:-1] + "ه" in FEM_NOUNS)
+    return n in NOUNS or n == nrm("يوم") or (n.endswith("ت") and n[:-1] + "ه" in FEM_NOUNS)
 
 
 def _owner(w):
@@ -256,6 +275,50 @@ def _owner(w):
     return False
 
 
+def _poss_noun(n, raw=""):
+    """GR-34: a noun of hers with a possessive ending (يومي, راسها, محلي), or a feminine noun's -t + ending (خطيبتي)."""
+    if raw.endswith("ة"):
+        return False
+    for s_ in POSS:
+        if n.endswith(s_) and len(n) - len(s_) >= 2:
+            b = n[: -len(s_)]
+            if b in A4_NOUNS or (b.endswith("ت") and (b[:-1] + "ه" in FEM_NOUNS or len(b) >= 4)
+                                 and not is_past(n) and not is_b_present(n) and n not in NOT_PAST):
+                return True
+    return False
+
+
+def is_adj(n, raw=""):
+    """GR-34: her adjective as he said it - the word, its feminine (-a), its plural (-een / -aat), a colour's fa3la (سودا)."""
+    n = nrm(n)
+    if n in ADJ_A8:
+        return True
+    for e in ("ه", "ين", "ات", "ة"):
+        if n.endswith(e) and len(n) - len(e) >= 3 and n[: -len(e)] in ADJ_A8:
+            return True
+    m = re.fullmatch(r"(\S)(\S)(\S)(?:ا|اء)", n)
+    return bool(m and "ا" + "".join(m.groups()) in ADJ)
+
+
+_KEYS = []
+
+
+def _plural(w):
+    """GR-34: her Doc's plural of one of her words (غيوم, نجوم, حجار, عصافير) - word_coverage's plural reader."""
+    if not _KEYS:
+        try:
+            import word_coverage as WC
+            _KEYS.append(WC.Keys(_items))
+        except Exception:  # noqa: BLE001
+            _KEYS.append(None)
+    k = _KEYS[0]
+    if not (k and k.is_plural(w)) or is_past(nrm(w)) or is_b_present(nrm(w)):
+        return False
+    key, how = k.lookup(w)
+    topic = (k.words.get(key) or {}).get("topic") if how == "one" else None
+    return topic in NOUN_TOPICS
+
+
 def possession(txt):
     """A2 / A5 from Amal's nouns. Commas are pauses; anything else that is not an Arabic word ends the phrase."""
     ws = [w if AR_WORD.fullmatch(w) else "." for w in re.findall(AR_WORD.pattern + r"|[^\s،,]+", txt)]
@@ -274,8 +337,12 @@ def possession(txt):
 def word_rules(words):
     """Buckets that come from single words (Doc lexicons), with the word."""
     hits = {}
-    for w in words:
+    for k, w in enumerate(words):
         n = nrm(w)
+        if w.startswith("وال") and len(n) >= 5 and "A1" not in hits:
+            hits["A1"] = w
+        if n == "و" and k + 1 < len(words) and "C5" not in hits:
+            hits["C5"] = w + " " + words[k + 1]
         if w.startswith("ال") and len(n) >= 4 and n not in A1_SKIP and "A1" not in hits:
             hits["A1"] = w
         if is_b_present(n) and "B1" not in hits:
@@ -284,8 +351,15 @@ def word_rules(words):
             hits["B5"] = w
         if n in COMMAND and not w.startswith("أ") and "B10" not in hits:
             hits["B10"] = w
-        if n in ADJ and "A8" not in hits:
-            hits["A8"] = w
+        if is_adj(n) and "A8" not in hits and k > 0 and nrm(words[k - 1]) not in NOT_HEAD and not is_adj(nrm(words[k - 1])):
+            hits["A8"] = words[k - 1] + " " + w     # GR-34: the noun / pronoun it agrees with comes first
+        if "A4" not in hits and not w.startswith("ال") and _poss_noun(n, w):
+            hits["A4"] = w
+        if "A9" not in hits and _plural(w):
+            hits["A9"] = w
+        if "C5" not in hits and n.startswith("و") and len(n) >= 4 and (n[1:] in NOUNS or n[1:] in ADJ or n[1:].startswith("ال")
+                                                                       or n[1:] in A4_NOUNS):
+            hits["C5"] = w
         # the pointer: a verb of hers with an object ending (بعمله, بتبيعه, خربتهم)
         if "C2" not in hits and not w.endswith("ة"):
             for s_ in ("ها", "هم", "ه"):
@@ -293,7 +367,19 @@ def word_rules(words):
                     hits["C2"] = w
                     break
     for i, w in enumerate(words[:-1]):
-        n = nrm(w)
+        n, nx = nrm(w), nrm(words[i + 1])
+        # GR-34: a noun then its adjective (بلوزة سودا, الشارع قديمة) is A7; a subject then an adjective with no verb on the
+        # line (يومي منيح, احنا قلقانين, هي عيانة) is C1, the missing 'is'
+        nounish = n in NOUNS or _poss_noun(n, w) or (w.startswith("ال") and len(n) >= 4 and n not in A1_SKIP and not is_adj(n[2:]))
+        el_n, el_a = w.startswith("ال") or _poss_noun(n, w), words[i + 1].startswith("ال")
+        adj = is_adj(nx[2:] if el_a else nx)
+        if "A7" not in hits and nounish and adj and (el_n == el_a or (_poss_noun(n, w) and el_a)):
+            hits["A7"] = w + " " + words[i + 1]
+        if "C1" not in hits and (n in PRONOUN_WORDS or _poss_noun(n, w) or (w.startswith("ال") and nounish)) and (
+                (is_adj(nx) and not el_a) or nx in {nrm(x) for x in ("هون", "هناك")}
+                or nx in {nrm(x) for x in ("شوي", "كتير")} and i + 2 < len(words) and is_adj(nrm(words[i + 2]))) \
+                and not any(is_b_present(nrm(x)) or is_past(nrm(x)) for x in words):
+            hits["C1"] = w + " " + words[i + 1]
         if n.endswith("ت") and n[:-1] + "ه" in FEM_NOUNS and "A3" not in hits \
                 and words[i + 1].startswith("ال") and nrm(words[i + 1]) != n:
             hits["A3"] = w + " " + words[i + 1]
@@ -424,9 +510,15 @@ ASK_FRAME = re.compile(r"\b(?:when is it|when do (?:i|you|we)|is it|do (?:i|you|
                        r"what(?: i|')s|what does)\W*(?:\w+\W+){0,2}$", re.I)
 
 
+RULE_TALK = re.compile(r"\b(?:takes?|never takes|always takes|would you say|do you say|or is it|is it)\b", re.I)
+
+
 def asks_about_rule(text):
     m = re.search(r"[ء-ي]", text or "")
-    return bool(m and ASK_FRAME.search(text[:m.start()]))
+    if m and ASK_FRAME.search(text[:m.start()]):
+        return True
+    # GR-34: talk ABOUT a word's rule ("غير never takes...", "بيد always takes عن؟", "Is it فجر or سجر؟")
+    return bool(m and RULE_TALK.search(re.sub(r"[ء-ي]+", " ", text)))
 
 
 # 2. "كم مرة؟" alone right after Amal spoke, and her next line repeats hers: he asked "kaman marra?" (again?) and Scribe
@@ -496,6 +588,41 @@ def audit_fix_times(date, path=None):
     return out
 
 
+def _same_words(TW, i, j):
+    """Every Arabic word of his line i is a word of her line j, el- and و aside (GR-34's echo is letter for letter)."""
+    import word_coverage as WC
+    hers = {WC.core(w) for w, cut in WC.arabic_tokens(TW[j].get("text")) if not cut}
+    mine = [WC.core(w) for w, cut in WC.arabic_tokens(TW[i].get("text")) if not cut]
+    return bool(mine) and all(m in hers for m in mine)
+
+
+def audit_slips(date, path=None):
+    """GR-34: the counted grammar slips of a lesson (full audit rows, not rejected): [{t, bucket, wrong, right}]."""
+    p = path or os.path.join(os.path.dirname(DOCS), "data", "full-audit-2026-09-26.json")
+    try:
+        rows = json.load(open(p, encoding="utf-8"))["sweep_compat"]["rows"]
+    except (OSError, ValueError, KeyError):
+        return []
+    out = []
+    for r in rows:
+        if r.get("date") == date and r.get("bucket") and r.get("wrong") and not r.get("rejected") and not r.get("rejected_rule"):
+            try:
+                out.append(dict(r, sec=_secs(r["t"])))
+            except (ValueError, KeyError):
+                pass
+    return out
+
+
+def slip_here(slips, t, bid, hit):
+    """The slip on this line in this rule whose wrong words hold the whole hit (آخر المرة is the A15 slip, not A15 + A1 + A2 uses)."""
+    hw = {nrm(w) for w in AR_WORD.findall(hit or "")}
+    for r in slips:
+        if abs(r["sec"] - t) <= 2.5 and hw and hw <= {nrm(w) for w in AR_WORD.findall(r.get("wrong") or "")} and (
+                r.get("bucket") == bid or r.get("bucket2") == bid or len(hw) >= 2):
+            return r
+    return None
+
+
 def as_turns(T):
     return [{"who": "Medi" if t["speaker"] == "Medi" else "Amal", "t": t["start"], "end": t.get("end", t["start"]), "text": t["text"]} for t in T]
 
@@ -532,6 +659,8 @@ if __name__ == "__main__":
     dates = [d for d in dates if os.path.exists(os.path.join(DOCS, "lessons", d + ".html"))]
     NOT_ARABIC = {"2026-08-22", "2026-08-23", "2026-09-01"}
     RULINGS = load_rulings()
+    _ap = os.path.join(os.path.dirname(DOCS), "data", "grammar-usage-additions.json")
+    ADDITIONS = (json.load(open(_ap, encoding="utf-8")).get("rows") or []) if os.path.exists(_ap) else []
 
     uses = defaultdict(list)
     ruled_out = []
@@ -548,6 +677,7 @@ if __name__ == "__main__":
         read = {}
         TW = as_turns(T)
         SUP = WC.supplies(TW, audit_fix_times(date)) if WC.in_scope(date) else {}
+        SLIPS = audit_slips(date) if WC.in_scope(date) else []
 
         def add(t, bid, hit, read_as, back, joined=None):
             if back:
@@ -590,7 +720,21 @@ if __name__ == "__main__":
                                  "why": "'كم مرة؟' and Amal repeats herself: he asked 'kaman marra' (again?) "
                                         "(automatic rule, Medi 2026-10-02)"})
                 del found["E5"]
+            if SUP:                                  # GR-34: his line says her line back (her question, her words)
+                jj = next((j for j in WC.tutor_before(TW, i, WC.REPEAT_S) if WC.echo_of(TW, i, j) and _same_words(TW, i, j)), None)
+                if jj is not None:
+                    for bid, hit in found.items():
+                        not_uses.append(dict(repeat_row(date, t["start"], TW[jj], bid, unmask(hit, back) if back else hit, t["text"]), rule="GR-34",
+                                             why="he says the tutor's line back (%02d:%02d «%s»): her words, not a use (GR-34)"
+                                                 % (int(TW[jj]["t"]) // 60, int(TW[jj]["t"]) % 60, (TW[jj].get("text") or "")[:60])))
+                    continue
             for bid, hit in found.items():
+                sl = slip_here(SLIPS, t["start"], bid, unmask(hit, back) if back else hit)
+                if sl:
+                    not_uses.append({"date": date, "t": round(t["start"], 1), "said": t["text"][:300], "bucket": bid, "hit": hit,
+                                     "rule": "GR-34", "why": "the counted slip itself (%s → %s): one attempt, not also a right use (GR-34)"
+                                                            % (sl.get("wrong"), sl.get("right"))})
+                    continue
                 j = grammar_repeat(TW, i, unmask(hit, back) if back else hit, SUP) if SUP else None
                 if j is not None:
                     not_uses.append(repeat_row(date, t["start"], TW[j], bid, unmask(hit, back) if back else hit, t["text"]))
@@ -615,6 +759,16 @@ if __name__ == "__main__":
                     not_uses.append(repeat_row(date, T[at]["start"], TW[j], bid, unmask(hit, back), T[at]["text"]))
                     continue
                 add(T[at], bid, hit, unmask(joined_txt, back), back, joined=[round(T[i]["start"], 1) for i in run])
+        # GR-34: the right uses a line-by-line read found that the counter cannot see (data/grammar-usage-additions.json)
+        for r in ADDITIONS:
+            if r.get("date") != date:
+                continue
+            at = next((T[i] for i in range(len(T)) if T[i]["speaker"] == "Medi" and abs(T[i]["start"] - _secs(r["t"])) <= 3.0), None)
+            if at is None or any(u_["date"] == date and abs(u_["t"] - at["start"]) <= 0.2 for u_ in uses.get(r["bucket"], [])):
+                continue
+            seen_here[r["bucket"]] += 1
+            uses[r["bucket"]].append({"date": date, "t": round(at["start"], 1), "mmss": "%02d:%02d" % (int(at["start"]) // 60, int(at["start"]) % 60),
+                                      "hit": r.get("hit"), "said": at["text"][:300], "added_by": r.get("by"), "why": r.get("why"), "rule": r.get("rule")})
         per_lesson[date] = {
             "source": src,
             "medi_arabic_turns": n_turns,
