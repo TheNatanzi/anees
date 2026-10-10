@@ -247,3 +247,110 @@ def test_ws_33_a_sound_swapped_letter_still_finds_her_word():
     words = [{"key": "hadAk", "arabic": "هداك", "arabizi": "Hadaak", "english": "That (M)"},
              {"key": "hAda hu", "arabic": "هذا هو", "arabizi": "Haada hu", "english": "That's it"}]
     assert WC.Keys(words, catalog={"groups": []}).lookup("هذاك") == ("hadAk", "one")
+
+
+# ---------------------------------------------------------------- WS-34 (Medi 2026-10-09 "– Not scored · vocab · حجار: one word
+# of a longer list phrase (7ajar), not a list word by itself ... can you give me a list of these from 10-8 not scored" then
+# "fix in a new chip")
+WS34_WORDS = [
+    {"key": "7ajar", "arabic": "حجر", "arabizi": "7ajar", "english": "Stone", "plural": "7jaar"},
+    {"key": "nejme", "arabic": "نجمة", "arabizi": "Nejme", "english": "Star", "plural": "Nujoom"},
+    {"key": "6aiyAra", "arabic": "طيارة", "arabizi": "6ayyaara", "english": "Airplane / flight", "plural": "6ayyaaraat (طيارات)"},
+    {"key": "fus6An", "arabic": "فستان", "arabizi": "Fustaan", "english": "Dress", "plural": "Fasateen"},
+    {"key": "hadIye", "arabic": "هدية", "arabizi": "Hadiyye", "english": "Gift", "plural": "Hadaya"},
+    {"key": "betalej", "arabic": "بتتلج", "arabizi": "Betetlej", "english": "It's snowing"},
+    {"key": "talj", "arabic": "تلج", "arabizi": "Talj", "english": "Snow"},
+    {"key": "eno", "arabic": "أنو", "arabizi": "Enno", "english": "That (Connector)"},
+    {"key": "3eshrIn", "arabic": "عشرين", "arabizi": "3eshreen", "english": "twenty"},
+    {"key": "shams", "arabic": "شمس", "arabizi": "Shams", "english": "Sun"},
+    {"key": "shurU2 el shams", "arabic": "شروق الشمس", "arabizi": "ShurU2 el shams", "english": "Sunrise"},
+    {"key": "mbAre7", "arabic": "مبارح", "arabizi": "Mbaare7", "english": "Yesterday"},
+    {"key": "ahla u sahla", "arabic": "أهلاً و سهلاً", "arabizi": "Ahla w sahla", "english": "Welcome"},
+    {"key": "hala", "arabic": "هلا", "arabizi": "Hala", "english": "Now"},
+    {"key": "hada", "arabic": "هادا", "arabizi": "Hada", "english": "This (M)"},
+    {"key": "hAda hu", "arabic": "هذا هو", "arabizi": "Haada hu", "english": "That's it"},
+    {"key": "bilail", "arabic": "بالليل", "arabizi": "Billail", "english": "At night"},
+    {"key": "aldenia lail", "arabic": "الدنيا ليل", "arabizi": "El-denia lail", "english": "It's night time"},
+    {"key": "mesh zAki", "arabic": "مش زاكي", "arabizi": "Mesh zaaki", "english": "Not delicious"},
+    {"key": "law samaht", "arabic": "لو سمحت", "arabizi": "Law samaht", "english": "Please (m)"},
+    {"key": "alsA3a", "arabic": "الساعة 3لا3ة وثلث", "arabizi": "", "english": "It's 3:20"},
+    {"key": "yoam al5amIs", "arabic": "يوم الخميس", "arabizi": "Yoam el-5amees", "english": "Thursday"},
+    {"key": "ma6Ar", "arabic": "مطار", "arabizi": "Ma6aar", "english": "Airport", "plural": "Ma6araat"},
+]
+
+
+def _keys(sheet=None):
+    return WC.Keys(WS34_WORDS, sheet={WC.norm(k): v for k, v in (sheet or {}).items()}, catalog={"groups": []})
+
+
+def test_ws_34_a_plural_of_her_word_is_that_word():
+    """10-08 50:27 حجار is her 7ajar's plural 7jaar (her Doc's plural column); نجوم = Nujoom, طيارات = her (طيارات),
+    فساتين = Fasateen (a long a written single). Three short letters never match (هذي is not Hadaya 'gifts'), and a word
+    with no long a in it never matches a plural that has one (مطرت 'it rained' is not Ma6araat 'airports')."""
+    k = _keys({"حجار": {"on_sheet": True, "key": "7ajar"}})
+    assert k.lookup("حجار") == ("7ajar", "one")
+    assert k.lookup("نجوم") == ("nejme", "one") and k.lookup("طيارات") == ("6aiyAra", "one") and k.lookup("فساتين") == ("fus6An", "one")
+    assert k.lookup("هذي")[0] != "hadIye" and k.lookup("مطرت")[1] == "none"
+    assert k.is_plural("حجار") and not k.is_plural("حجر")
+
+
+def test_ws_34_a_verb_form_of_her_verb_is_that_verb():
+    """10-08 34:15 بتلج = her بتتلج 'It's snowing' (one letter off), not 'one word of a longer list phrase'."""
+    assert _keys({"بتلج": {"on_sheet": True, "key": "betalej"}}).lookup("بتلج") == ("betalej", "one")
+
+
+def test_ws_34_her_one_word_row_wins_over_a_phrase_that_holds_it():
+    k = _keys({"إنه": {"on_sheet": True, "key": "eno"}, "ليل": {"on_sheet": True, "key": "aldenia lail"},
+               "مش": {"on_sheet": True, "key": "mesh zAki"}, "لا": {"on_sheet": True, "key": "alsA3a"},
+               "امبارح": {"on_sheet": True, "key": "mbAre7"}})
+    assert k.lookup("إنه") == ("eno", "one")             # her أنو: the -o ending written ـه
+    assert k.lookup("ليل") == ("bilail", "one")          # her بالليل 'At night'
+    assert k.lookup("امبارح") == ("mbAre7", "one")       # an extra ا / إ in front
+    assert k.lookup("أهلا")[0] != "hala"                 # but أهلا is never her هلا 'Now'
+    assert k.lookup("هذا") == ("hada", "one")            # the engine's MSA spelling of her هادا
+    assert k.lookup("الخميس") == ("yoam al5amIs", "one") # a day name without يوم
+    assert k.lookup("مش") == ("mesh zAki", "part")       # no row for مش alone: stays grey, says which phrase
+    assert k.lookup("لا") == (None, "none")              # لا is not a word of '3لا3ة': simply not on her list
+
+
+def test_ws_34_a_wa_prefix_is_stripped():
+    k = _keys()
+    assert k.lookup("وعشرين") == ("3eshrIn", "one") and k.lookup("والشمس") == ("shams", "one")
+
+
+def test_ws_34_her_whole_phrase_is_the_word_and_the_grey_text_names_the_phrase():
+    k = _keys({"لو": {"on_sheet": True, "key": "law samaht"}, "سمحت": {"on_sheet": True, "key": "law samaht"},
+               "مش": {"on_sheet": True, "key": "mesh zAki"}})
+    anchor = {"id": "a", "lesson_date": "2026-10-09", "speaker": "Medi", "t_start": 1, "local_start": 1, "source_sha256": "h"}
+    detail = {"turns": [{"t": 900.0, "end": 902.0, "who": "Medi", "text": "لو سمحت"},
+                        {"t": 960.0, "end": 962.0, "who": "Medi", "text": "مش"}], "grammar_errors": [], "vocab_errors": []}
+    adds, _, rows = WC.plan("2026-10-09", detail, [anchor], k, rulings=[])
+    assert [a["event"]["word_key"] for a in adds] == ["law samaht"] and adds[0]["event"]["text"] == "لو سمحت"
+    assert next(r for r in rows if r["word"] == "سمحت").get("covered")
+    grey = next(r for r in rows if r["word"] == "مش")
+    assert grey["state"] == "na" and "only inside her phrase مش زاكي 'Not delicious'" in grey["why"]
+
+
+def test_ws_34_the_article_alone_is_not_a_word():
+    assert WC.arabic_tokens("ال، أل، إل الشمس") == [("الشمس", False)]
+
+
+def test_ws_34_the_plural_he_finds_after_her_singular_is_his_own():
+    """10-08 50:16 she gives حجر, 50:20 asks 'شو plural حجر؟', 50:27 he says حجار: his own answer, not a repeat."""
+    k = _keys()
+    turns = [{"t": 3016.17, "end": 3017.0, "who": "Amal", "text": "حجر."},
+             {"t": 3020.83, "end": 3026.0, "who": "Amal", "text": "شجر وحجر، صح. إيه شو plural حجر؟ Do you remember؟"},
+             {"t": 3027.18, "end": 3028.0, "who": "Medi", "text": "حجار."}]
+    sup = WC.supplies(turns, [(3016.5, "حجر")])
+    assert WC.judge_word(turns, 2, "حجار", "7ajar", k.of, sup, k.is_plural)[0] == "independent"
+    assert WC.judge_word(turns, 2, "حجار", "7ajar", k.of, sup)[0] == "repeat"      # without the rule: wrongly a repeat
+
+
+def test_ws_34_10_08_moments():
+    rows = {(r["t"], r["word"]): r for r in WC.report("2026-10-08")}
+    assert rows[("50:27", "حجار")]["state"] == "correct"
+    assert rows[("50:27", "حجور")]["state"] == "na"            # his wrong tries keep their own marks
+    assert rows[("34:15", "بتلج")]["state"] == "correct"
+    for t, w in (("05:24", "وعشرين"), ("16:55", "والشمس"), ("14:41", "إنه"), ("21:17", "طيارات"), ("22:19", "نجوم")):
+        assert rows[(t, w)]["state"] == "correct", (t, w, rows[(t, w)])
+    assert all("one word of a longer list phrase" not in (r["why"] or "") for r in rows.values())

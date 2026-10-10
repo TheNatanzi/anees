@@ -137,7 +137,8 @@ def word_tokens(text):
             cut = w.endswith(("...", "\u2026", "--", "\u2014", "-", "\u0640"))
             w = w.rstrip(".\u2026-\u2014")
             n = norm(w)
-            if not n or n in FILLERS or len(n) < 2 or re.fullmatch(r"[\u0627\u0622\u0647\u0645\u0649]+", n):
+            # WS-34: the article el- said alone (ال / أل / إل while he looks for the noun) is not a word
+            if not n or n in FILLERS or len(n) < 2 or re.fullmatch(r"[\u0627\u0622\u0647\u0645\u0649]+", n) or re.fullmatch(r"[\u0627\u0623\u0625\u0622]\u0644", n):
                 items.append(None)
                 continue
             items.append({"ar": w.rstrip("\u0640"), "cut": cut, "shown": w.rstrip("\u0640"), "latin": False, "strong": True})
@@ -234,12 +235,18 @@ def mmss(t):
     return "%02d:%02d" % divmod(t, 60)
 
 
-def judge_word(turns, i, word, key, key_of, sup):
+def judge_word(turns, i, word, key, key_of, sup, plural=None):
     """(state, reason, tutor turn index or None) for one word of his line i. state: repeat | helped | independent |
     unresolved. key_of(word) -> list key or None (her words matched the same way as his)."""
     same = []
     for j in tutor_before(turns, i, REPEAT_S):
+        # WS-34: when she ASKS for a form ('شو plural حجر؟'), only her exact form is hers; the form he finds (حجار) is his
+        ask = j not in sup and re.search(r"[?؟]", turns[j].get("text") or "")
         for w in her_words(turns, j, sup):
+            if ask and core(w) != core(word):
+                continue
+            if plural and plural(word) and not plural(w) and core(w) != core(word):
+                continue                  # she gave the singular (حجر); the plural he makes of it (حجار) is his own
             if similar(w, word) or (key and key_of(w) == key):
                 same.append(j)
                 break
@@ -287,6 +294,35 @@ class Keys:
                 x = "".join(m.groups())
                 for f in (x + "ا", x + "اء", x):
                     self.colour.setdefault(f, set()).add(w["key"])
+        # WS-34 (Medi 2026-10-09 "can you give me a list of these from 10-8 not scored ... fix in a new chip"): her one-word
+        # rows by their word (شمس, عند, مبارح), her Doc's plural column (حجار = her 7ajar's plural 7jaar), a day name
+        # without يوم (الخميس = her 'يوم الخميس' Thursday)
+        self.one, self.plural, self.inner, self.coll = {}, {}, {}, {}
+        for w in self.words.values():
+            for f in one_word_forms(w.get("arabic")):
+                self.one.setdefault(f, set()).add(w["key"])
+                m = re.match(r"(?:بال|لل|عال|فال)(\S{3,})$", f)     # her بالليل 'At night': ليل is its noun
+                if m:
+                    self.inner.setdefault(m.group(1), set()).add(w["key"])
+            for piece in re.split(r"[/،,(]", str(w.get("arabic") or "")):
+                piece = piece.strip(" )")
+                if re.fullmatch(r"[^\s]{3,}ة", piece) and not jsnorm(piece).startswith("ال"):   # never الليلة "Tonight"             # her وردة 'Flower': ورد (flowers), وردات
+                    for x in (jsnorm(piece)[:-1], jsnorm(piece)[:-1] + "ات"):
+                        self.coll.setdefault(x, set()).add(w["key"])
+            m = re.fullmatch(r"يوم\s+(\S+)", jsnorm(w.get("arabic") or ""))
+            if m:
+                self.one.setdefault(core(m.group(1)), set()).add(w["key"])
+            if not one_word_forms(w.get("arabic")):
+                continue
+            pl = str(w.get("plural") or "")
+            cands = [skel_ar(x) for x in re.findall(r"[\u0621-\u064A]+", pl)]
+            cands += [skel_lat(x.split()[0]) for x in re.split(r"[/,]", re.sub(r"\([^)]*\)", "", pl))
+                      if x.strip() and re.match(r"[A-Za-z0-9]", x.strip())]
+            for sk in cands:
+                if len(sk) >= 4 or (len(sk) == 3 and "A" in sk):   # three short letters (Hadaya -> hdy) match too much
+                    self.plural.setdefault(sk, set()).add(w["key"])
+                if len(_squeeze(sk.replace("A", ""))) >= 4:
+                    self.plural.setdefault("~" + _squeeze(sk.replace("A", "")), set()).add(w["key"])
         for g in catalog.get("groups") or []:
             for k in g.get("keys") or [g["key"]]:
                 self.group[k] = g
@@ -337,6 +373,7 @@ class Keys:
 
     def lookup(self, w):
         """(key or keys, how) - how: one | unclear | sheet | part | none."""
+        self.via = None
         m = self.m.match(w)
         if len(m) == 1:
             return next(iter(m)), "one"
@@ -360,20 +397,163 @@ class Keys:
                 return sorted(gk), "unclear"
         sh = self.sheet.get(norm(w)) or {}
         k = sh.get("key")
+        verb = k in self.group and self.group[k].get("type") == "Verb"
+        rel = sh.get("on_sheet") and k in self.keys and not verb and related(w, self.words[k])
+        if rel is True:
+            return k, "one"
+        # WS-34 (self.via says so: a word found only this way that she taught today is still a new word, WS-18)
+        self.via = "WS-34"
+        if rel:                           # her one-word row said a letter off (بتلج of her بتتلج)
+            return k, "one"
+        # her 'that' أنو is his إنه (the -o ending is written ـو or ـه)
+        if f.endswith("ه") and len(jsnorm(f)) >= 3:
+            m = self.m.match(f[:-1] + "و")
+            if len(m) == 1:
+                return next(iter(m)), "one"
+        n = jsnorm(w)                     # a word with و (and) in front is the word (وعشرين, والشمس)
+        if n.startswith("و") and len(n) >= 4 and not self.m.match(w):
+            k2, how2 = self.lookup(n[1:])
+            self.via = "WS-34"
+            if how2 == "one":
+                return k2, how2
+        hit = self.her_word(w)
+        if hit and hit[1] == "one":
+            return hit
+        self.via = None
         if sh.get("on_sheet") and k in self.keys:
-            if k in self.group and self.group[k].get("type") == "Verb":
+            if verb:
                 return None, "none"       # a verb is only ever matched by one of its own forms (above)
-            if related(w, self.words[k]):
-                return k, "one"
-            return k, "part"              # one word of a longer list phrase (أنا of 'أنا بطبخ'): not that list word
+            if hit:
+                return hit                # two rows of hers this word could be (ولاد: 'Son' / 'Boy'): unclear
+            if not in_phrase(w, self.words[k]):
+                return None, "none"       # the sheet's guess is not a word of that phrase (لا inside '3لا3ة'): not on her list
+            return k, "part"              # one word of a longer list phrase (مش of 'مش زاكي'): not that list word
+        if hit:
+            return hit
         if sh.get("on_sheet") and k:
             return k, "sheet"             # a taught verb not yet in the saved copy of her list (taught:...)
         return None, "none"
 
 
+    def is_plural(self, w):
+        """WS-34: is this word her Doc's plural of a row (حجار of 7ajar), not the row's own word?"""
+        c = core(w)
+        if c in self.one or self.m.match(w):
+            return False
+        sk = skel_ar(c)
+        return bool(self.plural.get(sk) or ("A" in sk and self.plural.get("~" + _squeeze(sk.replace("A", "")))))
+
+    def her_word(self, w):
+        """WS-34: the one-word row of hers this word is (the word, + an ending, an extra إ in front: إمبارح = her مبارح),
+        else the singular row whose plural (her Doc's plural column) it is. (key, 'one') | (keys, 'unclear') | None."""
+        raw = str(w or "").strip()
+        raw = raw[1:] if raw[:1] == "و" and len(jsnorm(raw)) >= 4 else raw
+        c = core(MSA.get(jsnorm(w), w))
+        tries = ([(jsnorm(w), False)] if jsnorm(w) != c else []) + [(c, False)]
+        m = re.match(r"(?:بال|لل|عال|فال)(\S{3,})$", jsnorm(w))
+        if m:                             # بالأرض = her أرض with 'in the'
+            tries += [("ال" + m.group(1), False), (m.group(1), False)]
+        if c[:1] == "ا" and len(c) >= 4:  # إمبارح / امبارح = her مبارح; أ in front only on a verb (أشوف), never أهلا = هلا
+            tries.append((c[1:], raw[:1] == "أ"))
+        if not raw.endswith("ة"):         # ة is not the 'his' ending (سلامة is not سلام)
+            tries += [(x[:-len(e)], v) for x, v in list(tries) for e in OBJ_ENDS if x.endswith(e) and len(x) - len(e) >= 3]
+        if re.match(r"[ينت]", c) and len(c) >= 4:   # a verb's person prefix (نعمل, يبدأ): only ever one of her verbs
+            tries.append((c[1:], True))
+        for x, verb_only in tries:
+            sk = skel_ar(x)
+            bare = _squeeze(sk.replace("A", ""))    # her Latin often writes a long a single (Fasateen for فساتين)
+            for hits in (self.one.get(x), self.inner.get(x), self.plural.get(sk) if len(sk) >= 3 else None,
+                         self.plural.get("~" + bare) if len(bare) >= 4 and "A" in sk else None, self.coll.get(x)):
+                if hits and verb_only and not all((self.group.get(k) or {}).get("type") == "Verb" for k in hits):
+                    hits = None
+                if hits and jsnorm(w) in MSA:
+                    hits = {k for k in hits if str((self.words.get(k) or {}).get("english") or "").startswith(MSA_MEANS)} or hits
+                if hits:
+                    hits = sorted(hits)
+                    if len(hits) == 1:
+                        return hits[0], "one"
+                    same = self.same_word(hits)
+                    return (same, "one") if same else (hits, "unclear")
+        return None
+
+
+def phrase_span(toks, n, arabic, text):
+    """WS-34: (the phrase as his line writes it, its tokens) when the words from token n on are her whole phrase (لو سمحت,
+    على قلبك, مش مشكلة) and stand together on the line; else None."""
+    ph = [x for x in jsnorm(arabic or "").split() if x]
+    if len(ph) < 2 or n + len(ph) > len(toks):
+        return None
+    got = toks[n:n + len(ph)]
+    if any(t["cut"] or not (core(t["ar"]) == core(p) or similar(t["ar"], p)) for t, p in zip(got, ph)):
+        return None
+    shown = [t["shown"] for t in got]
+    if not re.search(r"\s*[،,]?\s*".join(re.escape(x) for x in shown), text or ""):
+        return None
+    return " ".join(shown), got
+
+
+def one_word_forms(arabic):
+    """The one-word forms of a row's Arabic (pieces split on / ، ( ; a pronoun in front and a trailing لَ off: her
+    'متحمس لَ' is متحمس). A phrase row (مش زاكي) and a pattern row (أول + الـ + اسم) have none."""
+    if "+" in str(arabic or ""):
+        return []
+    out = []
+    for f in re.split(r"[/،,(]", str(arabic or "")):
+        f = PRONOUNS.sub("", jsnorm(f.strip(" )")))
+        f = re.sub(r"\s+(ل|لـ|ب|بـ|…|\.\.\.)$", "", f).strip(" ؟?.…")
+        if f and " " not in f and len(core(f)) >= 2:
+            out.append(f)                 # her spelling, el- kept: اليوم 'Today' is not يوم 'Day' (WS-34)
+    return out
+
+
+def in_phrase(w, doc):
+    """Is this word one of the words of her phrase (مش of 'مش زاكي'), not just letters inside one (لا of '3لا3ة')?"""
+    c = core(w)
+    return any(core(x) == c or core(x).lstrip("و") == c for x in jsnorm(doc.get("arabic") or "").split())
+
+
+AR_LAT = {"ء": "2", "أ": "2", "إ": "2", "ؤ": "2", "ئ": "2", "آ": "2", "ا": "A", "ى": "A", "ب": "b", "ت": "t", "ث": "t",
+          "ج": "j", "ح": "7", "خ": "5", "د": "d", "ذ": "d", "ر": "r", "ز": "z", "س": "s", "ش": "S", "ص": "s", "ض": "d",
+          "ط": "t", "ظ": "d", "ع": "3", "غ": "8", "ف": "f", "ق": "2", "ك": "k", "ل": "l", "م": "m", "ن": "n", "ه": "h",
+          "و": "w", "ي": "y", "ة": ""}
+
+
+def _squeeze(s):
+    return re.sub(r"(.)\1+", r"\1", s)
+
+
+def skel_ar(w):
+    """A word's sound skeleton in her letters (consonants and long vowels: نجوم -> njwm, حجار -> 7jAr), so an Arabic
+    word can be compared with her Latin plural (Nujoom, 7jaar)."""
+    n = jsnorm(w)
+    if n[:1] in "اأإآ":
+        n = n[1:]
+    n = re.sub(r"[هة]$", "", n)
+    return _squeeze("".join(AR_LAT.get(ch, "") for ch in n))
+
+
+def skel_lat(w):
+    """skel_ar for her Latin spelling: aa = A, oo / uu = w, ee / ii = y, short vowels dropped (Fasateen -> fsAtyn)."""
+    s = re.sub(r"[^a-z0-9]", "", str(w or "").lower())
+    s = s.replace("sh", "S").replace("kh", "5").replace("gh", "8").replace("th", "t").replace("dh", "d")
+    s = s.replace("q", "2").replace("9", "s").replace("6", "t")
+    s = re.sub(r"a{2,}", "A", s)
+    s = re.sub(r"[ou]{2,}", "w", s)
+    s = re.sub(r"[ei]{2,}", "y", s)
+    s = re.sub(r"^[aeiou]", "", s)
+    s = re.sub(r"h$", "", s)
+    return _squeeze(re.sub(r"[aeiou]", "", s))
+
+
 SOUND_FOLD = str.maketrans({"ذ": "د", "ث": "ت", "ظ": "ض"})
+# WS-34: the engine's MSA spelling of her word: هذا is her هادا 'This (M)', هذه / هذي her هادي 'This (F)'
+MSA = {"هذا": "هادا", "هذه": "هادي", "هذي": "هادي", "هاذا": "هادا", "هاذي": "هادي"}
+MSA_MEANS = "This"                # her هادي is 'This (F)' and also 'Calm': the MSA spelling is always the 'this' one
 OBJ_ENDS = ("هم", "كم", "ها", "نا", "ني", "ك", "ه", "ي")
 PRONOUNS = re.compile(r"^(أنا|انا|إنت|انت|إنتي|انتي|هو|هي|إحنا|احنا|إنتو|انتو|هم)\s+")
+
+
+HAMZA = str.maketrans({"ئ": "ي", "ء": "ي"})    # compare only: بطيء / بطيئ / بطيي
 
 
 def jsnorm(s):
@@ -397,6 +577,16 @@ def related(w, doc):
         c = core(f)
         if c and (n == c or _fem(n) == _fem(c) or (len(c) >= 3 and n.startswith(c) and len(n) - len(c) <= 3)):
             return True
+    # WS-34: her one-word row said a letter off or with an extra إ in front (بتلج of her بتتلج, ملان of مليان, إمبارح)
+    n = n.translate(SOUND_FOLD).translate(HAMZA)
+    for c in one_word_forms(doc.get("arabic")):
+        c = core(c).translate(HAMZA)
+        for x in (n, n[1:] if str(w or "").strip()[:1] in "اإ" and len(n) >= 4 else n):
+            if min(len(x), len(c)) >= 4 and difflib.SequenceMatcher(None, x, c).ratio() >= 0.8:
+                return "loose"
+            # a three-letter row: only a long vowel added inside it (خلاص of her خلص), never a letter in front (أحيه)
+            if len(c) == 3 and len(x) == 4 and any(x[:k] + x[k + 1:] == c and x[k] in "اوي" for k in range(1, 4)):
+                return "loose"
     return False
 
 
@@ -501,11 +691,17 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                 rows.append({"i": i, "t": t0, "word": w, "state": "na", "why": "off-lesson"})
             continue
         toks = word_tokens(u.get("text"))
+        covered = {}                      # WS-34: token index -> the phrase of hers he said whole that holds it
+        start = len(rows)
         for n, tk in enumerate(toks):
             w, cut, shown = tk["ar"], tk["cut"], tk["shown"]
             row = {"i": i, "t": t0, "word": w, **({"shown": shown} if shown != w else {})}
             if cut:
                 rows.append(dict(row, state="na", why="broken off before the end of the word (not a try)"))
+                continue
+            if n in covered:
+                rows.append(dict(row, state="na", covered=True, key=covered[n],
+                                 why="part of her phrase %s, which he said whole (judged once, as that phrase)" % covered[n]))
                 continue
             key, how = keys.lookup(w)
             if how == "unclear" and "mara~time" in key:
@@ -524,15 +720,26 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                 rows.append(dict(row, state="na", why="two list words are spelled this way (%s): unclear which he meant" % " / ".join(
                     "%s '%s'" % (k, (keys.words.get(k) or {}).get("english") or "") for k in key)))
                 continue
+            via = keys.via if how == "one" else None
             new = next((t_ for a, t_ in taught if taught_match(a, w)), None)
+            lat = (EXTRA.get(w) or EXTRA.get(norm(w)) or {}).get("latin")
+            typed = "she typed '%s' in the chat" % lat if lat and lat.lower() in chat_words else None
             if new is None and how in ("none", "sheet", "part"):
-                lat = (EXTRA.get(w) or EXTRA.get(norm(w)) or {}).get("latin")
-                if lat and lat.lower() in chat_words:
-                    new = "she typed '%s' in the chat" % lat
+                new = typed
+            fresh = new or typed          # a form the Word Bank cannot place that she taught / typed today stays ★ new
             if how == "part" and new is None:
-                rows.append(dict(row, state="na", why="one word of a longer list phrase (%s), not a list word by itself" % key))
+                span = phrase_span(toks, n, (keys.words.get(key) or {}).get("arabic"), u.get("text"))
+                if span:                  # he said her whole phrase (لو سمحت): the phrase is the word
+                    for x in range(n + 1, n + len(span[1])):
+                        covered[x] = key
+                    shown, how = span[0], "one"
+                    row["shown"] = shown
+            if how == "part" and new is None:
+                d_ = keys.words.get(key) or {}
+                rows.append(dict(row, state="na", why="not on her list by itself: she has it only inside her phrase %s '%s' (%s), "
+                                 "so it is left out of the Words %%" % (d_.get("arabic") or key, d_.get("english") or "", key)))
                 continue
-            if how in ("none", "sheet", "part") and new is not None:
+            if (how in ("none", "sheet", "part") or via) and new is not None:
                 rows.append(dict(row, state="new", key=key, why="new word: the tutor taught it in this lesson (%s); not on her list yet, not scored" % new))
                 continue
             if how in ("none", "sheet"):
@@ -554,6 +761,9 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                 row.update(key=key, event=e["id"], patched="key")
                 rows.append(row)
                 continue
+            if e is not None and e.get("text") and core(e["text"].strip(" .،,؟?!")) != core(w) and any(
+                    x is not tk and similar(x["ar"], e["text"].strip(" .،,؟?!")) for x in toks):
+                e = None                  # WS-34: that event is another word of this line (حجرات before his حجار, 10-08 50:27)
             if e is not None and e.get("text") and core(e["text"].strip(" .،,؟?!")) != core(w) and not re.search(r"[A-Za-z]", w):
                 # the second listen changed this word (engine فاتح -> heard فاتحة): the tutor's listen decides it (TR-27),
                 # never this file
@@ -561,7 +771,7 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                 continue
             if e is not None and e.get("word_key") != key:
                 e = None                  # the matcher's event names no list word (two candidates): it scores nothing, so this word gets its own
-            state, why, j = judge_word(turns, i, w, key, keys.of, sup)
+            state, why, j = judge_word(turns, i, w, key, keys.of, sup, keys.is_plural)
             if state == "unresolved" and not slip_on(detail, t0, t1, w):
                 state, why = "independent", ("Word he said on his own: the tutor's 'no' right after was not about it - the three "
                                              "readers wrote no slip on it (WS-30)")
@@ -569,7 +779,8 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                 row["event"] = e["id"]
                 ent = keys.entry(key, e.get("text") or w)
                 if ent is None and state != "repeat":
-                    rows.append(dict(row, state="na", why="a form of %s the Word Bank does not list yet (it cannot place this one)" % key))
+                    rows.append(dict(row, state="new", key=key, why="new word: the tutor taught it in this lesson (%s); not on her list yet, not scored" % fresh)
+                                if fresh else dict(row, state="na", why="a form of %s the Word Bank does not list yet (it cannot place this one)" % key))
                     continue
                 p = _patch(e, state, why, turns, j)
                 if p and ent:
@@ -590,7 +801,8 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                 rows.append(dict(row, state="na", why="read from the line's letters but not written as one word there (left to the readers)"))
                 continue
             if entry is None:
-                rows.append(dict(row, state="na", why="a form of %s the Word Bank does not list yet (it cannot place this one)" % key))
+                rows.append(dict(row, state="new", key=key, why="new word: the tutor taught it in this lesson (%s); not on her list yet, not scored" % fresh)
+                            if fresh else dict(row, state="na", why="a form of %s the Word Bank does not list yet (it cannot place this one)" % key))
                 continue
             ev = _event(date, anchor, u, i, n, shown, key, state, why, turns, j)
             if entry:
@@ -600,6 +812,11 @@ def plan(date, detail, events, keys, off=(), rulings=None):
             row["event"] = ev["id"]
             row["added"] = state
             rows.append(row)
+        for r in rows[start:]:            # a phrase that got no mark (said before his recording ...): its words say why
+            head = next((h for h in rows[start:] if not h.get("covered") and h.get("key") == r.get("key")), None) if r.get("covered") else None
+            if head is not None and head.get("state") == "na":
+                r.pop("covered")
+                r["why"] = head["why"]
     return adds, patches, rows
 
 
@@ -806,6 +1023,19 @@ def tokens_for_sheet(per):
 
 
 # ------------------------------------------------------------------ the transcript side (chips)
+def _covers(c, r, line=()):
+    """Does the vocab chip c already judge his word r? A chip that names the word he said (tok) does not judge ANOTHER
+    word of the same line: on 10-08 50:27 the ✓ on حجار (her حجر, key 7ajar) is not the judgment of his حجور or حجرات
+    before it (WS-34). line = the cores of the line's words."""
+    toks = {core(x) for x in str(c.get("tok") or "").split()} & set(line)
+    if c.get("k") == "vocab" and c.get("s") != "wrong" and toks and core(r["word"]) not in toks:
+        return False
+    return bool((r.get("key") and c.get("key") == r.get("key")) or similar(c.get("ar") or "", r["word"]) or similar(c.get("tok") or "", r["word"])
+                or jsnorm(c.get("ar") or "") == jsnorm(re.sub("ه$", "و", r["word"]))
+                or any(similar(x, r["word"]) for x in re.split(r"[\s،,.؟?/]+", str(c.get("ar") or "")) if x)
+                or (c.get("s") == "wrong" and any(similar(x, r["word"]) for x in re.split(r"[\s،,.؟?]+", str(c.get("said") or "")) if x)))
+
+
 def chips(date, detail, rows, unscored=()):
     """[(turn index, chip)] for every Arabic word of his that no vocab chip judges yet: a repeat chip (WS-31) or a grey
     chip with the reason (WS-30). unscored = the Word Bank's own null-point events of this lesson (lessons_page_node.cjs)."""
@@ -826,11 +1056,11 @@ def chips(date, detail, rows, unscored=()):
             continue
         seen.add(dup)
         mine = have.get(i, [])
-        if any((r.get("key") and c.get("key") == r.get("key")) or similar(c.get("ar") or "", r["word"]) or similar(c.get("tok") or "", r["word"])
-               or any(similar(x, r["word"]) for x in re.split(r"[\s،,.؟?/]+", str(c.get("ar") or "")) if x)
-               or (c.get("s") == "wrong" and any(similar(x, r["word"]) for x in re.split(r"[\s،,.؟?]+", str(c.get("said") or "")) if x)) for c in mine):
+        if any(_covers(c, r, [core(x) for x, cut in arabic_tokens(detail["turns"][i].get("text"))]) for c in mine):
             continue
         e = by_id.get(r.get("event"))
+        if r.get("covered"):
+            continue
         if r.get("state") == "new":
             out.append((i, {"k": "vocab", "s": "new", "ar": r["word"], "why": r["why"], "rule": "WS-18"}))
         elif r.get("state") == "na":
@@ -843,8 +1073,11 @@ def chips(date, detail, rows, unscored=()):
                             **({"amal_t": rep.get("t"), "amal_line": rep.get("text")} if rep else {}), "rule": "WS-31",
                             **({"src": "wb:" + r["event"]} if r.get("event") else {})}))
         elif e:
+            # the Word Bank's own verdict on this event when it has one ('Said here · another word intended': 10-08 36:16
+            # سنان when he meant her سنين) - never this file's 'said on his own' reason under a verdict that scores nothing
+            oc = e.get("outcome") if e.get("outcome") not in (None, "Ignored pending review", "Not scored") else None
             out.append((i, {"k": "na", "s": "na", "label": "vocab", "ar": r["word"], "key": r.get("key"),
-                            "why": r["word"] + ": " + (e.get("reason") or "not scored"), "rule": "WS-30",
+                            "why": r["word"] + ": " + (oc or e.get("reason") or "not scored"), "rule": "WS-30",
                             **({"src": "wb:" + r["event"]} if r.get("event") else {})}))
         elif r.get("added") or r.get("patched"):
             out.append((i, {"k": "na", "s": "na", "label": "vocab", "ar": r["word"], "key": r.get("key"),
@@ -864,9 +1097,14 @@ def report(date, repo=REPO):
         if u.get("who") != "Medi":
             continue
         cs = [c for c in (tm.get(str(i)) or {}).get("c", []) if c.get("k") in ("vocab", "grammar") or (c.get("k") == "na" and c.get("label") in ("vocab", "lesson"))]
+        cs = [c for c in cs if not c.get("hide")] + [c for c in cs if c.get("hide")]     # the chip he sees first
+        line = [core(x) for x, cut in arabic_tokens(u.get("text"))]
         for w, cut in arabic_tokens(u.get("text")):
-            hit = next((c for c in cs if similar(c.get("ar") or "", w) or (c.get("why") or "").startswith(w + ":")
-                        or any(similar(x, w) for x in re.split(r"[\s،,.؟?]+", str(c.get("said") or "")) if x)), None)
+            hit = next((c for c in cs if (c.get("why") or "").startswith(w + ":")), None) or next(
+                (c for c in cs if _covers(c, {"word": w}, line) and (
+                    similar(c.get("ar") or "", w) or jsnorm(c.get("ar") or "") == jsnorm(re.sub("ه$", "و", w)) or (c.get("k") == "vocab" and any(similar(x, w) for x in str(c.get("ar") or "").split()))
+                    or any(similar(x["ar"] or "", w) for x in c.get("words") or [] if x.get("ar")))), None) or next(
+                (c for c in cs if any(similar(x, w) for x in re.split(r"[\s،,.؟?]+", str(c.get("said") or "")) if x)), None)
             if hit is None and cs and any(c.get("label") == "lesson" for c in cs):
                 hit = cs[0]
             out.append({"t": mmss(u["t"]), "word": w, "cut": cut, "state": (hit or {}).get("s"), "why": (hit or {}).get("why")})

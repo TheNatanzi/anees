@@ -9270,7 +9270,7 @@
     {
      "type": "code",
      "path": "scripts/word_coverage.py",
-     "contains": "def judge_word(turns, i, word, key, key_of, sup):"
+     "contains": "def judge_word(turns, i, word, key, key_of, sup"
     },
     {
      "type": "code",
@@ -9673,6 +9673,89 @@
     "date": "2026-10-08",
     "t": "35:19",
     "note": "مرة. Um, تلجت: was ✓ Murra (bitter) and grey 'part of a phrase'; now ✓ Marra and ★ new word tallajat"
+   }
+  },
+  {
+   "id": "WS-34",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A word of his is not left grey as 'one word of a longer list phrase' when it is really her word (scripts/word_coverage.py Keys.her_word / lookup): (1) a plural of her word is that word - her Doc's plural column, Latin or Arabic (10-08 50:27 حجار = her 7ajar's 7jaar, نجوم = Nujoom, طيارات, سنان = Snaan), and a collective of her -a noun (ورد / وردات of her وردة, شجر, غيم); (2) a verb form of her verb is that verb (34:15 بتلج = her بتتلج 'It's snowing', one letter off; a person prefix only ever on one of her catalog verbs); (3) her one-word row wins over a longer phrase that holds the word (إنه = her أنو, the -o ending written ـه; ليل = her بالليل; إمبارح / امبارح = her مبارح; الخميس = her 'يوم الخميس'; the engine's MSA هذا / هذي = her هادا / هادي); (4) a و 'and' in front is stripped (وعشرين, والشمس); (5) her whole phrase said on his line is that phrase, judged once (لو سمحت, على قلبك); only when none of these hits does the chip stay grey, and then it says which phrase in plain words ('not on her list by itself: she has it only inside her phrase مش زاكي 'Not delicious''), and a word that is only letters inside her phrase (لا of '3لا3ة') is simply 'not on her word list'. Also: the article ال said alone is not a word (no chip); when she ASKS for a form ('شو plural حجر؟') or gave only the singular, the plural he finds is his own answer, not a repeat (50:27 حجار ✓); a ✓ chip on one word never hides the marks of his other tries on the same line (50:27 حجور grey, حجرات ↻); a Word Bank verdict like 'Said here · another word intended' is shown instead of 'said on his own' (36:16 سنان, he meant her سنين). Every lesson: 455 'part of a phrase' chips gone (712 -> 257 across 21 lessons; 10-08: 30 -> 10); +315 words ✓, +121 ↻, Words % up 0.3-1.6 points in 20 of 21 lessons. Guards kept: three short letters never match a plural (هذي is not Hadaya), أ in front is never stripped off a noun (أهلا is not هلا), الليلة 'Tonight' gives no collective.",
+   "plain": "A word you said is not left grey as 'part of a longer phrase' when it is really the tutor's word: its plural (حجار of her حجر), a form of her verb (بتلج), her one-word word (إنه = her أنو, ليل = her بالليل), the word with و 'and' in front (وعشرين), or her whole phrase said together (لو سمحت). Only a word she has nowhere on its own stays grey, and the grey note names her phrase.",
+   "plain_for": "bfdc99cc",
+   "topic": "word scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "– Not scored · vocab · حجار: one word of a longer list phrase (7ajar), not a list word by itself ... can you give me a list of these from 10-8 not scored",
+     "session": "8e1ec2e9"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "fix in a new chip",
+     "session": "8e1ec2e9"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "once you are done give me a new list of not scored and ask yourrself correct yourself if they really shouldnt be scored or if you arent thinking hard enough",
+     "session": "8e1ec2e9"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def her_word(self, w):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def phrase_span(toks, n, arabic, text):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def _covers(c, r, line=()):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_34_a_plural_of_her_word_is_that_word"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_34_a_verb_form_of_her_verb_is_that_verb"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_34_her_one_word_row_wins_over_a_phrase_that_holds_it"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_34_a_wa_prefix_is_stripped"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_34_her_whole_phrase_is_the_word_and_the_grey_text_names_the_phrase"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_34_the_plural_he_finds_after_her_singular_is_his_own"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_34_10_08_moments"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "50:27",
+    "note": "حجور or حجرات؟ حجار: حجار was grey 'one word of a longer list phrase (7ajar)'; now ✓ (her 7ajar, plural 7jaar); حجور stays grey, حجرات ↻"
    }
   },
   {

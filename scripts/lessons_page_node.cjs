@@ -74,7 +74,7 @@ for (const r of rows) for (const f of r.entries) for (const e of f.events) {
   // WS-30 / WS-31 (Medi 2026-10-09): every word of his shows a state on the transcript - the ones the Word Bank does not
   // score (a repeat of the tutor's fix, a grammar word, an open question) go out with their reason
   if (p === null) { unscored.push({ id: e.id, date: C.date(e), word_key: e.word_key, t_start: e.t_start, t_end: e.t_end, text: e.text,
-    reason: e.reason || null, repeat: !!(e.immediate_repeat || e.is_echo), repeat_of: e.repeat_of || null, grammar_only: !!e.grammar_only }); continue; }
+    reason: e.reason || null, outcome: outcome(e), repeat: !!(e.immediate_repeat || e.is_echo), repeat_of: e.repeat_of || null, grammar_only: !!e.grammar_only }); continue; }
   const said = C.sentence(e);
   const w = byKey.get(e.word_key) || {};
   scored.push({
