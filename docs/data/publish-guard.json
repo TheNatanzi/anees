@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-10T11:51:12-07:00",
+ "updated": "2026-10-10T12:01:03-07:00",
  "result": "pass",
- "source": "manual: grade book PG-46, Tutor pause AM-28, 10-08 Meet chat PG-47",
- "checked_commit": "ae14341179f3",
- "secs": 124.8,
+ "source": "manual: Tutor review card count (AM-28)",
+ "checked_commit": "4f5f96ad7bb2",
+ "secs": 110.8,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.5,
+   "secs": 1.3,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "122 JSON files parse"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 3.3,
+   "secs": 3.6,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.2,
+   "secs": 1.5,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 2.1,
+   "secs": 2.4,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 743 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 5.3,
+   "secs": 3.9,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...6 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.8,
+   "secs": 6.1,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 72 pages, every link, data file and clip resolves (49 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 1.7,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 90.0,
+   "secs": 76.0,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "................... [ 92%] | .......................................................                  [100%] | 771 passed, 1 skipped, 3 xfailed in 87.97s (0:01:27)"
+   "detail": "................... [ 92%] | ........................................................                 [100%] | 772 passed, 1 skipped, 3 xfailed in 72.65s (0:01:12)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 6.2,
+   "secs": 6.0,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6102.2955"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5891.9558"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.6,
+   "secs": 6.0,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -177,7 +177,7 @@
    "id": "foreign_script",
    "required": false,
    "ok": false,
-   "secs": 0.2,
+   "secs": 0.4,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)",
    "detail": "exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
   }
