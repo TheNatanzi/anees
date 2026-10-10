@@ -224,3 +224,15 @@ def test_ws_32_pronouns_are_never_judged_and_ra7_is_read_from_the_next_word():
     detail["turns"][0]["text"] = "أمس هو راح"
     _, _, rows = WC.plan("2026-10-09", detail, [anchor], keys, rulings=[])
     assert next(r for r in rows if r["word"] == "راح")["key"] == "rA7"
+
+
+def test_ws_33_marra_is_her_one_time_row_and_a_word_she_typed_in_chat_is_new():
+    """WS-33 (Medi 2026-10-09 "are you not following amals spelling for the corrections?", 10-08 35:20 مرة. Um, تلجت):
+    مرة is her 'one time' row (Marra), never 'Bitter (F)' (Murra); تلجت is her chat's tallajat, a new word."""
+    d = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", "2026-10-08.json"), encoding="utf-8"))
+    T, tm = d["turns"], d["tmarks"]
+    i = next(k for k, u in enumerate(T) if u["who"] == "Medi" and abs(u["t"] - 2119.6) < 0.3)
+    cs = [c for c in (tm.get(str(i)) or {}).get("c", []) if c["k"] == "vocab" and not c.get("hide")]
+    assert cs and all("مر /" not in (c.get("ar") or "") for c in cs), cs
+    j = next(k for k, u in enumerate(T) if u["who"] == "Medi" and abs(u["t"] - 2125.1) < 0.3)
+    assert any(c["s"] == "new" for c in (tm.get(str(j)) or {}).get("c", [])), tm.get(str(j))

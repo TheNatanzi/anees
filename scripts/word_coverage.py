@@ -310,6 +310,10 @@ class Keys:
         forms = {PRONOUNS.sub("", jsnorm((self.words.get(k) or {}).get("arabic") or "")).strip() for k in keys}
         if len(forms) != 1 or not next(iter(forms)):
             return None
+        # the same MEANING too: مرة is her 'Bitter (F)', 'Woman' and 'One time' - three words, not one (WS-33)
+        mean = [set(re.findall(r"[a-z]{3,}", ((self.words.get(k) or {}).get("english") or "").lower())) - {"the", "and", "for"} for k in keys]
+        if not set.intersection(*mean):
+            return None
         grouped = [k for k in keys if k in self.group]
         return (grouped or keys)[0]
 
@@ -398,6 +402,10 @@ def slip_on(detail, t0, t1, w):
     return False
 
 
+EXTRA = {k: v for k, v in ((J(os.path.join(REPO, "docs", "data", "arabizi-extra.json"), {}) or {}).get("words") or {}).items()
+         if isinstance(v, dict)}
+
+
 def lesson_events(events, date):
     return [e for e in events if e.get("lesson_date") == date and e.get("speaker") == "Medi"]
 
@@ -471,6 +479,12 @@ def plan(date, detail, events, keys, off=(), rulings=None):
     mine = his_rulings(date, rulings)
     PREP = preps()
     taught = taught_today(date)
+    try:                                  # her Meet chat of this lesson (lesson_turns.chat_lines)
+        import lesson_turns
+        chat = [c["text"] for c in lesson_turns.chat_lines(date) if c.get("speaker") == "Amal"]
+    except Exception:  # noqa: BLE001
+        chat = []
+    chat_words = {x.lower().strip("'’.,?!") for c in chat for x in c.split()}
     for i, u in enumerate(turns):
         if u.get("who") != "Medi":
             continue
@@ -487,6 +501,8 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                 rows.append(dict(row, state="na", why="broken off before the end of the word (not a try)"))
                 continue
             key, how = keys.lookup(w)
+            if how == "unclear" and "mara~time" in key:
+                key, how = ("mara" if re.search(r"مرت|زوج|wife|woman", u.get("text") or "") else "mara~time"), "one"
             if how == "unclear" and set(key) == {"ra7", "rA7"}:
                 nxt = toks[n + 1]["ar"] if n + 1 < len(toks) else ""
                 key, how = ("ra7" if re.match(r"[اأنتيب]\S{2,}", norm(nxt) or "") and norm(nxt) not in FUNCTION else "rA7"), "one"
@@ -501,11 +517,15 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                 rows.append(dict(row, state="na", why="two list words are spelled this way (%s): unclear which he meant" % " / ".join(
                     "%s '%s'" % (k, (keys.words.get(k) or {}).get("english") or "") for k in key)))
                 continue
-            if how == "part":
+            new = next((t_ for a, t_ in taught if taught_match(a, w)), None)
+            if new is None and how in ("none", "sheet", "part"):
+                lat = (EXTRA.get(w) or EXTRA.get(norm(w)) or {}).get("latin")
+                if lat and lat.lower() in chat_words:
+                    new = "she typed '%s' in the chat" % lat
+            if how == "part" and new is None:
                 rows.append(dict(row, state="na", why="one word of a longer list phrase (%s), not a list word by itself" % key))
                 continue
-            new = next((t_ for a, t_ in taught if taught_match(a, w)), None)
-            if how in ("none", "sheet") and new is not None:
+            if how in ("none", "sheet", "part") and new is not None:
                 rows.append(dict(row, state="new", key=key, why="new word: the tutor taught it in this lesson (%s); not on her list yet, not scored" % new))
                 continue
             if how in ("none", "sheet"):
@@ -519,7 +539,14 @@ def plan(date, detail, events, keys, off=(), rulings=None):
             if key in PREP:
                 rows.append(dict(row, state="na", grammar=True, why="a preposition: scored as grammar, not as a word"))
                 continue
-            e = event_on(evs, t0, t1, w, key)
+            e = event_on(evs, t0, t1, w, key) or (event_on(evs, t0, t1, w, None) if key == "mara~time" else None)
+            if e is not None and key == "mara~time" and e.get("word_key") in ("mura", "mara", "mur") and not ledger_ids() & {e.get("id")}:
+                exp = {k: e.get(k) for k in ["source_sha256", "row_id", "word_key", "text", "t_start", "t_end", "assessment", "reason"]}
+                patches[e["id"]] = {"expected": exp, "changes": {"word_key": "mara~time", "candidate_keys": sorted(set((e.get("candidate_keys") or []) + ["mara~time"])),
+                                                                  "reason": "مرة here is her 'one time' row (Marra), not 'bitter' or 'woman' (WS-33)", "by": BY, "rule": "WS-33"}}
+                row.update(key=key, event=e["id"], patched="key")
+                rows.append(row)
+                continue
             if e is not None and e.get("word_key") != key:
                 e = None                  # the matcher's event names no list word (two candidates): it scores nothing, so this word gets its own
             state, why, j = judge_word(turns, i, w, key, keys.of, sup)

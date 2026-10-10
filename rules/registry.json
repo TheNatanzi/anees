@@ -9616,6 +9616,48 @@
     "t": "15:36",
     "note": "أنا راح أعمله غلط كتير: no chip on أنا, راح = ra7 (will), غلط = 8ala6"
    }
+  },
+  {
+   "id": "WS-33",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A word her list has under several meanings is judged under the meaning of the moment, in her spelling for it: مرة is her 'One time' row (Marra), her 'Woman' row (Mara) only on a line about a wife / woman, never 'Bitter (F)' (Murra) by default; two rows count as one word only when they share the Arabic AND a meaning (بلبس 'I wear' twice). A word she typed in the Meet chat of that lesson that is not on her list is a ★ new word in her chat spelling (10-08 35:24 تلجت = her 'tallajat'), not 'part of a phrase'.",
+   "plain": "A word with several meanings on the tutor's list is marked with the meaning you used (marra = one time, not bitter). A word she typed in the chat that is not on her list shows as a new word.",
+   "plain_for": "27828588",
+   "topic": "word scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "are you not following amals spelling for the corrections?",
+     "session": "f5d90041"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "if how == \"unclear\" and \"mara~time\" in key:"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "the same MEANING too"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_33_marra_is_her_one_time_row_and_a_word_she_typed_in_chat_is_new"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "35:19",
+    "note": "مرة. Um, تلجت: was ✓ Murra (bitter) and grey 'part of a phrase'; now ✓ Marra and ★ new word tallajat"
+   }
   }
  ]
 }
