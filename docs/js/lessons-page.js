@@ -727,6 +727,7 @@ function sentences(turns, tm) {
       var off = last.turn.text.length + 1;
       last.turn = Object.assign({}, last.turn, {
         text: last.turn.text + ' ' + t.text, end: t.end,
+        en: [last.turn.en, t.en].filter(Boolean).join(' ') || undefined,   // PG-40: one English line for the joined sentence
         engine: (last.turn.engine || t.engine) ? [(last.turn.engine || last.turn.text), (t.engine || t.text)].join(' ') : undefined,
         heard: (last.turn.heard || []).concat(t.heard || [])
       });

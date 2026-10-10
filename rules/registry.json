@@ -9522,9 +9522,9 @@
    "scope": "pages",
    "status": "enforced",
    "change": "new",
-   "statement": "Every line of the lesson transcript that holds Arabic (Arabic script, or his Latin-letter Arabic the Arabizi reader reads) shows one natural English sentence of what was said, small under the line (Medi chose 'whole sentence' over word-by-word). Made by Claude Haiku through the Claude command line, 60 lines a call (scripts/translate_lines.py, logged in data/runs), cached per line text in data/lesson-work/translations/<date>.json so a line is translated again only when its text changes; the student's meaning is translated even when his Arabic has a slip. Every new lesson gets it in the same-day review (scripts/review_lesson.py step 6) and scripts/build_lessons_page_data.py puts it on the turn as 'en'. Display only: nothing is scored from it. ANEES_TRANSLATE=off stops it.",
-   "plain": "Every Arabic line on the lesson transcript has its English translation underneath.",
-   "plain_for": "f9afa2f1",
+   "statement": "Every line of the lesson transcript that holds Arabic (Arabic script, or his Latin-letter Arabic the Arabizi reader reads) shows one natural English sentence of what was said, small under the line (Medi chose 'whole sentence' over word-by-word). Made by Claude Haiku through the Claude command line, 60 lines a call (scripts/translate_lines.py, logged in data/runs), cached per line text in data/lesson-work/translations/<date>.json so a line is translated again only when its text changes; the student's meaning is translated even when his Arabic has a slip. Every new lesson gets it in the same-day review (scripts/review_lesson.py step 6) and scripts/build_lessons_page_data.py puts it on the turn as 'en'. Display only: nothing is scored from it. ANEES_TRANSLATE=off stops it. The English is ALL English: a line that mixes Arabic and English gets the full sentence in English, an Arabic word the line talks about is written in Latin letters in quotes, and an English that still holds an Arabic letter is dropped from the cache and translated again (746 of 9,836 lines on 2026-10-09). A joined sentence (PG-23 / PG-42) shows one English line.",
+   "plain": "Every Arabic line on the lesson transcript has its full English translation underneath, all in English.",
+   "plain_for": "5425e30d",
    "topic": "the lessons page",
    "source": [
     {
@@ -9537,6 +9537,12 @@
      "by": "medi",
      "date": "2026-10-09",
      "quote": "Whole sentence (Recommended)",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "if we are speaking arabic and english in the same sentence, just put the full english sentence for the translatuion",
      "session": "f5d90041"
     }
    ],

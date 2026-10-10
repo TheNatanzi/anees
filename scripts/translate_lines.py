@@ -26,9 +26,11 @@ AR = re.compile(r"[ء-ي]")
 PROMPT = """You translate lines from a one-to-one Levantine (Palestinian / Jordanian) Arabic lesson into English.
 The student (Medi) is learning; the tutor (Amal) teaches. Lines mix English, Arabic script and Arabic in Latin letters
 (Arabizi: 2=hamza, 3=ain, 5=kh, 6=ta, 7=ha, 8=ghain, 9=sad). For each line give ONE short, natural English sentence of
-what was said. Keep the English parts as they are. Translate what the student meant, even when his Arabic has a
-mistake. Fillers (um, آآآ) and cut-off words are left out. Return ONLY a JSON object {"<id>": "<english>", ...} with
-every id below and nothing else.
+what was said, ALL in English: when a line mixes Arabic and English, give the full sentence in English - translate every
+Arabic and Arabizi word, never copy an Arabic letter into the English. When the line talks ABOUT an Arabic word ("آخر
+المرة means..."), write that word in Latin letters in quotes ('aakher el-marra' means...). Keep the English parts as
+they are. Translate what the student meant, even when his Arabic has a mistake. Fillers (um, آآآ) and cut-off words
+are left out. Return ONLY a JSON object {"<id>": "<english>", ...} with every id below and nothing else.
 
 Lines:
 """
@@ -65,7 +67,9 @@ def path(date):
 
 
 def load(date):
-    return (J(path(date), {}) or {}).get("lines") or {}
+    """The cache; an English that still holds Arabic letters is dropped (PG-40: Medi 2026-10-09 "if we are speaking arabic and
+    english in the same sentence, just put the full english sentence for the translatuion"), so it is translated again."""
+    return {k: v for k, v in ((J(path(date), {}) or {}).get("lines") or {}).items() if not AR.search(v or "")}
 
 
 def attach(date, turns):
@@ -101,7 +105,7 @@ def _call(lines):
         out = json.loads(m.group(0)) if m else {}
     except ValueError:
         return {}
-    return {str(k): str(v).strip() for k, v in out.items() if isinstance(v, (str, int, float)) and str(v).strip()}
+    return {str(k): str(v).strip() for k, v in out.items() if isinstance(v, (str, int, float)) and str(v).strip() and not AR.search(str(v))}
 
 
 def run(date, workers=4, log=print):

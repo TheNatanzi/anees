@@ -198,6 +198,10 @@ def test_pg_40_every_arabic_line_of_10_08_has_its_english_under_it():
     have = [u for u in want if u.get("en")]
     assert want and len(have) >= 0.97 * len(want), (len(have), len(want))
     assert not any(u.get("en") for u in d["turns"] if not TRL.wants(u))     # English lines get none
+    # the English is all English (Medi 2026-10-09 "just put the full english sentence for the translatuion")
+    assert not [u["en"] for u in d["turns"] if re.search(r"[ء-ي]", u.get("en") or "")]
+    js = open(os.path.join(ROOT, "docs", "js", "lessons-page.js"), encoding="utf-8").read()
+    assert "en: [last.turn.en, t.en].filter(Boolean).join(' ')" in js
     js = open(os.path.join(ROOT, "docs", "js", "lessons-page.js"), encoding="utf-8").read()
     assert "if (t.en) main.appendChild(el('div', 'ls-line-en', t.en));" in js
     os.environ["ANEES_TRANSLATE"] = "off"

@@ -562,8 +562,8 @@ _What each page shows, the audio clips, and keeping numbers up to date._
   <br><sub>Medi, 2026-09-26: “review every lesson immediately”</sub>
 - Each word on the transcript gets one mark, in one colour per meaning: green right, blue half, red wrong, purple repeat, yellow new word, orange the tutor's correction, grey not scored. All your right words on a line sit in one green chip, and fixed words show in Arabizi. `PG-39` _Automatic_
   <br><sub>Medi, 2026-10-09: “Im confused here you counted the preposition then didnt score? Just make one mark that the preposition was a repeat.” · Medi, 2026-10-09: “Lets assign a new color for new words and another color for repeats, and another for corrections.” · Medi, 2026-10-09: “go” · Medi, 2026-10-09: “Lets put all the correct words in one correct vocab pil” · Medi, 2026-10-09: “Also do the corrections in arabizi as well”</sub>
-- Every Arabic line on the lesson transcript has its English translation underneath. `PG-40` _Automatic_
-  <br><sub>Medi, 2026-10-09: “Lets add all the english transaltions below the arabic writing” · Medi, 2026-10-09: “Whole sentence (Recommended)”</sub>
+- Every Arabic line on the lesson transcript has its full English translation underneath, all in English. `PG-40` _Automatic_
+  <br><sub>Medi, 2026-10-09: “Lets add all the english transaltions below the arabic writing” · Medi, 2026-10-09: “Whole sentence (Recommended)” · Medi, 2026-10-09: “if we are speaking arabic and english in the same sentence, just put the full english sentence for the translatuion”</sub>
 - When the engine splits one sentence at a pause, the page shows it as one sentence again, for the tutor and for you. `PG-42` _Automatic_
   <br><sub>Medi, 2026-10-09: “I know there are long pauses here but can you tell its the same sentence ?” · Medi, 2026-10-09: “join”</sub>
 - On a 'Which word was wrong?' card Amal can pick Another word and type what Medi really said and the right word, and she can add a note to any answer. Her words are kept with the moment; a person reads it before any count changes. `LS-14` _Automatic_
