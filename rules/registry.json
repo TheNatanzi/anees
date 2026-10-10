@@ -2677,7 +2677,7 @@
     {
      "type": "code",
      "path": "scripts/transcript_fixes.py",
-     "contains": "def kaman_marra(turns):"
+     "contains": "def kaman_marra(turns, date=None):"
     }
    ],
    "test": [
@@ -9039,6 +9039,93 @@
    }
   },
   {
+   "id": "TR-30",
+   "kind": "process",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The note reader (scripts/correction_parse.py, PG-37) turns Medi's typed notes into rows; its heard-word rows (payload from = 'ai') land only when they change something real (scripts/medi_corrections.py ai_text_ok, transcript_fixes._lands): a row whose heard = engine_wrote never drops the second listen's line (it may still carry his credit: 10-08 47:16 'bara' had kept the Latin over the re-heard برّا, 08:36 'اليوم talvez' over اليوم بلبس), and Latin letters or his * are never written onto an Arabic line (43:04 'bye7re2*', 32:23 '8eir 3an el* aaa'); the agent re-writes those in her letters in data/lesson-work/medi-corrections-hand.json. The reader's prompt says his X* is the RIGHT form and '(not Y)' is what the line wrongly shows - '8eir* (not ba3eed)' is a transcript fix, never a slip (10-08 31:50-32:33: the reader had made three 'ba3eed' slips out of it) - and heard is written in Arabic letters on an Arabic line. 10-08: 21 of the reader's rows undone and re-written.",
+   "plain": "The note reader never undoes the second listen and never writes Latin letters onto an Arabic line; your 'X*' means X is the right form.",
+   "plain_for": "32825214",
+   "topic": "your corrections",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "8eir* (not ba3eed)"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "do a full audit of the lesson and use the corrections I made to make final rule adjustments and corrections"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/medi_corrections.py",
+     "contains": "def ai_text_ok(p):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/transcript_fixes.py",
+     "contains": "if r.get(\"ai\") and r[\"engine_wrote\"] == r.get(\"heard\"):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/correction_parse_prompt.md",
+     "contains": "His \"X*\" marks X as the RIGHT form"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_2026_10_10.py",
+     "contains": "def test_tr_30_the_note_readers_rows_never_undo_the_second_listen_or_put_latin_on_arabic"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "32:05",
+    "note": "'8eir* (not ba3eed)': بيد -> غير on the line, no slip"
+   }
+  },
+  {
+   "id": "TR-31",
+   "kind": "process",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "When the engine misheard a word of his and the TUTOR's own words show what he said - her line right after, her answer, or the line she typed in the Meet chat - the agent's audit fixes it in the heard-word overlay (data/lesson-work/transcript-fixes.json, rule TR-31, by claude-audit-<date>, with the evidence in 'why'; raw text kept, S2). Never on a guess: no evidence from her, no fix. 10-09 (32 lines): 48:07 تيني 'fig' = his أعطيني (her 'give me three papers', chat 'a3tani talat wara2aat'), 62:30 بيتي 'my house' = his بدي (chat 'biddi lu3be taanie'), 52:03 أعلم = his أغلب (chat 'a8lab el-byoot'), 65:07 'actor' = his أكتر (her 'بتبسط أكتر، صح.'), 69:12 بتزهر = his بتزهق, 47:41 her 'What a' = her ورقة; his Latin lines read from her chat (55:13 'Aqlab asilti' = أغلب أسئلتي). scripts/lesson_audit.py lists the candidates each pass.",
+   "plain": "When the tutor's own words or her chat line show the engine misheard you, the transcript is fixed (with that evidence); never on a guess.",
+   "plain_for": "34ce31d6",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "Then apply it to 10-9.  Audit 10-9 at least 4-5 times until you are sure that you can replicate all the steps ALL THE STEPS we took to fix 10-8."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/lesson_audit.py",
+     "contains": "def audit(date, notes=False, out=print):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_2026_10_10.py",
+     "contains": "def test_tr_31_the_tutors_words_fix_a_misheard_word_of_his"
+    }
+   ],
+   "example": {
+    "date": "2026-10-09",
+    "t": "48:07",
+    "note": "تيني (fig, credited) -> أعطيني"
+   }
+  },
+  {
    "id": "PR-22",
    "kind": "process",
    "scope": "process",
@@ -9473,6 +9560,47 @@
    }
   },
   {
+   "id": "GR-35",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "From 10-08 on (10-08 and 10-09 only, Medi 2026-10-10) the grammar counter reads the way a teacher does on what the 10-09 four-reader line-by-line read (GR-34) found it gets wrong (scripts/detect_grammar_usage.py teacher_read / asks_more): اليوم 'today' is a fixed word, never an el- use (A1) nor an idafa (شوب اليوم); والله is an oath (no A1, no C5); a demonstrative alone (هذا. / hadha,) agrees with nothing (no A10); a demonstrative before its el- noun is A10 + A10b (هذه القبة); a bare verb after بقدر / بنقدر is B2 (بنقدر نروح); 'الـ صيف' is الصيف (D1 + D5); a year (ألفين) is no E4; and more ways he asks about a form are no use ('Would it be مفضلة؟', 'wouldn't it be...', 'so it's not...', 'so there's no...'). The 10-09 read's other moments are in data/grammar-usage-additions.json (47) and data/grammar-usage-rulings.json (45), rule GR-34, like 10-08's; 12 of its items were left out because her own words say otherwise (her 'No' after جبالي, كام مرة = 'again?', repeats of her model).",
+   "plain": "Grammar is counted the way a teacher reads it: اليوم 'today', والله and a lone هذا are no uses; هذه + noun is; a question like 'would it be...?' is no use.",
+   "plain_for": "8cf923de",
+   "topic": "grammar scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "Then apply it to 10-9.  Audit 10-9 at least 4-5 times until you are sure that you can replicate all the steps ALL THE STEPS we took to fix 10-8."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "def teacher_read(found, txt):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "def asks_more(text):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_2026_10_10.py",
+     "contains": "def test_gr_35_teacher_read"
+    }
+   ],
+   "example": {
+    "date": "2026-10-09",
+    "t": "06:36",
+    "note": "اليوم (today) no longer an A1 use"
+   }
+  },
+  {
    "id": "PG-39",
    "kind": "process",
    "scope": "pages",
@@ -9858,7 +9986,7 @@
     {
      "type": "code",
      "path": "scripts/word_coverage.py",
-     "contains": "def taught_match(a, w, ta=None, tw=None, loose=True):"
+     "contains": "def taught_match(a, w, ta=None, tw=None, loose=True, sounds=False):"
     },
     {
      "type": "code",
@@ -9893,6 +10021,121 @@
     "date": "2026-10-08",
     "t": "09:44",
     "note": "ديرت was grey 'not on her word list'; now ★ new (her بدير بالي, taught 09:15)"
+   }
+  },
+  {
+   "id": "WS-36",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "From 10-08 on (Medi chose 10-08 and 10-09 only, 2026-10-10; scripts/word_coverage.py AGAIN_FROM): (1) the same word of his on two lines in a row - nothing from the tutor between but a nod (Mm, Mm-hmm, مهم), at most 10 s apart - is ONE try: the first keeps its mark, the second is grey 'said again ... counted once' (said_again: 22:03 قمر / 22:05 القمر, 47:07 / 47:09 شجر); another form is another try (38:43 غيوم, 38:46 غيم). (2) راح at the end of his line reads the first word of his next line: before a verb it is ra7 'will' (next_his_word: 15:30 'أنا راح،' / 15:33 'أعمله'). (3) A counted slip's fix belongs to her ONE line nearest its time (supplies): 09:48 'بال مين؟' no longer takes her 09:51 fix, so his خطيبتي said before the fix is not a 'repeat'. (4) A word HIS own fix put on the line is judged as said, not 'the second listen changed it' (20:05 اليوم -> غيوم = her 8aime). (5) His English question about her words ('so it is il mufaddal, but why is it il here?' after her 'هاد الدرس المفضل عندي') - 4+ English words and a '?' - quotes her line of the 20 s before: her words in it are repeats (vocab ↻) and the line is no grammar use (question_about / quoted_events; 10-08 59:29, 59:39, 59:47).",
+   "plain": "The same word said twice in a row (only a nod from her between) counts once; راح at the end of your line is read with the verb on your next line; a word your own fix put on the line is judged; your English question about her words makes them repeats.",
+   "plain_for": "2044a222",
+   "topic": "word scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "dont double count 2amar"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "you should be able to tell from contxt that ra7 here is will."
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "these are all repeats"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "do a full audit of the lesson and use the corrections I made to make final rule adjustments and corrections"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def said_again(date, turns, rows, adds, patches, evs, window=10.0):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def next_his_word(turns, i, window=8.0):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def quoted_events(turns, evs, keys, patches, rows):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_2026_10_10.py",
+     "contains": "def test_ws_36_the_same_word_twice_in_a_row_is_one_try"
+    },
+    {
+     "path": "tests/test_audit_2026_10_10.py",
+     "contains": "def test_ws_36_a_fix_belongs_to_her_one_line_nearest_its_time"
+    },
+    {
+     "path": "tests/test_audit_2026_10_10.py",
+     "contains": "def test_ws_36_his_question_about_her_words_quotes_them"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "22:05",
+    "note": "قمر ✓ then القمر: one credit; القمر is the A1 slip"
+   }
+  },
+  {
+   "id": "WS-37",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "From 10-08 on (Medi chose 10-08 and 10-09 only, 2026-10-10), a word of his is her word when only his SOUNDS differ (S4: pronunciation never makes a missed word; scripts/word_coverage.py Keys.sound_word): his ق / غ / ك are one sound and her 2 is ق / ء (he is a Farsi speaker: 10-09 11:10 أوي = her قوي 2awi, 65:52 أكلب = her أغلب a8lab); the engine's ذ / ظ / ض / ز, ت / ط, س / ص swap (13:18 بوذة = her بوظة, 22:49 مابسوت = her مبسوط); a long a written in (04:06 ماي = her مي); her ة ending as ت before an ending (17:35 بوذتي = her بوظة + -i); the engine's MSA شاطئ is her شط (21:34; she says 'You used شط'). Only when exactly one word of hers fits. A word she taught that lesson said with his sounds within 2 minutes is that new word (taught_match sounds: 04:20 نانا = her نعنع, 27:10 قبه = her غابة). Also: a place name is a name, never 'not on her word list' (11:13 إيران, 52:16 أمريكا, كاليفورنيا); نفس is her 'Same' and روح her 'I go' unless the line says breath / home (one meaning of two rows, WS-33); a stretched pronoun (03:27 أنااا) is the pronoun (WS-32); a preposition with a pronoun ending (فيهم, عليها, إلي) is grammar (PG-43); two of her words a letter apart are two words for a repeat (01:52 his عشان is not her عيان). 10-09: 'not on her word list' 39 -> 17.",
+   "plain": "A word of yours counts as her word when only your sounds differ (your ق / غ / ء are one sound; the engine swaps ذ / ظ and ت / ط; a long a written in); place names are names, not 'not on her list'.",
+   "plain_for": "34e623ea",
+   "topic": "word scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "Then apply it to 10-9.  Audit 10-9 at least 4-5 times until you are sure that you can replicate all the steps ALL THE STEPS we took to fix 10-8."
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "why are there still so many not on her list?"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def sound_word(self, w):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def _place(loanwords, w):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_2026_10_10.py",
+     "contains": "def test_ws_37_his_sounds_find_her_word"
+    }
+   ],
+   "example": {
+    "date": "2026-10-09",
+    "t": "11:10",
+    "note": "أوي (not on her list) -> her قوي 2awi"
    }
   },
   {
@@ -9936,6 +10179,139 @@
     "date": "2026-10-08",
     "t": "28:04",
     "note": "Since the beginning / of the day, ... -> one line"
+   }
+  },
+  {
+   "id": "PG-43",
+   "kind": "process",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A grey 'not scored' chip whose reason only restates a standing rule, not something about his word, is kept in the data but never drawn on any transcript (scripts/word_coverage.py QUIET: the chip gets quiet = PG-43 and hide = 'quiet'; transcript_marks.one_per_word never shows it nor lists it as 'also'; the build prints the count per lesson). WS-30 still holds: word_coverage.report() reads the hidden chip, so every Arabic word of his is accounted for. Hidden: 'a preposition: scored as grammar, not as a word' (10-08: 43 chips, e.g. 07:25 من; la- with a pronoun ending - لي, لك, له - is a preposition too: 54:22 لي), and from 10-08 on 'the recording engine wrote X; you said Y', which only repeats his own fix that the line's note already shows (20:05). Medi 2026-10-10 kept these on the page: 'broken off before the end of the word', 'said before his own recording starts', 'off-lesson', 'a question about the rule, not a use' ('these should all show').",
+   "plain": "A grey chip that only repeats a standing rule (a preposition is scored as grammar; 'the engine wrote X, you said Y' after your own fix) stays in the data but is not shown on the transcript.",
+   "plain_for": "3f81c040",
+   "topic": "the lessons page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "– Not scored · vocab · من: a preposition: scored as grammar, not as a word  For these rules like this just keep a not of it on your end but dont publish.  its not useful info"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "these should all show"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "QUIET = {\"a preposition: scored as grammar, not as a word\": \"PG-43\"}"
+    },
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "and not c.get(\"quiet\")]"
+    },
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "why.startswith(\"the recording engine wrote\")"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_pg_43_a_standing_rule_grey_reason_is_kept_in_the_data_but_never_drawn"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "07:25",
+    "note": "من: a preposition: scored as grammar, not as a word -> kept in data, not drawn"
+   }
+  },
+  {
+   "id": "PG-44",
+   "kind": "process",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A grey 'not scored' chip names its word in Arabizi first (her spelling, else the Arabizi reader), the Arabic small after it, then the reason without the Arabic word in front (docs/js/transcript-marks.js subject). A word slip that is not on her list carries its word (scripts/transcript_marks.py grey ar / w); when he ASKED for a word ('how do I say taking care?') the chip names the word she gave: 10-08 09:10 'asked the tutor; she gave ديرت بالي - not on her word list, not scored', 04:14 كحة. Before, 8 grey chips of 10-08 had no word at all and none of the 111 showed Arabizi.",
+   "plain": "A grey 'not scored' chip shows its word in Arabizi with the Arabic after it; when you asked for a word, it shows the word she gave.",
+   "plain_for": "c286c2a4",
+   "topic": "the lessons page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "why are there still so many not on her list? and why are there pill boxes still not showing arabizi as well"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/transcript-marks.js",
+     "contains": "if (c.s === 'na' && isArabic(c.ar)) {"
+    },
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "asked the tutor; she gave %s - not on her word list, not scored"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_2026_10_10.py",
+     "contains": "def test_pg_44_a_grey_chip_names_its_word_and_an_asked_word_names_what_she_gave"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "09:10",
+    "note": "grey chip with no word -> 'deert baali ديرت بالي · asked the tutor ...'"
+   }
+  },
+  {
+   "id": "PG-45",
+   "kind": "process",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "From 10-08 on, a tutor line that is only مهم (or ممم / مم) is her 'mm-hmm', not the word 'important': the line reads 'Mm-hmm.' with the engine's text kept (S2) (scripts/transcript_fixes.py tutor_nod, run on every page build). 10-08 24:45, 24:55, 25:08, 27:38. Earlier lessons wait for Medi's yes.",
+   "plain": "When the tutor only says مهم it means mm-hmm, so the line shows 'Mm-hmm.' instead of the word 'important'.",
+   "plain_for": "8655b942",
+   "topic": "the lessons page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "MHM (confirmation)"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "do a full audit of the lesson and use the corrections I made to make final rule adjustments and corrections"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/transcript_fixes.py",
+     "contains": "def tutor_nod(turns, date):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_2026_10_10.py",
+     "contains": "def test_pg_45_the_tutors_mhm_is_mm_hmm_not_important"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "24:45",
+    "note": "مهم. -> Mm-hmm."
    }
   }
  ]

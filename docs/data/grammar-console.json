@@ -6,7 +6,7 @@
   "buckets_scored": 59,
   "lessons_scored": 22,
   "lessons_recorded": 22,
-  "note": "Corrections come from the full audit of 2026-09-26: two independent readers per lesson, a third settling disagreements, reconciled with the 2026-09-24 hand sweep (a hand check of 20 scored rows found 17 right). 736 fixes the tutor voiced or typed, filed in an approved rule, are counted. Uses are machine-counted: every time his Arabic exercises the rule, right or wrong; a fix with no counted use within 2 s counts as a use too, so a rule never has more mistakes than uses. Unscored = no counter sees his right uses of the rule, so its fixes are listed but no % is given. Asks: his own questions about a form (rule M1). Untested = he never used it in any recorded lesson, or it is a sound (F). Not taught yet = the tutor has not taught the rule (her notes, 2026-09-27): no score, left out of every total. 15 corrections are shown but not counted (the tutor's notes: not taught yet, or not a mistake - list in data/amal-grammar-notes-2026-09-29.json). A score built from a lesson that is not verified yet is marked with ≈ (hover or tap it for why).",
+  "note": "Corrections come from the full audit of 2026-09-26: two independent readers per lesson, a third settling disagreements, reconciled with the 2026-09-24 hand sweep (a hand check of 20 scored rows found 17 right). 737 fixes the tutor voiced or typed, filed in an approved rule, are counted. Uses are machine-counted: every time his Arabic exercises the rule, right or wrong; a fix with no counted use within 2 s counts as a use too, so a rule never has more mistakes than uses. Unscored = no counter sees his right uses of the rule, so its fixes are listed but no % is given. Asks: his own questions about a form (rule M1). Untested = he never used it in any recorded lesson, or it is a sound (F). Not taught yet = the tutor has not taught the rule (her notes, 2026-09-27): no score, left out of every total. 15 corrections are shown but not counted (the tutor's notes: not taught yet, or not a mistake - list in data/amal-grammar-notes-2026-09-29.json). A score built from a lesson that is not verified yet is marked with ≈ (hover or tap it for why).",
   "not_taught": [
    "B14",
    "B15"
@@ -417,22 +417,22 @@
   },
   {
    "date": "2026-10-08",
-   "medi_sentences": 242,
-   "slips": 26,
-   "slips_counted": 26,
+   "medi_sentences": 241,
+   "slips": 27,
+   "slips_counted": 27,
    "sound_slips": 0,
-   "detected_uses": 186,
-   "rule_uses": 210,
-   "scored_slips": 26,
+   "detected_uses": 168,
+   "rule_uses": 193,
+   "scored_slips": 27,
    "unscored_slips": 0,
-   "grammar_pct": 87.6,
+   "grammar_pct": 86.0,
    "unique_rules": 34,
    "not_counted": 0,
    "rights": 0,
    "asks_verified": 0,
    "asks_machine": 0,
    "asks": 0,
-   "mistakes_per_sentence": 0.1074,
+   "mistakes_per_sentence": 0.112,
    "self_correction_rate": null
   },
   {
@@ -441,12 +441,12 @@
    "slips": 33,
    "slips_counted": 33,
    "sound_slips": 0,
-   "detected_uses": 207,
-   "rule_uses": 239,
+   "detected_uses": 211,
+   "rule_uses": 242,
    "scored_slips": 33,
    "unscored_slips": 0,
-   "grammar_pct": 86.2,
-   "unique_rules": 34,
+   "grammar_pct": 86.4,
+   "unique_rules": 36,
    "not_counted": 0,
    "rights": 0,
    "asks_verified": 0,
@@ -458,14 +458,14 @@
  ],
  "sweep": {
   "file": "data/full-audit-2026-09-26.json",
-  "counted": 736,
+  "counted": 737,
   "buckets_hit": 58,
   "lessons": 22,
   "left_out": 31,
-  "clips": 736,
+  "clips": 737,
   "marks": {
-   "said": 732,
-   "recast": 599,
+   "said": 733,
+   "recast": 598,
    "fallback": 247,
    "none": 14
   }
@@ -510,6 +510,37 @@
    "tally_title": null,
    "kind": null,
    "candidates": [
+    {
+     "id": "FA-81c561f9",
+     "bucket": "A1",
+     "bucket2": null,
+     "date": "2026-10-08",
+     "t": 1325.0,
+     "mmss": "22:05",
+     "said": "القمر؟ القمر.",
+     "recast": "",
+     "recast_at": null,
+     "recast_t": null,
+     "said_html": "<mark class=\"ab-wrong\">القمر</mark>؟ القمر.",
+     "recast_html": "",
+     "wrong": "القمر",
+     "right": "قمر",
+     "pair_wrong": "القمر",
+     "pair_fixed": "قمر",
+     "said_arabizi": null,
+     "recast_arabizi": null,
+     "wrong_arabizi": null,
+     "right_arabizi": null,
+     "why": "Medi 2026-10-10 marked it a mistake: he said it correctly 'fi 3amar' then incorrectly 'el-3amar' so he wasnt sure about the answer and tutor had to correct",
+     "signal": "recast",
+     "chat": null,
+     "confidence": "high",
+     "confidence_why": "medi-correction",
+     "machine_audit": false,
+     "verified": true,
+     "source": "hand-full-audit-2026-09-26",
+     "clip": "2026-10-08/clips/gc-1c347d076a6618a0.mp3"
+    },
     {
      "id": "FA-d5e4f88e",
      "bucket": "A1",
@@ -1131,60 +1162,50 @@
      "clip": "2026-08-25/clips/gc-8f5fe9a1f090b4bc.mp3"
     }
    ],
-   "candidate_count": 20,
+   "candidate_count": 21,
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 4234.5,
-     "mmss": "70:34",
-     "hit": "الشوق",
-     "said": "مع الشوق بك. Bye.",
-     "read_as": "مع الشوق بك .",
+     "t": 4100.1,
+     "mmss": "68:20",
+     "hit": "اللعبة",
+     "said": "هادي آخر الـ lobe إلي.",
+     "read_as": "هادي آخر الـ لعبة إلي .",
      "verdict": "right",
-     "said_html": "مع <mark class=\"ab-correct\">الشوق</mark> بك. Bye.",
-     "clip": "2026-10-09/clips/gc-7e396e51ac3b3784.mp3"
+     "said_html": "هادي آخر الـ lobe إلي.",
+     "clip": "2026-10-09/clips/gc-28f2835c8f825495.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 4057.8,
-     "mmss": "67:37",
-     "hit": "اليوم",
-     "said": "on اليوم.",
-     "read_as": ". اليوم .",
+     "t": 4095.0,
+     "mmss": "68:15",
+     "hit": "اللعبة",
+     "said": "آآآ آخر الـ lobe.",
+     "read_as": "آآآ آخر الـ لعبة .",
      "verdict": "right",
-     "said_html": "on <mark class=\"ab-correct\">اليوم</mark>.",
-     "clip": "2026-10-09/clips/gc-76b70b8bc61f432e.mp3"
+     "said_html": "آآآ آخر الـ lobe.",
+     "clip": "2026-10-09/clips/gc-8a4aff4247940eca.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 3964.2,
-     "mmss": "66:04",
-     "hit": "اللابات",
-     "said": "أكلب اللابات.",
+     "t": 4003.7,
+     "mmss": "66:43",
+     "hit": "اللعبة",
+     "said": "الـ lobe.",
+     "read_as": "الـ لعبة .",
      "verdict": "right",
-     "said_html": "أكلب <mark class=\"ab-correct\">اللابات</mark>.",
-     "clip": "2026-10-09/clips/gc-f5c11cb1f9113dae.mp3"
+     "said_html": "الـ lobe.",
+     "clip": "2026-10-09/clips/gc-3f8ac37ab09075cb.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 3895.0,
-     "mmss": "64:54",
-     "hit": "اللوب",
-     "said": "The other game. Okay. So، uh، اللوب-اللعبة التانية",
-     "read_as": ". ، ، اللوب اللعبة التانية",
+     "t": 3969.4,
+     "mmss": "66:09",
+     "hit": "الأل",
+     "said": "أكلب الـ ألـ، آآآ أل، ألعاب.",
      "verdict": "right",
-     "said_html": "The other game. Okay. So، uh، <mark class=\"ab-correct\">اللوب</mark>-اللعبة التانية",
-     "clip": "2026-10-09/clips/gc-4014d1612d73e6b0.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 3809.2,
-     "mmss": "63:29",
-     "hit": "اليوم",
-     "said": "ثاني لعبة في اليوم.",
-     "verdict": "right",
-     "said_html": "ثاني لعبة في <mark class=\"ab-correct\">اليوم</mark>.",
-     "clip": "2026-10-09/clips/gc-133d3c60a3920126.mp3"
+     "said_html": "أكلب الـ ألـ، آآآ أل، ألعاب.",
+     "clip": "2026-10-09/clips/gc-7d2e978fd745b96d.mp3"
     },
     {
      "date": "2026-10-09",
@@ -1195,17 +1216,6 @@
      "verdict": "right",
      "said_html": "هذه <mark class=\"ab-correct\">اللعبة</mark>.",
      "clip": "2026-10-09/clips/gc-e4f0b8f2249e3076.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 3735.6,
-     "mmss": "62:15",
-     "hit": "اللعبة",
-     "said": "من أول اللعبة. Or would it be أولى؟ Okay. Yeah، أول لعبة.",
-     "read_as": "من أول اللعبة . أولى؟ . ، أول لعبة .",
-     "verdict": "right",
-     "said_html": "من أول <mark class=\"ab-correct\">اللعبة</mark>. Or would it be أولى؟ Okay. Yeah، أول لعبة.",
-     "clip": "2026-10-09/clips/gc-ec1eda4c5ba0e118.mp3"
     },
     {
      "date": "2026-10-09",
@@ -1245,10 +1255,21 @@
      "t": 3128.7,
      "mmss": "52:08",
      "hit": "البيوت",
-     "said": "أعلم البيوت",
+     "said": "أغلب البيوت",
      "verdict": "right",
-     "said_html": "أعلم <mark class=\"ab-correct\">البيوت</mark>",
+     "said_html": "أغلب <mark class=\"ab-correct\">البيوت</mark>",
      "clip": "2026-10-09/clips/gc-bfe579bf29176ab9.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 3005.2,
+     "mmss": "50:05",
+     "hit": "الورقة",
+     "said": "uh, غير الـ ورقة.",
+     "read_as": ", غير الـ ورقة .",
+     "verdict": "right",
+     "said_html": "uh, غير الـ ورقة.",
+     "clip": "2026-10-09/clips/gc-5e9b868ed22a0c8b.mp3"
     },
     {
      "date": "2026-10-09",
@@ -1270,17 +1291,6 @@
      "verdict": "right",
      "said_html": "Um, so أنواع مختلفين <mark class=\"ab-correct\">الأكل</mark>.",
      "clip": "2026-10-09/clips/gc-1c01a4e9db9bb2b7.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 2516.7,
-     "mmss": "41:56",
-     "hit": "اليوم",
-     "said": "awwal il yawm.",
-     "read_as": "أول اليوم .",
-     "verdict": "right",
-     "said_html": "awwal il yawm.",
-     "clip": "2026-10-09/clips/gc-d74f923e366c2292.mp3"
     },
     {
      "date": "2026-10-09",
@@ -1306,13 +1316,16 @@
     },
     {
      "date": "2026-10-09",
-     "t": 2145.5,
-     "mmss": "35:45",
-     "hit": "اليوم",
-     "said": "اليوم.",
+     "t": 1897.6,
+     "mmss": "31:37",
+     "hit": "المنظر",
+     "said": "الـ--",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "el- on known view, not part of her correction",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">اليوم</mark>.",
-     "clip": "2026-10-09/clips/gc-2d3e8d54eee6aa21.mp3"
+     "said_html": "الـ--",
+     "clip": "2026-10-09/clips/gc-96337135b8092cc3.mp3"
     },
     {
      "date": "2026-10-09",
@@ -1333,28 +1346,6 @@
      "verdict": "right",
      "said_html": "هذه <mark class=\"ab-correct\">القبة</mark>،",
      "clip": "2026-10-09/clips/gc-d8487971d59c6811.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 1699.9,
-     "mmss": "28:19",
-     "hit": "القبة",
-     "said": "Oh, so it's not هذي الـ-القبة.",
-     "read_as": ". , . هذي الـ القبة .",
-     "verdict": "right",
-     "said_html": "Oh, so it&#x27;s not هذي الـ-<mark class=\"ab-correct\">القبة</mark>.",
-     "clip": "2026-10-09/clips/gc-e787b5fdf132ab0d.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 1686.7,
-     "mmss": "28:06",
-     "hit": "القبة",
-     "said": "So there's no الـ... Uh, no هذي القبة. Okay. Ha-- uh, اللي...",
-     "read_as": ". الـ . , . هذي القبة . , اللي .",
-     "verdict": "right",
-     "said_html": "So there&#x27;s no الـ... Uh, no هذي <mark class=\"ab-correct\">القبة</mark>. Okay. Ha-- uh, اللي...",
-     "clip": "2026-10-09/clips/gc-8736472e33a61b6a.mp3"
     },
     {
      "date": "2026-10-09",
@@ -1397,6 +1388,16 @@
      "verdict": "right",
      "said_html": "هذه <mark class=\"ab-correct\">الشاطئ</mark>،",
      "clip": "2026-10-09/clips/gc-d83d10b3f5ca038c.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1509.1,
+     "mmss": "25:09",
+     "hit": "الصيف",
+     "said": "في الـ صيف،",
+     "verdict": "right",
+     "said_html": "في الـ صيف،",
+     "clip": "2026-10-09/clips/gc-8167e794fe4c6770.mp3"
     },
     {
      "date": "2026-10-09",
@@ -1471,14 +1472,38 @@
     },
     {
      "date": "2026-10-09",
-     "t": 1137.2,
-     "mmss": "18:57",
-     "hit": "المفضل",
-     "said": "المفضل is-- جبال is masculine, right? Uh, um...",
-     "read_as": "المفضل جبال . , . ? , .",
+     "t": 1128.2,
+     "mmss": "18:48",
+     "hit": "الجبال",
+     "said": "So, it...",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "tutor said bare جبال; the el- is his own",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">المفضل</mark> is-- جبال is masculine, right? Uh, um...",
-     "clip": "2026-10-09/clips/gc-eb9ac048b666913b.mp3"
+     "said_html": "So, it...",
+     "clip": "2026-10-09/clips/gc-70a1d8537f2dda4a.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1032.1,
+     "mmss": "17:12",
+     "hit": "الال",
+     "said": "So الـ مف-- الـ مف-- No. My favorite. Yeah. الـ مفضل. No. مفضل الـ. الـ مفضل الـ.",
+     "read_as": ". الـ الـ . الـ مفضل . مفضل الـ . الـ مفضل الـ .",
+     "verdict": "right",
+     "said_html": "So الـ مف-- الـ مف-- No. My favorite. Yeah. الـ مفضل. No. مفضل الـ. الـ مفضل الـ.",
+     "clip": "2026-10-09/clips/gc-12c1cb0a5afabe95.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 918.2,
+     "mmss": "15:18",
+     "hit": "الآآآ",
+     "said": "الـ مف-- آآآ، الـ مفضلين Andy؟",
+     "read_as": "الـ آآآ، الـ مفضلين . ؟",
+     "verdict": "right",
+     "said_html": "الـ مف-- آآآ، الـ مفضلين Andy؟",
+     "clip": "2026-10-09/clips/gc-d009421f8545bd53.mp3"
     },
     {
      "date": "2026-10-09",
@@ -1489,6 +1514,17 @@
      "verdict": "right",
      "said_html": "<mark class=\"ab-correct\">المسلسلين</mark>؟",
      "clip": "2026-10-09/clips/gc-5c0dcee6a09df870.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 887.1,
+     "mmss": "14:47",
+     "hit": "المفضل",
+     "said": "آآآ، الـ مفضل Andy.",
+     "read_as": "آآآ، الـ مفضل .",
+     "verdict": "right",
+     "said_html": "آآآ، الـ مفضل Andy.",
+     "clip": "2026-10-09/clips/gc-ce76fcd5435addb4.mp3"
     },
     {
      "date": "2026-10-09",
@@ -1512,59 +1548,60 @@
     },
     {
      "date": "2026-10-09",
-     "t": 557.1,
-     "mmss": "09:17",
-     "hit": "والله",
-     "said": "امم، آآآ، نار. نار والله.",
+     "t": 803.6,
+     "mmss": "13:23",
+     "hit": "المفضل",
+     "said": "الـ مفضل in Andy.",
+     "read_as": "الـ مفضل .",
      "verdict": "right",
-     "said_html": "امم، آآآ، نار. نار <mark class=\"ab-correct\">والله</mark>.",
-     "clip": "2026-10-09/clips/gc-2b2b353821e533b2.mp3"
+     "said_html": "الـ مفضل in Andy.",
+     "clip": "2026-10-09/clips/gc-31e60bdc26106f52.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 519.2,
-     "mmss": "08:39",
-     "hit": "الكلمات",
-     "said": "الكلمات الطبيعات.",
+     "t": 723.4,
+     "mmss": "12:03",
+     "hit": "الغير",
+     "said": "الـ غير الـ",
      "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">الكلمات</mark> الطبيعات.",
-     "clip": "2026-10-09/clips/gc-86a0ab51ba14286c.mp3"
+     "said_html": "الـ غير الـ",
+     "clip": "2026-10-09/clips/gc-b7423cdbeedd2cdd.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 513.4,
-     "mmss": "08:33",
-     "hit": "الكلمة",
-     "said": "طبيعة. الكلمة الطبيعة.",
+     "t": 662.0,
+     "mmss": "11:01",
+     "hit": "الهوا",
+     "said": "الـ هوا،",
      "verdict": "right",
-     "said_html": "طبيعة. <mark class=\"ab-correct\">الكلمة</mark> الطبيعة.",
-     "clip": "2026-10-09/clips/gc-9a132320d2682e9d.mp3"
+     "said_html": "الـ هوا،",
+     "clip": "2026-10-09/clips/gc-f8e311a10a29dada.mp3"
     },
     {
-     "date": "2026-10-09",
-     "t": 503.3,
-     "mmss": "08:23",
-     "hit": "الكلمة",
-     "said": "امم، آآ، الكلمة،",
+     "date": "2026-10-08",
+     "t": 3830.6,
+     "mmss": "63:50",
+     "hit": "المفضل",
+     "said": "المفضل",
      "verdict": "right",
-     "said_html": "امم، آآ، <mark class=\"ab-correct\">الكلمة</mark>،",
-     "clip": "2026-10-09/clips/gc-eda6893b454bb258.mp3"
+     "said_html": "<mark class=\"ab-correct\">المفضل</mark>",
+     "clip": "2026-10-08/clips/gc-6659a2f63be71ca5.mp3"
     }
    ],
-   "usage_total": 575,
+   "usage_total": 563,
    "last_used": "2026-10-09",
-   "last_used_mmss": "70:34",
-   "verified_slips": 20,
+   "last_used_mmss": "68:20",
+   "verified_slips": 21,
    "auto_slips": 0,
-   "uses": 593,
-   "mistakes": 20,
+   "uses": 582,
+   "mistakes": 21,
    "asks": 0,
-   "pct": 97,
+   "pct": 96,
    "status": "Mastered",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 593,
+   "uses_seen": 582,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -2472,120 +2509,38 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 3735.6,
-     "mmss": "62:15",
-     "hit": "أول اللعبة",
-     "said": "من أول اللعبة. Or would it be أولى؟ Okay. Yeah، أول لعبة.",
-     "read_as": "من أول اللعبة . أولى؟ . ، أول لعبة .",
+     "t": 4100.1,
+     "mmss": "68:20",
+     "hit": "آخر اللعبة",
+     "said": "هادي آخر الـ lobe إلي.",
+     "read_as": "هادي آخر الـ لعبة إلي .",
      "verdict": "right",
-     "said_html": "من <mark class=\"ab-correct\">أول اللعبة</mark>. Or would it be أولى؟ Okay. Yeah، أول لعبة.",
-     "clip": "2026-10-09/clips/gc-ec1eda4c5ba0e118.mp3"
+     "said_html": "هادي آخر الـ lobe إلي.",
+     "clip": "2026-10-09/clips/gc-28f2835c8f825495.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 3336.1,
-     "mmss": "55:36",
-     "hit": "سؤال السؤالي",
-     "said": "sual tani?",
-     "read_as": ". , . , . , . , سؤال تاني ? , . , . , . , . , . , . , , . ? . , , . , . , . ? , , . , . , . , . أول الـ . , . , , . [ . ] . أول سؤال سؤالك مش . , كان . , . , كان مش . , [ . ] , , , . , . , . سؤال السؤالي . , . اللي ? , . , . , أخر سؤال لي . , . آخر سؤال . , . ? , . , . ، . , . , . , . ? . , . , . , ",
-     "joined": [
-      3313.7,
-      3316.3,
-      3331.7,
-      3336.1,
-      3348.1,
-      3353.7,
-      3365.4,
-      3390.2,
-      3408.4,
-      3416.9,
-      3421.8,
-      3424.7,
-      3429.7,
-      3438.9,
-      3442.9,
-      3448.8,
-      3456.8,
-      3462.4,
-      3467.6,
-      3470.2,
-      3486.8,
-      3490.1,
-      3503.5,
-      3512.4,
-      3517.2,
-      3532.7,
-      3544.9,
-      3549.1,
-      3556.3,
-      3563.5,
-      3567.8,
-      3580.9,
-      3594.1,
-      3596.1,
-      3598.8,
-      3607.6,
-      3611.6,
-      3615.7,
-      3618.2,
-      3622.6,
-      3625.7,
-      3635.3,
-      3639.1,
-      3643.4,
-      3647.9,
-      3652.1,
-      3654.6,
-      3661.6,
-      3664.2,
-      3670.8,
-      3673.3
-     ],
+     "t": 4095.0,
+     "mmss": "68:15",
+     "hit": "آخر اللعبة",
+     "said": "آآآ آخر الـ lobe.",
+     "read_as": "آآآ آخر الـ لعبة .",
      "verdict": "right",
-     "said_html": "sual tani?",
-     "clip": "2026-10-09/clips/gc-d0579041e352da84.mp3"
+     "said_html": "آآآ آخر الـ lobe.",
+     "clip": "2026-10-09/clips/gc-8a4aff4247940eca.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 2963.3,
-     "mmss": "49:23",
-     "hit": "نفس الورقة",
-     "said": "نفس الـ ورقة، ورقة، نفس الورقة.",
+     "t": 2136.7,
+     "mmss": "35:36",
+     "hit": "عيد ميلادك",
+     "said": "عشان،",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "idafa, first word without el-, correct",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "نفس الـ ورقة، ورقة، <mark class=\"ab-correct\">نفس الورقة</mark>.",
-     "clip": "2026-10-09/clips/gc-b0939a998034c1c7.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 2516.7,
-     "mmss": "41:56",
-     "hit": "أول اليوم",
-     "said": "awwal il yawm.",
-     "read_as": "أول اليوم .",
-     "verdict": "right",
-     "said_html": "awwal il yawm.",
-     "clip": "2026-10-09/clips/gc-d74f923e366c2292.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 489.4,
-     "mmss": "08:09",
-     "hit": "شوب اليوم",
-     "said": "yeah. شوي أقل شوب اليوم.‬",
-     "read_as": ". شوي أقل شوب اليوم . ‬",
-     "verdict": "right",
-     "said_html": "yeah. شوي أقل <mark class=\"ab-correct\">شوب اليوم</mark>.‬",
-     "clip": "2026-10-09/clips/gc-13d45fc215b46685.mp3"
-    },
-    {
-     "date": "2026-10-08",
-     "t": 1846.2,
-     "mmss": "30:46",
-     "hit": "أول اليوم",
-     "said": "من أول اليوم",
-     "verdict": "right",
-     "said_html": "من <mark class=\"ab-correct\">أول اليوم</mark>",
-     "clip": "2026-10-08/clips/gc-7a7137bd338a89f8.mp3"
+     "said_html": "عشان،",
+     "clip": "2026-10-09/clips/gc-af860616ab0b477e.mp3"
     },
     {
      "date": "2026-10-08",
@@ -2954,22 +2909,55 @@
      "verdict": "right",
      "said_html": "school and the old. So الـ اسم قديم. No, it&#x27;s like <mark class=\"ab-correct\">اسم القديمة</mark>. Okay, I don&#x27;t know.",
      "clip": "2026-10-01/clips/gc-85c11b037f3a7baa.mp3"
+    },
+    {
+     "date": "2026-10-01",
+     "t": 1617.8,
+     "mmss": "26:57",
+     "hit": "عيلة صديقي",
+     "said": "Uh, عيلة صديقي.",
+     "read_as": ", عيلة صديقي .",
+     "verdict": "right",
+     "said_html": "Uh, <mark class=\"ab-correct\">عيلة صديقي</mark>.",
+     "clip": "2026-10-01/clips/gc-a3fbb6b9599bcba8.mp3"
+    },
+    {
+     "date": "2026-10-01",
+     "t": 1523.6,
+     "mmss": "25:23",
+     "hit": "شنتت شغلي",
+     "said": "Okay, شنتت شغلي، الـ uh حمرا",
+     "read_as": ". , شنتت شغلي، الـ حمرا",
+     "verdict": "right",
+     "said_html": "Okay, <mark class=\"ab-correct\">شنتت شغلي</mark>، الـ uh حمرا",
+     "clip": "2026-10-01/clips/gc-52222f3b07b30862.mp3"
+    },
+    {
+     "date": "2026-10-01",
+     "t": 1501.0,
+     "mmss": "25:01",
+     "hit": "شنتت شغلي",
+     "said": "So would it be شنتت، شنتت شغلي الأحمر، الأحمر،",
+     "read_as": ". شنتت، شنتت شغلي الأحمر، الأحمر،",
+     "verdict": "right",
+     "said_html": "So would it be شنتت، <mark class=\"ab-correct\">شنتت شغلي</mark> الأحمر، الأحمر،",
+     "clip": "2026-10-01/clips/gc-77c02a4a109d595c.mp3"
     }
    ],
-   "usage_total": 104,
+   "usage_total": 101,
    "last_used": "2026-10-09",
-   "last_used_mmss": "62:15",
+   "last_used_mmss": "68:20",
    "verified_slips": 28,
    "auto_slips": 0,
-   "uses": 132,
+   "uses": 129,
    "mistakes": 28,
    "asks": 0,
-   "pct": 79,
+   "pct": 78,
    "status": "Shaky",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 132,
+   "uses_seen": 129,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -3221,70 +3209,6 @@
    "candidate_count": 7,
    "usage": [
     {
-     "date": "2026-10-09",
-     "t": 3598.8,
-     "mmss": "59:58",
-     "hit": "لعبة الأول",
-     "said": "beginning would be-- Yeah, أول لعبة.",
-     "read_as": ". , . , . , . , سؤال تاني ? , . , . , . , . , . , . , , . ? . , , . , . , . ? , , . , . , . , . أول الـ . , . , , . [ . ] . أول سؤال سؤالك مش . , كان . , . , كان مش . , [ . ] , , , . , . , . سؤال السؤالي . , . اللي ? , . , . , أخر سؤال لي . , . آخر سؤال . , . ? , . , . ، . , . , . , . ? . , . , . , ",
-     "joined": [
-      3313.7,
-      3316.3,
-      3331.7,
-      3336.1,
-      3348.1,
-      3353.7,
-      3365.4,
-      3390.2,
-      3408.4,
-      3416.9,
-      3421.8,
-      3424.7,
-      3429.7,
-      3438.9,
-      3442.9,
-      3448.8,
-      3456.8,
-      3462.4,
-      3467.6,
-      3470.2,
-      3486.8,
-      3490.1,
-      3503.5,
-      3512.4,
-      3517.2,
-      3532.7,
-      3544.9,
-      3549.1,
-      3556.3,
-      3563.5,
-      3567.8,
-      3580.9,
-      3594.1,
-      3596.1,
-      3598.8,
-      3607.6,
-      3611.6,
-      3615.7,
-      3618.2,
-      3622.6,
-      3625.7,
-      3635.3,
-      3639.1,
-      3643.4,
-      3647.9,
-      3652.1,
-      3654.6,
-      3661.6,
-      3664.2,
-      3670.8,
-      3673.3
-     ],
-     "verdict": "right",
-     "said_html": "beginning would be-- Yeah, أول لعبة.",
-     "clip": "2026-10-09/clips/gc-9e177e2d6c43a8dd.mp3"
-    },
-    {
      "date": "2026-10-06",
      "t": 3640.4,
      "mmss": "60:40",
@@ -3403,20 +3327,20 @@
      "clip": "2026-09-15/clips/gc-8dee438fba7864c7.mp3"
     }
    ],
-   "usage_total": 12,
-   "last_used": "2026-10-09",
-   "last_used_mmss": "59:58",
+   "usage_total": 11,
+   "last_used": "2026-10-06",
+   "last_used_mmss": "60:40",
    "verified_slips": 7,
    "auto_slips": 0,
-   "uses": 19,
+   "uses": 18,
    "mistakes": 7,
    "asks": 0,
-   "pct": 63,
+   "pct": 61,
    "status": "Wrong",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 19,
+   "uses_seen": 18,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -3588,37 +3512,6 @@
      "verified": true,
      "source": "hand-full-audit-2026-09-26",
      "clip": "2026-10-08/clips/gc-8046d3cad929d124.mp3"
-    },
-    {
-     "id": "FA-e1a37304",
-     "bucket": "A4",
-     "bucket2": "B10",
-     "date": "2026-10-08",
-     "t": 730.0,
-     "mmss": "12:10",
-     "said": "Uh, ديري باليك?",
-     "recast": "دير بالك is actually the command form.",
-     "recast_at": "12:13",
-     "recast_t": 733.0,
-     "said_html": "Uh, <mark class=\"ab-wrong\">ديري باليك</mark>?",
-     "recast_html": "<mark class=\"ab-correct\">دير بالك</mark> is actually the command form.",
-     "wrong": "ديري باليك",
-     "right": "دير بالك",
-     "pair_wrong": "ديري باليك",
-     "pair_fixed": "دير بالك",
-     "said_arabizi": null,
-     "recast_arabizi": null,
-     "wrong_arabizi": null,
-     "right_arabizi": null,
-     "why": "باليك is not a form; the 'your' ending on بال is بالك, which Amal gave (and noted it is the command).",
-     "signal": "recast",
-     "chat": null,
-     "confidence": "medium",
-     "confidence_why": "r1+r2",
-     "machine_audit": false,
-     "verified": true,
-     "source": "hand-full-audit-2026-09-26",
-     "clip": "2026-10-08/clips/gc-85a08d166af65596.mp3"
     },
     {
      "id": "FA-d5baa4c6",
@@ -4179,7 +4072,7 @@
      "clip": "2026-08-25/clips/gc-34169aed3bfba983.mp3"
     }
    ],
-   "candidate_count": 23,
+   "candidate_count": 22,
    "usage": [
     {
      "date": "2026-10-09",
@@ -4194,14 +4087,16 @@
     },
     {
      "date": "2026-10-09",
-     "t": 3750.2,
-     "mmss": "62:30",
-     "hit": "بيتي",
-     "said": "uh, أنا بيتي",
-     "read_as": ", أنا بيتي",
+     "t": 4044.8,
+     "mmss": "67:24",
+     "hit": "Lobti",
+     "said": "الـ أخيرة.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "possessive -i on lu3be",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "uh, أنا <mark class=\"ab-correct\">بيتي</mark>",
-     "clip": "2026-10-09/clips/gc-7402461b95cbc1dd.mp3"
+     "said_html": "الـ أخيرة.",
+     "clip": "2026-10-09/clips/gc-29a364387aaede89.mp3"
     },
     {
      "date": "2026-10-09",
@@ -4248,16 +4143,6 @@
     },
     {
      "date": "2026-10-09",
-     "t": 2887.6,
-     "mmss": "48:07",
-     "hit": "تيني",
-     "said": "تيني",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">تيني</mark>",
-     "clip": "2026-10-09/clips/gc-94bc1e3fe9f433a2.mp3"
-    },
-    {
-     "date": "2026-10-09",
      "t": 2681.9,
      "mmss": "44:41",
      "hit": "يومي",
@@ -4268,34 +4153,26 @@
     },
     {
      "date": "2026-10-09",
-     "t": 1630.3,
-     "mmss": "27:10",
-     "hit": "بعده",
-     "said": "بعده. قبه. Oh, قبه. Yeah, قبه.",
-     "read_as": "بعده . قبه . , قبه . , قبه .",
+     "t": 2136.7,
+     "mmss": "35:36",
+     "hit": "ميلادك",
+     "said": "عشان،",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "possessive ending -ak, your birthday",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">بعده</mark>. قبه. Oh, قبه. Yeah, قبه.",
-     "clip": "2026-10-09/clips/gc-15a12b2d6bf3d375.mp3"
+     "said_html": "عشان،",
+     "clip": "2026-10-09/clips/gc-af860616ab0b477e.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 1627.6,
-     "mmss": "27:07",
-     "hit": "بعده",
-     "said": "بعده؟ بعده؟",
+     "t": 1937.7,
+     "mmss": "32:17",
+     "hit": "بطني",
+     "said": "عشان تم-- اه بطني.",
      "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">بعده</mark>؟ بعده؟",
-     "clip": "2026-10-09/clips/gc-836a41db0aa6e459.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 1625.2,
-     "mmss": "27:05",
-     "hit": "بعده",
-     "said": "بعده؟",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">بعده</mark>؟",
-     "clip": "2026-10-09/clips/gc-0ddfdf2ebb686c88.mp3"
+     "said_html": "عشان تم-- اه <mark class=\"ab-correct\">بطني</mark>.",
+     "clip": "2026-10-09/clips/gc-add93e18c31ae34d.mp3"
     },
     {
      "date": "2026-10-09",
@@ -4328,6 +4205,19 @@
      "verdict": "right",
      "said_html": "بس <mark class=\"ab-correct\">خطيبتي</mark>،",
      "clip": "2026-10-09/clips/gc-8c994d47681b7e5f.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 231.4,
+     "mmss": "03:51",
+     "hit": "بتوني",
+     "said": "Ah.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "بطني = my stomach, possessive ending -i",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "Ah.",
+     "clip": "2026-10-09/clips/gc-c21a2b0bf68b6715.mp3"
     },
     {
      "date": "2026-10-09",
@@ -4417,6 +4307,16 @@
      "verdict": "right",
      "said_html": "Okay. Yeah, let&#x27;s,",
      "clip": "2026-10-08/clips/gc-6f4241f49cdc2abe.mp3"
+    },
+    {
+     "date": "2026-10-08",
+     "t": 588.8,
+     "mmss": "09:48",
+     "hit": "خطيبتي",
+     "said": "خطيبتي.",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">خطيبتي</mark>.",
+     "clip": "2026-10-08/clips/gc-8d43d229feac8557.mp3"
     },
     {
      "date": "2026-10-08",
@@ -4611,17 +4511,17 @@
    "usage_total": 307,
    "last_used": "2026-10-09",
    "last_used_mmss": "68:20",
-   "verified_slips": 23,
+   "verified_slips": 22,
    "auto_slips": 0,
-   "uses": 330,
-   "mistakes": 23,
+   "uses": 329,
+   "mistakes": 22,
    "asks": 0,
    "pct": 93,
    "status": "Good",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 330,
+   "uses_seen": 329,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -6045,17 +5945,6 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 3895.0,
-     "mmss": "64:54",
-     "hit": "اللوب اللعبة",
-     "said": "The other game. Okay. So، uh، اللوب-اللعبة التانية",
-     "read_as": ". ، ، اللوب اللعبة التانية",
-     "verdict": "right",
-     "said_html": "The other game. Okay. So، uh، اللوب-اللعبة التانية",
-     "clip": "2026-10-09/clips/gc-4014d1612d73e6b0.mp3"
-    },
-    {
-     "date": "2026-10-09",
      "t": 1469.5,
      "mmss": "24:29",
      "hit": "البحيرة التانية",
@@ -6066,31 +5955,38 @@
     },
     {
      "date": "2026-10-09",
-     "t": 1131.8,
-     "mmss": "18:51",
-     "hit": "الجبال المفضل",
-     "said": "Yeah, الجبال.",
-     "read_as": ". , . , . , . , . , . , الجبال . , المفضل جبال . , . ? , . , المفضلين عندي",
-     "joined": [
-      1125.5,
-      1128.2,
-      1131.8,
-      1137.2,
-      1147.3
-     ],
+     "t": 1055.3,
+     "mmss": "17:35",
+     "hit": "بوذتي المفضلة",
+     "said": "is بوذتي",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "el- adjective after possessed noun, correct noun-adjective phrase",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "Yeah, الجبال.",
-     "clip": "2026-10-09/clips/gc-a41002ebbd392692.mp3"
+     "said_html": "is بوذتي",
+     "clip": "2026-10-09/clips/gc-fb777bf6953ffeea.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 519.2,
-     "mmss": "08:39",
-     "hit": "الكلمات الطبيعات",
-     "said": "الكلمات الطبيعات.",
+     "t": 1032.1,
+     "mmss": "17:12",
+     "hit": "الال المفضل",
+     "said": "So الـ مف-- الـ مف-- No. My favorite. Yeah. الـ مفضل. No. مفضل الـ. الـ مفضل الـ.",
+     "read_as": ". الـ الـ . الـ مفضل . مفضل الـ . الـ مفضل الـ .",
+     "verdict": "wrong",
+     "said_html": "So الـ مف-- الـ مف-- No. My favorite. Yeah. الـ مفضل. No. مفضل الـ. الـ مفضل الـ.",
+     "clip": "2026-10-09/clips/gc-12c1cb0a5afabe95.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 918.2,
+     "mmss": "15:18",
+     "hit": "الآآآ المفضلين",
+     "said": "الـ مف-- آآآ، الـ مفضلين Andy؟",
+     "read_as": "الـ آآآ، الـ مفضلين . ؟",
      "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">الكلمات الطبيعات</mark>.",
-     "clip": "2026-10-09/clips/gc-86a0ab51ba14286c.mp3"
+     "said_html": "الـ مف-- آآآ، الـ مفضلين Andy؟",
+     "clip": "2026-10-09/clips/gc-d009421f8545bd53.mp3"
     },
     {
      "date": "2026-10-08",
@@ -6123,17 +6019,6 @@
      "verdict": "right",
      "said_html": "كتا- uh كتابه",
      "clip": "2026-10-08/clips/gc-1498dbd3547075c3.mp3"
-    },
-    {
-     "date": "2026-10-08",
-     "t": 3587.1,
-     "mmss": "59:47",
-     "hit": "الدرس المفضل",
-     "said": "Il-dars il mufaddal. Okay. But we didn't say... Did we say ahada il-dars il mufaddal? Okay.",
-     "read_as": "الدرس المفضل . الدرس المفضل ? .",
-     "verdict": "right",
-     "said_html": "Il-dars il mufaddal. Okay. But we didn&#x27;t say... Did we say ahada il-dars il mufaddal? Okay.",
-     "clip": "2026-10-08/clips/gc-5205e722182b434c.mp3"
     },
     {
      "date": "2026-10-08",
@@ -6525,14 +6410,29 @@
      "verdict": "right",
      "said_html": "uh, باب الغرفة المفتا... المفتوح؟",
      "clip": "2026-09-30/clips/gc-2fed4a937de3cfda.mp3"
+    },
+    {
+     "date": "2026-09-30",
+     "t": 2292.9,
+     "mmss": "38:12",
+     "hit": "المفتا المفتوح",
+     "said": "uh, باب الغرفة المفتا... المفتوح؟",
+     "read_as": ". , , , باب الغرفة المفتا . المفتوح؟",
+     "joined": [
+      2290.0,
+      2292.9
+     ],
+     "verdict": "right",
+     "said_html": "uh, باب الغرفة المفتا... المفتوح؟",
+     "clip": "2026-09-30/clips/gc-2fed4a937de3cfda.mp3"
     }
    ],
-   "usage_total": 83,
+   "usage_total": 82,
    "last_used": "2026-10-09",
-   "last_used_mmss": "64:54",
+   "last_used_mmss": "24:29",
    "verified_slips": 31,
    "auto_slips": 0,
-   "uses": 112,
+   "uses": 110,
    "mistakes": 31,
    "asks": 0,
    "pct": 72,
@@ -6540,7 +6440,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 112,
+   "uses_seen": 110,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -7876,6 +7776,19 @@
    "usage": [
     {
      "date": "2026-10-09",
+     "t": 2830.3,
+     "mmss": "47:10",
+     "hit": "أنواع مختلفين",
+     "said": "Um, so أنواع مختلفين الأكل.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "agreement is right; the slip is only the missing من",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "Um, so <mark class=\"ab-correct\">أنواع مختلفين</mark> الأكل.",
+     "clip": "2026-10-09/clips/gc-1c01a4e9db9bb2b7.mp3"
+    },
+    {
+     "date": "2026-10-09",
      "t": 2751.2,
      "mmss": "45:51",
      "hit": "أنواع مختلفين",
@@ -7884,16 +7797,6 @@
      "verdict": "right",
      "said_html": "<mark class=\"ab-correct\">أنواع مختلفين</mark> الأكل. Sorry، أمم، um, one second. I have to jump off again. One sec.",
      "clip": "2026-10-09/clips/gc-a2c4fc1b09725673.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 2743.6,
-     "mmss": "45:43",
-     "hit": "أنواع مختلف",
-     "said": "أنواع مختلف الأكل.",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">أنواع مختلف</mark> الأكل.",
-     "clip": "2026-10-09/clips/gc-13f4e3e2972a5156.mp3"
     },
     {
      "date": "2026-10-09",
@@ -7908,56 +7811,49 @@
     },
     {
      "date": "2026-10-09",
-     "t": 967.9,
-     "mmss": "16:07",
-     "hit": "بوذة مفضلة",
-     "said": "Okay, so بوذة is feminine. Would it s-- W-would it be مفضلة؟",
-     "read_as": ". , . بوذة . مفضلة؟",
+     "t": 1147.3,
+     "mmss": "19:07",
+     "hit": "المفضلين",
+     "said": "المفضلين عندي",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "plural adjective matching جبال, form he produced himself",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "Okay, so بوذة is feminine. Would it s-- W-would it be مفضلة؟",
-     "clip": "2026-10-09/clips/gc-e2afa689bfcb113d.mp3"
+     "said_html": "<mark class=\"ab-correct\">المفضلين</mark> عندي",
+     "clip": "2026-10-09/clips/gc-46c7347e65786830.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 935.1,
-     "mmss": "15:35",
-     "hit": "بوذة مفضلة",
-     "said": "like بوذة is feminine. It's not مفضلة، right?",
-     "read_as": "بوذة . مفضلة، . ?",
+     "t": 1055.3,
+     "mmss": "17:35",
+     "hit": "بوذتي المفضلة",
+     "said": "is بوذتي",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "feminine adjective agrees with feminine بوظتي, his own build",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "like بوذة is feminine. It&#x27;s not مفضلة، right?",
-     "clip": "2026-10-09/clips/gc-b25513bbb736d9ed.mp3"
+     "said_html": "is بوذتي",
+     "clip": "2026-10-09/clips/gc-fb777bf6953ffeea.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 918.2,
-     "mmss": "15:18",
-     "hit": "آآآ مفضلين",
-     "said": "الـ مف-- آآآ، الـ مفضلين Andy؟",
-     "read_as": "الـ آآآ، الـ مفضلين . ؟",
+     "t": 1032.1,
+     "mmss": "17:12",
+     "hit": "المفضل مفضل",
+     "said": "So الـ مف-- الـ مف-- No. My favorite. Yeah. الـ مفضل. No. مفضل الـ. الـ مفضل الـ.",
+     "read_as": ". الـ الـ . الـ مفضل . مفضل الـ . الـ مفضل الـ .",
      "verdict": "right",
-     "said_html": "الـ مف-- آآآ، الـ مفضلين Andy؟",
-     "clip": "2026-10-09/clips/gc-d009421f8545bd53.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 887.1,
-     "mmss": "14:47",
-     "hit": "آآآ مفضل",
-     "said": "آآآ، الـ مفضل Andy.",
-     "read_as": "آآآ، الـ مفضل .",
-     "verdict": "right",
-     "said_html": "آآآ، الـ مفضل Andy.",
-     "clip": "2026-10-09/clips/gc-ce76fcd5435addb4.mp3"
+     "said_html": "So الـ مف-- الـ مف-- No. My favorite. Yeah. الـ مفضل. No. مفضل الـ. الـ مفضل الـ.",
+     "clip": "2026-10-09/clips/gc-12c1cb0a5afabe95.mp3"
     },
     {
      "date": "2026-10-08",
      "t": 3068.6,
      "mmss": "51:08",
-     "hit": "الشارع قديمة",
+     "hit": "الالشارع قديمة",
      "said": "الـ الشارع قديمة.",
      "verdict": "right",
-     "said_html": "الـ <mark class=\"ab-correct\">الشارع قديمة</mark>.",
+     "said_html": "الـ الشارع قديمة.",
      "clip": "2026-10-08/clips/gc-c8995085e8105660.mp3"
     },
     {
@@ -7978,44 +7874,13 @@
      "t": 2455.2,
      "mmss": "40:55",
      "hit": "قوي",
-     "said": "aju",
+     "said": "قوي",
      "added_by": "Claude line-by-line read 2026-10-10 (Medi: 'fix')",
      "why": "own Arabic adjective, masculine to match الهوا; prompt was English",
      "rule": "GR-34",
      "verdict": "right",
-     "said_html": "aju",
+     "said_html": "<mark class=\"ab-correct\">قوي</mark>",
      "clip": "2026-10-08/clips/gc-6837b177a4e186b3.mp3"
-    },
-    {
-     "date": "2026-10-08",
-     "t": 1953.5,
-     "mmss": "32:33",
-     "hit": "آآ بعيد",
-     "said": "آآ، بعيد عن الهوا",
-     "verdict": "right",
-     "said_html": "آآ، بعيد عن الهوا",
-     "clip": "2026-10-08/clips/gc-bf91e62d596339c2.mp3"
-    },
-    {
-     "date": "2026-10-08",
-     "t": 1931.6,
-     "mmss": "32:11",
-     "hit": "آآ بعيد",
-     "said": "آآ، بعيد من cuz it's comparative, right?",
-     "read_as": "آآ، بعيد من . , . ?",
-     "verdict": "right",
-     "said_html": "آآ، بعيد من cuz it&#x27;s comparative, right?",
-     "clip": "2026-10-08/clips/gc-400b6d635ef9ab6a.mp3"
-    },
-    {
-     "date": "2026-10-08",
-     "t": 1920.2,
-     "mmss": "32:00",
-     "hit": "آآ بعيد",
-     "said": "آآ، بعيد",
-     "verdict": "right",
-     "said_html": "آآ، بعيد",
-     "clip": "2026-10-08/clips/gc-7ac5358a470d4a0b.mp3"
     },
     {
      "date": "2026-10-08",
@@ -8302,14 +8167,56 @@
      "verdict": "right",
      "said_html": "آآآ عادةً الأكل <mark class=\"ab-correct\">دايما منيح</mark>.",
      "clip": "2026-09-30/clips/gc-06769f880f180b1b.mp3"
+    },
+    {
+     "date": "2026-09-26",
+     "t": 4072.4,
+     "mmss": "67:52",
+     "hit": "آآآ أبيض",
+     "said": "آآآ أبيض.",
+     "verdict": "wrong",
+     "said_html": "<mark class=\"ab-correct\">آآآ أبيض</mark>.",
+     "clip": "2026-09-26/clips/gc-5d69241c84fb8acb.mp3"
+    },
+    {
+     "date": "2026-09-26",
+     "t": 4033.2,
+     "mmss": "67:13",
+     "hit": "كنتي صغيرة",
+     "said": "صغيرة. I just-- لما كنتي صغيرة",
+     "read_as": "صغيرة . لما كنتي صغيرة",
+     "verdict": "right",
+     "said_html": "صغيرة. I just-- لما <mark class=\"ab-correct\">كنتي صغيرة</mark>",
+     "clip": "2026-09-26/clips/gc-91d8b262f4ddc74e.mp3"
+    },
+    {
+     "date": "2026-09-26",
+     "t": 3890.9,
+     "mmss": "64:50",
+     "hit": "حمار أحمر",
+     "said": "أخضر، و حمار، أحمر،",
+     "verdict": "right",
+     "said_html": "أخضر، و حمار، أحمر،",
+     "clip": "2026-09-26/clips/gc-59185088bdacb044.mp3"
+    },
+    {
+     "date": "2026-09-26",
+     "t": 3880.7,
+     "mmss": "64:40",
+     "hit": "آآآ خضرا",
+     "said": "آآآ، خضرا، آآآ، خض-- do I need to use plural here؟ خضرات؟",
+     "read_as": "آآآ، خضرا، آآآ، . ؟ خضرات؟",
+     "verdict": "wrong",
+     "said_html": "آآآ، خضرا، آآآ، خض-- do I need to use plural here؟ خضرات؟",
+     "clip": "2026-09-26/clips/gc-d2de1ab127f01dbd.mp3"
     }
    ],
-   "usage_total": 147,
+   "usage_total": 143,
    "last_used": "2026-10-09",
-   "last_used_mmss": "45:51",
+   "last_used_mmss": "47:10",
    "verified_slips": 42,
    "auto_slips": 0,
-   "uses": 178,
+   "uses": 174,
    "mistakes": 42,
    "asks": 0,
    "pct": 76,
@@ -8317,7 +8224,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 178,
+   "uses_seen": 174,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -8470,6 +8377,37 @@
      "verified": true,
      "source": "hand-full-audit-2026-09-26",
      "clip": "2026-10-08/clips/gc-af0a7cd61bed2dce.mp3"
+    },
+    {
+     "id": "FA-66c265e0",
+     "bucket": "A9",
+     "bucket2": null,
+     "date": "2026-10-08",
+     "t": 1272.0,
+     "mmss": "21:12",
+     "said": "Is it طيور؟",
+     "recast": "",
+     "recast_at": null,
+     "recast_t": null,
+     "said_html": "Is it <mark class=\"ab-wrong\">طيور</mark>؟",
+     "recast_html": "",
+     "wrong": "طيور",
+     "right": "طيارات",
+     "pair_wrong": "طيور",
+     "pair_fixed": "طيارات",
+     "said_arabizi": null,
+     "recast_arabizi": null,
+     "wrong_arabizi": null,
+     "right_arabizi": null,
+     "why": "Medi 2026-10-10 marked it a mistake: plural for tayara was wrong here (21:15 'Did you mean bird or plane?')",
+     "signal": "recast",
+     "chat": null,
+     "confidence": "high",
+     "confidence_why": "medi-correction",
+     "machine_audit": false,
+     "verified": true,
+     "source": "hand-full-audit-2026-09-26",
+     "clip": "2026-10-08/clips/gc-7bfbb1857d0c539b.mp3"
     },
     {
      "id": "FA-dfb8e833",
@@ -9309,16 +9247,16 @@
      "clip": "2026-09-05/clips/gc-8a41ac8442a11fe0.mp3"
     }
    ],
-   "candidate_count": 31,
+   "candidate_count": 32,
    "usage": [
     {
      "date": "2026-10-09",
      "t": 3128.7,
      "mmss": "52:08",
      "hit": "البيوت",
-     "said": "أعلم البيوت",
+     "said": "أغلب البيوت",
      "verdict": "right",
-     "said_html": "أعلم <mark class=\"ab-correct\">البيوت</mark>",
+     "said_html": "أغلب <mark class=\"ab-correct\">البيوت</mark>",
      "clip": "2026-10-09/clips/gc-bfe579bf29176ab9.mp3"
     },
     {
@@ -9492,6 +9430,16 @@
      "verdict": "right",
      "said_html": "So غير شم- غير شمس الـ، <mark class=\"ab-correct\">الغيوم</mark>",
      "clip": "2026-10-08/clips/gc-e8c555cb80960c9e.mp3"
+    },
+    {
+     "date": "2026-10-08",
+     "t": 1205.2,
+     "mmss": "20:05",
+     "hit": "غيوم",
+     "said": "غيوم",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">غيوم</mark>",
+     "clip": "2026-10-08/clips/gc-f486203ccac069f7.mp3"
     },
     {
      "date": "2026-10-08",
@@ -9728,32 +9676,22 @@
      "verdict": "right",
      "said_html": "<mark class=\"ab-correct\">ولاد</mark>",
      "clip": "2026-09-30/clips/gc-3443b5ab49075aa8.mp3"
-    },
-    {
-     "date": "2026-09-30",
-     "t": 827.9,
-     "mmss": "13:47",
-     "hit": "السجاد",
-     "said": "السجاد.",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">السجاد</mark>.",
-     "clip": "2026-09-30/clips/gc-d1aea79eedffb722.mp3"
     }
    ],
-   "usage_total": 138,
+   "usage_total": 139,
    "last_used": "2026-10-09",
    "last_used_mmss": "52:08",
-   "verified_slips": 31,
+   "verified_slips": 32,
    "auto_slips": 0,
-   "uses": 167,
-   "mistakes": 31,
+   "uses": 169,
+   "mistakes": 32,
    "asks": 0,
    "pct": 81,
    "status": "Shaky",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 167,
+   "uses_seen": 169,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -9881,25 +9819,68 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 1699.9,
-     "mmss": "28:19",
-     "hit": "هذي  القبة",
-     "said": "Oh, so it's not هذي الـ-القبة.",
-     "read_as": ". , . هذي الـ القبة .",
+     "t": 3777.5,
+     "mmss": "62:57",
+     "hit": "هذه اللعبة",
+     "said": "هذه اللعبة.",
      "verdict": "right",
-     "said_html": "Oh, so it&#x27;s not هذي الـ-القبة.",
-     "clip": "2026-10-09/clips/gc-e787b5fdf132ab0d.mp3"
+     "said_html": "<mark class=\"ab-correct\">هذه اللعبة</mark>.",
+     "clip": "2026-10-09/clips/gc-e4f0b8f2249e3076.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 1686.7,
-     "mmss": "28:06",
-     "hit": "هذي القبة",
-     "said": "So there's no الـ... Uh, no هذي القبة. Okay. Ha-- uh, اللي...",
-     "read_as": ". الـ . , . هذي القبة . , اللي .",
+     "t": 3664.2,
+     "mmss": "61:04",
+     "hit": "هذه اللعبة",
+     "said": "so هذه اللعبة.",
+     "read_as": ". هذه اللعبة .",
      "verdict": "right",
-     "said_html": "So there&#x27;s no الـ... Uh, no <mark class=\"ab-correct\">هذي القبة</mark>. Okay. Ha-- uh, اللي...",
-     "clip": "2026-10-09/clips/gc-8736472e33a61b6a.mp3"
+     "said_html": "so <mark class=\"ab-correct\">هذه اللعبة</mark>.",
+     "clip": "2026-10-09/clips/gc-ad883338c46e6920.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1761.8,
+     "mmss": "29:21",
+     "hit": "هذه القبة",
+     "said": "هذه القبة أول واحدة أنا بروح عليها.",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">هذه القبة</mark> أول واحدة أنا بروح عليها.",
+     "clip": "2026-10-09/clips/gc-967beb98d3245e0d.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1756.1,
+     "mmss": "29:16",
+     "hit": "هذه القبة",
+     "said": "هذه القبة،",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">هذه القبة</mark>،",
+     "clip": "2026-10-09/clips/gc-d8487971d59c6811.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1647.3,
+     "mmss": "27:27",
+     "hit": "هذه القبة",
+     "said": "Okay. هذه القبة،",
+     "read_as": ". هذه القبة،",
+     "verdict": "right",
+     "said_html": "Okay. <mark class=\"ab-correct\">هذه القبة</mark>،",
+     "clip": "2026-10-09/clips/gc-aae2e8fe21e5c54d.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1560.0,
+     "mmss": "26:00",
+     "hit": "هذه الشاطئ",
+     "said": "هذه الشاطئ،",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "noun after demonstrative keeps el-, only gender was wrong",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">هذه الشاطئ</mark>،",
+     "clip": "2026-10-09/clips/gc-d83d10b3f5ca038c.mp3"
     },
     {
      "date": "2026-10-09",
@@ -10130,20 +10111,20 @@
      "clip": "2026-08-25/clips/gc-4f38af741d347d05.mp3"
     }
    ],
-   "usage_total": 24,
+   "usage_total": 28,
    "last_used": "2026-10-09",
-   "last_used_mmss": "28:19",
+   "last_used_mmss": "62:57",
    "verified_slips": 3,
    "auto_slips": 0,
-   "uses": 27,
+   "uses": 31,
    "mistakes": 3,
    "asks": 0,
-   "pct": 89,
+   "pct": 90,
    "status": "Good",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 27,
+   "uses_seen": 31,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -10479,26 +10460,6 @@
     },
     {
      "date": "2026-10-09",
-     "t": 4090.3,
-     "mmss": "68:10",
-     "hit": "هادي",
-     "said": "هادي.",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">هادي</mark>.",
-     "clip": "2026-10-09/clips/gc-b7e138f5afd0960e.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 4084.8,
-     "mmss": "68:04",
-     "hit": "هادي",
-     "said": "آآآ هادي.",
-     "verdict": "right",
-     "said_html": "آآآ <mark class=\"ab-correct\">هادي</mark>.",
-     "clip": "2026-10-09/clips/gc-7465ca9fb1d71d57.mp3"
-    },
-    {
-     "date": "2026-10-09",
      "t": 3998.4,
      "mmss": "66:38",
      "hit": "هادي",
@@ -10509,36 +10470,39 @@
     },
     {
      "date": "2026-10-09",
-     "t": 3635.3,
-     "mmss": "60:35",
-     "hit": "هذا",
-     "said": "هذا loby",
-     "read_as": "هذا لعبة",
+     "t": 3777.5,
+     "mmss": "62:57",
+     "hit": "هذه",
+     "said": "هذه اللعبة.",
      "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">هذا</mark> loby",
-     "clip": "2026-10-09/clips/gc-8a4acc2a7a0411e1.mp3"
+     "said_html": "<mark class=\"ab-correct\">هذه</mark> اللعبة.",
+     "clip": "2026-10-09/clips/gc-e4f0b8f2249e3076.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 2397.3,
-     "mmss": "39:57",
-     "hit": "هذا",
-     "said": "uh, hadha...",
-     "read_as": ", هذا .",
+     "t": 3670.8,
+     "mmss": "61:10",
+     "hit": "هذه أول لعبة",
+     "said": "Uh,",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "feminine demonstrative for feminine lu3be",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "uh, hadha...",
-     "clip": "2026-10-09/clips/gc-ac0e65dbef9cabc3.mp3"
+     "said_html": "Uh,",
+     "clip": "2026-10-09/clips/gc-d903ccf928582bfa.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 2389.8,
-     "mmss": "39:49",
-     "hit": "هذا",
-     "said": "So we haven't gone over mukhtalif yet, but I'm gonna guess hadha,",
-     "read_as": ". هذا",
+     "t": 3661.6,
+     "mmss": "61:01",
+     "hit": "هذه اللعبة",
+     "said": "Uh, uh,",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "feminine demonstrative matches feminine lu3be",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "So we haven&#x27;t gone over mukhtalif yet, but I&#x27;m gonna guess hadha,",
-     "clip": "2026-10-09/clips/gc-b0679073d8e0e0e9.mp3"
+     "said_html": "Uh, uh,",
+     "clip": "2026-10-09/clips/gc-9a4f5f7ee427da2b.mp3"
     },
     {
      "date": "2026-10-09",
@@ -10553,69 +10517,34 @@
     },
     {
      "date": "2026-10-09",
-     "t": 2320.0,
-     "mmss": "38:39",
-     "hit": "هذا",
-     "said": "Okay. Hadha,",
-     "read_as": ". هذا",
+     "t": 1761.8,
+     "mmss": "29:21",
+     "hit": "هذه",
+     "said": "هذه القبة أول واحدة أنا بروح عليها.",
      "verdict": "right",
-     "said_html": "Okay. Hadha,",
-     "clip": "2026-10-09/clips/gc-ff68b858b340dce2.mp3"
+     "said_html": "<mark class=\"ab-correct\">هذه</mark> القبة أول واحدة أنا بروح عليها.",
+     "clip": "2026-10-09/clips/gc-967beb98d3245e0d.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 2305.9,
-     "mmss": "38:25",
-     "hit": "هذا",
-     "said": "So hadha ghair",
-     "read_as": ". هذا غير",
+     "t": 1756.1,
+     "mmss": "29:16",
+     "hit": "هذه",
+     "said": "هذه القبة،",
      "verdict": "right",
-     "said_html": "So hadha ghair",
-     "clip": "2026-10-09/clips/gc-d5dad89876a1a2fe.mp3"
+     "said_html": "<mark class=\"ab-correct\">هذه</mark> القبة،",
+     "clip": "2026-10-09/clips/gc-d8487971d59c6811.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 2298.5,
-     "mmss": "38:18",
-     "hit": "هذا",
-     "said": "or hadha ghair il...",
-     "read_as": ". هذا غير الـ .",
+     "t": 1647.3,
+     "mmss": "27:27",
+     "hit": "هذه",
+     "said": "Okay. هذه القبة،",
+     "read_as": ". هذه القبة،",
      "verdict": "right",
-     "said_html": "or hadha ghair il...",
-     "clip": "2026-10-09/clips/gc-3e49405632004dc0.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 2277.5,
-     "mmss": "37:57",
-     "hit": "هذا",
-     "said": "hadha.",
-     "read_as": "هذا .",
-     "verdict": "right",
-     "said_html": "hadha.",
-     "clip": "2026-10-09/clips/gc-6dd6cdafc39fd479.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 1699.9,
-     "mmss": "28:19",
-     "hit": "هذي",
-     "said": "Oh, so it's not هذي الـ-القبة.",
-     "read_as": ". , . هذي الـ القبة .",
-     "verdict": "right",
-     "said_html": "Oh, so it&#x27;s not <mark class=\"ab-correct\">هذي</mark> الـ-القبة.",
-     "clip": "2026-10-09/clips/gc-e787b5fdf132ab0d.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 1686.7,
-     "mmss": "28:06",
-     "hit": "هذي",
-     "said": "So there's no الـ... Uh, no هذي القبة. Okay. Ha-- uh, اللي...",
-     "read_as": ". الـ . , . هذي القبة . , اللي .",
-     "verdict": "right",
-     "said_html": "So there&#x27;s no الـ... Uh, no <mark class=\"ab-correct\">هذي</mark> القبة. Okay. Ha-- uh, اللي...",
-     "clip": "2026-10-09/clips/gc-8736472e33a61b6a.mp3"
+     "said_html": "Okay. <mark class=\"ab-correct\">هذه</mark> القبة،",
+     "clip": "2026-10-09/clips/gc-aae2e8fe21e5c54d.mp3"
     },
     {
      "date": "2026-10-09",
@@ -10648,26 +10577,6 @@
      "clip": "2026-10-09/clips/gc-e173c90093203f22.mp3"
     },
     {
-     "date": "2026-10-09",
-     "t": 875.8,
-     "mmss": "14:35",
-     "hit": "هذاك",
-     "said": "هذاك الفيلم.",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">هذاك</mark> الفيلم.",
-     "clip": "2026-10-09/clips/gc-16433c88483c0399.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 873.4,
-     "mmss": "14:33",
-     "hit": "هذا",
-     "said": "هذا.",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">هذا</mark>.",
-     "clip": "2026-10-09/clips/gc-e0c9086bd3b3b8d1.mp3"
-    },
-    {
      "date": "2026-10-08",
      "t": 3820.5,
      "mmss": "63:40",
@@ -10687,27 +10596,6 @@
      "verdict": "right",
      "said_html": "<mark class=\"ab-correct\">هادا</mark> الدرس",
      "clip": "2026-10-08/clips/gc-b4f20cbd539573fd.mp3"
-    },
-    {
-     "date": "2026-10-08",
-     "t": 1856.5,
-     "mmss": "30:56",
-     "hit": "هذا",
-     "said": "هذا tongue twister.",
-     "read_as": "هذا .",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">هذا</mark> tongue twister.",
-     "clip": "2026-10-08/clips/gc-9759917a1edc063f.mp3"
-    },
-    {
-     "date": "2026-10-08",
-     "t": 1608.8,
-     "mmss": "26:48",
-     "hit": "هذي",
-     "said": "هذي",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">هذي</mark>",
-     "clip": "2026-10-08/clips/gc-3d7d815eee394ba9.mp3"
     },
     {
      "date": "2026-10-08",
@@ -10879,22 +10767,116 @@
      "verdict": "right",
      "said_html": "Okay, and then with <mark class=\"ab-correct\">هذي</mark>...",
      "clip": "2026-10-01/clips/gc-465db3becec4c02d.mp3"
+    },
+    {
+     "date": "2026-10-01",
+     "t": 2531.8,
+     "mmss": "42:11",
+     "hit": "هذي",
+     "said": "هذي المحل",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">هذي</mark> المحل",
+     "clip": "2026-10-01/clips/gc-7fa8d53e109f56b7.mp3"
+    },
+    {
+     "date": "2026-09-30",
+     "t": 3857.6,
+     "mmss": "64:17",
+     "hit": "هذي",
+     "said": "So after هذي and هدول and هناك and,",
+     "read_as": ". هذي . هدول . هناك . ,",
+     "verdict": "right",
+     "said_html": "So after <mark class=\"ab-correct\">هذي</mark> and هدول and هناك and,",
+     "clip": "2026-09-30/clips/gc-7ff6e173e361c90e.mp3"
+    },
+    {
+     "date": "2026-09-30",
+     "t": 3622.3,
+     "mmss": "60:22",
+     "hit": "هادي",
+     "said": "هادي شنتة السفر إلي",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">هادي</mark> شنتة السفر إلي",
+     "clip": "2026-09-30/clips/gc-66287acde546f123.mp3"
+    },
+    {
+     "date": "2026-09-30",
+     "t": 3619.6,
+     "mmss": "60:19",
+     "hit": "هادي",
+     "said": "But I, I would've gotten it. Hadi,",
+     "read_as": ". , . هادي",
+     "verdict": "right",
+     "said_html": "But I, I would&#x27;ve gotten it. Hadi,",
+     "clip": "2026-09-30/clips/gc-5ce50a911b3fe40c.mp3"
+    },
+    {
+     "date": "2026-09-30",
+     "t": 3568.2,
+     "mmss": "59:28",
+     "hit": "هادي",
+     "said": "هادي الـ",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">هادي</mark> الـ",
+     "clip": "2026-09-30/clips/gc-bd118b6a5e8f9da5.mp3"
+    },
+    {
+     "date": "2026-09-30",
+     "t": 3337.7,
+     "mmss": "55:37",
+     "hit": "هادي",
+     "said": "Yeah, so the f-- there's no L immediately following Hadi.",
+     "read_as": ". , . هادي .",
+     "verdict": "right",
+     "said_html": "Yeah, so the f-- there&#x27;s no L immediately following Hadi.",
+     "clip": "2026-09-30/clips/gc-0119fa58a9c720e9.mp3"
+    },
+    {
+     "date": "2026-09-30",
+     "t": 3317.9,
+     "mmss": "55:17",
+     "hit": "هادي",
+     "said": "هادي",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">هادي</mark>",
+     "clip": "2026-09-30/clips/gc-85930bc4aba6f6b0.mp3"
+    },
+    {
+     "date": "2026-09-30",
+     "t": 3288.5,
+     "mmss": "54:48",
+     "hit": "هدول",
+     "said": "No, does it become hadhol el shajara or hadhol shajara el, el, uh... Oh my God. El tufah.",
+     "read_as": ". , . هدول الشجرة . هدول شجرة الـ . التفاح .",
+     "verdict": "right",
+     "said_html": "No, does it become hadhol el shajara or hadhol shajara el, el, uh... Oh my God. El tufah.",
+     "clip": "2026-09-30/clips/gc-5c62464da0f609fb.mp3"
+    },
+    {
+     "date": "2026-09-30",
+     "t": 1946.3,
+     "mmss": "32:26",
+     "hit": "هاد",
+     "said": "هاد... هادي العيلة",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">هاد</mark>... هادي العيلة",
+     "clip": "2026-09-30/clips/gc-87fd2ee7c17c87b0.mp3"
     }
    ],
-   "usage_total": 86,
+   "usage_total": 77,
    "last_used": "2026-10-09",
    "last_used_mmss": "68:27",
    "verified_slips": 9,
    "auto_slips": 0,
-   "uses": 95,
+   "uses": 86,
    "mistakes": 9,
    "asks": 0,
-   "pct": 91,
+   "pct": 90,
    "status": "Good",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 95,
+   "uses_seen": 86,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -11857,17 +11839,6 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 3735.6,
-     "mmss": "62:15",
-     "hit": "أول اللعبة",
-     "said": "من أول اللعبة. Or would it be أولى؟ Okay. Yeah، أول لعبة.",
-     "read_as": "من أول اللعبة . أولى؟ . ، أول لعبة .",
-     "verdict": "right",
-     "said_html": "من <mark class=\"ab-correct\">أول اللعبة</mark>. Or would it be أولى؟ Okay. Yeah، أول لعبة.",
-     "clip": "2026-10-09/clips/gc-ec1eda4c5ba0e118.mp3"
-    },
-    {
-     "date": "2026-10-09",
      "t": 3703.3,
      "mmss": "61:43",
      "hit": "أول لعبة",
@@ -12233,20 +12204,20 @@
      "clip": "2026-09-21/clips/gc-1d54d115b0161e34.mp3"
     }
    ],
-   "usage_total": 35,
+   "usage_total": 34,
    "last_used": "2026-10-09",
-   "last_used_mmss": "62:15",
+   "last_used_mmss": "61:43",
    "verified_slips": 7,
    "auto_slips": 0,
-   "uses": 41,
+   "uses": 40,
    "mistakes": 7,
    "asks": 0,
-   "pct": 83,
+   "pct": 82,
    "status": "Shaky",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 41,
+   "uses_seen": 40,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -12563,24 +12534,40 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 3895.0,
-     "mmss": "64:54",
-     "hit": "اللعبة التانية",
-     "said": "The other game. Okay. So، uh، اللوب-اللعبة التانية",
-     "read_as": ". ، ، اللوب اللعبة التانية",
+     "t": 3809.2,
+     "mmss": "63:29",
+     "hit": "ثاني لعبة",
+     "said": "ثاني لعبة في اليوم.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "taani before noun = second game",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "The other game. Okay. So، uh، اللوب-<mark class=\"ab-correct\">اللعبة التانية</mark>",
-     "clip": "2026-10-09/clips/gc-4014d1612d73e6b0.mp3"
+     "said_html": "<mark class=\"ab-correct\">ثاني لعبة</mark> في اليوم.",
+     "clip": "2026-10-09/clips/gc-133d3c60a3920126.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 3849.3,
-     "mmss": "64:09",
-     "hit": "لعبة تانية",
-     "said": "لعبة تانية.",
+     "t": 3803.2,
+     "mmss": "63:23",
+     "hit": "ثاني لعبة",
+     "said": "ثاني لوب-لعبة.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "taani before noun = second game",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">لعبة تانية</mark>.",
-     "clip": "2026-10-09/clips/gc-113ff562947fc1c8.mp3"
+     "said_html": "ثاني لوب-لعبة.",
+     "clip": "2026-10-09/clips/gc-819709f3972c8822.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 3757.8,
+     "mmss": "62:37",
+     "hit": "لعبة تانية",
+     "said": "لو-- Would it-- It wouldn't be lo-- No. Yeah، لو-لعبة تانية",
+     "read_as": ". ، لو لعبة تانية",
+     "verdict": "right",
+     "said_html": "لو-- Would it-- It wouldn&#x27;t be lo-- No. Yeah، لو-<mark class=\"ab-correct\">لعبة تانية</mark>",
+     "clip": "2026-10-09/clips/gc-74d6ee73014abb34.mp3"
     },
     {
      "date": "2026-10-09",
@@ -12602,16 +12589,6 @@
      "verdict": "right",
      "said_html": "اه، <mark class=\"ab-correct\">وردة تانية</mark>",
      "clip": "2026-10-09/clips/gc-276817f3806f84dc.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 1578.0,
-     "mmss": "26:18",
-     "hit": "شاطئ تانية",
-     "said": "شاطئ تانية، شاطئ تاني.",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">شاطئ تانية</mark>، شاطئ تاني.",
-     "clip": "2026-10-09/clips/gc-3c3cdd92dfb41b15.mp3"
     },
     {
      "date": "2026-10-09",
@@ -12926,7 +12903,7 @@
    ],
    "usage_total": 34,
    "last_used": "2026-10-09",
-   "last_used_mmss": "64:54",
+   "last_used_mmss": "63:29",
    "verified_slips": 9,
    "auto_slips": 0,
    "uses": 42,
@@ -13285,36 +13262,16 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 4100.1,
-     "mmss": "68:20",
-     "hit": "آخر  لعبة",
-     "said": "هادي آخر الـ lobe إلي.",
-     "read_as": "هادي آخر الـ لعبة إلي .",
-     "verdict": "wrong",
-     "said_html": "هادي آخر الـ lobe إلي.",
-     "clip": "2026-10-09/clips/gc-28f2835c8f825495.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 4095.0,
-     "mmss": "68:15",
-     "hit": "آخر  لعبة",
-     "said": "آآآ آخر الـ lobe.",
-     "read_as": "آآآ آخر الـ لعبة .",
+     "t": 4044.8,
+     "mmss": "67:24",
+     "hit": "Lobti الـ أخيرة",
+     "said": "الـ أخيرة.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "feminine a5eera after noun = my last game",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "آآآ آخر الـ lobe.",
-     "clip": "2026-10-09/clips/gc-8a4aff4247940eca.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 3549.1,
-     "mmss": "59:09",
-     "hit": "آخر سؤال",
-     "said": "But آخر سؤال would mean the end of my question, right?",
-     "read_as": ". آخر سؤال . , . ?",
-     "verdict": "right",
-     "said_html": "But <mark class=\"ab-correct\">آخر سؤال</mark> would mean the end of my question, right?",
-     "clip": "2026-10-09/clips/gc-dad771bf2c980368.mp3"
+     "said_html": "الـ أخيرة.",
+     "clip": "2026-10-09/clips/gc-29a364387aaede89.mp3"
     },
     {
      "date": "2026-10-08",
@@ -13456,20 +13413,20 @@
      "clip": "2026-09-21/clips/gc-bf2ffcd67b0314aa.mp3"
     }
    ],
-   "usage_total": 16,
+   "usage_total": 14,
    "last_used": "2026-10-09",
-   "last_used_mmss": "68:20",
+   "last_used_mmss": "67:24",
    "verified_slips": 10,
    "auto_slips": 0,
-   "uses": 25,
+   "uses": 24,
    "mistakes": 10,
    "asks": 0,
-   "pct": 60,
+   "pct": 58,
    "status": "Wrong",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 25,
+   "uses_seen": 24,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -13626,6 +13583,17 @@
    "candidate_count": 4,
    "usage": [
     {
+     "date": "2026-10-09",
+     "t": 3005.2,
+     "mmss": "50:05",
+     "hit": "غير الورقة",
+     "said": "uh, غير الـ ورقة.",
+     "read_as": ", غير الـ ورقة .",
+     "verdict": "wrong",
+     "said_html": "uh, غير الـ ورقة.",
+     "clip": "2026-10-09/clips/gc-5e9b868ed22a0c8b.mp3"
+    },
+    {
      "date": "2026-10-08",
      "t": 3170.0,
      "mmss": "52:50",
@@ -13719,9 +13687,9 @@
      "clip": "2026-09-26/clips/gc-0122f1848b06ddfa.mp3"
     }
    ],
-   "usage_total": 9,
-   "last_used": "2026-10-08",
-   "last_used_mmss": "52:50",
+   "usage_total": 10,
+   "last_used": "2026-10-09",
+   "last_used_mmss": "50:05",
    "verified_slips": 4,
    "auto_slips": 0,
    "uses": 12,
@@ -13797,13 +13765,39 @@
    "usage": [
     {
      "date": "2026-10-09",
+     "t": 4003.7,
+     "mmss": "66:43",
+     "hit": "نفس الـ lobe",
+     "said": "الـ lobe.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "nafs + el- + noun, continues from 66:38",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "الـ lobe.",
+     "clip": "2026-10-09/clips/gc-3f8ac37ab09075cb.mp3"
+    },
+    {
+     "date": "2026-10-09",
      "t": 2963.3,
      "mmss": "49:23",
-     "hit": "نفس  ورقة",
+     "hit": "نفس الورقة",
      "said": "نفس الـ ورقة، ورقة، نفس الورقة.",
      "verdict": "right",
-     "said_html": "نفس الـ ورقة، ورقة، نفس الورقة.",
+     "said_html": "نفس الـ ورقة، ورقة، <mark class=\"ab-correct\">نفس الورقة</mark>.",
      "clip": "2026-10-09/clips/gc-b0939a998034c1c7.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1897.6,
+     "mmss": "31:37",
+     "hit": "نفس المنظر",
+     "said": "الـ--",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "his own nafs + el-; her fix was only هذا/هذي",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "الـ--",
+     "clip": "2026-10-09/clips/gc-96337135b8092cc3.mp3"
     },
     {
      "date": "2026-10-05",
@@ -14038,12 +14032,12 @@
      "clip": "2026-09-04/clips/gc-a888e1330ba36ea6.mp3"
     }
    ],
-   "usage_total": 23,
+   "usage_total": 25,
    "last_used": "2026-10-09",
-   "last_used_mmss": "49:23",
+   "last_used_mmss": "66:43",
    "verified_slips": 1,
    "auto_slips": 0,
-   "uses": 24,
+   "uses": 26,
    "mistakes": 1,
    "asks": 0,
    "pct": 96,
@@ -14051,7 +14045,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 24,
+   "uses_seen": 26,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -14980,6 +14974,58 @@
    "usage": [
     {
      "date": "2026-10-09",
+     "t": 4160.9,
+     "mmss": "69:20",
+     "hit": "بتزهق",
+     "said": "كان بتزهق.",
+     "verdict": "right",
+     "said_html": "كان <mark class=\"ab-correct\">بتزهق</mark>.",
+     "clip": "2026-10-09/clips/gc-182463a174cf50a0.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 4152.1,
+     "mmss": "69:12",
+     "hit": "بتزهق",
+     "said": "بتزهق.",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">بتزهق</mark>.",
+     "clip": "2026-10-09/clips/gc-1bac2a2bb4f9fd4e.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 3774.9,
+     "mmss": "62:54",
+     "hit": "بحب",
+     "said": "uh, ما بحب",
+     "read_as": ", ما بحب",
+     "verdict": "right",
+     "said_html": "uh, ما <mark class=\"ab-correct\">بحب</mark>",
+     "clip": "2026-10-09/clips/gc-883f803e6f28cea6.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 3763.0,
+     "mmss": "62:42",
+     "hit": "بحب",
+     "said": "ما-ما بحب.",
+     "verdict": "right",
+     "said_html": "ما-ما <mark class=\"ab-correct\">بحب</mark>.",
+     "clip": "2026-10-09/clips/gc-f262ba047b9bd641.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 3750.2,
+     "mmss": "62:30",
+     "hit": "بدي",
+     "said": "uh, أنا بدي",
+     "read_as": ", أنا بدي",
+     "verdict": "right",
+     "said_html": "uh, أنا <mark class=\"ab-correct\">بدي</mark>",
+     "clip": "2026-10-09/clips/gc-7402461b95cbc1dd.mp3"
+    },
+    {
+     "date": "2026-10-09",
      "t": 1834.6,
      "mmss": "30:34",
      "hit": "بتفضلي",
@@ -15008,27 +15054,6 @@
      "verdict": "right",
      "said_html": "Oh، <mark class=\"ab-correct\">بفضل</mark>.",
      "clip": "2026-10-09/clips/gc-f21e2b139d870e48.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 1745.7,
-     "mmss": "29:05",
-     "hit": "بروحها",
-     "said": "أنا بروحها?",
-     "verdict": "right",
-     "said_html": "أنا <mark class=\"ab-correct\">بروحها</mark>?",
-     "clip": "2026-10-09/clips/gc-15e184911d0510cd.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 1736.5,
-     "mmss": "28:56",
-     "hit": "بروح",
-     "said": "أنا بر-- uh, I go to أنا بروح أو أنا بروحها.",
-     "read_as": "أنا , . أنا بروح أو أنا بروحها .",
-     "verdict": "right",
-     "said_html": "أنا بر-- uh, I go to أنا <mark class=\"ab-correct\">بروح</mark> أو أنا بروحها.",
-     "clip": "2026-10-09/clips/gc-e7b47d555d95b4eb.mp3"
     },
     {
      "date": "2026-10-09",
@@ -15369,45 +15394,14 @@
      "verdict": "right",
      "said_html": "<mark class=\"ab-correct\">بيحتاج</mark>، no. Uh, yeah, بيحتاج،",
      "clip": "2026-10-06/clips/gc-b1e079bdd8a80fad.mp3"
-    },
-    {
-     "date": "2026-10-06",
-     "t": 718.5,
-     "mmss": "11:58",
-     "hit": "بصل",
-     "said": "و، بصل،",
-     "verdict": "right",
-     "said_html": "و، <mark class=\"ab-correct\">بصل</mark>،",
-     "clip": "2026-10-06/clips/gc-b2faae8a22359212.mp3"
-    },
-    {
-     "date": "2026-10-06",
-     "t": 448.8,
-     "mmss": "07:28",
-     "hit": "بلاقي",
-     "said": "I can't find-- yeah, ما بلاقي حافزي.",
-     "read_as": ". , ما بلاقي حافزي .",
-     "verdict": "right",
-     "said_html": "I can&#x27;t find-- yeah, ما <mark class=\"ab-correct\">بلاقي</mark> حافزي.",
-     "clip": "2026-10-06/clips/gc-45ea7f84f990ad83.mp3"
-    },
-    {
-     "date": "2026-10-06",
-     "t": 410.4,
-     "mmss": "06:50",
-     "hit": "بعرف",
-     "said": "ما بعرف.",
-     "verdict": "right",
-     "said_html": "ما <mark class=\"ab-correct\">بعرف</mark>.",
-     "clip": "2026-10-06/clips/gc-c7ac1745815f2469.mp3"
     }
    ],
-   "usage_total": 369,
+   "usage_total": 372,
    "last_used": "2026-10-09",
-   "last_used_mmss": "30:34",
+   "last_used_mmss": "69:20",
    "verified_slips": 29,
    "auto_slips": 0,
-   "uses": 396,
+   "uses": 399,
    "mistakes": 29,
    "asks": 0,
    "pct": 93,
@@ -15415,7 +15409,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 396,
+   "uses_seen": 399,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -16019,6 +16013,40 @@
    "usage": [
     {
      "date": "2026-10-09",
+     "t": 1568.4,
+     "mmss": "26:08",
+     "hit": "بنقدر نروح",
+     "said": "uh, إح-إحنا بنقدر نروح على",
+     "read_as": ", إح إحنا بنقدر نروح على",
+     "verdict": "right",
+     "said_html": "uh, إح-إحنا <mark class=\"ab-correct\">بنقدر نروح</mark> على",
+     "clip": "2026-10-09/clips/gc-5860d1b5e5049722.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1500.1,
+     "mmss": "25:00",
+     "hit": "بنقدر نروح",
+     "said": "بنقدر نروح",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">بنقدر نروح</mark>",
+     "clip": "2026-10-09/clips/gc-2a1072635df9e5cd.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 335.1,
+     "mmss": "05:35",
+     "hit": "أطلب منها تشتري",
+     "said": "تشتري،",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "second verb after a verb correctly drops b-",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "تشتري،",
+     "clip": "2026-10-09/clips/gc-fd20f7d6634398aa.mp3"
+    },
+    {
+     "date": "2026-10-09",
      "t": 260.1,
      "mmss": "04:20",
      "hit": "لازم أشتري",
@@ -16310,20 +16338,20 @@
      "clip": "2026-08-25/clips/gc-2b7f328e31b36572.mp3"
     }
    ],
-   "usage_total": 28,
+   "usage_total": 31,
    "last_used": "2026-10-09",
-   "last_used_mmss": "04:20",
+   "last_used_mmss": "26:08",
    "verified_slips": 18,
    "auto_slips": 0,
-   "uses": 46,
+   "uses": 49,
    "mistakes": 18,
    "asks": 1,
-   "pct": 61,
+   "pct": 63,
    "status": "Wrong",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 46,
+   "uses_seen": 49,
    "not_counted": [],
    "not_counted_count": 0,
    "events": [
@@ -16609,6 +16637,19 @@
    "candidate_count": 7,
    "usage": [
     {
+     "date": "2026-10-09",
+     "t": 1552.6,
+     "mmss": "25:52",
+     "hit": "إذا ما بتحب",
+     "said": "Uh, okay. إذا ما بتحب في",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "b- correctly kept after iza",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "Uh, okay. <mark class=\"ab-correct\">إذا ما بتحب</mark> في",
+     "clip": "2026-10-09/clips/gc-b76abf7f3865137c.mp3"
+    },
+    {
      "date": "2026-09-26",
      "t": 4013.4,
      "mmss": "66:53",
@@ -16765,20 +16806,20 @@
      "clip": "2026-08-25/clips/gc-d1374f5d57596ca2.mp3"
     }
    ],
-   "usage_total": 15,
-   "last_used": "2026-09-26",
-   "last_used_mmss": "66:53",
+   "usage_total": 16,
+   "last_used": "2026-10-09",
+   "last_used_mmss": "25:52",
    "verified_slips": 7,
    "auto_slips": 0,
-   "uses": 22,
+   "uses": 23,
    "mistakes": 7,
    "asks": 1,
-   "pct": 68,
+   "pct": 70,
    "status": "Shaky",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 22,
+   "uses_seen": 23,
    "not_counted": [],
    "not_counted_count": 0,
    "events": [
@@ -16878,17 +16919,6 @@
    "candidate_count": 0,
    "usage": [
     {
-     "date": "2026-10-09",
-     "t": 1552.6,
-     "mmss": "25:52",
-     "hit": "إذا ما بتحب",
-     "said": "Uh, okay. إذا ما بتحب في",
-     "read_as": ", . إذا ما بتحب في",
-     "verdict": "right",
-     "said_html": "Uh, okay. <mark class=\"ab-correct\">إذا ما بتحب</mark> في",
-     "clip": "2026-10-09/clips/gc-b76abf7f3865137c.mp3"
-    },
-    {
      "date": "2026-09-11",
      "t": 3368.0,
      "mmss": "56:07",
@@ -16920,12 +16950,12 @@
      "clip": "2026-09-04/clips/gc-43017298be11ccec.mp3"
     }
    ],
-   "usage_total": 4,
-   "last_used": "2026-10-09",
-   "last_used_mmss": "25:52",
+   "usage_total": 3,
+   "last_used": "2026-09-11",
+   "last_used_mmss": "56:07",
    "verified_slips": 0,
    "auto_slips": 0,
-   "uses": 4,
+   "uses": 3,
    "mistakes": 0,
    "asks": 0,
    "pct": 100,
@@ -16933,7 +16963,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 4,
+   "uses_seen": 3,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -18585,14 +18615,29 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 3952.8,
-     "mmss": "65:52",
-     "hit": "لعبت",
-     "said": "آآآ أكلب الـ lob، آآآ lob لبا-- lobat.",
-     "read_as": "آآآ أكلب الـ . ، آآآ . لعبت .",
+     "t": 2737.2,
+     "mmss": "45:37",
+     "hit": "جربت",
+     "said": "so",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "correct past 'I tried', his own",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "آآآ أكلب الـ lob، آآآ lob لبا-- lobat.",
-     "clip": "2026-10-09/clips/gc-4189793b6703cef4.mp3"
+     "said_html": "so",
+     "clip": "2026-10-09/clips/gc-c7e37752545992d3.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 2692.2,
+     "mmss": "44:52",
+     "hit": "جربت",
+     "said": "أنا--",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "correct past 'I tried', she only said it in English",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "أنا--",
+     "clip": "2026-10-09/clips/gc-64125b2d751e2216.mp3"
     },
     {
      "date": "2026-10-09",
@@ -18627,6 +18672,29 @@
     },
     {
      "date": "2026-10-09",
+     "t": 623.7,
+     "mmss": "10:23",
+     "hit": "نسيت",
+     "said": "نسيت.",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">نسيت</mark>.",
+     "clip": "2026-10-09/clips/gc-805c2c716ae701e9.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 293.6,
+     "mmss": "04:53",
+     "hit": "راحت",
+     "said": "Uh, راح-- راحت على شغلها.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "past tense she-form -at, his own words",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "Uh, راح-- <mark class=\"ab-correct\">راحت</mark> على شغلها.",
+     "clip": "2026-10-09/clips/gc-723f86df7a9759b6.mp3"
+    },
+    {
+     "date": "2026-10-09",
      "t": 179.9,
      "mmss": "02:59",
      "hit": "صرت",
@@ -18634,28 +18702,6 @@
      "verdict": "right",
      "said_html": "<mark class=\"ab-correct\">صرت</mark>.",
      "clip": "2026-10-09/clips/gc-822bfa3fa0788921.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 174.1,
-     "mmss": "02:54",
-     "hit": "صار",
-     "said": "I wouldn't say صار. Hold on. صارت.",
-     "read_as": ". صار . صارت .",
-     "verdict": "right",
-     "said_html": "I wouldn&#x27;t say <mark class=\"ab-correct\">صار</mark>. Hold on. صارت.",
-     "clip": "2026-10-09/clips/gc-0ee926458b1b1cc5.mp3"
-    },
-    {
-     "date": "2026-10-08",
-     "t": 3579.1,
-     "mmss": "59:39",
-     "hit": "درس",
-     "said": "So dars-- so it's dars il mufaddal. Is that what's happening?",
-     "read_as": ". درس المفضل . ?",
-     "verdict": "right",
-     "said_html": "So dars-- so it&#x27;s dars il mufaddal. Is that what&#x27;s happening?",
-     "clip": "2026-10-08/clips/gc-ef9026c10901c19e.mp3"
     },
     {
      "date": "2026-10-08",
@@ -19000,24 +19046,14 @@
      "verdict": "right",
      "said_html": "شو <mark class=\"ab-correct\">درست</mark>؟",
      "clip": "2026-10-05/clips/gc-db8dd82ab7e082c0.mp3"
-    },
-    {
-     "date": "2026-10-05",
-     "t": 500.2,
-     "mmss": "08:20",
-     "hit": "نسيت",
-     "said": "أنا نسيت الـ...",
-     "verdict": "right",
-     "said_html": "أنا <mark class=\"ab-correct\">نسيت</mark> الـ...",
-     "clip": "2026-10-05/clips/gc-e9b3bcc39ffdeb15.mp3"
     }
    ],
-   "usage_total": 172,
+   "usage_total": 173,
    "last_used": "2026-10-09",
-   "last_used_mmss": "65:52",
+   "last_used_mmss": "45:37",
    "verified_slips": 52,
    "auto_slips": 0,
-   "uses": 223,
+   "uses": 224,
    "mistakes": 52,
    "asks": 0,
    "pct": 77,
@@ -19025,7 +19061,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 223,
+   "uses_seen": 224,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -19430,49 +19466,6 @@
    "candidate_count": 12,
    "usage": [
     {
-     "date": "2026-10-09",
-     "t": 4146.6,
-     "mmss": "69:06",
-     "hit": "كانت",
-     "said": "كانت",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">كانت</mark>",
-     "clip": "2026-10-09/clips/gc-4c5603f2b3dc5c3a.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 3757.8,
-     "mmss": "62:37",
-     "hit": "كان",
-     "said": "لو-- Would it-- It wouldn't be lo-- No. Yeah، لو-لعبة كان يا",
-     "read_as": ". ، لو لعبة كان يا",
-     "verdict": "right",
-     "said_html": "لو-- Would it-- It wouldn&#x27;t be lo-- No. Yeah، لو-لعبة <mark class=\"ab-correct\">كان</mark> يا",
-     "clip": "2026-10-09/clips/gc-74d6ee73014abb34.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 3462.4,
-     "mmss": "57:42",
-     "hit": "كان",
-     "said": "um... No, wait. Sualis-- Yeah, kan",
-     "read_as": ". , . , كان",
-     "verdict": "right",
-     "said_html": "um... No, wait. Sualis-- Yeah, kan",
-     "clip": "2026-10-09/clips/gc-802a37fb4160763e.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 3456.8,
-     "mmss": "57:36",
-     "hit": "كان",
-     "said": "mish, uh... Oh, kan,",
-     "read_as": "مش . , كان",
-     "verdict": "right",
-     "said_html": "mish, uh... Oh, kan,",
-     "clip": "2026-10-09/clips/gc-c1bcb36824ca32e4.mp3"
-    },
-    {
      "date": "2026-10-08",
      "t": 3231.2,
      "mmss": "53:51",
@@ -19498,9 +19491,6 @@
      "mmss": "40:49",
      "hit": "كان",
      "said": "الهوا كـ كان",
-     "added_by": "Claude line-by-line read 2026-10-10 (Medi: 'fix')",
-     "why": "tutor prompt was English only; he chose كان himself",
-     "rule": "GR-34",
      "verdict": "right",
      "said_html": "الهوا كـ <mark class=\"ab-correct\">كان</mark>",
      "clip": "2026-10-08/clips/gc-bc8f44f4c4a5adbe.mp3"
@@ -19849,14 +19839,58 @@
      "verdict": "right",
      "said_html": "uh, <mark class=\"ab-correct\">كان</mark>",
      "clip": "2026-09-18/clips/gc-115e59d8026c6b4c.mp3"
+    },
+    {
+     "date": "2026-09-18",
+     "t": 1199.2,
+     "mmss": "19:59",
+     "hit": "كان",
+     "said": "kan, sorry. Kan,",
+     "read_as": "كان . كان",
+     "verdict": "right",
+     "said_html": "kan, sorry. Kan,",
+     "clip": "2026-09-18/clips/gc-0174fe56c22847f6.mp3"
+    },
+    {
+     "date": "2026-09-17",
+     "t": 3301.5,
+     "mmss": "55:01",
+     "hit": "كان",
+     "said": "كان uh, خوّف",
+     "read_as": "كان , خوّف",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">كان</mark> uh, خوّف",
+     "clip": "2026-09-17/clips/gc-181f0de6d1e326ab.mp3"
+    },
+    {
+     "date": "2026-09-17",
+     "t": 3298.4,
+     "mmss": "54:58",
+     "hit": "كان",
+     "said": "Okay. Yeah. Okay, كان",
+     "read_as": ". , كان",
+     "verdict": "right",
+     "said_html": "Okay. Yeah. Okay, <mark class=\"ab-correct\">كان</mark>",
+     "clip": "2026-09-17/clips/gc-2fedde035b31b44e.mp3"
+    },
+    {
+     "date": "2026-09-17",
+     "t": 3170.3,
+     "mmss": "52:50",
+     "hit": "كان",
+     "said": "فيلم... كان... الفيلم كان... I forgot the ad-",
+     "read_as": "فيلم . كان . الفيلم كان .",
+     "verdict": "right",
+     "said_html": "فيلم... <mark class=\"ab-correct\">كان</mark>... الفيلم كان... I forgot the ad-",
+     "clip": "2026-09-17/clips/gc-c310fb294b0c5d88.mp3"
     }
    ],
-   "usage_total": 66,
-   "last_used": "2026-10-09",
-   "last_used_mmss": "69:06",
+   "usage_total": 62,
+   "last_used": "2026-10-08",
+   "last_used_mmss": "53:51",
    "verified_slips": 12,
    "auto_slips": 0,
-   "uses": 77,
+   "uses": 73,
    "mistakes": 12,
    "asks": 0,
    "pct": 84,
@@ -19864,7 +19898,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 77,
+   "uses_seen": 73,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -19966,16 +20000,6 @@
    "candidate_count": 2,
    "usage": [
     {
-     "date": "2026-10-09",
-     "t": 4160.9,
-     "mmss": "69:20",
-     "hit": "كان بتزهر",
-     "said": "كان بتزهر.",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">كان بتزهر</mark>.",
-     "clip": "2026-10-09/clips/gc-182463a174cf50a0.mp3"
-    },
-    {
      "date": "2026-09-30",
      "t": 500.6,
      "mmss": "08:20",
@@ -19986,20 +20010,20 @@
      "clip": "2026-09-30/clips/gc-f1d8a280ebc4b642.mp3"
     }
    ],
-   "usage_total": 2,
-   "last_used": "2026-10-09",
-   "last_used_mmss": "69:20",
+   "usage_total": 1,
+   "last_used": "2026-09-30",
+   "last_used_mmss": "08:20",
    "verified_slips": 2,
    "auto_slips": 0,
-   "uses": 4,
+   "uses": 3,
    "mistakes": 2,
    "asks": 0,
-   "pct": 50,
+   "pct": 33,
    "status": "Wrong",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 4,
+   "uses_seen": 3,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -20955,6 +20979,19 @@
      "clip": "2026-10-09/clips/gc-d6ac1eff5db5c154.mp3"
     },
     {
+     "date": "2026-10-09",
+     "t": 2884.7,
+     "mmss": "48:04",
+     "hit": "تيني",
+     "said": "Um,",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "command 'give me', translating her English",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "Um,",
+     "clip": "2026-10-09/clips/gc-432b0d95931d6fbe.mp3"
+    },
+    {
      "date": "2026-10-08",
      "t": 3165.1,
      "mmss": "52:45",
@@ -21291,12 +21328,12 @@
      "clip": "2026-08-25/clips/gc-8ade0b9620903b09.mp3"
     }
    ],
-   "usage_total": 34,
+   "usage_total": 35,
    "last_used": "2026-10-09",
    "last_used_mmss": "49:13",
    "verified_slips": 7,
    "auto_slips": 0,
-   "uses": 41,
+   "uses": 42,
    "mistakes": 7,
    "asks": 0,
    "pct": 83,
@@ -21304,7 +21341,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 41,
+   "uses_seen": 42,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -23640,6 +23677,19 @@
      "clip": "2026-10-09/clips/gc-f4f02b290ecdb2e0.mp3"
     },
     {
+     "date": "2026-10-09",
+     "t": 1234.6,
+     "mmss": "20:34",
+     "hit": "بيبسطني",
+     "said": "بيس-بس-بيبسطني.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "causative 'makes me happy' form chosen correctly",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "بيس-بس-<mark class=\"ab-correct\">بيبسطني</mark>.",
+     "clip": "2026-10-09/clips/gc-4e36861de62c056f.mp3"
+    },
+    {
      "date": "2026-09-28",
      "t": 978.8,
      "mmss": "16:18",
@@ -24039,24 +24089,14 @@
      "verdict": "right",
      "said_html": "<mark class=\"ab-correct\">بنبسط</mark>.",
      "clip": "2026-09-10/clips/gc-ec5138fe06234316.mp3"
-    },
-    {
-     "date": "2026-09-10",
-     "t": 3103.9,
-     "mmss": "51:43",
-     "hit": "بكسر",
-     "said": "بكسور-- بكسر، أنا ما بكسر،",
-     "verdict": "right",
-     "said_html": "بكسور-- <mark class=\"ab-correct\">بكسر</mark>، أنا ما بكسر،",
-     "clip": "2026-09-10/clips/gc-d964abcfe19f52d9.mp3"
     }
    ],
-   "usage_total": 71,
+   "usage_total": 72,
    "last_used": "2026-10-09",
    "last_used_mmss": "21:34",
    "verified_slips": 48,
    "auto_slips": 0,
-   "uses": 119,
+   "uses": 120,
    "mistakes": 48,
    "asks": 0,
    "pct": 60,
@@ -24064,7 +24104,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 119,
+   "uses_seen": 120,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -24185,6 +24225,19 @@
    ],
    "candidate_count": 3,
    "usage": [
+    {
+     "date": "2026-10-09",
+     "t": 307.0,
+     "mmss": "05:07",
+     "hit": "أنا راح أطلب",
+     "said": "أطلب، uh,",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "ra7 plus bare verb, joined from the line before",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "أطلب، uh,",
+     "clip": "2026-10-09/clips/gc-f773daab94d3386a.mp3"
+    },
     {
      "date": "2026-10-08",
      "t": 930.2,
@@ -24409,12 +24462,12 @@
      "clip": "2026-09-11/clips/gc-7fc064e44293313b.mp3"
     }
    ],
-   "usage_total": 21,
-   "last_used": "2026-10-08",
-   "last_used_mmss": "15:30",
+   "usage_total": 22,
+   "last_used": "2026-10-09",
+   "last_used_mmss": "05:07",
    "verified_slips": 3,
    "auto_slips": 0,
-   "uses": 24,
+   "uses": 25,
    "mistakes": 3,
    "asks": 0,
    "pct": 88,
@@ -24422,7 +24475,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 24,
+   "uses_seen": 25,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -27387,6 +27440,19 @@
    "candidate_count": 62,
    "usage": [
     {
+     "date": "2026-10-09",
+     "t": 1469.5,
+     "mmss": "24:29",
+     "hit": "البحيرة التانية بتبسط",
+     "said": "البحيرة التانية بتبسط أكتر.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "feminine noun subject takes feminine bt- verb",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">البحيرة التانية بتبسط</mark> أكتر.",
+     "clip": "2026-10-09/clips/gc-cd31ca3b71e8b51c.mp3"
+    },
+    {
      "date": "2026-10-08",
      "t": 2737.5,
      "mmss": "45:37",
@@ -27426,20 +27492,20 @@
      "clip": "2026-10-08/clips/gc-bc8f44f4c4a5adbe.mp3"
     }
    ],
-   "usage_total": 3,
-   "last_used": "2026-10-08",
-   "last_used_mmss": "45:37",
+   "usage_total": 4,
+   "last_used": "2026-10-09",
+   "last_used_mmss": "24:29",
    "verified_slips": 62,
    "auto_slips": 0,
-   "uses": 65,
+   "uses": 66,
    "mistakes": 62,
    "asks": 0,
-   "pct": 5,
+   "pct": 6,
    "status": "Wrong",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 65,
+   "uses_seen": 66,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -27828,6 +27894,32 @@
    "usage": [
     {
      "date": "2026-10-09",
+     "t": 3998.4,
+     "mmss": "66:38",
+     "hit": "هادي نفس الـ lobe",
+     "said": "هادي نفس",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "nominal sentence: this is the same game, tutor said perfect",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "هادي نفس",
+     "clip": "2026-10-09/clips/gc-1b0f26e6c1489c73.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 3670.8,
+     "mmss": "61:10",
+     "hit": "هذه أول لعبة إلي",
+     "said": "Uh,",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "real nominal sentence: this is my first game",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "Uh,",
+     "clip": "2026-10-09/clips/gc-d903ccf928582bfa.mp3"
+    },
+    {
+     "date": "2026-10-09",
      "t": 2414.7,
      "mmss": "40:14",
      "hit": "النل مختلف",
@@ -27836,6 +27928,45 @@
      "verdict": "right",
      "said_html": "il nu&#x27;il mukhtalif?",
      "clip": "2026-10-09/clips/gc-646869ce62f13ca9.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1897.6,
+     "mmss": "31:37",
+     "hit": "هذا نفس المنظر",
+     "said": "الـ--",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "real nominal sentence 'this is the same view', no 'is'",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "الـ--",
+     "clip": "2026-10-09/clips/gc-96337135b8092cc3.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1761.8,
+     "mmss": "29:21",
+     "hit": "هذه القبة أول واحدة",
+     "said": "هذه القبة أول واحدة أنا بروح عليها.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "real nominal sentence with no 'is'",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">هذه القبة أول واحدة</mark> أنا بروح عليها.",
+     "clip": "2026-10-09/clips/gc-967beb98d3245e0d.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 396.3,
+     "mmss": "06:36",
+     "hit": "اليوم جمعة",
+     "said": "اليوم",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "nominal sentence today is Friday, no word for is",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "اليوم",
+     "clip": "2026-10-09/clips/gc-516099d420bc2a0a.mp3"
     },
     {
      "date": "2026-10-09",
@@ -27875,10 +28006,10 @@
      "date": "2026-10-08",
      "t": 3068.6,
      "mmss": "51:08",
-     "hit": "الشارع قديمة",
+     "hit": "الالشارع قديمة",
      "said": "الـ الشارع قديمة.",
      "verdict": "right",
-     "said_html": "الـ <mark class=\"ab-correct\">الشارع قديمة</mark>.",
+     "said_html": "الـ الشارع قديمة.",
      "clip": "2026-10-08/clips/gc-c8995085e8105660.mp3"
     },
     {
@@ -28198,63 +28329,22 @@
      "verdict": "right",
      "said_html": "<mark class=\"ab-correct\">إنت منيح</mark>",
      "clip": "2026-09-11/clips/gc-b576985b4860fc71.mp3"
-    },
-    {
-     "date": "2026-09-11",
-     "t": 72.1,
-     "mmss": "01:12",
-     "hit": "هو مشغول",
-     "said": "آآآ، هو مشغول كتير، كان مشغول كتير.",
-     "verdict": "right",
-     "said_html": "آآآ، <mark class=\"ab-correct\">هو مشغول</mark> كتير، كان مشغول كتير.",
-     "clip": "2026-09-11/clips/gc-cc7e9fac2bab0eeb.mp3"
-    },
-    {
-     "date": "2026-09-11",
-     "t": 55.0,
-     "mmss": "00:55",
-     "hit": "أنا جاهز",
-     "said": "أنا جاهز.",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">أنا جاهز</mark>.",
-     "clip": "2026-09-11/clips/gc-2b35fef9d90c9496.mp3"
-    },
-    {
-     "date": "2026-09-10",
-     "t": 3255.7,
-     "mmss": "54:15",
-     "hit": "أنا تعبان",
-     "said": "[يضحك] أنا، أنا تعبان بس.",
-     "verdict": "right",
-     "said_html": "[يضحك] أنا، <mark class=\"ab-correct\">أنا تعبان</mark> بس.",
-     "clip": "2026-09-10/clips/gc-315bb08f77f31cf1.mp3"
-    },
-    {
-     "date": "2026-09-05",
-     "t": 1511.8,
-     "mmss": "25:11",
-     "hit": "انتي مزعوج",
-     "said": "Okay, it's not conditional. So, \"inti,\" are you annoyed? \"Inti maz'ooj min ishi?\"",
-     "read_as": ". , . , \" انتي \" . ? \" انتي مزعوج من . ? \"",
-     "verdict": "right",
-     "said_html": "Okay, it&#x27;s not conditional. So, &quot;inti,&quot; are you annoyed? &quot;Inti maz&#x27;ooj min ishi?&quot;",
-     "clip": "2026-09-05/clips/gc-089ab411fa45cbe3.mp3"
     }
    ],
-   "usage_total": 39,
+   "usage_total": 44,
    "last_used": "2026-10-09",
-   "last_used_mmss": "40:14",
+   "last_used_mmss": "66:38",
    "verified_slips": 4,
    "auto_slips": 0,
-   "uses": 42,
+   "uses": 47,
    "mistakes": 4,
    "asks": 0,
-   "pct": 90,
+   "pct": 91,
    "status": "Good",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 42,
+   "uses_seen": 47,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -28697,27 +28787,6 @@
      "clip": "2026-10-09/clips/gc-b453563e74b8c997.mp3"
     },
     {
-     "date": "2026-10-09",
-     "t": 1745.7,
-     "mmss": "29:05",
-     "hit": "بروحها",
-     "said": "أنا بروحها?",
-     "verdict": "right",
-     "said_html": "أنا <mark class=\"ab-correct\">بروحها</mark>?",
-     "clip": "2026-10-09/clips/gc-15e184911d0510cd.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 1736.5,
-     "mmss": "28:56",
-     "hit": "بروحها",
-     "said": "أنا بر-- uh, I go to أنا بروح أو أنا بروحها.",
-     "read_as": "أنا , . أنا بروح أو أنا بروحها .",
-     "verdict": "right",
-     "said_html": "أنا بر-- uh, I go to أنا بروح أو أنا <mark class=\"ab-correct\">بروحها</mark>.",
-     "clip": "2026-10-09/clips/gc-e7b47d555d95b4eb.mp3"
-    },
-    {
      "date": "2026-10-08",
      "t": 1624.2,
      "mmss": "27:04",
@@ -28929,20 +28998,20 @@
      "clip": "2026-08-25/clips/gc-734cda98010a895c.mp3"
     }
    ],
-   "usage_total": 23,
+   "usage_total": 21,
    "last_used": "2026-10-09",
    "last_used_mmss": "31:59",
    "verified_slips": 13,
    "auto_slips": 0,
-   "uses": 36,
+   "uses": 34,
    "mistakes": 13,
    "asks": 1,
-   "pct": 64,
+   "pct": 62,
    "status": "Wrong",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 36,
+   "uses_seen": 34,
    "not_counted": [],
    "not_counted_count": 0,
    "events": [
@@ -30135,25 +30204,37 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 3467.6,
-     "mmss": "57:47",
-     "hit": "مش",
-     "said": "mish vade, vade.",
-     "read_as": "مش .",
+     "t": 3774.9,
+     "mmss": "62:54",
+     "hit": "ما بحب",
+     "said": "uh, ما بحب",
+     "read_as": ", ما بحب",
      "verdict": "right",
-     "said_html": "mish vade, vade.",
-     "clip": "2026-10-09/clips/gc-96bab4d6e2c5abb6.mp3"
+     "said_html": "uh, <mark class=\"ab-correct\">ما بحب</mark>",
+     "clip": "2026-10-09/clips/gc-883f803e6f28cea6.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 3456.8,
-     "mmss": "57:36",
-     "hit": "مش",
-     "said": "mish, uh... Oh, kan,",
-     "read_as": "مش . , كان",
+     "t": 3763.0,
+     "mmss": "62:42",
+     "hit": "مابحب",
+     "said": "ما-ما بحب.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "ma before present verb",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "mish, uh... Oh, kan,",
-     "clip": "2026-10-09/clips/gc-c1bcb36824ca32e4.mp3"
+     "said_html": "ما-ما بحب.",
+     "clip": "2026-10-09/clips/gc-f262ba047b9bd641.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 3467.6,
+     "mmss": "57:47",
+     "hit": "مش",
+     "said": "مش واضح، واضح.",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">مش</mark> واضح، واضح.",
+     "clip": "2026-10-09/clips/gc-96bab4d6e2c5abb6.mp3"
     },
     {
      "date": "2026-10-09",
@@ -30537,24 +30618,14 @@
      "verdict": "right",
      "said_html": "<mark class=\"ab-correct\">ما بحبهم</mark>. &#x27;Cause I thought it was singular.",
      "clip": "2026-09-26/clips/gc-d54a54fb5373c844.mp3"
-    },
-    {
-     "date": "2026-09-26",
-     "t": 3503.7,
-     "mmss": "58:23",
-     "hit": "أبدًا",
-     "said": "لا أنا أبدًا",
-     "verdict": "right",
-     "said_html": "لا أنا <mark class=\"ab-correct\">أبدًا</mark>",
-     "clip": "2026-09-26/clips/gc-58c8ae1b65ed1e2b.mp3"
     }
    ],
-   "usage_total": 118,
+   "usage_total": 119,
    "last_used": "2026-10-09",
-   "last_used_mmss": "57:47",
+   "last_used_mmss": "62:54",
    "verified_slips": 13,
    "auto_slips": 0,
-   "uses": 131,
+   "uses": 132,
    "mistakes": 13,
    "asks": 0,
    "pct": 90,
@@ -30562,7 +30633,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 131,
+   "uses_seen": 132,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -30845,38 +30916,6 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 3643.4,
-     "mmss": "60:43",
-     "hit": "أو",
-     "said": "Oh، هذه-- هـ-- أو هذه",
-     "read_as": ". ، أو هذه",
-     "verdict": "right",
-     "said_html": "Oh، هذه-- هـ-- <mark class=\"ab-correct\">أو</mark> هذه",
-     "clip": "2026-10-09/clips/gc-64d5104dc28929b7.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 2119.9,
-     "mmss": "35:19",
-     "hit": "أو",
-     "said": "أنا جبت لك. جبتك أو لك؟",
-     "verdict": "right",
-     "said_html": "أنا جبت لك. جبتك <mark class=\"ab-correct\">أو</mark> لك؟",
-     "clip": "2026-10-09/clips/gc-28f937f46396558f.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 1736.5,
-     "mmss": "28:56",
-     "hit": "أو",
-     "said": "أنا بر-- uh, I go to أنا بروح أو أنا بروحها.",
-     "read_as": "أنا , . أنا بروح أو أنا بروحها .",
-     "verdict": "right",
-     "said_html": "أنا بر-- uh, I go to أنا بروح <mark class=\"ab-correct\">أو</mark> أنا بروحها.",
-     "clip": "2026-10-09/clips/gc-e7b47d555d95b4eb.mp3"
-    },
-    {
-     "date": "2026-10-09",
      "t": 881.2,
      "mmss": "14:41",
      "hit": "أو",
@@ -30887,13 +30926,16 @@
     },
     {
      "date": "2026-10-09",
-     "t": 557.1,
-     "mmss": "09:17",
-     "hit": "والله",
-     "said": "امم، آآآ، نار. نار والله.",
+     "t": 246.6,
+     "mmss": "04:06",
+     "hit": "ماي كتير وشوربة",
+     "said": "ماي كتير ووشوربة.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "u joins water and soup correctly",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "امم، آآآ، نار. نار <mark class=\"ab-correct\">والله</mark>.",
-     "clip": "2026-10-09/clips/gc-2b2b353821e533b2.mp3"
+     "said_html": "ماي كتير ووشوربة.",
+     "clip": "2026-10-09/clips/gc-2a7814438d67b10e.mp3"
     },
     {
      "date": "2026-10-08",
@@ -31257,14 +31299,45 @@
      "verdict": "right",
      "said_html": "تلاتاش <mark class=\"ab-correct\">و تلاتين</mark>.",
      "clip": "2026-09-28/clips/gc-65858c1dec43a137.mp3"
+    },
+    {
+     "date": "2026-09-28",
+     "t": 3343.4,
+     "mmss": "55:43",
+     "hit": "و أكتر",
+     "said": "و، أكتر من",
+     "verdict": "right",
+     "said_html": "و، أكتر من",
+     "clip": "2026-09-28/clips/gc-ff7a75456e4fe362.mp3"
+    },
+    {
+     "date": "2026-09-28",
+     "t": 3328.5,
+     "mmss": "55:28",
+     "hit": "و ستين",
+     "said": "آآآ، و ستين",
+     "verdict": "right",
+     "said_html": "آآآ، <mark class=\"ab-correct\">و ستين</mark>",
+     "clip": "2026-09-28/clips/gc-b64abc52f46abe4b.mp3"
+    },
+    {
+     "date": "2026-09-28",
+     "t": 3240.8,
+     "mmss": "54:00",
+     "hit": "و و",
+     "said": "آآ، عشرين-- I have no idea by the way. بين عشرين و، و",
+     "read_as": "آآ، . بين عشرين و، و",
+     "verdict": "right",
+     "said_html": "آآ، عشرين-- I have no idea by the way. بين عشرين و، و",
+     "clip": "2026-09-28/clips/gc-4a726ff3ec12478f.mp3"
     }
    ],
-   "usage_total": 130,
+   "usage_total": 127,
    "last_used": "2026-10-09",
-   "last_used_mmss": "60:43",
+   "last_used_mmss": "14:41",
    "verified_slips": 1,
    "auto_slips": 0,
-   "uses": 130,
+   "uses": 127,
    "mistakes": 1,
    "asks": 1,
    "pct": 99,
@@ -31272,7 +31345,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 130,
+   "uses_seen": 127,
    "not_counted": [],
    "not_counted_count": 0,
    "events": [
@@ -32270,17 +32343,6 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 3517.2,
-     "mmss": "58:37",
-     "hit": "اللي",
-     "said": "Wou-would it be suali akher ili?",
-     "read_as": ". اللي ?",
-     "verdict": "right",
-     "said_html": "Wou-would it be suali akher ili?",
-     "clip": "2026-10-09/clips/gc-2348cbc0e1c1998a.mp3"
-    },
-    {
-     "date": "2026-10-09",
      "t": 1915.2,
      "mmss": "31:55",
      "hit": "اللي",
@@ -32288,17 +32350,6 @@
      "verdict": "right",
      "said_html": "اه <mark class=\"ab-correct\">اللي</mark>",
      "clip": "2026-10-09/clips/gc-69d3fbfcfca58bcd.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 1686.7,
-     "mmss": "28:06",
-     "hit": "اللي",
-     "said": "So there's no الـ... Uh, no هذي القبة. Okay. Ha-- uh, اللي...",
-     "read_as": ". الـ . , . هذي القبة . , اللي .",
-     "verdict": "right",
-     "said_html": "So there&#x27;s no الـ... Uh, no هذي القبة. Okay. Ha-- uh, <mark class=\"ab-correct\">اللي</mark>...",
-     "clip": "2026-10-09/clips/gc-8736472e33a61b6a.mp3"
     },
     {
      "date": "2026-10-06",
@@ -32646,20 +32697,20 @@
      "clip": "2026-08-25/clips/gc-ad7347bf55cbdef1.mp3"
     }
    ],
-   "usage_total": 35,
+   "usage_total": 33,
    "last_used": "2026-10-09",
-   "last_used_mmss": "58:37",
+   "last_used_mmss": "31:55",
    "verified_slips": 13,
    "auto_slips": 0,
-   "uses": 47,
+   "uses": 45,
    "mistakes": 13,
    "asks": 0,
-   "pct": 72,
+   "pct": 71,
    "status": "Shaky",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 47,
+   "uses_seen": 45,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -34647,17 +34698,6 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 4234.5,
-     "mmss": "70:34",
-     "hit": "مع الشوق",
-     "said": "مع الشوق بك. Bye.",
-     "read_as": "مع الشوق بك .",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">مع الشوق</mark> بك. Bye.",
-     "clip": "2026-10-09/clips/gc-7e396e51ac3b3784.mp3"
-    },
-    {
-     "date": "2026-10-09",
      "t": 3809.2,
      "mmss": "63:29",
      "hit": "ة في اليوم",
@@ -34665,17 +34705,6 @@
      "verdict": "right",
      "said_html": "ثاني لعب<mark class=\"ab-correct\">ة في اليوم</mark>.",
      "clip": "2026-10-09/clips/gc-133d3c60a3920126.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 3735.6,
-     "mmss": "62:15",
-     "hit": "من أول",
-     "said": "من أول اللعبة. Or would it be أولى؟ Okay. Yeah، أول لعبة.",
-     "read_as": "من أول اللعبة . أولى؟ . ، أول لعبة .",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">من أول</mark> اللعبة. Or would it be أولى؟ Okay. Yeah، أول لعبة.",
-     "clip": "2026-10-09/clips/gc-ec1eda4c5ba0e118.mp3"
     },
     {
      "date": "2026-10-09",
@@ -34708,6 +34737,78 @@
      "verdict": "right",
      "said_html": "Different types of min il shajar. Oh.",
      "clip": "2026-10-09/clips/gc-7540f670f6e08b5c.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1923.0,
+     "mmss": "32:03",
+     "hit": "في مدريد",
+     "said": "في مدريد.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "في means 'in' here, finishing 'that I saw in Madrid'",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">في مدريد</mark>.",
+     "clip": "2026-10-09/clips/gc-7f923744f0d46416.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1513.0,
+     "mmss": "25:12",
+     "hit": "في الشـ",
+     "said": "في الـ شـ-شتاء.",
+     "verdict": "right",
+     "said_html": "في الـ شـ-شتاء.",
+     "clip": "2026-10-09/clips/gc-b6146450c16076a7.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1509.1,
+     "mmss": "25:09",
+     "hit": "في الصيف",
+     "said": "في الـ صيف،",
+     "verdict": "right",
+     "said_html": "في الـ صيف،",
+     "clip": "2026-10-09/clips/gc-8167e794fe4c6770.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1294.5,
+     "mmss": "21:34",
+     "hit": "بالشاطئ",
+     "said": "أنا بنبسط بالشاطئ.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "bi = at the beach, correct preposition choice",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "أنا بنبسط <mark class=\"ab-correct\">بالشاطئ</mark>.",
+     "clip": "2026-10-09/clips/gc-f4f02b290ecdb2e0.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1181.1,
+     "mmss": "19:41",
+     "hit": "بي كاليفورنيا",
+     "said": "Um, جبال",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "bi = in before a place name, correct",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "Um, جبال",
+     "clip": "2026-10-09/clips/gc-76225ce84d6d0d5e.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 670.2,
+     "mmss": "11:10",
+     "hit": "في إيران",
+     "said": "أوي،",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "fi = in before a place name, not there-is",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "أوي،",
+     "clip": "2026-10-09/clips/gc-819e312dd0ed650b.mp3"
     },
     {
      "date": "2026-10-09",
@@ -34752,17 +34853,6 @@
      "verdict": "right",
      "said_html": "آآ، الهواء هون غير <mark class=\"ab-correct\">عن الهواء</mark> هناك.",
      "clip": "2026-10-08/clips/gc-54f095c6ec8f3d08.mp3"
-    },
-    {
-     "date": "2026-10-08",
-     "t": 1943.0,
-     "mmss": "32:23",
-     "hit": "عن الهوا",
-     "said": "8eir 3an el* aaa, 8air 3an el hawa.",
-     "read_as": ". عن الـ * بقعة غير عن الهوا .",
-     "verdict": "right",
-     "said_html": "8eir 3an el* aaa, 8air 3an el hawa.",
-     "clip": "2026-10-08/clips/gc-b93ab0fad4878875.mp3"
     },
     {
      "date": "2026-10-08",
@@ -35035,45 +35125,14 @@
      "verdict": "right",
      "said_html": "So I have socks in different colors. أنا عندي كلسا<mark class=\"ab-correct\">ت في لون</mark> مختلف.",
      "clip": "2026-09-26/clips/gc-02fe3575017a885a.mp3"
-    },
-    {
-     "date": "2026-09-26",
-     "t": 3701.0,
-     "mmss": "61:40",
-     "hit": "ب في فلسطين",
-     "said": "آآآ، الـ-- اهون. الشعب في فلسطين،",
-     "verdict": "right",
-     "said_html": "آآآ، الـ-- اهون. الشع<mark class=\"ab-correct\">ب في فلسطين</mark>،",
-     "clip": "2026-09-26/clips/gc-b7f5412e83951097.mp3"
-    },
-    {
-     "date": "2026-09-26",
-     "t": 3646.6,
-     "mmss": "60:46",
-     "hit": "د في الشمس",
-     "said": "أقعد-- أنا بحب أقعد في الشمس.",
-     "verdict": "right",
-     "said_html": "أقعد-- أنا بحب أقع<mark class=\"ab-correct\">د في الشمس</mark>.",
-     "clip": "2026-09-26/clips/gc-5e39f9723607c021.mp3"
-    },
-    {
-     "date": "2026-09-26",
-     "t": 1827.4,
-     "mmss": "30:27",
-     "hit": "من شو",
-     "said": "من شو from what? Um, ما بعرف.",
-     "read_as": "من شو . ? , ما بعرف .",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">من شو</mark> from what? Um, ما بعرف.",
-     "clip": "2026-09-26/clips/gc-1308978aaec0e988.mp3"
     }
    ],
-   "usage_total": 123,
+   "usage_total": 126,
    "last_used": "2026-10-09",
-   "last_used_mmss": "70:34",
+   "last_used_mmss": "63:29",
    "verified_slips": 29,
    "auto_slips": 0,
-   "uses": 150,
+   "uses": 153,
    "mistakes": 29,
    "asks": 0,
    "pct": 81,
@@ -35081,7 +35140,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 150,
+   "uses_seen": 153,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -36542,6 +36601,45 @@
    "candidate_count": 46,
    "usage": [
     {
+     "date": "2026-10-09",
+     "t": 1568.4,
+     "mmss": "26:08",
+     "hit": "نروح على",
+     "said": "uh, إح-إحنا بنقدر نروح على",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "raa7 takes 3ala, continues into next line",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "uh, إح-إحنا بنقدر <mark class=\"ab-correct\">نروح على</mark>",
+     "clip": "2026-10-09/clips/gc-5860d1b5e5049722.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1504.8,
+     "mmss": "25:04",
+     "hit": "نروح على الشاطئ",
+     "said": "على الـ",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "raa7 takes 3ala, joined with previous split line",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "على الـ",
+     "clip": "2026-10-09/clips/gc-c47da769bdd4de32.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 327.2,
+     "mmss": "05:27",
+     "hit": "أطلب منها",
+     "said": "أ-أ-أطلب منها،",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "ask takes min, the fixed preposition, his own choice",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "أ-أ-<mark class=\"ab-correct\">أطلب منها</mark>،",
+     "clip": "2026-10-09/clips/gc-f188e72559b56a46.mp3"
+    },
+    {
      "date": "2026-10-08",
      "t": 1966.9,
      "mmss": "32:46",
@@ -36597,20 +36695,20 @@
      "clip": "2026-08-25/clips/gc-8d24826ed88c6e17.mp3"
     }
    ],
-   "usage_total": 5,
-   "last_used": "2026-10-08",
-   "last_used_mmss": "32:46",
+   "usage_total": 8,
+   "last_used": "2026-10-09",
+   "last_used_mmss": "26:08",
    "verified_slips": 46,
    "auto_slips": 0,
-   "uses": 51,
+   "uses": 54,
    "mistakes": 46,
    "asks": 0,
-   "pct": 10,
+   "pct": 15,
    "status": "Wrong",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 51,
+   "uses_seen": 54,
    "not_counted": [],
    "not_counted_count": 0,
    "events": [
@@ -36752,17 +36850,6 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 4234.5,
-     "mmss": "70:34",
-     "hit": "مع الشوق",
-     "said": "مع الشوق بك. Bye.",
-     "read_as": "مع الشوق بك .",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">مع الشوق</mark> بك. Bye.",
-     "clip": "2026-10-09/clips/gc-7e396e51ac3b3784.mp3"
-    },
-    {
-     "date": "2026-10-09",
      "t": 3809.2,
      "mmss": "63:29",
      "hit": "في اليوم",
@@ -36791,6 +36878,26 @@
      "verdict": "right",
      "said_html": "Different types of min il shajar. Oh.",
      "clip": "2026-10-09/clips/gc-7540f670f6e08b5c.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1513.0,
+     "mmss": "25:12",
+     "hit": "في الشـ",
+     "said": "في الـ شـ-شتاء.",
+     "verdict": "right",
+     "said_html": "في الـ شـ-شتاء.",
+     "clip": "2026-10-09/clips/gc-b6146450c16076a7.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 1509.1,
+     "mmss": "25:09",
+     "hit": "في الصيف",
+     "said": "في الـ صيف،",
+     "verdict": "right",
+     "said_html": "في الـ صيف،",
+     "clip": "2026-10-09/clips/gc-8167e794fe4c6770.mp3"
     },
     {
      "date": "2026-10-09",
@@ -36853,21 +36960,10 @@
      "t": 1953.5,
      "mmss": "32:33",
      "hit": "عن الهوا",
-     "said": "آآ، بعيد عن الهوا",
+     "said": "آآ، غير عن الهوا،",
      "verdict": "right",
-     "said_html": "آآ، بعيد <mark class=\"ab-correct\">عن الهوا</mark>",
+     "said_html": "آآ، غير <mark class=\"ab-correct\">عن الهوا</mark>،",
      "clip": "2026-10-08/clips/gc-bf91e62d596339c2.mp3"
-    },
-    {
-     "date": "2026-10-08",
-     "t": 1943.0,
-     "mmss": "32:23",
-     "hit": "عن الهوا",
-     "said": "8eir 3an el* aaa, 8air 3an el hawa.",
-     "read_as": ". عن الـ * بقعة غير عن الهوا .",
-     "verdict": "right",
-     "said_html": "8eir 3an el* aaa, 8air 3an el hawa.",
-     "clip": "2026-10-08/clips/gc-b93ab0fad4878875.mp3"
     },
     {
      "date": "2026-10-06",
@@ -37175,7 +37271,7 @@
    ],
    "usage_total": 56,
    "last_used": "2026-10-09",
-   "last_used_mmss": "70:34",
+   "last_used_mmss": "63:29",
    "verified_slips": 3,
    "auto_slips": 0,
    "uses": 59,
@@ -37595,6 +37691,16 @@
     },
     {
      "date": "2026-10-09",
+     "t": 3331.7,
+     "mmss": "55:31",
+     "hit": "عندك",
+     "said": "عندك",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">عندك</mark>",
+     "clip": "2026-10-09/clips/gc-0f050d7cc2348ff9.mp3"
+    },
+    {
+     "date": "2026-10-09",
      "t": 3136.1,
      "mmss": "52:16",
      "hit": "عندهم",
@@ -37602,6 +37708,19 @@
      "verdict": "right",
      "said_html": "أمريكا، <mark class=\"ab-correct\">عندهم</mark>.",
      "clip": "2026-10-09/clips/gc-54f86f1d9ed40d54.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 2119.9,
+     "mmss": "35:19",
+     "hit": "لك",
+     "said": "أنا جبت لك. جبتك أو لك؟",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "ending on preposition la-, 'for you', his own",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "أنا جبت <mark class=\"ab-correct\">لك</mark>. جبتك أو لك؟",
+     "clip": "2026-10-09/clips/gc-28f937f46396558f.mp3"
     },
     {
      "date": "2026-10-09",
@@ -37622,27 +37741,6 @@
      "verdict": "right",
      "said_html": "أ-أ-أطلب <mark class=\"ab-correct\">منها</mark>،",
      "clip": "2026-10-09/clips/gc-f188e72559b56a46.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 216.8,
-     "mmss": "03:36",
-     "hit": "علي",
-     "said": "علي سلامتك.",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">علي</mark> سلامتك.",
-     "clip": "2026-10-09/clips/gc-e63de4fe853ac983.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 115.6,
-     "mmss": "01:55",
-     "hit": "علي",
-     "said": "[يضحك] Um, علي سلامتك.",
-     "read_as": ", علي سلامتك .",
-     "verdict": "right",
-     "said_html": "[يضحك] Um, <mark class=\"ab-correct\">علي</mark> سلامتك.",
-     "clip": "2026-10-09/clips/gc-38dd667c4ca80220.mp3"
     },
     {
      "date": "2026-10-08",
@@ -39216,34 +39314,26 @@
    "usage": [
     {
      "date": "2026-10-09",
-     "t": 1937.7,
-     "mmss": "32:17",
-     "hit": "بتوني",
-     "said": "عشان تم-- اه بتوني.",
+     "t": 2887.6,
+     "mmss": "48:07",
+     "hit": "أعطيني",
+     "said": "أعطيني",
      "verdict": "right",
-     "said_html": "عشان تم-- اه <mark class=\"ab-correct\">بتوني</mark>.",
-     "clip": "2026-10-09/clips/gc-add93e18c31ae34d.mp3"
+     "said_html": "<mark class=\"ab-correct\">أعطيني</mark>",
+     "clip": "2026-10-09/clips/gc-94bc1e3fe9f433a2.mp3"
     },
     {
      "date": "2026-10-09",
-     "t": 1834.6,
-     "mmss": "30:34",
-     "hit": "بتفضلي",
-     "said": "بتفض-- اه بتفض-- بتفض-- بتفضلي.",
+     "t": 1234.6,
+     "mmss": "20:34",
+     "hit": "بيبسطني",
+     "said": "بيس-بس-بيبسطني.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "object -ni attached to the verb",
+     "rule": "GR-34",
      "verdict": "right",
-     "said_html": "بتفض-- اه بتفض-- بتفض-- <mark class=\"ab-correct\">بتفضلي</mark>.",
-     "clip": "2026-10-09/clips/gc-4c2efab8c2e29ee3.mp3"
-    },
-    {
-     "date": "2026-10-09",
-     "t": 234.5,
-     "mmss": "03:54",
-     "hit": "بتوني",
-     "said": "Ah, بتوني.",
-     "read_as": ", بتوني .",
-     "verdict": "right",
-     "said_html": "Ah, <mark class=\"ab-correct\">بتوني</mark>.",
-     "clip": "2026-10-09/clips/gc-3015e21aecb4f912.mp3"
+     "said_html": "بيس-بس-<mark class=\"ab-correct\">بيبسطني</mark>.",
+     "clip": "2026-10-09/clips/gc-4e36861de62c056f.mp3"
     },
     {
      "date": "2026-10-08",
@@ -39289,17 +39379,6 @@
      "verdict": "right",
      "said_html": "um, <mark class=\"ab-correct\">أعمله</mark>،",
      "clip": "2026-10-08/clips/gc-091f0a459f393cc0.mp3"
-    },
-    {
-     "date": "2026-10-08",
-     "t": 902.9,
-     "mmss": "15:02",
-     "hit": "تفتتلي",
-     "said": "uh, إنه تخطط-- uh, تفتتلي.",
-     "read_as": ", إنه , تفتتلي .",
-     "verdict": "right",
-     "said_html": "uh, إنه تخطط-- uh, <mark class=\"ab-correct\">تفتتلي</mark>.",
-     "clip": "2026-10-08/clips/gc-5b74e7fd1e72c8ba.mp3"
     },
     {
      "date": "2026-10-06",
@@ -39639,14 +39718,34 @@
      "verdict": "right",
      "said_html": "Uh, did I apologize to you? Uh, تأسف... <mark class=\"ab-correct\">تأسفتلك</mark>؟ Oh, uh, تأسـ... uh... تأسفولك؟ Did I apologize...",
      "clip": "2026-09-17/clips/gc-e544fbea6a380c4d.mp3"
+    },
+    {
+     "date": "2026-09-17",
+     "t": 802.6,
+     "mmss": "13:22",
+     "hit": "أعمله",
+     "said": "أنا راح أعمله بس الـ زباين،",
+     "verdict": "right",
+     "said_html": "أنا راح <mark class=\"ab-correct\">أعمله</mark> بس الـ زباين،",
+     "clip": "2026-09-17/clips/gc-282f800ea4fc168b.mp3"
+    },
+    {
+     "date": "2026-09-16",
+     "t": 2206.3,
+     "mmss": "36:46",
+     "hit": "تواجاتيني",
+     "said": "تواجاتيني. تواجا-- تواجات مني.",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">تواجاتيني</mark>. تواجا-- تواجات مني.",
+     "clip": "2026-09-16/clips/gc-d3d68ba24aa589cf.mp3"
     }
    ],
-   "usage_total": 82,
+   "usage_total": 80,
    "last_used": "2026-10-09",
-   "last_used_mmss": "32:17",
+   "last_used_mmss": "48:07",
    "verified_slips": 38,
    "auto_slips": 0,
-   "uses": 120,
+   "uses": 118,
    "mistakes": 38,
    "asks": 0,
    "pct": 68,
@@ -39654,7 +39753,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 120,
+   "uses_seen": 118,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -40325,6 +40424,32 @@
    "candidate_count": 17,
    "usage": [
     {
+     "date": "2026-10-09",
+     "t": 436.5,
+     "mmss": "07:16",
+     "hit": "عشر دقائق",
+     "said": "دقائق.‬ ‫إلجاء",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "ten without -a plus plural minutes, joined across lines",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "دقائق.‬ ‫إلجاء",
+     "clip": "2026-10-09/clips/gc-854a4b38f9a4a459.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 413.4,
+     "mmss": "06:53",
+     "hit": "ألفين",
+     "said": "عشرة ألفين وستة عشر.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "two thousand uses the dual -ein form correctly",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "عشرة <mark class=\"ab-correct\">ألفين</mark> وستة عشر.",
+     "clip": "2026-10-09/clips/gc-d28f4515cc5aadae.mp3"
+    },
+    {
      "date": "2026-10-08",
      "t": 2212.0,
      "mmss": "36:52",
@@ -40459,20 +40584,20 @@
      "clip": "2026-09-21/clips/gc-2547b68eb6bbc209.mp3"
     }
    ],
-   "usage_total": 13,
-   "last_used": "2026-10-08",
-   "last_used_mmss": "36:52",
+   "usage_total": 15,
+   "last_used": "2026-10-09",
+   "last_used_mmss": "07:16",
    "verified_slips": 17,
    "auto_slips": 0,
-   "uses": 30,
+   "uses": 32,
    "mistakes": 17,
    "asks": 0,
-   "pct": 43,
+   "pct": 47,
    "status": "Wrong",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 30,
+   "uses_seen": 32,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -40790,6 +40915,32 @@
    "candidate_count": 9,
    "usage": [
     {
+     "date": "2026-10-09",
+     "t": 3715.2,
+     "mmss": "61:55",
+     "hit": "على الـاثنتين",
+     "said": "على الـاثنتين.",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "clock time: at two, feminine number with el-",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "<mark class=\"ab-correct\">على الـاثنتين</mark>.",
+     "clip": "2026-10-09/clips/gc-c5cfafae7b870cb3.mp3"
+    },
+    {
+     "date": "2026-10-09",
+     "t": 426.7,
+     "mmss": "07:06",
+     "hit": "اثنتين إلا",
+     "said": "اثنتين",
+     "added_by": "Claude line-by-line read 2026-10-10 (four readers + Claude; Medi: 'apply it to 10-9')",
+     "why": "clock time with feminine number and illa",
+     "rule": "GR-34",
+     "verdict": "right",
+     "said_html": "اثنتين",
+     "clip": "2026-10-09/clips/gc-6e3fc9dd8d3f1654.mp3"
+    },
+    {
      "date": "2026-10-08",
      "t": 334.0,
      "mmss": "05:34",
@@ -40933,20 +41084,20 @@
      "clip": "2026-08-25/clips/gc-4bdad0badf033a79.mp3"
     }
    ],
-   "usage_total": 14,
-   "last_used": "2026-10-08",
-   "last_used_mmss": "05:34",
+   "usage_total": 16,
+   "last_used": "2026-10-09",
+   "last_used_mmss": "61:55",
    "verified_slips": 9,
    "auto_slips": 0,
-   "uses": 23,
+   "uses": 25,
    "mistakes": 9,
    "asks": 0,
-   "pct": 61,
+   "pct": 64,
    "status": "Wrong",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 23,
+   "uses_seen": 25,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -41593,26 +41744,6 @@
    "candidate_count": 4,
    "usage": [
     {
-     "date": "2026-10-09",
-     "t": 413.4,
-     "mmss": "06:53",
-     "hit": "ألفين",
-     "said": "عشرة ألفين وستة عشر.",
-     "verdict": "right",
-     "said_html": "عشرة <mark class=\"ab-correct\">ألفين</mark> وستة عشر.",
-     "clip": "2026-10-09/clips/gc-d28f4515cc5aadae.mp3"
-    },
-    {
-     "date": "2026-10-08",
-     "t": 324.1,
-     "mmss": "05:24",
-     "hit": "ألفين",
-     "said": "ألفين ستة وعشرين",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">ألفين</mark> ستة وعشرين",
-     "clip": "2026-10-08/clips/gc-bf5bf74aeec42911.mp3"
-    },
-    {
      "date": "2026-10-08",
      "t": 313.7,
      "mmss": "05:13",
@@ -42006,22 +42137,42 @@
      "verdict": "right",
      "said_html": "تسعة <mark class=\"ab-correct\">ألفين</mark> ستة وعشرين.",
      "clip": "2026-09-11/clips/gc-55e62371854c277b.mp3"
+    },
+    {
+     "date": "2026-09-11",
+     "t": 234.3,
+     "mmss": "03:54",
+     "hit": "الجمعة",
+     "said": "اليوم يوم الجمعة",
+     "verdict": "right",
+     "said_html": "اليوم يوم <mark class=\"ab-correct\">الجمعة</mark>",
+     "clip": "2026-09-11/clips/gc-f9e2b6455529a08a.mp3"
+    },
+    {
+     "date": "2026-09-11",
+     "t": 198.9,
+     "mmss": "03:18",
+     "hit": "امبارح",
+     "said": "آ، أنا، ر- أنا راح أعمل الـ، واجب الـ، آ امبارح والواجب",
+     "verdict": "right",
+     "said_html": "آ، أنا، ر- أنا راح أعمل الـ، واجب الـ، آ <mark class=\"ab-correct\">امبارح</mark> والواجب",
+     "clip": "2026-09-11/clips/gc-7fc064e44293313b.mp3"
     }
    ],
-   "usage_total": 46,
-   "last_used": "2026-10-09",
-   "last_used_mmss": "06:53",
+   "usage_total": 44,
+   "last_used": "2026-10-08",
+   "last_used_mmss": "05:13",
    "verified_slips": 4,
    "auto_slips": 0,
-   "uses": 49,
+   "uses": 47,
    "mistakes": 4,
    "asks": 0,
-   "pct": 92,
+   "pct": 91,
    "status": "Good",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 49,
+   "uses_seen": 47,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []

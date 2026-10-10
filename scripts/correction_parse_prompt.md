@@ -23,7 +23,13 @@ Rules:
   with their times. Give one "text" item PER LINE it changes, each with "at" = that line's m:ss and "engine_wrote" copied
   exactly from that line; never put his whole sentence into one line, never add a word that is already on another line.
 - "engine_wrote" must be words that appear on the line named by "at" (or on this line when "at" is not given), copied
-  exactly. Arabic script and Arabizi (2=ء 3=ع 5=خ 6=ط 7=ح 8=غ 9=ص) are both fine for "heard"; never change his spelling.
+  exactly. Arabizi (2=ء 3=ع 5=خ 6=ط 7=ح 8=غ 9=ص) is fine for "heard" only on a line the engine wrote in English
+  letters; never change his spelling beyond writing it in her letters.
+- His "X*" marks X as the RIGHT form (what was really said, or what the tutor wanted); "(not Y)" names what the line
+  wrongly shows. "8eir* (not ba3eed)" under a line showing بعيد = a "text" item بعيد -> غير, never an "add" (TR-30).
+- "heard" on a line in Arabic script is written in Arabic script (her letters: 8 = غ, 3 = ع, 7 = ح, 2 = ء/ق, 5 = خ, 6 = ط,
+  9 = ص): "8eir 3an" -> "غير عن", "bye7re2" -> "بيحرق". Never copy his * or an English gloss in brackets ("ardd
+  (ground/earth)" -> "أرض") into "heard". A note that only spells the word already on the line is a "note", not "text".
 - A note ABOUT the moment (what someone understood, that audio was cut, that a word is new for the tutor's list) is a
   "note", not a text change. "should count" / "should get credit" = "credit"; "shouldn't count" = "not-use".
 - "k" is "grammar" only when the words point at grammar (verb, gender, plural, tense, ending, rule); else "vocab".

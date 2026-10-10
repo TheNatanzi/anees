@@ -54,6 +54,8 @@ def _lands(r, u):
         return True
     if not r["engine_wrote"]:
         return bool(r.get("heard"))
+    if r.get("ai") and r["engine_wrote"] == r.get("heard"):
+        return False                # TR-30: the note reader's 'confirming' row (his credit note) never drops the second listen
     return r["engine_wrote"] in (u.get("text") or "")
 
 
@@ -137,14 +139,31 @@ def apply(date, turns, rows=None, sort=True):
         out.append(u)
     if sort:
         out.sort(key=lambda u: float(u.get("t") or 0))
-    return kaman_marra(out)
+    return tutor_nod(kaman_marra(out, date), date)
+
+
+NOD_FROM = "2026-10-08"       # PG-45: Medi chose 10-08 and 10-09 only (2026-10-10); earlier lessons wait for his yes
+
+
+def tutor_nod(turns, date):
+    """PG-45 (Medi 2026-10-09 on 10-08 24:45, 24:55, 25:08, 27:38 'MHM (confirmation)'): a tutor line that is only مهم
+    (or ممم) is her 'mm-hmm', not the word 'important' - the engine spells the sound as a word. The line reads 'Mm-hmm.'
+    (engine text kept, S2)."""
+    if str(date) < NOD_FROM:
+        return turns
+    for u in turns:
+        if u.get("who") == "Amal" and _re.fullmatch(r"\s*(مهم|ممم|مم)\s*[.؟?،]?\s*", u.get("text") or ""):
+            u.setdefault("engine", u["text"])
+            u.setdefault("heard", []).append({"engine_wrote": u["text"].strip(), "heard": "Mm-hmm", "rule": "PG-45"})
+            u["text"] = "Mm-hmm."
+    return turns
 
 
 import re as _re
 FILLER = _re.compile(r"^(آآآ|أأأ|اممم?|امم|uh|um|aaa|ا+)[،,.\s]*")
 
 
-def kaman_marra(turns):
+def kaman_marra(turns, date=None):
     """GR-11 on the transcript (Medi 2026-10-02 "10:09 aaa Kam Marra? Should be kaman marra"): his line that is only
     'كم مرة؟' (fillers aside) within 15 s after Amal spoke is 'كمان مرة؟' (again?), not 'how many times' - the engine
     drops the -an. Returns the turns with the heard words in place (engine text kept)."""
@@ -155,10 +174,10 @@ def kaman_marra(turns):
         after = [v for v in turns[i + 1:i + 6] if v.get("who") == "Amal" and 0 <= float(v["t"]) - float(u["t"]) <= 15]
         W = lambda v: set(_re.sub(r"[^\w\s]", " ", v.get("text") or "").split())
         repeats = any(len(W(a) & W(b)) >= max(1, len(W(b)) // 2) for b in before for a in after)   # she says it again
-        if u.get("who") == "Medi" and _re.fullmatch(r"كم\s+مر[ةه]\s*[؟?]?\.?", core) and before and repeats:
+        if u.get("who") == "Medi" and _re.fullmatch((r"كا?م" if str(date or "") >= NOD_FROM else r"كم") + r"\s+مر[ةه]\s*[؟?]?\.?", core) and before and repeats:   # كام: 10-09 32:34
             u = dict(u)
             u.setdefault("engine", u["text"])
-            u["text"] = _re.sub(r"كم\s+مر", "كمان مر", u["text"], count=1)
+            u["text"] = _re.sub(r"كا?م\s+مر", "كمان مر", u["text"], count=1)
             u.setdefault("heard", []).append({"engine_wrote": "كم مرة", "heard": "كمان مرة", "rule": "GR-11"})
         out.append(u)
     return out

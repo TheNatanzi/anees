@@ -1,10 +1,32 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 1,
+ "count": 2,
  "by_date": {
+  "2026-10-08": 1,
   "2026-10-09": 1
  },
  "rows": [
+  {
+   "uid": "FA-3cb71af9",
+   "date": "2026-10-08",
+   "t": "40:24",
+   "t_amal": "40:45",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "medi_said": "الهوا أجو كتير الصباح",
+   "amal_said": "إيش يعني عجل؟ ... عجا كتير الصباح؟ إيش يعني؟ Tell me it was very strong. The wind was very strong in the mornings.",
+   "wrong": "أجو",
+   "right": "قوي",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "40:14",
+   "listen_to": "41:05"
+  },
   {
    "uid": "FA-d08b5626",
    "date": "2026-10-09",

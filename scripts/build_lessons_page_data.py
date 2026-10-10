@@ -1330,7 +1330,8 @@ def build():
                                               WC.chips(d, v, COVER[d], [x for x in NO2.get("unscored") or [] if x.get("date") == d]), v["turns"])
         r = v["marks_report"]
         print(f"transcript marks {d}: {r['placed']}/{r['scored']} placed ({r['rate']}%), Amal fixes {r['fix_placed']}/{r['fix_wanted']}, "
-              f"underlines {r['ul_exact']} exact + {len(r['ul_closest'])} closest + {len(r['ul_none'])} none of {r['ul_wanted']}")
+              f"underlines {r['ul_exact']} exact + {len(r['ul_closest'])} closest + {len(r['ul_none'])} none of {r['ul_wanted']}"
+              + (f", {r['quiet']} quiet grey kept off the page (PG-43)" if r.get("quiet") else ""))
     for d, led in ledgers.items():
         LL.write(led)
     # LS-12 (Medi 2026-10-02 "1-6 put for amal on her list"): the open questions about Arabic words are cards on Amal's

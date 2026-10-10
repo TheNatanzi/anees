@@ -398,7 +398,7 @@ def test_ws_35_ghair_is_other_by_meaning_and_the_bare_verb_is_her_verb():
 
 def test_ws_35_10_08_moments():
     rows = {(r["t"], r["word"]): r for r in WC.report("2026-10-08")}
-    for t, w in (("09:44", "ديرت"), ("12:09", "ديري"), ("18:46", "سجر"), ("29:40", "بمطر"),
+    for t, w in (("09:44", "ديرت"), ("12:09", "ديري"), ("09:48", "خطيبتي"), ("18:46", "سجر"), ("29:40", "بمطر"),
                  ("50:27", "حجور"), ("51:19", "إدام"), ("51:22", "الإدام"), ("03:24", "مالها")):
         assert rows[(t, w)]["state"] == "new", (t, w, rows[(t, w)])
     assert rows[("31:34", "الهاوا")]["state"] == "correct" and rows[("52:50", "غير")]["state"] == "correct"
@@ -441,3 +441,23 @@ def test_gr_34_10_08_moments():
     assert at("A9", 1281.7) or at("A9", 1282.0) or any(x["date"] == "2026-10-08" and x["mmss"] == "21:17" for x in u["uses"].get("A9", []))
     assert not any(x["date"] == "2026-10-08" and x["mmss"] in ("14:36", "14:47") for x in u["uses"].get("B5", []))   # خلينا
     assert any(x["date"] == "2026-10-08" and x["mmss"] == "66:56" for x in u["uses"].get("B1", []))                  # his بشوفك counts
+
+
+def test_pg_43_a_standing_rule_grey_reason_is_kept_in_the_data_but_never_drawn():
+    """Medi 2026-10-10: 'Not scored · vocab · من: a preposition: scored as grammar, not as a word ... keep a not of it
+    on your end but dont publish. its not useful info'."""
+    import transcript_marks as TM
+    turns = [{"t": 445.0, "who": "Medi", "text": "من نار."}]
+    q = {"k": "na", "s": "na", "label": "vocab", "ar": "من", "why": "من: a preposition: scored as grammar, not as a word",
+         "quiet": WC.QUIET["a preposition: scored as grammar, not as a word"], "hide": "quiet"}
+    rep = {}
+    tm = TM.add_coverage_one({}, rep, [(0, q), (0, {"k": "na", "s": "na", "label": "vocab", "ar": "نار", "why": "نار: x"})], turns)
+    c = tm["0"]["c"]
+    assert rep["quiet"] == 1 and rep["coverage_grey"] == 1
+    assert [x["ar"] for x in c if not x.get("hide")] == ["نار"] and not any("also" in x for x in c)
+    # on the published 10-08: every preposition chip is quiet, none is drawn, and WS-30 still accounts for the word
+    d = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", "2026-10-08.json"), encoding="utf-8"))
+    prep = [x for v in d["tmarks"].values() for x in v["c"] if "a preposition: scored as grammar" in (x.get("why") or "")]
+    assert prep and all(x.get("quiet") == "PG-43" and x.get("hide") for x in prep)
+    rows = [r for r in WC.report("2026-10-08") if r["quiet"]]
+    assert rows and all(r["state"] == "na" for r in rows)

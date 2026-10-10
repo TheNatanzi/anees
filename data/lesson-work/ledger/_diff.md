@@ -15,17 +15,17 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-09-17 | 95.1 | 142 | 81.9 | 37 | 204 | 0 / 0 |
 | 2026-09-18 | 88.4 | 69 | 73.6 | 33 | 121 | 1 / 1 |
 | 2026-09-19 | 86.9 | 84 | 93.6 | 3 | 47 | 0 / 1 |
-| 2026-09-21 | 94.3 | 460 -> **458** | 82.8 | 64 | 361 | 3 / 0 |
+| 2026-09-21 | 94.3 | 458 | 82.8 | 64 | 361 | 3 / 0 |
 | 2026-09-23 | 89.2 | 171 | 83.0 | 39 | 230 | 1 / 1 |
-| 2026-09-26 | 93.6 | 345 -> **346** | 86.4 | 35 | 258 | 7 / 2 |
-| 2026-09-28 | 93.2 | 265 -> **264** | 88.6 | 25 | 220 | 1 / 0 |
-| 2026-09-30 | 94.2 | 226 -> **225** | 90.1 | 21 | 212 | 1 / 2 |
+| 2026-09-26 | 93.6 | 346 | 86.4 | 35 | 258 | 7 / 2 |
+| 2026-09-28 | 93.2 | 264 | 88.6 | 25 | 220 | 1 / 0 |
+| 2026-09-30 | 94.2 | 225 | 90.1 | 21 | 212 | 1 / 2 |
 | 2026-10-01 | 96.1 | 203 | 91.5 | 15 | 164 | 1 / 0 |
-| 2026-10-02 | 95.1 | 195 -> **194** | 85.6 | 27 | 188 | 3 / 1 |
-| 2026-10-05 | 95.2 | 273 -> **272** | 88.5 | 24 | 209 | 2 / 1 |
+| 2026-10-02 | 95.1 | 194 | 85.6 | 27 | 188 | 3 / 1 |
+| 2026-10-05 | 95.2 | 272 | 88.5 | 24 | 209 | 2 / 1 |
 | 2026-10-06 | 93.1 | 210 | 81.4 | 33 | 177 | 1 / 0 |
-| 2026-10-08 | 96.0 | 263 -> **261** | 87.7 -> **87.6** | 26 | 211 -> **210** | 2 / 2 |
-| 2026-10-09 | None -> **96.7** | None -> **261** | None -> **86.2** | None -> **33** | None -> **239** | 1 / 0 |
+| 2026-10-08 | 96.0 -> **95.1** | 261 -> **255** | 87.6 -> **86.0** | 26 -> **27** | 210 -> **193** | 1 / 1 |
+| 2026-10-09 | 96.7 -> **97.2** | 261 -> **285** | 86.2 -> **86.4** | 33 | 239 -> **242** | 1 / 0 |
 
 
 ## Conflicts
@@ -120,15 +120,13 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-06 41:36 C1 settled: بدل (word-bank right) vs بدل -> بستعمل (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
 - 2026-10-06 55:57 C1r both stand: وحيد، (word-bank right) vs وحيد -> بس (readers wrong) - the Word Bank's context review already settled it: unchanged
 - 2026-10-08 31:42 C1 settled: الأول (word-bank right) vs الأول -> الهوا (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
-- 2026-10-08 32:00 C1q Medi?: بعيد (word-bank right) vs بعيد -> غير (readers wrong) - which word of the phrase was wrong: Medi
-- 2026-10-08 36:17 C1 settled: سنان (word-bank right) vs سنان -> سنين (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
 - 2026-10-08 48:38 C1q Medi?: رمل (word-bank right) vs رمل -> تراب (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-10-09 19:28 C1 settled: جبال (word-bank right) vs جبال -> جبل (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-10-09 1:05:03 C1r both stand: أحسن. (word-bank right) vs أحسن -> بتبسط أكتر (readers not-scored) - the Word Bank's context review already settled it: unchanged
 
 ## Medi's corrections (PR-15)
 
-- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2, chat-20261003-aa5er-el-moazafa, chat-20261009-3ayaana-again, 97359c6a-8ac4-44b1-a293-c08d41d940ec, bb23030c-b666-4efb-9d91-d925b2591808, 017e5f56-cfbc-4759-aadb-9a84b89e81e2, 353f2cd1-221f-4684-9c98-d46eb9143757, 73bede38-f313-4a1f-be6c-62dc3f4cffe5, 6ccfa840-cbf6-478c-ae9e-6de3924aacd4, 9da71fa9-baf2-4a61-afec-d273e88c902d, 01fc543c-3ae4-45eb-ada9-046ac9b6286b, 33a19bb3-ea8f-4cc3-ae49-937bd26e4cc9, 79a43e2b-46af-4588-bb85-b67badcc7523
+- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2, chat-20261003-aa5er-el-moazafa, chat-20261009-3ayaana-again, chat-20261010-2amar-el, chat-20261010-3asafeer-sky, chat-20261010-8eir-not-slip, chat-20261010-aju-awi, chat-20261010-aju-awi-key, chat-20261010-deeri-baalik, chat-20261010-maadi-abel, chat-20261010-snan-sneen, chat-20261010-tayour-plural
 - orphaned (match nothing, re-check): none
 - waiting for Amal: none
 - standing rules: none

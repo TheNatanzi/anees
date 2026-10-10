@@ -246,7 +246,9 @@ def text_rows(rows=None):
             continue
         p = r.get("payload") or {}
         base = {"date": str(r["lesson_date"]), "t": float(r["turn_t"]), "who": r["turn_who"], "rule": "PR-15", "by": "medi",
-                "on": str(r.get("ts"))[:10], "quote": r.get("note"), "correction": r["id"]}
+                "on": str(r.get("ts"))[:10], "quote": r.get("note"), "correction": r["id"], **({"ai": True} if p.get("from") == "ai" else {})}
+        if r["kind"] == "text" and p.get("from") == "ai" and not ai_text_ok(p):
+            continue                # TR-30: the note reader's row would undo the second listen or put Latin on an Arabic line
         if r["kind"] == "text" and p.get("engine_wrote") and p.get("heard") is not None:
             out.append(dict(base, engine_wrote=p["engine_wrote"], heard=p["heard"], turn_end=p.get("turn_end"),
                             **({"word_key": p["word_key"]} if p.get("word_key") else {}),     # WS-29: which Doc row he said
@@ -258,6 +260,21 @@ def text_rows(rows=None):
         elif r["kind"] == "time" and isinstance(p.get("t"), (int, float)):
             out.append(dict(base, engine_wrote="", heard="", set_t=float(p["t"])))
     return out
+
+
+def ai_text_ok(p):
+    """TR-30 (2026-10-10 audit of 10-08, Medi's notes read by the note reader): a heard-word row the NOTE READER made from
+    his words lands only when it changes something real. Not applied: (1) a row whose heard = engine_wrote - it changes no
+    word but 'confirms' the engine, so the second listen's better line is dropped (10-08 47:16 'bara' stayed Latin over the
+    re-heard برّا, 08:36 'اليوم talvez' over اليوم بلبس); (2) Latin letters or his * written onto a line in Arabic script
+    (16 rows: 43:04 'bye7re2*', 32:23 '8eir 3an el* aaa'): the page shows Arabic as Arabic (S1) - the agent re-writes them in
+    her letters (medi-corrections-hand.json). His own typed rows (from 'typed' / the page boxes) are never filtered."""
+    ew, hd = str(p.get("engine_wrote") or ""), str(p.get("heard") or "")
+    if hd.strip(" .،,؟?!") == ew.strip(" .،,؟?!") and not (p.get("word_key") or p.get("credit")):
+        return False
+    if "*" in hd or (re.search(r"[A-Za-z]", hd) and re.search(r"[؀-ۿ]", str(p.get("line") or "") + ew)):
+        return False
+    return True
 
 
 def _class(kind):

@@ -42,6 +42,13 @@ function subject(c, toArabizi) {
     if (c.of === 'grammar') return { kind: 'grammar', main: c.rule || '', ar: '' };
     return { kind: 'vocab', main: az(c.ar, c.w, toArabizi), ar: isArabic(c.ar) ? c.ar : '' };
   }
+  // PG-44 (Medi 2026-10-10 "why are there pill boxes still not showing arabizi"): a grey chip leads with its word in
+  // Arabizi (her spelling first), the Arabic small after it, and the reason without the Arabic word in front
+  if (c.s === 'na' && isArabic(c.ar)) {
+    var why = String(c.why || ''), pre = String(c.ar) + ':';
+    if (why.indexOf(pre) === 0) why = why.slice(pre.length).trim();
+    return { kind: /^grammar/.test(c.label || '') ? 'grammar' : 'vocab', main: az(c.ar, c.w, toArabizi) + (why ? ' · ' + why : ''), ar: c.ar, na: true };
+  }
   return { kind: /^grammar/.test(c.label || '') ? 'grammar' : /^vocab/.test(c.label || '') ? 'vocab' : 'lesson', main: '', ar: '' };
 }
 // "said X → Amal: Y" in Arabizi, the Arabic kept for the small line
@@ -72,7 +79,7 @@ function chipModel(c, toArabizi) {
   if (c.also && c.also.length) tip += ' · also: ' + c.also.map(function (a) { return (WORD[a.s] || a.s) + ' ' + (a.k === 'na' ? '' : a.k) + (a.rule ? ' ' + a.rule : ''); }).join('; ');
   var arSrc = [c.said, c.right].filter(isArabic).join(' → ');
   return {
-    sign: SIGN[c.s] || '', word: WORD[c.s] || '', kind: s.kind, main: c.s === 'na' || c.s === 'medi' ? (c.why || '') : c.s === 'repeat' && c.k === 'grammar' ? s.main + ' · ' + (c.said || '') : s.main,
+    sign: SIGN[c.s] || '', word: WORD[c.s] || '', kind: s.kind, main: s.na ? s.main : c.s === 'na' || c.s === 'medi' ? (c.why || '') : c.s === 'repeat' && c.k === 'grammar' ? s.main + ' · ' + (c.said || '') : s.main,
     ar: s.ar, tip: tip, tipAr: arSrc, sig: c.s === 'fix' ? c.sig : ''
   };
 }

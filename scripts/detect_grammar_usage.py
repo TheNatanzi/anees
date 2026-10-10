@@ -521,6 +521,57 @@ def asks_about_rule(text):
     return bool(m and RULE_TALK.search(re.sub(r"[ء-ي]+", " ", text)))
 
 
+# GR-35 (the 2026-10-10 audit of 10-08 / 10-09 - Medi: "do a full audit of the lesson and use the corrections I made to make
+#    final rule adjustments ... Then apply it to 10-9"; 10-08 and 10-09 only, his choice 2026-10-10): the counter reads
+#    the way a teacher does on the lines the 10-09 four-reader read found wrong.
+TEACHER_FROM = "2026-10-08"
+ASK_MORE = re.compile(r"\b(?:would it be|so there'?s no|wouldn'?t it be|or would it be|is it not|so it'?s not|it'?s not\b.{0,40}\bright\b|"
+                      r"is that what|does (?:this|it) take|do you say|does that mean)\b", re.I)
+DEMS = {nrm(w) for w in ("هذا", "هذه", "هذي", "هادا", "هادي", "هاد", "هدول", "هذول", "هاي", "هذاك", "هداك", "هذيك", "هديك",
+                          "هدوليك", "هذوليك")}
+YEAR = {nrm(w) for w in ("ألفين", "الفين")}
+
+
+def asks_more(text):
+    """GR-35: more ways he asks about a form ('Would it be مفضلة؟', 'so it's not هذي القبة', 'Is that what's happening?')."""
+    return bool(ASK_MORE.search(text or ""))
+
+
+def teacher_text(txt):
+    """GR-35: 'الـ صيف' (the engine's el- split from its word) is الصيف (10-09 25:09 في الـ صيف, 25:12 في الـ شتاء)."""
+    return re.sub(r"الـ\s+(?=[ء-ي])", "ال", txt or "")
+
+
+def teacher_read(found, txt):
+    """GR-35: اليوم 'today' is a fixed word, never an el- choice (A1) nor an idafa (شوب اليوم); والله is an oath, not el- or
+    u-; a demonstrative alone (هذا. / hadha,) agrees with nothing (A10); a demonstrative before its el- noun is A10 and A10b
+    (هذه القبة); a bare verb after بقدر / بنقدر is B2 (بنقدر نروح); a year (ألفين) is no E4 day / month."""
+    words = [nrm(w) for w in AR_WORD.findall(txt or "")]
+    hit_words = lambda b: [nrm(w) for w in AR_WORD.findall(found.get(b) or "")]
+    if "A1" in found and set(hit_words("A1")) <= {nrm("اليوم"), nrm("والله")}:
+        del found["A1"]
+    if "A2" in found and hit_words("A2")[-1:] == [nrm("اليوم")]:
+        del found["A2"]
+    if "C5" in found and set(hit_words("C5")) <= {nrm("والله")}:
+        del found["C5"]
+    if "E4" in found and set(hit_words("E4")) <= YEAR:
+        del found["E4"]
+    if "A10" in found:
+        k = next((i for i, w in enumerate(words) if w in DEMS), None)
+        if k is None or k + 1 >= len(words):
+            del found["A10"]
+            found.pop("A10b", None)
+    for i, w in enumerate(words[:-1]):
+        if w in DEMS and words[i + 1].startswith("ال") and len(words[i + 1]) > 3:
+            found.setdefault("A10", AR_WORD.findall(txt)[i])
+            found.setdefault("A10b", AR_WORD.findall(txt)[i] + " " + AR_WORD.findall(txt)[i + 1])
+            break
+    m = re.search(r"(?:^|\s)((?:ب|بن|بت|بي|من)قدر\s+[نأاتي][ء-ي]{2,})", txt or "")
+    if m and "B2" not in found:
+        found["B2"] = m.group(1)
+    return found
+
+
 # 2. "كم مرة؟" alone right after Amal spoke, and her next line repeats hers: he asked "kaman marra?" (again?) and Scribe
 #    dropped the -an (five moments, 09-10 .. 09-26). A real "how many times?" gets a number, not her sentence again.
 def asks_again(T, i, txt):
@@ -676,7 +727,7 @@ if __name__ == "__main__":
         n_turns = n_latin = 0
         read = {}
         TW = as_turns(T)
-        SUP = WC.supplies(TW, audit_fix_times(date)) if WC.in_scope(date) else {}
+        SUP = WC.supplies(TW, audit_fix_times(date), date) if WC.in_scope(date) else {}
         SLIPS = audit_slips(date) if WC.in_scope(date) else []
 
         def add(t, bid, hit, read_as, back, joined=None):
@@ -704,7 +755,17 @@ if __name__ == "__main__":
             read[i] = (txt, back, read_as)
             n_turns += 1
             n_latin += bool(read_as and not AR_WORD.search(t["text"]))
-            if asks_about_rule(t["text"]):
+            qjs = WC.question_about(TW, i) if SUP and date >= WC.AGAIN_FROM else []
+            if qjs:                                  # WS-36: he quotes her words to ask about them (10-08 59:29 'these are all repeats')
+                hers = {WC.core(w) for j in qjs for w in WC.her_words(TW, j)}
+                quoted = {bid: hit for bid, hit in detect(txt).items() if any(WC.core(w) in hers for w in AR_WORD.findall(unmask(hit, back) if back else hit))}
+                if quoted:
+                    jq = qjs[0]
+                    not_uses.append({"date": date, "t": round(t["start"], 1), "said": t["text"][:300], "repeat": True, "rule": "WS-36",
+                                     "why": "he quotes the tutor's words (%02d:%02d «%s») to ask about them: not a use (WS-36)"
+                                            % (int(TW[jq]["t"]) // 60, int(TW[jq]["t"]) % 60, (TW[jq].get("text") or "")[:60])})
+                    continue
+            if asks_about_rule(t["text"]) or (date >= TEACHER_FROM and asks_more(t["text"])):
                 not_uses.append({"date": date, "t": round(t["start"], 1), "said": t["text"][:300],
                                  "why": "a question about the rule, not a use (automatic rule, Medi 2026-10-01)"})
                 continue
@@ -714,7 +775,7 @@ if __name__ == "__main__":
                                  "why": "repeat of the line Amal just fixed (%02d:%02d): one moment with the slip, not a new use (GR-28, Medi 2026-10-05)"
                                         % (int(prev["start"]) // 60, int(prev["start"]) % 60)})
                 continue
-            found = detect(txt)
+            found = teacher_read(detect(teacher_text(txt)), teacher_text(txt)) if date >= TEACHER_FROM else detect(txt)
             if "E5" in found and asks_again(T, i, txt):
                 not_uses.append({"date": date, "t": round(t["start"], 1), "said": t["text"][:300], "bucket": "E5",
                                  "why": "'كم مرة؟' and Amal repeats herself: he asked 'kaman marra' (again?) "

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T01:47:35-07:00",
+ "updated": "2026-10-10T03:06:47-07:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -3462,6 +3462,25 @@
    "audit_uid": "FA-f35210da"
   },
   {
+   "id": "audit:FA-f8af5dbf",
+   "word_key": "sama",
+   "entry_id": "sama:word",
+   "lesson_date": "2026-10-08",
+   "t_start": 973,
+   "t_end": 973,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "عصافير",
+   "said": "Oh, is it, is it، is it عصافير؟",
+   "reason": "Medi 2026-10-10 marked it a mistake: 3asafeer should be marked incorrect / she coerrected (16:16 'No، عصافير is birds.')",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-f8af5dbf"
+  },
+  {
    "id": "audit:FA-1893c1e4",
    "word_key": "sama",
    "entry_id": "sama:word",
@@ -3557,23 +3576,23 @@
    "audit_uid": "FA-d234700d"
   },
   {
-   "id": "audit:FA-55e628d3",
-   "word_key": "8air",
-   "entry_id": "8air:word",
+   "id": "audit:FA-3cb71af9",
+   "word_key": "2awi",
+   "entry_id": "2awi:singular",
    "lesson_date": "2026-10-08",
-   "t_start": 1920,
-   "t_end": 1920,
+   "t_start": 2424,
+   "t_end": 2424,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "بعيد",
-   "said": "آآ، بعيد ... بعيد",
-   "reason": "For 'different' he said بعيد (far); Amal asked 'What's the word?' and he ended on الهواء هون غير عن الهواء هناك at 32:47.",
+   "text": "أجو",
+   "said": "الهوا أجو كتير الصباح",
+   "reason": "Medi 2026-10-10: a wrong word: so this is wrong if you read he was trying to say the wind was very strong. Readers wrote: 'The wind came a lot' made no sense to Amal: she asked إيش يعني twice and gave 'it was very strong'; he then said الهوا كان قوي كتير. Her fix is about meaning (wrong verb), not the plural ending - he noticed 'it's singular' himself.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-55e628d3"
+   "audit_uid": "FA-3cb71af9"
   },
   {
    "id": "audit:FA-f074c94a",
@@ -4121,6 +4140,18 @@
    "kind": "asked",
    "said": "since is لسـ-- لسا, right? ... Is it لا؟",
    "wrong": "لسا",
+   "why": "a preposition: the Word Bank scores prepositions as grammar, not words (2026-09-21) - rule conflict, Medi to decide",
+   "keyed_by": "auto-word",
+   "grammar": true
+  },
+  {
+   "uid": "FA-874e798c",
+   "date": "2026-10-08",
+   "t": 2162,
+   "key": "2abel",
+   "kind": "wrong",
+   "said": "سنين، ثلاث سنين الماضي.",
+   "wrong": "الماضي",
    "why": "a preposition: the Word Bank scores prepositions as grammar, not words (2026-09-21) - rule conflict, Medi to decide",
    "keyed_by": "auto-word",
    "grammar": true
@@ -5957,7 +5988,7 @@
    "changes": {
     "heard_other": true,
     "ledger": "wb:5c8ad40fc83d699738ba929dedb694e2eb2cea199a842b1c7514cb1e7376375a",
-    "ledger_reason": "the recording engine wrote اليوم; you said يوم (PR-15)"
+    "ledger_reason": "the recording engine wrote اليوم; you said غيوم (PR-15)"
    },
    "expected": {
     "word_key": "alyoum",
@@ -6010,18 +6041,33 @@
    }
   },
   {
-   "event_id": "da96483d045f2b4db90a5a90e6498d1417e069661659f07c184212060d53f195",
-   "date": "2026-10-08",
-   "mark": "ra:FA-3218244c",
+   "event_id": "dc794adb33b0c298b07f37940b0b2367508d2f241633b5bcb9403d84a841d2fd",
+   "date": "2026-10-09",
+   "mark": "wb:dc794adb33b0c298b07f37940b0b2367508d2f241633b5bcb9403d84a841d2fd",
    "was": "right",
    "changes": {
     "observation_only": true,
-    "ledger": "ra:FA-3218244c",
-    "ledger_reason": "Said here, another word intended: Amal prompts you, then gives it (سنين); her word is not on her list, so neither counts"
+    "ledger": "wb:dc794adb33b0c298b07f37940b0b2367508d2f241633b5bcb9403d84a841d2fd",
+    "ledger_reason": "the recording engine wrote كام مرة; you said كمان مرة (TR-31)"
    },
    "expected": {
-    "word_key": "sin",
-    "t_start": 2176.84
+    "word_key": "mara~time",
+    "t_start": 1954.98
+   }
+  },
+  {
+   "event_id": "e4e00f2c62bf4cb6a573af08df4a94f154e234b2877553b012bfbbd10f5a958d",
+   "date": "2026-10-09",
+   "mark": "wb:e4e00f2c62bf4cb6a573af08df4a94f154e234b2877553b012bfbbd10f5a958d",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:e4e00f2c62bf4cb6a573af08df4a94f154e234b2877553b012bfbbd10f5a958d",
+    "ledger_reason": "the recording engine wrote كان يا; you said تانية (TR-31)"
+   },
+   "expected": {
+    "word_key": "huwe kAn",
+    "t_start": 3760.664422627
    }
   },
   {

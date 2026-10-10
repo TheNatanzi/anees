@@ -230,12 +230,13 @@ def add_coverage(tmarks, rep, chips):
     """WS-30 / WS-31 (Medi 2026-10-09 "any time I speak ANY arabic word ... credit or marking as incorrect. Mark as repeat
     if I am repeating one of amals corrections"): the chips scripts/word_coverage.py made for his Arabic words that no
     chip above judges - a repeat (↻, not credited, not a mistake) or a grey reason. Ids w1.. (repeat) / n1.. (grey)."""
-    n = {"w": 0, "n": 0}
+    n = {"w": 0, "n": 0, "q": 0}
     for i, chip in chips or ():
         p = "w" if chip.get("s") == "repeat" else "n"
         n[p] += 1
+        n["q"] += 1 if chip.get("quiet") else 0
         tmarks.setdefault(str(i), {"c": [], "u": []})["c"].append(dict(chip, id="%s%d" % (p, n[p])))
-    rep["repeats"], rep["coverage_grey"] = n["w"], n["n"]
+    rep["repeats"], rep["coverage_grey"], rep["quiet"] = n["w"], n["n"] - n["q"], n["q"] + rep.get("quiet", 0)
     return {k: tmarks[k] for k in sorted(tmarks, key=int)}
 
 
@@ -278,7 +279,8 @@ def one_per_word(tmarks, turns):
     for k, v in tmarks.items():
         if turns[int(k)].get("who") != "Medi":
             continue
-        cs = [c for c in v["c"] if c.get("k") in ("vocab", "grammar", "na") and c.get("label") != "lesson"]
+        # a quiet chip (PG-43: a grey reason that only restates a standing rule) is never shown nor listed as 'also'
+        cs = [c for c in v["c"] if c.get("k") in ("vocab", "grammar", "na") and c.get("label") != "lesson" and not c.get("quiet")]
         groups = []
         for c in cs:
             ws = _words_of(c, turns[int(k)].get("text"))
@@ -386,13 +388,18 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
         put(p[0], chip)
         return p[0]
 
-    def grey(t, reason, label, needle=None):
+    def grey(t, reason, label, needle=None, ar=None, w=None, quiet=None):
         p = place(turns, t, "Medi", needle)
         if not p:
             rep["grey_missed"] += 1
             return
+        if quiet:                         # PG-43: kept in the data, never drawn
+            rep["quiet"] = rep.get("quiet", 0) + 1
+            put(p[0], {"id": nid("g"), "k": "na", "s": "na", "label": label, "why": reason, "quiet": quiet, "hide": "quiet"})
+            return
         rep["grey"] += 1
-        put(p[0], {"id": nid("g"), "k": "na", "s": "na", "label": label, "why": reason})
+        # PG-44 (Medi 2026-10-10 "why are there pill boxes still not showing arabizi"): a grey chip names its word
+        put(p[0], {"id": nid("g"), "k": "na", "s": "na", "label": label, "why": reason, **({"ar": ar} if ar else {}), **({"w": w} if w else {})})
 
     def amal_fix(slip_chip, medi_i, t_amal, signal, right, what):
         if signal not in VOICED or t_amal is None:
@@ -435,7 +442,13 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
                              **({"key": e["word_key"]} if e.get("word_key") else {}), **_src(e)}, e.get("arabic"), "vocab " + str(e.get("word_key")))
     for e in detail.get("vocab_errors") or []:
         if e.get("on_sheet") is False:
-            grey(e["t"], "not on her word list (left out of the Words %)", "vocab", e.get("wrong"))
+            # PG-44: the chip names the word - his word, or for a question ('how do I say taking care?') the word she gave
+            asked = e.get("kind") == "asked" and not e.get("wrong")
+            word = e.get("wrong") or e.get("said") if not asked else e.get("fix") or e.get("arabic")
+            word = word if word and re.search(r"[؀-ۿ]", str(word)) else (e.get("arabic") or None)
+            grey(e["t"], ("asked the tutor; she gave %s - not on her word list, not scored" % (e.get("fix") or e.get("arabic")))
+                 if asked else "not on her word list (left out of the Words %)", "vocab", e.get("wrong"),
+                 ar=word, w=e.get("arabizi") if asked else None)
             continue
         s = "asked" if e.get("kind") == "asked" else "wrong"
         sig = e.get("signal")
@@ -450,7 +463,10 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
                 caret(i, e.get("wrong"), e.get("fix"), chip)
             amal_fix(chip, i, e.get("t_fix"), sig, e.get("fix"), "vocab " + str(e.get("arabic")))
     for e in detail.get("not_errors") or []:
-        grey(e["t"], e.get("verdict_reason") or "dropped on the hand check", "vocab", e.get("wrong"))
+        why = e.get("verdict_reason") or "dropped on the hand check"
+        # PG-43: 'the recording engine wrote X; you said Y' only repeats his own fix, which the line's note already shows
+        grey(e["t"], why, "vocab", e.get("wrong"), ar=e.get("arabic"), w=e.get("arabizi"),         # PG-44: the word it is about
+             quiet="PG-43" if date >= "2026-10-08" and why.startswith("the recording engine wrote") else None)
 
     # ---------------- grammar slips (counted) and the rows Amal's notes take out
     slips_by_b = {}

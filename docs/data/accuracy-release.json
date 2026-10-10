@@ -13,25 +13,25 @@
    "verified_avg_pct": null,
    "unverified_avg_pct": 93.8,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 4549,
+   "eligible": 4567,
    "excluded": 23,
-   "pending": 0
+   "pending": 1
   },
   "grammar": {
    "verified_avg_pct": null,
    "unverified_avg_pct": 83.2,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 1,
-   "eligible": 688,
+   "eligible": 689,
    "excluded": 48,
    "pending": 1
   },
-  "verification_queue": 1,
+  "verification_queue": 2,
   "word_bank": {
-   "occurrences": 7407,
-   "eligible": 4332,
-   "excluded_not_scored": 2788,
-   "pending_needs_review": 287,
+   "occurrences": 7466,
+   "eligible": 4348,
+   "excluded_not_scored": 2830,
+   "pending_needs_review": 288,
    "other": 0,
    "pct": 98.2,
    "lessons_in_audit": 22,
@@ -1157,24 +1157,25 @@
    "release": "not verified",
    "reasons": [
     "reader agreement: pass 1 71.2 %; 2 consecutive passes at >= 95 % are needed",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4032 s) compared with a second model"
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4032 s) compared with a second model",
+    "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
    ],
    "words": {
-    "pct": 96.0,
-    "eligible_pct": 96.0,
+    "pct": 95.1,
+    "eligible_pct": 95.1,
     "verified_pct": null,
-    "scored": 261,
-    "eligible": 261,
+    "scored": 255,
+    "eligible": 255,
     "excluded": 0,
-    "pending": 0,
+    "pending": 1,
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 87.6,
+    "pct": 86.0,
     "verified_pct": null,
-    "mistakes": 26,
-    "uses": 210,
-    "eligible": 25,
+    "mistakes": 27,
+    "uses": 193,
+    "eligible": 26,
     "excluded": 1,
     "pending": 0,
     "estimate": false,
@@ -1213,28 +1214,28 @@
     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
    ],
    "words": {
-    "pct": 96.7,
-    "eligible_pct": 96.7,
+    "pct": 97.2,
+    "eligible_pct": 97.2,
     "verified_pct": null,
-    "scored": 261,
-    "eligible": 261,
+    "scored": 285,
+    "eligible": 285,
     "excluded": 0,
     "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 86.2,
+    "pct": 86.4,
     "verified_pct": null,
     "mistakes": 33,
-    "uses": 239,
+    "uses": 242,
     "eligible": 33,
     "excluded": 0,
     "pending": 1,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
-     "8 slips are in rules the counter found 0 uses of in this lesson",
-     "6 rules have more slips than counted uses (A15, A16, A9b, B18, E1, E2)"
+     "2 slips are in rules the counter found 0 uses of in this lesson",
+     "4 rules have more slips than counted uses (A15, A16, A9b, B18)"
     ]
    },
    "coverage": {
