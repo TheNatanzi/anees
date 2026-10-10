@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-10T01:50:44-07:00",
+ "updated": "2026-10-10T03:19:24-07:00",
  "result": "pass",
- "source": "manual: lesson 2026-10-09 loaded",
- "checked_commit": "e5a35d882ee4",
- "secs": 99.1,
+ "source": "manual: 10-08 audit from Medi's notes + same steps on 10-09 (PG-43..45, WS-36, WS-37, GR-35, TR-30, TR-31)",
+ "checked_commit": "39d6b69fa795",
+ "secs": 96.1,
  "checks": [
   {
    "id": "step_failures",
@@ -35,7 +35,7 @@
    "ok": true,
    "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 233 rules: enforced 143 (code 134, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
+   "detail": "rule_registry: OK - 241 rules: enforced 151 (code 142, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
   {
    "id": "lesson_coverage",
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 3.3,
+   "secs": 3.5,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...6 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,9 +105,9 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.5,
+   "secs": 5.7,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
-   "detail": "pages OK: 72 pages, every link, data file and clip resolves (1 references to unpublished clips play from the full lesson recording)"
+   "detail": "pages OK: 72 pages, every link, data file and clip resolves (48 references to unpublished clips play from the full lesson recording)"
   },
   {
    "id": "arabizi_gaps",
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 67.2,
+   "secs": 64.7,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "................... [ 95%] | ...............................                                          [100%] | 747 passed, 1 skipped, 3 xfailed in 65.21s (0:01:05)"
+   "detail": "................... [ 94%] | ..........................................                               [100%] | 758 passed, 1 skipped, 3 xfailed in 62.54s (0:01:02)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 6.2,
+   "secs": 5.8,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6126.8054"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5693.0871"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.7,
+   "secs": 5.2,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -155,15 +155,15 @@
    "ok": false,
    "secs": 0.3,
    "what": "the two readers read the transcript the pages show now",
-   "detail": "2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it"
+   "detail": "2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it"
   },
   {
    "id": "data_freshness",
    "required": false,
-   "ok": true,
+   "ok": false,
    "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
-   "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
+   "detail": "Amal's answers last checked 2 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
   },
   {
    "id": "medi_corrections",
@@ -183,18 +183,19 @@
   }
  ],
  "warnings": [
-  "review_freshness: 2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it",
+  "review_freshness: 2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it",
+  "data_freshness: Amal's answers last checked 2 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-10T01:34:24-07:00",
-  "source": "manual: lesson 2026-10-09 loaded",
+  "at": "2026-10-10T02:58:40-07:00",
+  "source": "lesson_pipeline: Lesson 2099-01-01: report page + clips",
   "outcome": "blocked",
-  "sha": "17a63d1f1efae088e703a1f5b5f1b8840a6c2ce6",
-  "reason": "lesson_ledger: exit 1: 2026-10-08: Word Bank audit has 245 Correct, the ledger 244 | override 5c8ad40fc83d: a Word Bank review patch sets ['observation_only'] too, so the ledger's call would not show | ledger: FAIL 2 problem(s); accuracy_gates: exit 1: PROBLEM 2026-10-08: Lessons words.right=244 but the Word Bank audit has 245 Correct | accuracy check: 1 problem(s) - do not publish. First: 2026-10-08: Lessons words.right=244 but the Word Bank audit has 245 Correct; check_numbers: exit 1: numbers: FAIL 2026-10-08: the Word Bank scores 245 right word uses, the Lessons page 244; tests_py: exit 1: ...der_taught_word_in_the_repo_is_judged | FAILED tests/test_lesson_ledger.py::test_LS_11_committed_pages_equal_the_ledger | FAILED tests/test_build_student_data.py::test_the_committed_shaky_words_file_matches_the_last_two_lessons_on_disk | 5 failed, 742 passed, 1 skipped, 3 xfailed in 69.53s (0:01:09)",
-  "secs": 111.0,
-  "commits_waiting": "6"
+  "sha": null,
+  "reason": "lesson_coverage: 22 gap(s): 2026-08-25 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-04 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-05 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-10 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-11 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-14 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/) (+16 more); arabizi_gaps: output does not show /\\b0 words\\b/: ",
+  "secs": 2.0,
+  "commits_waiting": ""
  },
- "blocks_before_this_pass": 1,
+ "blocks_before_this_pass": 6,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
