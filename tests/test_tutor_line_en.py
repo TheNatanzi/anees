@@ -26,4 +26,5 @@ def test_pg_48_line_en_script_on_every_tutor_page():
 
 def test_pg_49_transcript_time_has_a_play_icon():
     css = io.open(os.path.join(ROOT, "docs", "css", "lessons.css"), encoding="utf-8").read()
-    assert 'button.ls-time::before{content:"\25B6"' in css
+    """PG-49: the time that plays the lesson has a play triangle in front of it."""
+    assert r'button.ls-time::before{content:"\25B6"' in css
