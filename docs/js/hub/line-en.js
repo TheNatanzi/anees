@@ -39,7 +39,7 @@
   }
   function later() {
     if (queued) return; queued = true;
-    requestAnimationFrame(() => { queued = false; decorate(document); });
+    setTimeout(() => { queued = false; decorate(document); }, 60);   // a timer, not a frame: a hidden tab gets no frames
   }
   fetch(URL_ + '?build=' + encodeURIComponent(window.ANEES_BUILD || ''), { cache: 'no-store' })
     .then(r => r.ok ? r.json() : null)
