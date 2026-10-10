@@ -9623,15 +9623,21 @@
    "scope": "word-scoring",
    "status": "enforced",
    "change": "new",
-   "statement": "A word her list has under several meanings is judged under the meaning of the moment, in her spelling for it: مرة is her 'One time' row (Marra), her 'Woman' row (Mara) only on a line about a wife / woman, never 'Bitter (F)' (Murra) by default; two rows count as one word only when they share the Arabic AND a meaning (بلبس 'I wear' twice). A word she typed in the Meet chat of that lesson that is not on her list is a ★ new word in her chat spelling (10-08 35:24 تلجت = her 'tallajat'), not 'part of a phrase'.",
-   "plain": "A word with several meanings on the tutor's list is marked with the meaning you used (marra = one time, not bitter). A word she typed in the chat that is not on her list shows as a new word.",
-   "plain_for": "27828588",
+   "statement": "A word her list has under several meanings is judged under the meaning of the moment, in her spelling for it: مرة is her 'One time' row (Marra), her 'Woman' row (Mara) only on a line about a wife / woman, never 'Bitter (F)' (Murra) by default; two rows count as one word only when they share the Arabic AND a meaning (بلبس 'I wear' twice). A word she typed in the Meet chat of that lesson that is not on her list is a ★ new word in her chat spelling (10-08 35:24 تلجت = her 'tallajat'), not 'part of a phrase'. A letter the engine swaps by sound (ذ for د, ث for ت, ظ for ض) still finds her word: 10-08 1:03:37 هذاك = her هداك Hadaak 'That (M)', which had been tied to her phrase هذا هو 'That's it'.",
+   "plain": "A word with several meanings on the tutor's list is marked with the meaning you used (marra = one time, not bitter). A word she typed in the chat that is not on her list shows as a new word. A letter the engine swaps by sound (هذاك for her هداك) still finds her word.",
+   "plain_for": "72aa0156",
    "topic": "word scoring",
    "source": [
     {
      "by": "medi",
      "date": "2026-10-09",
      "quote": "are you not following amals spelling for the corrections?",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "for hadaak? its on the list?",
      "session": "f5d90041"
     }
    ],
@@ -9651,6 +9657,10 @@
     {
      "path": "tests/test_repeats_coverage.py",
      "contains": "def test_ws_33_marra_is_her_one_time_row_and_a_word_she_typed_in_chat_is_new"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_33_a_sound_swapped_letter_still_finds_her_word"
     }
    ],
    "example": {

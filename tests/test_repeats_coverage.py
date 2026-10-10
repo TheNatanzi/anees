@@ -236,3 +236,10 @@ def test_ws_33_marra_is_her_one_time_row_and_a_word_she_typed_in_chat_is_new():
     assert cs and all("مر /" not in (c.get("ar") or "") for c in cs), cs
     j = next(k for k, u in enumerate(T) if u["who"] == "Medi" and abs(u["t"] - 2125.1) < 0.3)
     assert any(c["s"] == "new" for c in (tm.get(str(j)) or {}).get("c", [])), tm.get(str(j))
+
+
+def test_ws_33_a_sound_swapped_letter_still_finds_her_word():
+    """Medi 2026-10-09 "for hadaak? its on the list?" (10-08 1:03:37 هذاك = her هداك Hadaak 'That (M)')."""
+    words = [{"key": "hadAk", "arabic": "هداك", "arabizi": "Hadaak", "english": "That (M)"},
+             {"key": "hAda hu", "arabic": "هذا هو", "arabizi": "Haada hu", "english": "That's it"}]
+    assert WC.Keys(words, catalog={"groups": []}).lookup("هذاك") == ("hadAk", "one")

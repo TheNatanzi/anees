@@ -346,6 +346,12 @@ class Keys:
         c = self.colour.get(jsnorm(w))
         if c and len(c) == 1:
             return next(iter(c)), "one"
+        # the engine writes his د as ذ, ت as ث, ض as ظ (هذاك for her هداك Hadaak 'That (M)', 10-08 1:03:37): her word
+        f = w.translate(SOUND_FOLD)
+        if f != w:
+            m = self.m.match(f)
+            if len(m) == 1:
+                return next(iter(m)), "one"
         for cand in self._stems(w):
             gk = {k for k, _, _ in self.forms.get(cand, ())}
             if len(gk) == 1:
@@ -365,6 +371,7 @@ class Keys:
         return None, "none"
 
 
+SOUND_FOLD = str.maketrans({"ذ": "د", "ث": "ت", "ظ": "ض"})
 OBJ_ENDS = ("هم", "كم", "ها", "نا", "ني", "ك", "ه", "ي")
 PRONOUNS = re.compile(r"^(أنا|انا|إنت|انت|إنتي|انتي|هو|هي|إحنا|احنا|إنتو|انتو|هم)\s+")
 
@@ -546,6 +553,11 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                                                                   "reason": "مرة here is her 'one time' row (Marra), not 'bitter' or 'woman' (WS-33)", "by": BY, "rule": "WS-33"}}
                 row.update(key=key, event=e["id"], patched="key")
                 rows.append(row)
+                continue
+            if e is not None and e.get("text") and core(e["text"].strip(" .،,؟?!")) != core(w) and not re.search(r"[A-Za-z]", w):
+                # the second listen changed this word (engine فاتح -> heard فاتحة): the tutor's listen decides it (TR-27),
+                # never this file
+                rows.append(dict(row, state="na", why="the second listen changed this word; the tutor's listen decides it (TR-27)"))
                 continue
             if e is not None and e.get("word_key") != key:
                 e = None                  # the matcher's event names no list word (two candidates): it scores nothing, so this word gets its own
