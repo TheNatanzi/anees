@@ -27328,6 +27328,710 @@
    "at": "2026-10-09T23:14:15.370928+00:00",
    "rule_id": 37177,
    "source": "amal_rules review (Tutor page)"
+  },
+  {
+   "uid": "FA-17891bdf",
+   "date": "2026-10-09",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi pluralized طبيعة as «الطبيعات/التبئات», and Amal immediately recast it as singular in the idafa and explained there is no plural here.",
+   "evidence": {
+    "t_start": 509.0,
+    "t_end": 542.0,
+    "quote": "Medi: «الكلمات التبئات؟» / Amal: «كلمات الطبيعة... لا، طبيعة just nature... Don't have plural of nature.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-17891bdf_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "50a289e0d3dc7ecb77495f69cb9ca0802110e0d33199f8a0e6bc67dd4342a9dc",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-17891bdf_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "ccc0c4dc97fb347cc152fa7b30f8edb2035b3f3c854b3a6583507c8f8861fe33",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-17891bdf_mixed_lesson.mp3",
+      "sha256": "20bcc86f7f6e6ba85d3a4098c3327e5d2d0c5012446336f0920c29f520dee370",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "الكلمة التبيعة الكلمات التبيعة يبدو أنه لا يأخذ الكلمة",
+     "Amal": "كلمات كلمات الطبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة شو الكلمات اللي",
+     "mixed": "طبيعة الكلمة الكلمات الكلمات الكلمات الكلمات الطبيعة طبيعة لا تأخذ كلمة طبيعية لا تأخذ كلمة طبيعية ما الكلمات التي"
+    }
+   },
+   "claim": {
+    "wrong": "الطبيعات",
+    "right": "الطبيعة",
+    "bucket": null,
+    "tier": 2
+   },
+   "at": "2026-10-10T01:17:58-07:00",
+   "run_id": "3b23c6fa79f44179bdbb1224bec17b21"
+  },
+  {
+   "uid": "FA-0138f8e9",
+   "date": "2026-10-09",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "medium",
+   "reason": "The independent audio does not support Medi saying «قارة»; it shows him asking/looking for another item and Amal supplying «أرض», which fits a tier-0 supplied word.",
+   "evidence": {
+    "t_start": 574.0,
+    "t_end": 605.0,
+    "quote": "Medi: «شو كمان؟» / Amal: «أرض... شمس ونار وأرض»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-0138f8e9_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "438d4182edc844eede994dab6a347fc2d900ba180b13c791a6fd2ac2c754d556",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-0138f8e9_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "591be6232bf07a41aac1427ec1d03d1c8f43f05c3051eae6db29e314b0dff850",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-0138f8e9_mixed_lesson.mp3",
+      "sha256": "8119b1b7205422fbd18bfe8f650725781071d907db066c6953f3fc30c35bfc16",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "كمان اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه حسنا، لقد قلت",
+     "Amal": "أرض شو كمان fire شمس ونار وأرض شكرا",
+     "mixed": "شو كمان اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه حسنا، لقد قلت ذلك"
+    }
+   },
+   "claim": {
+    "wrong": "قارة",
+    "right": "أرض",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-10T01:17:58-07:00",
+   "run_id": "3b23c6fa79f44179bdbb1224bec17b21",
+   "changed_to": {
+    "wrong": "(did not know / asked for another word)",
+    "right": "أرض"
+   }
+  },
+  {
+   "uid": "FA-46924d1b",
+   "date": "2026-10-09",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi said he forgot, Amal supplied «هواء/هوا», and Medi accepted it with “That's right.”",
+   "evidence": {
+    "t_start": 614.0,
+    "t_end": 646.0,
+    "quote": "Medi: «أنسيت» / Amal: «هوا» / Medi: «هوا، That's right.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-46924d1b_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "63482c702ae952537ec6ca7180e947aab902d686410dafbc5aeba1a4cdb6145d",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-46924d1b_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "402a28928ab8b973f35e45000bf3869ede5c9ea67aeed2f969dda9836b56415f",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-46924d1b_mixed_lesson.mp3",
+      "sha256": "65e97830caff7124278edb8b3a4b66ffddda48294ecbfca85365bba9f1642f86",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا سيط اوه انا سيط انا سيط شكرا",
+     "Amal": "أولا هوا سأضع هوا في كلمة ثانية ترجمة نانسي قنقر",
+     "mixed": "واحد وهذا هو هو هذا صحيح سأضع هو في كلمة ثم شكرا"
+    }
+   },
+   "claim": {
+    "wrong": "(did not know)",
+    "right": "هواء",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-10T01:17:58-07:00",
+   "run_id": "3b23c6fa79f44179bdbb1224bec17b21"
+  },
+  {
+   "uid": "FA-c27e920f",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used «بحيرة التانية/الثانية» without definiteness on the noun, and Amal recast it as «البحيرة الثانية», after which he acknowledged the correction.",
+   "evidence": {
+    "t_start": 1395.0,
+    "t_end": 1432.0,
+    "quote": "Medi: «So بحيرة ال تانية» / Amal: «البحيرة، الثانية» / Medi: «Oh, that's right.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-c27e920f_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "8814bcbca8f22830ef2359d369843d80f164562b743988d89afd324e97a61215",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-c27e920f_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "60bdfeacd559418214e3f0339a804e8968b48d7c55047c5f7e9b58b4255ee7ff",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-c27e920f_mixed_lesson.mp3",
+      "sha256": "c5258b2cfc915debd0d90066c2ad82310c8a4ee240e136473a78cb1f125dbe9b",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "فأنا أعتقد أنه لا يأخذ نعم لقد أخذنا حسنًا أنا أتذكر السلسلة الأخيرة نعم لأنه إذا قلت الثلاثة الأخرى ، أنت محق أنا أتذكر هذه السلسلة لذا بحيرا التانية نعم هذا صحيح ولكنني أعتقد أن هذا كان المدينة الثانية ترجمة نانسي قنقر",
+     "Amal": "We corrected this fact البحيرة التانية It could mean the second or the other خلص here كانت نعم",
+     "mixed": "فأنا أعتقد أنه لا يأخذ نفسه نحن تحقق هذا الحقيقة نحن فعلناه حسنًا أنا أتذكر السلسلة الأخيرة نعم لأنه إذا قلت السلسلة الأخرى أنت صحيح أنا أتذكر هذه السلسلة نعم هذا صحيح ولكنني أعتقد أن هذا كان بيت الثاني يمكن أن يعني الثاني أو الثاني هنا لا أعرف حسنًا يجب عليك استخدام التفاصيل"
+    }
+   },
+   "claim": {
+    "wrong": "بحيرة التانية",
+    "right": "البحيرة التانية",
+    "bucket": "A14",
+    "tier": null
+   },
+   "at": "2026-10-10T01:17:58-07:00",
+   "run_id": "3b23c6fa79f44179bdbb1224bec17b21"
+  },
+  {
+   "uid": "FA-aa6a21e3",
+   "date": "2026-10-09",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi explicitly asked for the word for forest, and Amal supplied «غابة» several times; his later attempts are pronunciation repeats of the supplied word.",
+   "evidence": {
+    "t_start": 1611.0,
+    "t_end": 1644.0,
+    "quote": "Medi: «شنوة الكلمة؟ ... لفور» / Amal: «غابة... غابة... B as in boy... غابة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-aa6a21e3_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "6bcf0ff1ae4d42288881e600a5f4d1da64afdd4dc807676cc840bf5987b41e33",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-aa6a21e3_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "99deee0e74d3eb2c8d145fc16a8627168c274de82bb0e5451685381764e008a0",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-aa6a21e3_mixed_lesson.mp3",
+      "sha256": "f774a0390076ca82a9eb891fba59793de68f90bb9771926eee133917d99761d9",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اه شو الكلمة لف لف قعدة قعدة قعدة قعدة قابة اه قابة اه قابة اوكي كمان",
+     "Amal": "ايضا انا اذهب غابة غابة غابة بي بي ازن بوي غابة هذه المدينة هي المدينة الأولى التي أذهب إليها",
+     "mixed": "ماذا أذهب إليه؟ كلمة غابة غابة غابة غابة غابة غابة غابة This forest is the first I go to"
+    }
+   },
+   "claim": {
+    "wrong": "(did not know)",
+    "right": "غابة",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-10T01:17:58-07:00",
+   "run_id": "3b23c6fa79f44179bdbb1224bec17b21"
+  },
+  {
+   "uid": "FA-d08b5626",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "high",
+   "reason": "The independent transcriptions show Medi already said «أي منظر» before producing «بتفضلي»; Amal's line was a confirmation/full-sentence recast, not evidence that he omitted «أي».",
+   "evidence": {
+    "t_start": 1813.0,
+    "t_end": 1860.0,
+    "quote": "Medi: «أي منظر. أي منظر... بتفضلي» / Amal: «أها، أي منظر بتفضلي.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-d08b5626_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "31b6171117f92d8de1f4f8654ee872e55cfbfe5fd46dbf1cb42afdd751a142f5",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-d08b5626_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "1a6f49d2b9743cac31d1a86f42bcc6c38c6aec2fce9527b2c7b95da6fd4932ff",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-d08b5626_mixed_lesson.mp3",
+      "sha256": "662ecc7c2cb222cb401bde88eb48d6ff175a77947273742e80c00f22ed65d7e4",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "Which view do you prefer? أي منظر أي منظر بتفدلي هاي المنظر بتفضلي",
+     "Amal": "هل تفضل؟ أو هل تفضل؟ اي منظر بتفضلي اي منظر بتفضلي كيف بحكي all like",
+     "mixed": "هل تفضل؟ أو هل تفضل؟ ما هي النظر التي تفضل؟ أي منظر تفضلي اي منظر بتفضلي? اي منظر بتفضلي. اوكي. كيف بحكي?"
+    }
+   },
+   "claim": {
+    "wrong": "منظر ... بتفضلي",
+    "right": "أي منظر بتفضلي؟",
+    "bucket": "C8",
+    "tier": null
+   },
+   "at": "2026-10-10T01:17:58-07:00",
+   "run_id": "3b23c6fa79f44179bdbb1224bec17b21"
+  },
+  {
+   "uid": "FA-88592838",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used the feminine demonstrative before a masculine noun, and Amal immediately prompted the contrast before he changed it to the masculine form.",
+   "evidence": {
+    "t_start": 1883.0,
+    "t_end": 1917.0,
+    "quote": "Medi: «هذي نفس...» Amal: «هذي أو هادا؟» Medi: «هادا نفس المنظر»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-88592838_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "1f42a5dca4b3803eaa97cb0c4a5dc7026b44e5a701b5d790716bcb5a9a800df1",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-88592838_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "84831935b0e52ccaca5846943a316dcab4e67a1ecadbd5bd47188c4670f0ca4e",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-88592838_mixed_lesson.mp3",
+      "sha256": "3eb1e5ae4083e0c59d380be072a7c8b59f2ca53cc76090eed82f207406220559",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هذا نفس المنظر رأيت في منترد اه اه",
+     "Amal": "هادي او هادا نيس رأيت ذلك",
+     "mixed": "هادي نفس. هادي او هادا? هادا نفس المنزر. هذا نفس المنظر I saw in Madrid That I saw"
+    }
+   },
+   "claim": {
+    "wrong": "هادي (engine: عادي)",
+    "right": "هذا نفس المنظر",
+    "bucket": "A10",
+    "tier": null
+   },
+   "at": "2026-10-10T01:18:18-07:00",
+   "run_id": "bec04cbf7ac046d0b8adb3b3f02f06d9"
+  },
+  {
+   "uid": "FA-63d8bf2d",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi appears to say «غير انواع», and Amal immediately points out that «انواع» means types and supplies the missing target noun.",
+   "evidence": {
+    "t_start": 2300.0,
+    "t_end": 2332.0,
+    "quote": "Medi: «هادا غير انواع» Amal: «شجر. That's types.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-63d8bf2d_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "bb000cfd3c5b1599da0061e75d513690e7a917cabb46a11d14d4d30c327a5769",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-63d8bf2d_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "3410d563bafedef48f51fb2e0e561ef6d8252eb3eb4f8f6a217f5fba2c602a4e",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-63d8bf2d_mixed_lesson.mp3",
+      "sha256": "7a7a24f5ccd35713b3a782429b71f2ba045d8d0525da8c0fe6d80716865b3434",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "صحادة قير انواع او نو اوكي مرحباً بكم في هذا الفيديو.",
+     "Amal": "غير نوال. راتس كايبس. ترجمة نانسي قنقر",
+     "mixed": "غير نوأل. سحادة غير انواع. او نو. حسنًا ، لا ، هذا هو مختلف من نوعات الطعام"
+    }
+   },
+   "claim": {
+    "wrong": "ghair anwa",
+    "right": "غير نوع من الشجر",
+    "bucket": "A9",
+    "tier": null
+   },
+   "at": "2026-10-10T01:18:18-07:00",
+   "run_id": "bec04cbf7ac046d0b8adb3b3f02f06d9"
+  },
+  {
+   "uid": "FA-9215040f",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi struggles with the possessive form as «أسيلتي/أسل أتي», and Amal recasts it as «أسئلتي» before he later repeats closer to her form.",
+   "evidence": {
+    "t_start": 3278.0,
+    "t_end": 3312.0,
+    "quote": "Medi: «أصيلة أصيلتي» Amal: «صح، أسئلتي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-9215040f_Medi_Medi_Natanzi-c419eb34712.mp3",
+      "sha256": "a89b28d59549da4a361383cb9c6ac4fc0e360d37458dd39ac3e549a0e0135ae5",
+      "source": "Medi_Natanzi-c419eb3471241916.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-9215040f_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "774868ad7e591709e5bff7b01ca3a3c10c28566aef1d293ff1edc8a0d442a170",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-9215040f_mixed_lesson.mp3",
+      "sha256": "11440ff48623aa1586ee75f42b9f743d41830c1e7940966dfaadc07011dcf230",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أغلب أسئلتك؟ أغلب أسل أسل أتي",
+     "Amal": "صح اسئلتي اغرب اسئلتي ممتاز ممتاز ممتاز ممتاز ممتاز ممتاز ممتاز ممتاز أكثر من أسئلتي مهمة",
+     "mixed": "أغلب أسئلتي صح أسئلتي أغلب أسئلتي ممتاز جدا جيدا أكثر من أسئلتي مهمة أغلب أسئلتي"
+    }
+   },
+   "claim": {
+    "wrong": "asiliti",
+    "right": "أسئلتي",
+    "bucket": "A4",
+    "tier": null
+   },
+   "at": "2026-10-10T01:18:18-07:00",
+   "run_id": "bec04cbf7ac046d0b8adb3b3f02f06d9"
+  },
+  {
+   "uid": "FA-a89f87bf",
+   "date": "2026-10-09",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Amal asked for the word 'clear', Medi guessed a Persian-like form, and Amal supplied the Arabic word.",
+   "evidence": {
+    "t_start": 3412.0,
+    "t_end": 3444.0,
+    "quote": "Medi: «إزة واضح؟» Amal: «واضح»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-a89f87bf_Medi_Medi_Natanzi-c419eb34712.mp3",
+      "sha256": "6c1547fad989d9cdf491993d8fdc4b1c7ef28673a0ca5320eff1ace23d45696a",
+      "source": "Medi_Natanzi-c419eb3471241916.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-a89f87bf_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "94a4615bf094d4a19a05a963bb1f3b700f5ae2243e3fd50e7bfa41ac31c1a746",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-a89f87bf_mixed_lesson.mp3",
+      "sha256": "6294f29ece10c65ab7b07a1ea2212a13ddd340697fdc048fa9392faf8f822dec",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "مهلا مهلا كان هناك آه رأيت أنه كان قرآني أنسى القرآن الرقم الثاني حسنا حسنًا. بداية سؤالك. لذا أول",
+     "Amal": "لا بأس، كانت واضحة إذا، بدون ذلك، بداية سؤالك كان غير صحيح بداية سؤالك كان غير صحيح ترجمة نانسي قنقر",
+     "mixed": "حسناً لا بأس كانت حسناً كانت موضحة آه رأيت أنها كانت مصرية فنسيت عن الزر لكن موضحة لذا بدأت بدون ذلك بدأت سؤالك كان غير صحيح بداية سؤالك كان غير صحيح بداية سؤالك لذا"
+    }
+   },
+   "claim": {
+    "wrong": "vaze",
+    "right": "واضح",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-10T01:18:18-07:00",
+   "run_id": "bec04cbf7ac046d0b8adb3b3f02f06d9"
+  },
+  {
+   "uid": "FA-d2b5608b",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi said «لوبي» for 'my game', and Amal immediately recast the possessive form twice as «لعبتي»; he then repeated «لوبتي».",
+   "evidence": {
+    "t_start": 3625.0,
+    "t_end": 3659.0,
+    "quote": "Medi: «هادا لوبي الأول» Amal: «لعبتي. لعبتي.» Medi: «هادي... لوبتي الأولى»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-d2b5608b_Medi_Medi_Natanzi-c419eb34712.mp3",
+      "sha256": "16471d4e8b8cddb4092701629aefa1a611903ff96bd71d3913ea48a1998a2fab",
+      "source": "Medi_Natanzi-c419eb3471241916.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-d2b5608b_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "2c9c36b1169dff254f230884e14932a612e5c97ecccb56a59afecf14fd02fd4a",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-d2b5608b_mixed_lesson.mp3",
+      "sha256": "7ee4b35c0abd39b2292dd424f86e52d719179f34b28758411042d6cdfcc4a1f0",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هذا لوبي الأول هذا لوبي الأول اوك",
+     "Amal": "لدينا ثلاث طريق لكي نقولها لا بيتي لا بيتي نعم جميل. ما هو الطريق الآخر؟",
+     "mixed": "لدينا ثلاث طريق لكي نقولها. هذا هو لوبتي. هذا هو لوبتي الأولى. نعم، جيد، ما هو الطريق الآخر؟"
+    }
+   },
+   "claim": {
+    "wrong": "هذا loby الأول",
+    "right": "هذه لعبتي الأولى",
+    "bucket": "A4",
+    "tier": null
+   },
+   "at": "2026-10-10T01:18:18-07:00",
+   "run_id": "bec04cbf7ac046d0b8adb3b3f02f06d9"
+  },
+  {
+   "uid": "FA-2836ded8",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi first said the clock-time phrase without the article, and Amal signalled the issue by echoing what he had said before he repeated it with «الـ».",
+   "evidence": {
+    "t_start": 3701.0,
+    "t_end": 3733.0,
+    "quote": "Medi: «على ثنتين» Amal: «قلت انتين، بس very good» Medi: «على الـثنتين»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-2836ded8_Medi_Medi_Natanzi-c419eb34712.mp3",
+      "sha256": "9eb2dd6082162bf654518eed0a0b748cb350319b957ec66a109cc26ceaa26179",
+      "source": "Medi_Natanzi-c419eb3471241916.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-2836ded8_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "1356912210654a5ab8487b3d2e35fb91f3b478d4f326eeaf1054d7f3f5d8ac67",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-2836ded8_mixed_lesson.mp3",
+      "sha256": "528864d9ed6756ea555b88be0f240672f36d3efafe1600e706757878010e93a3",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اوه اه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اشتركوا في القناة",
+     "Amal": "ممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممم ترجمة نانسي قنقر",
+     "mixed": "اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه ا اشتركوا في القناة"
+    }
+   },
+   "claim": {
+    "wrong": "على اثنتين",
+    "right": "على التنتين",
+    "bucket": "E2",
+    "tier": null
+   },
+   "at": "2026-10-10T01:18:18-07:00",
+   "run_id": "bec04cbf7ac046d0b8adb3b3f02f06d9"
+  },
+  {
+   "uid": "FA-820e3a1e",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi placed «أكتر» before the predicate and then said «بتبسوت/بتبسط»; Amal immediately recast the whole phrase as «بتبسط أكثر صح», and Medi acknowledged the placement issue.",
+   "evidence": {
+    "t_start": 3897.0,
+    "t_end": 3944.0,
+    "quote": "Medi: «أكتر ... بتبسوت»; Amal: «بتبسط أكثر صح»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-820e3a1e_Medi_Medi_Natanzi-c419eb34712.mp3",
+      "sha256": "9ffcd5adca8e446f33b9730e948d4e5e44fa00f9dc3f1eeda32c41d3598b1344",
+      "source": "Medi_Natanzi-c419eb3471241916.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-820e3a1e_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "a11588bdee1149906dde427c37950e1252b5aa4d47c4a62359bb7f81d90e1db6",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-820e3a1e_mixed_lesson.mp3",
+      "sha256": "08305735fc922961e74061a7138e8ac55dd6ba9c3cd51a38fafe92ef20f89b0a",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "سب اه الو الو بالتانية احسن اه اكتر اكتر اه اه بتبسوت يجب أن يكون هذا الأكتاديمي دائما بعد الأجيكتيف",
+     "Amal": "انها أكثر ممتعة أكتب ست أكتب سحر هذا أكثر حسنا معظم اللعبات هنا غالية",
+     "mixed": "إلا بالتانية أحسن It's more fun أكثر بتبسط بطيب سات اكتر سات اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكتر اكت"
+    }
+   },
+   "claim": {
+    "wrong": "actor ... بتبسط",
+    "right": "بتبسط أكتر",
+    "bucket": "C3",
+    "tier": null
+   },
+   "at": "2026-10-10T01:18:32-07:00",
+   "run_id": "dd981a8a616a419fb8c2c153afe167d6"
+  },
+  {
+   "uid": "FA-a49f7df2",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi repeated the form with «كان» but still used the feminine-prefix verb, then immediately asked why it was masculine; Amal's response explicitly corrected the subject agreement by pointing to «آخر» as the thing being described.",
+   "evidence": {
+    "t_start": 4151.0,
+    "t_end": 4187.0,
+    "quote": "Medi: «كان بتزهر» / «كان بزهر»; Amal: «آخر... I'm talking about the end of the game, not the game itself»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-a49f7df2_Medi_Medi_Natanzi-c419eb34712.mp3",
+      "sha256": "13441f79ae82caafb1d84a343b4fe09f1ecc4e9319abc746ebaf35465c8dc14b",
+      "source": "Medi_Natanzi-c419eb3471241916.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-a49f7df2_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "21c457966d96b984bb5d31a703afdad67d00436d94332e4c162e3eda57447f71",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-a49f7df2_mixed_lesson.mp3",
+      "sha256": "0ca2d16da717f8548418514dd6347c872785a678f94f25374babdac9e7150b23",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انها تحقق. انها تحقق. انتظر لماذا هي عجيبة؟ لقد كانت اللعبة عجيبة. حقا. النهاية كانت مزعجة. نهاية اللعبة كانت مزعجة. ولكن هذا النهاية. أشعر بالنهاية بالنسبة لللعبة.",
+     "Amal": "كان and آخر so can because I'm talking about آخر I'm talking about the end of the year not the game itself آخر I'm describing آخر as was boring شكرا",
+     "mixed": "بس اهر. انت اهر. انت بس اهر. انت بس اهر. انت بس اهر. انت بس اهر. انت بس اهر. لقد كانت نهاية اللعبة مزعجة ولكن هذا النهاية أشعر بالنهاية بأنها تتحدث عن اللعبة"
+    }
+   },
+   "claim": {
+    "wrong": "بتزهر",
+    "right": "بيزهّق",
+    "bucket": "B18",
+    "tier": null
+   },
+   "at": "2026-10-10T01:18:32-07:00",
+   "run_id": "dd981a8a616a419fb8c2c153afe167d6"
   }
  ]
 }

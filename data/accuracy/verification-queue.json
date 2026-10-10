@@ -1,6 +1,34 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 0,
- "by_date": {},
- "rows": []
+ "count": 1,
+ "by_date": {
+  "2026-10-09": 1
+ },
+ "rows": [
+  {
+   "uid": "FA-d08b5626",
+   "date": "2026-10-09",
+   "t": "30:23",
+   "t_amal": "30:40",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "C8",
+   "medi_said": "منظر. ... بتفضلي.",
+   "amal_said": "أي منظر بتفضلي؟",
+   "wrong": "منظر ... بتفضلي",
+   "right": "أي منظر بتفضلي؟",
+   "why_check": [
+    "both readers found it but the third reader challenged it"
+   ],
+   "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent transcriptions show Medi already said «أي منظر» before producing «بتفضلي»; Amal's line was a confirmation/full-sentence recast, not evidence that he omitted «أي»."
+   },
+   "listen_from": "30:13",
+   "listen_to": "31:00"
+  }
+ ]
 }
