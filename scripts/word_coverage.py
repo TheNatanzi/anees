@@ -1468,9 +1468,11 @@ def chips(date, detail, rows, unscored=()):
     return out
 
 
-def report(date, repo=REPO):
-    """Every Arabic word of his on the published lesson and the chip it carries (vocab ✓ ◐ ✗ ↻ or grey reason)."""
-    d = J(os.path.join(repo, "docs", "data", "lessons", date + ".json"), {}) or {}
+def report(date, repo=REPO, d=None):
+    """Every Arabic word of his on the published lesson and the chip it carries (vocab ✓ ◐ ✗ ↻ or grey reason).
+    d = the lesson's page data itself (an older published copy: scripts/review_grades.py, PG-46)."""
+    if d is None:
+        d = J(os.path.join(repo, "docs", "data", "lessons", date + ".json"), {}) or {}
     turns, tm = d.get("turns") or [], d.get("tmarks") or {}
     out = []
     for i, u in enumerate(turns):
@@ -1494,7 +1496,7 @@ def report(date, repo=REPO):
             voc = [c for c in cs if c.get("k") == "vocab"]
             if hit is None and w not in (u.get("text") or "") and len(voc) == 1:
                 hit = voc[0]              # his Latin word the reader read (57:42 'kan'): the line's one word chip
-            out.append({"t": mmss(u["t"]), "word": w, "cut": cut, "state": (hit or {}).get("s"), "why": (hit or {}).get("why"),
+            out.append({"i": i, "t": mmss(u["t"]), "word": w, "cut": cut, "state": (hit or {}).get("s"), "why": (hit or {}).get("why"),
                         "quiet": (hit or {}).get("quiet")})
     return out
 

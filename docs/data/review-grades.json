@@ -1,0 +1,2951 @@
+{
+ "about": "Grade book (PG-46): the pipeline's first version of each lesson Medi reviewed in full, graded against his review (the answer key); Arabic words of his lines only. Built by scripts/review_grades.py.",
+ "types": {
+  "missed_slip": "missed slip: the tutor corrected him, no mistake marked",
+  "fake_slip": "fake slip: a mistake marked that was not one",
+  "untracked": "untracked or wrong credit: no mark, a wrong credit or a wrong grey reason",
+  "misheard": "misheard word: the transcript had the wrong Arabic word"
+ },
+ "lessons": [
+  {
+   "date": "2026-09-30",
+   "full": false,
+   "note": "September review, partial (Medi 2026-10-10: 'the 2 previous should not they were partial'). Date = the September lesson with the most of his rulings.",
+   "status": "partial review, not graded"
+  },
+  {
+   "date": "2026-10-02",
+   "full": false,
+   "note": "partial review (Medi 2026-10-10: 'the 2 previous should not they were partial')",
+   "status": "partial review, not graded"
+  },
+  {
+   "date": "2026-10-08",
+   "full": true,
+   "note": "his full review: notes pulled from 2026-10-08 23:34, applied 2026-10-09 (699eeba) and in the 2026-10-10 audit",
+   "status": "graded",
+   "before_commit": "75d7767",
+   "key_commit": "0dc0571",
+   "before": {
+    "words": 442,
+    "tracked": 113,
+    "tracked_pct": 25.6,
+    "mistakes": {
+     "missed_slip": 13,
+     "fake_slip": 3,
+     "untracked": 236,
+     "misheard": 79
+    },
+    "mistakes_total": 331,
+    "per_100": 74.9,
+    "list": [
+     {
+      "type": "untracked",
+      "t": "00:10",
+      "word": "مرحبا",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "marhaba"
+     },
+     {
+      "type": "misheard",
+      "t": "00:42",
+      "word": "كيفك",
+      "was": "Defect.",
+      "is": "كيفك.",
+      "az": "keefak?"
+     },
+     {
+      "type": "misheard",
+      "t": "00:45",
+      "word": "كيفك",
+      "was": "Defect.",
+      "is": "كيفك.",
+      "az": "keefak?"
+     },
+     {
+      "type": "misheard",
+      "t": "01:25",
+      "word": "جاهز",
+      "was": "Yes.",
+      "is": "جاهز.",
+      "az": "Jaahez"
+     },
+     {
+      "type": "untracked",
+      "t": "01:44",
+      "word": "يومي",
+      "was": "no mark (written in Latin letters the reader did not read: Yomi)",
+      "is": "credit",
+      "why": "",
+      "az": "yoami"
+     },
+     {
+      "type": "untracked",
+      "t": "01:51",
+      "word": "شوي",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Shwai"
+     },
+     {
+      "type": "untracked",
+      "t": "01:57",
+      "word": "عيان",
+      "was": "no mark (written in Latin letters the reader did not read: Ayan)",
+      "is": "credit",
+      "why": "",
+      "az": "3ayaan"
+     },
+     {
+      "type": "untracked",
+      "t": "01:57",
+      "word": "عيان",
+      "was": "no mark (written in Latin letters the reader did not read: Ayan)",
+      "is": "credit",
+      "why": "",
+      "az": "3ayaan"
+     },
+     {
+      "type": "misheard",
+      "t": "02:18",
+      "word": "منيح",
+      "was": "Yomi, me,",
+      "is": "يومي منيح",
+      "az": "mneeh"
+     },
+     {
+      "type": "untracked",
+      "t": "02:18",
+      "word": "يومي",
+      "was": "no mark (written in Latin letters the reader did not read: Yomi)",
+      "is": "credit",
+      "why": "",
+      "az": "yoami"
+     },
+     {
+      "type": "misheard",
+      "t": "02:21",
+      "word": "خطيبتي",
+      "was": "uh, PTT, Shui, Ayan.",
+      "is": "uh, خطيبتي شوي عيان",
+      "az": "خطيبتي"
+     },
+     {
+      "type": "missed_slip",
+      "t": "02:21",
+      "word": "خطيبتي شوي عيان",
+      "was": "no mistake marked",
+      "is": "grammar A8",
+      "az": "خطيبتي Shwai 3ayaan"
+     },
+     {
+      "type": "untracked",
+      "t": "02:21",
+      "word": "شوي",
+      "was": "no mark (written in Latin letters the reader did not read: Shui)",
+      "is": "credit",
+      "why": "",
+      "az": "Shwai"
+     },
+     {
+      "type": "untracked",
+      "t": "02:21",
+      "word": "عيان",
+      "was": "no mark (written in Latin letters the reader did not read: Ayan)",
+      "is": "credit",
+      "why": "",
+      "az": "3ayaan"
+     },
+     {
+      "type": "untracked",
+      "t": "02:25",
+      "word": "عيانة",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 02:22 («لسة الخطيب بتاع عيانة.»): not credited, not a mistake (WS-31)",
+      "az": "3ayaane"
+     },
+     {
+      "type": "untracked",
+      "t": "02:40",
+      "word": "شوربة",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Shoraba"
+     },
+     {
+      "type": "untracked",
+      "t": "03:24",
+      "word": "مالها",
+      "was": "credit",
+      "is": "new",
+      "why": "new word: not on her list, and she said it back to you at 03:25; not scored",
+      "az": "maalha"
+     },
+     {
+      "type": "untracked",
+      "t": "03:35",
+      "word": "مالها",
+      "was": "no mark (written in Latin letters the reader did not read: malha)",
+      "is": "new",
+      "why": "new word: not on her list, and she said it back to you at 03:25; not scored",
+      "az": "maalha"
+     },
+     {
+      "type": "untracked",
+      "t": "03:50",
+      "word": "بيوجع",
+      "was": "no mark (written in Latin letters the reader did not read: biwaja)",
+      "is": "credit",
+      "why": "",
+      "az": "بيوجع"
+     },
+     {
+      "type": "untracked",
+      "t": "03:55",
+      "word": "بيوجع",
+      "was": "no mark (written in Latin letters the reader did not read: biwaja)",
+      "is": "grey: said again right after his own بيوجع at 03:50 with nothing from the tutor betwee",
+      "why": "بيوجع: said again right after his own بيوجع at 03:50 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "بيوجع"
+     },
+     {
+      "type": "untracked",
+      "t": "03:58",
+      "word": "راسها",
+      "was": "no mark (written in Latin letters the reader did not read: rasa)",
+      "is": "credit",
+      "why": "",
+      "az": "raasha"
+     },
+     {
+      "type": "untracked",
+      "t": "04:06",
+      "word": "راسها",
+      "was": "no mark (written in Latin letters the reader did not read: rasa)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 04:04 («راسها بيوجع.»): not credited, not a mistake (WS-31)",
+      "az": "raasha"
+     },
+     {
+      "type": "untracked",
+      "t": "04:06",
+      "word": "بيوجع",
+      "was": "no mark (written in Latin letters the reader did not read: biwaja)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 04:04 («راسها بيوجع.»): not credited, not a mistake (WS-31)",
+      "az": "بيوجع"
+     },
+     {
+      "type": "untracked",
+      "t": "05:08",
+      "word": "اليوم",
+      "was": "no mark (written in Latin letters the reader did not read: Elion)",
+      "is": "repeat",
+      "why": "He says the tutor's words back (04:58 «لا. طيب. شو اليوم؟»): a repeat, not credited, not a mistake (WS-31)",
+      "az": "El-youm"
+     },
+     {
+      "type": "misheard",
+      "t": "05:11",
+      "word": "يوم",
+      "was": "ion el,",
+      "is": "يوم الـ",
+      "az": "يوم"
+     },
+     {
+      "type": "misheard",
+      "t": "05:13",
+      "word": "يوم",
+      "was": "ion el khamis,",
+      "is": "Uh, يوم الخميس",
+      "az": "يوم"
+     },
+     {
+      "type": "untracked",
+      "t": "05:13",
+      "word": "الخميس",
+      "was": "no mark (written in Latin letters the reader did not read: khamis)",
+      "is": "credit",
+      "why": "",
+      "az": "الخميس"
+     },
+     {
+      "type": "untracked",
+      "t": "05:17",
+      "word": "ثمانية",
+      "was": "no mark (written in Latin letters the reader did not read: mania)",
+      "is": "credit",
+      "why": "",
+      "az": "tamanya"
+     },
+     {
+      "type": "untracked",
+      "t": "05:21",
+      "word": "عشرة",
+      "was": "no mark (written in Latin letters the reader did not read: ashara)",
+      "is": "credit",
+      "why": "",
+      "az": "3ashrah"
+     },
+     {
+      "type": "untracked",
+      "t": "05:24",
+      "word": "ألفين",
+      "was": "no mark (written in Latin letters the reader did not read: alfin)",
+      "is": "credit",
+      "why": "",
+      "az": "alfein"
+     },
+     {
+      "type": "untracked",
+      "t": "05:24",
+      "word": "ستة",
+      "was": "no mark (written in Latin letters the reader did not read: sita)",
+      "is": "credit",
+      "why": "",
+      "az": "sittah"
+     },
+     {
+      "type": "untracked",
+      "t": "05:24",
+      "word": "وعشرين",
+      "was": "no mark (written in Latin letters the reader did not read: ashira)",
+      "is": "credit",
+      "why": "",
+      "az": "وعشرين"
+     },
+     {
+      "type": "misheard",
+      "t": "05:34",
+      "word": "إلا",
+      "was": "halat el tod.",
+      "is": "تلات إلا تلت",
+      "az": "illa"
+     },
+     {
+      "type": "untracked",
+      "t": "05:34",
+      "word": "تلات",
+      "was": "no mark (written in Latin letters the reader did not read: halat)",
+      "is": "credit",
+      "why": "",
+      "az": "talat"
+     },
+     {
+      "type": "untracked",
+      "t": "05:34",
+      "word": "تلت",
+      "was": "no mark (written in Latin letters the reader did not read: halat)",
+      "is": "credit",
+      "why": "",
+      "az": "Tult"
+     },
+     {
+      "type": "misheard",
+      "t": "05:51",
+      "word": "هون",
+      "was": "Lisa hom shob. Lisa kamara.",
+      "is": "لسه هون شوب؟ لسه، كمان مرة؟",
+      "az": "Hoan"
+     },
+     {
+      "type": "untracked",
+      "t": "05:51",
+      "word": "لسه",
+      "was": "no mark (written in Latin letters the reader did not read: Lisa)",
+      "is": "credit",
+      "why": "",
+      "az": "Lissa"
+     },
+     {
+      "type": "untracked",
+      "t": "05:51",
+      "word": "شوب",
+      "was": "no mark (written in Latin letters the reader did not read: shob)",
+      "is": "credit",
+      "why": "",
+      "az": "Shoab"
+     },
+     {
+      "type": "untracked",
+      "t": "05:51",
+      "word": "لسه",
+      "was": "no mark (written in Latin letters the reader did not read: Lisa)",
+      "is": "credit",
+      "why": "",
+      "az": "Lissa"
+     },
+     {
+      "type": "untracked",
+      "t": "05:51",
+      "word": "كمان",
+      "was": "no mark (written in Latin letters the reader did not read: kamara)",
+      "is": "credit",
+      "why": "",
+      "az": "Kamaan"
+     },
+     {
+      "type": "untracked",
+      "t": "05:51",
+      "word": "مرة",
+      "was": "no mark (written in Latin letters the reader did not read: kamara)",
+      "is": "credit",
+      "why": "",
+      "az": "Marra"
+     },
+     {
+      "type": "untracked",
+      "t": "05:59",
+      "word": "شوب",
+      "was": "no mark (written in Latin letters the reader did not read: shob)",
+      "is": "credit",
+      "why": "",
+      "az": "Shoab"
+     },
+     {
+      "type": "untracked",
+      "t": "05:59",
+      "word": "شوب",
+      "was": "no mark (written in Latin letters the reader did not read: shob)",
+      "is": "credit",
+      "why": "",
+      "az": "Shoab"
+     },
+     {
+      "type": "untracked",
+      "t": "05:59",
+      "word": "كتير",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Kteer"
+     },
+     {
+      "type": "untracked",
+      "t": "06:10",
+      "word": "شوب",
+      "was": "no mark (written in Latin letters the reader did not read: shob)",
+      "is": "credit",
+      "why": "",
+      "az": "Shoab"
+     },
+     {
+      "type": "untracked",
+      "t": "06:10",
+      "word": "كتير",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Kteer"
+     },
+     {
+      "type": "untracked",
+      "t": "06:10",
+      "word": "شوي",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Shwai"
+     },
+     {
+      "type": "misheard",
+      "t": "06:27",
+      "word": "بنقلق",
+      "was": "بين الـ، بين الـ worried. No worried wouldn't have sense. No we are worrying. Ye",
+      "is": "بنقلق؟ بنقلق worried. No worried would be past tense. No we are worrying. Yeah w",
+      "az": "bne2la2"
+     },
+     {
+      "type": "misheard",
+      "t": "06:27",
+      "word": "بنقلق",
+      "was": "بين الـ، بين الـ worried. No worried wouldn't have sense. No we are worrying. Ye",
+      "is": "بنقلق؟ بنقلق worried. No worried would be past tense. No we are worrying. Yeah w",
+      "az": "bne2la2"
+     },
+     {
+      "type": "misheard",
+      "t": "06:27",
+      "word": "بنقلق",
+      "was": "بين الـ، بين الـ worried. No worried wouldn't have sense. No we are worrying. Ye",
+      "is": "بنقلق؟ بنقلق worried. No worried would be past tense. No we are worrying. Yeah w",
+      "az": "bne2la2"
+     },
+     {
+      "type": "misheard",
+      "t": "06:27",
+      "word": "بنقلق",
+      "was": "بين الـ، بين الـ worried. No worried wouldn't have sense. No we are worrying. Ye",
+      "is": "بنقلق؟ بنقلق worried. No worried would be past tense. No we are worrying. Yeah w",
+      "az": "bne2la2"
+     },
+     {
+      "type": "misheard",
+      "t": "06:50",
+      "word": "قلقان",
+      "was": "الآن،",
+      "is": "قلقان",
+      "az": "Qalqaan"
+     },
+     {
+      "type": "misheard",
+      "t": "06:52",
+      "word": "قلقانين",
+      "was": "الآن.",
+      "is": "قلقانين",
+      "az": "qalqaaneen"
+     },
+     {
+      "type": "misheard",
+      "t": "06:55",
+      "word": "قلقانين",
+      "was": "احنا الآن،",
+      "is": "احنا قلقانين",
+      "az": "qalqaaneen"
+     },
+     {
+      "type": "misheard",
+      "t": "06:58",
+      "word": "قلقانين",
+      "was": "um,",
+      "is": "قلقانين",
+      "az": "qalqaaneen"
+     },
+     {
+      "type": "untracked",
+      "t": "07:04",
+      "word": "لا",
+      "was": "credit",
+      "is": "grey: not on her word list",
+      "why": "لا: not on her word list (left out of the Words %; it goes to her new-words list)",
+      "az": "لا"
+     },
+     {
+      "type": "untracked",
+      "t": "07:14",
+      "word": "النار",
+      "was": "no mark",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 07:11 («من النار.»): not credited, not a mistake (WS-31)",
+      "az": "النار"
+     },
+     {
+      "type": "untracked",
+      "t": "07:41",
+      "word": "نار",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Naar"
+     },
+     {
+      "type": "untracked",
+      "t": "07:44",
+      "word": "يبدأ",
+      "was": "no mark",
+      "is": "grey: a correction cue from the tutor right after; the readers decide",
+      "why": "يبدأ: A correction cue from the tutor right after; the readers decide",
+      "az": "yebda"
+     },
+     {
+      "type": "misheard",
+      "t": "08:36",
+      "word": "بلبس",
+      "was": "اليوم talvez",
+      "is": "اليوم بلبس",
+      "az": "Balbes"
+     },
+     {
+      "type": "untracked",
+      "t": "08:39",
+      "word": "بلوزة",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Blooze"
+     },
+     {
+      "type": "untracked",
+      "t": "08:39",
+      "word": "سودا",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "سودا"
+     },
+     {
+      "type": "untracked",
+      "t": "08:41",
+      "word": "بنطلون",
+      "was": "no mark (written in Latin letters the reader did not read: pantalon)",
+      "is": "credit",
+      "why": "",
+      "az": "Ban6aloan"
+     },
+     {
+      "type": "untracked",
+      "t": "08:45",
+      "word": "فاتح",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Faate7"
+     },
+     {
+      "type": "untracked",
+      "t": "09:02",
+      "word": "لا",
+      "was": "no mark",
+      "is": "grey: not on her word list",
+      "why": "لا: not on her word list (left out of the Words %; it goes to her new-words list)",
+      "az": "لا"
+     },
+     {
+      "type": "untracked",
+      "t": "09:44",
+      "word": "ديرت",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (09:15); not on her list yet, not scored",
+      "az": "deert"
+     },
+     {
+      "type": "misheard",
+      "t": "09:48",
+      "word": "خطيبتي",
+      "was": "ختيفتي، ختيفتي.",
+      "is": "خطيبتي.",
+      "az": "خطيبتي"
+     },
+     {
+      "type": "misheard",
+      "t": "10:07",
+      "word": "فكرة",
+      "was": "Okay.",
+      "is": "فكرة",
+      "az": "fekra"
+     },
+     {
+      "type": "untracked",
+      "t": "10:19",
+      "word": "بدير",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (09:15); not on her list yet, not scored",
+      "az": "بدير"
+     },
+     {
+      "type": "untracked",
+      "t": "11:09",
+      "word": "بال",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (she typed 'bil' in the chat); not on her list yet, not scored",
+      "az": "bil-"
+     },
+     {
+      "type": "untracked",
+      "t": "11:09",
+      "word": "بال",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (she typed 'bil' in the chat); not on her list yet, not scored",
+      "az": "bil-"
+     },
+     {
+      "type": "misheard",
+      "t": "11:34",
+      "word": "خطيبتي",
+      "was": "let's hammer this one over and over, I guess. So, uh, ديرت بالي ختيفتي.",
+      "is": "let's hammer this one over and over, I guess. So, uh, ديرت بالي خطيبتي.",
+      "az": "خطيبتي"
+     },
+     {
+      "type": "misheard",
+      "t": "11:50",
+      "word": "خطيبتي",
+      "was": "ديرت بالي على ختيفتي كل الصباح.",
+      "is": "ديرت بالي على خطيبتي كل الصباح.",
+      "az": "خطيبتي"
+     },
+     {
+      "type": "untracked",
+      "t": "11:50",
+      "word": "ديرت",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (09:15); not on her list yet, not scored",
+      "az": "deert"
+     },
+     {
+      "type": "untracked",
+      "t": "11:50",
+      "word": "بالي",
+      "was": "credit",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (09:15); not on her list yet, not scored",
+      "az": "بالي"
+     },
+     {
+      "type": "untracked",
+      "t": "11:50",
+      "word": "كل",
+      "was": "credit",
+      "is": "grey: two list words are spelled this way",
+      "why": "كل: two list words are spelled this way (kul 'All / Every / Every / All' / kul~eat 'Eat'): unclear which he meant",
+      "az": "Kul"
+     },
+     {
+      "type": "fake_slip",
+      "t": "12:09",
+      "word": "ديري باليك",
+      "was": "grammar B10",
+      "is": "not a mistake",
+      "az": "deeri baaleek"
+     },
+     {
+      "type": "untracked",
+      "t": "13:08",
+      "word": "بدير",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (09:15); not on her list yet, not scored",
+      "az": "بدير"
+     },
+     {
+      "type": "untracked",
+      "t": "13:15",
+      "word": "أدير",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (09:15); not on her list yet, not scored",
+      "az": "adeer"
+     },
+     {
+      "type": "untracked",
+      "t": "13:19",
+      "word": "أدير",
+      "was": "credit",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (09:15); not on her list yet, not scored",
+      "az": "adeer"
+     },
+     {
+      "type": "untracked",
+      "t": "13:19",
+      "word": "بالي",
+      "was": "credit",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (09:15); not on her list yet, not scored",
+      "az": "بالي"
+     },
+     {
+      "type": "untracked",
+      "t": "14:41",
+      "word": "إنه",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "إنه"
+     },
+     {
+      "type": "untracked",
+      "t": "14:53",
+      "word": "نعمل",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 14:52 («نعمل.»): not credited, not a mistake (WS-31)",
+      "az": "ne3mal"
+     },
+     {
+      "type": "untracked",
+      "t": "14:53",
+      "word": "خلينا",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 14:52 («نعمل.»): not credited, not a mistake (WS-31)",
+      "az": "خلينا"
+     },
+     {
+      "type": "untracked",
+      "t": "14:53",
+      "word": "نعمل",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 14:52 («نعمل.»): not credited, not a mistake (WS-31)",
+      "az": "ne3mal"
+     },
+     {
+      "type": "untracked",
+      "t": "14:59",
+      "word": "إنه",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "إنه"
+     },
+     {
+      "type": "misheard",
+      "t": "15:02",
+      "word": "تخططي",
+      "was": "uh, إنه تفت-- uh, تفتتلي.",
+      "is": "uh, إنه تخطط-- uh, تخططي.",
+      "az": "t5a66e6i"
+     },
+     {
+      "type": "untracked",
+      "t": "15:02",
+      "word": "إنه",
+      "was": "no mark",
+      "is": "grey: said again right after his own إنه at 14:59 with nothing from the tutor between:",
+      "why": "إنه: said again right after his own إنه at 14:59 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "إنه"
+     },
+     {
+      "type": "untracked",
+      "t": "15:30",
+      "word": "راح",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "raa7"
+     },
+     {
+      "type": "misheard",
+      "t": "15:36",
+      "word": "غلط",
+      "was": "uh, قلات كتير بس.",
+      "is": "uh, غلط كتير بس.",
+      "az": "8ala6"
+     },
+     {
+      "type": "misheard",
+      "t": "16:13",
+      "word": "عصافير",
+      "was": "Oh, is it, is it، أسف؟",
+      "is": "Oh, is it, is it، is it عصافير؟",
+      "az": "3asafeer"
+     },
+     {
+      "type": "missed_slip",
+      "t": "16:13",
+      "word": "عصافير",
+      "was": "no mistake marked",
+      "is": "vocab  → سما",
+      "az": "3asafeer"
+     },
+     {
+      "type": "untracked",
+      "t": "16:32",
+      "word": "نسيته",
+      "was": "credit",
+      "is": "grey: the second listen changed this word; the tutor's listen decides it",
+      "why": "نسيته: the second listen changed this word; the tutor's listen decides it (TR-27)",
+      "az": "nseeto"
+     },
+     {
+      "type": "untracked",
+      "t": "16:35",
+      "word": "سما",
+      "was": "no mark (written in Latin letters the reader did not read: Some)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 16:34 («سما.»): not credited, not a mistake (WS-31)",
+      "az": "Sama"
+     },
+     {
+      "type": "untracked",
+      "t": "16:39",
+      "word": "سما",
+      "was": "no mark (written in Latin letters the reader did not read: Some)",
+      "is": "repeat",
+      "why": "He says the tutor's words back (16:37 «سما is sky. يلا، شو فيه بالسما؟»): a repeat, not credited, not a mistake (WS-31)",
+      "az": "Sama"
+     },
+     {
+      "type": "misheard",
+      "t": "16:45",
+      "word": "غيم",
+      "was": "ممكن، uh,",
+      "is": "غيم، uh,",
+      "az": "8aim"
+     },
+     {
+      "type": "missed_slip",
+      "t": "16:45",
+      "word": "غيم",
+      "was": "no mistake marked",
+      "is": "grammar A9",
+      "az": "8aim"
+     },
+     {
+      "type": "untracked",
+      "t": "16:51",
+      "word": "غيوم",
+      "was": "credit",
+      "is": "grey: the second listen changed this word; the tutor's listen decides it",
+      "why": "غيوم: the second listen changed this word; the tutor's listen decides it (TR-27)",
+      "az": "8yoom"
+     },
+     {
+      "type": "untracked",
+      "t": "16:55",
+      "word": "والشمس",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "والشمس"
+     },
+     {
+      "type": "misheard",
+      "t": "17:35",
+      "word": "امتى",
+      "was": "Any questions?",
+      "is": "امتى الشمس",
+      "az": "Aimta"
+     },
+     {
+      "type": "misheard",
+      "t": "17:35",
+      "word": "الشمس",
+      "was": "Any questions?",
+      "is": "امتى الشمس",
+      "az": "الشمس"
+     },
+     {
+      "type": "untracked",
+      "t": "17:38",
+      "word": "بتطلع",
+      "was": "no mark (written in Latin letters the reader did not read: blah)",
+      "is": "repeat",
+      "why": "He says the tutor's words back (17:32 «طب امتى الشمس بتطلع؟»): a repeat, not credited, not a mistake (WS-31)",
+      "az": "bet6la3"
+     },
+     {
+      "type": "missed_slip",
+      "t": "17:50",
+      "word": "بتطلع",
+      "was": "no mistake marked",
+      "is": "vocab  → بتطلع = rises / goes up (not بتتطلع = look at)",
+      "az": "bet6la3"
+     },
+     {
+      "type": "misheard",
+      "t": "18:11",
+      "word": "بتطلع",
+      "was": "Oh, ب-بتلا, not بتلا. Okay. Yeah, yeah.",
+      "is": "Oh, بـ- بتطلع, not بتتطلع. Okay. Yeah, yeah.",
+      "az": "bet6la3"
+     },
+     {
+      "type": "misheard",
+      "t": "18:11",
+      "word": "بتتطلع",
+      "was": "Oh, ب-بتلا, not بتلا. Okay. Yeah, yeah.",
+      "is": "Oh, بـ- بتطلع, not بتتطلع. Okay. Yeah, yeah.",
+      "az": "btet6alla3"
+     },
+     {
+      "type": "misheard",
+      "t": "18:17",
+      "word": "بتطلع",
+      "was": "Um, I forget that you can use بتلا as to go up.",
+      "is": "Um, I forget that you can use بتطلع as to go up.",
+      "az": "bet6la3"
+     },
+     {
+      "type": "fake_slip",
+      "t": "18:32",
+      "word": "Azan",
+      "was": "vocab  → فجر",
+      "is": "not a mistake",
+      "az": "Azan"
+     },
+     {
+      "type": "untracked",
+      "t": "18:41",
+      "word": "نسيت",
+      "was": "no mark",
+      "is": "grey: a correction cue from the tutor right after; the readers decide",
+      "why": "نسيت: A correction cue from the tutor right after; the readers decide",
+      "az": "نسيت"
+     },
+     {
+      "type": "untracked",
+      "t": "18:41",
+      "word": "الكلمة",
+      "was": "credit",
+      "is": "grey: a correction cue from the tutor right after; the readers decide",
+      "why": "الكلمة: A correction cue from the tutor right after; the readers decide",
+      "az": "الكلمة"
+     },
+     {
+      "type": "untracked",
+      "t": "18:46",
+      "word": "بس",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Bas"
+     },
+     {
+      "type": "untracked",
+      "t": "18:46",
+      "word": "سجر",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (18:36); not on her list yet, not scored",
+      "az": "sajer"
+     },
+     {
+      "type": "untracked",
+      "t": "18:46",
+      "word": "سجر",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (18:36); not on her list yet, not scored",
+      "az": "sajer"
+     },
+     {
+      "type": "untracked",
+      "t": "19:02",
+      "word": "فجر",
+      "was": "no mark (written in Latin letters the reader did not read: fajir)",
+      "is": "half",
+      "why": "",
+      "az": "fajer"
+     },
+     {
+      "type": "untracked",
+      "t": "19:02",
+      "word": "سجر",
+      "was": "no mark (written in Latin letters the reader did not read: fajir)",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (18:36); not on her list yet, not scored",
+      "az": "sajer"
+     },
+     {
+      "type": "untracked",
+      "t": "19:06",
+      "word": "فجر",
+      "was": "no mark (written in Latin letters the reader did not read: Fajir)",
+      "is": "repeat",
+      "why": "He says the tutor's words back (18:58 «No, I wasn't looking for فجر. [تضحك] فجر.»): a repeat, not credited, not a mistake (WS-31)",
+      "az": "fajer"
+     },
+     {
+      "type": "misheard",
+      "t": "19:21",
+      "word": "عصر",
+      "was": "أسر.",
+      "is": "عصر.",
+      "az": "3aser"
+     },
+     {
+      "type": "misheard",
+      "t": "19:48",
+      "word": "غير",
+      "was": "Oh, what is, what is قير لاو?",
+      "is": "Oh, what is, what is غير لو؟",
+      "az": "8ayyer"
+     },
+     {
+      "type": "misheard",
+      "t": "19:48",
+      "word": "لو",
+      "was": "Oh, what is, what is قير لاو?",
+      "is": "Oh, what is, what is غير لو؟",
+      "az": "لو"
+     },
+     {
+      "type": "misheard",
+      "t": "19:53",
+      "word": "لو",
+      "was": "What is لاو connected to?",
+      "is": "What is لو connected to?",
+      "az": "لو"
+     },
+     {
+      "type": "misheard",
+      "t": "20:02",
+      "word": "غير",
+      "was": "قير الشمس و",
+      "is": "غير الشمس و",
+      "az": "8ayyer"
+     },
+     {
+      "type": "untracked",
+      "t": "20:02",
+      "word": "الشمس",
+      "was": "credit",
+      "is": "grey: said here · another word intended",
+      "why": "الشمس: Said here · another word intended",
+      "az": "الشمس"
+     },
+     {
+      "type": "untracked",
+      "t": "20:07",
+      "word": "شو",
+      "was": "credit",
+      "is": "grey: claude audit 2026-09-28: already left out by an earlier review: clarification re",
+      "why": "شو: Claude audit 2026-09-28: Already left out by an earlier review: Clarification request (“what?”), not failed recall of shu.",
+      "az": "shu"
+     },
+     {
+      "type": "untracked",
+      "t": "20:08",
+      "word": "شو",
+      "was": "credit",
+      "is": "grey: said again right after his own شو at 20:07 with nothing from the tutor between: ",
+      "why": "شو: said again right after his own شو at 20:07 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "shu"
+     },
+     {
+      "type": "misheard",
+      "t": "20:24",
+      "word": "غير",
+      "was": "قير الشمس?",
+      "is": "غير الشمس?",
+      "az": "8ayyer"
+     },
+     {
+      "type": "untracked",
+      "t": "20:24",
+      "word": "الشمس",
+      "was": "no mark",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 20:11 («بس غير شمس و يوم.»): not credited, not a mistake (WS-31)",
+      "az": "الشمس"
+     },
+     {
+      "type": "misheard",
+      "t": "20:29",
+      "word": "غير",
+      "was": "قير never takes...",
+      "is": "غير never takes...",
+      "az": "8ayyer"
+     },
+     {
+      "type": "misheard",
+      "t": "20:32",
+      "word": "غير",
+      "was": "Does قير take... Okay, قير... Oh my God, I need to go through these again too.",
+      "is": "Does غير take... Okay, غير... Oh my God, I need to go through these again too.",
+      "az": "8ayyer"
+     },
+     {
+      "type": "misheard",
+      "t": "20:52",
+      "word": "غير",
+      "was": "So قير شم- قير شمس الـ، اليوم،",
+      "is": "So غير شم- غير شمس الـ، الغيوم",
+      "az": "8ayyer"
+     },
+     {
+      "type": "misheard",
+      "t": "20:52",
+      "word": "غير",
+      "was": "So قير شم- قير شمس الـ، اليوم،",
+      "is": "So غير شم- غير شمس الـ، الغيوم",
+      "az": "8ayyer"
+     },
+     {
+      "type": "untracked",
+      "t": "20:52",
+      "word": "الغيوم",
+      "was": "credit",
+      "is": "grey: the second listen changed this word; the tutor's listen decides it",
+      "why": "الغيوم: the second listen changed this word; the tutor's listen decides it (TR-27)",
+      "az": "el-8yoom"
+     },
+     {
+      "type": "misheard",
+      "t": "20:58",
+      "word": "عصافير",
+      "was": "في أسافير",
+      "is": "في عصافير",
+      "az": "3asafeer"
+     },
+     {
+      "type": "missed_slip",
+      "t": "21:12",
+      "word": "طيور",
+      "was": "no mistake marked",
+      "is": "grammar A9",
+      "az": "6yoor"
+     },
+     {
+      "type": "untracked",
+      "t": "21:12",
+      "word": "طيور",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "6yoor"
+     },
+     {
+      "type": "untracked",
+      "t": "21:17",
+      "word": "طيارات",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "6ayyaraat"
+     },
+     {
+      "type": "untracked",
+      "t": "21:25",
+      "word": "طيور",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "6yoor"
+     },
+     {
+      "type": "untracked",
+      "t": "21:40",
+      "word": "الليل",
+      "was": "credit",
+      "is": "grey: said again right after his own ليل at 21:31 with nothing from the tutor between:",
+      "why": "الليل: said again right after his own ليل at 21:31 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "الليل"
+     },
+     {
+      "type": "untracked",
+      "t": "21:40",
+      "word": "سما",
+      "was": "no mark",
+      "is": "grey: said again right after his own سما at 21:31 with nothing from the tutor between:",
+      "why": "سما: said again right after his own سما at 21:31 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "Sama"
+     },
+     {
+      "type": "untracked",
+      "t": "21:45",
+      "word": "السما",
+      "was": "no mark",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 21:43 («السما بالليل.»): not credited, not a mistake (WS-31)",
+      "az": "السما"
+     },
+     {
+      "type": "misheard",
+      "t": "21:47",
+      "word": "بالليل",
+      "was": "بي الليل.",
+      "is": "بالليل",
+      "az": "billail"
+     },
+     {
+      "type": "untracked",
+      "t": "21:49",
+      "word": "بي",
+      "was": "no mark",
+      "is": "grey: not on her word list",
+      "why": "بي: not on her word list (left out of the Words %; it goes to her new-words list)",
+      "az": "bi"
+     },
+     {
+      "type": "untracked",
+      "t": "21:52",
+      "word": "السما",
+      "was": "no mark",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 21:43 («السما بالليل.»): not credited, not a mistake (WS-31)",
+      "az": "السما"
+     },
+     {
+      "type": "misheard",
+      "t": "21:56",
+      "word": "بالليل",
+      "was": "Oh، إن، أنا... Okay. الـ سما بي الليل",
+      "is": "Oh، in the night. Okay. السما بالليل.",
+      "az": "billail"
+     },
+     {
+      "type": "untracked",
+      "t": "21:56",
+      "word": "السما",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 21:43 («السما بالليل.»): not credited, not a mistake (WS-31)",
+      "az": "السما"
+     },
+     {
+      "type": "untracked",
+      "t": "22:03",
+      "word": "قمر",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Qamar"
+     },
+     {
+      "type": "missed_slip",
+      "t": "22:05",
+      "word": "القمر",
+      "was": "no mistake marked",
+      "is": "grammar A1",
+      "az": "القمر"
+     },
+     {
+      "type": "untracked",
+      "t": "22:05",
+      "word": "القمر",
+      "was": "no mark",
+      "is": "grey: said again right after his own قمر at 22:03 with nothing from the tutor between:",
+      "why": "القمر: said again right after his own قمر at 22:03 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "القمر"
+     },
+     {
+      "type": "untracked",
+      "t": "22:05",
+      "word": "القمر",
+      "was": "no mark",
+      "is": "grey: said again right after his own قمر at 22:03 with nothing from the tutor between:",
+      "why": "القمر: said again right after his own قمر at 22:03 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "القمر"
+     },
+     {
+      "type": "untracked",
+      "t": "22:08",
+      "word": "القمر",
+      "was": "half",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 22:05 («Mm. قمر. قمر.»): not credited, not a mistake (WS-31)",
+      "az": "القمر"
+     },
+     {
+      "type": "untracked",
+      "t": "22:19",
+      "word": "نجوم",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "نجوم"
+     },
+     {
+      "type": "misheard",
+      "t": "22:50",
+      "word": "عتمة",
+      "was": "Absolutely,",
+      "is": "عتمة، yeah.",
+      "az": "3etme"
+     },
+     {
+      "type": "misheard",
+      "t": "23:45",
+      "word": "بالدنيا",
+      "was": "شمس بي البنية.",
+      "is": "شمس بالدنيا",
+      "az": "bil-denia"
+     },
+     {
+      "type": "untracked",
+      "t": "23:45",
+      "word": "شمس",
+      "was": "no mark",
+      "is": "repeat",
+      "why": "He says the tutor's words back (23:41 «كم شمس في بالدنيا؟»): a repeat, not credited, not a mistake (WS-31)",
+      "az": "Shams"
+     },
+     {
+      "type": "untracked",
+      "t": "23:50",
+      "word": "واحدة",
+      "was": "half",
+      "is": "credit",
+      "why": "",
+      "az": "wa7de"
+     },
+     {
+      "type": "untracked",
+      "t": "24:00",
+      "word": "واحد",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 23:52 («Mm. Mm-hmm. واحدة.»): not credited, not a mistake (WS-31)",
+      "az": "Wa7ad"
+     },
+     {
+      "type": "untracked",
+      "t": "24:46",
+      "word": "نجمة",
+      "was": "credit",
+      "is": "grey: said again right after his own نجمة at 24:42 with nothing from the tutor between",
+      "why": "نجمة: said again right after his own نجمة at 24:42 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "Nejme"
+     },
+     {
+      "type": "untracked",
+      "t": "24:53",
+      "word": "تانية",
+      "was": "no mark",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 24:52 («تاني.»): not credited, not a mistake (WS-31)",
+      "az": "taanye"
+     },
+     {
+      "type": "untracked",
+      "t": "25:47",
+      "word": "نجمة",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Nejme"
+     },
+     {
+      "type": "untracked",
+      "t": "26:09",
+      "word": "بشوفها",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 26:06 («Point it back to جملة.»): not credited, not a mistake (WS-31)",
+      "az": "bashufha"
+     },
+     {
+      "type": "untracked",
+      "t": "26:59",
+      "word": "نجمة",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Nejme"
+     },
+     {
+      "type": "untracked",
+      "t": "27:14",
+      "word": "تاني",
+      "was": "credit",
+      "is": "grey: said again right after his own تاني at 27:09 with nothing from the tutor between",
+      "why": "تاني: said again right after his own تاني at 27:09 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "taani"
+     },
+     {
+      "type": "untracked",
+      "t": "28:45",
+      "word": "لسا",
+      "was": "no mark (written in Latin letters the reader did not read: lessa)",
+      "is": "grey: a correction cue from the tutor right after; the readers decide",
+      "why": "لسا: A correction cue from the tutor right after; the readers decide",
+      "az": "lissa"
+     },
+     {
+      "type": "untracked",
+      "t": "28:52",
+      "word": "لا",
+      "was": "no mark",
+      "is": "grey: not on her word list",
+      "why": "لا: not on her word list (left out of the Words %; it goes to her new-words list)",
+      "az": "لا"
+     },
+     {
+      "type": "untracked",
+      "t": "29:40",
+      "word": "بمطر",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (30:16); not on her list yet, not scored",
+      "az": "bma6ar"
+     },
+     {
+      "type": "untracked",
+      "t": "29:46",
+      "word": "بتمطر",
+      "was": "no mark",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 29:45 («بتمطر، yes.»): not credited, not a mistake (WS-31)",
+      "az": "Betma66er"
+     },
+     {
+      "type": "untracked",
+      "t": "29:53",
+      "word": "بتمطر",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 29:48 («بتمطر is you, rain يعني. Never makes sense.»): not credited, not a mistake (WS-31)",
+      "az": "Betma66er"
+     },
+     {
+      "type": "untracked",
+      "t": "30:16",
+      "word": "مطرت",
+      "was": "no mark (written in Latin letters the reader did not read: Matarat)",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (30:16); not on her list yet, not scored",
+      "az": "ma66aret"
+     },
+     {
+      "type": "untracked",
+      "t": "30:19",
+      "word": "مطرت",
+      "was": "no mark (written in Latin letters the reader did not read: Matarat)",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (30:16); not on her list yet, not scored",
+      "az": "ma66aret"
+     },
+     {
+      "type": "untracked",
+      "t": "30:24",
+      "word": "مطرت",
+      "was": "no mark (written in Latin letters the reader did not read: Matarat)",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (30:16); not on her list yet, not scored",
+      "az": "ma66aret"
+     },
+     {
+      "type": "untracked",
+      "t": "30:29",
+      "word": "ثلاث",
+      "was": "no mark (written in Latin letters the reader did not read: halat)",
+      "is": "credit",
+      "why": "",
+      "az": "talat"
+     },
+     {
+      "type": "untracked",
+      "t": "30:29",
+      "word": "مرة",
+      "was": "no mark (written in Latin letters the reader did not read: mara)",
+      "is": "credit",
+      "why": "",
+      "az": "Marra"
+     },
+     {
+      "type": "untracked",
+      "t": "30:35",
+      "word": "مرات",
+      "was": "no mark (written in Latin letters the reader did not read: marat)",
+      "is": "credit",
+      "why": "",
+      "az": "Marraat"
+     },
+     {
+      "type": "untracked",
+      "t": "30:35",
+      "word": "ثلاث",
+      "was": "no mark (written in Latin letters the reader did not read: halat)",
+      "is": "grey: said again right after his own ثلاث at 30:29 with nothing from the tutor between",
+      "why": "ثلاث: said again right after his own ثلاث at 30:29 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "talat"
+     },
+     {
+      "type": "untracked",
+      "t": "30:35",
+      "word": "مرات",
+      "was": "no mark (written in Latin letters the reader did not read: marat)",
+      "is": "credit",
+      "why": "",
+      "az": "Marraat"
+     },
+     {
+      "type": "untracked",
+      "t": "30:50",
+      "word": "مطرت",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (30:16); not on her list yet, not scored",
+      "az": "ma66aret"
+     },
+     {
+      "type": "misheard",
+      "t": "31:02",
+      "word": "هوا",
+      "was": "آآ، أوا.",
+      "is": "آ، هوا",
+      "az": "Hawa"
+     },
+     {
+      "type": "missed_slip",
+      "t": "31:41",
+      "word": "الأول",
+      "was": "no mistake marked",
+      "is": "vocab  → الهوا",
+      "az": "الأول"
+     },
+     {
+      "type": "untracked",
+      "t": "31:41",
+      "word": "الأول",
+      "was": "credit",
+      "is": "grey: said here, another word intended: amal repeats it right",
+      "why": "Said here, another word intended: Amal repeats it right (الهوا)",
+      "az": "الأول"
+     },
+     {
+      "type": "untracked",
+      "t": "31:41",
+      "word": "هون",
+      "was": "no mark",
+      "is": "grey: said again right after his own هون at 31:34 with nothing from the tutor between:",
+      "why": "هون: said again right after his own هون at 31:34 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "Hoan"
+     },
+     {
+      "type": "untracked",
+      "t": "31:45",
+      "word": "الهوا",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 31:44 («الهوا هون.»): not credited, not a mistake (WS-31)",
+      "az": "الهوا"
+     },
+     {
+      "type": "untracked",
+      "t": "31:50",
+      "word": "الهوا",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 31:44 («الهوا هون.»): not credited, not a mistake (WS-31)",
+      "az": "الهوا"
+     },
+     {
+      "type": "untracked",
+      "t": "31:52",
+      "word": "هون",
+      "was": "no mark",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 31:44 («الهوا هون.»): not credited, not a mistake (WS-31)",
+      "az": "Hoan"
+     },
+     {
+      "type": "misheard",
+      "t": "32:00",
+      "word": "غير",
+      "was": "آآ، بيد.",
+      "is": "آآ، غير.",
+      "az": "8ayyer"
+     },
+     {
+      "type": "misheard",
+      "t": "32:05",
+      "word": "غير",
+      "was": "بيد.",
+      "is": "غير.",
+      "az": "8ayyer"
+     },
+     {
+      "type": "misheard",
+      "t": "32:11",
+      "word": "غير",
+      "was": "آآ، بيد من because it's comparative, right?",
+      "is": "آآ، غير من because it's comparative, right?",
+      "az": "8ayyer"
+     },
+     {
+      "type": "misheard",
+      "t": "32:19",
+      "word": "غير",
+      "was": "بيد always takes and.",
+      "is": "غير always takes عن.",
+      "az": "8ayyer"
+     },
+     {
+      "type": "misheard",
+      "t": "32:23",
+      "word": "غير",
+      "was": "And okay.",
+      "is": "غير عن الـ، okay.",
+      "az": "8ayyer"
+     },
+     {
+      "type": "misheard",
+      "t": "32:25",
+      "word": "غير",
+      "was": "بيد and",
+      "is": "غير عن",
+      "az": "8ayyer"
+     },
+     {
+      "type": "misheard",
+      "t": "32:33",
+      "word": "غير",
+      "was": "آآ، بيد and الهاوا،",
+      "is": "آآ، غير عن الهوا،",
+      "az": "8ayyer"
+     },
+     {
+      "type": "untracked",
+      "t": "32:38",
+      "word": "الهوا",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 32:37 («هواء.»): not credited, not a mistake (WS-31)",
+      "az": "الهوا"
+     },
+     {
+      "type": "untracked",
+      "t": "32:40",
+      "word": "هناك",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Honaak"
+     },
+     {
+      "type": "misheard",
+      "t": "32:46",
+      "word": "غير",
+      "was": "آآ، الهاوا هون بيد and الهاوا هناك.",
+      "is": "آآ، الهواء هون غير عن الهواء هناك.",
+      "az": "8ayyer"
+     },
+     {
+      "type": "untracked",
+      "t": "32:46",
+      "word": "الهواء",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 32:37 («هواء.»): not credited, not a mistake (WS-31)",
+      "az": "el-hawa"
+     },
+     {
+      "type": "untracked",
+      "t": "32:46",
+      "word": "الهواء",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 32:37 («هواء.»): not credited, not a mistake (WS-31)",
+      "az": "el-hawa"
+     },
+     {
+      "type": "untracked",
+      "t": "33:01",
+      "word": "تلج",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Talj"
+     },
+     {
+      "type": "untracked",
+      "t": "34:15",
+      "word": "بتلج",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "bettallej"
+     },
+     {
+      "type": "misheard",
+      "t": "34:19",
+      "word": "بتلج",
+      "was": "Okay.",
+      "is": "بتلج، Okay.",
+      "az": "bettallej"
+     },
+     {
+      "type": "untracked",
+      "t": "34:30",
+      "word": "آخر",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "2aa5er"
+     },
+     {
+      "type": "untracked",
+      "t": "34:39",
+      "word": "مرة",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Marra"
+     },
+     {
+      "type": "untracked",
+      "t": "34:57",
+      "word": "آخر",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 34:52 («آخر المرة means the last of the time. The end of the time.»): not credited, not a mistake (WS-31)",
+      "az": "2aa5er"
+     },
+     {
+      "type": "untracked",
+      "t": "34:57",
+      "word": "آخر",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 34:52 («آخر المرة means the last of the time. The end of the time.»): not credited, not a mistake (WS-31)",
+      "az": "2aa5er"
+     },
+     {
+      "type": "untracked",
+      "t": "34:57",
+      "word": "مرة",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 34:52 («آخر المرة means the last of the time. The end of the time.»): not credited, not a mistake (WS-31)",
+      "az": "Marra"
+     },
+     {
+      "type": "untracked",
+      "t": "35:07",
+      "word": "آخر",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 35:00 («صح. آخر مرة. The last time.»): not credited, not a mistake (WS-31)",
+      "az": "2aa5er"
+     },
+     {
+      "type": "untracked",
+      "t": "35:07",
+      "word": "المرة",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 35:00 («صح. آخر مرة. The last time.»): not credited, not a mistake (WS-31)",
+      "az": "المرة"
+     },
+     {
+      "type": "untracked",
+      "t": "35:07",
+      "word": "آخر",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 35:00 («صح. آخر مرة. The last time.»): not credited, not a mistake (WS-31)",
+      "az": "2aa5er"
+     },
+     {
+      "type": "untracked",
+      "t": "35:07",
+      "word": "آخر",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 35:00 («صح. آخر مرة. The last time.»): not credited, not a mistake (WS-31)",
+      "az": "2aa5er"
+     },
+     {
+      "type": "untracked",
+      "t": "35:07",
+      "word": "آخر",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 35:00 («صح. آخر مرة. The last time.»): not credited, not a mistake (WS-31)",
+      "az": "2aa5er"
+     },
+     {
+      "type": "untracked",
+      "t": "35:07",
+      "word": "مرة",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 35:00 («صح. آخر مرة. The last time.»): not credited, not a mistake (WS-31)",
+      "az": "Marra"
+     },
+     {
+      "type": "untracked",
+      "t": "35:07",
+      "word": "آخر",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 35:00 («صح. آخر مرة. The last time.»): not credited, not a mistake (WS-31)",
+      "az": "2aa5er"
+     },
+     {
+      "type": "untracked",
+      "t": "35:07",
+      "word": "مرة",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 35:00 («صح. آخر مرة. The last time.»): not credited, not a mistake (WS-31)",
+      "az": "Marra"
+     },
+     {
+      "type": "untracked",
+      "t": "35:19",
+      "word": "مرة",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Marra"
+     },
+     {
+      "type": "untracked",
+      "t": "35:25",
+      "word": "تلجت",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (she typed 'tallajat' in the chat); not on her list yet, not scored",
+      "az": "tallajat"
+     },
+     {
+      "type": "untracked",
+      "t": "35:39",
+      "word": "كانت",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 35:33 («مرة is.»): not credited, not a mistake (WS-31)",
+      "az": "كانت"
+     },
+     {
+      "type": "untracked",
+      "t": "35:47",
+      "word": "كانت",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 35:33 («مرة is.»): not credited, not a mistake (WS-31)",
+      "az": "كانت"
+     },
+     {
+      "type": "missed_slip",
+      "t": "36:02",
+      "word": "الماضي",
+      "was": "no mistake marked",
+      "is": "vocab  → قبل",
+      "az": "الماضي"
+     },
+     {
+      "type": "untracked",
+      "t": "36:02",
+      "word": "سنين",
+      "was": "credit",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (36:01); not on her list yet, not scored",
+      "az": "sneen"
+     },
+     {
+      "type": "untracked",
+      "t": "36:02",
+      "word": "ثلاث",
+      "was": "credit",
+      "is": "grey: a correction cue from the tutor right after; the readers decide",
+      "why": "ثلاث: A correction cue from the tutor right after; the readers decide",
+      "az": "talat"
+     },
+     {
+      "type": "untracked",
+      "t": "36:02",
+      "word": "سنين",
+      "was": "credit",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (36:01); not on her list yet, not scored",
+      "az": "sneen"
+     },
+     {
+      "type": "untracked",
+      "t": "36:16",
+      "word": "ثلاث",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 36:14 («Ago is قبل. So قبل ثلاث سنين.»): not credited, not a mistake (WS-31)",
+      "az": "talat"
+     },
+     {
+      "type": "untracked",
+      "t": "36:16",
+      "word": "ثلاث",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 36:14 («Ago is قبل. So قبل ثلاث سنين.»): not credited, not a mistake (WS-31)",
+      "az": "talat"
+     },
+     {
+      "type": "untracked",
+      "t": "36:45",
+      "word": "تلجات",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "taljaat"
+     },
+     {
+      "type": "misheard",
+      "t": "36:48",
+      "word": "ثلّجت",
+      "was": "تلجات",
+      "is": "ثلّجت،",
+      "az": "tallajat"
+     },
+     {
+      "type": "untracked",
+      "t": "36:52",
+      "word": "سنين",
+      "was": "credit",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (36:01); not on her list yet, not scored",
+      "az": "sneen"
+     },
+     {
+      "type": "untracked",
+      "t": "38:02",
+      "word": "شمس",
+      "was": "no mark (written in Latin letters the reader did not read: Sham)",
+      "is": "repeat",
+      "why": "He says the tutor's words back (38:02 «شمس؟ شمس. مش شمس. شمس؟ شمس is what?»): a repeat, not credited, not a mistake (WS-31)",
+      "az": "Shams"
+     },
+     {
+      "type": "untracked",
+      "t": "38:28",
+      "word": "نجوم",
+      "was": "no mark (written in Latin letters the reader did not read: nijoom)",
+      "is": "credit",
+      "why": "",
+      "az": "نجوم"
+     },
+     {
+      "type": "untracked",
+      "t": "38:35",
+      "word": "سما",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Sama"
+     },
+     {
+      "type": "misheard",
+      "t": "38:43",
+      "word": "غيوم",
+      "was": "Uh, qayoom,",
+      "is": "Uh, غيوم",
+      "az": "8yoom"
+     },
+     {
+      "type": "misheard",
+      "t": "38:46",
+      "word": "غيم",
+      "was": "uh,",
+      "is": "uh, غيم",
+      "az": "8aim"
+     },
+     {
+      "type": "untracked",
+      "t": "38:48",
+      "word": "غيم",
+      "was": "no mark (written in Latin letters the reader did not read: fayma)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 38:46 («غيمة is feminine.»): not credited, not a mistake (WS-31)",
+      "az": "8aim"
+     },
+     {
+      "type": "misheard",
+      "t": "40:24",
+      "word": "الهوا",
+      "was": "Il hawa aju",
+      "is": "الهوا أجو",
+      "az": "الهوا"
+     },
+     {
+      "type": "missed_slip",
+      "t": "40:24",
+      "word": "أجو",
+      "was": "no mistake marked",
+      "is": "vocab  → قوي",
+      "az": "aju"
+     },
+     {
+      "type": "untracked",
+      "t": "40:24",
+      "word": "أجو",
+      "was": "no mark (written in Latin letters the reader did not read: aju)",
+      "is": "slip",
+      "why": "",
+      "az": "aju"
+     },
+     {
+      "type": "untracked",
+      "t": "40:28",
+      "word": "كتير",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Kteer"
+     },
+     {
+      "type": "untracked",
+      "t": "40:29",
+      "word": "الصباح",
+      "was": "no mark (written in Latin letters the reader did not read: sabah)",
+      "is": "credit",
+      "why": "",
+      "az": "الصباح"
+     },
+     {
+      "type": "untracked",
+      "t": "40:40",
+      "word": "كتير",
+      "was": "no mark",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 40:36 («عجا كتير الصباح؟»): not credited, not a mistake (WS-31)",
+      "az": "Kteer"
+     },
+     {
+      "type": "misheard",
+      "t": "40:49",
+      "word": "الهوا",
+      "was": "il hawa ka-kaan",
+      "is": "الهوا كـ كان",
+      "az": "الهوا"
+     },
+     {
+      "type": "untracked",
+      "t": "40:49",
+      "word": "كان",
+      "was": "no mark (written in Latin letters the reader did not read: kaan)",
+      "is": "credit",
+      "why": "",
+      "az": "كان"
+     },
+     {
+      "type": "untracked",
+      "t": "40:55",
+      "word": "قوي",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 40:45 («Tell me it was very strong. The wind was very strong in the mornings.»): not credited, not a mistake (WS-",
+      "az": "2awi"
+     },
+     {
+      "type": "untracked",
+      "t": "40:57",
+      "word": "كتير",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Kteer"
+     },
+     {
+      "type": "untracked",
+      "t": "41:00",
+      "word": "الصباح",
+      "was": "no mark (written in Latin letters the reader did not read: sabah)",
+      "is": "credit",
+      "why": "",
+      "az": "الصباح"
+     },
+     {
+      "type": "misheard",
+      "t": "41:13",
+      "word": "نار",
+      "was": "No.",
+      "is": "نار",
+      "az": "Naar"
+     },
+     {
+      "type": "misheard",
+      "t": "41:34",
+      "word": "هوا",
+      "was": "Shams, hawa, and nar.",
+      "is": "شمس، هوا and نار.",
+      "az": "Hawa"
+     },
+     {
+      "type": "untracked",
+      "t": "41:34",
+      "word": "شمس",
+      "was": "no mark (written in Latin letters the reader did not read: Shams)",
+      "is": "credit",
+      "why": "",
+      "az": "Shams"
+     },
+     {
+      "type": "untracked",
+      "t": "41:34",
+      "word": "نار",
+      "was": "no mark (written in Latin letters the reader did not read: and)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 41:32 («and نار.»): not credited, not a mistake (WS-31)",
+      "az": "Naar"
+     },
+     {
+      "type": "misheard",
+      "t": "43:04",
+      "word": "بيحرق",
+      "was": "به.",
+      "is": "بيحرق.",
+      "az": "bey7re2"
+     },
+     {
+      "type": "untracked",
+      "t": "44:08",
+      "word": "بتحرق",
+      "was": "no mark (written in Latin letters the reader did not read: bit)",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (44:11); not on her list yet, not scored",
+      "az": "bet7re2"
+     },
+     {
+      "type": "fake_slip",
+      "t": "44:19",
+      "word": "nar heret me",
+      "was": "grammar D4",
+      "is": "not a mistake",
+      "az": "nar heret me"
+     },
+     {
+      "type": "misheard",
+      "t": "44:26",
+      "word": "النار",
+      "was": "I'm not...",
+      "is": "النار",
+      "az": "النار"
+     },
+     {
+      "type": "misheard",
+      "t": "45:01",
+      "word": "أرض",
+      "was": "Parut.",
+      "is": "أرض",
+      "az": "Ard"
+     },
+     {
+      "type": "untracked",
+      "t": "45:43",
+      "word": "وسخة",
+      "was": "no mark (written in Latin letters the reader did not read: wiska)",
+      "is": "credit",
+      "why": "",
+      "az": "وسخة"
+     },
+     {
+      "type": "untracked",
+      "t": "45:45",
+      "word": "كتير",
+      "was": "no mark (written in Latin letters the reader did not read: ketir)",
+      "is": "credit",
+      "why": "",
+      "az": "Kteer"
+     },
+     {
+      "type": "untracked",
+      "t": "47:07",
+      "word": "شجر",
+      "was": "no mark (written in Latin letters the reader did not read: Shajar)",
+      "is": "credit",
+      "why": "",
+      "az": "shajar"
+     },
+     {
+      "type": "untracked",
+      "t": "47:09",
+      "word": "شجر",
+      "was": "no mark (written in Latin letters the reader did not read: Shajar)",
+      "is": "grey: said again right after his own شجر at 47:07 with nothing from the tutor between:",
+      "why": "شجر: said again right after his own شجر at 47:07 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "shajar"
+     },
+     {
+      "type": "missed_slip",
+      "t": "47:21",
+      "word": "الوردة",
+      "was": "no mistake marked",
+      "is": "grammar A9",
+      "az": "الوردة"
+     },
+     {
+      "type": "untracked",
+      "t": "47:25",
+      "word": "وردات",
+      "was": "no mark (written in Latin letters the reader did not read: Ward)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 47:24 («وحدات؟»): not credited, not a mistake (WS-31)",
+      "az": "wardaat"
+     },
+     {
+      "type": "misheard",
+      "t": "47:42",
+      "word": "زبيب",
+      "was": "Yeah, what's the bee?",
+      "is": "Yeah, what's زبيب؟",
+      "az": "Zbeeb"
+     },
+     {
+      "type": "untracked",
+      "t": "47:51",
+      "word": "زريعة",
+      "was": "no mark (written in Latin letters the reader did not read: Zariya)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 47:43 («Z-z-zبيب is raisins, I think. Is... [laughs] زريعة.»): not credited, not a mistake (WS-31)",
+      "az": "Zri3a"
+     },
+     {
+      "type": "untracked",
+      "t": "47:56",
+      "word": "زريعة",
+      "was": "no mark (written in Latin letters the reader did not read: Zariya)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 47:51 («[laughs] زريعة.»): not credited, not a mistake (WS-31)",
+      "az": "Zri3a"
+     },
+     {
+      "type": "untracked",
+      "t": "48:04",
+      "word": "زريعة",
+      "was": "no mark (written in Latin letters the reader did not read: zariya)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 47:51 («[laughs] زريعة.»): not credited, not a mistake (WS-31)",
+      "az": "Zri3a"
+     },
+     {
+      "type": "untracked",
+      "t": "48:04",
+      "word": "شجر",
+      "was": "no mark (written in Latin letters the reader did not read: shajar)",
+      "is": "credit",
+      "why": "",
+      "az": "shajar"
+     },
+     {
+      "type": "untracked",
+      "t": "48:04",
+      "word": "زريعة",
+      "was": "no mark (written in Latin letters the reader did not read: zariya)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 47:51 («[laughs] زريعة.»): not credited, not a mistake (WS-31)",
+      "az": "Zri3a"
+     },
+     {
+      "type": "untracked",
+      "t": "48:11",
+      "word": "شجر",
+      "was": "no mark (written in Latin letters the reader did not read: Shajar)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 48:09 («شجر. صح.»): not credited, not a mistake (WS-31)",
+      "az": "shajar"
+     },
+     {
+      "type": "untracked",
+      "t": "48:15",
+      "word": "شجرة",
+      "was": "no mark (written in Latin letters the reader did not read: shajar)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 48:09 («شجر. صح.»): not credited, not a mistake (WS-31)",
+      "az": "Shajara"
+     },
+     {
+      "type": "misheard",
+      "t": "48:25",
+      "word": "بالأرض",
+      "was": "I hate to be like...",
+      "is": "تحت بالأرض؟",
+      "az": "بالأرض"
+     },
+     {
+      "type": "missed_slip",
+      "t": "48:38",
+      "word": "رمل",
+      "was": "no mistake marked",
+      "is": "vocab  → تراب",
+      "az": "Ramel"
+     },
+     {
+      "type": "untracked",
+      "t": "48:38",
+      "word": "رمل",
+      "was": "no mark (written in Latin letters the reader did not read: ram)",
+      "is": "credit",
+      "why": "",
+      "az": "Ramel"
+     },
+     {
+      "type": "misheard",
+      "t": "48:47",
+      "word": "بعرف",
+      "was": "Mabara. [laughs] Tarab.",
+      "is": "ما بعرف. [laughs] تراب.",
+      "az": "بعرف"
+     },
+     {
+      "type": "untracked",
+      "t": "48:47",
+      "word": "تراب",
+      "was": "no mark (written in Latin letters the reader did not read: Tarab)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 48:41 («رملة sand.»): not credited, not a mistake (WS-31)",
+      "az": "Traab"
+     },
+     {
+      "type": "untracked",
+      "t": "48:59",
+      "word": "تراب",
+      "was": "no mark (written in Latin letters the reader did not read: Tarab)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 48:53 («Great job. التراب. تراب is dirt or soil.»): not credited, not a mistake (WS-31)",
+      "az": "Traab"
+     },
+     {
+      "type": "untracked",
+      "t": "49:04",
+      "word": "تراب",
+      "was": "no mark (written in Latin letters the reader did not read: Tarab)",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 48:53 («Great job. التراب. تراب is dirt or soil.»): not credited, not a mistake (WS-31)",
+      "az": "Traab"
+     },
+     {
+      "type": "misheard",
+      "t": "49:10",
+      "word": "شو",
+      "was": "شكرًا.",
+      "is": "شو كمان؟",
+      "az": "shu"
+     },
+     {
+      "type": "misheard",
+      "t": "49:10",
+      "word": "كمان",
+      "was": "شكرًا.",
+      "is": "شو كمان؟",
+      "az": "Kamaan"
+     },
+     {
+      "type": "untracked",
+      "t": "49:43",
+      "word": "شجر",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "shajar"
+     },
+     {
+      "type": "untracked",
+      "t": "49:43",
+      "word": "زريعة",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Zri3a"
+     },
+     {
+      "type": "misheard",
+      "t": "49:48",
+      "word": "أرض",
+      "was": "ورد،",
+      "is": "أرض،",
+      "az": "Ard"
+     },
+     {
+      "type": "untracked",
+      "t": "49:54",
+      "word": "تراب",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "Traab"
+     },
+     {
+      "type": "misheard",
+      "t": "49:59",
+      "word": "شو",
+      "was": "شكرًا.",
+      "is": "شو كمان؟",
+      "az": "shu"
+     },
+     {
+      "type": "misheard",
+      "t": "49:59",
+      "word": "كمان",
+      "was": "شكرًا.",
+      "is": "شو كمان؟",
+      "az": "Kamaan"
+     },
+     {
+      "type": "untracked",
+      "t": "50:27",
+      "word": "حجور",
+      "was": "credit",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (50:16); not on her list yet, not scored",
+      "az": "7juur"
+     },
+     {
+      "type": "untracked",
+      "t": "50:27",
+      "word": "حجرات",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 50:16 («حجر.»): not credited, not a mistake (WS-31)",
+      "az": "7ajaraat"
+     },
+     {
+      "type": "untracked",
+      "t": "51:08",
+      "word": "قديمة",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "قديمة"
+     },
+     {
+      "type": "untracked",
+      "t": "51:13",
+      "word": "الشوارع",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 51:12 («الشوارع.»): not credited, not a mistake (WS-31)",
+      "az": "el-shawaare3"
+     },
+     {
+      "type": "untracked",
+      "t": "51:19",
+      "word": "إدام",
+      "was": "no mark (written in Latin letters the reader did not read: Adam)",
+      "is": "new",
+      "why": "new word: not on her list, and she said it back to you at 51:20; not scored",
+      "az": "2adaam"
+     },
+     {
+      "type": "untracked",
+      "t": "51:22",
+      "word": "الإدام",
+      "was": "no mark (written in Latin letters the reader did not read: Adam)",
+      "is": "new",
+      "why": "new word: not on her list, and she said it back to you at 51:20; not scored",
+      "az": "el-Adam"
+     },
+     {
+      "type": "missed_slip",
+      "t": "51:34",
+      "word": "عملت مع حجر",
+      "was": "no mistake marked",
+      "is": "grammar D1",
+      "az": "عملت Ma3 7ajar"
+     },
+     {
+      "type": "untracked",
+      "t": "51:40",
+      "word": "حجر",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "7ajar"
+     },
+     {
+      "type": "misheard",
+      "t": "52:28",
+      "word": "كمان",
+      "was": "So mountains atini.",
+      "is": "So كمان تاني أعطيني",
+      "az": "Kamaan"
+     },
+     {
+      "type": "untracked",
+      "t": "52:28",
+      "word": "تاني",
+      "was": "no mark (written in Latin letters the reader did not read: atini)",
+      "is": "credit",
+      "why": "",
+      "az": "taani"
+     },
+     {
+      "type": "untracked",
+      "t": "52:28",
+      "word": "أعطيني",
+      "was": "no mark (written in Latin letters the reader did not read: atini)",
+      "is": "credit",
+      "why": "",
+      "az": "a3tini"
+     },
+     {
+      "type": "untracked",
+      "t": "52:38",
+      "word": "تاني",
+      "was": "credit",
+      "is": "grey: said again right after his own تاني at 52:28 with nothing from the tutor between",
+      "why": "تاني: said again right after his own تاني at 52:28 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "taani"
+     },
+     {
+      "type": "untracked",
+      "t": "52:45",
+      "word": "اعطيني",
+      "was": "no mark (written in Latin letters the reader did not read: Atini)",
+      "is": "credit",
+      "why": "",
+      "az": "a3tini"
+     },
+     {
+      "type": "misheard",
+      "t": "52:50",
+      "word": "غير",
+      "was": "بير حجر.",
+      "is": "غير حجر.",
+      "az": "8ayyer"
+     },
+     {
+      "type": "untracked",
+      "t": "52:50",
+      "word": "حجر",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "7ajar"
+     },
+     {
+      "type": "untracked",
+      "t": "53:35",
+      "word": "تاني",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Claude audit 2026-09-28: Said again at 53:49 after only «مم. / أها.» from Amal: one attempt, the fuller one is kept.",
+      "az": "taani"
+     },
+     {
+      "type": "untracked",
+      "t": "53:43",
+      "word": "حجر",
+      "was": "credit",
+      "is": "grey: said again right after his own حجر at 53:35 with nothing from the tutor between:",
+      "why": "حجر: said again right after his own حجر at 53:35 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "7ajar"
+     },
+     {
+      "type": "untracked",
+      "t": "54:01",
+      "word": "تاني",
+      "was": "half",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 53:52 («تاني حجر or الحجر التاني.»): not credited, not a mistake (WS-31)",
+      "az": "taani"
+     },
+     {
+      "type": "untracked",
+      "t": "54:01",
+      "word": "حجر",
+      "was": "half",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 53:52 («تاني حجر or الحجر التاني.»): not credited, not a mistake (WS-31)",
+      "az": "7ajar"
+     },
+     {
+      "type": "untracked",
+      "t": "54:22",
+      "word": "عندي",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 54:14 («So you could either say my favorite stone or my favorite using عندي. المفضل عندي»): not credited, not a m",
+      "az": "عندي"
+     },
+     {
+      "type": "misheard",
+      "t": "54:27",
+      "word": "المفضل",
+      "was": "عندي. Or I have to say it in, in, in the beginning.",
+      "is": "المفضل عندي. Or I, I have to say it in, in, in the beginning.",
+      "az": "المفضل"
+     },
+     {
+      "type": "untracked",
+      "t": "54:27",
+      "word": "عندي",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 54:25 («الـ، المفضل عندي.»): not credited, not a mistake (WS-31)",
+      "az": "عندي"
+     },
+     {
+      "type": "untracked",
+      "t": "54:41",
+      "word": "مفضل",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 54:37 («Or you could say تاني حجر كان حجري المفضل. عادي.»): not credited, not a mistake (WS-31)",
+      "az": "Mufaddal"
+     },
+     {
+      "type": "untracked",
+      "t": "54:41",
+      "word": "حجر",
+      "was": "half",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 54:37 («Or you could say تاني حجر كان حجري المفضل. عادي.»): not credited, not a mistake (WS-31)",
+      "az": "7ajar"
+     },
+     {
+      "type": "untracked",
+      "t": "54:48",
+      "word": "الحجر",
+      "was": "half",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 54:46 («الحجر المفضل or حجري المفضل. المفضل is an adjective.»): not credited, not a mistake (WS-31)",
+      "az": "الحجر"
+     },
+     {
+      "type": "untracked",
+      "t": "54:58",
+      "word": "مفضل",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 54:46 («الحجر المفضل or حجري المفضل. المفضل is an adjective.»): not credited, not a mistake (WS-31)",
+      "az": "Mufaddal"
+     },
+     {
+      "type": "untracked",
+      "t": "55:08",
+      "word": "حجري",
+      "was": "no mark",
+      "is": "new",
+      "why": "new word: the tutor taught it in this lesson (50:16); not on her list yet, not scored",
+      "az": "7ajari"
+     },
+     {
+      "type": "untracked",
+      "t": "55:11",
+      "word": "المفضل",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 55:03 («حجري المفضل. No ال first.»): not credited, not a mistake (WS-31)",
+      "az": "المفضل"
+     },
+     {
+      "type": "untracked",
+      "t": "55:38",
+      "word": "ثاني",
+      "was": "no mark (written in Latin letters the reader did not read: can)",
+      "is": "repeat",
+      "why": "He says the tutor's words back (55:33 «Yeah, you can say ٱلثَّانِي without واحد or ثَانِي واحد. Both can. You can say ث»): a repeat, not credited, not a mistake",
+      "az": "taani"
+     },
+     {
+      "type": "untracked",
+      "t": "55:38",
+      "word": "واحد",
+      "was": "no mark (written in Latin letters the reader did not read: wahad)",
+      "is": "repeat",
+      "why": "He says the tutor's words back (55:33 «Yeah, you can say ٱلثَّانِي without واحد or ثَانِي واحد. Both can. You can say ث»): a repeat, not credited, not a mistake",
+      "az": "Wa7ad"
+     },
+     {
+      "type": "untracked",
+      "t": "56:24",
+      "word": "مش",
+      "was": "no mark (written in Latin letters the reader did not read: mish)",
+      "is": "grey: not on her list by itself: she has it only inside her phrase مش زاكي 'not delici",
+      "why": "مش: not on her list by itself: she has it only inside her phrase مش زاكي 'Not delicious' (mesh zAki), so it is left out of the Words %",
+      "az": "مش"
+     },
+     {
+      "type": "untracked",
+      "t": "56:29",
+      "word": "مش",
+      "was": "credit",
+      "is": "grey: not on her list by itself: she has it only inside her phrase مش زاكي 'not delici",
+      "why": "مش: not on her list by itself: she has it only inside her phrase مش زاكي 'Not delicious' (mesh zAki), so it is left out of the Words %",
+      "az": "مش"
+     },
+     {
+      "type": "untracked",
+      "t": "56:44",
+      "word": "مش",
+      "was": "credit",
+      "is": "grey: not on her list by itself: she has it only inside her phrase مش زاكي 'not delici",
+      "why": "مش: not on her list by itself: she has it only inside her phrase مش زاكي 'Not delicious' (mesh zAki), so it is left out of the Words %",
+      "az": "مش"
+     },
+     {
+      "type": "untracked",
+      "t": "56:44",
+      "word": "أول",
+      "was": "half",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 56:33 («There's two ways to say it, either أَوَّل واحد or ٱلْأَوَّل.»): not credited, not a mistake (WS-31)",
+      "az": "Awal"
+     },
+     {
+      "type": "untracked",
+      "t": "56:44",
+      "word": "واحد",
+      "was": "credit",
+      "is": "repeat",
+      "why": "Repeat of the tutor's recast of his line at 56:33 («There's two ways to say it, either أَوَّل واحد or ٱلْأَوَّل.»): not credited, not a mistake (WS-31)",
+      "az": "Wa7ad"
+     },
+     {
+      "type": "untracked",
+      "t": "56:59",
+      "word": "بَس",
+      "was": "no mark (written in Latin letters the reader did not read: That's)",
+      "is": "credit",
+      "why": "",
+      "az": "Bas"
+     },
+     {
+      "type": "untracked",
+      "t": "58:12",
+      "word": "هادا",
+      "was": "no mark (written in Latin letters the reader did not read: hadha)",
+      "is": "credit",
+      "why": "",
+      "az": "Hada"
+     },
+     {
+      "type": "untracked",
+      "t": "58:12",
+      "word": "الدرس",
+      "was": "no mark (written in Latin letters the reader did not read: dars)",
+      "is": "credit",
+      "why": "",
+      "az": "الدرس"
+     },
+     {
+      "type": "untracked",
+      "t": "58:23",
+      "word": "مفضل",
+      "was": "no mark (written in Latin letters the reader did not read: mufaddal)",
+      "is": "credit",
+      "why": "",
+      "az": "Mufaddal"
+     },
+     {
+      "type": "untracked",
+      "t": "58:23",
+      "word": "عندي",
+      "was": "no mark (written in Latin letters the reader did not read: andi)",
+      "is": "credit",
+      "why": "",
+      "az": "عندي"
+     },
+     {
+      "type": "misheard",
+      "t": "59:44",
+      "word": "الدرس",
+      "was": "No. No, that's wrong. It's like-",
+      "is": "No. yeah, so It's الدرس",
+      "az": "الدرس"
+     },
+     {
+      "type": "untracked",
+      "t": "61:35",
+      "word": "المفضل",
+      "was": "credit",
+      "is": "grey: said again right after his own مفضّل at 61:33 with nothing from the tutor betwee",
+      "why": "المفضل: said again right after his own مفضّل at 61:33 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "المفضل"
+     },
+     {
+      "type": "untracked",
+      "t": "61:35",
+      "word": "المفضل",
+      "was": "credit",
+      "is": "grey: said again right after his own مفضّل at 61:33 with nothing from the tutor betwee",
+      "why": "المفضل: said again right after his own مفضّل at 61:33 with nothing from the tutor between: one try, counted once (WS-36)",
+      "az": "المفضل"
+     },
+     {
+      "type": "untracked",
+      "t": "61:35",
+      "word": "عندي",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "عندي"
+     },
+     {
+      "type": "untracked",
+      "t": "62:55",
+      "word": "كتابه",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "ktaabo"
+     },
+     {
+      "type": "missed_slip",
+      "t": "63:03",
+      "word": "مش فيهن",
+      "was": "no mistake marked",
+      "is": "grammar C1",
+      "az": "مش fihen"
+     },
+     {
+      "type": "untracked",
+      "t": "63:03",
+      "word": "مش",
+      "was": "credit",
+      "is": "grey: not on her list by itself: she has it only inside her phrase مش زاكي 'not delici",
+      "why": "مش: not on her list by itself: she has it only inside her phrase مش زاكي 'Not delicious' (mesh zAki), so it is left out of the Words %",
+      "az": "مش"
+     },
+     {
+      "type": "untracked",
+      "t": "63:03",
+      "word": "فيهن",
+      "was": "no mark",
+      "is": "grey: not on her word list",
+      "why": "فيهن: not on her word list (left out of the Words %; it goes to her new-words list)",
+      "az": "fihen"
+     },
+     {
+      "type": "untracked",
+      "t": "63:03",
+      "word": "فيهن",
+      "was": "no mark",
+      "is": "grey: not on her word list",
+      "why": "فيهن: not on her word list (left out of the Words %; it goes to her new-words list)",
+      "az": "fihen"
+     },
+     {
+      "type": "untracked",
+      "t": "63:13",
+      "word": "مش",
+      "was": "half",
+      "is": "grey: not on her list by itself: she has it only inside her phrase مش زاكي 'not delici",
+      "why": "مش: not on her list by itself: she has it only inside her phrase مش زاكي 'Not delicious' (mesh zAki), so it is left out of the Words %",
+      "az": "مش"
+     },
+     {
+      "type": "untracked",
+      "t": "63:13",
+      "word": "هون",
+      "was": "half",
+      "is": "repeat",
+      "why": "Repeat of the tutor's fix of a counted slip at 63:05 («مش هون. مش، مش في. مش هون.»): not credited, not a mistake (WS-31)",
+      "az": "Hoan"
+     },
+     {
+      "type": "untracked",
+      "t": "63:40",
+      "word": "هذاك",
+      "was": "no mark",
+      "is": "credit",
+      "why": "",
+      "az": "hadaak"
+     },
+     {
+      "type": "untracked",
+      "t": "66:49",
+      "word": "عافيا",
+      "was": "no mark",
+      "is": "grey: not on her word list",
+      "why": "عافيا: not on her word list (left out of the Words %; it goes to her new-words list)",
+      "az": "3afya"
+     },
+     {
+      "type": "misheard",
+      "t": "66:56",
+      "word": "بشوفك",
+      "was": "شكراً. مع السلامة. Bye.",
+      "is": "شكراً. بشوفك. Bye.",
+      "az": "بشوفك"
+     }
+    ]
+   },
+   "now": {
+    "words": 442,
+    "tracked": 442,
+    "tracked_pct": 100.0,
+    "mistakes": {
+     "missed_slip": 0,
+     "fake_slip": 0,
+     "untracked": 0,
+     "misheard": 0
+    },
+    "mistakes_total": 0,
+    "per_100": 0.0,
+    "list": []
+   }
+  }
+ ],
+ "trend": [
+  {
+   "date": "2026-10-08",
+   "tracked_pct": 25.6,
+   "per_100": 74.9
+  }
+ ]
+}

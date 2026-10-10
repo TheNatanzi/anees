@@ -69,3 +69,20 @@
 #anees-bank .ar-jump a:hover{border-color:var(--vp-sage)}
 #anees-bank .ar-unk{margin:0 0 30px;scroll-margin-top:12px}
 #anees-bank .ar-unk-h{font-family:var(--sabz-font-serif);font-weight:500;font-size:20px;margin:0 0 10px;padding-top:14px;border-top:1px solid var(--ab-line)}
+
+/* Grades tab (PG-46, 2026-10-10): the robot graded against Medi's full reviews. */
+#anees-bank .rg-row{cursor:pointer}
+#anees-bank .rg-row:hover td,#anees-bank .rg-row.rg-on td{background:var(--ab-raised)}
+#anees-bank .rg-row:focus-visible{outline:2px solid var(--vp-sage);outline-offset:-2px}
+#anees-bank .rg-partial td{color:var(--ab-muted);font-style:italic;white-space:normal}
+#anees-bank .rg-detail{margin-top:14px}
+#anees-bank .rg-h3{font-size:15px;font-weight:600;margin:0 0 8px}
+#anees-bank .rg-type{border:1px solid var(--ab-line);border-radius:10px;background:var(--ab-panel);margin:0 0 8px;padding:8px 12px}
+#anees-bank .rg-type summary{cursor:pointer;font-weight:600;font-size:13.5px}
+#anees-bank .rg-n{font-variant-numeric:tabular-nums;color:var(--ab-muted);margin-left:6px}
+#anees-bank .rg-tbl{border-collapse:collapse;width:100%;font-size:12.5px;margin-top:8px}
+#anees-bank .rg-tbl th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ab-muted);text-align:left;padding:5px 8px}
+#anees-bank .rg-tbl td{padding:5px 8px;border-top:1px solid var(--ab-line);vertical-align:top}
+#anees-bank .rg-ar{color:var(--ab-muted);font-size:12px;margin-left:4px}
+#anees-bank .rg-note{margin:6px 0 12px}
+@media(max-width:680px){#anees-bank .rg-tbl{font-size:12px}#anees-bank .rg-type{overflow-x:auto}}

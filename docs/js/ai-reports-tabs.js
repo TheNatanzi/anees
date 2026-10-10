@@ -5,11 +5,11 @@
    the Unknowns tab is labelled "Robot blind spots" (key stays 'unknowns' for old links) and shows only the machine's
    panels: Listening L1 (labeller accuracy, from Progress › Fluency), Vocabulary V1 V3 V5, Grammar G1 G2 G5. The personal
    panels (V2 V4, G1b G3 G4) render on Progress › Vocab / Grammar from the same modules.
-   Tab choice: ?tab=unknowns|research, else the last one used on this device, else Unknowns. */
+   Tab choice: ?tab=unknowns|research|grades, else the last one used on this device, else Unknowns. */
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
-const TABS=['unknowns','research'];
+const TABS=['unknowns','research','grades'];
 const build=()=>encodeURIComponent(window.ANEES_BUILD||'')+'&v=20260928-rb3';   // v: robot/progress split + vocab audit bins (2026-09-28)
 function loadScript(src){return new Promise((res,rej)=>{if(document.querySelector('script[data-src="'+src+'"]'))return res();const s=document.createElement('script');s.src=src+'?build='+build();s.dataset.src=src;s.onload=res;s.onerror=()=>rej(Error('missing '+src));document.body.append(s);});}
 async function chain(list){for(const s of list)await loadScript(s);}
@@ -35,6 +35,13 @@ async function mountUnknowns(){
   .then(()=>{if(!window.AneesVocabUnknowns)throw Error('not built yet');return window.AneesVocabUnknowns.render(V,{panels:window.AneesVocabUnknowns.ROBOT});})
   .catch(()=>notice(V,'The vocabulary unknowns report is being built.'));
 }
+// Grades (PG-46, Medi 2026-10-10): the grade book of the robot against his full reviews
+let gradesMounted=false;
+function mountGrades(){
+ if(gradesMounted)return;gradesMounted=true;
+ const H=$('air-grades');notice(H,'Loading…');
+ chain(['js/review-grades.js']).then(()=>window.AneesReviewGrades.mount(H)).catch(()=>notice(H,'The grade book could not load.'));
+}
 function show(tab){
  if(!TABS.includes(tab))tab='unknowns';
  document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.setAttribute('aria-current',b.dataset.artab===tab?'page':'false'));
@@ -42,6 +49,7 @@ function show(tab){
  try{localStorage.setItem('anees-ai-reports-tab',tab);}catch(e){}
  const url=new URL(location.href);url.searchParams.set('tab',tab);history.replaceState(null,'',url);
  if(tab==='unknowns')mountUnknowns();
+ if(tab==='grades')mountGrades();
 }
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');

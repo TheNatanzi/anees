@@ -10399,6 +10399,52 @@
     "t": "24:45",
     "note": "مهم. -> Mm-hmm."
    }
+  },
+  {
+   "id": "PG-46",
+   "kind": "process",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The grade book: every lesson Medi reviewed IN FULL is graded (data/lesson-work/review-grades/reviews.json, hand-made, one line per review; a partial review is listed 'partial review, not graded', never scored - 10-08 graded, the September and 10-02 reviews partial). scripts/review_grades.py freezes the exam per lesson (the pipeline's page before his first note vs the page after his review = the answer key) and grades it, plus today's page against the same key, counting only the Arabic words of his lines (word_coverage word_tokens: English, fillers, sound tags, pronouns out; his Latin Arabizi counts; cut-off words and prepositions out). Report 1: words tracked right / Arabic words said. Report 2: missed slips, fake slips, untracked or wrong credit / wrong grey reason, misheard words, each listed with time + word, per 100 Arabic words. Built to docs/data/review-grades.json every hour; shown on AI Reports › Grades (docs/js/review-grades.js): one row per lesson, before vs today, the trend across lessons, click for the mistake list.",
+   "plain": "Every lesson Medi checks from start to finish gets a grade: how many of his Arabic words the robot tracked right and every mistake it made, shown on AI Reports › Grades so we can see if the process improves.",
+   "plain_for": "380cdc66",
+   "topic": "testing engines",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "We need to start keeping a grading system for these manual reviews that I've been doing ... We need to keep track and make a tab in the AI reports area for the grades. We need to make sure that we're only counting the Arabic and sorting out the English. We need to make a tally of all the Arabic words being said and how many mistakes it made. I think we need to do two reports, obviously: How much of the vocab it keeps track of; How many mistakes it made, meaning how many mistakes it didn't catch or how many correct words it didn't track. We need to build some reporting on this so that we can see if our process is actually improving as we keep spot-checking these transcripts manually."
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "10-8 should get a grade, the 2 previous should not they were partial."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/review_grades.py",
+     "contains": "def grade(ver, key):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/review-grades.js",
+     "contains": "window.AneesReviewGrades"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_review_grades.py",
+     "contains": "def test_pg_46_grade_book_counts_arabic_words_and_four_mistake_types"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "32:05",
+    "note": "first version: بيد (misheard, he said غير); 25.6% of 442 Arabic words tracked, 331 mistakes"
+   }
   }
  ]
 }
