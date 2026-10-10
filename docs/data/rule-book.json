@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-10",
- "total": 235,
+ "total": 238,
  "replaced": 8,
  "counts": {
-  "Automatic": 153,
+  "Automatic": 156,
   "Written down": 70,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -2127,7 +2127,7 @@
    "key": "amal",
    "title": "The tutor's say",
    "intro": "What the tutor decides: her Doc, her pages, her rulings, and the words she promised to add.",
-   "count": 26,
+   "count": 27,
    "sections": [
     {
      "kind": "data",
@@ -2553,6 +2553,20 @@
          "quote": "Homework and the cards she assigns me for the next lessons."
         }
        ]
+      },
+      {
+       "id": "AM-28",
+       "text": "Your tutor's page only asks about lessons from Oct 8 on. Open questions about older lessons are paused, not deleted, and come back when the pause is lifted; anything she already answered stays in her history, and no new questions are made for older lessons.",
+       "status": "enforced",
+       "topic": "the Tutor page",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-10",
+         "quote": "set an agent to make sure that Amal's tutor portal with all the questions is up to date now. For now, I know we've only done 10, 8, and 10-9. Let's put a pause on everything before that until we can get the process honed down a little bit, and then we'll go back and clean everything up."
+        }
+       ]
       }
      ]
     }
@@ -2842,7 +2856,7 @@
    "key": "pages",
    "title": "Pages, audio & numbers on screen",
    "intro": "What each page shows, the audio clips, and keeping numbers up to date.",
-   "count": 58,
+   "count": 60,
    "sections": [
     {
      "kind": "not-error",
@@ -3380,6 +3394,20 @@
        ]
       },
       {
+       "id": "PG-47",
+       "text": "The typed Google Meet chat is back in every lesson transcript, in its own teal colour with a label saying whether the tutor or the student typed it; it is never counted as anything he said.",
+       "status": "enforced",
+       "topic": "the lessons page",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-10",
+         "quote": "also why did you remove the written chat from google meet? lets put that back in with a different color? into the transcript"
+        }
+       ]
+      },
+      {
        "id": "PG-31",
        "text": "On a phone the menu is a bar at the bottom with five tabs: Progress, Lessons, Cards, Student, More. More opens the other pages. Laptops keep the sidebar.",
        "status": "enforced",
@@ -3665,6 +3693,25 @@
          "who": "Medi",
          "date": "2026-09-26",
          "quote": "review every lesson immediately"
+        }
+       ]
+      },
+      {
+       "id": "PG-46",
+       "text": "Every lesson Medi checks from start to finish gets a grade: how many of his Arabic words the robot tracked right and every mistake it made, shown on AI Reports › Grades so we can see if the process improves.",
+       "status": "enforced",
+       "topic": "testing engines",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-10",
+         "quote": "We need to start keeping a grading system for these manual reviews that I've been doing ... We need to keep track and make a tab in the AI reports area for the grades. We need to make sure that we're only counting the Arabic and sorting out the English. We need to make a tally of all the Arabic words being said and how many mistakes it made. I think we need to do two reports, obviously: How much of the vocab it keeps track of; How many mistakes it made, meaning how many mistakes it didn't catch or how many correct words it didn't track. We need to build some reporting on this so that we can see if our process is actually improving as we keep spot-checking these transcripts manually."
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-10",
+         "quote": "10-8 should get a grade, the 2 previous should not they were partial."
         }
        ]
       },
