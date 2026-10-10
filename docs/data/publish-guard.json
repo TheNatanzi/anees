@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-09T18:32:52-07:00",
+ "updated": "2026-10-09T19:48:59-07:00",
  "result": "pass",
- "source": "manual: all-English translations (PG-40)",
- "checked_commit": "fcb69d4e820f",
- "secs": 93.2,
+ "source": "manual: words that are really her word (WS-34)",
+ "checked_commit": "d0894baa05f9",
+ "secs": 93.8,
  "checks": [
   {
    "id": "step_failures",
@@ -33,9 +33,9 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 230 rules: enforced 140 (code 131, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
+   "detail": "rule_registry: OK - 231 rules: enforced 141 (code 132, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
   {
    "id": "lesson_coverage",
@@ -65,7 +65,7 @@
    "id": "taught_words_cross_check",
    "required": true,
    "ok": true,
-   "secs": 0.1,
+   "secs": 0.2,
    "what": "every Tutor new word of a lesson is in its taught words (or says why not); no off-lesson window hides Amal teaching",
    "detail": "11 lesson type read(s) cover their Tutor new words; no off-lesson window has Amal teaching"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.6,
+   "secs": 2.7,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.2,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.9,
+   "secs": 2.1,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 719 checks"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.2,
+   "secs": 5.3,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 71 pages, every link, data file and clip resolves (134 references to unpublished clips play from the full lesson recording)"
   },
@@ -129,9 +129,9 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 62.4,
+   "secs": 63.3,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 97%] | ...............                                                          [100%] | 731 passed, 1 skipped, 3 xfailed in 59.34s"
+   "detail": "................... [ 96%] | .......................                                                  [100%] | 739 passed, 1 skipped, 3 xfailed in 61.39s (0:01:01)"
   },
   {
    "id": "tests_node",
@@ -139,13 +139,13 @@
    "ok": true,
    "secs": 5.9,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5804.0297"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5812.6719"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.5,
+   "secs": 5.1,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -153,7 +153,7 @@
    "id": "review_freshness",
    "required": false,
    "ok": false,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "the two readers read the transcript the pages show now",
    "detail": "2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it"
   },
@@ -163,7 +163,7 @@
    "ok": false,
    "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
-   "detail": "lesson 2026-10-09 transcribed 10-09 15:19 but not on the site (not in lessons.json); Amal's answers last checked 7 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
+   "detail": "lesson 2026-10-09 transcribed 10-09 15:19 but not on the site (not in lessons.json); Amal's answers last checked 9 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
   },
   {
    "id": "medi_corrections",
@@ -177,26 +177,26 @@
    "id": "foreign_script",
    "required": false,
    "ok": false,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)",
    "detail": "exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
   }
  ],
  "warnings": [
   "review_freshness: 2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it",
-  "data_freshness: lesson 2026-10-09 transcribed 10-09 15:19 but not on the site (not in lessons.json); Amal's answers last checked 7 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
+  "data_freshness: lesson 2026-10-09 transcribed 10-09 15:19 but not on the site (not in lessons.json); Amal's answers last checked 9 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
   "medi_corrections: exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-09T18:01:37-07:00",
-  "source": "manual: join split sentences (PG-42)",
+  "at": "2026-10-09T19:46:31-07:00",
+  "source": "manual: words that are really her word (WS-34)",
   "outcome": "blocked",
-  "sha": "bffc6a0d6a4c2177327ba5b1a1d37e883487634e",
-  "reason": "rule_registry: exit 1: ...42 test[0]: contains must start with 'def test_' or 'test(' (a test function) | - PG-42 test[0]: contains must start with 'def test_' or 'test(' (a test function) | - PG-42 test[0]: anchor moved - tests/test_transcript_marks.cjs no longer contains \"PG-42 the tutor's lines join too\"; update the entry; tests_py: exit 1: FAILED tests/test_rule_registry.py::test_live_registry_passes - AssertionErro... | 1 failed, 730 passed, 1 skipped, 3 xfailed in 62.12s (0:01:02)",
-  "secs": 97.0,
+  "sha": "ce931445ad90b7d5b875d599a191f5456a913998",
+  "reason": "check_rules: exit 1: ...; pinned runs use the pinned model (419 checked) | PASS block  AI-paid-logged      0  Every paid AI call since 2026-09-28 has a run line (316 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site); arabizi_gaps: exit 1: arabizi gaps on error cards and transcript lines: 1 words, 2 uses; tests_py: exit 1: ...est_invariants.py::test_every_error_card_word_has_arabizi - Ass... | FAILED tests/test_transcript_fixes.py::test_az_10_every_transcript_line_has_arabizi | FAILED tests/test_rules_check.py::test_live_repo_breaks_no_block_rule - Asser... | 3 failed, 736 passed, 1 skipped, 3 xfailed in 65.23s (0:01:05)",
+  "secs": 100.1,
   "commits_waiting": "1"
  },
- "blocks_before_this_pass": 0,
+ "blocks_before_this_pass": 1,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
