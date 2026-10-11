@@ -483,3 +483,11 @@ Chairman verdict: **APPROVE** · confidence **7/10** (8+ once his first real ses
 - 45 lines without English: all fillers (امم، / آآآ / a cut-off بتتب--), allowed by the runbook
 - left for Medi's review in the new mode: 64:23-64:25, two red ✗ chips (تانية, لعبة) on his QUESTION "What does لعبة، لعبة تانية mean?" (a question about her words is not his slip: key 4 'asking' in the review mode); 18 'not on her list' words are his own attempts (plural tries, a garbled goodbye), no evidence from her to change them
 - readers re-read on the new text: agreement 71.9 %, 50 rows (r3 kept 9, dropped 7)
+
+### Codex rounds 6-7 (the reset command added after round 5)
+| Round | Verdict | Finding -> fix |
+|---|---|---|
+| 6 | CHANGES REQUIRED | a paid second-listen file master also has, with other bytes, would vanish from the working tree -> kept beside under data/lesson-work/hourly-kept-<date>/ (test); one command line; a failed budget rebuild now stops it |
+| 7 | **APPROVE** | none |
+
+Guard before the push: all 18 required checks PASS (818 Python tests, node tests), ledger OK, registry OK; advisory: the stall WARNING (38 h), lesson 10-10 not on the site (waits for the hourly reset).
