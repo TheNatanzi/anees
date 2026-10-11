@@ -2,18 +2,18 @@
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-10-09T18:16:25Z",
  "last_publish_sha": "d3762fa65599e32f57006e5a3a84535abf4ae3ee",
- "last_block_reason": "step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/tutor-notes.json: rebuild pending (open since 2026-10-11T01:15, tutor); tests_py: exit 1: FAILED tests/test_taught_to_amal.py::test_AM_19_every_reader_taught_word_in_the_repo_is_judged | 1 failed, 817 passed, 1 skipped, 3 xfailed in 82.59s (0:01:22)",
- "last_block_utc": "2026-10-11T08:17:44Z",
- "first_block_reason": "step_failures: build_lessons_page_data exit 1: \"pass\": \"presentation\", \"check\": \"audio\" }, { \"id\": \"2c8202e5d5db64494db01f4cdc1548ec926cfb4f9f8a6000dd4338a71405d6e9\", \"pass\": \"presentation\", \"check\": \"context_in_clip\" } ]; rehear_rows: exit 1: {\"t\": 222.43, \"why\": \"the row lands on 0 lines\", \"line\": \"Um, like, um, uh, he, uh,\", \"date\": \"2026-10-08\"} | rehear rows: 1 problem(s)",
- "blocked_since_utc": "2026-10-09T18:23:11Z",
+ "last_block_reason": "check_rules: exit 1: ...; pinned runs use the pinned model (599 checked) | PASS block AI-paid-logged 0 Every paid AI call since 2026-09-28 has a run line (409 checked) | PASS block AMAL-onsite 0 Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site); arabizi_gaps: exit 1: arabizi gaps on error cards and transcript lines: 13 words, 25 use...",
+ "last_block_utc": "2026-10-11T18:26:58Z",
+ "first_block_reason": "pull --rebase failed (a conflict with master; a person merges): conflict in a hand-made file (a person merges): data/budget.json",
+ "blocked_since_utc": "2026-10-10T00:16:07Z",
  "open_failures": [],
  "pending": [
   "lesson 2026-10-10 recorded, not on the site",
   "100 blocked push(es) since the last publish",
   "332 of the student's corrections since the last publish"
  ],
- "hours_since_publish": 38.4,
+ "hours_since_publish": 48.3,
  "stalled": true,
- "generated_at": "2026-10-11T08:37:54Z",
- "plain_reason": "a test failed"
+ "generated_at": "2026-10-11T18:34:29Z",
+ "plain_reason": "check_rules: exit 1: ...; pinned runs use the pinned model (599 checked) | PASS block A..."
 }
