@@ -87,7 +87,9 @@
         d.querySelectorAll('[data-ex]').forEach(box => { const b = bar((p.examples || [])[+box.dataset.ex] || {}); if (b) box.querySelector('[data-bar]').appendChild(b); });
       }));
       const more = $root.querySelector('[data-more]'); if (more) more.onclick = () => { shown += 20; render(); };
-      opt.onChange && opt.onChange({ total: P.length, done, finished: P.length > 0 && done === P.length });
+      // the new words are cards to decide too: the To do count includes them (Medi 2026-10-11: 'this looks complete ... why is it still here')
+      const all = P.length + W.length, allDone = done + W.filter(answerOf).length;
+      opt.onChange && opt.onChange({ total: all, done: allDone, finished: all > 0 && allDone === all });
     }
     function decide(id, kind, reason) {
       const p = patterns().find(x => x.id === id); if (!p) return;

@@ -66,7 +66,7 @@
 
   // ---- the task list -------------------------------------------------------------------------------------------
   const MIN_EACH = { proposals: 1.5, attention: 1, after: 0.7, before: 0.7, verify: 0.4, ledger: 0.5, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3, listen: 0.25 };
-  const UNIT = { after: 'moments', before: 'questions', review: 'kinds of mistake', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', ledger: 'moments', newwords: 'words', listen: 'lines' };
+  const UNIT = { after: 'moments', before: 'questions', review: 'cards', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', ledger: 'moments', newwords: 'words', listen: 'lines' };
   function taskOf(it, L) {
     const total = (L && L.total != null) ? L.total : (it.total || 0), d = Math.min(total, (L && L.done) || 0), left = Math.max(0, total - d);
     const title = it.kind === 'after' ? 'After the lesson · ' + pretty(it.lesson_date)

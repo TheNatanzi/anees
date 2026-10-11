@@ -19,6 +19,7 @@ KEEP_KINDS = set()
 NOTES = os.path.join(DOCS, "data", "amal-grammar-notes.json")
 LISTEN = os.path.join(DOCS, "data", "amal-listen.json")
 CHECKS = os.path.join(DOCS, "data", "amal-checks.json")
+KEY_CHECKS = os.path.join(DOCS, "data", "amal-check-key-check-*.json")     # AM-29: the tutor's half of an exam's answer key
 
 
 
@@ -248,6 +249,12 @@ def main():
     # AM-28 (Medi 2026-10-10 "put a pause on everything before that"): every list file of her page is scoped to lessons
     # on/after TUTOR_FROM first (open items of older lessons move to the file's paused block; answered ones stay)
     # (a run that writes its hub file elsewhere - a test - never rewrites the shared list files)
+    if os.path.abspath(OUT) == os.path.abspath(HUB_OUT):
+        try:      # AM-29 (Medi 2026-10-11 "mix 30-20"): the exam lesson's 50 blind moments, rebuilt before the hub reads them
+            import build_tutor_key_check
+            build_tutor_key_check.build_all()
+        except Exception as e:  # noqa: BLE001 - the rest of her page never waits on this list
+            print("tutor key check not built:", type(e).__name__, str(e)[:160])
     scoped = tutor_scope.scope_all() if os.path.abspath(OUT) == os.path.abspath(HUB_OUT) else {}
     paused_links = []
     now = datetime.datetime.now(datetime.timezone.utc)
@@ -272,7 +279,7 @@ def main():
             open_.append({"id": "slips-review", "title": "The student's mistakes to review", "kind": "review", "token": r["token"],
                           "what": "Mistakes the student made (a wrong word or wrong grammar) that you let pass in the lesson, grouped by kind, with the real moments to play. For each kind you say: yes, count it, or no, he was fine. New lessons add their patterns here the same day.",
                           "who": "You answer · the student sends the link", "url": f"amal/review.html?t={r['token']}",
-                          "total": (review.get("counts") or {}).get("patterns", 0), "moments": sum(len(x.get("examples", [])) for x in review.get("patterns", [])),
+                          "total": (review.get("counts") or {}).get("patterns", 0) + (review.get("counts") or {}).get("new_words", 0), "moments": sum(len(x.get("examples", [])) for x in review.get("patterns", [])),
                           "expires": day(r["expires_at"])})
             # Her grammar notes live on the Anees rules page now, written with this same link's token (Medi 2026-10-01:
             # nothing Amal uses stays in a Google Doc or behind a login). Her Doc notes are shown under each rule.
@@ -301,6 +308,17 @@ def main():
                                   "what": c["what"], "who": "You answer · on your Tutor page", "url": f"amal/check.html?list={c['list']}&t={r['token']}",
                                   "total": c["total"], "unit": c.get("unit") or "items", "min_each": round(c.get("mins", 5) / c["total"], 3),
                                   "expires": day(r["expires_at"])})
+            # AM-29 (Medi 2026-10-11 "mix 30-20" · "Put it in the tutor panel I will have amal work on it as well"): one row per
+            # exam lesson, "Check 50 moments of the Oct 9 lesson (about 12 minutes)" - same token, same saving, same module
+            import glob as _glob
+            for f in sorted(_glob.glob(KEY_CHECKS)):
+                K = json.load(open(f, encoding="utf-8"))
+                n = len(K.get("items") or [])
+                if n and tutor_scope.in_scope(K.get("date")):
+                    open_.append({"id": "check-" + K["list"], "title": K["title"], "kind": "check", "list": K["list"], "token": r["token"],
+                                  "lesson_date": K.get("date"), "what": K["what"], "who": "You answer · on your Tutor page",
+                                  "url": f"amal/check.html?list={K['list']}&t={r['token']}", "total": n, "unit": K.get("unit") or "moments",
+                                  "min_each": round(K.get("mins", 12) / n, 3), "expires": day(r["expires_at"])})
         elif r["kind"] in ("after", "before"):
             title = ("After the lesson · " if r["kind"] == "after" else "Before the lesson · ") + pretty(r.get("lesson_date") or "")
             n = len(p.get("questions") or []) + len(p.get("homework") or []) + len(p.get("prompts") or []) if r["kind"] == "after" else len(p.get("suggestions") or p.get("items") or [])

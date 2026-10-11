@@ -218,3 +218,13 @@ def test_AM_24_amal_never_reads_the_word_slip():
         d = json.loads(open(f, encoding="utf-8").read())
         for key in ("title", "intro", "what"):
             assert not shown.search(str(d.get(key) or "")), (f, key)
+
+
+def test_the_mistakes_card_counts_its_new_words_too():
+    """Medi 2026-10-11 ('this looks complete "the students mistakse" why is it still hjere'): the card said '1 kinds of
+    mistake left' while 8 new words waited inside it. Its To do count is every card to decide: patterns + new words."""
+    js = (ROOT / 'docs' / 'js' / 'hub' / 'review-task.js').read_text(encoding='utf-8')
+    assert 'const all = P.length + W.length, allDone = done + W.filter(answerOf).length;' in js
+    assert "review: 'cards'," in (ROOT / 'docs' / 'js' / 'tutor.js').read_text(encoding='utf-8')
+    b = (ROOT / 'scripts' / 'build_tutor_data.py').read_text(encoding='utf-8')
+    assert '.get("patterns", 0) + (review.get("counts") or {}).get("new_words", 0)' in b
