@@ -431,3 +431,22 @@ Source: data/whatsapp/raw (git-ignored; 12,205 lines, 98 voice notes, 54 photos)
 - P1 chat_lines readable by anon: KEPT, same reason (transcript pages are public); the token / model answer columns of homework_items ARE hidden (migration 010).
 - FIXED: grade race (claim graded_at with `is null` before calling OpenAI, released on OpenAI failure); CORS exact-origin match; house-spelling fold collision (3ashrah != ashra7: consonant core incl. digits must match; regenerated); typed-line dedupe now text + 2-min window; understand() stores chat_lines; apply_verdicts deletes this answer's rows before re-inserting (retry-safe).
 - KEPT BY DESIGN: 'fix' with no keys named by the grade marks all target words (documented; Amal's fix text does not name the word); typed flag set on Amal / corrected events (marker only, flags untouched); Medi may answer a prompt Amal has not reviewed yet (badge says so; blocking would stall him for days if she does not open the link) - Medi's call.
+
+## Overnight 2026-10-10/11: fast review mode, lean protocol, stall alarm, 10-09 second listen (brief: plan/PROMPT-OVERNIGHT-FAST-REVIEW-2026-10-10.md; built on Opus per Medi mid-run "lets build on opus")
+
+### Council round 1 (anthropic-skills:council, Mode A: one model, five hats) on the design of section 1 + 4
+Question: "does this cut Medi's time below today's and keep the tests valid?"
+
+| Advisor | Round 1 | Main objection | Round 3 (after critique) |
+|---|---|---|---|
+| Strategic | Adopt: one key per line + his Arabic lines only cuts hours to ~15-25 min; 1 lesson in 3 cuts the weekly load to a third | none blocking; wants the first session timed before promising a number | holds |
+| Skeptic | Reject as written | **"Unsure only" makes the key inherit the robot's confident errors**: lines nobody checks stay as the robot wrote them, so hit rate is inflated and a confident mishearing that hides a slip lowers FCR for free. The grade book would grade the pipeline against itself | adopt only if exam lessons are checked on ALL his Arabic lines (unsure first) and a partial check is never graded |
+| Creative | Adopt, and use the unsure flags as a SORT, not a filter: the most useful lines come first, so stopping early still pays | key 1 writes no row, so nothing proves which lines he looked at | adds: every answer, key 1 too, leaves a 'reviewed' trace |
+| Evidence | Adopt with numbers stated honestly | 15 re-listen moments give a coarse bar (1 change = 7 %, 95 % interval about 0-32 % for 1 of 15); pool them across exams (45 after 3) before calling any pipeline gap below 10 points real. 1 lesson in 3 is fine for hearing (decided per lesson) and too thin for readers (protocol already waits for 3 exams) | holds; accepts pooling as the fix |
+| Medi-focused | Adopt: keys, one line at a time, the clip already playing and a progress bar fit his ADD better than a long page with free-text boxes | a 50-line blind block before any chip is tiring; show why on screen | holds; the note on screen explains the blind block |
+
+Chairman verdict: **ADOPT WITH CHANGES** · confidence **6/10** (raises to 8 once a real session is timed and the coverage rule is live).
+Changes made from the objections (real flaws):
+1. Exam lessons: the review mode shows the unsure lines FIRST, then the confident ones; "unsure only" stays on by default but ends with a card "For the grade book, the confident lines too: M more, about K min". The grade book grades a lesson only when every Arabic line of his was answered (coverage), else "partial review, not graded" (PG-46).
+2. Every answer leaves a row, key 1 included (a 'reviewed' row that changes nothing), so coverage is provable.
+3. Key error rate: 15 moments per exam, POOLED across exam lessons; a pipeline difference is reportable only above the pooled bar.

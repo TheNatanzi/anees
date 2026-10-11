@@ -516,7 +516,7 @@ def test_budget_rebuild_recomputes_the_totals_from_the_run_log():
 
 
 def test_real_git_a_budget_json_conflict_keeps_master_and_rebuilds_from_the_run_logs(tmp_path, monkeypatch):
-    """2026-10-09 11:34 -> 10-11: 'conflict in a hand-made file (a person merges): data/budget.json' on every hourly push.
+    """PR-24 (G1): 2026-10-09 11:34 -> 10-11: 'conflict in a hand-made file (a person merges): data/budget.json' on every hourly push.
     Now master's copy is kept, the ledger is rebuilt from the run logs (both sides' lines, union-merged) and it publishes."""
     monkeypatch.setenv('ANEES_HOURLY_ROOT', str(tmp_path / 'no-hourly'))
     monkeypatch.setenv('ANEES_RAW', str(tmp_path / 'no-raw'))

@@ -29,16 +29,43 @@ Pipeline Test Plan) are claude.ai artifacts linked from the 2026-10-10 chat. The
 - Nothing in `rules/registry.json` or the marking scripts changes between "page published" and "review done" for an
   exam lesson. If it must, the lesson becomes practice.
 
+## 1b. The lean schedule (Medi 2026-10-10: "Is there anyway we can simplify this so that it doesnt take as much time for amal and i")
+
+| Who | Lesson 1 of every 3 (the exam) | The other 2 lessons |
+|---|---|---|
+| Medi | Fast review mode: his Arabic lines only, ALL of them, unsure first, keys not notes (no free text needed); blind block = the first 50 lines shown; a day later 15 re-listen moments in the same mode | **0 minutes** (he may run the unsure lines only to fix the page; never graded) |
+| Amal | Her usual ~10 minutes; the protocol's moments ride inside her existing cards (no new card type) | Her usual ~10 minutes |
+| Robot | Everything else: page, chips, scores, grade book | Same |
+
+- **Unsure first** (`scripts/review_picker.py` -> `docs/data/review-pick/<date>.json`): a line is unsure when the second
+  listen's runs disagreed or changed it, the two readers disagreed on it, a red ✗ chip sits on it, or it is one of 5
+  random confident lines (seeded by the date, so the set is stable; they catch what the robot is wrongly sure of). A
+  toggle shows all lines. The unsure flags SORT the lines (unsure first); they never shrink an exam: the answer key
+  needs every Arabic line of his answered, or it inherits the robot's confident errors (council 2026-10-11). Every
+  answer leaves a row, "heard right" included, so coverage is provable; a lesson with lines unanswered is "partial
+  review, not graded".
+- **Key error rate pooled**: 15 moments per exam lesson are a coarse bar (1 change = 7 %); pool them across exam
+  lessons (45 after 3) and report a pipeline difference only above the pooled bar.
+- **Grammar rules are never checked by a person rule by rule.** The robot assigns each use to a rule; Amal confirms
+  PATTERNS (one tap covers every instance of that pattern, AM-08). Medi never validates a rule id.
+- **Time is measured, not guessed.** Every fast-mode row carries `payload.secs`; `review_grades.py` sums them per lesson
+  into `docs/data/review-grades.json` (`minutes_medi`), shown on AI Reports > Grades. The next estimate is the last
+  measured number.
+- Which lesson is the exam: the next lesson after the last exam whose second listen is applied (the pipeline-alive check
+  of section 1). 10-09 is the first.
+
 ## 2. Making a lesson an exam (one per full review)
 
-1. Snapshot the page the moment Medi starts: `python scripts/review_grades.py freeze <date>` after adding the line
-   to `data/lesson-work/review-grades/reviews.json` (`before_commit` = the publish SHA he reviewed, `full: true`).
-   The hourly job should snapshot every first publish automatically (planned: "auto-freeze"); until then, record the
-   SHA by hand the same day.
-2. Medi reviews **50 lines blind first** (no chips shown, blank transcript), then the rest with chips. The blind
-   block measures what the chips hide from him (anchoring).
-3. After his review, **key error rate**: he re-listens blind to 40 random moments (20 he corrected, 20 he did not) a
-   day later. Share he changes = the key's own error rate. No pipeline difference smaller than that is reportable.
+1. The page he reviews is frozen automatically: on a lesson's FIRST publish the hourly job writes
+   `data/lesson-work/review-grades/<date>.first.json` (page + SHA) and `review_grades.py` reads it as "before" (auto-
+   freeze, 2026-10-11). Add the line to `data/lesson-work/review-grades/reviews.json` (`full: true`) when he reviews.
+2. Medi reviews in the **fast review mode** (Lessons page > Review, PG-50): his Arabic lines only, unsure lines first,
+   one key per line. The **first 50 lines are blind** (no chips shown), then the rest with chips. The blind block
+   measures what the chips hide from him (anchoring); its rows carry `payload.blind: true`.
+3. After his review, **key error rate**: a day later he re-listens to **15 moments** of the exam lesson through the same
+   review mode (the "re-listen" filter hides his earlier answer; rows carry `payload.relisten: true`). Share he changes
+   = the key's own error rate (with 15 moments this is a rough bar: 1 change = 7 %). No pipeline difference smaller than
+   that is reportable.
 4. Ownership of the key: Medi's lines and what HE said = Medi. Amal's lines, and whether a tutor line was a
    correction = Amal (30-50 moments on her portal, blind). Do not average the two; score each field against its owner.
 5. `key_commit` = the page after the review + the audit that applied it. Freeze. The exam is now closed: no rule
@@ -65,7 +92,7 @@ on the next exam, then adopted. Pass bars written down before the run.
 
 | Layer | Test | How | Cost |
 |---|---|---|---|
-| Key | Key error rate (section 2.3) | Medi blind re-listen, 40 moments | ~15 min |
+| Key | Key error rate (section 2.3) | Medi blind re-listen, 15 moments, exam lessons only, in the review mode | measured by the review mode (`minutes_medi`) |
 | Marking alone | **Oracle marking**: run `word_coverage` + readers on the KEY transcript (hearing removed) | marks still wrong = the rules' own error | $0 |
 | Readers alone | **Injected errors**: take the key text, swap ~30 words to known wrong forms + add a fake tutor recast; do the readers catch them? | text only, no new lesson needed | Claude usage |
 | Readers | **Self-agreement**: Opus x5, same prompt; measure run-to-run agreement BEFORE comparing tiers | sets how many runs each tier needs | Claude usage |
@@ -113,3 +140,4 @@ test's bar; (2) it wins again on the next exam lesson (totals only, never read e
 | Date | Exam lesson | Key error rate | Setups run | Winner | Confirmed on | Adopted? | Notes |
 |---|---|---|---|---|---|---|---|
 | 2026-10-10 | 10-08 (practice only) | not measured | A only (today) | - | - | - | protocol written; 10-09 waits for its second listen to be published |
+| 2026-10-11 | 10-09 (first exam, review pending) | not measured yet | none (overnight build: fast review mode, lean schedule, auto-freeze, stall alarm, harness skeleton dry-run only) | - | - | - | 10-09 second listen applied (198 lines); Medi's minutes measured from his first fast-mode session |

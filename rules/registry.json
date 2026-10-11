@@ -10471,9 +10471,9 @@
    "scope": "pages",
    "status": "enforced",
    "change": "new",
-   "statement": "The grade book: every lesson Medi reviewed IN FULL is graded (data/lesson-work/review-grades/reviews.json, hand-made, one line per review; a partial review is listed 'partial review, not graded', never scored - 10-08 graded, the September and 10-02 reviews partial). scripts/review_grades.py freezes the exam per lesson (the pipeline's page before his first note vs the page after his review = the answer key) and grades it, plus today's page against the same key, counting only the Arabic words of his lines (word_coverage word_tokens: English, fillers, sound tags, pronouns out; his Latin Arabizi counts; cut-off words and prepositions out). Report 1: words tracked right / Arabic words said. Report 2: missed slips, fake slips, untracked or wrong credit / wrong grey reason, misheard words, each listed with time + word, per 100 Arabic words. Built to docs/data/review-grades.json every hour; shown on AI Reports › Grades (docs/js/review-grades.js): one row per lesson, before vs today, the trend across lessons, click for the mistake list.",
-   "plain": "Every lesson Medi checks from start to finish gets a grade: how many of his Arabic words the robot tracked right and every mistake it made, shown on AI Reports › Grades so we can see if the process improves.",
-   "plain_for": "380cdc66",
+   "statement": "The grade book: every lesson Medi reviewed IN FULL is graded (data/lesson-work/review-grades/reviews.json, hand-made, one line per review; a partial review is listed 'partial review, not graded', never scored - 10-08 graded, the September and 10-02 reviews partial). scripts/review_grades.py freezes the exam per lesson: before = the page as the hourly job FIRST published it (data/lesson-work/review-grades/<date>.first.json, page + SHA, written once at that publish by scripts/hourly_lessons.py; else the page at before_commit in git), key = the page after his review. It grades before against the key, plus today's page against the same key, shown as \"drift\" (today's page vs the key: a regression check only, never an accuracy score), counting only the Arabic words of his lines (word_coverage word_tokens: English, fillers, sound tags, pronouns out; his Latin Arabizi counts; cut-off words and prepositions out). Report 1: words tracked right / Arabic words said. Report 2: missed slips, fake slips, untracked or wrong credit / wrong grey reason, misheard words, each listed with time + word, per 100 Arabic words. A lesson reviewed in fast review mode (PG-50) carries minutes_medi (his measured seconds / 60) and coverage_medi (the share of his Arabic lines with an answer) and is graded only at coverage 1.0, else 'partial review, not graded (N of M lines)'. Built to docs/data/review-grades.json every hour; shown on AI Reports › Grades (docs/js/review-grades.js): one row per lesson, first version vs drift, minutes and lines checked, the trend across lessons, click for the mistake list.",
+   "plain": "Every lesson Medi checks from start to finish gets a grade: the version the robot first published against his answer key, plus 'drift' (today's page against the same key, a regression check only), with his measured minutes; a lesson checked in the fast mode is graded only when every one of his Arabic lines was answered.",
+   "plain_for": "6b157f63",
    "topic": "testing engines",
    "source": [
     {
@@ -10485,6 +10485,11 @@
      "by": "medi",
      "date": "2026-10-10",
      "quote": "10-8 should get a grade, the 2 previous should not they were partial."
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "Is there anyway we can simplify this so that it doesnt take as much time for amal and i"
     }
    ],
    "enforcement": [
@@ -10503,6 +10508,10 @@
     {
      "path": "tests/test_review_grades.py",
      "contains": "def test_pg_46_grade_book_counts_arabic_words_and_four_mistake_types"
+    },
+    {
+     "path": "tests/test_review_grades.py",
+     "contains": "def test_grades_tab_says_drift_and_shows_minutes_and_coverage"
     }
    ],
    "example": {
@@ -10639,14 +10648,73 @@
    }
   },
   {
+   "id": "PG-50",
+   "kind": "process",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Fast review mode on the Lessons page: 'Review · one line at a time' opens ONLY the student's lines that hold Arabic (word_coverage word_tokens; split sentences joined as on the page), one at a time, with a progress bar ('37 of 104'), a running timer, the clip playing, the Arabic, Arabizi, the English (PG-40) and the chips. Lines come in three tiers from scripts/review_picker.py -> docs/data/review-pick/<date>.json (run by build_lessons_page_data.py, so the hourly job and every Amal trigger rebuild it): 1 unsure (a red ✗ chip, the two readers disagree, the second listen held a change or its runs had no 2-of-3 agreement, or one of 5 random confident lines seeded by the date), 2 changed (the second listen changed it, 2 of 3 runs agreeing), 3 confident; shown tier 1, 2, 3, each in time order; 'Unsure only' (tier 1) is on by default and ends with a card offering the rest 'for the grade book'. Keys, no free text needed: 1 heard right, 2 wrong word (one box for the word he said -> a text row like the heard rows), 3 mistake (an add row; the robot proposes vocab or grammar, one key flips it, never a rule id), 4 not a mistake (a not-slip row with one of the four reasons), space replay, enter/→ next, ← back, u undo (an undo row, AM-17). The first 50 lines shown are blind (no chips; a note says why; rows carry payload.blind). Every answer leaves a row in transcript_corrections through the same queue (append-only), with payload.review_mode 'fast' and payload.secs; 'heard right' and re-listen answers are inert trace rows (kind rule-answer, proposal review:fast / review:relisten) that change nothing and never count toward the PR-19 burst hold. A re-listen filter shows 15 answered lines again with his earlier answer hidden (the key's error rate, PR-23). Phone (680 px and under): big buttons bottom-fixed, the PG-31 bar hidden.",
+   "plain": "Reviewing a lesson is one line at a time with one key per line: only his Arabic lines, the ones the robot is least sure of first, the clip plays by itself, the first 50 without chips, and the time spent is measured.",
+   "plain_for": "cb4f281d",
+   "topic": "reviewing lessons",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "It takes a lot of time to review in its current state, its gonna take longer in this metod"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "Is there anyway we can simplify this so that it doesnt take as much time for amal and i"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "build in a new chip do it overnight loop and improve test and make sure council approves and make sure codex approves"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/review_picker.py",
+     "contains": "def run_all(repo=REPO"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/review-mode.js",
+     "contains": "var TRACE = { fast: 'review:fast'"
+    },
+    {
+     "type": "code",
+     "path": "scripts/medi_corrections.py",
+     "contains": "def review_trace"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_review_mode.cjs",
+     "contains": "test('PG-50 blind block"
+    },
+    {
+     "path": "tests/test_review_picker.py",
+     "contains": "def test_pg_50_three_tiers_from_the_second_listen_the_readers_and_the_x_chips"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "note": "10-08: 200 Arabic lines, 73 unsure (tier 1), 104 changed by the second listen, 23 confident"
+   }
+  },
+  {
    "id": "PR-23",
    "kind": "process",
    "scope": "process",
    "status": "written",
    "change": "new",
-   "statement": "The pipeline test protocol lives in plan/PIPELINE-TEST-PROTOCOL.md and is re-run after every new fully reviewed lesson: the pipeline must be alive and the lesson's second listen applied before Medi reviews; the reviewed page is frozen with its SHA; the key's own error rate is measured (blind re-listen of 40 moments); tests run by layer (key, oracle marking on the key text, injected errors for the readers, reader self-agreement, the hearing harness with switches, tier x effort only after 3 exam lessons); every comparison is paired on the same words; a change is adopted only after it wins on the practice lesson AND the next exam lesson with FCR not rising. One row per run in the protocol's run log.",
-   "plain": "After every lesson Medi fully reviews, we run the same written test method: freeze the page, measure how good the answer key is, test each layer on its own, and only adopt a change that wins twice.",
-   "plain_for": "45d4d201",
+   "statement": "The pipeline test protocol lives in plan/PIPELINE-TEST-PROTOCOL.md and is re-run after every new fully reviewed lesson: the pipeline must be alive and the lesson's second listen applied before Medi reviews; the page he reviews is frozen automatically at its first publish (data/lesson-work/review-grades/<date>.first.json, PR-24 / PG-46); the lean schedule: Medi reviews 1 lesson in 3 (the exam) in the fast review mode (PG-50), ALL his Arabic lines, unsure first, keys not notes, the first 50 shown blind; a day later 15 re-listen moments in the same mode measure the key's own error rate, pooled across exam lessons; the other 2 lessons cost him 0 minutes; Amal's ~10 minutes unchanged, her moments inside her existing cards; grammar rules are never checked by a person rule by rule (the robot assigns, Amal confirms patterns); his minutes are measured (payload.secs -> minutes_medi on the Grades tab), never guessed. Tests run by layer (key, oracle marking on the key text, injected errors for the readers, reader self-agreement, the hearing harness with switches - scripts/hearing_harness.py, tier x effort only after 3 exam lessons); every comparison is paired on the same words; a change is adopted only after it wins on the practice lesson AND the next exam lesson with FCR not rising. One row per run in the protocol's run log.",
+   "plain": "After every lesson Medi fully reviews, we run the same written test method; he reviews 1 lesson in 3 in the fast mode (all his Arabic lines, keys not notes, 15 re-listen moments a day later), the other lessons cost him nothing, and a change is adopted only when it wins twice.",
+   "plain_for": "9bc3e867",
    "topic": "testing engines",
    "source": [
     {
@@ -10658,6 +10726,16 @@
      "by": "medi",
      "date": "2026-10-10",
      "quote": "please have fable revelauate the research and see if it can come up with any better research testing methodology"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "Is there anyway we can simplify this so that it doesnt take as much time for amal and i"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "It takes a lot of time to review in its current state, its gonna take longer in this metod"
     }
    ],
    "enforcement": [
@@ -10665,11 +10743,80 @@
      "type": "doc",
      "path": "plan/PIPELINE-TEST-PROTOCOL.md",
      "contains": "## 6. Decision rule"
+    },
+    {
+     "type": "doc",
+     "path": "plan/PIPELINE-TEST-PROTOCOL.md",
+     "contains": "## 1b. The lean schedule"
+    },
+    {
+     "type": "code",
+     "path": "scripts/hearing_harness.py",
+     "contains": "not built: paid runs need Medi's yes"
     }
    ],
    "example": {
     "date": "2026-10-08",
     "note": "10-08 = practice lesson (rules tuned on it); 10-09 = first exam once its second listen is published"
+   },
+   "test": [
+    {
+     "path": "tests/test_hearing_harness.py",
+     "contains": "def test_run_refuses"
+    }
+   ]
+  },
+  {
+   "id": "PR-24",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A stalled hourly robot is never silent. docs/data/pipeline-health.json (scripts/pipeline_health.py, written by the publish guard on every push attempt and by the hourly job every run) holds the last hourly publish (the guard's own 'Publish guard: all required checks passed (hourly' commit on origin/master), the first and latest block reason and the open work; stalled = more than 2 h without an hourly publish while work is pending (a lesson day, a lesson recorded but not on the site, an open failure, a blocked push, a second listen not applied, his corrections newer than the last publish). When stalled: the guard prints a WARNING line naming the hours and the first block reason (advisory, never blocks), every page's banner (docs/js/stale.js) says 'The hourly robot has not published for N h: <reason>', and the lesson alerts carry the LS-04 line. data/budget.json is a GENERATED file for G1 (scripts/budget_rebuild.py rebuilds it from the run logs, master's copy kept on a conflict), so it can never block a push again (10-09 18:23Z to 10-11: the hourly job was blocked 37 h on a budget.json conflict and nobody was told).",
+   "plain": "If the hourly robot stops publishing for more than 2 hours while there is work, every page says so with the reason, and the money file can no longer jam it.",
+   "plain_for": "015679ea",
+   "topic": "publishing",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "DUDE WHAT THE ACTUAL FUCK ... A COMEPLETE GUIDE SYSTEM AND FOLLOW IT EVERY FUCKING TIME. MAKE A SYSTEM"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/pipeline_health.py",
+     "contains": "def warning_line"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/stale.js",
+     "contains": "function stallText(h, now)"
+    },
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "data/budget.json"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_real_git_a_budget_json_conflict_keeps_master_and_rebuilds_from_the_run_logs"
+    },
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_guard_check_and_push_print_the_stall_warning_and_never_block_on_it"
+    },
+    {
+     "path": "tests/test_stale_banner.py",
+     "contains": "def test_stall_banner_names_the_hours_and_the_reason"
+    }
+   ],
+   "example": {
+    "date": "2026-10-09",
+    "note": "hourly blocked from 10-09 18:23Z (budget.json conflict) to 10-11: 37 h, 99 blocked pushes, lesson 10-10 recorded but not published"
    }
   }
  ]

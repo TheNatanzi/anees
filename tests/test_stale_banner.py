@@ -50,7 +50,7 @@ def _stall_text(health, now_iso):
 
 
 def test_stall_banner_names_the_hours_and_the_reason():
-    """Overnight brief 2026-10-10 §3 (Medi: "MAKE A SYSTEM"): while the hourly robot cannot publish, every page (PG-01,
+    """PR-24. Overnight brief 2026-10-10 §3 (Medi: "MAKE A SYSTEM"): while the hourly robot cannot publish, every page (PG-01,
     docs/js/stale.js) says "The hourly robot has not published for N h: <reason>", counting on in the viewer's clock."""
     h = {'last_publish_utc': '2026-10-09T18:16:25Z', 'hours_since_publish': 3.0, 'stalled': True, 'pending': ['x'],
          'first_block_reason': 'pull --rebase failed (a conflict with master; a person merges): data/budget.json'}
