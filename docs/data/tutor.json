@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T16:29:18-07:00",
+ "updated": "2026-10-11T00:43:14-07:00",
  "note": "What Amal needs to check right now. Rebuilt by scripts/build_tutor_data.py every hour and after every same-day lesson review; answered counts are read live from Supabase with each link's own token. Medi sends every link himself; the app never contacts Amal.",
  "tutor_from": "2026-10-08",
  "paused": {
@@ -113,8 +113,8 @@
    "what": "Mistakes the student made (a wrong word or wrong grammar) that you let pass in the lesson, grouped by kind, with the real moments to play. For each kind you say: yes, count it, or no, he was fine. New lessons add their patterns here the same day.",
    "who": "You answer · the student sends the link",
    "url": "amal/review.html?t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
-   "total": 12,
-   "moments": 12,
+   "total": 7,
+   "moments": 8,
    "expires": "2026-10-26"
   },
   {
@@ -319,8 +319,8 @@
       "english": "My stomach hurts.",
       "t": "3:46",
       "clip": "lessons/2026-10-09/clips/gc-14424035c4e9074b.mp3",
-      "medi": "أمي بواجها.",
-      "amal": "تمك؟ ... Your mouth hurts? ... بطنك، شربت إشي؟",
+      "medi": null,
+      "amal": null,
       "answer": null,
       "at": null,
       "result": null,
@@ -332,7 +332,7 @@
       "arabic": "(could not recall 'air')  ->  هواء",
       "english": "air",
       "t": "10:24",
-      "clip": "lessons/2026-10-09/audio/lesson.mp3#t=621,636",
+      "clip": "lessons/2026-10-09/clips/gc-d9003f350b20d168.mp3",
       "medi": null,
       "amal": null,
       "answer": null,
@@ -347,8 +347,8 @@
       "english": "I prefer",
       "t": "29:55",
       "clip": "lessons/2026-10-09/audio/lesson.mp3#t=1792,1807",
-      "medi": null,
-      "amal": null,
+      "medi": "Does it have to do with \"bachtar\" or no?",
+      "amal": "It has to do with مفضل.",
       "answer": null,
       "at": null,
       "result": null,
@@ -2218,209 +2218,6 @@
       "at": "2026-09-30",
       "result": "counted as a mistake for the student",
       "carried": false
-     }
-    ]
-   }
-  },
-  {
-   "id": "after-2026-09-11",
-   "title": "After the lesson · Sep 11",
-   "why": "link expired 2026-09-19",
-   "kind": "after",
-   "lesson_date": "2026-09-11",
-   "token": "tz4sgJeK4cBUpNZcfrBPTK2XXXfVc6VU",
-   "expires": "2026-09-19",
-   "detail": {
-    "answered": 0,
-    "total": 23,
-    "asked": [
-     {
-      "ask": "Did the student say Bil8ala6 right here?",
-      "word": "Bil8ala6",
-      "arabic": "بالغلط",
-      "english": "Accidentally",
-      "t": "39:42",
-      "clip": "lessons/2026-09-11/audio/lesson.mp3#t=2379,2394",
-      "medi": null,
-      "amal": null,
-      "answer": null,
-      "at": null,
-      "result": null,
-      "carried": false
-     },
-     {
-      "ask": "Did the student say kaan right here?",
-      "word": "kaan",
-      "arabic": "كان",
-      "english": "I wanted / You (m) wanted / You (f) wanted / You (pl) wanted / We wanted",
-      "t": "42:34",
-      "clip": "lessons/2026-09-11/audio/lesson.mp3#t=2551,2566",
-      "medi": null,
-      "amal": null,
-      "answer": null,
-      "at": null,
-      "result": null,
-      "carried": false
-     },
-     {
-      "ask": "Did the student say Shmaal right here?",
-      "word": "Shmaal",
-      "arabic": "شمال",
-      "english": "Left",
-      "t": "5:01",
-      "clip": "lessons/2026-09-11/audio/lesson.mp3#t=298,313",
-      "medi": null,
-      "amal": null,
-      "answer": null,
-      "at": null,
-      "result": null,
-      "carried": false
-     },
-     {
-      "ask": "Did the student say 2aa5er right here?",
-      "word": "2aa5er",
-      "arabic": "آخر",
-      "english": "Last / The end of",
-      "t": "12:30",
-      "clip": "lessons/2026-09-11/audio/lesson.mp3#t=747,762",
-      "medi": null,
-      "amal": null,
-      "answer": null,
-      "at": null,
-      "result": null,
-      "carried": false
-     },
-     {
-      "ask": "Did the student say Awal right here?",
-      "word": "Awal",
-      "arabic": "أول",
-      "english": "First / The beginning of",
-      "t": "12:46",
-      "clip": "lessons/2026-09-11/audio/lesson.mp3#t=763,778",
-      "medi": null,
-      "amal": null,
-      "answer": null,
-      "at": null,
-      "result": null,
-      "carried": false
-     },
-     {
-      "ask": "Homework suggestion: keep, drop or edit?",
-      "word": "Bsur3a Ektub Muraaja3a u Tamreen",
-      "english": "Quickly, write a review and an exercise.",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework suggestion: keep, drop or edit?",
-      "word": "etlob 5amsah Ahweh el-yom honak",
-      "english": "Order five coffees there today.",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework suggestion: keep, drop or edit?",
-      "word": "Ana 3melet Tamreen Bil8ala6 el-yom",
-      "english": "I did an exercise by accident today.",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework suggestion: keep, drop or edit?",
-      "word": "Ana babse6 Benet u heyye Mabsoo6",
-      "english": "I make a girl happy, and she is happy.",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework suggestion: keep, drop or edit?",
-      "word": "Ana ma baz3ej Benet Abadan",
-      "english": "I never annoy a girl.",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework suggestion: keep, drop or edit?",
-      "word": "Ana ma ba3asseb Abadan halla",
-      "english": "I do not get angry at all now.",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework suggestion: keep, drop or edit?",
-      "word": "kaan",
-      "english": "I wanted / You (m) wanted / You (f) wanted / You (pl) wanted",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework suggestion: keep, drop or edit?",
-      "word": "Bil8ala6",
-      "english": "Accidentally",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework suggestion: keep, drop or edit?",
-      "word": "Ana babse6",
-      "english": "I cause happiness",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework suggestion: keep, drop or edit?",
-      "word": "A: Bsur3a Ektub Muraaja3a u Tamreen  B: etlob 5amsah Ahweh el-yom honak",
-      "english": "A: Quickly, write a review and an exercise.  B: Order five coffees there today.",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework line: keep, drop or edit?",
-      "word": "Is he annoyed by the storm and wind?",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework line: keep, drop or edit?",
-      "word": "Do I enjoy myself when I speak?",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework line: keep, drop or edit?",
-      "word": "Write the review quickly for Tuesday (m)",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework line: keep, drop or edit?",
-      "word": "Order five coffees for Tuesday (m)",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework line: keep, drop or edit?",
-      "word": "Ask for my opinion about the light color (m)",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework line: keep, drop or edit?",
-      "word": "I make people happy with a funny exercise.",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework line: keep, drop or edit?",
-      "word": "I get angry when I smell bees.",
-      "answer": null,
-      "at": null
-     },
-     {
-      "ask": "Homework line: keep, drop or edit?",
-      "word": "I am happy and lucky, but far away.",
-      "answer": null,
-      "at": null
      }
     ]
    }

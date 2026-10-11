@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10T16:28:56-07:00",
+ "updated": "2026-10-11T00:41:37-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -7566,7 +7566,7 @@
     "unique_rows": 107,
     "eligible": 255,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "eligible_pct": 95.3,
     "excluded_why": {},
     "verified_pct": null
@@ -7868,8 +7868,7 @@
     "status": "not verified",
     "reasons": [
      "reader agreement: pass 1 71.2 %; 2 consecutive passes at >= 95 % are needed",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4032 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4032 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -8087,49 +8086,49 @@
     ]
    },
    "words": {
-    "unique": 110,
-    "right": 278,
+    "unique": 116,
+    "right": 299,
     "wrong": 4,
-    "partial": 8,
-    "pct": 97.2,
-    "scored": 290,
+    "partial": 7,
+    "pct": 97.6,
+    "scored": 310,
     "audit_wrong": 2,
     "audit_partial": 4,
-    "not_on_sheet": 5,
-    "rehear_word_conflicts": 0,
-    "unique_rows": 107,
-    "eligible": 290,
+    "not_on_sheet": 3,
+    "rehear_word_conflicts": 1,
+    "unique_rows": 113,
+    "eligible": 310,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 97.2,
+    "eligible_pct": 97.6,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 243,
-    "mistakes": 33,
-    "pct": 86.4,
+    "uses": 244,
+    "mistakes": 34,
+    "pct": 86.1,
     "estimate": false,
-    "scored_mistakes": 33,
+    "scored_mistakes": 34,
     "unscored_mistakes": 0,
-    "eligible": 33,
+    "eligible": 34,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
-      "2 slips are in rules the counter found 0 uses of in this lesson",
-      "4 rules have more slips than counted uses (A15, A16, A9b, B18)"
+      "3 slips are in rules the counter found 0 uses of in this lesson",
+      "4 rules have more slips than counted uses (A15, A16, A3, A9b)"
      ],
      "uses": 212,
-     "slips": 33,
-     "slips_latin": 7,
-     "slips_in_zero_use_rules": 2,
+     "slips": 34,
+     "slips_latin": 1,
+     "slips_in_zero_use_rules": 3,
      "rules_slips_over_uses": [
       "A15",
       "A16",
-      "A9b",
-      "B18"
+      "A3",
+      "A9b"
      ]
     },
     "verified_pct": null
@@ -8173,7 +8172,7 @@
       3
      ]
     ],
-    "in_turns": 153,
+    "in_turns": 161,
     "comparable": true
    },
    "latency": {
@@ -8321,53 +8320,116 @@
      "note": "Medi said زغار (small) for cheap; she gave الرخاص, typed 'a8lab el-al3aab hoan r5aas' at 1:08:59"
     }
    ],
-   "coverage": "No echo-candidates file for this date. Long Latin-transliterated stretches 37:58-58:37 (engine wrote his Arabic in Latin). Engine: 19:41 جبال = kam jabal (he says 'kam doesn't take plural'); 1:05:07 'actor' = أكتر; 1:07:38 'on اليوم' = hoan el-yoam; 'Andy' = عندي; قبه/القبة = غابة (S4); 'lob/lobe/loby' = لعبة. 03:46-04:01 'أمي'/'بتوني' = tummy/بطني (pronunciation). Rule questions skipped (05:13 أطلب لها, 28:56 بروحها, 35:20 جبتك أو لك, 40:15 il nu'il mukhtalif, 52:22 حشاشيش). / No echo-candidates file for 10-09. 38:00-58:00 is mostly Latin-transliterated (his Arabic in Latin). Engine noise: عادي=هادي (31:33), بتوني=بطني, بيتي=بدي (1:02:30), أعلم/أكلب=أغلب, Andy=عندي, lob/lobe=لعبة, Amal 48:14 'تلاتة add' and 14:03 garbled. He says قبة for غابة repeatedly (pronunciation غ/ق, S4, only one listening row). 19:41 engine جبال where chat shows kam jabal (Amal said Nice). Names ليون/إيران/Madrid/America not flagged; 52:13 أمريكي->America skipped as a name. Questions ('is it X?') at 15:16, 16:08, 18:57, 54:34 not counted. 1:02:16 أول لعبة for 'since the beginning' let pass again (same as 59:56 A13), not a second row.",
+   "coverage": "Whole file read. Long English-only stretches (02:46-03:24, 15:24-16:50, 33:08-34:28, 36:11-37:46, 52:46-53:32, 1:09:23-1:10:20). 27:05/27:08 he echoed غادة for her غابة (listening/S4, not filed); 29:16 قابة for غابة = S4; 07:55 ألأ = أقل pronunciation (S4). 24:03-24:21 and 1:06:20 زغار->رخاص are his own self-fixes. 57:37 he said كان before her 'Was.' (self-fix, GR-22). 16:14-16:27 he says she didn't correct مفضل; filed 13:24 as grammar-B A8. 31:33 engine wrote عادي where she asks 'هذي or هادا?' (likely هادي). 1:10:34 'مع الشوق بك' = likely بشوفك (engine). Echo candidates checked: none are Arabic sound-alikes (2306 'So hadha ghair' and 3314 'Aqlab asilti' are his Latin Arabic). No tier-3 English-in-Arabic rows: the English pieces (cookie dough, ice cream) are not on her sheet or are him switching to ask. / Engine garbles: 06:16/06:34 'تشرب ليون' (date question), 06:59 'جدSA', 13:58 'شفياني هاي' / 14:03 'elbowss are then' (likely her el-buza el-mufaddala), 31:33 عادي = هادي, 48:14 'تلاتة add'. echo: 'Ifak.' = كيفك (already Arabic in text). Quiz answers left out: 09:11 قمر, 09:44 قارة (she gave أرض). Self-fixes left out: صار/صرت 02:54, راحت 04:54, بتبسط 24:03-24:21, شط تاني 26:18, كان 57:37, زغار->رخاص 1:06:21 (simultaneous with her الرخص). 07:55 ألأ = أقل (Levantine ق, S4). 29:16 قابة = غابة (S4). 1:10:34 'مع الشوق بك' unclear (engine?). Possible B12 on بتزهق vs byzahhe2 not filed. Long English stretches: 33:08-34:28, 52:46-53:33, 1:09:38-1:10:20.",
    "notes": [
     "timings: anees-20261009-recall-medi-seg2673: page/engine offset spread 69.22s; anees-20261009-recall-medi-seg2810: page/engine offset spread 359.92s",
-    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 19:28 Word Bank said right, Amal said no to that word: her no counts."
+    "1 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (1:03:31).",
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 08:39 one slip was counted twice (word + grammar): counted once, as grammar.",
+    "2 moment(s) wait for Medi (counted as before until he picks): 27:05; 59:24."
    ],
    "page": "lessons/2026-10-09.html",
    "detail": "data/lessons/2026-10-09.json",
    "rehear": {
-    "status": "pending",
-    "since": "2026-10-10",
-    "label": "Second listen: pending",
-    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+    "status": "applied",
+    "since": "2026-10-11",
+    "label": "Second listen: applied",
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "198 of your lines changed (135 with a different word, 63 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 25 lines wait: 3 held for a check, 16 where the 3 runs did not agree. 6 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word)."
    },
    "counts": {
     "turns": 1103,
     "chat_lines": 56,
-    "vocab_errors": 13,
-    "vocab_correct": 282,
-    "grammar_errors": 33,
+    "vocab_errors": 11,
+    "vocab_correct": 302,
+    "grammar_errors": 34,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-09.json",
-    "marks": 679,
-    "conflicts": 2,
+    "marks": 704,
+    "conflicts": 5,
     "resolved": 1,
-    "needs_medi": 0,
+    "needs_medi": 2,
     "mode": "on",
-    "items": []
+    "items": [
+     {
+      "id": "C1q-d9fee1e017",
+      "kind": "C1q",
+      "t": 1625.15,
+      "mmss": "27:05",
+      "line": "غادة؟",
+      "question": "Was «غادة» wrong here?",
+      "options": [
+       "wrong",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "غادة",
+       "word_key": "8ada"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "wrong",
+       "wrong": "غادة",
+       "fix": "غابة",
+       "bucket": null,
+       "signal": "recast"
+      },
+      "ask": "amal"
+     },
+     {
+      "id": "C1q-7f2bf8986d",
+      "kind": "C1q",
+      "t": 3563.54,
+      "mmss": "59:24",
+      "line": "And then، uh... لعب yeah",
+      "question": "Was «لعب» wrong here?",
+      "options": [
+       "wrong",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "لعب",
+       "word_key": "ana bal3ab"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "wrong",
+       "wrong": "لعب",
+       "fix": "لعبة",
+       "bucket": null,
+       "signal": "recast"
+      },
+      "ask": "amal"
+     }
+    ]
    },
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 57.8 %; 2 consecutive passes at >= 95 % are needed",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4236 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "reader agreement: pass 1 71.9 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4236 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
      "passes": [
       {
        "pass": 1,
-       "r1": 45,
-       "r2": 61,
-       "agreed": 37,
-       "disputed": 27,
-       "agreement_pct": 57.8
+       "r1": 47,
+       "r2": 53,
+       "agreed": 41,
+       "disputed": 16,
+       "agreement_pct": 71.9
       }
      ],
      "between": [],

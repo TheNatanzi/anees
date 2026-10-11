@@ -1,499 +1,260 @@
 {
  "date": "2026-10-09",
  "reader": "r3",
- "note": "Many disputed rows were his questions ('is it X or Y?') - dropped per the brief. Engine misheard: عادي=هادي (31:33), actor=أكتر (1:05), قبه=غابة, أمي possibly بطني (03:46). نانا for نعنع looks like a dropped ع (S4).",
+ "note": "13:24/13:48 مفضل vs مفضلة needs audio: engine wrote المفضل, Amal says she heard مفضلة. 23:05-23:32 and 1:05:03-1:05:24 are single prompt chains (one row each, the agreed one). A34 (1:01:51 على ثنتين) is only chat-backed for el-; her voice comment was about انتين - fine as grammar-B.",
  "rulings": [
   {
    "id": "D1",
    "verdict": "keep",
    "row": {
-    "id": "1009-r3-1",
-    "t": "06:53",
-    "t_amal": null,
-    "medi_said": "عشرة ألفين وستة عشر.",
-    "amal_said": "Nine, ten.",
     "chat": null,
-    "wrong": "ألفين وستة عشر",
-    "right": "ألفين وستة وعشرين",
-    "kind": "vocab-B",
-    "tier": 1,
-    "bucket": null,
     "bucket2": null,
     "mode": "speaking",
-    "signal": "none",
-    "confidence": "low",
-    "why": "Date answer for 2026 came out as 2016 (sitta 3ashar); she let it pass - may be the engine.",
-    "english": "October 2026"
+    "tier": null,
+    "bucket": "A2",
+    "id": "1009-r3-1",
+    "t": "08:39",
+    "t_amal": "08:42",
+    "medi_said": "الكلمات الطبيعات.",
+    "amal_said": "كلمات الطبيعة.",
+    "wrong": "الكلمات الطبيعات",
+    "right": "كلمات الطبيعة",
+    "kind": "grammar",
+    "signal": "recast",
+    "confidence": "high",
+    "why": "Right after her 08:38 fix كلمات he put el- on the first idafa word again; she recast كلمات الطبيعة - wrong again after her fix is its own slip (GR-32). The طبيعات plural is D2.",
+    "english": "nature words"
    },
-   "why": "Real if he said it; no voiced signal, so B with low confidence."
+   "why": "A2 fits the el- on الكلمات that she recast; the plural طبيعات is a separate lexical slip ruled in D2."
   },
   {
    "id": "D2",
    "verdict": "keep",
    "row": {
+    "chat": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "tier": 2,
+    "bucket": null,
     "id": "1009-r3-2",
     "t": "08:39",
-    "t_amal": "08:42",
+    "t_amal": "08:49",
     "medi_said": "الكلمات الطبيعات.",
-    "amal_said": "كلمات الطبيعة. ... لا، طبيعة just nature. ... Don't have plural of nature.",
-    "chat": null,
+    "amal_said": "لا، طبيعة just nature. ... Don't have plural of nature.",
     "wrong": "الطبيعات",
     "right": "الطبيعة",
     "kind": "vocab-A",
-    "tier": 2,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "recast",
+    "signal": "explicit-no",
     "confidence": "high",
-    "why": "After her كلمات he said it wrong again with an invented plural طبيعات; she recast كلمات الطبيعة and explained nature has no plural (the el-/idafa part is already agreed row A5 at 08:33).",
+    "why": "He invented a plural of طبيعة (sheet: nature | 6abee3a | طبيعة); she said لا, nature has no plural.",
     "english": "nature words"
    },
-   "why": "Second wrong try after her 08:38 fix = its own slip (GR-32); her voiced explanation is about the invented plural, so vocab tier 2; the A2 idafa part is A5."
+   "why": "Invented plural of a word he knows = vocab tier 2; she said لا and explained."
   },
   {
    "id": "D3",
-   "verdict": "drop",
-   "why": "Amal says at 16:17-16:27 she heard مفضلة and said it after him - engine wrote مفضل, gender slip not proven; the missing el- on بوظة is already agreed A7 (13:19)."
+   "verdict": "keep",
+   "row": {
+    "chat": "el-buza el-mufaddala 3indi",
+    "bucket2": null,
+    "mode": "speaking",
+    "tier": null,
+    "bucket": "A8",
+    "id": "1009-r3-3",
+    "t": "13:24",
+    "t_amal": null,
+    "medi_said": "بوظة حلوة المفضل عنـ عندي",
+    "amal_said": null,
+    "wrong": "المفضل",
+    "right": "المفضلة",
+    "kind": "grammar-B",
+    "signal": "none",
+    "confidence": "low",
+    "why": "Engine wrote المفضل (again at 13:48) for feminine بوظة; Amal said at 16:17 'I didn't hear you say مفضل' (she heard مفضلة), so no voiced fix - needs an audio check of which form he said.",
+    "english": "ice cream is my favorite"
+   },
+   "why": "One row for 13:24 + 13:48 (same phrase, first one kept). Low: Amal says she heard مفضلة, the engine wrote مفضل - audio decides."
   },
   {
    "id": "D4",
-   "verdict": "keep",
-   "row": {
-    "id": "1009-r3-3",
-    "t": "27:01",
-    "t_amal": "27:04",
-    "medi_said": "شو الكلمة لـ-لفظ؟",
-    "amal_said": "غابة.",
-    "chat": "8aabe = forest",
-    "wrong": "(did not know)",
-    "right": "غابة",
-    "kind": "vocab-A",
-    "tier": 0,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "asked",
-    "confidence": "high",
-    "why": "He asked for the word for forest and she supplied غابة (sheet: forest | 8aabe | غابة); his بعده/قبه right after are repeats of her new word with sound slips (S4), not a separate listening row.",
-    "english": "What is the word for forest?"
-   },
-   "why": "r1's reading fits: a didn't-know he asked for."
+   "verdict": "drop",
+   "why": "Same moment as agreed A12 (23:05 بحيرة تاني): her 23:13 'The other lake' was a prompt with no form; 23:25 is his next try in that chain and her 23:32 البحيرة الثانية is already A12's right. Duplicate of A12."
   },
   {
    "id": "D5",
    "verdict": "keep",
    "row": {
-    "id": "1009-r3-4",
-    "t": "38:30",
-    "t_amal": "38:32",
-    "medi_said": "So hadha ghair anwa.",
-    "amal_said": "شجر. That's types.",
-    "chat": "haada 8eir noa3 min el-shajar",
-    "wrong": "ghair anwa",
-    "right": "غير نوع من الشجر",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A9",
+    "chat": null,
     "bucket2": null,
     "mode": "speaking",
-    "signal": "recast",
-    "confidence": "low",
-    "why": "Right after she gave غير نوع he changed it to the plural anwa; she pointed out anwa is 'types' and the plural belongs on شجر (type stays نوع).",
-    "english": "That is a different type of trees"
+    "tier": null,
+    "bucket": "D2",
+    "id": "1009-r3-5",
+    "t": "28:56",
+    "t_amal": "29:08",
+    "medi_said": "أنا بروح أو أنا بروحها. ... أنا بروحها?",
+    "amal_said": "أنا بروح to. ... بروح عليها. I go to.",
+    "wrong": "بروحها",
+    "right": "بروح عليها",
+    "kind": "grammar",
+    "signal": "explicit-no",
+    "confidence": "medium",
+    "why": "راح takes على for 'go to' (بروح عليها); he put the pronoun on the verb, she said 'بروح to' and gave بروح عليها, he answered 'that's right'.",
+    "english": "the first one I go to"
    },
-   "why": "Wrong again after her 38:22 fix and she fixed again = own slip; grammar (number), not a didn't-know - he never asked for شجر."
+   "why": "Verb's fixed preposition (راح على) = D2; C10 is about a dangling preposition, which is not what happened. Like agreed A4 the guess was offered as a question but she voiced the fix."
   },
   {
    "id": "D6",
-   "verdict": "keep",
-   "row": {
-    "id": "1009-r3-5",
-    "t": "1:00:35",
-    "t_amal": "1:00:39",
-    "medi_said": "هذا loby الأول.",
-    "amal_said": "لعبتي. لعبتي.",
-    "chat": "haadi lu3beti el-oola / awal lu3be ili",
-    "wrong": "هذا loby الأول",
-    "right": "هذه لعبتي الأولى",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A4",
-    "bucket2": "A3",
-    "mode": "speaking",
-    "signal": "recast",
-    "confidence": "high",
-    "why": "'My game' on feminine لعبة is lu3beti (ending with the -t); she recast لعبتي twice and he then said هذه lobti الأولى.",
-    "english": "This is my first game"
-   },
-   "why": "Possessive ending is what she voiced (A4); the feminine -t is the second id. The هذا/الأول gender he fixed on his own after her prompt is folded in here."
+   "verdict": "drop",
+   "why": "1:06:04 is inside the 30 s repeat window of A37 (her ألعاب 1:06:01, his ألعاب 1:06:02); her reply starts أي أي أي (= yes) and اللعب is most likely the engine for الألعاب (el-al3aab), which he then says at 1:06:09. Repeat of A37 (GR-28/32), not a new slip; أكلب for أغلب is S4."
   },
   {
    "id": "D7",
    "verdict": "drop",
-   "why": "Same moment as D6; her voiced fix was only لعبتي - he changed هذا to هذه himself (and had said هذه at 1:00:18), so no separate voiced A10 slip."
+   "why": "Not an error: body part + بيوجع is Amal's own form (10-08 'هي راسها بيوجع'); بوجع vs بيوجع is S4. The real slip here (فمي for بطني) is agreed A1."
   },
   {
    "id": "D8",
-   "verdict": "keep",
-   "row": {
-    "id": "1009-r3-6",
-    "t": "1:05:07",
-    "t_amal": "1:05:24",
-    "medi_said": "actor آآآ ... بتيب سوت.",
-    "amal_said": "بتبسط أكتر، صح.",
-    "chat": "el-lu3be el-taanie btebse6 aktar",
-    "wrong": "actor ... بتبسط",
-    "right": "بتبسط أكتر",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "C3",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "recast",
-    "confidence": "medium",
-    "why": "He put aktar (engine: actor) before the verb; she recast بتبسط أكتر and he said 'actor always goes after'.",
-    "english": "is more fun"
-   },
-   "why": "Word-order slip separate from A30 (vocab أحسن); his own words confirm he took her order."
+   "verdict": "drop",
+   "why": "Duplicate of D3: the same بوظة المفضل عندي phrase said again at 13:48; one row, the first (13:24)."
   },
   {
    "id": "D9",
    "verdict": "keep",
    "row": {
-    "id": "1009-r3-7",
-    "t": "03:46",
-    "t_amal": "03:50",
-    "medi_said": "أمي بواجها.",
-    "amal_said": "تمك؟ ... Your mouth hurts? ... بطنك، شربت إشي؟",
     "chat": null,
-    "wrong": "أمي",
-    "right": "بطني",
-    "kind": "vocab-A",
-    "tier": 1,
-    "bucket": null,
     "bucket2": null,
     "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "low",
-    "why": "Engine wrote أمي; Amal heard تمي (my mouth) and asked 'Your mouth hurts?', he then said بطني (بتوني) and she said بطنك - could be his mispronounced بطني, so low.",
-    "english": "My stomach hurts"
+    "tier": 0,
+    "bucket": null,
+    "id": "1009-r3-9",
+    "t": "15:02",
+    "t_amal": "15:04",
+    "medi_said": "هدول الـ-- Is it مسلسلين؟",
+    "amal_said": "مسلسلات.",
+    "wrong": "مسلسلين",
+    "right": "مسلسلات",
+    "kind": "vocab-A",
+    "signal": "asked",
+    "confidence": "medium",
+    "why": "He stopped mid-sentence and asked for the plural of series; she supplied مسلسلات (didn't-know, tier 0).",
+    "english": "these series"
    },
-   "why": "Her 'Your mouth hurts?' shows she heard a different body word; cannot rule out S4 from text, kept low."
+   "why": "He asked and she supplied the form = didn't-know, vocab-A tier 0."
   },
   {
    "id": "D10",
-   "verdict": "drop",
-   "why": "A question ('is it أطلب لها؟') - neither a slip nor a use; he was checking the form."
+   "verdict": "keep",
+   "row": {
+    "chat": "el-jbaal el-mufaddalleen 3indi",
+    "bucket2": null,
+    "mode": "speaking",
+    "tier": null,
+    "bucket": "A9",
+    "id": "1009-r3-10",
+    "t": "18:57",
+    "t_amal": "19:04",
+    "medi_said": "المفضل is-- جبال is masculine, right?",
+    "amal_said": "مفضل بس جبال is mu-multiple.",
+    "wrong": "المفضل",
+    "right": "المفضلين",
+    "kind": "grammar",
+    "signal": "prompt-then-fix",
+    "confidence": "low",
+    "why": "He said المفضل for plural جبال (3 min after drilling المفضلين at 15:18); she pointed out جبال is plural and he then said المفضلين. Low: his line is half a question about gender.",
+    "english": "the mountains are my favorite"
+   },
+   "why": "Her 'جبال is multiple' prompted the plural ending he then produced = prompt-then-fix; low because he was partly asking."
   },
   {
    "id": "D11",
    "verdict": "drop",
-   "why": "Not an error: تنتين إلا عشرة as an answer to 'what time' needs no الساعة in speech, and she gave no signal."
+   "why": "Not a provable error: the line is cut off (إذا ما بـ- بتحب هـ-) and reads as a generic 'if you don't like' where masculine is normal; only her chat has bet7ebbi and chat alone is not a correction (GR-19)."
   },
   {
    "id": "D12",
    "verdict": "keep",
    "row": {
-    "id": "1009-r3-8",
-    "t": "09:44",
-    "t_amal": "09:45",
-    "medi_said": "آآآ، قارة. Yeah.",
-    "amal_said": "أرض.",
     "chat": null,
-    "wrong": "قارة",
-    "right": "أرض",
-    "kind": "vocab-A",
-    "tier": 0,
-    "bucket": null,
     "bucket2": null,
-    "mode": "speaking",
-    "signal": "asked",
+    "mode": "listening",
+    "tier": 1,
+    "bucket": null,
+    "id": "1009-r3-12",
+    "t": "27:05",
+    "t_amal": "27:09",
+    "medi_said": "غادة؟ غادة؟",
+    "amal_said": "غابة. B. B as in boy.",
+    "wrong": "غادة",
+    "right": "غابة",
+    "kind": "vocab-A",
+    "signal": "recast",
     "confidence": "medium",
-    "why": "Quiz for feminine nouns that sound masculine; he could not recall أرض and offered قارة, she supplied أرض.",
-    "english": "earth / land"
+    "why": "He repeated her new word غابة back as غادة twice; she spelled 'B as in boy', so the د was really heard, not just the engine.",
+    "english": "forest"
    },
-   "why": "A recall gap she filled = didn't-know, tier 0."
+   "why": "Real mishearing of her word (she spelled the letter to fix it); kept as mode listening, apart from speaking."
   },
   {
    "id": "D13",
    "verdict": "drop",
-   "why": "Almost surely أنا نسيت run together by the engine; no signal, not a wrong word."
+   "why": "Not a slip: Amal accepted it ('Yes، شجر'), 'Trees in general' explains the meaning, and he said 'min il shajar' himself at 39:06. Her chat el-shajar alone is not a correction."
   },
   {
    "id": "D14",
    "verdict": "keep",
    "row": {
-    "id": "1009-r3-9",
-    "t": "10:24",
-    "t_amal": "10:26",
-    "medi_said": "أنسيت.",
-    "amal_said": "هواء.",
-    "chat": null,
-    "wrong": "(did not know)",
-    "right": "هواء",
-    "kind": "vocab-A",
-    "tier": 0,
-    "bucket": null,
+    "chat": "min el-akel",
     "bucket2": null,
     "mode": "speaking",
-    "signal": "asked",
-    "confidence": "high",
-    "why": "He said he forgot the word asked for (sounds feminine, is masculine); she supplied هواء and he said 'That's right'.",
-    "english": "air / wind"
+    "tier": null,
+    "bucket": "D5",
+    "id": "1009-r3-14",
+    "t": "45:25",
+    "t_amal": "45:27",
+    "medi_said": "أنواع من، ... is just أكل؟ ... إلا أكل.",
+    "amal_said": "مم، الأكل.",
+    "wrong": "أكل",
+    "right": "الأكل",
+    "kind": "grammar",
+    "signal": "recast",
+    "confidence": "medium",
+    "why": "Building أنواع من أكل he left el- off food in general after من; she recast الأكل. Medium: his line is partly a question about the plural.",
+    "english": "types of food"
    },
-   "why": "Didn't-know, tier 0."
+   "why": "Her الأكل added the el- that food-in-general keeps after من (D5); he dropped it again at 47:16 (agreed A27), a separate slip after her fix."
   },
   {
    "id": "D15",
    "verdict": "keep",
    "row": {
-    "id": "1009-r3-10",
-    "t": "23:25",
-    "t_amal": "23:32",
-    "medi_said": "So بحيرة التانية.",
-    "amal_said": "البحيرة الثانية.",
     "chat": null,
-    "wrong": "بحيرة التانية",
-    "right": "البحيرة التانية",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A14",
     "bucket2": null,
     "mode": "speaking",
+    "tier": 2,
+    "bucket": null,
+    "id": "1009-r3-15",
+    "t": "59:24",
+    "t_amal": "59:24",
+    "medi_said": "And then، uh... لعب yeah",
+    "amal_said": "Ocean game, or I already said it, it's لعبة.",
+    "wrong": "لعب",
+    "right": "لعبة",
+    "kind": "vocab-A",
     "signal": "recast",
-    "confidence": "high",
-    "why": "After her 'The other lake' prompt on بحيرة تاني (A12) he still left el- off the noun; she recast البحيرة الثانية and he said 'Oh, that's right'.",
-    "english": "the other lake"
+    "confidence": "low",
+    "why": "He used لعب for 'game'; she said 'it's لعبة' (sheet: game | Lu3beh | لعبة). Low: lines overlap at 59:24.",
+    "english": "game"
    },
-   "why": "Wrong again after her prompt and she fixed again = own slip (GR-32)."
+   "why": "Her voiced 'it's لعبة' fixes his form of a sheet word = tier 2."
   },
   {
    "id": "D16",
-   "verdict": "keep",
-   "row": {
-    "id": "1009-r3-11",
-    "t": "25:53",
-    "t_amal": null,
-    "medi_said": "إذا ما بتحب في هذه الشاطئ،",
-    "amal_said": null,
-    "chat": "iza ma bet7ebbi hada el-sha66",
-    "wrong": "بتحب في",
-    "right": "بتحبي",
-    "kind": "grammar-B",
-    "tier": null,
-    "bucket": "D2",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "none",
-    "confidence": "low",
-    "why": "حب takes a direct object (no في) and addressing her needs -i; her chat drops both but nothing voiced (GR-19); في may be a restart toward في هذا الشاطئ.",
-    "english": "If you don't like this beach"
-   },
-   "why": "Plausible let-pass; low because في may be a restart."
-  },
-  {
-   "id": "D17",
    "verdict": "drop",
-   "why": "Duplicate of D4 (same 27:01 'what is the word for forest' -> غابة)."
-  },
-  {
-   "id": "D18",
-   "verdict": "drop",
-   "why": "A question ('أنا بروح أو أنا بروحها?') - he was asking which form, neither a slip nor a use."
-  },
-  {
-   "id": "D19",
-   "verdict": "keep",
-   "row": {
-    "id": "1009-r3-12",
-    "t": "31:33",
-    "t_amal": "31:37",
-    "medi_said": "So، عادي نفس الـ--",
-    "amal_said": "هذي or هادا؟",
-    "chat": null,
-    "wrong": "هادي (engine: عادي)",
-    "right": "هذا نفس المنظر",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A10",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "medium",
-    "why": "Engine wrote عادي; her 'هذي or هادا?' shows she heard هادي for masculine منظر, and he then said هذا نفس المنظر.",
-    "english": "This is the same view"
-   },
-   "why": "Her question is a voiced prompt on the demonstrative; fixed on her prompt."
-  },
-  {
-   "id": "D20",
-   "verdict": "drop",
-   "why": "He said جبت لك first and then asked 'جبتك أو لك؟' - a question, and his first form was right."
-  },
-  {
-   "id": "D21",
-   "verdict": "drop",
-   "why": "A question about meaning ('wouldn't it be il nu'il mukhtalif?') right after A18's fix; she answered it - neither slip nor use."
-  },
-  {
-   "id": "D22",
-   "verdict": "keep",
-   "row": {
-    "id": "1009-r3-13",
-    "t": "47:41",
-    "t_amal": "47:42",
-    "medi_said": "ورقة.",
-    "amal_said": "What a is one word multiple or شُ؟ (engine: ورق)",
-    "chat": null,
-    "wrong": "ورقة",
-    "right": "ورق",
-    "kind": "vocab-A",
-    "tier": 2,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "medium",
-    "why": "Asked for 'leaves' (plural) he gave singular ورقة and then called it multiple; she explained ورق is the general plural (sheet: leaf / paper | wara2a).",
-    "english": "leaves"
-   },
-   "why": "Wrong form of a word he knows (singular for the collective), fixed by her."
-  },
-  {
-   "id": "D23",
-   "verdict": "keep",
-   "row": {
-    "id": "1009-r3-14",
-    "t": "54:48",
-    "t_amal": "54:52",
-    "medi_said": "Asila asiliti.",
-    "amal_said": "ٱسْأِلْتِ.",
-    "chat": "a8lab as2ilti muhemmeen",
-    "wrong": "asiliti",
-    "right": "أسئلتي",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A4",
-    "bucket2": "A3",
-    "mode": "speaking",
-    "signal": "recast",
-    "confidence": "low",
-    "why": "'My questions' on feminine plural أسئلة is as2ilti; she recast it at 54:52 and again at 55:12 after his asileti, then he said asilti - may be partly vowel shape (S4), so low.",
-    "english": "my questions"
-   },
-   "why": "She recast twice; kept low because the gap is mostly a vowel."
-  },
-  {
-   "id": "D24",
-   "verdict": "keep",
-   "row": {
-    "id": "1009-r3-15",
-    "t": "57:02",
-    "t_amal": "57:04",
-    "medi_said": "Was it vaze?",
-    "amal_said": "واضح.",
-    "chat": null,
-    "wrong": "vaze",
-    "right": "واضح",
-    "kind": "vocab-A",
-    "tier": 0,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "asked",
-    "confidence": "medium",
-    "why": "She asked if he remembered 'clear'; he guessed the Persian vaze and she supplied واضح.",
-    "english": "clear"
-   },
-   "why": "Recall gap she filled = tier 0."
-  },
-  {
-   "id": "D25",
-   "verdict": "keep",
-   "row": {
-    "id": "1009-r3-16",
-    "t": "59:56",
-    "t_amal": "1:00:02",
-    "medi_said": "أول beginning would be-- Yeah, أول لعبة.",
-    "amal_said": "Mm-hmm.",
-    "chat": "awal el-lu3be",
-    "wrong": "أول لعبة",
-    "right": "أول اللعبة",
-    "kind": "grammar-B",
-    "tier": null,
-    "bucket": "A13",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "none",
-    "confidence": "medium",
-    "why": "'At the beginning of the game' is awal + el- + noun; she said Mm-hmm and only her chat has awal el-lu3be (GR-19); he says أول لعبة again at 1:02:16.",
-    "english": "the beginning of the game"
-   },
-   "why": "Real A13 error; not voiced, so B."
-  },
-  {
-   "id": "D26",
-   "verdict": "keep",
-   "row": {
-    "id": "1009-r3-17",
-    "t": "1:01:51",
-    "t_amal": "1:01:53",
-    "medi_said": "على اثنتين.",
-    "amal_said": "قلت انتين، بس very good.",
-    "chat": "awal lu3be 3ala el-tentain",
-    "wrong": "على اثنتين",
-    "right": "على التنتين",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "E2",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "medium",
-    "why": "She pointed at his clock-time form ('you said itnatain') and he said على الـاثنتين; her chat has 3ala el-tentain.",
-    "english": "at two"
-   },
-   "why": "Voiced prompt and his fix right after."
-  },
-  {
-   "id": "D27",
-   "verdict": "keep",
-   "row": {
-    "id": "1009-r3-18",
-    "t": "1:09:21",
-    "t_amal": "1:09:27",
-    "medi_said": "كان بتزهر.",
-    "amal_said": "آخر. I'm talking about the end of the game, not the game itself.",
-    "chat": "aa5er el-lu3be kaan beyzahhe2",
-    "wrong": "بتزهر",
-    "right": "بيزهّق",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "B18",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "named-rule",
-    "confidence": "medium",
-    "why": "After her 1:09:15 fix كان بيزهق he took the masculine كان but kept the feminine verb بتزهر; she explained again that آخر (masculine) is the subject.",
-    "english": "was boring"
-   },
-   "why": "Wrong again after her fix and she fixed again = own slip (GR-32)."
+   "why": "Same moment as agreed A36 (أحسن -> بتبسط أكتر, 1:05:03): he was building the phrase her 1:05:05 'more fun' prompted, with long pauses, and she answered 'بتبسط أكتر، صح' (right). Duplicate of A36."
   }
  ],
  "added": [],
- "challenges": [
-  {
-   "id": "A3",
-   "why": "نانا for نعنع is نعنع with the ع dropped (na'na -> nana): S4 pronunciation, not a wrong word."
-  },
-  {
-   "id": "A26",
-   "why": "'Come on, what else?' reads as asking for the other way to say it, not a correction; she then says there are no strict rules here - ورقة كمان may be accepted."
-  },
-  {
-   "id": "A15",
-   "why": "He was building the sentence word by word and she supplied أي; may be help on the way rather than a slip."
-  }
- ]
+ "challenges": []
 }
