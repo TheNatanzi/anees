@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-11T00:55:22-07:00",
+ "updated": "2026-10-11T01:07:58-07:00",
  "result": "pass",
- "source": "overnight: fast review mode, stall alarm, lean protocol, 10-09 second listen",
- "checked_commit": "5a38507c72b5",
- "secs": 118.8,
+ "source": "manual: 10-09 exam frozen",
+ "checked_commit": "8774676a8e0a",
+ "secs": 119.7,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.2,
+   "secs": 1.3,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "146 JSON files parse"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.8,
+   "secs": 3.0,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.2,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 2.0,
+   "secs": 2.1,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 743 checks"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.6,
+   "secs": 5.5,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 72 pages, every link, data file and clip resolves (2 references to unpublished clips play from the full lesson recording)"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 87.3,
+   "secs": 87.6,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "................... [ 96%] | ..............................                                           [100%] | 818 passed, 1 skipped, 3 xfailed in 85.02s (0:01:25)"
+   "detail": "................... [ 96%] | ..............................                                           [100%] | 818 passed, 1 skipped, 3 xfailed in 83.64s (0:01:23)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 5.7,
+   "secs": 5.6,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5668.8952"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5538.3686"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.8,
+   "secs": 5.7,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -161,7 +161,7 @@
    "id": "data_freshness",
    "required": false,
    "ok": false,
-   "secs": 0.0,
+   "secs": 0.5,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
    "detail": "lesson 2026-10-10 transcribed 10-10 15:17 but not on the site (not in lessons.json); Amal's answers last checked 24 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
   },
