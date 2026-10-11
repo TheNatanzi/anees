@@ -450,3 +450,22 @@ Changes made from the objections (real flaws):
 1. Exam lessons: the review mode shows the unsure lines FIRST, then the confident ones; "unsure only" stays on by default but ends with a card "For the grade book, the confident lines too: M more, about K min". The grade book grades a lesson only when every Arabic line of his was answered (coverage), else "partial review, not graded" (PG-46).
 2. Every answer leaves a row, key 1 included (a 'reviewed' row that changes nothing), so coverage is provable.
 3. Key error rate: 15 moments per exam, POOLED across exam lessons; a pipeline difference is reportable only above the pooled bar.
+
+### Codex round 1 (codex exec -m gpt-5.5, read-only, full diff vs the brief + RULES.md): CHANGES REQUIRED
+| Finding | Severity | Done |
+|---|---|---|
+| hourly_lessons.py: the first-publish freeze was committed AFTER the guarded push, so it reached master one publish late | BLOCKING | fixed: frozen and committed right before the push, re-written while the lesson is not yet on master, never after (test rewritten with a blocked push + rebuild) |
+| review-mode.js: Enter / → moved on without an answer, so following the hint left lines unanswered and the lesson ungraded | BLOCKING | fixed: Enter on an unanswered line = "heard right" (key 1), on an answered line = next; → is "Skip" and says a skipped line keeps the lesson out of the grade book (node test + browser check on 10-09) |
+| build_lessons_page_data.py swallows a review_picker failure | NON-BLOCKING | kept: blocking a publish on the review list would re-create the stall PR-24 exists for; the Review button says "No review list for this lesson yet (built within the hour)" and the next hourly build retries |
+
+### Council round 2 (same five advisors, on the built design + measured numbers)
+Numbers in front of them: 10-08 = 200 Arabic lines -> tier 1 unsure 73 (~21 min), all lines ~54 min; 10-09 = 222 -> tier 1 91, all ~82 min (estimate: 8 s a decision + the clip; to be replaced by his measured seconds). Today: hours per lesson, every lesson.
+| Advisor | Verdict | Remaining objection |
+|---|---|---|
+| Strategic | approve | 1 lesson in 3 at ~1 h = about 20 min a lesson on average, vs hours on every lesson |
+| Skeptic | approve | the coverage rule + Enter = answer close the hole; still watch for "Enter-mashing" (a fast run of 1s with no listening): the per-line seconds will show it, flag lines under 3 s in the grade book later |
+| Creative | approve | tier 2 (the second listen changed it, 2 of 3 agree) is the best place to look for FCR: keep it before the confident lines |
+| Evidence | approve | pooled 15-moment key error rate is honest; the estimate is not a measurement until his first session |
+| Medi-focused | approve | one key per line + auto clip fits; the 82 min of 10-09 should be offered in two sittings (resume starts at the first unanswered line: built) |
+
+Chairman verdict: **APPROVE** · confidence **7/10** (8+ once his first real session is timed under ~60 min for an exam lesson).

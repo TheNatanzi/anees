@@ -75,7 +75,7 @@ def rebuild(base, runs):
         for i in free:
             c = calls[i]
             try:
-                if abs(float(c.get('usd') or 0) - pc['usd']) < TOL_USD and abs((_ts(c['t']) - pc['utc']).total_seconds()) < TOL_H * 3600:
+                if c.get('service') == pc['service'] and abs(float(c.get('usd') or 0) - pc['usd']) < TOL_USD and abs((_ts(c['t']) - pc['utc']).total_seconds()) < TOL_H * 3600:
                     hit = i
                     break
             except Exception:

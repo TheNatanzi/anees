@@ -513,6 +513,10 @@ def test_budget_rebuild_recomputes_the_totals_from_the_run_log():
     assert out['gemini'] == 0.75 and out['anthropic'] == 0.3 and out['elevenlabs'] == 1.0 and out['openai'] == 0.0
     assert any('b2' in c['what'] for c in out['calls'])
     assert B.rebuild(out, runs) == out                                         # idempotent
+    # Codex review 2026-10-11: a call of ANOTHER service with the same cost and time never stands in for a run line
+    other = B.rebuild({'calls': [{'t': '2026-10-10T10:00:00', 'service': 'elevenlabs', 'usd': 0.4, 'what': 'scribe'}]},
+                      [json.loads(_run_line('context.listen', 'google', 0.4, '2026-10-10T17:00:00Z', 'f6'))])
+    assert other['gemini'] == 0.4 and other['elevenlabs'] == 0.4 and len(other['calls']) == 2
 
 
 def test_real_git_a_budget_json_conflict_keeps_master_and_rebuilds_from_the_run_logs(tmp_path, monkeypatch):

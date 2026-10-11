@@ -286,8 +286,8 @@ def coverage_of(lines, rows):
     return sum(1 for a, b in lines if any(a - 0.6 <= t <= b + 0.6 for t in ts)), len(lines)
 
 
-def freeze(date, repo=REPO, log=print):
-    rv = next((r for r in J(REVIEWS_P, {}).get("reviews", []) if r["date"] == date), None)
+def freeze(date, repo=REPO, log=print, rv=None):
+    rv = rv or next((r for r in J(REVIEWS_P, {}).get("reviews", []) if r["date"] == date), None)
     first, first_sha = first_publish(date)            # protocol §2.1: the page as first published, frozen at that publish
     if not rv and first is not None and date in fast_rows():
         rv = {"date": date, "full": True, "before_commit": None, "key_commit": None}   # a fast review lists itself
@@ -339,6 +339,15 @@ def build(repo=REPO, corrections=None, reviews=None, pick_dir=None):
                 continue
         if rv.get("full"):
             snap = J(snap_path(rv["date"]))
+            if not snap and rv["date"] in fast and first_publish(rv["date"])[0] is not None:
+                # a fast review that reached every line freezes its own key (Codex review 2026-10-11): before = the first
+                # publish, key = today's page with his rows applied; an audit after it is re-frozen on purpose (freeze)
+                try:
+                    freeze(rv["date"], repo, log=lambda *a: None,
+                           rv={"date": rv["date"], "full": True, "before_commit": None, "key_commit": None})
+                    snap = J(snap_path(rv["date"]))
+                except SystemExit:
+                    snap = None
             if not snap:
                 row["status"] = "no answer key frozen yet"
             else:

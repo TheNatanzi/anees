@@ -68,7 +68,7 @@ Pipeline Test Plan) are claude.ai artifacts linked from the 2026-10-10 chat. The
    that is reportable.
 4. Ownership of the key: Medi's lines and what HE said = Medi. Amal's lines, and whether a tutor line was a
    correction = Amal (30-50 moments on her portal, blind). Do not average the two; score each field against its owner.
-5. `key_commit` = the page after the review + the audit that applied it. Freeze. The exam is now closed: no rule
+5. `key_commit` = the page after the review + the audit that applied it. Freeze. (A fast review that reached every line freezes its key by itself in the hourly build; after the audit, re-freeze on purpose: `python scripts/review_grades.py freeze <date>`.) The exam is now closed: no rule
    gets tuned on it. The NEXT reviewed lesson is the next exam.
 
 ## 3. The scores (every setup, every lesson, always paired)

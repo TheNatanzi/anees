@@ -16,7 +16,7 @@
   // PG-50 fast review mode: his measured minutes and the share of his Arabic lines he answered (null = not reviewed that way)
   function timeCov(r) {
     const bits = [];
-    if (r.minutes_medi !== null && r.minutes_medi !== undefined) bits.push(`${esc(r.minutes_medi)} min of Medi's time`);
+    if (r.minutes_medi !== null && r.minutes_medi !== undefined) bits.push(`${esc(r.minutes_medi)} min of the student's time`);
     if (r.coverage_medi !== null && r.coverage_medi !== undefined) bits.push(`${esc(r.lines_checked)} of ${esc(r.lines_total)} lines checked (${pct(100 * r.coverage_medi)})`);
     return bits.length ? `<div class="ab-tiny rg-time">${bits.join(' · ')}</div>` : '';
   }

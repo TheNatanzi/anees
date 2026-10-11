@@ -114,10 +114,31 @@ def test_minutes_and_coverage_of_a_fast_review(tmp_path, monkeypatch):
     assert RG.minutes_of([]) is None and RG.is_fast(_fast("x", 1, 1, kind="text")) and not RG.is_fast(rows[-1])
 
 
+def test_a_complete_fast_review_freezes_its_own_key(tmp_path, monkeypatch):
+    """Codex review 2026-10-11: a fast review that reached every line (coverage 1.0) is graded without a hand step: the
+    build freezes its key (before = the first publish, key = today's page with his rows), instead of 'no answer key'."""
+    monkeypatch.setattr(RG, "DIR", str(tmp_path))
+    monkeypatch.setattr(RG, "REVIEWS_P", str(tmp_path / "reviews.json"))
+    pick = tmp_path / "pick"
+    pick.mkdir()
+    (pick / "2026-10-13.json").write_text(json.dumps({"lines": [{"t": 5.0, "end": 6.0}, {"t": 8.0, "end": 9.0}]}), encoding="utf-8")
+    (tmp_path / "2026-10-13.first.json").write_text(json.dumps({"date": "2026-10-13", "sha": "firstsha", "page": {"tag": "first"}}), encoding="utf-8")
+    monkeypatch.setattr(RG, "page_at", lambda commit, date, repo=RG.REPO: {"tag": "today"})
+    monkeypatch.setattr(RG, "snapshot", lambda d, date: {"from": d.get("tag")})
+    monkeypatch.setattr(RG, "grade", lambda ver, key: {"from": ver.get("from"), "tracked_pct": 100.0, "per_100": 0.0, "list": []})
+    rows = [_fast("2026-10-13", 5.0, 60), _fast("2026-10-13", 8.0, 60, kind="vocab")]
+    out = RG.build(corrections=rows, reviews=[], pick_dir=str(pick))
+    snap = json.load(open(RG.snap_path("2026-10-13"), encoding="utf-8"))
+    assert snap["before"] == {"from": "first"} and snap["before_commit"] == "firstsha" and snap["key"] == {"from": "today"}
+    row = {r["date"]: r for r in out["lessons"]}["2026-10-13"]
+    assert row["status"] == "graded" and row["coverage_medi"] == 1.0 and row["before"]["from"] == "first"
+
+
 def test_grades_tab_says_drift_and_shows_minutes_and_coverage():
     js = open(os.path.join(REPO, "docs", "js", "review-grades.js"), encoding="utf-8").read()
     assert "today's page vs the key: a regression check only, never an accuracy score" in js
     assert ">Today<" not in js and "Words tracked today" not in js and "Drift" in js
     assert "minutes_medi" in js and "coverage_medi" in js
+    assert "Medi's time" not in js and "the student's time" in js        # PG-33: the student, never his name, on screen
     built = json.load(open(RG.OUT_P, encoding="utf-8"))
     assert all("minutes_medi" in r and "coverage_medi" in r for r in built["lessons"])
