@@ -245,3 +245,48 @@
 /* PG-49 (Medi 2026-10-10 "can you add a play icon here to make it more clear its audio"): the time under the speaker plays
    the lesson from there - a small ▶ in front says so (inline-block, so the dotted underline stays on the time only). */
 #anees-bank button.ls-time::before{content:"\25B6";display:inline-block;font-size:9px;margin-right:4px;vertical-align:1px;text-decoration:none}
+/* PG-50 fast review mode (docs/js/review-mode.js): one Student line at a time, big keys, the PG-31 phone bar hidden */
+#anees-bank .rv-bar{margin:0 0 8px}
+#anees-bank .rv-open{font-weight:600;border-color:var(--ab-accent);color:var(--ab-accent)}
+#anees-bank .rv-box{position:fixed;inset:0;z-index:60;overflow:auto;background:var(--ab-bg);padding:16px max(16px,calc(50vw - 380px)) 24px;display:flex;flex-direction:column;gap:12px}
+#anees-bank .rv-head{display:grid;gap:8px}
+#anees-bank .rv-title{font-family:var(--sabz-font-serif);font-size:18px}
+#anees-bank .rv-stat{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px}
+#anees-bank .rv-count{font-size:16px;font-variant-numeric:tabular-nums}
+#anees-bank .rv-timer{font-variant-numeric:tabular-nums;color:var(--ab-muted)}
+#anees-bank .rv-timer::before{content:"\23F1  "}
+#anees-bank .rv-toggle{display:inline-flex;gap:4px;align-items:center}
+#anees-bank .rv-progress{height:6px;border-radius:3px;background:var(--ab-raised);overflow:hidden}
+#anees-bank .rv-progress i{display:block;height:100%;background:var(--ab-accent)}
+#anees-bank .rv-card{--who:var(--ls-medi);background:color-mix(in srgb,var(--ls-medi) 9%,var(--ab-panel));border-left:4px solid var(--ls-medi);border-radius:8px;padding:14px;display:grid;gap:8px}
+#anees-bank .rv-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px}
+#anees-bank .rv-time{font-variant-numeric:tabular-nums;color:var(--ab-muted)}
+#anees-bank .rv-yours{font-size:11px;color:var(--ab-accent)}
+#anees-bank .rv-line .gc-latin{font-size:22px;line-height:1.35}
+#anees-bank .rv-line .gc-arabic{font-size:16px;color:var(--ab-muted)}
+#anees-bank .rv-en{font-size:14px}
+#anees-bank .rv-engine{margin-top:0}
+#anees-bank .rv-blind{font-size:11px;color:var(--ab-muted);border:1px dashed var(--ab-line);border-radius:6px;padding:6px 8px}
+#anees-bank .rv-why{margin-top:0}
+#anees-bank .rv-keys{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#anees-bank .rv-key{min-height:56px;border:1px solid var(--ab-line);border-radius:10px;background:var(--ab-panel);font-size:15px;font-weight:600;padding:8px}
+#anees-bank .rv-key:hover{border-color:var(--ab-accent)}
+#anees-bank .rv-k1{border-color:var(--ab-green)}#anees-bank .rv-k2{border-color:var(--ab-orange)}#anees-bank .rv-k3{border-color:var(--ab-red)}
+#anees-bank .rv-primary{background:var(--ab-accent);color:var(--ab-bg);border-color:var(--ab-accent)}
+#anees-bank .rv-nav,#anees-bank .rv-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#anees-bank .rv-small{min-height:44px;border:1px solid var(--ab-line);border-radius:6px;background:var(--ab-panel);padding:6px 10px;font-size:12px}
+#anees-bank .rv-hint{margin-top:0}
+#anees-bank .rv-panel{display:grid;gap:8px;border-top:1px solid var(--ab-line);padding-top:10px}
+#anees-bank .rv-panel input{font-size:18px;padding:10px;border:1px solid var(--ab-accent);border-radius:8px;background:var(--ab-panel)}
+#anees-bank .rv-q{font-weight:600}
+#anees-bank .rv-endtext{font-size:17px;margin:0}
+#anees-bank .rv-chips .tm-chip{cursor:default}
+body.rv-on{overflow:hidden}
+body.rv-on .pn-bar,body.rv-on #ls-dock{display:none!important}
+@media(max-width:680px){
+ #anees-bank .rv-box{padding:12px 16px 210px}
+ #anees-bank .rv-hint{display:none}
+ #anees-bank .rv-keys{position:fixed;left:0;right:0;bottom:0;z-index:61;grid-template-columns:1fr 1fr;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--ab-bg);border-top:1px solid var(--ab-line)}
+ #anees-bank .rv-key{min-height:64px;font-size:16px}
+ #anees-bank .rv-line .gc-latin{font-size:20px}
+}

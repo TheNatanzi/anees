@@ -1378,6 +1378,13 @@ def build():
            "definitions": DEFINITIONS, **({"method_change": method_change()} if method_change() else {}), "lessons": lessons}
     with open(os.path.join(DOCS, "data", "lessons.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
+    # PG-50 fast review mode: which of his lines to review first (docs/data/review-pick/<date>.json); display only, so a
+    # picker failure never breaks the build
+    try:
+        import review_picker
+        review_picker.run_all()
+    except Exception as e:  # noqa: BLE001 - fail open by design
+        print("review_picker: skipped (%s: %s)" % (type(e).__name__, str(e)[:160]))
     # release layer (Medi 2026-09-27): reader agreement, source coverage, checks, grammar denominator -> verified or not,
     # with the reasons; lessons.json gains release / coverage_by_person / eligible-excluded-pending (scripts/accuracy_gates.py)
     sys.path.insert(0, HERE)

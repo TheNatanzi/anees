@@ -692,6 +692,14 @@ function transcript(body, x) {
     });
     if (!shown) list.appendChild(el('div', 'gc-empty', 'No line in this lesson has that mark.'));
   }
+  // PG-50 fast review mode (docs/js/review-mode.js): his Arabic lines one at a time, unsure first, keys 1-4
+  if (window.AneesReview) {
+    var rv = el('div', 'ab-chips rv-bar');
+    rv.appendChild(window.AneesReview.button(x, { speech: speech, play: function (src, from, label) { playAnchor = null; play(src, from, label); },
+      lessonAudio: lessonAudio, prettyDate: prettyDate, mmss: mmss, toArabizi: function () { return toArabizi; },
+      chip: function (xx, c) { var b = chipButton(xx, null, c); b.tabIndex = -1; return b; }, redraw: function () { draw(); } }));
+    body.insertBefore(rv, body.firstChild);
+  }
   draw();
   body.appendChild(list);
   if (AC) AC.mountLesson(body, x);
@@ -765,6 +773,15 @@ function tmRow(x, t, m, i) {
   var chips = el('div', 'tm-chips');
   (m.c || []).forEach(function (c) {
     if (c.hide) return;                                   // PG-39: one chip per word (the others are listed on it)
+    chips.appendChild(chipButton(x, t, c));
+  });
+  main.appendChild(chips);
+  r.appendChild(main);
+  return r;
+}
+// One chip button (PG-39), shared by the transcript and the fast review mode (PG-50, docs/js/review-mode.js)
+function chipButton(x, t, c) {
+    var TMK = window.AneesTranscriptMarks;
     var v = TMK.chipModel(c, toArabizi);
     var b = el('button', 'tm-chip tm-' + c.s);
     b.type = 'button';
@@ -782,11 +799,7 @@ function tmRow(x, t, m, i) {
     // PR-15: a chip he corrected shows it at once (the number moves on the 15-minute rebuild)
     var AC = window.AneesCorrections, mine = AC ? AC.chipRows(x.date, c, t) : [];
     if (mine.length) { b.classList.add('tc-chip-yours'); b.appendChild(el('span', 'tc-chip-note', ' · ✎ you: ' + AC.label(mine[mine.length - 1]))); }
-    chips.appendChild(b);
-  });
-  main.appendChild(chips);
-  r.appendChild(main);
-  return r;
+    return b;
 }
 // Tap a chip or an underlined word: its detail opens under the line, and the linked line (his ✗ <-> her fix) is
 // highlighted and brought into view.

@@ -569,5 +569,6 @@ function label(r) {
 }
 
 root.AneesCorrections = Object.assign(api, { setup: setup, decorate: decorate, chipActions: chipActions, wordTap: wordTap, mountLesson: mountLesson,
-  rowsFor: rowsFor, lineRows: lineRows, chipRows: chipRows, label: label, statusText: statusText, sync: sync });
+  rowsFor: rowsFor, lineRows: lineRows, chipRows: chipRows, label: label, statusText: statusText, sync: sync,
+  enqueueRow: enqueue });   // PG-50 fast review mode (docs/js/review-mode.js) writes its rows through the same queue
 })(this);

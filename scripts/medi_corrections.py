@@ -48,6 +48,16 @@ BURST_S = 600           # PR-19 (Medi 2026-10-09): ...only when they were writte
                         # a fresh checkout pulled his 58 rows on 10-08 (54 minutes of typing) at once and held them for good
 YES_MAX = 15            # council 3: "Make it a rule" is disabled when it would change more than this
 VOICED = {"recast", "explicit-no", "prompt-then-fix", "named-rule", "finished-sentence"}
+# PG-50 fast review mode (docs/js/review-mode.js): every line he answers leaves a trace, also "heard right" (key 1), so the
+# grade book knows which lines he checked. The trace is a 'rule-answer' row with proposal "review:fast" (or
+# "review:relisten") and answer 'one': the table already accepts it (migration 024 kinds), no proposal ever has that id,
+# so it changes nothing; it is kept in the mirror and never counts toward the burst hold (one row a line, ~8 s apart).
+REVIEW_PROPOSALS = ("review:fast", "review:relisten")
+
+
+def review_trace(r):
+    """True for a fast-review trace row (PG-50): kept in the mirror, applied nowhere, not counted for the hold."""
+    return isinstance(r, dict) and r.get("kind") == "rule-answer" and r.get("proposal") in REVIEW_PROPOSALS
 
 
 def J(p, default=None):
@@ -192,7 +202,8 @@ def pull(path=OUT, fetch=None, dates=None, quar=QUAR_P, log=print):
     if release:
         out["released"] = len(release)
     fresh = [r for r in new if r.get("id") not in release]
-    if len(fresh) > HOLD_OVER and not bulk_ok and not human_paced(fresh):
+    real = [r for r in fresh if not review_trace(r)]       # PG-50: the review traces never make a burst
+    if len(real) > HOLD_OVER and not bulk_ok and not human_paced(real):
         for r in fresh:
             if r.get("id") not in qids:
                 Q["rows"].append({"row": r, "why": "held: %d new rows in one pull (more than %d) written within %d min; set ANEES_CORRECTIONS_BULK_OK=1 after a look" % (len(fresh), HOLD_OVER, BURST_S // 60)})
