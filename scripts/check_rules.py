@@ -422,6 +422,10 @@ def check_ai_logged(root, raw):
 def check_ai_model(root, raw):
     """Every claude inference run records the model that answered; a pinned run must be answered by the pinned model."""
     bad, n = [], 0
+    # data/runs/exempt.json (hand-made, append-only): a run line a person exempted, by run_id, with the reason. The run log
+    # itself is never edited (Medi 2026-10-11 'exmpt': one debug call asked for the alias 'haiku').
+    xp = root / "data" / "runs" / "exempt.json"
+    ex = {e.get("run_id") for e in (J(xp) if xp.exists() else {}).get("runs", []) if e.get("reason")}
     for rp in sorted((root / "data" / "runs").glob("*.jsonl")):
         for line in open(rp, encoding="utf-8"):
             try:
@@ -429,6 +433,8 @@ def check_ai_model(root, raw):
             except Exception:
                 continue
             if r.get("kind") != "inference" or r.get("gen_ai.provider.name") != "anthropic" or r.get("status") != "ok":
+                continue
+            if r.get("run_id") in ex:
                 continue
             n += 1
             req, resp = r.get("gen_ai.request.model"), r.get("gen_ai.response.model")

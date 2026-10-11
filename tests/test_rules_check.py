@@ -199,6 +199,11 @@ def test_claude_run_must_log_its_model_and_match_the_pin(tmp_path):
     w(tmp_path / "data" / "runs" / "2026-09.jsonl", json.dumps(dict(base, **{"gen_ai.request.model": None,
                                                                            "gen_ai.response.model": None})) + "\n")
     assert cr.check_ai_model(tmp_path, None)["status"] == "fail"
+    # Medi 2026-10-11 'exmpt': a run a person exempted by run_id with a reason is skipped; the run log stays as it is
+    w(tmp_path / "data" / "runs" / "exempt.json", json.dumps({"runs": [{"run_id": "r", "reason": "debug alias call"}]}))
+    assert cr.check_ai_model(tmp_path, None)["status"] == "pass"
+    w(tmp_path / "data" / "runs" / "exempt.json", json.dumps({"runs": [{"run_id": "r"}]}))       # no reason: not exempt
+    assert cr.check_ai_model(tmp_path, None)["status"] == "fail"
 
 
 def test_paid_call_without_a_run_line_fails(tmp_path):
