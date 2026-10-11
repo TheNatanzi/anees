@@ -320,7 +320,13 @@ def arabizi_of(repo=REPO):
 
 def build(repo=REPO, corrections=None, reviews=None, pick_dir=None):
     reviews = [dict(r) for r in (reviews if reviews is not None else J(REVIEWS_P, {}).get("reviews", []))]
-    fast = fast_rows(corrections)
+    fast = fast_rows(corrections)                      # minutes: every fast row (an undone answer still took his time)
+    try:                                               # coverage: only answers still standing (an undo takes one back)
+        import medi_corrections as MC
+        allrows = corrections if corrections is not None else (J(CORR_P, {}) or {}).get("rows") or []
+        live = fast_rows(MC.effective([r for r in allrows if isinstance(r, dict) and r.get("id")]))
+    except Exception:
+        live = fast
     listed = {r["date"] for r in reviews}
     for d in sorted(set(fast) - listed):                # a fast review lists itself (its rows say it happened)
         reviews.append({"date": d, "full": True, "note": "fast review mode (PG-50)"})
@@ -330,7 +336,7 @@ def build(repo=REPO, corrections=None, reviews=None, pick_dir=None):
         row = {"date": rv["date"], "full": bool(rv.get("full")), "note": rv.get("note") or "",
                "minutes_medi": minutes_of(fast.get(rv["date"])), "coverage_medi": None}
         if rv["date"] in fast:
-            n, m = coverage_of(his_lines(rv["date"], repo, pick_dir=pick_dir), fast[rv["date"]])
+            n, m = coverage_of(his_lines(rv["date"], repo, pick_dir=pick_dir), live.get(rv["date"]) or [])
             row.update({"coverage_medi": round(float(n) / m, 3) if m else None, "lines_checked": n, "lines_total": m})
             if not m or n < m:
                 row["full"] = False

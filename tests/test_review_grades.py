@@ -114,6 +114,20 @@ def test_minutes_and_coverage_of_a_fast_review(tmp_path, monkeypatch):
     assert RG.minutes_of([]) is None and RG.is_fast(_fast("x", 1, 1, kind="text")) and not RG.is_fast(rows[-1])
 
 
+def test_an_undone_fast_answer_does_not_count_toward_coverage(tmp_path, monkeypatch):
+    """Codex review 2026-10-11: 'u' takes an answer back (an undo row, AM-17); that line is unanswered again, so the
+    lesson stays partial until he answers it - but the seconds he spent still count as his time."""
+    monkeypatch.setattr(RG, "DIR", str(tmp_path))
+    pick = tmp_path / "pick"
+    pick.mkdir()
+    (pick / "2026-10-14.json").write_text(json.dumps({"lines": [{"t": 5.0, "end": 6.0}, {"t": 8.0, "end": 9.0}]}), encoding="utf-8")
+    a, b = _fast("2026-10-14", 5.0, 30), _fast("2026-10-14", 8.0, 30)
+    undo = {"id": "u1", "lesson_date": "2026-10-14", "turn_t": 8.0, "kind": "undo", "undoes": b["id"], "payload": {"review_mode": "fast", "secs": 6}}
+    row = {r["date"]: r for r in RG.build(corrections=[a, b, undo], reviews=[], pick_dir=str(pick))["lessons"]}["2026-10-14"]
+    assert row["coverage_medi"] == 0.5 and row["status"] == "partial review, not graded (1 of 2 lines)"
+    assert row["minutes_medi"] == 1.1
+
+
 def test_a_complete_fast_review_freezes_its_own_key(tmp_path, monkeypatch):
     """Codex review 2026-10-11: a fast review that reached every line (coverage 1.0) is graded without a hand step: the
     build freezes its key (before = the first publish, key = today's page with his rows), instead of 'no answer key'."""
