@@ -1890,6 +1890,130 @@
     "human_listened_s": 0
    },
    "gap_fill": []
+  },
+  "2026-10-10": {
+   "date": "2026-10-10",
+   "lesson_s": 3804.0,
+   "attribution": "per-speaker-tracks",
+   "timing": "engine",
+   "people": {
+    "Medi": {
+     "segments": [
+      {
+       "offset": 1.795,
+       "duration_s": 141.8,
+       "status": "ok",
+       "file": "Medi_Natanzi-fbd91ef281e26b6a.mp3"
+      },
+      {
+       "offset": 222.115,
+       "duration_s": 3230.9,
+       "status": "ok",
+       "file": "Medi_Natanzi-e453dd9cfbdc4b66.mp3"
+      },
+      {
+       "offset": 3474.535,
+       "duration_s": 330.9,
+       "status": "ok",
+       "file": "Medi_Natanzi-1cd2e23622bafd81.mp3"
+      }
+     ],
+     "audio_s": 3702.3,
+     "audio_pct": 97.3,
+     "no_audio": [
+      [
+       143.5,
+       222.1
+      ],
+      [
+       3453.0,
+       3474.5
+      ]
+     ],
+     "lost_segments": [],
+     "lines": 642,
+     "first_line": 3.2,
+     "speech_s": 1262.4,
+     "speech_transcribed_pct": 98.4,
+     "untranscribed_s": 19.8,
+     "holes": [],
+     "empty_audio": []
+    },
+    "Amal": {
+     "segments": [
+      {
+       "offset": 1.095,
+       "duration_s": 2774.7,
+       "status": "ok",
+       "file": "Amal-d536a18c574187d2.mp3"
+      },
+      {
+       "offset": 2821.155,
+       "duration_s": 936.4,
+       "status": "ok",
+       "file": "Amal-21b43e6ad11f6035.mp3"
+      },
+      {
+       "offset": 3762.415,
+       "duration_s": 39.7,
+       "status": "ok",
+       "file": "Amal-603d9b256940986f.mp3"
+      }
+     ],
+     "audio_s": 3750.7,
+     "audio_pct": 98.6,
+     "no_audio": [
+      [
+       2775.6,
+       2821.1
+      ]
+     ],
+     "lost_segments": [],
+     "lines": 418,
+     "first_line": 3.5,
+     "speech_s": 745.6,
+     "speech_transcribed_pct": 96.7,
+     "untranscribed_s": 24.4,
+     "holes": [],
+     "empty_audio": []
+    }
+   },
+   "flags": [
+    {
+     "who": null,
+     "kind": "labels-doubtful",
+     "text": "speaker labels agree with an independent check on only 85.0 % of 846 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))"
+    }
+   ],
+   "recording": "per-person tracks",
+   "swap_check": {
+    "method": "own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?)",
+    "checked": 846,
+    "agree_pct": 85.0,
+    "by_person": {
+     "Medi": {
+      "own_track_louder": 446,
+      "other_track_louder": 73
+     },
+     "Amal": {
+      "own_track_louder": 273,
+      "other_track_louder": 54
+     }
+    },
+    "caption_agree_pct": null,
+    "caption_checked": 0,
+    "caption_offset_s": null,
+    "cutoffs": {
+     "swapped_below": 50.0,
+     "doubtful_below": 90.0
+    }
+   },
+   "asr_review": {
+    "second_model_excerpts": 0,
+    "second_model_s": 0,
+    "human_listened_s": 0
+   },
+   "gap_fill": []
   }
  },
  "about": "Per lesson x per person source audit (scripts/source_audit.py): audio present, speech on each person's own track, untranscribed speech, independent speaker-label check, ASR review. Read by scripts/accuracy_gates.py.",
@@ -1900,5 +2024,5 @@
   "loud_db": 6.0,
   "speech": "own-track frame energy > max(20th percentile + 15 dB, -50 dBFS), 0.1-s frames"
  },
- "built": "2026-10-11T00:36:52-07:00"
+ "built": "2026-10-11T12:19:10-07:00"
 }

@@ -28382,6 +28382,616 @@
    },
    "at": "2026-10-11T00:39:07-07:00",
    "run_id": "a6f82c21389446eb97c48cea25c7ab02"
+  },
+  {
+   "uid": "FA-a3c9f1bd",
+   "date": "2026-10-10",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says plain “يوم الخميس,” and Amal immediately supplies “الخميس الجاي” and explains that for the coming Thursday they say “خميس الجاي.”",
+   "evidence": {
+    "t_start": 513.0,
+    "t_end": 548.0,
+    "quote": "Medi: «يوم الخميس» / Amal: «الخميس الجاي؟ ... خميس الجاي ... جاي means coming»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-10/FA-a3c9f1bd_Medi_Medi_Natanzi-e453dd9cfbd.mp3",
+      "sha256": "bbb3a6e9d8c35f08b71619571eeabb34a4039d0d6fcd26a1ac4b36690178a198",
+      "source": "Medi_Natanzi-e453dd9cfbdc4b66.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-a3c9f1bd_Amal_Amal-d536a18c574187d2.mp3",
+      "sha256": "82e9b0cbed1f69281a6345e17ed562fb25671432689d8810b8278eca154006bb",
+      "source": "Amal-d536a18c574187d2.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-10/FA-a3c9f1bd_mixed_lesson.mp3",
+      "sha256": "a84f91b2f5564bc04cd4b4c3a9f1960b3e8d64ea60e2eb9bd546ab541b64dd53",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "يوم الخميس هذا يوم الخميس أنا راهر",
+     "Amal": "صح? الخميس الجاي? يعني يعني رحت وخلصت? نحن سنقول حميصا جاي لأنه يوم الثالث القادم ونحن مازال في هذا الأسبوع",
+     "mixed": "صح? يوم الخميس الخميس الجاي؟ هذا يوم الخميس يعني رحت وخلصت؟ انا راحل نعم سنقول خميس زنجان لانه يوم الثالث نحن مازال في هذا الوقت"
+    }
+   },
+   "claim": {
+    "wrong": "يوم الخميس",
+    "right": "الخميس الجاي",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-11T01:49:04-07:00",
+   "run_id": "989f0515ca9f49d3a1be40fd86428d27"
+  },
+  {
+   "uid": "FA-755d5677",
+   "date": "2026-10-10",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi is reaching for the verb and says forms like “تلات/أمات,” Amal echoes “تلات” then supplies “التقات/التأت,” which he repeats. This is a supplied-word correction for “I met.”",
+   "evidence": {
+    "t_start": 822.0,
+    "t_end": 859.0,
+    "quote": "Medi: «تلات... أمات» / Amal: «التقات» / Medi: «إلتقات»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-10/FA-755d5677_Medi_Medi_Natanzi-e453dd9cfbd.mp3",
+      "sha256": "007583e2bcc30ef036a3b396541f08a1c43219aaec115c6d68819f6cae29d975",
+      "source": "Medi_Natanzi-e453dd9cfbdc4b66.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-755d5677_Amal_Amal-d536a18c574187d2.mp3",
+      "sha256": "dc81f6a3a1e967b3a6fb9ff22ccfe2ded43036437d2186b434327bc60ca5010b",
+      "source": "Amal-d536a18c574187d2.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-10/FA-755d5677_mixed_lesson.mp3",
+      "sha256": "2311c906d2d66f6ce586df3f515056fee6ef6f047befaed232b70ed9b8975a81",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أنا قلت قلت قلت قلت قلت قلت قلت قلت إم تتيبتي إلتأت",
+     "Amal": "اه ها ثلاث. التقات. What does it take there is two options",
+     "mixed": "أنا ثلاث ثلاث أمت التأت التأت التأت إم خطيبتي يوجد اثنين اختيارات"
+    }
+   },
+   "claim": {
+    "wrong": "تلات",
+    "right": "التقيت (elta2ait)",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-11T01:49:04-07:00",
+   "run_id": "989f0515ca9f49d3a1be40fd86428d27"
+  },
+  {
+   "uid": "FA-aabe08df",
+   "date": "2026-10-10",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used plain “أول مرة” at the end, then clarified it was at the end; Amal identifies the intended phrase and supplies “لا/لأول مرة.”",
+   "evidence": {
+    "t_start": 862.0,
+    "t_end": 922.0,
+    "quote": "Medi: «أول مرة... at the end» / Amal: «for the first time... لا أول مرة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-10/FA-aabe08df_Medi_Medi_Natanzi-e453dd9cfbd.mp3",
+      "sha256": "5cfbfe0267798abf6b95e0f808a119fb272922e793433ab7e699a69e7d0df8db",
+      "source": "Medi_Natanzi-e453dd9cfbdc4b66.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-aabe08df_Amal_Amal-d536a18c574187d2.mp3",
+      "sha256": "013b14501e0dd663837691b157602b4d0a8fdaadd07a7a23540bdb36c0985aac",
+      "source": "Amal-d536a18c574187d2.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-10/FA-aabe08df_mixed_lesson.mp3",
+      "sha256": "484d0ed244e93b130d61f05a9cfaa3c1fb92a165edb9a4d721b0c202a9c9b112",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "سئلت إثماء أم خطيبتي سئلت إثماء أم خطيبتي سئلت إثماء أم خطيبتي سئلت إثماء أم خطيبتي سئلت إثماء أم خطيبتي سئلت إثماء أم خطيبتي سئلت إثماء أم خطيبتي سئلت إثماء أم خطيبتي سئلت إثماء أم خطيبتي سئلت إثماء أم خطيبتي سئلت إثماء أم خطيبتي سئلت إثماء أم خطيبتي هل تفهمني؟ دعني أجربها مرة أخرى. لا، كانت ثلاث مرات. كانت أولاً، أقول أنني أستخدم ثلاثة من الكلمات الأساسية. ثم أولاً مرة أخرى. في النهاية. نعم، الأ",
+     "Amal": "كيف نعم إنه يفعل، لكن كيف كان هناك ثلاث مرات؟ لقد استخدمت أولاً ونخصاً أين هو؟ ماذا تعني بهذا؟ آه، لأول مرة، هل تريد أن تقول عندما رأيتها لأول مرة؟ صح، لا أول مرة هل قلت هذا؟ لم أسمع، آسف",
+     "mixed": "سئلت اتما ام خطيبتي سئلت اتما ام خطيبتي سئلت اتما ام خطيبتي سئلت اتما ام خطيبتي سئلت اتما ام خطيبتي سئلت اتما ام خطيبتي سئلت اتما ام خطيبتي سئلت اتما ام خطيبتي سئلت اتما ام خطيبتي سئلت اتما ام خطيبتي سئلت اتما ام خطيبتي سئلت اتما ام خطيبتي does my sentence make sense let me try it again yes it does but how was there three times no it was two times I'm saying I used three of the lesson words you us"
+    }
+   },
+   "claim": {
+    "wrong": "أول مرة",
+    "right": "لأول مرة",
+    "bucket": "D1",
+    "tier": null
+   },
+   "at": "2026-10-11T01:49:04-07:00",
+   "run_id": "989f0515ca9f49d3a1be40fd86428d27"
+  },
+  {
+   "uid": "FA-ff521e1c",
+   "date": "2026-10-10",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi says “أنا جربت” after “تاني أكل,” and Amal prompts by echoing “أنا؟”; he then adds “جربته/جربت تو.” That fits a pointer-object repair, though Amal's prompt is minimal.",
+   "evidence": {
+    "t_start": 1075.0,
+    "t_end": 1112.0,
+    "quote": "Medi: «تاني أكل. أنا جربت» / Amal: «أنا؟» / Medi: «جربت تو»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-10/FA-ff521e1c_Medi_Medi_Natanzi-e453dd9cfbd.mp3",
+      "sha256": "aeb29ff0d4d065420ba64c2ef477fbd277c220cc9d0119b3100b6b57f3c67c5a",
+      "source": "Medi_Natanzi-e453dd9cfbdc4b66.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-ff521e1c_Amal_Amal-d536a18c574187d2.mp3",
+      "sha256": "6e2da778c3cb55350e08bfe0ac71d991a8e952a2b57e5a3a841129aafef3e731",
+      "source": "Amal-d536a18c574187d2.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-10/FA-ff521e1c_mixed_lesson.mp3",
+      "sha256": "fd76c443499a31d27e628b71107788f99631a994f290c8de8f05e7db59c9effe",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "الزيتون. كمس الزيتون. الزيتون. الزيتون. الزيتون. الزيتون. الزيتون. الزيتون. ما هو اسمه هذا؟ الشخص مع الطعام والحصانات والطعام نعم",
+     "Amal": "حمص وزيتون بس هيك أنا اشتركوا في القناة",
+     "mixed": "زيتون خمس زيتون؟ خمس زيتون بس هيك؟ The appetizer And then ثاني أكل أنا جربت أنا؟ جربت Oh no, I forgot the name ما اسم هذا؟ الشخص مع البيض والبطن والبطن البطن؟"
+    }
+   },
+   "claim": {
+    "wrong": "تاني أكل أنا جربت",
+    "right": "تاني أكل أنا جربته",
+    "bucket": "C2",
+    "tier": null
+   },
+   "at": "2026-10-11T01:49:04-07:00",
+   "run_id": "989f0515ca9f49d3a1be40fd86428d27"
+  },
+  {
+   "uid": "FA-30eaf260",
+   "date": "2026-10-10",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "medium",
+   "reason": "Medi appears to be constructing “كان في آخر العشاء,” and Amal's “on dinner” is a preposition hint while he is searching, not a clear correction from “في العشاء” to “على العشاء.” The final accepted chat form is also «كان في آخر العشاء».",
+   "evidence": {
+    "t_start": 1162.0,
+    "t_end": 1211.0,
+    "quote": "Medi: «كان في... آخر العشاء» / chat: «u kaan fi aa5er el-3asha»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-10/FA-30eaf260_Medi_Medi_Natanzi-e453dd9cfbd.mp3",
+      "sha256": "f32dcbd53957b0173143e845d6900f9b5aa379ec3823d261aefb461e3a66eeb6",
+      "source": "Medi_Natanzi-e453dd9cfbdc4b66.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-30eaf260_Amal_Amal-d536a18c574187d2.mp3",
+      "sha256": "405f5ddb030b6efa6ab664e8571418164eeb35ada71717658fcc1032451b8a98",
+      "source": "Amal-d536a18c574187d2.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-10/FA-30eaf260_mixed_lesson.mp3",
+      "sha256": "4a5de51d2376347665b78bd8c38623fb6786c890eb318ba242448e33974c2b42",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "كان في ال أشرة كان في دنا أشة أشة كان في كان في آخر الأشعة في نهاية المطبخ هلوى فلسطين",
+     "Amal": "اشتركوا في القناة لنبقى لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطبعا لطب",
+     "mixed": "آآ آآ آآ آآ آآ آآ عشاء عشاء كان في نحن نقول على المطبخ كان في آخر آخر العشاء جيد وفي نهاية المطبخ آه آه جميل"
+    }
+   },
+   "claim": {
+    "wrong": "في الـ عشاء",
+    "right": "على العشاء",
+    "bucket": "D1",
+    "tier": null
+   },
+   "at": "2026-10-11T01:49:04-07:00",
+   "run_id": "989f0515ca9f49d3a1be40fd86428d27"
+  },
+  {
+   "uid": "FA-cd6447fc",
+   "date": "2026-10-10",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "medium",
+   "reason": "Medi's actual problem was not simply missing ال on the adjective after «الأكل»; he was asking for the phrase and stumbled through «شو اسم الأكل... خضرة/أخضر... أكلة», then Amal supplied the full phrase «الأكلة الخضرا».",
+   "evidence": {
+    "t_start": 1565.0,
+    "t_end": 1612.0,
+    "quote": "Medi: «شو اسم الأكل... خضرة أخضر... أكلة» / Amal: «الأكلة الخضرة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-10/FA-cd6447fc_Medi_Medi_Natanzi-e453dd9cfbd.mp3",
+      "sha256": "fc043d0c06a1c0dbdbdfddaf4c93c2d872dca38677ea48ed72405f04fda6f996",
+      "source": "Medi_Natanzi-e453dd9cfbdc4b66.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-cd6447fc_Amal_Amal-d536a18c574187d2.mp3",
+      "sha256": "78301c3f20f80d10d94ff120a302815daf64aefe81eeaccb6f4db18371431609",
+      "source": "Amal-d536a18c574187d2.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-10/FA-cd6447fc_mixed_lesson.mp3",
+      "sha256": "45ea2adee744127d9a68de3f84cb3f67ba8ee692eaac749569aac93a296cae3a",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "مطلوبة مطلوبة وش شو اسم الأكل خضراء أخضر أكل مخية أكل الخضرة",
+     "Amal": "مكلوب أكلة الخضرة ملوخية الأكلة الخضراء شو اسم الأكلة الخضراء؟ اشتركوا في القناة",
+     "mixed": "مطلوبة مطلوبة مطلوبة وش شو اسم الأكل خضرة أخضر أكلة أكلة ملوخية ملوخية أكلي الخضرة الأكلي الخضرة شو اسم الأكلي الخضرة but I'm saying the food that is green do you mean like a dish or food"
+    }
+   },
+   "claim": {
+    "wrong": "el akel, uh, khadra",
+    "right": "الأكلة الخضرا",
+    "bucket": "A7",
+    "tier": null
+   },
+   "at": "2026-10-11T01:49:04-07:00",
+   "run_id": "989f0515ca9f49d3a1be40fd86428d27",
+   "changed_to": {
+    "wrong": "شو اسم الأكل... خضرة/أخضر... أكلة",
+    "right": "شو اسم الأكلة الخضرا"
+   }
+  },
+  {
+   "uid": "FA-b7fa7005",
+   "date": "2026-10-10",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "medium",
+   "reason": "The evidence does not clearly show Amal correcting an idafa -t; her immediate correction is to the adjective, from «المفضل» to «المفضلة», and the later full recast follows Medi asking for the whole sentence.",
+   "evidence": {
+    "t_start": 1785.0,
+    "t_end": 1843.0,
+    "quote": "Medi: «المفضل» / Amal: «المفضلة» ... «هذي أكلة خطيبتي المفضلة كمان»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-10/FA-b7fa7005_Medi_Medi_Natanzi-e453dd9cfbd.mp3",
+      "sha256": "c469bf819613faec6a74d146deba978ec97d6426e2769767dcf04014cc7dda31",
+      "source": "Medi_Natanzi-e453dd9cfbdc4b66.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-b7fa7005_Amal_Amal-d536a18c574187d2.mp3",
+      "sha256": "42cf1b4fc9dddc21e520b987788abe5c081a4a65f478046e19c1b5c0941fb0dc",
+      "source": "Amal-d536a18c574187d2.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-10/FA-b7fa7005_mixed_lesson.mp3",
+      "sha256": "dfac8a0561e8e08e9a15b1a98805bd9bcd617def219400bbe5a746d3e4f84a0f",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "طعام أخوتي حسنا في النهاية أكلت خطيبتي المفضل الفضل اوه لأن الفضل يأخذ التنس الفضل انتظر, هل نقول الآية؟ كامامارا كل شيء؟ نعم حسنا حسنا هذه أكلة فتيبتي المفضلة كمان",
+     "Amal": "المفضلة لا يوجد كلمة هذه أكلة خطيبتي المفضلة قلها ترجمة نانسي قنقر",
+     "mixed": "طعام فتيانسي وفي النهاية أكلت خطيبتي المفضل المفضل المفضل يأخذ تنس. الفضلة. انتظر. هل نقول الفرد؟ لا يوجد فرد. كامالا كل شيء. هذه. نعم. أكلة خطيبتي. المفضلة. جميل. المفضل. حسنا. سيد. هذه اكلة فتيبتي المفضلة كمان. ممتاز."
+    }
+   },
+   "claim": {
+    "wrong": "akli khatibti",
+    "right": "aklit khatibti",
+    "bucket": "A3",
+    "tier": null
+   },
+   "at": "2026-10-11T01:49:26-07:00",
+   "run_id": "c640654b80f04aa1a4e9ff6b2b4d6a10"
+  },
+  {
+   "uid": "FA-474da895",
+   "date": "2026-10-10",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi tries singular feminine «مفضلة» after Amal's prompt, and Amal immediately recasts the plural adjective «مفضلين».",
+   "evidence": {
+    "t_start": 1998.0,
+    "t_end": 2030.0,
+    "quote": "Medi: «مفضلة» / Amal: «مفضلين»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-10/FA-474da895_Medi_Medi_Natanzi-e453dd9cfbd.mp3",
+      "sha256": "2dde70d1c61a581221fb90a4263005e1884923f52264b89f6453ae47bd3ec534",
+      "source": "Medi_Natanzi-e453dd9cfbdc4b66.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-474da895_Amal_Amal-d536a18c574187d2.mp3",
+      "sha256": "4a222b4d7a6c030c827ea75d099373dbe249bf361908829bd5c3f2dc04fb7b30",
+      "source": "Amal-d536a18c574187d2.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-10/FA-474da895_mixed_lesson.mp3",
+      "sha256": "56f6b6f6f8095f74010b0ee603cf5f2d2e7d0b7e3155ac4f20ce1d467d5e4279",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هدول اواي امي. المفضلين. مفضلة. او هذه هذه اجل. وايه? كامالا مرة انا لا اعرف. حسنا",
+     "Amal": "مفضلين زرب الطريقة الثانية ماذا؟ زرب الطريقة الثانية نفس الجملة",
+     "mixed": "هادول او اي امي المفضلين. مفضة? مفضلة. مفضلين. او ديز ديز ياه. زرب طريقة تانية. وايه? زر بالطريقة الثانية"
+    }
+   },
+   "claim": {
+    "wrong": "Mufaddale",
+    "right": "مفضلين",
+    "bucket": "A8",
+    "tier": null
+   },
+   "at": "2026-10-11T01:49:26-07:00",
+   "run_id": "c640654b80f04aa1a4e9ff6b2b4d6a10"
+  },
+  {
+   "uid": "FA-24ab42fe",
+   "date": "2026-10-10",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "This is a tier-0 vocabulary supply: Medi says he does not know how to say the drink, Amal supplies «عصير», and he then uses it in «بشرب عصير».",
+   "evidence": {
+    "t_start": 2874.0,
+    "t_end": 2909.0,
+    "quote": "Medi: «بشرب، I don't know how to say drink» / Amal: «عصير» / Medi: «بشرب عصير»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-10/FA-24ab42fe_Medi_Medi_Natanzi-e453dd9cfbd.mp3",
+      "sha256": "cb6080fabda4c77d16bc95688c08dbf9ed11de11719cde2e7410729db5773025",
+      "source": "Medi_Natanzi-e453dd9cfbdc4b66.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-24ab42fe_Amal_Amal-21b43e6ad11f6035.mp3",
+      "sha256": "c5b60ecfb78b8112658596f7f1129019db50787764a6d6a097b6147dddf7e32c",
+      "source": "Amal-21b43e6ad11f6035.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-10/FA-24ab42fe_mixed_lesson.mp3",
+      "sha256": "a8e782cc92ce091623a20121872d2c78ac91414b2b9fe94208e6a4f7b79450c6",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أشرب شرب أشرب أسير وأنا حسنا",
+     "Amal": "ويمكنك أيضاً أن تعتقد كان يجب أن يكون سأرى أخبريني أنني أرغب في ملعقة ملعقة أخرى أو شيء ما",
+     "mixed": "ويمكنك أيضاً أن تفكر أشرب لا أعرف كيف أقول أشرب شرب شرب أشرب أصير أصير أشرب أصير اخبرني اذا كنت اريد ملعقة اخرى او شيء ما حسنا"
+    }
+   },
+   "claim": {
+    "wrong": "بشرب",
+    "right": "عصير",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-11T01:49:26-07:00",
+   "run_id": "c640654b80f04aa1a4e9ff6b2b4d6a10"
+  },
+  {
+   "uid": "FA-aa558d66",
+   "date": "2026-10-10",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says «عشان أحسن» without the pronoun, and Amal immediately explains the needed form as «عشانه» or «عشان هو أحسن».",
+   "evidence": {
+    "t_start": 3169.0,
+    "t_end": 3201.0,
+    "quote": "Medi: «عشان أحسن» / Amal: «you could say عشانه ... or عشان هو أحسن»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-10/FA-aa558d66_Medi_Medi_Natanzi-e453dd9cfbd.mp3",
+      "sha256": "f796b6f742a4747663bc9b57afdfd9b54873af3a3e2ec0c8a578a0e5bb47541f",
+      "source": "Medi_Natanzi-e453dd9cfbdc4b66.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-aa558d66_Amal_Amal-21b43e6ad11f6035.mp3",
+      "sha256": "edba091f471fcc1f76973b49e6878e37708831fc53854700ba3dd150e0fb569e",
+      "source": "Amal-21b43e6ad11f6035.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-10/FA-aa558d66_mixed_lesson.mp3",
+      "sha256": "153608e0314ba7d14ec267061b27471b79a96e5d8a1865bb34c3fc569fe65018",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "تاني تاني وحد عشان أحسن what would be the without the preposition عشان هو أحسن عشان أحسن ترجمة نانسي قنقر",
+     "Amal": "نيس عشان it is أحسن يمكن تسيء عشانه عشانه أو عشان هو أحسن أو عشانه أحسن اشتركوا في القناة",
+     "mixed": "تاني تاني وحد نيس عشان أحسن عشان it is أحسن you could say عشانه عشانه or عشان هو أحسن what would be the without the preposition عشان هو أحسن or عشانه أحسن okay عشانه أحسن شكرا"
+    }
+   },
+   "claim": {
+    "wrong": "عشان أحسن",
+    "right": "عشانه أحسن / عشان هو أحسن",
+    "bucket": "D3",
+    "tier": null
+   },
+   "at": "2026-10-11T01:49:26-07:00",
+   "run_id": "c640654b80f04aa1a4e9ff6b2b4d6a10"
+  },
+  {
+   "uid": "FA-f9da1f39",
+   "date": "2026-10-10",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi appears to start a prepositional object with «لا/لـ» after «بيبسط», and Amal then explicitly says no preposition is needed and gives «الولاد».",
+   "evidence": {
+    "t_start": 3473.0,
+    "t_end": 3520.0,
+    "quote": "Medi: «هالوين بيبسوت لا...» / Amal: «صح الولاد ... no preposition needed»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-10/FA-f9da1f39_Medi_Medi_Natanzi-1cd2e23622b.mp3",
+      "sha256": "c1433e479ffd994161018045a879475918be0940399affcf1384a6b8cd0f9068",
+      "source": "Medi_Natanzi-1cd2e23622bafd81.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-f9da1f39_Amal_Amal-21b43e6ad11f6035.mp3",
+      "sha256": "ecd5595b6c5c7158ee63eecce892b427b3138311b6be5f7e42a4780be44af7f9",
+      "source": "Amal-21b43e6ad11f6035.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-10/FA-f9da1f39_mixed_lesson.mp3",
+      "sha256": "d321e1810967ba1a403fe654ef5adb1300a28441df217a1ac42569afc7b53052",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "آسف آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآآ آآآ آآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآآ فقط لأجهزة أمريكا. نعم. أين هو السيارة؟",
+     "Amal": "بيبسط صح الولاد yes so no preposition needed لأنه يجعلهم سعيدين إذا أردت أن تسأل شخصاً هل تستمتع بيومك؟",
+     "mixed": "آسف آسف آسف آسف آسف آسف آسف آسف آسف آسف آسف آسف آسف الزهار. نعم. لذلك لا يحتاج لأجهزة. نعم. لأنه يجعلهم سعيدين. إذا كنت تريد أن تسأل شخصاً هل تستمتع بموضوعك؟"
+    }
+   },
+   "claim": {
+    "wrong": "بيبسوت لا--",
+    "right": "بيبسط الولاد",
+    "bucket": "D2",
+    "tier": null
+   },
+   "at": "2026-10-11T01:49:26-07:00",
+   "run_id": "c640654b80f04aa1a4e9ff6b2b4d6a10"
+  },
+  {
+   "uid": "FA-a60f3b7c",
+   "date": "2026-10-10",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi proposes «إشي آخر / إشي الآخر» for 'the last thing'; Amal challenges with «شو؟» and prompts for آخر as an adjective, leading him to «أخير / أخيرة».",
+   "evidence": {
+    "t_start": 3750.0,
+    "t_end": 3789.0,
+    "quote": "Medi: «إشي آخر، أو إشي الآخر؟» / Amal: «شو؟ ... what's آخر as an adjective?»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-10/FA-a60f3b7c_Medi_Medi_Natanzi-1cd2e23622b.mp3",
+      "sha256": "e2f13183c5399827d00adbbd86b51678326fce0a1ca7fca6e4116bc61c33408f",
+      "source": "Medi_Natanzi-1cd2e23622bafd81.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-a60f3b7c_Amal_Amal-21b43e6ad11f6035.mp3",
+      "sha256": "61b832854904c54e3c1d8bf71bb7d428e4b35263b46d457a381b8f8acbb2709a",
+      "source": "Amal-21b43e6ad11f6035.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-10/FA-a60f3b7c_Amal_Amal-603d9b256940986f.mp3",
+      "sha256": "95ab728a854981e17ce29dff6e0e22494fd25fa05b56540900a600883cadd535",
+      "source": "Amal-603d9b256940986f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-10/FA-a60f3b7c_mixed_lesson.mp3",
+      "sha256": "b07ff2b3f61e0625b3534aa456b381af3235b824cf5feac66e0280994ba1d854",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "فهذا يعني أنه يمكن أن يعني النهاية والأخير إذا كانت أخر شيء فهذا هو الشيء الأخير إذا كانت شيء آخر أو شيء آخر آخر شيء هو الشيء الأخير صحيح؟ وفي نهاية الأشياء أخر الأشياء والأخير والأخيرة",
+     "Amal": "ماذا؟ ماذا؟ ماذا؟ ماذا؟ ماذا؟ ماذا؟ ماذا؟ ماذا؟ جيد",
+     "mixed": "وهذا يعني أنه يمكن أن يعني النهاية والأخير إذا كانت الأشياء الآخر هي الأشياء الأخيرة إذا كانت الأشياء الآخر هي الأشياء الآخر ماذا؟ الأشياء الآخر هي الأشياء الأخيرة، صحيح؟ and the end of the thing is أخر الإشي what's أخر as an adjective and أخير and أخيرة nice"
+    }
+   },
+   "claim": {
+    "wrong": "ishi akher or ishi il akher",
+    "right": "el-ishi el-a5eer",
+    "bucket": "A15",
+    "tier": null
+   },
+   "at": "2026-10-11T01:49:26-07:00",
+   "run_id": "c640654b80f04aa1a4e9ff6b2b4d6a10"
   }
  ]
 }

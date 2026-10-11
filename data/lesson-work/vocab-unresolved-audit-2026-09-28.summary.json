@@ -2,56 +2,56 @@
  "reviewer": "Claude audit 2026-09-28",
  "version": "2026-09-28-vocab-unresolved-audit",
  "before": {
-  "medi_events_report": 3244,
-  "unresolved_or_on_hold": 1434,
+  "medi_events_report": 3450,
+  "unresolved_or_on_hold": 1485,
   "by_report_group": {
-   "repeat": 514,
+   "repeat": 524,
    "wrongword": 123,
-   "wording": 286,
+   "wording": 311,
    "grammar": 81,
-   "other": 30,
-   "clar": 13,
+   "other": 61,
+   "clar": 14,
    "noamal": 5,
-   "isolated": 231,
+   "isolated": 214,
    "hold": 45,
-   "cue": 106
+   "cue": 107
   }
  },
  "after": {
-  "still_unresolved_or_on_hold_raw_flag": 1400,
-  "genuinely_open": 285,
+  "still_unresolved_or_on_hold_raw_flag": 1455,
+  "genuinely_open": 284,
   "bins": {
    "no_evidence:transcript_unclear": 14,
    "no_evidence:tutor_audio_missing": 1,
-   "not_counted:clarification": 25,
-   "not_counted:echo": 244,
+   "not_counted:clarification": 26,
+   "not_counted:echo": 275,
    "not_counted:farsi": 1,
    "not_counted:filler": 46,
    "not_counted:form_not_on_list": 19,
    "not_counted:grammar": 114,
    "not_counted:not_this_word": 129,
    "not_counted:quote": 53,
-   "not_counted:repeat": 469,
-   "open:question": 288,
+   "not_counted:repeat": 493,
+   "open:question": 287,
    "settled:helped": 9,
    "settled:incorrect": 5,
    "settled:independent": 229
   }
  },
- "audited_events": 1646,
+ "audited_events": 1701,
  "sources": {
   "rule:farsi": 1,
   "rule:filler": 45,
   "hand": 451,
-  "rule:stutter": 292,
-  "rule:restart": 16,
-  "mech:flagged": 543,
+  "rule:stutter": 312,
+  "rule:restart": 14,
+  "mech:flagged": 581,
   "mech:sep18": 26,
   "mech:form": 17,
   "mech:noamal": 1,
-  "mech:unclassified": 254
+  "mech:unclassified": 253
  },
- "scored_events_now_not_counted": 173,
+ "scored_events_now_not_counted": 178,
  "unscored_events_now_scored": 223,
  "rules": {
   "farsi_turns": [
@@ -225,20 +225,30 @@
      "w:رو"
     ],
     "source": "lesson page"
+   },
+   {
+    "date": "2026-10-09",
+    "who": "Medi",
+    "t": 246.58,
+    "end": 249.78,
+    "signals": [
+     "mi+verb"
+    ],
+    "source": "lesson page"
    }
   ],
   "farsi_events": 1,
   "and_events": {
-   "located": 98,
-   "real_and": 53,
+   "located": 99,
+   "real_and": 54,
    "filler": 45,
    "not_located": 1
   },
   "and_fillers_that_were_scored": 21,
-  "restart_pairs": 18,
-  "restart_drops_that_were_scored": 16,
-  "stutter_events_collapsed": 292,
-  "stutter_drops_that_were_scored": 72,
+  "restart_pairs": 16,
+  "restart_drops_that_were_scored": 14,
+  "stutter_events_collapsed": 312,
+  "stutter_drops_that_were_scored": 78,
   "duplicate_records": 0
  },
  "clips": {
@@ -309,6 +319,9 @@
    },
    "2026-10-09": {
     "clip ok": 223
+   },
+   "2026-10-10": {
+    "clip ok": 219
    }
   },
   "missing": [
@@ -401,12 +414,12 @@
  ],
  "log": {
   "hand_verdict_overridden_by_rule:filler": 7,
-  "unclassified": 288,
+  "unclassified": 297,
   "restart_overrode_hand_settled": 2,
   "stutter_overrode_hand_settled": 5
  },
  "reset": {
-  "removed": 546,
-  "restored": 877
+  "removed": 677,
+  "restored": 891
  }
 }

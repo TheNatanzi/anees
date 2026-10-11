@@ -1245,6 +1245,7 @@ def _repeat_fields(turns, j):
 
 
 LEDGER_IDS = None
+OWN_PATCHED = set()     # event ids this file patched in the overlay refresh() read (set by refresh)
 
 
 def ledger_ids():
@@ -1259,7 +1260,12 @@ def ledger_ids():
 def _patch(e, state, why, turns, j):
     """A patch on a Word Bank event the engine words made: a repeat of her fix loses its credit (WS-31); a word said alone
     that sat 'unresolved' is judged (WS-30). Nothing else is touched (a reader's or Amal's ruling stays)."""
-    if e.get("review_locked") or e.get("medi_ruling") or e.get("grammar_only") or e.get("assessment") in ("incorrect", "recall_failure")             or e.get("id") in ledger_ids():
+    # A ledger override keeps this file off the event - unless the override exists only because this file's own patch was
+    # missing from the overlay the ledger read (10-10 53:16 عشان: patch -> ledger reads the old overlay and rules -> patch
+    # dropped -> no ruling -> patch: it flipped on every build and the ledger check failed every other run). Our own patch
+    # from the last build stays; the ledger's own keys (tutor_listened, rehear_hold, heard_other) still show beside it.
+    if e.get("review_locked") or e.get("medi_ruling") or e.get("grammar_only") or e.get("assessment") in ("incorrect", "recall_failure") \
+            or (e.get("id") in ledger_ids() and e.get("id") not in OWN_PATCHED):
         return None
     exp = {k: e.get(k) for k in ["source_sha256", "row_id", "word_key", "text", "t_start", "t_end", "assessment", "reason"]}
     if state == "repeat":
@@ -1299,6 +1305,8 @@ def refresh(per, sheet, off_by_date=None, path=REVIEW_P, log=print, events=None,
     review = J(path)
     if review is None:
         return {}
+    global OWN_PATCHED
+    OWN_PATCHED = {k for k, v in (review.get("patches") or {}).items() if ((v or {}).get("changes") or {}).get("by") == BY}
     words = (J(WORDS_P, {}) or {}).get("items", []) if words is None else words
     events = (J(EVID_P, {}) or {}).get("events", []) if events is None else events
     # the review overlay's other additions are evidence too (his own heard credits, WS-29): never a second event
@@ -1514,9 +1522,13 @@ def report(date, repo=REPO, d=None):
         cs = [c for c in (tm.get(str(i)) or {}).get("c", []) if c.get("k") in ("vocab", "grammar") or (c.get("k") == "na" and c.get("label") in ("vocab", "lesson"))]
         cs = [c for c in cs if not c.get("hide")] + [c for c in cs if c.get("hide")]     # the chip he sees first
         line = [core(x) for x, cut in arabic_tokens(u.get("text"))]
-        for w, cut in arabic_tokens(u.get("text")):
+        for tk in word_tokens(u.get("text")):
+            w, cut = tk["ar"], tk["cut"]
             hit = next((c for c in cs if (c.get("why") or "").startswith(w + ":")), None) or next(
                 (c for c in cs if c.get("tok") and jsnorm(c["tok"]) == jsnorm(w)), None) or next(   # WS-37: the word he said
+                # WS-30: his Latin word ('son' read as her Zonn, 10-10 16:37) carries its own Word Bank chip, even when
+                # that chip is folded under the line's other word chip (hide: the page shows both words on one chip)
+                (c for c in cs if tk["latin"] and c.get("tok") and str(c["tok"]).lower() == str(tk["shown"]).lower()), None) or next(
                 (c for c in cs if c.get("k") == "vocab" and w not in (u.get("text") or "") and any(                       # her
                     similar(x, MSA.get(jsnorm(w), w)) or similar(x, w)
                  for x in re.split(r"\s*/\s*", str(c.get("ar") or "")) if x)), None) or next(     # 'هادا / هادي' row

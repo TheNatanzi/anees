@@ -513,3 +513,28 @@ def test_ws_38_10_09_moments_on_the_page_and_10_08_repeats_kept():
     d8 = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", "2026-10-08.json"), encoding="utf-8"))
     assert any(x["k"] == "vocab" and x["s"] == "repeat" for x in chips(d8, 145.6))   # 02:25 عيانة after her 02:22 recast
     assert any(x["k"] == "grammar" and x["s"] == "repeat" for x in chips(d8, 246.6))  # 04:06 هي راسها بيوجع
+
+
+def test_ws_30_a_latin_word_keeps_its_own_chip_when_the_page_folds_it_under_another():
+    """10-10 16:37 'سَن-- uh، son name?': 'son' (her Zonn) has its own Word Bank chip, folded under the 'name' chip (hide);
+    the coverage count reads it by his own Latin word, so it is not 'no mark'."""
+    d = {"turns": [{"who": "Medi", "t": 997.6, "text": "سَن-- uh، son name?"}],
+         "tmarks": {"0": {"c": [
+             {"id": "v100", "k": "vocab", "s": "correct", "w": "Naam", "ar": "نمت", "tok": "name",
+              "words": [{"ar": "نمت", "w": "Naam"}, {"ar": "ظنيت", "w": "Zonn"}]},
+             {"id": "v101", "k": "vocab", "s": "correct", "w": "Zonn", "ar": "ظنيت", "tok": "son", "hide": "v100"}]}}}
+    rows = WC.report("2026-10-10", d=d)
+    assert [r for r in rows if not r["cut"] and not r["state"]] == [], rows
+
+
+def test_ws_31_own_repeat_patch_is_kept_when_the_ledger_ruled_only_because_it_was_missing(monkeypatch):
+    """10-10 53:16 عشان flipped on every build (patch / ledger override / no patch / no override): a ledger override keeps
+    word coverage off an event, but not off the event it already patched itself, so two builds give the same overlay."""
+    e = {"id": "ev1", "assessment": "independent", "text": "عشان"}
+    turns = [{"who": "Amal", "t": 3181.48, "text": "Ashan it is ahsan."}]
+    monkeypatch.setattr(WC, "LEDGER_IDS", {"ev1"})
+    monkeypatch.setattr(WC, "OWN_PATCHED", set())
+    assert WC._patch(e, "repeat", "Repeat of the tutor's fix", turns, 0) is None        # the ledger ruled first: hands off
+    monkeypatch.setattr(WC, "OWN_PATCHED", {"ev1"})
+    p = WC._patch(e, "repeat", "Repeat of the tutor's fix", turns, 0)
+    assert p and p["changes"]["assessment"] == "helped" and p["changes"]["rule"] == "WS-31"

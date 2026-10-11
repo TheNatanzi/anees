@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T11:28:42-07:00",
+ "updated": "2026-10-11T12:18:39-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -4316,18 +4316,18 @@
    },
    "words": {
     "unique": 169,
-    "right": 324,
+    "right": 323,
     "wrong": 15,
     "partial": 15,
     "pct": 93.6,
-    "scored": 354,
+    "scored": 353,
     "audit_wrong": 13,
     "audit_partial": 1,
     "not_on_sheet": 11,
     "first_read_cards": 1,
     "rehear_word_conflicts": 0,
     "unique_rows": 162,
-    "eligible": 353,
+    "eligible": 352,
     "excluded": 1,
     "pending": 0,
     "eligible_pct": 93.6,
@@ -4601,7 +4601,7 @@
     "turns": 1218,
     "chat_lines": 74,
     "vocab_errors": 27,
-    "vocab_correct": 338,
+    "vocab_correct": 337,
     "grammar_errors": 35,
     "grammar_not_counted": 0
    },
@@ -4617,7 +4617,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-26.json",
-    "marks": 720,
+    "marks": 719,
     "conflicts": 14,
     "resolved": 7,
     "needs_medi": 2,
@@ -5810,20 +5810,20 @@
    },
    "words": {
     "unique": 94,
-    "right": 192,
+    "right": 191,
     "wrong": 1,
     "partial": 13,
-    "pct": 96.4,
-    "scored": 206,
+    "pct": 96.3,
+    "scored": 205,
     "audit_wrong": 1,
     "audit_partial": 0,
     "not_on_sheet": 1,
     "rehear_word_conflicts": 0,
     "unique_rows": 94,
-    "eligible": 201,
+    "eligible": 200,
     "excluded": 5,
     "pending": 0,
-    "eligible_pct": 96.3,
+    "eligible_pct": 96.2,
     "excluded_why": {
      "Amal not transcribed": 5
     },
@@ -5952,13 +5952,13 @@
     "turns": 936,
     "chat_lines": 32,
     "vocab_errors": 2,
-    "vocab_correct": 205,
+    "vocab_correct": 204,
     "grammar_errors": 15,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-01.json",
-    "marks": 429,
+    "marks": 428,
     "conflicts": 2,
     "resolved": 1,
     "needs_medi": 0,
@@ -6698,17 +6698,17 @@
    },
    "words": {
     "unique": 119,
-    "right": 261,
+    "right": 260,
     "wrong": 9,
     "partial": 10,
     "pct": 95.0,
-    "scored": 280,
+    "scored": 279,
     "audit_wrong": 9,
     "audit_partial": 1,
     "not_on_sheet": 2,
     "rehear_word_conflicts": 0,
     "unique_rows": 114,
-    "eligible": 280,
+    "eligible": 279,
     "excluded": 0,
     "pending": 0,
     "eligible_pct": 95.0,
@@ -6910,13 +6910,13 @@
     "turns": 1051,
     "chat_lines": 36,
     "vocab_errors": 12,
-    "vocab_correct": 270,
+    "vocab_correct": 269,
     "grammar_errors": 24,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-05.json",
-    "marks": 573,
+    "marks": 572,
     "conflicts": 4,
     "resolved": 2,
     "needs_medi": 1,
@@ -7151,17 +7151,17 @@
    },
    "words": {
     "unique": 95,
-    "right": 197,
+    "right": 196,
     "wrong": 10,
     "partial": 8,
     "pct": 93.5,
-    "scored": 215,
+    "scored": 214,
     "audit_wrong": 10,
     "audit_partial": 0,
     "not_on_sheet": 7,
     "rehear_word_conflicts": 0,
     "unique_rows": 88,
-    "eligible": 215,
+    "eligible": 214,
     "excluded": 0,
     "pending": 0,
     "eligible_pct": 93.5,
@@ -7355,13 +7355,13 @@
     "turns": 1008,
     "chat_lines": 27,
     "vocab_errors": 17,
-    "vocab_correct": 205,
+    "vocab_correct": 204,
     "grammar_errors": 33,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-06.json",
-    "marks": 460,
+    "marks": 459,
     "conflicts": 3,
     "resolved": 1,
     "needs_medi": 0,
@@ -8086,17 +8086,17 @@
    },
    "words": {
     "unique": 117,
-    "right": 312,
+    "right": 311,
     "wrong": 4,
     "partial": 6,
     "pct": 97.8,
-    "scored": 322,
+    "scored": 321,
     "audit_wrong": 2,
     "audit_partial": 4,
     "not_on_sheet": 3,
     "rehear_word_conflicts": 1,
     "unique_rows": 114,
-    "eligible": 322,
+    "eligible": 321,
     "excluded": 0,
     "pending": 0,
     "eligible_pct": 97.8,
@@ -8104,7 +8104,7 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 269,
+    "uses": 270,
     "mistakes": 34,
     "pct": 87.4,
     "estimate": false,
@@ -8119,7 +8119,7 @@
       "3 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (A15, A16, A9b, C7)"
      ],
-     "uses": 238,
+     "uses": 239,
      "slips": 34,
      "slips_latin": 1,
      "slips_in_zero_use_rules": 3,
@@ -8339,7 +8339,7 @@
     "turns": 1103,
     "chat_lines": 56,
     "vocab_errors": 11,
-    "vocab_correct": 314,
+    "vocab_correct": 313,
     "grammar_errors": 34,
     "grammar_not_counted": 0
    },
@@ -8461,6 +8461,407 @@
      "holes": [],
      "missing_s": 0,
      "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-10-10",
+   "start_local": "2026-10-10T13:06:46-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 63.4,
+   "type": "review-grammar",
+   "review_mode": "speaking",
+   "type_why": "10:47-1:03:12 (~52 of 63 min) is a planned last review of the el- tool words from 10-01/10-09 (10:52 'بظن راح يكون آخر درس للـ ال', 11:48 'جرب استعمل كلماتنا الجداد. Meaning غير تاني، أول، آخر، كمان'): he builds sentences with awal, nafs, mfaddal, taani, 8eir, mukhtalif, kaman and aa5er, plus the scary / make-happy verbs (55:57 'we're gonna include these two verbs in our every lesson'), and ends by summarizing the week's rules (59:26-1:03:05). 00:04-02:21 and 06:16-10:47 are warm-up (lost voice, plans, next Thursday, date, clothes); 02:21-06:16 he shows her the grading app.",
+   "type_source": "claude-read",
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Last review of the el- tool words: first, same, favorite, other, different, another, last",
+    "rules": [
+     {
+      "title": "awal before the noun with no el-: awal mara = the first time",
+      "pattern": "awal + noun",
+      "bullets": [
+       "awal mara = the first time",
+       "la awal mara = for the first time",
+       "nafs el-mara points back to that first time, so kaanat"
+      ],
+      "examples": [
+       {
+        "t": "15:35",
+        "line": "أول مرة أنا جربت أكل عربي - the first time I tried Arabic food"
+       },
+       {
+        "t": "15:52",
+        "line": "كانت نفس المرة اللي التقيت مع أم خطيبتي لأول مرة - it was the same time I met my fiancée's mom for the first time"
+       }
+      ]
+     },
+     {
+      "title": "mfaddal is an adjective after the noun and matches it",
+      "pattern": "el-noun + el-mfaddal + 3andi / noun-possessor + el-mfaddala",
+      "bullets": [
+       "el-akel el-mfaddal 3andi = my favorite food",
+       "feminine noun -> el-mfaddala, plural -> el-mfaddaleen",
+       "link the owner: aklet 5atibti or 3and 5atibti"
+      ],
+      "examples": [
+       {
+        "t": "25:56",
+        "line": "الأكل المفضل عندي - my favorite food"
+       },
+       {
+        "t": "29:20",
+        "line": "هذي أكلة خطيبتي المفضلة كمان - this is my fiancée's favorite dish too"
+       },
+       {
+        "t": "33:30",
+        "line": "هدول أواعي إمي المفضلين - these are my mom's favorite clothes"
+       }
+      ]
+     },
+     {
+      "title": "el-taani after an el- noun = the other one",
+      "pattern": "el-noun + el-taani",
+      "bullets": [
+       "el-taree2 el-taani = the other road",
+       "not taree2 el-taani: both take el-",
+       "or taani waa7ad = the second one"
+      ],
+      "examples": [
+       {
+        "t": "36:26",
+        "line": "الطريق التاني - the other road"
+       },
+       {
+        "t": "38:48",
+        "line": "خلنا نروح على الطريق الثاني عشان هذا بخوّف - let's take the other road, this one is scary"
+       },
+       {
+        "t": "52:51",
+        "line": "تاني واحد - the second one"
+       }
+      ]
+     },
+     {
+      "title": "another: noun taani / kaman + noun / 8eir + noun / noun mukhtalif",
+      "pattern": "3aseer taani | kaman 3aseer | 8eir 3aseer | 3aseer mukhtalif",
+      "bullets": [
+       "taani = a different or another one",
+       "kaman before the noun = one more of the same",
+       "8eir + noun = a different one, never el-",
+       "mukhtalif = a different kind / variety"
+      ],
+      "examples": [
+       {
+        "t": "48:35",
+        "line": "أنا بدي عصير تاني - I want another / a different juice"
+       },
+       {
+        "t": "48:44",
+        "line": "أنا بدي كمان عصير - I want one more juice"
+       },
+       {
+        "t": "49:16",
+        "line": "عصير مختلف - a juice that is different from the usual"
+       },
+       {
+        "t": "47:24",
+        "line": "that's the difference between غير and مختلف"
+       }
+      ]
+     },
+     {
+      "title": "aa5er + el-noun = the end of it; at the end of the road = (3ala) aa5er el-taree2",
+      "bullets": [
+       "aa5er el-taree2 = the end of the road",
+       "3ala is optional",
+       "el-a5eer / el-a5eera = the last (adjective)"
+      ],
+      "examples": [
+       {
+        "t": "42:02",
+        "line": "آخر الطريق - the end of the road"
+       },
+       {
+        "t": "42:57",
+        "line": "على آخر الطريق في سيارة خربانة - at the end of the road there is a broken car"
+       },
+       {
+        "t": "1:03:05",
+        "line": "أخير / أخيرة - last (adjective)"
+       }
+      ]
+     },
+     {
+      "title": "scary = bey5awwef (verb-based adjective); 5aayef = scared",
+      "bullets": [
+       "5aayef is the person who is scared",
+       "bey5awwef = it scares, so it is scary",
+       "byebse6 = it makes happy, no preposition after it"
+      ],
+      "examples": [
+       {
+        "t": "38:07",
+        "line": "It's a verb-based adjective - بخوّف"
+       },
+       {
+        "t": "38:56",
+        "line": "عشان هذا بخوّف - because this one is scary"
+       },
+       {
+        "t": "58:17",
+        "line": "الهالوين بيبسط الأولاد - Halloween makes kids happy"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up: lost voice at a loud restaurant, nothing planned, next Thursday trip, date, time, clothes",
+     "He shows her the grading app 02:21-06:16 (off-lesson)",
+     "Food talk: hummus, musakhan, manakish, mulukhiyah, her favorite is waraq dawali",
+     "Week summary in his words 59:26-1:03:05: awal, taani, el-taani, 8eir, nafs, mukhtalif, kaman, a8lab, aa5er"
+    ]
+   },
+   "words": {
+    "unique": 108,
+    "right": 265,
+    "wrong": 1,
+    "partial": 10,
+    "pct": 97.8,
+    "scored": 276,
+    "audit_wrong": 1,
+    "audit_partial": 2,
+    "not_on_sheet": 2,
+    "rehear_word_conflicts": 0,
+    "unique_rows": 103,
+    "eligible": 276,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 97.8,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 245,
+    "mistakes": 24,
+    "pct": 90.2,
+    "estimate": false,
+    "scored_mistakes": 24,
+    "unscored_mistakes": 0,
+    "eligible": 24,
+    "excluded": 0,
+    "pending": 2,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "5 slips are in rules the counter found 0 uses of in this lesson",
+      "4 rules have more slips than counted uses (C2, C9, D2, E3)"
+     ],
+     "uses": 224,
+     "slips": 24,
+     "slips_latin": 12,
+     "slips_in_zero_use_rules": 5,
+     "rules_slips_over_uses": [
+      "C2",
+      "C9",
+      "D2",
+      "E3"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 2001.3,
+    "amal_s": 814.8,
+    "speak_pct": 71.1,
+    "listen_pct": 28.9,
+    "window": [
+     0.0,
+     3805.4
+    ]
+   },
+   "fillers": {
+    "count": 278,
+    "per_min": 8.33,
+    "top": [
+     [
+      "uh",
+      189
+     ],
+     [
+      "um",
+      65
+     ],
+     [
+      "mm",
+      12
+     ],
+     [
+      "آآ",
+      10
+     ],
+     [
+      "eh",
+      2
+     ]
+    ],
+    "in_turns": 173,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.37,
+    "p75_s": 2.76,
+    "n": 214
+   },
+   "flow": {
+    "wpm": 44.2,
+    "n_turns": 153,
+    "arabic_words": 628
+   },
+   "new_words": [],
+   "taught": [
+    {
+     "latin": "Ana ba5aaf / Ana ba5awwef",
+     "arabic": "أنا بخاف / أنا بخوّف",
+     "review": true
+    },
+    {
+     "latin": "Ana babse6 / Ana banbese6",
+     "arabic": "أنا ببسط / أنا بنبسط",
+     "review": true
+    }
+   ],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "مخطط",
+     "english": "planning (progressive of بخطط)",
+     "t": "07:15"
+    },
+    {
+     "latin": null,
+     "arabic": "الجاي",
+     "english": "the coming (الخميس الجاي = this coming Thursday)",
+     "t": "09:20"
+    },
+    {
+     "latin": null,
+     "arabic": "مسخن",
+     "english": "musakhan (bread, chicken, onion, sumac)",
+     "t": "18:43"
+    },
+    {
+     "latin": null,
+     "arabic": "بشكل عام",
+     "english": "in general (شكل = shape, عام = general)",
+     "t": "23:22"
+    },
+    {
+     "latin": null,
+     "arabic": "ملوخية",
+     "english": "mulukhiyah (the green dish)",
+     "t": "26:32"
+    },
+    {
+     "latin": null,
+     "arabic": "عصير",
+     "english": "juice (he did not know how to say drink)",
+     "t": "48:09"
+    }
+   ],
+   "coverage": "Medi's lines between 35:37 and 37:12 are missing (only Amal's side, e.g. 'No, you said طريق التاني'). Much of 21:00-33:00 and 44:00-1:03:00 is Latin-letter Arabizi. 03:52-06:16 and 53:23-55:00 are English-only. Echo: 06:43 the echo file shows 'متحمّس for بكرا' (English 'for' dropped in the audit text). 06:57-08:04: Amal heard ما خططت as مخطط (planning) - a pronunciation/listening mix-up, not filed. 33:19 hadol hawaii imi il mufaddalin was right (Amal confirmed مفضلين), not filed. Pronunciation (S4) not filed: matlube/مقلوبة, طريا/طريق, hawaii/أواعي, befawwer/بيخوف, zahar/زغار, Shalina/خلينا. Self-fixes not filed: 00:46 بصوت، 10:09 واحدة، 15:52 كانت، 20:09 حلو، 39:31 بدنا، 42:18 على آخر الطريق، 52:21 ما تروحي، 55:27 زي الـ Halloween. 1:00:30 'Is it ishi iltani?' is a question, not filed. / 35:37-37:12 Medi's lines are missing (only Amal's prompts 'Before طريق', 'No', 'you said طريق التاني' survive); 1:00 summary stretch is mostly English. Latin-transliterated Medi stretches 22:13-34:11, 41:54-47:12, 54:58-1:03:14. Engine: 'Allah' = 3ala (41:54, 42:18, 43:28); 'Shalina' = 5allina; 'hawaii' = awaa3i; 'befawwer' = bey5awwef; 'taman' = kaman (45:13); 'Ma li one' = laymoon; 'el zahar' = el-z8aar; '10' at 16:18 = his number for two. 06:57 ما خططت was right - Amal misheard مخطط and confirmed ما خططت (08:04), not a slip. Self-fixes skipped: 00:46 بصوت عالي, 10:09 واحدة, 10:36 بنطلون أزرق, 20:09 حلو, 39:31 بدنا, 42:18 3ala aa5er, 52:21 تروحي, 55:27 el-Halloween. 26:11 matlube for ma2loobe and 35:01 طريا = S4. 19:10 سمك is likely English 'sumac' heard as fish. 1:00:30 'ishi iltani?' was a question (not scored).",
+   "notes": [
+    "timings: anees-20261010-recall-medi-seg1: page/engine offset spread 63.64s; anees-20261010-recall-amal-seg2821: page/engine offset spread 485.28s; anees-20261010-recall-medi-seg3474: page/engine offset spread 115.38s; anees-20261010-recall-amal-seg3762: page/engine offset spread 17.40s",
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 21:45 Word Bank said right, Amal said no to that word: her no counts."
+   ],
+   "page": "lessons/2026-10-10.html",
+   "detail": "data/lessons/2026-10-10.json",
+   "rehear": {
+    "status": "applied",
+    "since": "2026-10-11",
+    "label": "Second listen: applied",
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "270 of your lines changed (142 with a different word, 128 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 18 lines wait: 2 held for a check, 16 where the 3 runs did not agree."
+   },
+   "counts": {
+    "turns": 1060,
+    "chat_lines": 41,
+    "vocab_errors": 5,
+    "vocab_correct": 273,
+    "grammar_errors": 24,
+    "grammar_not_counted": 0
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-10-10.json",
+    "marks": 588,
+    "conflicts": 3,
+    "resolved": 1,
+    "needs_medi": 0,
+    "mode": "on",
+    "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 62.5 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 1 stretches of Amal's speech written as '[speaking ...]' markers (00:01 in all)",
+     "coverage: speaker labels agree with an independent check on only 85.0 % of 846 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3804 s) compared with a second model",
+     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 30,
+       "r2": 37,
+       "agreed": 25,
+       "disputed": 15,
+       "agreement_pct": 62.5
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3804.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 6742.8,
+     "first_t": 3.2,
+     "last_t": 3800.48,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 6742.8,
+     "first_t": 3.5,
+     "last_t": 3800.66,
+     "missing": [],
+     "holes": [
+      [
+       355.16,
+       356.16,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 1.0,
      "covered_pct": 100.0
     }
    }
