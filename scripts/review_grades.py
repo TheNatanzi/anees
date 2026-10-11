@@ -318,7 +318,20 @@ def arabizi_of(repo=REPO):
     return m
 
 
-def build(repo=REPO, corrections=None, reviews=None, pick_dir=None):
+def tutor_check(date, his_rows, repo=REPO, tutor_rows=None):
+    """AM-29 (Medi 2026-10-11 "mix 30-20"): the tutor's blind key check of an exam lesson against the student's fast-review
+    answer on the same line -> {answered, agree_with_student_n, compared_n, agreement_pct, total}, or None when the lesson
+    has no key check. A measurement only: it never changes a page or a grade."""
+    import build_tutor_key_check as TK
+    key = J(TK.key_path(date, repo))
+    if not key or not key.get("items"):
+        return None
+    if tutor_rows is None:
+        tutor_rows = (J(os.path.join(repo, "data", "lesson-work", "review-grades", "tutor-check-answers.json"), {}) or {}).get("rows") or []
+    return TK.agreement(key["items"], tutor_rows, his_rows)
+
+
+def build(repo=REPO, corrections=None, reviews=None, pick_dir=None, tutor_rows=None):
     reviews = [dict(r) for r in (reviews if reviews is not None else J(REVIEWS_P, {}).get("reviews", []))]
     fast = fast_rows(corrections)                      # minutes: every fast row (an undone answer still took his time)
     try:                                               # coverage: only answers still standing (an undo takes one back)
@@ -363,6 +376,13 @@ def build(repo=REPO, corrections=None, reviews=None, pick_dir=None):
         else:
             row["status"] = "partial review, not graded"
         rows.append(row)
+    for r in rows:                                       # AM-29: the tutor's key check, next to his own answers
+        try:
+            ac = tutor_check(r["date"], live.get(r["date"]) or [], repo, tutor_rows)
+        except Exception:  # noqa: BLE001 - the grade book never waits on it
+            ac = None
+        if ac is not None:
+            r["amal_check"] = ac
     import word_coverage as WC
     az = arabizi_of(repo)
     for r in rows:
@@ -375,7 +395,7 @@ def build(repo=REPO, corrections=None, reviews=None, pick_dir=None):
                      "against his review (the answer key); Arabic words of his lines only. 'now' is shown as drift: today's "
                      "page vs the key, a regression check only, never an accuracy score. minutes_medi / coverage_medi: his "
                      "fast-review minutes and the share of his Arabic lines he answered in fast mode (null = no fast "
-                     "review). Built by scripts/review_grades.py.",
+                     "review). amal_check (AM-29): the tutor's blind check of the exam's moments - how many she answered and on how many lines her answer and his fast-review key (1 right, 2 wrong word, 3 mistake) say the same; a measurement only. Built by scripts/review_grades.py.",
             "types": TYPES, "lessons": rows, "trend": trend}
 
 

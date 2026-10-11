@@ -11,7 +11,12 @@
    localStorage first. Every tap writes the card's whole answer, so the latest row is the answer; a tap can be changed,
    and the shared Undo (AM-17) writes a row of kind 'undo', never a delete.
    scripts/amal_listen_results.py reads the answers against the keys. Nothing here sends anything to anyone.
-   AneesCheckTask.mount(el, {token, base, list, data?}, {onChange}) · AneesCheckTask.count(data, rows) for the hub row */
+   AM-29 (Medi 2026-10-11 "mix 30-20"): an option may carry a box ({v, label, box: '<placeholder>'}) - the tap is saved at
+   once and the box opens for what the student really said / how it should be said (payload.typed); a card may carry its
+   line ({label, az, ar, en}: Arabizi first, the Arabic small after, the English under - S1, PG-44, PG-48) and rows of the
+   lines around it the same way; a clip may carry a fallback window of the lesson audio.
+   AneesCheckTask.mount(el, {token, base, list, data?}, {onChange}) · AneesCheckTask.count(data, rows) for the hub row ·
+   AneesCheckTask.tapBody / undoBody: the amal_rules row of one tap / one undo (pure, tests/test_tutor_key_check.cjs) */
 (function (root) {
   'use strict';
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -24,6 +29,24 @@
   const UP = k => String(k || '').toUpperCase();
   const fieldsOf = D => (D.questions || []).map(q => q.field);
   const complete = (D, a) => !!a && fieldsOf(D).every(f => a[f]);
+  // the option of a question that opens a box (versions: 'other'; options: one with box) for the value v, or null
+  const boxOf = (q, v) => !q || !v ? null : q.type === 'versions' ? (v === 'other' && q.other ? { placeholder: 'What did he say? (optional)' } : null)
+    : ((q.options || []).find(o => o.v === v && o.box) ? { placeholder: (q.options || []).find(o => o.v === v).box } : null);
+  // the amal_rules row of one tap: every answer on the card so far (the latest row is the answer) + the typed box
+  function tapBody(D, x, token, was, field, value, typed, list) {
+    const f = {};
+    fieldsOf(D).forEach(n => { if (was && was[n]) f[n] = was[n]; });
+    f[field] = value;
+    const qv = (D.questions || []).find(q => q.type === 'versions'), v = qv && f[qv.field], ver = v && (x.versions || []).find(y => y.k === v);
+    const bq = (D.questions || []).find(q => boxOf(q, f[q.field]));
+    const t = bq ? ((typed !== undefined ? typed : (was && was[bq.field] === f[bq.field] ? was.typed : null)) || null) : null;
+    return { token, source: SOURCE, lesson_date: null, kind: D.kind, word_key: D.prefix + ':' + x.id,
+             payload: { ...f, typed: t, done: complete(D, f), text: ver ? ver.text : null, label: x.date + ' ' + (x.mmss || ''), set: D.set || null, list: D.list || list || null } };
+  }
+  // AM-17: the undo row of a card (a new row of kind 'undo', never a delete)
+  function undoBody(D, x, token, Undo) {
+    return (Undo || root.AneesUndo).row({ token, source: SOURCE, lesson_date: null, kind: D.kind, word_key: D.prefix + ':' + x.id, payload: { label: x.date + ' ' + (x.mmss || '') } });
+  }
   // the hub row's count: rows = her amal_rules rows of this list's prefix, oldest first (the latest per item wins)
   function count(D, rows) {
     const lat = {}; (rows || []).forEach(r => { if (r && r.word_key != null) lat[r.word_key] = r; });
@@ -44,7 +67,11 @@
 #anees-bank .ck-ask{font:600 16px var(--sabz-font-sans);margin:10px 0 2px}
 #anees-bank .ck-note{font-size:15.5px;margin:2px 0;overflow-wrap:anywhere}
 #anees-bank .ck-lab{font-size:12.5px;color:var(--ab-muted);margin:6px 0 0}
-#anees-bank .ck-warn{color:var(--sabz-danger,#B3261E);font-weight:600}`;
+#anees-bank .ck-warn{color:var(--sabz-danger,#B3261E);font-weight:600}
+#anees-bank .ck-line{margin:2px 0 4px;overflow-wrap:anywhere}#anees-bank .ck-az{display:block;font-size:20px;line-height:1.45;font-weight:500;unicode-bidi:plaintext}
+#anees-bank .ck-ar{display:block;font-size:14px;line-height:1.5;color:var(--ab-muted);unicode-bidi:plaintext}
+#anees-bank .ck-ctx .ck-az{font-size:16px;font-weight:400}#anees-bank .ck-en{display:block;font-size:12.5px;line-height:1.35;color:var(--ab-muted);margin-top:1px}
+#anees-bank .ck-opts .hb-ans.ck-long{text-align:start}`;
     (document.head || document.documentElement).appendChild(css);
   }
 
@@ -90,10 +117,14 @@
             <div data-typed${box ? '' : ' hidden'}><textarea class="hb-input" dir="auto" lang="ar" placeholder="What did he say? (optional)" aria-label="What he said">${esc(box && cur === 'other' ? a.typed || '' : '')}</textarea>
             <button type="button" class="hb-ans primary" data-ck="typed-save" data-f="${esc(q.field)}"${off}>Save</button></div>` : '') + '</div>';
         }
-        return ask + `<div class="ck-opts">` + (q.options || []).map(o => `<button type="button" class="hb-ans" data-ck="${esc(q.field)}" data-v="${esc(o.v)}" aria-pressed="${cur === o.v}"${off}>${esc(o.label)}</button>`).join('') + '</div>';
+        const long = (q.options || []).some(o => String(o.label || '').length > 24) ? ' ck-long' : '';
+        const bx = (q.options || []).find(o => o.box && o.v === cur);
+        return ask + `<div class="ck-opts">` + (q.options || []).map(o => `<button type="button" class="hb-ans${long}" data-ck="${esc(q.field)}" data-v="${esc(o.v)}"${o.box ? ' data-box="1"' : ''} aria-pressed="${cur === o.v}"${off}>${esc(o.label)}</button>`).join('') + '</div>'
+          + ((q.options || []).some(o => o.box) ? `<div data-typed${box && bx ? '' : ' hidden'}><textarea class="hb-input" dir="auto" lang="ar" placeholder="${esc(bx ? bx.box : '')}" aria-label="${esc(bx ? bx.box : 'What you heard')}">${esc(box && bx ? a.typed || '' : '')}</textarea>
+            <button type="button" class="hb-ans primary" data-ck="typed-save" data-f="${esc(q.field)}" data-tv="${esc(cur)}"${off}>Save</button></div>` : '');
       }).join('');
       const any = answerOf(x), done = complete(DATA, any);
-      const said = any ? Q().filter(q => any[q.field]).map(q => label(q, x, any[q.field]) + (q.type === 'versions' && any[q.field] === 'other' && any.typed ? ': ' + any.typed : '')).join(' · ') : '';
+      const said = any ? Q().filter(q => any[q.field]).map(q => label(q, x, any[q.field]) + (boxOf(q, any[q.field]) && any.typed ? ': ' + any.typed : '')).join(' · ') : '';
       return qs + (any ? AneesUndo.answered((pending(key(x)) ? 'Saving… ' : 'Saved · ') + said + (done ? '' : ' · one more tap on this card'), { 'data-ck': 'undo' }) : '');
     }
     function state(x) {
@@ -110,55 +141,56 @@
     }
     // a clip is a cut file, or a window of the full lesson audio ("<date>/audio/lesson.mp3#t=start,end") - Medi 2026-10-06
     // "amal doesnt correct me here? why are we not including this context in all of them": both voices, a little before and after
-    function bar(src) { if (!root.AneesClip) return null; const [f, frag] = String(src).split('#t='), [st, en] = (frag || '').split(',').map(Number);
-      return AneesClip.bar({ src: BASE + 'lessons/' + f, start: frag ? st : 0, end: frag ? en : null }); }
+    const win = src => { const [f, frag] = String(src).split('#t='), [st, en] = (frag || '').split(',').map(Number);
+      return { src: BASE + 'lessons/' + f, start: frag ? st : 0, end: frag ? en : null }; };
+    function bar(src, fallback) { if (!root.AneesClip) return null; return AneesClip.bar({ ...win(src), fallback: fallback ? win(fallback) : null }); }
+    // a transcript line: Arabizi first, the Arabic small after (S1, PG-44), the English under it (PG-48)
+    const lineHtml = (l, cls) => `<p class="ck-lab">${esc(l.label || '')}</p><p class="ck-line${cls || ''}">${l.az ? `<span class="ck-az" dir="auto">${esc(l.az)}</span><span class="ck-ar" lang="ar" dir="auto">${esc(l.ar || '')}</span>`
+      : `<span class="ck-az" lang="ar" dir="auto">${esc(l.ar || '')}</span>`}${l.en ? `<span class="ck-en" lang="en">${esc(l.en)}</span>` : ''}</p>`;
     function render() {
       const versionsAreButtons = Q().some(q => q.type === 'versions');
       $root.innerHTML = items().map((x, n) => `<article class="hb-moment hb-card" data-id="${esc(x.id)}">
         <p class="hb-prog">${n + 1} of ${items().length} · lesson ${esc(day(x.date))} · ${esc(x.mmss || '')}</p>
         ${x.note ? `<p class="ck-note">${parts(x.note)}</p>` : ''}
         ${(x.clips || []).map((c, i) => `<p class="ck-lab">${esc(c.label || '')}</p><div data-bar="${i}"></div>`).join('')}
-        ${(x.rows || []).map(r => `<p class="ck-lab">${esc(r.label || '')}</p><p class="ck-note">${parts(r.text || '')}</p>`).join('')}
+        ${x.line ? lineHtml(x.line) : ''}
+        ${(x.rows || []).map(r => r.ar !== undefined ? lineHtml(r, ' ck-ctx') : `<p class="ck-lab">${esc(r.label || '')}</p><p class="ck-note">${parts(r.text || '')}</p>`).join('')}
         ${!versionsAreButtons && (x.versions || []).length ? `<p class="ck-lab">His line, written two ways</p>` + x.versions.map(v => `<div class="ck-info"><span aria-hidden="true">${esc(UP(v.k))}</span><span lang="ar" dir="auto">${esc(v.text)}</span></div>`).join('') : ''}
         <div data-state></div></article>`).join('') || '<p class="hb-empty">Nothing to check right now.</p>';
       items().forEach(x => {
         const card = $root.querySelector(`[data-id="${CSS.escape(x.id)}"]`);
-        (x.clips || []).forEach((c, i) => { const b = bar(c.src); if (b) card.querySelector(`[data-bar="${i}"]`).appendChild(b); });
+        (x.clips || []).forEach((c, i) => { const b = bar(c.src, c.fallback); if (b) card.querySelector(`[data-bar="${i}"]`).appendChild(b); });
         state(x);
       });
       progress();
     }
     function decide(x, field, value, typed) {
-      const k = key(x), was = answerOf(x) || {}, f = {};
-      fieldsOf(DATA).forEach(n => { if (was[n]) f[n] = was[n]; });
-      f[field] = value;
-      const q = Q().find(q => q.type === 'versions'), v = q && f[q.field], ver = v && (x.versions || []).find(y => y.k === v);
-      const t = q && f[q.field] === 'other' ? (typed !== undefined ? typed : was.typed) || null : null;
+      const k = key(x), body = tapBody(DATA, x, TOKEN, answerOf(x) || {}, field, value, typed, LIST), f = {};
+      fieldsOf(DATA).forEach(n => { if (body.payload[n]) f[n] = body.payload[n]; });
       // a newer tap replaces one that was not sent yet; a sent one is simply followed by this row (the latest wins)
       LS(QK, AneesUndo.unqueue(LS(QK) || [], j => j.body.word_key === k && j.body.kind !== 'undo'));
-      answers[k] = { kind: DATA.kind, ...f, typed: t, at: new Date().toISOString() }; LS(AK, answers);
-      push({ token: TOKEN, source: SOURCE, lesson_date: null, kind: DATA.kind, word_key: k,
-             payload: { ...f, typed: t, done: complete(DATA, f), text: ver ? ver.text : null, label: x.date + ' ' + (x.mmss || ''), set: DATA.set || null, list: DATA.list || LIST } });
+      answers[k] = { kind: DATA.kind, ...f, typed: body.payload.typed, at: new Date().toISOString() }; LS(AK, answers);
+      push(body);
       state(x);
     }
     function undo(x) {   // AM-17: a new 'undo' row; a tap not sent yet leaves the queue
       const k = key(x), was = answerOf(x); if (!was) return;
       LS(QK, AneesUndo.unqueue(LS(QK) || [], j => j.body.word_key === k && j.body.kind !== 'undo'));
       answers[k] = { kind: 'undo', at: new Date().toISOString() }; LS(AK, answers);
-      push(AneesUndo.row({ token: TOKEN, source: SOURCE, lesson_date: null, kind: DATA.kind, word_key: k, payload: { label: x.date + ' ' + (x.mmss || '') } }));
+      push(undoBody(DATA, x, TOKEN));
       openBox.delete(x.id); state(x);
     }
     el.addEventListener('click', e => {
       const b = e.target.closest('button[data-ck]'); if (!b || !TOKEN || !DATA) return;
       const card = b.closest('[data-id]'), x = items().find(i => i.id === card.dataset.id), act = b.dataset.ck; if (!x) return;
       if (act === 'undo') undo(x);
-      else if (act === 'typed-save') { const v = card.querySelector('[data-typed] textarea').value.trim(); openBox.delete(x.id); decide(x, b.dataset.f, 'other', v || null); }
-      else if (b.dataset.v === 'other') {      // saved at once; the box is for what he really said (optional)
-        const a = answerOf(x); openBox.add(x.id);
-        if (!a || a[act] !== 'other') decide(x, act, 'other'); else state(x);
+      else if (act === 'typed-save') { const v = card.querySelector('[data-typed] textarea').value.trim(); openBox.delete(x.id); decide(x, b.dataset.f, b.dataset.tv || 'other', v || null); }
+      else if (b.dataset.v === 'other' || b.dataset.box) {      // saved at once; the box is for what he really said (optional)
+        const a = answerOf(x), v = b.dataset.v; openBox.add(x.id);
+        if (!a || a[act] !== v) decide(x, act, v); else state(x);
         const t = card.querySelector('[data-typed] textarea'); if (t) t.focus();
       }
-      else { if (Q().some(q => q.field === act && q.type === 'versions')) openBox.delete(x.id); decide(x, act, b.dataset.v); }
+      else { if (Q().some(q => q.field === act && (q.type === 'versions' || (q.options || []).some(o => o.box)))) openBox.delete(x.id); decide(x, act, b.dataset.v); }
     });
 
     (async () => {
@@ -181,5 +213,5 @@
       setInterval(() => { if ((LS(QK) || []).length) flush(); }, 3000);
     })();
   }
-  root.AneesCheckTask = { mount, count, SOURCE };
+  root.AneesCheckTask = { mount, count, SOURCE, tapBody, undoBody, boxOf, complete };
 })(typeof window !== 'undefined' ? window : globalThis);

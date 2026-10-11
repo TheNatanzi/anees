@@ -142,7 +142,9 @@ def test_page_and_module_save_like_her_other_pages():
     for need in ("js/config.js", "js/amal-undo.js", "js/play-bar.js", "js/hub/clip-player.js", "js/hub/solo.js", "js/hub/check-task.js", "css/tutor-hub.css"):
         assert need in html, need
     assert "'X-Anees-Token': TOKEN" in JS and "api('POST', 'amal_rules'" in JS and "SOURCE = 'listen-check'" in JS
-    assert "kind: DATA.kind, word_key: k" in JS and "DATA.prefix + ':' + x.id" in JS and "AneesUndo.row(" in JS
+    # AM-29 (2026-10-11): the row of a tap / an undo is built by the pure tapBody / undoBody (same table, kind and key)
+    assert "kind: D.kind, word_key: D.prefix + ':' + x.id" in JS and "DATA.prefix + ':' + x.id" in JS and "AneesUndo).row(" in JS
+    assert "push(body);" in JS and "push(undoBody(DATA, x, TOKEN));" in JS
     links = re.findall(r"https?://[^\s\"'<>)]+", html + JS)
     assert all(u.startswith(("https://yljcbdxvnkfrwvelypfu.supabase.co", "https://thenatanzi.github.io")) for u in links), links
     assert "<a " not in html and "<a " not in JS

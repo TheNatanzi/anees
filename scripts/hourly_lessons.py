@@ -365,7 +365,8 @@ def _commit(paths, message):
 # lesson-data build; left uncommitted it made the guard's clean-tree check block every later hour)
 TUTOR_PATHS = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'RULE-BOOK.md',
                'data/lesson-work/ledger', 'data/lesson-work/ledger-amal.json',
-               'data/lesson-work/translations/tutor.json']   # PG-48: English of her card lines; LS-11: the lesson ledgers change with every build of the lesson data
+               'data/lesson-work/translations/tutor.json',   # PG-48: English of her card lines; LS-11: the lesson ledgers change with every build of the lesson data
+               'data/lesson-work/review-grades']   # AM-29: her key-check answers + key; PG-46: a frozen exam key written by review_grades.py
 # everything a run may build that the site or the guard reads: committed before the run's one push
 BUILT_PATHS = ['docs', 'RULE-BOOK.md', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'data/lesson-work/ledger', 'data/lesson-work/ledger-amal.json', 'plan/FULL-AUDIT-2026-09-26.md',
                'data/budget.json', 'data/lessons/recall_bots.json', 'data/runs', 'data/decisions', 'data/backfill',
@@ -398,6 +399,7 @@ def tutor_refresh(no_push=False, rebuild_all=False):
         run_step('translate_lines.py tutor', [sys.executable, str(HERE / 'translate_lines.py'), 'tutor'], failures, timeout=900)   # PG-48: English under every line on her cards (new lines only)
         run_step('build_student_data.py', [sys.executable, str(HERE / 'build_student_data.py')], failures, timeout=300)   # Student tab + her uploads (Medi 2026-10-05)
         run_step('build_tutor_weak.py', [sys.executable, str(HERE / 'build_tutor_weak.py')], failures, timeout=300)   # PG-30: her Grammar / Vocab / Decay tabs
+        run_step('build_tutor_key_check.py pull', [sys.executable, str(HERE / 'build_tutor_key_check.py'), 'pull'], failures, timeout=120)   # AM-29: her key-check taps -> data/ (read-only)
         run_step('review_grades.py', [sys.executable, str(HERE / 'review_grades.py')], failures, timeout=300)   # PG-46: the grade book (AI Reports › Grades), today's page vs his full reviews
         # rule PG-16: the rule book (docs/rules.html + RULE-BOOK.md) is rebuilt from rules/registry.json every hour
         run_step('build_rule_book.py', [sys.executable, str(HERE / 'build_rule_book.py')], failures)

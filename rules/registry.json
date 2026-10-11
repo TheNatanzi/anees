@@ -8057,7 +8057,7 @@
     {
      "type": "code",
      "path": "docs/js/tutor.js",
-     "contains": "review: 'kinds of mistake'"
+     "contains": "s mistakes to review'"
     },
     {
      "type": "code",
@@ -8576,6 +8576,89 @@
    "example": {
     "date": "2026-10-10",
     "note": "First build: 120 open questions about lessons 08-25 to 10-06 paused (45 slip patterns, 61 not-on-sheet words, 14 which-word-was-wrong cards); 10-08 shows 7 open, 10-09 shows 9, as before; her 38 answered patterns, 63 answered moments and every answered listen / check item stay in her history."
+   },
+   "aliases": []
+  },
+  {
+   "id": "AM-29",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The tutor checks her half of an exam lesson's answer key on her Tutor page (protocol section 2.4): 50 moments of the exam lesson (10-09 first) = 30 lines of tier 1 (unsure) + 20 lines of tiers 2 and 3 of docs/data/review-pick/<date>.json, chosen by a hash of the date and the line time (stable; frozen in the key file at the first build), shown in time order, BLIND - no chip, no robot mark, no tier or reason, no student answer, nothing saying which group a line is in. Each card: the student's clip (the lesson page's clip of the line, else the lesson audio from 1 s before it), his line as the transcript has it (Arabizi first, the Arabic small after, the English under it - S1, PG-44, PG-48), her line just before and after, and four plain sentences (AM-23, PG-33): 'The words are right and the student said it right' / 'The words are not what the student said' (a box: what he really said) / 'The student made a mistake here' (an optional box: how it should be said) / 'Can't tell from the recording', with Undo (AM-17), the note box (AM-27), a progress line ('12 of 50 answered') and one To do row 'Check 50 moments of the Oct 9 lesson (about 12 minutes)'. scripts/build_tutor_key_check.py builds it (run by build_tutor_data.py, so the hourly Tutor refresh and every Amal trigger rebuild it); her taps are amal_rules rows of the existing kind of her checking lists (source listen-check, kind key_check, word_key keycheck:<id>; no migration), mirrored read-only into data/lesson-work/review-grades/tutor-check-answers.json (build_tutor_key_check.py pull, hourly and on her trigger); scripts/review_grades.py adds amal_check {answered, agree_with_student_n, compared_n, agreement_pct} to the lesson's grade-book row, comparing her answer with the student's fast-review key on the same line (1 right, 2 wrong word, 3 mistake; her 'can't tell' and his key 4 are not compared), shown on AI Reports > Grades as 'Tutor and student agree on N of M lines'. Her answers are a measurement: they never change a lesson page by themselves; Medi decides later.",
+   "plain": "For each exam lesson your tutor gets 50 short moments of your lines on her Tutor page - 30 the robot was unsure about and 20 others, picked the same way every time, with no robot marks or your answers shown. She taps one plain sentence for each, and the grade book shows how often her answer matches yours; her answers never change the lesson by themselves.",
+   "plain_for": "f7ec5776",
+   "topic": "testing engines",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-11",
+     "quote": "Put it in the tutor panel I will have amal work on it as well"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-11",
+     "quote": "mix 30-20"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_key_check.py",
+     "contains": "N_UNSURE, N_REST = 30, 20"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_key_check.py",
+     "contains": "def select(pick, date, n_unsure=N_UNSURE, n_rest=N_REST):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_key_check.py",
+     "contains": "def agreement(key_items, her_rows, his_rows):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_data.py",
+     "contains": "build_tutor_key_check.build_all()"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_grades.py",
+     "contains": "def tutor_check(date, his_rows, repo=REPO, tutor_rows=None):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/check-task.js",
+     "contains": "function tapBody(D, x, token, was, field, value, typed, list)"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/review-grades.js",
+     "contains": "Tutor and student agree on"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_key_check.py",
+     "contains": "def test_am_29_selection_is_30_unsure_plus_20_others_stable_per_date_in_time_order"
+    },
+    {
+     "path": "tests/test_tutor_key_check.py",
+     "contains": "def test_am_29_cards_are_blind_no_chip_no_mark_no_tier_no_student_answer"
+    },
+    {
+     "path": "tests/test_tutor_key_check.py",
+     "contains": "def test_am_29_agreement_math"
+    },
+    {
+     "path": "tests/test_tutor_key_check.cjs",
+     "contains": "test('AM-29 each choice -> the row shape her other checking lists save'"
+    }
+   ],
+   "example": {
+    "date": "2026-10-11",
+    "note": "First build for 10-09: 50 moments (30 of 83 unsure lines + 20 of 139 changed / confident lines), 01:52 to the end of the lesson, about 12 minutes; 44 play the lesson page's clip of the line, 6 the lesson audio from 1 s before it."
    },
    "aliases": []
   },

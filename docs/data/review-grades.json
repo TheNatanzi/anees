@@ -1,5 +1,5 @@
 {
- "about": "Grade book (PG-46): the pipeline's first version of each lesson Medi reviewed in full, graded against his review (the answer key); Arabic words of his lines only. 'now' is shown as drift: today's page vs the key, a regression check only, never an accuracy score. minutes_medi / coverage_medi: his fast-review minutes and the share of his Arabic lines he answered in fast mode (null = no fast review). Built by scripts/review_grades.py.",
+ "about": "Grade book (PG-46): the pipeline's first version of each lesson Medi reviewed in full, graded against his review (the answer key); Arabic words of his lines only. 'now' is shown as drift: today's page vs the key, a regression check only, never an accuracy score. minutes_medi / coverage_medi: his fast-review minutes and the share of his Arabic lines he answered in fast mode (null = no fast review). amal_check (AM-29): the tutor's blind check of the exam's moments - how many she answered and on how many lines her answer and his fast-review key (1 right, 2 wrong word, 3 mistake) say the same; a measurement only. Built by scripts/review_grades.py.",
  "types": {
   "missed_slip": "missed slip: the tutor corrected him, no mistake marked",
   "fake_slip": "fake slip: a mistake marked that was not one",
@@ -2980,7 +2980,14 @@
    "note": "first exam (PR-23): his full review in the fast review mode (PG-50), started 2026-10-11; before = 7839d96 (second listen applied, 2026-10-09.first.json); the key freezes itself at full coverage",
    "minutes_medi": null,
    "coverage_medi": null,
-   "status": "no answer key frozen yet"
+   "status": "no answer key frozen yet",
+   "amal_check": {
+    "total": 50,
+    "answered": 0,
+    "compared_n": 0,
+    "agree_with_student_n": 0,
+    "agreement_pct": null
+   }
   }
  ],
  "trend": [

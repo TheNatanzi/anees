@@ -97,7 +97,10 @@ def test_listen_taps_do_not_start_the_audit_chain():
     import amal_trigger as AT
     src = (ROOT / "scripts" / "amal_trigger.py").read_text(encoding="utf-8")
     assert "listen-check" in AT.KNOWN_RULE_SOURCES                              # so amal_rules_other (the audit chain) never sees them
-    assert '"id": "listen_check"' in src and '"fetch": fetch_listen_check, "steps": ["build_tutor_data"]' in src
+    # AM-29 (2026-10-11): her key-check taps also refresh the grade book's agreement (a read-only pull + review_grades), never the audit chain
+    assert '"id": "listen_check"' in src and '"steps": ["build_tutor_data", "tutor_key_check_pull", "review_grades"],' in src
+    blk = src[src.index('{"id": "listen_check"'):src.index('{"id": "tutor_notes"')]
+    assert "AUDIT_CHAIN" not in blk and "full_audit_build" not in blk and "apply_amal_audit_rulings" not in blk
 
 
 def test_results_tally_against_the_key():

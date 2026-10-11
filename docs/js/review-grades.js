@@ -18,6 +18,10 @@
     const bits = [];
     if (r.minutes_medi !== null && r.minutes_medi !== undefined) bits.push(`${esc(r.minutes_medi)} min of the student's time`);
     if (r.coverage_medi !== null && r.coverage_medi !== undefined) bits.push(`${esc(r.lines_checked)} of ${esc(r.lines_total)} lines checked (${pct(100 * r.coverage_medi)})`);
+    // AM-29 (Medi 2026-10-11 "mix 30-20"): the tutor's blind check of the exam's moments vs his fast-review answers
+    const ac = r.amal_check;
+    if (ac) bits.push(`Tutor checked ${esc(ac.answered)} of ${esc(ac.total)} moments` + (ac.compared_n
+      ? ` · Tutor and student agree on ${esc(ac.agree_with_student_n)} of ${esc(ac.compared_n)} lines (${pct(ac.agreement_pct)})` : ''));
     return bits.length ? `<div class="ab-tiny rg-time">${bits.join(' · ')}</div>` : '';
   }
 

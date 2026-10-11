@@ -230,6 +230,9 @@ STEPS = [
     # new words Amal used that are not on her Doc + her add / later / forget taps (Medi 2026-10-02)
     ("amal_new_words", [sys.executable, "scripts/amal_new_words.py"]),
     ("build_tutor_data", [sys.executable, "scripts/build_tutor_data.py"]),
+    # AM-29: her key-check taps mirrored read-only into data/, then the grade book's tutor-vs-student agreement
+    ("tutor_key_check_pull", [sys.executable, "scripts/build_tutor_key_check.py", "pull"]),
+    ("review_grades", [sys.executable, "scripts/review_grades.py"]),
     # Amal's uploads + homework -> Student tab / Flashcards data (Medi 2026-10-05)
     ("build_student_data", [sys.executable, "scripts/build_student_data.py"]),
     ("build_tutor_weak", [sys.executable, "scripts/build_tutor_weak.py"]),   # PG-30: Amal\'s Grammar / Vocab / Decay tabs
@@ -246,8 +249,10 @@ SOURCES = [
     {"id": "pattern_review", "label": "Slips-by-pattern review", "fetch": fetch_pattern_review, "steps": AUDIT_CHAIN},
     {"id": "after_links", "label": "After-lesson questions", "fetch": fetch_after, "steps": AUDIT_CHAIN},
     {"id": "plan_links", "label": "Before-lesson planner", "fetch": fetch_plan, "steps": ["build_tutor_data"]},
-    {"id": "listen_check", "label": "Listening check: which version is right", "fetch": fetch_listen_check, "steps": ["build_tutor_data"],
-     "note": "her taps are read by scripts/amal_listen_results.py; nothing is re-scored, only her hub list is refreshed"},
+    {"id": "listen_check", "label": "Listening check: which version is right", "fetch": fetch_listen_check,
+     "steps": ["build_tutor_data", "tutor_key_check_pull", "review_grades"],
+     "note": "her taps are read by scripts/amal_listen_results.py; nothing is re-scored, only her hub list is refreshed "
+             "(AM-29: her key-check taps feed only the grade book's tutor-vs-student agreement)"},
     {"id": "tutor_notes", "label": "Notes she writes on her Tutor screens (AM-27)", "fetch": fetch_notes, "steps": ["build_tutor_data", "build_student_data"]},
     {"id": "amal_rules_other", "label": "Any other answer she gives in the app", "fetch": fetch_rules_other, "steps": AUDIT_CHAIN},
     {"id": "verb_checks", "label": "Verb check lists 1 and 2", "fetch": fetch_verb_checks,
