@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-11T01:07:58-07:00",
+ "updated": "2026-10-11T01:37:54-07:00",
  "result": "pass",
- "source": "manual: 10-09 exam frozen",
- "checked_commit": "8774676a8e0a",
- "secs": 119.7,
+ "source": "manual: tutor 50-moment check, plain banner, unanswered filter",
+ "checked_commit": "2b0895458ddd",
+ "secs": 125.3,
  "checks": [
   {
    "id": "step_failures",
@@ -25,9 +25,9 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.3,
+   "secs": 1.2,
    "what": "every docs/data JSON file parses and has its shape",
-   "detail": "146 JSON files parse"
+   "detail": "147 JSON files parse"
   },
   {
    "id": "rule_registry",
@@ -35,7 +35,7 @@
    "ok": true,
    "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 251 rules: enforced 160 (code 151, brief 9), written 71, moment-only 12, needs Medi 0, superseded 8"
+   "detail": "rule_registry: OK - 252 rules: enforced 161 (code 152, brief 9), written 71, moment-only 12, needs Medi 0, superseded 8"
   },
   {
    "id": "lesson_coverage",
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 3.0,
+   "secs": 2.9,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.2,
+   "secs": 1.3,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 2.1,
+   "secs": 2.2,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 743 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 3.4,
+   "secs": 3.7,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...6 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.5,
+   "secs": 5.7,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 72 pages, every link, data file and clip resolves (2 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 1.7,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.6,
+   "secs": 0.7,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 87.6,
+   "secs": 92.4,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "................... [ 96%] | ..............................                                           [100%] | 818 passed, 1 skipped, 3 xfailed in 83.64s (0:01:23)"
+   "detail": "................... [ 94%] | ...........................................                              [100%] | 831 passed, 1 skipped, 3 xfailed in 90.14s (0:01:30)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 5.6,
+   "secs": 6.0,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5538.3686"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5913.601"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.7,
+   "secs": 5.9,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -161,9 +161,9 @@
    "id": "data_freshness",
    "required": false,
    "ok": false,
-   "secs": 0.5,
+   "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
-   "detail": "lesson 2026-10-10 transcribed 10-10 15:17 but not on the site (not in lessons.json); Amal's answers last checked 24 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
+   "detail": "lesson 2026-10-10 transcribed 10-10 15:17 but not on the site (not in lessons.json); Amal's answers last checked 25 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
   },
   {
    "id": "medi_corrections",
@@ -177,14 +177,14 @@
    "id": "foreign_script",
    "required": false,
    "ok": false,
-   "secs": 0.2,
+   "secs": 0.3,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)",
    "detail": "exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
   }
  ],
  "warnings": [
   "review_freshness: 2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it",
-  "data_freshness: lesson 2026-10-10 transcribed 10-10 15:17 but not on the site (not in lessons.json); Amal's answers last checked 24 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
+  "data_freshness: lesson 2026-10-10 transcribed 10-10 15:17 but not on the site (not in lessons.json); Amal's answers last checked 25 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": null,
