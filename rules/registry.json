@@ -10637,6 +10637,40 @@
     "t": "01:59",
     "note": "TUTOR 01:59 -> ▶ 01:59"
    }
+  },
+  {
+   "id": "PR-23",
+   "kind": "process",
+   "scope": "process",
+   "status": "written",
+   "change": "new",
+   "statement": "The pipeline test protocol lives in plan/PIPELINE-TEST-PROTOCOL.md and is re-run after every new fully reviewed lesson: the pipeline must be alive and the lesson's second listen applied before Medi reviews; the reviewed page is frozen with its SHA; the key's own error rate is measured (blind re-listen of 40 moments); tests run by layer (key, oracle marking on the key text, injected errors for the readers, reader self-agreement, the hearing harness with switches, tier x effort only after 3 exam lessons); every comparison is paired on the same words; a change is adopted only after it wins on the practice lesson AND the next exam lesson with FCR not rising. One row per run in the protocol's run log.",
+   "plain": "After every lesson Medi fully reviews, we run the same written test method: freeze the page, measure how good the answer key is, test each layer on its own, and only adopt a change that wins twice.",
+   "plain_for": "45d4d201",
+   "topic": "testing engines",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "keep this testing method documented because we are gonna run it a few more times after we grad more lessons"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-10",
+     "quote": "please have fable revelauate the research and see if it can come up with any better research testing methodology"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "plan/PIPELINE-TEST-PROTOCOL.md",
+     "contains": "## 6. Decision rule"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "note": "10-08 = practice lesson (rules tuned on it); 10-09 = first exam once its second listen is published"
+   }
   }
  ]
 }
