@@ -132,7 +132,7 @@ def pending_work(root, now, states, last_utc, raw=None):
     rows = (_J(root / 'data/lesson-work/medi-corrections.json') or {}).get('rows') or []
     newer = [r for r in rows if last_utc and (_utc(r.get('ts')) or last_utc) > last_utc]
     if newer:
-        why.append(f"{len(newer)} of Medi's corrections since the last publish")
+        why.append(f"{len(newer)} of the student's corrections since the last publish")
     return why, of
 
 

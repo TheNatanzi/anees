@@ -1,6 +1,6 @@
 """Out-of-date banner: a page stamped with build A shows a flashing Reload bar once data/build.json says build B."""
 import pytest
-import io, json, re, threading, http.server, functools
+import io, json, os, re, threading, http.server, functools
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -63,6 +63,8 @@ def test_stall_banner_names_the_hours_and_the_reason():
     assert _stall_text(fine, '2026-10-11T05:00:00Z') == 'The hourly robot has not published for 5 h: waiting: lesson day (2026-10-11)'
     assert _stall_text({**fine, 'pending': []}, '2026-10-11T05:00:00Z') is None      # nothing waits: no banner
     assert _stall_text(None, '2026-10-11T05:00:00Z') is None                         # no file: fails quiet
+    src = open(os.path.join(os.path.dirname(__file__), '..', 'scripts', 'pipeline_health.py'), encoding='utf-8').read()
+    assert "of the student's corrections since the last publish" in src and "of Medi's corrections since" not in src   # PG-33 on the banner
 
 
 def test_stale_js_fetches_the_pipeline_health():
