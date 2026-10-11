@@ -717,6 +717,26 @@ function endsSentence(s) { s = String(s || '').replace(/(?:[\s,،]*(?:um|uh|mm|m
 function goesOn(prev, t, gap) { return gap <= JOIN_GAP || (gap <= JOIN_LONG && (!endsSentence(prev.text) || /^[a-z]/.test(String(t.text || '').trim()))); }
 // Amal's TYPED chat line arriving while he speaks does not break his sentence (Medi 2026-10-03 "why did you break this
 // sentence up? should be together" - 15:28 his date answer, her chat at 15:35 in between): it is shown right after it.
+// PG-39 (Medi 2026-10-11 "lets simplify the correct vocab and just make one pill box for all the correct words in the
+// sentence" · "theres like 6 different vocab pills here"): a JOINED sentence shows ONE green ✓ vocab pill listing every
+// correct word of all its pieces, and one ✓ grammar pill per rule (A1 twice = one A1). Display only; nothing is recounted.
+function mergeCorrect(cs) {
+  var out = [], vocab = null, gram = {};
+  cs.forEach(function (c) {
+    if (c.hide || c.s !== 'correct' || (c.k !== 'vocab' && c.k !== 'grammar')) { out.push(c); return; }
+    if (c.k === 'vocab') {
+      var ws = c.words || [{ ar: c.ar, w: c.w, said: c.said }];
+      if (!vocab) { vocab = Object.assign({}, c, { words: ws.slice() }); out.push(vocab); }
+      else { vocab.words = vocab.words.concat(ws); out.push(Object.assign({}, c, { hide: vocab.id })); }
+      return;
+    }
+    var k = c.rule || c.name || '';
+    if (!gram[k]) { gram[k] = c; out.push(c); }
+    else out.push(Object.assign({}, c, { hide: gram[k].id }));
+  });
+  if (vocab && vocab.words.length < 2) delete vocab.words;
+  return out;
+}
 function sentences(turns, tm) {
   var out = [], held = [], lastMedi = null;
   var flush = function () { held.forEach(function (h) { out.push(h); }); held = []; };
@@ -741,7 +761,7 @@ function sentences(turns, tm) {
       });
       if (m) {
         var lm = last.m || { c: [], u: [] };
-        last.m = { c: lm.c.concat(m.c || []), u: lm.u.concat((m.u || []).map(function (u) { return [u[0] + off, u[1] + off].concat(u.slice(2)); })) };
+        last.m = { c: mergeCorrect(lm.c.concat(m.c || [])), u: lm.u.concat((m.u || []).map(function (u) { return [u[0] + off, u[1] + off].concat(u.slice(2)); })) };
       }
       last.pieces++;
       last.parts.push(t);
