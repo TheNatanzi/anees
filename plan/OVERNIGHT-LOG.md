@@ -469,3 +469,17 @@ Numbers in front of them: 10-08 = 200 Arabic lines -> tier 1 unsure 73 (~21 min)
 | Medi-focused | approve | one key per line + auto clip fits; the 82 min of 10-09 should be offered in two sittings (resume starts at the first unanswered line: built) |
 
 Chairman verdict: **APPROVE** · confidence **7/10** (8+ once his first real session is timed under ~60 min for an exam lesson).
+
+### Codex rounds 2-5
+| Round | Verdict | Blocking findings -> fix |
+|---|---|---|
+| 2 | CHANGES REQUIRED | budget rebuild matched a run line to a call of another service with the same cost -> service must match (test); a fast review at full coverage never froze its key -> the build freezes it (before = first publish, key = today's page; test); Grades tab said "Medi's time" -> "the student's time" (PG-33, test) |
+| 3 | CHANGES REQUIRED | the stall banner could say "Medi's corrections" -> "the student's corrections" (PG-33, test) |
+| 4 | CHANGES REQUIRED | an undone fast answer still counted toward coverage -> coverage from medi_corrections.effective(), minutes keep every second (test) |
+| 5 | **APPROVE** | none |
+
+### 10-09 lesson audit (runbook section C, after the second listen + the re-read)
+- coverage: 636 Arabic words of his, 0 unmarked · Latin on Arabic lines: 0 · her nod: 0 · twice-credited: 0
+- 45 lines without English: all fillers (امم، / آآآ / a cut-off بتتب--), allowed by the runbook
+- left for Medi's review in the new mode: 64:23-64:25, two red ✗ chips (تانية, لعبة) on his QUESTION "What does لعبة، لعبة تانية mean?" (a question about her words is not his slip: key 4 'asking' in the review mode); 18 'not on her list' words are his own attempts (plural tries, a garbled goodbye), no evidence from her to change them
+- readers re-read on the new text: agreement 71.9 %, 50 rows (r3 kept 9, dropped 7)
