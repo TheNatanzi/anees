@@ -79,7 +79,8 @@ def test_first_publish_freeze_is_the_before_when_present(tmp_path, monkeypatch):
 
 def test_10_09_first_publish_is_backfilled_from_the_hourly_commit():
     f = json.load(open(RG.first_path("2026-10-09"), encoding="utf-8"))
-    assert f["sha"].startswith("aace7c9") and f["date"] == "2026-10-09"   # "Lessons 2026-10-09 loaded by the hourly job"
+    assert f["sha"].startswith("7839d96") and f["date"] == "2026-10-09"   # re-frozen on the second-listen page by his go 2026-10-11
+    assert f["replaced"]["sha"].startswith("aace7c9")                       # the first hourly publish, kept in git
     assert f["page"]["turns"] and RG.first_publish("2026-10-09")[1] == f["sha"]
 
 
