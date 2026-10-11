@@ -781,7 +781,7 @@ if __name__ == "__main__":
                                  "why": "'كم مرة؟' and Amal repeats herself: he asked 'kaman marra' (again?) "
                                         "(automatic rule, Medi 2026-10-02)"})
                 del found["E5"]
-            if SUP:                                  # GR-34: his line says her line back (her question, her words)
+            if SUP:                                  # GR-34: his line says her line back (her words; WS-38: an answer to her question is his own)
                 jj = next((j for j in WC.tutor_before(TW, i, WC.REPEAT_S) if WC.echo_of(TW, i, j) and _same_words(TW, i, j)), None)
                 if jj is not None:
                     for bid, hit in found.items():

@@ -221,14 +221,42 @@ def supplies(turns, fix_times=(), date=None):
         if any(ASKS.search(turns[k].get("text") or "") for k in mine):
             out[j] = "her answer to his 'how do I say'"
             continue
-        if norm(toks[0]) in QWORDS or core(toks[0]) in QWORDS or (
-                re.search(r"[?؟]", u.get("text") or "") and any(core(w) in QWORDS or norm(w) in QWORDS for w in toks)):
-            continue                      # a question to him ('شو اليوم؟', 'طب امتى الشمس بتطلع؟') gives him nothing to repeat
-        his = [w for k in mine for w, cut in arabic_tokens(turns[k].get("text")) if not cut]
+        if norm(toks[0]) in QWORDS or core(toks[0]) in QWORDS or asks_him(u):
+            continue                      # WS-38: a question to him ('شو اليوم؟', 'بطنك، شربت إشي؟') gives him nothing to repeat
+        his = [[w for w, cut in arabic_tokens(turns[k].get("text")) if not cut] for k in mine]
         content = [w for w in toks if len(core(w)) >= 3 and core(w) not in FUNCTION]
-        if his and any(similar(a, b) for a in content for b in his):
+        if any(his) and restates_his_line(content, his):
             out[j] = "her recast of his line"
     return out
+
+
+# WS-38 (Medi 2026-10-11 on 10-09 04:01 and 04:17: "not a repeat, just responding. For repeat its when I am repeating a
+# correction"): a REPEAT is only his saying back a CORRECTION - her fix of a counted slip, her answer to his 'how do I
+# say', her typed chat fix, or a true recast (she says HIS line back in the right form). Her question to him, or her next
+# prompt that carries on the talk, gives him nothing to repeat: his answer in her words is his own answer.
+def asks_him(u):
+    """WS-38: her line asks him something - a ? or ؟ anywhere in it ('مم، لازم تشرب نعنع. بتعرف نعنع؟' is a prompt)."""
+    return bool(re.search(r"[?؟]", (u or {}).get("text") or ""))
+
+
+def restates_his_line(content, his_lines):
+    """WS-38: her content words really restate one of his lines of the 20 s before - she says one of his words in
+    another form (his عيان, her عيانة; his القمر, her قمر: the fix) or at least half of that line's content words come
+    back in her line. his_lines = [[his Arabic words of one line], ...]."""
+    if not content:
+        return False
+    for his in his_lines:
+        mine = []
+        for w in his:
+            if len(core(w)) >= 3 and core(w) not in FUNCTION and core(w) not in FILLERS and all(norm(w) != norm(x) for x in mine):
+                mine.append(w)
+        if not mine:
+            continue
+        if any(similar(a, b) and norm(a) != norm(b) for a in content for b in mine):
+            return True
+        if 2 * sum(1 for b in mine if any(similar(a, b) for a in content)) >= len(mine):
+            return True
+    return False
 
 
 def tutor_before(turns, i, window):
@@ -261,6 +289,8 @@ def echo_of(turns, i, j):
     mine = [w for w, cut in arabic_tokens(turns[i].get("text")) if not cut]
     if is_reply(mine):
         return False
+    if asks_him(turns[j]) and not asks_him(turns[i]):
+        return False                      # WS-38: he answers her question in her words (10-09 04:01 أنا شربت): his own answer
     hers = [w for w, cut in arabic_tokens(turns[j].get("text")) if not cut]
     return bool(mine) and bool(hers) and all(any(similar(a, b) for b in hers) for a in mine)
 
@@ -296,6 +326,9 @@ def judge_word(turns, i, word, key, key_of, sup, plural=None, strict=False):
                 sup[j].replace("her ", ""), mmss(turns[j]["t"]), (turns[j].get("text") or "")[:80]), j
         if echo_of(turns, i, j):
             return "repeat", "He says the tutor's words back (%s «%s»): a repeat, not credited, not a mistake (WS-31)" % (
+                mmss(turns[j]["t"]), (turns[j].get("text") or "")[:80]), j
+        if asks_him(turns[j]) and not asks_him(turns[i]):
+            return "independent", "His own answer to her question (%s «%s»): counts like any word, not a repeat (WS-38)" % (
                 mmss(turns[j]["t"]), (turns[j].get("text") or "")[:80]), j
         own = [w for w, cut in arabic_tokens(turns[i].get("text"))]
         if len(own) >= 3:

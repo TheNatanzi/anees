@@ -461,3 +461,55 @@ def test_pg_43_a_standing_rule_grey_reason_is_kept_in_the_data_but_never_drawn()
     assert prep and all(x.get("quiet") == "PG-43" and x.get("hide") for x in prep)
     rows = [r for r in WC.report("2026-10-08") if r["quiet"]]
     assert rows and all(r["state"] == "na" for r in rows)
+
+
+# 10-09 03:50-04:25, as the page shows it after the second listen
+TURNS_1009 = [
+    {"t": 234.52, "end": 235.8, "who": "Medi", "text": "Ah, بطني."},
+    {"t": 236.66, "end": 238.68, "who": "Amal", "text": "بطنك، شربت إشي؟"},
+    {"t": 240.86, "end": 244.82, "who": "Medi", "text": "Uh, أنا شربت، uh,"},
+    {"t": 246.58, "end": 249.78, "who": "Medi", "text": "مي كتير و شوربة"},
+    {"t": 251.8, "end": 255.64, "who": "Amal", "text": "مم، لازم تشرب نعنع. بتعرف نعنع؟"},
+    {"t": 256.72, "end": 258.46, "who": "Medi", "text": "Uh, أنا"},
+    {"t": 260.1, "end": 264.24, "who": "Medi", "text": "لازم أشتري نانا أك-- uh, ن-نانا."},
+]
+
+
+def test_ws_38_an_answer_to_her_question_is_his_own_not_a_repeat():
+    """WS-38 (Medi 2026-10-11 on 10-09 04:01 and 04:17: "so this isnt technically a repeat. I am responding to her
+    question." / "not a repeat, just responding. For repeat its when I am repeating a correction")."""
+    sup = WC.supplies(TURNS_1009, (), "2026-10-09")
+    assert 1 not in sup and 4 not in sup                    # her questions / prompts give him nothing to repeat
+    assert WC.asks_him(TURNS_1009[4])                       # a ؟ anywhere in her line, not only a question word
+    assert not WC.echo_of(TURNS_1009, 2, 1)                 # 04:01 أنا شربت answers her شربت إشي؟
+    key = {"لازم": "lAzem", "شربت": "ana shrebet"}.get
+    assert WC.judge_word(TURNS_1009, 6, "لازم", "lAzem", key, sup)[0] == "independent"   # 04:20 his own answer, 3+ words
+    assert WC.judge_word(TURNS_1009, 2, "شربت", "ana shrebet", key, sup)[0] == "independent"   # 04:00 one word: still his
+    T = [{"speaker": u["who"], "start": u["t"], "end": u["end"], "text": u["text"]} for u in TURNS_1009]
+    TW = D.as_turns(T)
+    assert D.grammar_repeat(TW, 2, "شربت", WC.supplies(TW, (), "2026-10-09")) is None
+    # a true recast (she says HIS line back in the right form) and her fix stay repeats
+    assert WC.restates_his_line(["عيانة"], [["خطيبتي", "شوي", "عيان"]])
+    assert WC.restates_his_line(["راسها", "بيوجع"], [["هي", "بيوجع"]])
+    assert not WC.restates_his_line(["نار"], [["شمس", "هوا", "نار"]])     # 10-08 41:39 she takes up one word: a prompt
+    sup8 = WC.supplies(TURNS)
+    assert 3 in sup8 and 5 in sup8 and WC.judge_word(TURNS, 6, "راسها", "rAs", FAKE_KEY, sup8)[0] == "repeat"
+
+
+def test_ws_38_10_09_moments_on_the_page_and_10_08_repeats_kept():
+    d = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", "2026-10-09.json"), encoding="utf-8"))
+
+    def chips(dd, t):
+        i = next(k for k, u in enumerate(dd["turns"]) if u["who"] == "Medi" and abs(u["t"] - t) < 0.3)
+        return (dd["tmarks"].get(str(i)) or {}).get("c", [])
+    c42 = chips(d, 240.86)                                   # 04:00 أنا شربت: B5 is his use, شربت his word
+    assert not any(x["s"] == "repeat" for x in c42)
+    u = json.load(open(os.path.join(ROOT, "docs", "data", "grammar-usage.json"), encoding="utf-8"))
+    assert any(x["date"] == "2026-10-09" and abs(x["t"] - 240.9) < 1.0 for x in u["uses"].get("B5", []))
+    c46 = chips(d, 260.1)                                    # 04:20 لازم أشتري: لازم is credited, no repeat chip
+    assert not any(x["s"] == "repeat" for x in c46)
+    assert any(x["k"] == "vocab" and x["s"] == "correct" and "لازم" in (x.get("ar") or x.get("w") or "") for x in
+               c46 + [a for x in c46 for a in x.get("also", [])])
+    d8 = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", "2026-10-08.json"), encoding="utf-8"))
+    assert any(x["k"] == "vocab" and x["s"] == "repeat" for x in chips(d8, 145.6))   # 02:25 عيانة after her 02:22 recast
+    assert any(x["k"] == "grammar" and x["s"] == "repeat" for x in chips(d8, 246.6))  # 04:06 هي راسها بيوجع

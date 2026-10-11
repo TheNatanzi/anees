@@ -10373,6 +10373,56 @@
    }
   },
   {
+   "id": "WS-38",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A REPEAT is only his saying back a CORRECTION - her fix of a counted slip, her answer to his 'how do I say', her typed chat fix, or a true recast (she says HIS line of the 20 s before back in the right form: one of his words in another form - his عيان, her عيانة; his القمر, her قمر - or at least half of that line's content words). Her line with a ? or ؟ anywhere in it is a question or prompt to him, never a recast (scripts/word_coverage.py asks_him / restates_his_line in supplies()); her line that only carries on the talk is no recast either. His answer in her words is his own answer, for words and grammar alike: the word counts like any word he says on his own (judge_word: no repeat and no half credit, even a one-word answer) and the grammar use counts - the GR-34 'he says the tutor's line back' rule no longer fires when her line asked him something and his line answers it (echo_of). 10-09 04:00 أنا شربت after her 03:56 'بطنك، شربت إشي؟' = B5 use; 04:20 لازم أشتري after her 04:11 'مم، لازم تشرب نعنع. بتعرف نعنع؟' = لازم credited. Kept: GR-34 greetings, WS-34, chat fixes, the 10-08 recasts (02:25 عيانة, 04:06 راسها بيوجع).",
+   "plain": "A repeat is only when you say back her correction (her fix, her answer to your 'how do I say', her chat fix, or your line said back right); when she asks you something and you answer in her words, the words and grammar count as yours.",
+   "plain_for": "45a7b884",
+   "topic": "word scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-11",
+     "quote": "so this isnt technically a repeat. I am responding to her question."
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-11",
+     "quote": "not a repeat, just responding. For repeat its when I am repeating a correction"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def restates_his_line(content, his_lines):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "if asks_him(turns[j]) and not asks_him(turns[i]):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_38_an_answer_to_her_question_is_his_own_not_a_repeat"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_38_10_09_moments_on_the_page_and_10_08_repeats_kept"
+    }
+   ],
+   "example": {
+    "date": "2026-10-09",
+    "t": "04:20",
+    "note": "لازم أشتري after her 'مم، لازم تشرب نعنع. بتعرف نعنع؟': his answer, not a repeat of her 'recast'"
+   }
+  },
+  {
    "id": "PG-42",
    "kind": "process",
    "scope": "pages",
