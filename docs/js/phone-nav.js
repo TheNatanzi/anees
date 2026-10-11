@@ -63,3 +63,13 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
 })();
+// PR-24 (Medi 2026-10-11 "lets have you look at the physical app and do a full audit"): the audit found the stall banner
+// on only 6 of 14 pages - Progress, Lessons, Word Bank, Grammar, AI Reports, Big Picture, Rules and Settings never loaded
+// js/stale.js. Every page with the shared menu loads this file, so it brings the banner along when the page did not.
+(function () {
+  if (typeof document === 'undefined' || document.querySelector('script[src*="js/stale.js"]')) return;
+  var me = document.querySelector('script[src*="js/phone-nav.js"]');
+  var s = document.createElement('script');
+  s.src = (me ? me.getAttribute('src').replace(/js\/phone-nav\.js.*$/, '') : '') + 'js/stale.js?v=fresh1';
+  document.body.appendChild(s);
+})();

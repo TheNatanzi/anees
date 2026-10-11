@@ -86,3 +86,14 @@ def test_pr_24_the_banner_says_what_blocks_it_in_plain_words():
          'first_block_reason': raw, 'plain_reason': P.plain_reason({'first_block_reason': raw})}
     t = _stall_text(h, '2026-10-11T08:16:25Z')
     assert '"pass"' not in t and t.endswith('the step "build lessons page data" failed')
+
+
+def test_pr_24_every_page_with_the_shared_menu_gets_the_stall_banner():
+    """PR-24. Medi 2026-10-11 full audit: the banner showed on 6 of 14 pages. Every docs page that loads the shared menu
+    (js/phone-nav.js) either loads js/stale.js itself or gets it from phone-nav.js."""
+    import glob
+    root = os.path.join(os.path.dirname(__file__), '..', 'docs')
+    nav = open(os.path.join(root, 'js', 'phone-nav.js'), encoding='utf-8').read()
+    assert "document.querySelector('script[src*=\"js/stale.js\"]')" in nav and "js/stale.js?v=fresh1" in nav
+    pages = [p for p in glob.glob(os.path.join(root, '*.html')) if 'js/phone-nav.js' in open(p, encoding='utf-8').read()]
+    assert len(pages) >= 10
