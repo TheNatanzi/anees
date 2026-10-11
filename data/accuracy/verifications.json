@@ -28032,6 +28032,356 @@
    },
    "at": "2026-10-10T01:18:32-07:00",
    "run_id": "dd981a8a616a419fb8c2c153afe167d6"
+  },
+  {
+   "uid": "FA-3cb71af9",
+   "date": "2026-10-08",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used «أجو/أجا كتير» for the wind, Amal asked what that meant and then supplied the intended idea as “very strong,” after which he produced «كان قوي كتير».",
+   "evidence": {
+    "t_start": 2414.0,
+    "t_end": 2465.0,
+    "quote": "Medi: «الهوا آجو كتير الصباح» / Amal: «Tell me it was very strong» / Medi: «كان قوي كتير»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-3cb71af9_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "d1be537510bfade3cedeaf91276fbcfa6fe5fa5dd3c3437d0ceb22d11845e47b",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-3cb71af9_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "525414cdec814ef4c2523cccd11fbace5f100efed707f1afe7a659dc1689bb88",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-3cb71af9_mixed_lesson.mp3",
+      "sha256": "79f4d8c2697645ddf3561f92e7f094c6906032b12f5ec408e012ab6e3540cf16",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "الهواء الهواء آجو كتير السباح كيم أليس كذلك؟ آجا كتير الأوى كان أوي كتير السباح",
+     "Amal": "or an adjective عادي شو يعني عجل؟ عجل كتير الصباح؟ شو يعني؟ أخبرني أنها كانت قويًا جدًا. كان الهواء قويًا جدًا في الصباح.",
+     "mixed": "آآ او كلمة اخرى الهوى آجو كتير السباح كيم آجا كتير السباح كياني آجا كتير أخبرني أنه كان الهواء جدًا جدًا في الصباح."
+    }
+   },
+   "claim": {
+    "wrong": "أجو",
+    "right": "قوي",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-11T00:38:53-07:00",
+   "run_id": "443f2b6738d1415cb5b6feccacb13cc0"
+  },
+  {
+   "uid": "FA-c0766599",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi said a definite first idafa term and pluralized «طبيعة»; Amal immediately recast it as «كلمات الطبيعة» and explained that «طبيعة» does not take a plural here.",
+   "evidence": {
+    "t_start": 509.0,
+    "t_end": 542.0,
+    "quote": "Medi: «الكلمات التبئات؟» / Amal: «كلمات الطبيعة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-c0766599_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "50a289e0d3dc7ecb77495f69cb9ca0802110e0d33199f8a0e6bc67dd4342a9dc",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-c0766599_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "ccc0c4dc97fb347cc152fa7b30f8edb2035b3f3c854b3a6583507c8f8861fe33",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-c0766599_mixed_lesson.mp3",
+      "sha256": "20bcc86f7f6e6ba85d3a4098c3327e5d2d0c5012446336f0920c29f520dee370",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "الكلمة التبيعة الكلمات التبيعة يبدو أنه لا يأخذ الكلمة",
+     "Amal": "كلمات كلمات الطبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة طبيعة شو الكلمات اللي",
+     "mixed": "طبيعة الكلمة الكلمات الكلمات الكلمات الكلمات الطبيعة طبيعة لا تأخذ كلمة طبيعية لا تأخذ كلمة طبيعية ما الكلمات التي"
+    }
+   },
+   "claim": {
+    "wrong": "الكلمات الطبيعات",
+    "right": "كلمات الطبيعة",
+    "bucket": "A2",
+    "tier": null
+   },
+   "at": "2026-10-11T00:38:53-07:00",
+   "run_id": "443f2b6738d1415cb5b6feccacb13cc0"
+  },
+  {
+   "uid": "FA-3615de02",
+   "date": "2026-10-09",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi reached for the plural with «مسلسلين», and Amal supplied «مسلسلات», which he immediately repeated.",
+   "evidence": {
+    "t_start": 892.0,
+    "t_end": 924.0,
+    "quote": "Medi: «هدول ال مسلسلين» / Amal: «مسلسلات» / Medi: «مسلسلات، هدول المسلسلات»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-3615de02_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "f58b5582b9d75aeed2d126f3ba04f895bb8f9289c52bdc85afc629bfee45a4d3",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-3615de02_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "8d9d37a51574171b4200f0856052fa4c2a7bbee42064f48f0caf5a7edf0825ee",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-3615de02_mixed_lesson.mp3",
+      "sha256": "daf7af4b02d5aafc8f17f4dd02e9b6398092b9a32ddf594801a662fb692af31a",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هدول المسلسلين هدول المسلسلات المفتل المفتلين باندي اوك",
+     "Amal": "دعنا نقول أن هذه المشاهدات أفضل مني اه",
+     "mixed": "دعنا نقول أن هذه المشاهدات هي أفضل مني. هؤلاء المسلسلين المسلسلات المسلسلات هؤلاء المسلسلات المفضلين عندي؟"
+    }
+   },
+   "claim": {
+    "wrong": "مسلسلين",
+    "right": "مسلسلات",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-11T00:38:53-07:00",
+   "run_id": "443f2b6738d1415cb5b6feccacb13cc0"
+  },
+  {
+   "uid": "FA-b78a9aa4",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi tried «المفضل» while asking about agreement with plural «جبال»; Amal pointed out «جبال» is multiple, and he corrected to «المفضلين عندي».",
+   "evidence": {
+    "t_start": 1127.0,
+    "t_end": 1164.0,
+    "quote": "Medi: «الجبال، المفضل» / Amal: «مفضل، بس الجبال ... multiple» / Medi: «المفضلين عندي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-b78a9aa4_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "d3cec3d874c8fb42f3fba29ed0c18cf8f17cc1b7e3e2e0d107102990daf3dc40",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-b78a9aa4_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "8ab4d0002bc4a88a95bae900d09e1f20ab7c09925863c99d0f16201075d64ee7",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-b78a9aa4_mixed_lesson.mp3",
+      "sha256": "ccb449c8de93b31d35a2a3d056467c27aabd9526ed115128b1e96b6c004c40c1",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "لذا نعم الجبال المفضل الجبال المسكين صحيح؟ المفضلين و اشتركوا في القناة",
+     "Amal": "جبالي ميز ماي ماوتنز. مفضة بس جبال مالتو بو. شكرا",
+     "mixed": "الجبال الجبال المفضل الجبال المفضل الجبال المفضلين المفضلين شكرا"
+    }
+   },
+   "claim": {
+    "wrong": "المفضل",
+    "right": "المفضلين",
+    "bucket": "A9",
+    "tier": null
+   },
+   "at": "2026-10-11T00:38:53-07:00",
+   "run_id": "443f2b6738d1415cb5b6feccacb13cc0"
+  },
+  {
+   "uid": "FA-3ee347b9",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi put the object pronoun directly on the verb as «بروحها/بروحا», and Amal explicitly supplied the fixed preposition form «بروح عليها».",
+   "evidence": {
+    "t_start": 1726.0,
+    "t_end": 1768.0,
+    "quote": "Medi: «أنا بروحا؟» / Amal: «بروح عليها. I go to.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-3ee347b9_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "09b93dff92edf23c1d649deb2dbf707217c2edea4b140023274ccd30e34ad6d0",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-3ee347b9_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "5e75abeb930832e40344f41d82a85db4503bb19b0d0e04ec69a3f793e71cecf8",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-3ee347b9_mixed_lesson.mp3",
+      "sha256": "b445b082702ef91005889c229d262801f8b7e5ab7c78c6679e5641e2e5a9bf47",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هذا هو المرة الأولى المرة الأولى حسناً، المرة الأولى أنا أذهب إلى أنا بروحو، أنا بروحا أنا بروحا هذا صحيح، هذا صحيح بروح عليها هذه القعبة هذه القعبة أول واحدة أنا أروح",
+     "Amal": "that i go to so who are you saying that to the first one انا بروح to بروح عليها i go to so كل الجملة غابة",
+     "mixed": "this is the first one. So, who are you saying that to? Okay. First one. The first one. Mm hmm. Uh I go to انا بروحة انا بروحة انا بروحة بروح عليها بروح عليها بروح عليها كل الجملة هذه القعبة هذه القعبة هذه القعبة اول وحدة انا بروح"
+    }
+   },
+   "claim": {
+    "wrong": "بروحها",
+    "right": "بروح عليها",
+    "bucket": "D2",
+    "tier": null
+   },
+   "at": "2026-10-11T00:38:53-07:00",
+   "run_id": "443f2b6738d1415cb5b6feccacb13cc0"
+  },
+  {
+   "uid": "FA-3c7028fb",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi proposed bare «أكل» after «من», and Amal’s response supplies the definite form «الأكل» before he continues with «الأكل» in the next attempt. The independent tracks are imperfect here, but they still support a brief correction/supply around «الأكل».",
+   "evidence": {
+    "t_start": 2715.0,
+    "t_end": 2747.0,
+    "quote": "Medi: «من ... just أكل» / Amal: «الأكل» / Medi: «أنواع مختلف الأكل»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-3c7028fb_Medi_Medi_Natanzi-5478ca8ed88.mp3",
+      "sha256": "89e1f163e55b9bdadc71b46cdefaeadc714dadcb97214fbee4e8745ae29d5b62",
+      "source": "Medi_Natanzi-5478ca8ed888c969.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-3c7028fb_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "67b4c66808f5e49a80a5e9dd601d126615adea3ab38805226ef63238c9304769",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-3c7028fb_mixed_lesson.mp3",
+      "sha256": "6b14fe79e7a15cec06f793cfa21ec61621463894b2f17f3816177f0c19cf1e51",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "من هذا فقط أكل لا يوجد مقابلات لأكل صحيح؟ انا جربت انواع مختلف الاكل",
+     "Amal": "إذا أردت أن أستخدم مختلف ترجمة نانسي قنقر",
+     "mixed": "من هذا فقط الطعام. لا يوجد شيء مختلف. صحيح؟ إذا كنت أريد أن أستخدم مختلف انا جربت انواع مختلف الاكل"
+    }
+   },
+   "claim": {
+    "wrong": "أكل",
+    "right": "الأكل",
+    "bucket": "D5",
+    "tier": null
+   },
+   "at": "2026-10-11T00:38:53-07:00",
+   "run_id": "443f2b6738d1415cb5b6feccacb13cc0"
+  },
+  {
+   "uid": "FA-f04fa096",
+   "date": "2026-10-09",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi's mic has him saying something transcribed as «لأب» right as Amal asks for 'game', and Amal immediately supplies/recasts the target as «لعبة». The overlap makes it a little messy, but the correction signal is real.",
+   "evidence": {
+    "t_start": 3554.0,
+    "t_end": 3584.0,
+    "quote": "Medi: «لأب ... يه» / Amal: «شو يعني جيم؟ ... إتس لعبة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-f04fa096_Medi_Medi_Natanzi-c419eb34712.mp3",
+      "sha256": "a13b4b5f197f8f2f7bd1dd5a107e69c61109a1b84c579a5f8c2ea36b7e42501b",
+      "source": "Medi_Natanzi-c419eb3471241916.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-f04fa096_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "aa3b54602cd95637ef82c3087740540d76c381e60f5497ba77bea2ee3229d77f",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-f04fa096_mixed_lesson.mp3",
+      "sha256": "4b22d3e44036f3e889416af4bcafa119b86fbd552427809e77c926ac3c77e62f",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "حسنًا ومن ثم أحب في بداية نهاية اللعبة",
+     "Amal": "أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال أخير سؤال",
+     "mixed": "نهاية سؤالي نهاية السؤال نهاية السؤال نهاية السؤال نحن سندرس على درس نحن سندرس على درس هل هي لعبة؟ هل هي لعبة؟ هل هي لعبة؟ هل هي لعبة؟ كيف أقول؟ كيف أقول؟ في بداية اللعبة في بداية اللعبة"
+    }
+   },
+   "claim": {
+    "wrong": "لعب",
+    "right": "لعبة",
+    "bucket": null,
+    "tier": 2
+   },
+   "at": "2026-10-11T00:39:07-07:00",
+   "run_id": "a6f82c21389446eb97c48cea25c7ab02"
   }
  ]
 }

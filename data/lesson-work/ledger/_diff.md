@@ -25,7 +25,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-05 | 95.2 | 272 | 88.5 | 24 | 209 | 2 / 1 |
 | 2026-10-06 | 93.1 | 210 | 81.4 | 33 | 177 | 1 / 0 |
 | 2026-10-08 | 95.3 | 255 | 86.0 | 27 | 193 | 1 / 1 |
-| 2026-10-09 | 97.2 | 290 | 86.4 | 33 | 243 | 1 / 0 |
+| 2026-10-09 | 97.2 -> **97.6** | 290 -> **310** | 86.4 -> **87.1** | 33 -> **34** | 243 -> **263** | 1 / 2 |
 
 
 ## Conflicts
@@ -121,7 +121,10 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-06 55:57 C1r both stand: وحيد، (word-bank right) vs وحيد -> بس (readers wrong) - the Word Bank's context review already settled it: unchanged
 - 2026-10-08 31:42 C1 settled: الأول (word-bank right) vs الأول -> الهوا (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-10-08 48:38 C1q Medi?: رمل (word-bank right) vs رمل -> تراب (readers wrong) - which word of the phrase was wrong: Medi
-- 2026-10-09 19:28 C1 settled: جبال (word-bank right) vs جبال -> جبل (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-10-09 08:39 C2 settled: الطبيعات (readers wrong) vs الكلمات الطبيعات -> كلمات الطبيعة (readers slip A2) - one slip was counted twice (word + grammar): counted once, as grammar
+- 2026-10-09 10:24 C1a both stand: نسيت (word-bank right) vs (nothing - نسيت) -> هواء (readers asked) - he asked for another word: both stand
+- 2026-10-09 27:05 C1q Medi?: غادة (word-bank right) vs غادة -> غابة (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-10-09 59:24 C1q Medi?: لعب (word-bank right) vs لعب -> لعبة (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-10-09 1:05:03 C1r both stand: أحسن. (word-bank right) vs أحسن -> بتبسط أكتر (readers not-scored) - the Word Bank's context review already settled it: unchanged
 
 ## Medi's corrections (PR-15)
