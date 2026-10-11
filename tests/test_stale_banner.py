@@ -70,3 +70,19 @@ def test_stall_banner_names_the_hours_and_the_reason():
 def test_stale_js_fetches_the_pipeline_health():
     s = (DOCS / 'js' / 'stale.js').read_text(encoding='utf-8')
     assert "data/pipeline-health.json" in s and "stall-bar" in s and 'The hourly robot has not published for ' in s
+
+
+def test_pr_24_the_banner_says_what_blocks_it_in_plain_words():
+    """PR-24. Medi 2026-10-11: "what is this The hourly robot has not published for 38 h: step_failures:
+    build_lessons_page_data exit 1: "pass": "presentation", ..." - the banner shows one plain line, never raw error text."""
+    import sys
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'scripts'))
+    import pipeline_health as P
+    raw = ('step_failures: build_lessons_page_data exit 1: "pass": "presentation", "check": "audio" }, { "id": "2c82"')
+    assert P.plain_reason({'first_block_reason': raw}) == 'the step "build lessons page data" failed'
+    assert P.plain_reason({'first_block_reason': raw, 'last_block_reason': 'pull --rebase failed: conflict in a hand-made '
+                           'file (a person merges): data/budget.json'}) == 'its money file (data/budget.json) clashed with the live copy'
+    h = {'last_publish_utc': '2026-10-09T18:16:25Z', 'hours_since_publish': 38.0, 'stalled': True, 'pending': ['x'],
+         'first_block_reason': raw, 'plain_reason': P.plain_reason({'first_block_reason': raw})}
+    t = _stall_text(h, '2026-10-11T08:16:25Z')
+    assert '"pass"' not in t and t.endswith('the step "build lessons page data" failed')

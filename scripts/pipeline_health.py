@@ -154,7 +154,7 @@ def compute(root=ROOT, run=subprocess.run, now=None, hourly_root=None, raw=None,
             bl = [(t, str(prev.get('last_block_reason') or ''))]
             pend.append('a blocked push since the last publish')
             stalled = hours is not None and hours > STALL_H
-    return {'about': 'Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); '
+    doc = {'about': 'Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); '
                      'read by js/stale.js. stalled = no hourly publish for more than %d h while work waits.' % STALL_H,
             'last_publish_utc': _iso(last), 'last_publish_sha': sha,
             'last_block_reason': _flat(bl[-1][1], 400) if bl else None,
@@ -162,6 +162,32 @@ def compute(root=ROOT, run=subprocess.run, now=None, hourly_root=None, raw=None,
             'first_block_reason': _flat(bl[0][1], 400) if bl else None, 'blocked_since_utc': _iso(bl[0][0]) if bl else None,
             'open_failures': [f"{k}: {'; '.join(str(x) for x in (v.get('failures') or []))[:160]}" for k, v in sorted(of.items())],
             'pending': pend, 'hours_since_publish': hours, 'stalled': stalled, 'generated_at': _iso(now)}
+    doc['plain_reason'] = plain_reason(doc)
+    return doc
+
+
+PLAIN = (   # what blocks it NOW, in plain words for the banner (Medi 2026-10-11: "what is this ... "pass": "presentation"...")
+    (r'budget\.json', 'its money file (data/budget.json) clashed with the live copy'),
+    (r'conflict', 'its changes clashed with the live site'),
+    (r'tests?_(py|node)', 'a test failed'),
+    (r'([A-Za-z_]+)(?:\.py)? exit \d', lambda m: 'the step "%s" failed' % m.group(1).replace('_', ' ')),
+    (r'clean_tree', 'it had unsaved files'),
+    (r'lesson_ledger|ledger', 'the lesson ledger check failed'),
+    (r'rule_registry', 'the rule check failed'),
+)
+
+
+def plain_reason(h):
+    """One short line for a person: what blocks the robot now (the latest block, else the first, else the open work)."""
+    raw = (h or {}).get('last_block_reason') or (h or {}).get('first_block_reason') or ''
+    for pat, say in PLAIN:
+        m = re.search(pat, raw)
+        if m:
+            return say(m) if callable(say) else say
+    if raw:
+        return _flat(re.sub(r'[\[{].*', '', raw), 90) or 'a publish check failed'
+    pend = (h or {}).get('pending') or []
+    return ('waiting: ' + _flat('; '.join(pend), 90)) if pend else 'unknown'
 
 
 def _flat(s, n):

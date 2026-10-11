@@ -16,7 +16,7 @@ function stallText(h, now) {
   const hrs = Math.max(Number(h.hours_since_publish) || 0, live || 0);
   const waiting = (h.pending || []).length > 0;
   if (!(h.stalled || (waiting && hrs > 2))) return null;
-  const why = String(h.first_block_reason || h.last_block_reason || (h.open_failures || []).join('; ') || ('waiting: ' + (h.pending || []).join('; ')))
+  const why = String(h.plain_reason || h.last_block_reason || h.first_block_reason || (h.open_failures || []).join('; ') || ('waiting: ' + (h.pending || []).join('; ')))
     .replace(/\s+/g, ' ').trim();
   return 'The hourly robot has not published for ' + Math.round(hrs) + ' h: ' + (why.length > 220 ? why.slice(0, 217) + '...' : why);
 }
