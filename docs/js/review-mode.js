@@ -10,7 +10,7 @@
    English (PG-40) / the chips.
    Keys (and big buttons, no free text required):
      1 heard right · 2 wrong word (one box: the word he said) · 3 a mistake (vocab / grammar proposed by the robot; f flips)
-     4 not a mistake (one of the four reasons, keys 1-4) · space replay · enter / → next · ← back · u undo · esc close
+     4 not a mistake (one of the four reasons, keys 1-4) · space replay · enter = heard right, then next · → skip · ← back · u undo · esc close
    Blind block: the first 50 lines shown carry no chips (the answer key's anchoring test, protocol §2.2).
    Re-listen (exam lessons, protocol §4): 15 lines he already answered here, picked by the date, shown again without his
    earlier answer.
@@ -155,6 +155,15 @@ function create(o) {
   return s;
 }
 function current(s) { return s.items[s.pos] || null; }
+// Enter on an unanswered line = "heard right" (key 1), so following the hint never leaves a line without an answer (the
+// grade book grades a fast review only at full coverage; Codex review 2026-10-11). On an answered line Enter = next.
+// The arrow keys only move.
+function enterAction(s) {
+  var it = current(s);
+  if (!it) return 'next';
+  var done = s.mode === 'relisten' ? s.log.some(function (l) { return l.pos === s.pos; }) : !!s.answered[keyOf(it.t)];
+  return done ? 'next' : 'answer';
+}
 function atEnd(s) { return s.pos >= s.items.length; }
 function go(s, d, now) { s.pos = Math.max(0, Math.min(s.items.length, s.pos + d)); s.shownAt = now; }
 // answer the current line. ans as rowFor; env = {now, uuid, line, end, who, part}
@@ -211,7 +220,7 @@ function endCard(s) {
 var api = { BLIND_N: BLIND_N, RELISTEN_N: RELISTEN_N, REASONS4: REASONS4, TRACE: TRACE, hash: hash, targets: targets, queue: queue,
   relistenPick: relistenPick, isBlind: isBlind, answeredFrom: answeredFrom, estimateMin: estimateMin, rowFor: rowFor, undoRowFor: undoRowFor,
   slipTargets: slipTargets, proposal: proposal, create: create, current: current, atEnd: atEnd, go: go, answer: answer, undoLast: undoLast,
-  setUnsureOnly: setUnsureOnly, startRelisten: startRelisten, progress: progress, endCard: endCard, keyOf: keyOf };
+  setUnsureOnly: setUnsureOnly, startRelisten: startRelisten, progress: progress, endCard: endCard, keyOf: keyOf, enterAction: enterAction };
 if (typeof module !== 'undefined' && module.exports) { module.exports = api; return; }
 
 /* ---------- the page (DOM) ---------- */
@@ -310,8 +319,8 @@ function draw(autoplay) {
   nav.appendChild(btn('rv-small', '← Back', function () { go(S, -1, now()); draw(true); }));
   nav.appendChild(btn('rv-small', '␣ Replay', playLine));
   nav.appendChild(btn('rv-small', 'u · Undo', doUndo, 'Take your last answer back (a new undo row, never a delete)'));
-  nav.appendChild(btn('rv-small', 'Next →', function () { go(S, 1, now()); draw(true); }, 'Next line without answering (Enter / →)'));
-  nav.appendChild(el('span', 'ab-mini rv-hint', 'Keys: 1 2 3 4 · space replay · enter / → next · ← back · u undo · esc close'));
+  nav.appendChild(btn('rv-small', 'Skip →', function () { go(S, 1, now()); draw(true); }, 'Next line without answering (→); a skipped line keeps the lesson out of the grade book until it is answered'));
+  nav.appendChild(el('span', 'ab-mini rv-hint', 'Keys: 1 2 3 4 · space replay · enter = heard right, then next · → skip · ← back · u undo · esc close'));
   BOX.appendChild(nav);
   if (autoplay) playLine();
 }
@@ -412,7 +421,7 @@ function onKey(e) {
   if (PANEL) return;
   if (atEnd(S)) { if (e.key === 'Enter') { e.preventDefault(); var ec = endCard(S); if (ec.kind === 'unsure-done') { setUnsureOnly(S, false, now()); draw(true); } else close(); } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(S, -1, now()); draw(true); } else if (e.key === 'u') { e.preventDefault(); doUndo(); } return; }
   var map = { '1': key1, '2': key2, '3': key3, '4': key4, ' ': playLine, 'u': doUndo, 'U': doUndo,
-    Enter: function () { go(S, 1, now()); draw(true); }, ArrowRight: function () { go(S, 1, now()); draw(true); }, ArrowLeft: function () { go(S, -1, now()); draw(true); } };
+    Enter: function () { if (enterAction(S) === 'answer') key1(); else { go(S, 1, now()); draw(true); } }, ArrowRight: function () { go(S, 1, now()); draw(true); }, ArrowLeft: function () { go(S, -1, now()); draw(true); } };
   if (map[e.key]) { e.preventDefault(); map[e.key](); }
 }
 function onTime() { var a = doc.getElementById('ls-audio'); if (STOP_AT != null && a && !a.paused && a.currentTime >= STOP_AT) { a.pause(); STOP_AT = null; } }

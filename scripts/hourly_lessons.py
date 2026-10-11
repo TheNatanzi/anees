@@ -490,23 +490,29 @@ def published_dates(root=None, ref='origin/master'):
 
 
 def freeze_first(before, root=None, sha=None, now=None):
-    """After a passing push: every lesson whose page data reached master for the first time (not in `before`) gets
-    data/lesson-work/review-grades/<date>.first.json = {date, sha, published_utc, page}, written once (an existing file is
-    never touched) and committed (it rides the next push). scripts/review_grades.py reads it as the exam's "before" instead
-    of reconstructing the pipeline's first page from git. Returns the dates frozen."""
+    """Right BEFORE the guarded push (Codex review 2026-10-11: run after the push, it reached master one publish late):
+    every lesson whose page data is in this commit (HEAD) but not on master yet (not in `before`) gets
+    data/lesson-work/review-grades/<date>.first.json = {date, sha, published_utc, page}, committed so it goes out IN the
+    same publish as the page. Until the lesson is on master the file follows the page about to be published (a blocked
+    push, then a rebuilt page = the file is re-written to the page that really goes out); once the lesson is on master
+    its date is in `before` and the file is never touched again. scripts/review_grades.py reads it as the exam's
+    "before" instead of reconstructing the pipeline's first page from git. Returns the dates frozen."""
     root = Path(root or ROOT)
     git = lambda *c: subprocess.run(['git', *c], cwd=root, capture_output=True, text=True, encoding='utf-8', errors='replace')
     sha = sha or (getattr(git('rev-parse', 'HEAD'), 'stdout', '') or '').strip()
     made = []
-    for d in sorted(published_dates(root) - set(before)):
+    for d in sorted(published_dates(root, ref=sha) - set(before)):
         p = first_path(d, root)
-        if p.exists():
-            continue
         r = git('show', f'{sha}:docs/data/lessons/{d}.json')
         try:
             page = json.loads(getattr(r, 'stdout', '') or '')
         except Exception:
             log('first-publish freeze: page data of', d, 'not readable at', sha[:12]); continue
+        try:
+            if json.loads(p.read_text(encoding='utf-8')).get('page') == page:
+                continue                                   # already frozen on this very page
+        except (OSError, ValueError):
+            pass
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(json.dumps({'about': "The lesson page as the hourly job FIRST published it (protocol §2.1 auto-freeze; "
                                           "PG-46 grade book 'before'). Written once by scripts/hourly_lessons.py; never edited.",
@@ -522,19 +528,14 @@ def freeze_first(before, root=None, sha=None, now=None):
 
 
 def publish(source, failures):
-    """The one door: the publish guard's push, then the first-publish freeze for any lesson that just went live."""
+    """The one door: the first-publish freeze of any lesson about to go live (committed, so it goes out in this same
+    publish), then the publish guard's push."""
     import publish_guard as G
     try:
-        before = published_dates(ROOT)
-    except Exception:
-        before = None
-    res = G.guarded_push(ROOT, source=source, step_failures=failures, log=log)
-    if res.get('pushed') and before is not None:
-        try:
-            freeze_first(before, ROOT)
-        except Exception as e:
-            log('first-publish freeze failed:', type(e).__name__, str(e)[:200])
-    return res
+        freeze_first(published_dates(ROOT), ROOT)
+    except Exception as e:
+        log('first-publish freeze failed:', type(e).__name__, str(e)[:200])
+    return G.guarded_push(ROOT, source=source, step_failures=failures, log=log)
 
 
 def pending_reviews(root=None, include_changed=True):

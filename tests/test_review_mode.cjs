@@ -26,6 +26,15 @@ test('PG-50 key 1 writes one inert trace row (rule-answer, proposal review:fast)
  assert.equal(row.payload.reviewed,1);assert.equal(s.pos,1);
 });
 
+test('PG-50 Enter on an unanswered line = heard right (never a silent skip); on an answered line = next; the page wires it',()=>{
+ const s=R.create({pick:pick(),date:'2026-10-08',now:1e12});n=0;
+ assert.equal(R.enterAction(s),'answer');
+ R.answer(s,{key:1},env());R.go(s,-1,1e12);                 // back on the line just answered
+ assert.equal(R.enterAction(s),'next');
+ const js=fs.readFileSync(path.join(ROOT,'docs/js/review-mode.js'),'utf8');
+ assert.match(js,/Enter: function \(\) \{ if \(enterAction\(S\) === 'answer'\) key1\(\)/);
+});
+
 test('PG-50 key 2 = a text row like the heard rows (engine_wrote -> heard, from typed); the box finds the word he means',()=>{
  const s=R.create({pick:pick(),date:'2026-10-08',now:1e12});
  assert.equal(R.targets('beit','أنا ساكن في بيت كبير',w=>({'بيت':'beit','كبير':'kbeer','ساكن':'saken','أنا':'ana','في':'fi'})[w]||w)[0],'بيت');

@@ -438,17 +438,24 @@ def test_first_publish_of_a_lesson_is_frozen_once_for_the_grade_book(tmp_path, m
     monkeypatch.setattr(H, 'ROOT', work)
     before = H.published_dates(work)
     assert before == {'2026-10-09'}
+    (work / 'docs' / 'data' / 'lessons' / '2026-10-10.json').write_text('{"turns": [1, 2], "v": "blocked"}', encoding='utf-8')
+    g(work, 'add', '-A'); g(work, 'commit', '-qm', 'Lessons 2026-10-10 loaded by the hourly job')
+    assert H.freeze_first(before, work) == ['2026-10-10']                     # BEFORE the push: only the lesson about to go live
+    assert 'first published page frozen' in g(work, 'log', '-1', '--format=%s')   # committed: goes out in the same publish
+    # that push was blocked; the page is rebuilt; the freeze follows the page that really goes out
     (work / 'docs' / 'data' / 'lessons' / '2026-10-10.json').write_text('{"turns": [1, 2], "v": "first"}', encoding='utf-8')
-    g(work, 'add', '-A'); g(work, 'commit', '-qm', 'Lessons 2026-10-10 loaded by the hourly job'); g(work, 'push', '-q', 'origin', 'HEAD:master')
-    sha = g(work, 'rev-parse', 'HEAD')
-    assert H.freeze_first(before, work) == ['2026-10-10']                     # only the lesson that went live now
-    f = json.loads(H.first_path('2026-10-10', work).read_text(encoding='utf-8'))
-    assert f['sha'] == sha and f['page'] == {'turns': [1, 2], 'v': 'first'} and f['date'] == '2026-10-10'
+    g(work, 'add', '-A'); g(work, 'commit', '-qm', 'rebuild before publishing')
+    sha_pre = g(work, 'rev-parse', 'HEAD')
+    assert H.freeze_first(H.published_dates(work), work) == ['2026-10-10']
+    g(work, 'push', '-q', 'origin', 'HEAD:master')
+    shown = subprocess.run(['git', 'show', 'origin/master:data/lesson-work/review-grades/2026-10-10.first.json'], cwd=work,
+                           capture_output=True, text=True, encoding='utf-8').stdout
+    f = json.loads(shown)                                                     # on master in the SAME publish as the page
+    assert f['sha'] == sha_pre and f['page'] == {'turns': [1, 2], 'v': 'first'} and f['date'] == '2026-10-10'
     assert not H.first_path('2026-10-09', work).exists()
-    assert 'first published page frozen' in g(work, 'log', '-1', '--format=%s')   # committed: it rides the next push
     (work / 'docs' / 'data' / 'lessons' / '2026-10-10.json').write_text('{"v": "rebuilt"}', encoding='utf-8')
-    g(work, 'add', '-A'); g(work, 'commit', '-qm', 'rebuild'); g(work, 'push', '-q', 'origin', 'HEAD:master')
-    assert H.freeze_first({"2026-10-09"}, work) == []                                # written once: never overwritten
+    g(work, 'add', '-A'); g(work, 'commit', '-qm', 'rebuild')
+    assert H.freeze_first(H.published_dates(work), work) == []                  # on master: never overwritten
     assert json.loads(H.first_path('2026-10-10', work).read_text(encoding='utf-8'))['page']['v'] == 'first'
 
 
