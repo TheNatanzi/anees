@@ -38,6 +38,7 @@ BUILTINS = ('step_failures', 'clean_tree', 'json_data', 'lesson_coverage', 'revi
             'taught_words_cross_check', 'data_freshness')
 DATE_RE = re.compile(r'^20\d\d-\d\d-\d\d$')
 OK_ENV = 'ANEES_PUBLISH_GUARD_OK'                  # set on the guard's own `git push` so the pre-push hook does not re-run
+HEALTH = 'docs/data/pipeline-health.json'          # the stall alarm's source of truth (scripts/pipeline_health.py)
 
 
 def now_iso():
@@ -101,7 +102,8 @@ def check_clean_tree(root, config, run, **_):
     r = run(['git', 'status', '--porcelain', '--', *paths], cwd=str(root), capture_output=True, text=True, encoding='utf-8')
     if getattr(r, 'returncode', 0):
         return False, 'git status failed: ' + _short(getattr(r, 'stderr', ''))
-    dirty = [l for l in (r.stdout or '').splitlines() if l.strip()]
+    # docs/data/pipeline-health.json: the guard rewrites it on every push attempt and commits it with the pass
+    dirty = [l for l in (r.stdout or '').splitlines() if l.strip() and l[3:].strip().strip('"') != HEALTH]
     if dirty:
         return False, f'{len(dirty)} uncommitted change(s) in what would be published, e.g. ' + ', '.join(l[3:] for l in dirty[:4])
     return True, 'nothing uncommitted under ' + ', '.join(paths)
@@ -484,7 +486,10 @@ REGENERATE_DEFAULT = {
     'paths': ['docs/data/*', 'docs/js/build.js', 'docs/amal/*.html', 'docs/lessons/*/clips/*', 'data/accuracy/*',
               'data/full-audit-2026-09-26.json', 'data/lesson-work/full-audit/patterns.json', 'RULE-BOOK.md', 'data/amal-trigger/*',
               'data/vocab/amal_verb_checks.json', 'data/runs/*.jsonl', 'data/decisions/*.jsonl', 'plan/FULL-AUDIT-2026-09-26.md',
-              'data/lesson-work/ledger/*', 'data/lesson-work/ledger-amal.json'],   # LS-11: the lesson ledgers are built by build_lessons_page_data.py
+              'data/lesson-work/ledger/*', 'data/lesson-work/ledger-amal.json',   # LS-11: the lesson ledgers are built by build_lessons_page_data.py
+              'data/budget.json'],   # Medi 2026-10-10: a budget.json conflict blocked every hourly push for ~29 h (scripts/budget_rebuild.py)
+    # rebuilt right after the rebase, in this push (no hourly rebuild queued, so they never hold a publish back)
+    'rebuild_inline': ['data/budget.json', 'docs/data/pipeline-health.json'],
 }
 
 
@@ -552,7 +557,21 @@ def after_generated_rebase(root, resolved, run=subprocess.run, config=None, log=
     missing from a page). Append-only logs (*.jsonl) need nothing. Returns the queued keys."""
     rules = regenerate_rules(config)
     stamps = list(rules.get('stamp') or [])
-    rebuild = [p for p in resolved if p not in stamps and not p.endswith('.jsonl')]
+    inline = list(rules.get('rebuild_inline') or [])
+    rebuild = [p for p in resolved if p not in stamps and p not in inline and not p.endswith('.jsonl')]
+    if 'data/budget.json' in resolved:
+        # the budget ledger: master's calls + every paid run line it lacks (data/runs merged both sides), totals recomputed
+        try:
+            sys.path.insert(0, str(Path(__file__).resolve().parent))
+            import budget_rebuild
+            changed, added = budget_rebuild.rebuild_file(root)
+            if changed:
+                _git(run, root, 'add', '--', 'data/budget.json')
+                _git(run, root, 'commit', '-q', '-m', 'Budget ledger rebuilt from the run logs after rebasing onto master '
+                                                      f'(publish guard, {added} call(s) added)\n\n'
+                                                      'Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>')
+        except Exception as e:
+            log('publish guard: budget ledger not rebuilt:', type(e).__name__, str(e)[:160])
     if any(p in stamps for p in resolved) and (Path(root) / 'scripts/write_build.py').exists():
         run([sys.executable, 'scripts/write_build.py'], cwd=str(root), capture_output=True, text=True)
         _git(run, root, 'add', '--', *[p for p in stamps if (Path(root) / p).exists()])
@@ -573,6 +592,21 @@ def after_generated_rebase(root, resolved, run=subprocess.run, config=None, log=
     log(f"publish guard: rebased onto master; {len(resolved)} generated file(s) kept master's copy"
         + (f"; rebuild queued ({', '.join(queued)})" if queued else ''))
     return queued
+
+
+def _health(root, run, log, published=None):
+    """Write docs/data/pipeline-health.json and print the stall WARNING (advisory, never blocks). Returns the doc."""
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import pipeline_health as PH
+        h = PH.write(root, run=run, published=published)
+        w = PH.warning_line(h)
+        if w:
+            log(w)
+        return h
+    except Exception as e:
+        log('publish guard: pipeline health not written:', type(e).__name__, str(e)[:160])
+        return None
 
 
 def guarded_push(root=ROOT, source='?', step_failures=(), run=subprocess.run, log=_log, remote='origin', branch='master',
@@ -600,6 +634,7 @@ def guarded_push(root=ROOT, source='?', step_failures=(), run=subprocess.run, lo
             res = {'at': now_iso(), 'sha': None, 'checks': []}
             record(root, res, source, 'rebase_failed', reason, ahead())
             log(block_line(source, reason, ahead()))
+            _health(root, run, log)
             return {'pushed': False, 'outcome': 'rebase_failed', 'reason': reason}
     res = run_checks(root, config=config, step_failures=step_failures, run=run)
     if not res['ok']:
@@ -608,11 +643,14 @@ def guarded_push(root=ROOT, source='?', step_failures=(), run=subprocess.run, lo
         log(block_line(source, res['reason'], waiting))
         for w in res.get('warnings', []):
             log('publish guard warning:', w[:300])
+        _health(root, run, log)
         return {'pushed': False, 'outcome': 'blocked', 'reason': res['reason'], 'result': res}
     st = read_state(root)
+    hourly = str(source).startswith('hourly')
+    _health(root, run, log, published=(res.get('sha'), datetime.datetime.now(datetime.timezone.utc)) if hourly else None)
     try:
         _write_json(root / PUBLISHED, published_status(res, st, source))
-        _git(run, root, 'add', PUBLISHED)
+        _git(run, root, 'add', PUBLISHED, *([HEALTH] if (root / HEALTH).exists() else []))
         _git(run, root, 'commit', '-q', '-m', f'Publish guard: all required checks passed ({source})\n\n'
                                               'Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>')
     except Exception as e:                       # the checks passed; a status-file hiccup must not hold the data back
@@ -623,6 +661,7 @@ def guarded_push(root=ROOT, source='?', step_failures=(), run=subprocess.run, lo
         reason = 'git push failed: ' + _short(getattr(p, 'stderr', ''), 200)
         record(root, res, source, 'push_failed', reason, ahead())
         log(block_line(source, reason, ahead()))
+        _health(root, run, log)
         return {'pushed': False, 'outcome': 'push_failed', 'reason': reason, 'result': res}
     record(root, res, source, 'pushed')
     log(f"publish guard passed ({sum(1 for c in res['checks'] if c['required'])} required checks, {res.get('secs')} s) -> pushed ({source})")
@@ -671,6 +710,13 @@ def main(argv=None):
     for c in res['checks']:
         print(f"{'PASS' if c['ok'] else ('FAIL' if c['required'] else 'warn')} {c['id']:<17} {c['secs']:>6} s  {c['detail']}")
     print('publish guard:', 'OK - publishable' if res['ok'] else 'BLOCKED - ' + res['reason'][:400])
+    try:                                          # the stall alarm: advisory, never changes the exit code; writes nothing
+        import pipeline_health as PH
+        w = PH.warning_line(PH.compute(root))
+        if w:
+            print(w)
+    except Exception as e:
+        print('pipeline health not computed:', type(e).__name__, str(e)[:160])
     record(root, res, a.source, 'checked')
     return 0 if res['ok'] else 1
 

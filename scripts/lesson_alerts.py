@@ -61,6 +61,10 @@ def line_for(p):
         if not p.get('since'):
             return f"Amal's word Doc never synced on this PC: {p.get('cause')}"
         return "Amal's word Doc not synced since {since}: " + str(p.get('cause'))   # the page fills {since}
+    if p.get('kind') == 'stalled':                  # the silent-stall alarm (scripts/pipeline_health.py, Medi 2026-10-10)
+        if not p.get('since'):
+            return f"The hourly robot has not published: {p.get('cause')}"
+        return "The hourly robot has not published since {since}: " + str(p.get('cause'))   # the page fills {since}
     if p.get('kind') == 'credits-low':
         return f"Voice-to-text credits low: {p.get('left')} left, a lesson needs about {p.get('need')}"
     return str(p.get('cause'))

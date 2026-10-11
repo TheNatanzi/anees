@@ -18,7 +18,22 @@ key_commit}); a new full review is one line there + `freeze`. Only full reviews 
 The exam, per graded lesson (frozen in data/lesson-work/review-grades/<date>.json so a later rebuild never moves it):
   before = the pipeline's own version of the lesson page before his first note (git: before_commit)
   key    = the lesson page after his review and the audit that applied his notes (git: key_commit) = the answer key
-  now    = today's published page, graded against the same key (a rebuild that breaks his fixes shows here)
+  now    = today's published page, graded against the same key (a rebuild that breaks his fixes shows here). Shown as
+           "drift" (overnight brief 2026-10-10): today's page vs the key, a regression check only, never an accuracy
+           score. The JSON key stays "now".
+  The "before" page: data/lesson-work/review-grades/<date>.first.json when present (the page the hourly job FIRST
+  published, frozen at that publish with its SHA by scripts/hourly_lessons.py freeze_first, protocol §2.1), else the
+  page at before_commit in git.
+
+Time and coverage of a fast review (PG-50, protocol §4 "time is measured, not guessed"), per lesson, from
+data/lesson-work/medi-corrections.json (the mirror of Supabase transcript_corrections; every row there is his):
+  minutes_medi  = sum of payload.secs of the fast-mode rows / 60 (null when the lesson has none)
+  coverage_medi = share of his Arabic lines (docs/data/review-pick/<date>.json "lines", else his page lines with an
+                  Arabic word by word_coverage word_tokens) that carry at least one fast-mode row (any kind, also the
+                  inert "heard right" trace), matched by the row's turn_t (or payload.t) inside the line; null = no fast rows
+  A fast-mode lesson is graded only when coverage_medi == 1.0, else "partial review, not graded (N of M lines)".
+  A fast-mode row: payload.review_mode == "fast", or a review trace row (kind rule-answer, proposal "review:fast").
+  Lessons reviewed the old way (10-08) are unchanged.
 Only Arabic words of HIS lines count (scripts/word_coverage.py word_tokens: English, fillers, sound tags and subject
 pronouns out; his Latin Arabizi the reader reads counts). Cut-off words and prepositions (scored as grammar, PG-43) are
 not in the tally.
@@ -195,15 +210,100 @@ def snap_path(date):
     return os.path.join(DIR, date + ".json")
 
 
+def first_path(date):
+    return os.path.join(DIR, date + ".first.json")
+
+
+def first_publish(date):
+    """(page, sha) of the lesson's first publish (the hourly auto-freeze), or (None, None)."""
+    f = J(first_path(date))
+    if isinstance(f, dict) and isinstance(f.get("page"), dict) and f.get("sha"):
+        return f["page"], f["sha"]
+    return None, None
+
+
+# ------------------------------------------------------------------ fast review mode: minutes + coverage (PG-50)
+
+CORR_P = os.path.join(REPO, "data", "lesson-work", "medi-corrections.json")
+PICK_DIR = os.path.join(REPO, "docs", "data", "review-pick")
+
+
+def _payload(r):
+    return r.get("payload") if isinstance(r.get("payload"), dict) else {}
+
+
+def is_fast(r):
+    return _payload(r).get("review_mode") == "fast" or (r.get("kind") == "rule-answer" and r.get("proposal") == "review:fast")
+
+
+def fast_rows(rows=None):
+    """{date: [fast-mode rows]} from the corrections mirror (an undone row still took his time: it counts)."""
+    if rows is None:
+        rows = (J(CORR_P, {}) or {}).get("rows") or []
+    out = {}
+    for r in rows:
+        if isinstance(r, dict) and r.get("lesson_date") and is_fast(r):
+            out.setdefault(str(r["lesson_date"]), []).append(r)
+    return out
+
+
+def minutes_of(rows):
+    if not rows:
+        return None
+    secs = 0.0
+    for r in rows:
+        try:
+            secs += float(_payload(r).get("secs") or 0)
+        except (TypeError, ValueError):
+            pass
+    return round(secs / 60.0, 1)
+
+
+def his_lines(date, repo=REPO, page=None, pick_dir=None):
+    """[(start, end)] of his Arabic lines: the review picker's lines when built, else his page lines with Arabic."""
+    pick = J(os.path.join(pick_dir or os.path.join(repo, "docs", "data", "review-pick"), date + ".json"))
+    if isinstance(pick, dict) and isinstance(pick.get("lines"), list):
+        return [(float(x["t"]), float(x.get("end") or x["t"])) for x in pick["lines"] if x.get("t") is not None]
+    import word_coverage as WC
+    d = page if page is not None else page_at(None, date, repo)
+    return [(float(u["t"]), float(u["t"])) for u in d.get("turns") or []
+            if u.get("who") == "Medi" and WC.word_tokens(u.get("text") or "")]
+
+
+def row_t(r):
+    p = _payload(r)
+    for v in (r.get("turn_t"), p.get("t"), p.get("turn_t")):
+        try:
+            return float(v)
+        except (TypeError, ValueError):
+            continue
+    return None
+
+
+def coverage_of(lines, rows):
+    """(checked, total): his lines with at least one row whose time falls inside the line (0.6 s slack, the review mode's own)."""
+    ts = [t for t in (row_t(r) for r in rows or []) if t is not None]
+    return sum(1 for a, b in lines if any(a - 0.6 <= t <= b + 0.6 for t in ts)), len(lines)
+
+
 def freeze(date, repo=REPO, log=print):
     rv = next((r for r in J(REVIEWS_P, {}).get("reviews", []) if r["date"] == date), None)
+    first, first_sha = first_publish(date)            # protocol §2.1: the page as first published, frozen at that publish
+    if not rv and first is not None and date in fast_rows():
+        rv = {"date": date, "full": True, "before_commit": None, "key_commit": None}   # a fast review lists itself
     if not rv or not rv.get("full"):
         raise SystemExit("%s is not a full review in %s" % (date, REVIEWS_P))
-    before, key = page_at(rv["before_commit"], date, repo), page_at(rv.get("key_commit"), date, repo)
+    if first is None and not rv.get("before_commit"):
+        raise SystemExit("%s has no first-publish freeze and no before_commit" % date)
+    if first is not None:
+        before, before_commit, src = first, first_sha, "the first publish, %s.first.json" % date
+    else:
+        before, before_commit, src = page_at(rv["before_commit"], date, repo), rv["before_commit"], "git"
+    key = page_at(rv.get("key_commit"), date, repo)
     W(snap_path(date), {"about": "Frozen exam for the grade book (PG-46, scripts/review_grades.py). before = the pipeline's "
-                        "page at %s; key = the page after Medi's review at %s. Re-freeze only on purpose." %
-                        (rv["before_commit"], rv.get("key_commit") or "the working tree"),
-                        "date": date, "before_commit": rv["before_commit"], "key_commit": rv.get("key_commit"),
+                        "page at %s (from %s); key = the page after Medi's review at %s. Re-freeze only on purpose." %
+                        (before_commit, src, rv.get("key_commit") or "the working tree"),
+                        "date": date, "before_commit": before_commit, "key_commit": rv.get("key_commit"),
                         "before": snapshot(before, date), "key": snapshot(key, date)})
     log("froze %s" % date)
 
@@ -218,11 +318,25 @@ def arabizi_of(repo=REPO):
     return m
 
 
-def build(repo=REPO):
-    reviews = sorted(J(REVIEWS_P, {}).get("reviews", []), key=lambda r: r["date"])
+def build(repo=REPO, corrections=None, reviews=None, pick_dir=None):
+    reviews = [dict(r) for r in (reviews if reviews is not None else J(REVIEWS_P, {}).get("reviews", []))]
+    fast = fast_rows(corrections)
+    listed = {r["date"] for r in reviews}
+    for d in sorted(set(fast) - listed):                # a fast review lists itself (its rows say it happened)
+        reviews.append({"date": d, "full": True, "note": "fast review mode (PG-50)"})
+    reviews.sort(key=lambda r: r["date"])
     rows = []
     for rv in reviews:
-        row = {"date": rv["date"], "full": bool(rv.get("full")), "note": rv.get("note") or ""}
+        row = {"date": rv["date"], "full": bool(rv.get("full")), "note": rv.get("note") or "",
+               "minutes_medi": minutes_of(fast.get(rv["date"])), "coverage_medi": None}
+        if rv["date"] in fast:
+            n, m = coverage_of(his_lines(rv["date"], repo, pick_dir=pick_dir), fast[rv["date"]])
+            row.update({"coverage_medi": round(float(n) / m, 3) if m else None, "lines_checked": n, "lines_total": m})
+            if not m or n < m:
+                row["full"] = False
+                row["status"] = "partial review, not graded (%d of %d lines)" % (n, m)
+                rows.append(row)
+                continue
         if rv.get("full"):
             snap = J(snap_path(rv["date"]))
             if not snap:
@@ -243,7 +357,10 @@ def build(repo=REPO):
     graded = [r for r in rows if r.get("status") == "graded"]
     trend = [{"date": r["date"], "tracked_pct": r["before"]["tracked_pct"], "per_100": r["before"]["per_100"]} for r in graded]
     return {"about": "Grade book (PG-46): the pipeline's first version of each lesson Medi reviewed in full, graded "
-                     "against his review (the answer key); Arabic words of his lines only. Built by scripts/review_grades.py.",
+                     "against his review (the answer key); Arabic words of his lines only. 'now' is shown as drift: today's "
+                     "page vs the key, a regression check only, never an accuracy score. minutes_medi / coverage_medi: his "
+                     "fast-review minutes and the share of his Arabic lines he answered in fast mode (null = no fast "
+                     "review). Built by scripts/review_grades.py.",
             "types": TYPES, "lessons": rows, "trend": trend}
 
 
@@ -268,7 +385,7 @@ def main(argv):
     for r in out["lessons"]:
         if r.get("status") == "graded":
             b, n = r["before"], r["now"]
-            print("%s  before: %s%% tracked, %d mistakes (%s / 100 words)  now: %s%%, %d" % (
+            print("%s  before: %s%% tracked, %d mistakes (%s / 100 words)  drift: %s%%, %d" % (
                 r["date"], b["tracked_pct"], b["mistakes_total"], b["per_100"], n["tracked_pct"], n["mistakes_total"]))
             print("    by type before: %s" % b["mistakes"])
         else:

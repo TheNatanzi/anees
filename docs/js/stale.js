@@ -4,6 +4,23 @@
 // stamp used to come from js/build.js, which GitHub Pages lets the browser cache for 10 minutes, so a refresh kept the
 // old stamp and the bar came straight back. Now the stamp is read fresh (no-store) when the page opens; a refresh
 // always clears the bar, and it only appears when a new version lands while the page is open.
+// Silent-stall alarm (PG-01, Medi 2026-10-10 "MAKE A SYSTEM"): the hourly job could not publish for ~29 h and no page
+// said so. data/pipeline-health.json (scripts/pipeline_health.py, written by the publish guard and the hourly job) says
+// when the robot last published and why it is blocked; while it is stalled every page shows one line at the top:
+// "The hourly robot has not published for N h: <reason>". The hours count on from last_publish_utc in the viewer's clock
+// (a stalled robot cannot publish a new file). Fails quiet: no file or a bad file shows nothing.
+function stallText(h, now) {
+  if (!h || !h.last_publish_utc && !h.stalled) return null;
+  const t = h.last_publish_utc ? new Date(h.last_publish_utc) : null;
+  const live = t && !isNaN(t) ? ((now || new Date()) - t) / 3600000 : null;
+  const hrs = Math.max(Number(h.hours_since_publish) || 0, live || 0);
+  const waiting = (h.pending || []).length > 0;
+  if (!(h.stalled || (waiting && hrs > 2))) return null;
+  const why = String(h.first_block_reason || h.last_block_reason || (h.open_failures || []).join('; ') || ('waiting: ' + (h.pending || []).join('; ')))
+    .replace(/\s+/g, ' ').trim();
+  return 'The hourly robot has not published for ' + Math.round(hrs) + ' h: ' + (why.length > 220 ? why.slice(0, 217) + '...' : why);
+}
+if (typeof module !== 'undefined' && module.exports) module.exports = { stallText };
 (function () {
   if (typeof window === 'undefined') return;
   let mine = '';                                   // set from a fresh read of data/build.json on load (see above)
@@ -38,8 +55,26 @@
       return j.build;
     } catch (e) { return null; }
   }
+  async function checkStall() {
+    try {
+      const r = await fetch(base + 'data/pipeline-health.json?t=' + Date.now(), { cache: 'no-store' });
+      const line = r.ok ? stallText(await r.json()) : null;
+      let el = document.getElementById('stall-bar');
+      if (!line) { if (el) el.remove(); return null; }
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'stall-bar'; el.setAttribute('role', 'alert');
+        el.style.cssText = 'margin:0;padding:10px 14px;background:#B26F0E;color:#fff;font:600 14px/1.4 system-ui;text-align:center';
+        document.body.insertBefore(el, document.body.firstChild);
+      }
+      el.textContent = line;
+      return line;
+    } catch (e) { return null; }
+  }
   setInterval(check, 60000);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(); });
+  setInterval(checkStall, 600000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) { check(); checkStall(); } });
   check();                                         // baseline now; later checks compare against it
-  window.AneesStale = { check, get build() { return mine; } };
+  checkStall();
+  window.AneesStale = { check, checkStall, stallText, get build() { return mine; } };
 })();

@@ -407,8 +407,7 @@ def tutor_refresh(no_push=False, rebuild_all=False):
             return failures
         _commit(paths, "Amal's answers applied + Tutor page refreshed by the hourly job")
         if not no_push:
-            import publish_guard as G
-            G.guarded_push(ROOT, source='hourly: tutor refresh', step_failures=failures, log=log)
+            publish('hourly: tutor refresh', failures)
         log('tutor_refresh:', changed.count('\n') + 1, 'files', ('FAILED ' + '; '.join(failures)) if failures else '')
     except Exception as e:
         failures.append(f'tutor_refresh crashed: {type(e).__name__}: {str(e)[:200]}'); log('tutor_refresh failed', e)
@@ -472,6 +471,70 @@ def commit_lessons(dates):
     run('add', '-f', *[f'docs/lessons/{d}/audio/lesson.mp3' for d in dates if (ROOT / 'docs' / 'lessons' / d / 'audio' / 'lesson.mp3').exists()],
         *[f'docs/lessons/{d}/clips' for d in dates if (ROOT / 'docs' / 'lessons' / d / 'clips').exists()])
     return run('commit', '-m', f'Lessons {", ".join(dates)} loaded by the hourly job\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>').returncode == 0
+
+
+# ---------- protocol §2.1 auto-freeze: the page a lesson was FIRST published with, for the grade book (PG-46) ----------
+
+FIRST_DIR = 'data/lesson-work/review-grades'
+
+
+def first_path(date, root=None):
+    return Path(root or ROOT) / FIRST_DIR / f'{date}.first.json'
+
+
+def published_dates(root=None, ref='origin/master'):
+    """Lesson dates whose page data is on `ref` (docs/data/lessons/<date>.json)."""
+    r = subprocess.run(['git', 'ls-tree', '--name-only', ref, 'docs/data/lessons/'], cwd=root or ROOT, capture_output=True,
+                       text=True, encoding='utf-8', errors='replace')
+    return {Path(x).stem for x in (getattr(r, 'stdout', '') or '').splitlines() if re.match(r'^20\d\d-\d\d-\d\d$', Path(x).stem)}
+
+
+def freeze_first(before, root=None, sha=None, now=None):
+    """After a passing push: every lesson whose page data reached master for the first time (not in `before`) gets
+    data/lesson-work/review-grades/<date>.first.json = {date, sha, published_utc, page}, written once (an existing file is
+    never touched) and committed (it rides the next push). scripts/review_grades.py reads it as the exam's "before" instead
+    of reconstructing the pipeline's first page from git. Returns the dates frozen."""
+    root = Path(root or ROOT)
+    git = lambda *c: subprocess.run(['git', *c], cwd=root, capture_output=True, text=True, encoding='utf-8', errors='replace')
+    sha = sha or (getattr(git('rev-parse', 'HEAD'), 'stdout', '') or '').strip()
+    made = []
+    for d in sorted(published_dates(root) - set(before)):
+        p = first_path(d, root)
+        if p.exists():
+            continue
+        r = git('show', f'{sha}:docs/data/lessons/{d}.json')
+        try:
+            page = json.loads(getattr(r, 'stdout', '') or '')
+        except Exception:
+            log('first-publish freeze: page data of', d, 'not readable at', sha[:12]); continue
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps({'about': "The lesson page as the hourly job FIRST published it (protocol §2.1 auto-freeze; "
+                                          "PG-46 grade book 'before'). Written once by scripts/hourly_lessons.py; never edited.",
+                                 'date': d, 'sha': sha, 'published_utc': (now or datetime.datetime.now(datetime.timezone.utc))
+                                 .isoformat(timespec='seconds').replace('+00:00', 'Z'), 'source': 'hourly first publish',
+                                 'page': page}, ensure_ascii=False) + '\n', encoding='utf-8')
+        made.append(d)
+    if made:
+        _commit([first_path(d, root).relative_to(root).as_posix() for d in made],
+                f"Lesson {', '.join(made)}: first published page frozen for the grade book (hourly job)")
+        log('first publish frozen for the grade book:', ', '.join(made))
+    return made
+
+
+def publish(source, failures):
+    """The one door: the publish guard's push, then the first-publish freeze for any lesson that just went live."""
+    import publish_guard as G
+    try:
+        before = published_dates(ROOT)
+    except Exception:
+        before = None
+    res = G.guarded_push(ROOT, source=source, step_failures=failures, log=log)
+    if res.get('pushed') and before is not None:
+        try:
+            freeze_first(before, ROOT)
+        except Exception as e:
+            log('first-publish freeze failed:', type(e).__name__, str(e)[:200])
+    return res
 
 
 def pending_reviews(root=None, include_changed=True):
@@ -566,6 +629,13 @@ def _main():
                 probs.append(stale)
         except Exception as e:
             log('doc sync state not read:', e)
+        try:                                   # the silent-stall alarm: one LS-04 line while the robot cannot publish
+            import pipeline_health as PH
+            stall = PH.alert_problem(PH.compute(ROOT))
+            if stall:
+                probs.append(stall)
+        except Exception as e:
+            log('pipeline health not read:', e)
         try:
             doc, changed, new = A.update(ROOT, probs, keep=() if credits is not None else ('credits',))
             for p in doc['problems']:
@@ -702,8 +772,13 @@ def _main():
         ahead = subprocess.run(['git', 'rev-list', '--count', 'origin/master..HEAD'], cwd=ROOT, capture_output=True, text=True).stdout.strip()
         if ahead not in ('', '0'):
             what = ('lessons ' + ', '.join(done)) if done else 'retry ' + ', '.join(batch) if batch else f'{ahead} local commit(s)'
-            res = G.guarded_push(ROOT, source=f'hourly: {what}', step_failures=run_failures, log=log)
+            res = publish(f'hourly: {what}', run_failures)
             blocked = not res.get('pushed')
+    try:                                     # the stall alarm (docs/data/pipeline-health.json): every run, pass or fail
+        import pipeline_health as PH
+        PH.write(ROOT)
+    except Exception as e:
+        log('pipeline health not written:', e)
     return 1 if (failures or blocked or run_failures or G.open_failures(ROOT)) else 0
 
 

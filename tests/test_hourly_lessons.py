@@ -105,6 +105,7 @@ def job(tmp_path, monkeypatch):
     raw.mkdir()
     monkeypatch.setattr(H, 'ROOT', root)
     monkeypatch.setenv('ANEES_TRIGGER', 'hourly')      # main() setdefaults it; keep it from leaking into other tests
+    monkeypatch.setenv('ANEES_HOURLY_ROOT', str(tmp_path / 'no-hourly'))   # the stall alarm never reads the real hourly checkout here
     monkeypatch.delenv('ELEVENLABS_API_KEY', raising=False)   # the hourly credit check (LS-04) never calls ElevenLabs in tests
     import doc_sync                                     # AM-20: a fresh Amal Doc export unless a test says otherwise
     monkeypatch.setattr(doc_sync, 'stale_problem', lambda *a, **k: None)
@@ -417,3 +418,42 @@ def test_a_settled_lesson_is_not_re_read_by_itself(tmp_path, monkeypatch):
     monkeypatch.setattr(RL, 'readers_read_current', lambda d, repo=None: 'transcript changed after the readers read it')
     assert H.AUTO_REREVIEW is False
     assert [d for d, _ in H.pending_reviews(tmp_path, include_changed=H.AUTO_REREVIEW)] == ['2026-09-30']
+
+
+def test_first_publish_of_a_lesson_is_frozen_once_for_the_grade_book(tmp_path, monkeypatch):
+    """Protocol §2.1 auto-freeze (overnight brief 2026-10-10): on a lesson's FIRST publish the hourly job snapshots
+    data/lesson-work/review-grades/<date>.first.json (the page + the SHA), so the grade book never rebuilds "before" from git."""
+    import shutil
+    if not shutil.which('git'):
+        pytest.skip('git not on PATH')
+    g = lambda cwd, *a: subprocess.run(['git', *a], cwd=cwd, capture_output=True, text=True, check=True).stdout.strip()
+    remote, work = tmp_path / 'remote.git', tmp_path / 'work'
+    g(tmp_path, 'init', '-q', '--bare', '-b', 'master', str(remote))
+    g(tmp_path, 'clone', '-q', str(remote), str(work))
+    for k, v in (('user.email', 't@example.com'), ('user.name', 'test'), ('core.hooksPath', 'no-hooks')):
+        g(work, 'config', k, v)
+    (work / 'docs' / 'data' / 'lessons').mkdir(parents=True)
+    (work / 'docs' / 'data' / 'lessons' / '2026-10-09.json').write_text('{"turns": [1]}', encoding='utf-8')
+    g(work, 'add', '-A'); g(work, 'commit', '-qm', 'old lesson'); g(work, 'push', '-q', 'origin', 'HEAD:master')
+    monkeypatch.setattr(H, 'ROOT', work)
+    before = H.published_dates(work)
+    assert before == {'2026-10-09'}
+    (work / 'docs' / 'data' / 'lessons' / '2026-10-10.json').write_text('{"turns": [1, 2], "v": "first"}', encoding='utf-8')
+    g(work, 'add', '-A'); g(work, 'commit', '-qm', 'Lessons 2026-10-10 loaded by the hourly job'); g(work, 'push', '-q', 'origin', 'HEAD:master')
+    sha = g(work, 'rev-parse', 'HEAD')
+    assert H.freeze_first(before, work) == ['2026-10-10']                     # only the lesson that went live now
+    f = json.loads(H.first_path('2026-10-10', work).read_text(encoding='utf-8'))
+    assert f['sha'] == sha and f['page'] == {'turns': [1, 2], 'v': 'first'} and f['date'] == '2026-10-10'
+    assert not H.first_path('2026-10-09', work).exists()
+    assert 'first published page frozen' in g(work, 'log', '-1', '--format=%s')   # committed: it rides the next push
+    (work / 'docs' / 'data' / 'lessons' / '2026-10-10.json').write_text('{"v": "rebuilt"}', encoding='utf-8')
+    g(work, 'add', '-A'); g(work, 'commit', '-qm', 'rebuild'); g(work, 'push', '-q', 'origin', 'HEAD:master')
+    assert H.freeze_first({"2026-10-09"}, work) == []                                # written once: never overwritten
+    assert json.loads(H.first_path('2026-10-10', work).read_text(encoding='utf-8'))['page']['v'] == 'first'
+
+
+def test_the_hourly_run_writes_the_pipeline_health_and_publishes_through_the_freeze_door(job):
+    job.git.ahead = '2'
+    H.main()
+    assert len(job.guard) == 1                                                 # the one push still goes through the guard
+    assert (job.root / 'docs' / 'data' / 'pipeline-health.json').exists()      # the stall alarm's source of truth, every run

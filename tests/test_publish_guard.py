@@ -483,3 +483,128 @@ def test_AM_20_a_stale_amal_doc_export_warns_in_data_freshness(repo, tmp_path):
     assert not ok and "Amal's word Doc not synced since" in detail and 'export HTTP 403' in detail
     ok, detail = G.check_data_freshness(repo, raw=tmp_path / 'none', now=now, doc_dir=tmp_path / 'empty')
     assert not ok and "Amal's word Doc not synced on this PC" in detail
+
+
+# ---------------------------------------------------------------- the silent-stall system (overnight brief 2026-10-10 §3)
+# Medi 2026-10-10: "MAKE A SYSTEM" - the hourly job sat blocked for ~29 h on a data/budget.json rebase conflict, unseen.
+
+def test_budget_json_is_a_generated_file_rebuilt_inline():
+    assert G.is_generated('data/budget.json')
+    assert 'data/budget.json' in G.regenerate_rules()['rebuild_inline']
+
+
+def _run_line(step, provider, usd, started, run_id):
+    return json.dumps({'schema': 1, 'run_id': run_id, 'step': step, 'gen_ai.provider.name': provider, 'cost_usd': usd,
+                       'started_at': started, 'status': 'ok'})
+
+
+def test_budget_rebuild_recomputes_the_totals_from_the_run_log():
+    import budget_rebuild as B
+    base = {'elevenlabs': 1.0, 'openai': 0.0, 'gemini': 9.99, 'anthropic': 0.0,   # a wrong gemini total: recomputed
+            'calls': [{'t': '2026-10-09T10:00:00', 'service': 'gemini', 'usd': 0.5, 'what': 'context listen'},
+                      {'t': '2026-09-05T01:29:22', 'service': 'elevenlabs', 'usd': 1.0, 'what': 'before the run log'}]}
+    runs = [json.loads(_run_line('context.listen', 'google', 0.5, '2026-10-09T17:00:01Z', 'a1')),         # = the ledger call
+            json.loads(_run_line('context.listen', 'google', 0.25, '2026-10-10T17:00:00Z', 'b2')),        # missing: added
+            json.loads(_run_line('correction_parse.read_note', 'anthropic', 0.3, '2026-10-10T18:00:00Z', 'c3')),
+            json.loads(_run_line('full_audit.reader', 'anthropic', 2.0, '2026-10-10T18:00:00Z', 'd4')),   # CLI reader: not a ledger call
+            json.loads(_run_line('scribe.transcribe', 'elevenlabs', 0, '2026-10-10T18:00:00Z', 'e5'))]    # free: nothing
+    out = B.rebuild(base, runs)
+    assert len(out['calls']) == 4
+    assert out['gemini'] == 0.75 and out['anthropic'] == 0.3 and out['elevenlabs'] == 1.0 and out['openai'] == 0.0
+    assert any('b2' in c['what'] for c in out['calls'])
+    assert B.rebuild(out, runs) == out                                         # idempotent
+
+
+def test_real_git_a_budget_json_conflict_keeps_master_and_rebuilds_from_the_run_logs(tmp_path, monkeypatch):
+    """2026-10-09 11:34 -> 10-11: 'conflict in a hand-made file (a person merges): data/budget.json' on every hourly push.
+    Now master's copy is kept, the ledger is rebuilt from the run logs (both sides' lines, union-merged) and it publishes."""
+    monkeypatch.setenv('ANEES_HOURLY_ROOT', str(tmp_path / 'no-hourly'))
+    monkeypatch.setenv('ANEES_RAW', str(tmp_path / 'no-raw'))
+    g, remote, work, other = _two_clones(tmp_path, required=('step_failures', 'json_data'))
+    base = {'elevenlabs': 0.0, 'openai': 0.0, 'gemini': 0.0, 'anthropic': 0.0, 'calls': []}
+    write(work / 'data' / 'budget.json', base)
+    g(work, 'add', '-A'); g(work, 'commit', '-qm', 'ledger'); g(work, 'push', '-q', 'origin', 'HEAD:master'); g(other, 'pull', '-q')
+    m = {'t': '2026-10-10T09:00:00', 'service': 'anthropic', 'usd': 0.26, 'what': 'parse-correction note (master)'}
+    write(other / 'data' / 'budget.json', {**base, 'anthropic': 0.26, 'calls': [m]})
+    write(other / 'data' / 'runs' / '2026-10.jsonl', '{"id": 1}\n' + _run_line('correction_parse.read_note', 'anthropic', 0.26, '2026-10-10T16:00:00Z', 'mmmm') + '\n')
+    g(other, 'commit', '-qam', 'master spent'); g(other, 'push', '-q', 'origin', 'HEAD:master')
+    h = {'t': '2026-10-10T10:00:00', 'service': 'gemini', 'usd': 0.4, 'what': 'second listen (hourly)'}
+    write(work / 'data' / 'budget.json', {**base, 'gemini': 0.4, 'calls': [h]})
+    write(work / 'data' / 'runs' / '2026-10.jsonl', '{"id": 1}\n' + _run_line('context.listen', 'google', 0.4, '2026-10-10T17:00:00Z', 'hhhh') + '\n')
+    g(work, 'commit', '-qam', 'hourly spent')
+    lines = []
+    res = G.guarded_push(work, source='hourly', log=lambda *p: lines.append(' '.join(map(str, p))))
+    assert res['pushed'], res                                                  # not "a person merges"
+    led = json.loads(g(remote, 'show', 'master:data/budget.json'))
+    assert sorted(c['usd'] for c in led['calls']) == [0.26, 0.4]               # master's call kept, the hourly's rebuilt from its run line
+    assert led['anthropic'] == 0.26 and led['gemini'] == 0.4
+    assert 'tutor' not in G.open_failures(work)                                # rebuilt inline: no hourly rebuild queued
+    health = json.loads(g(remote, 'show', 'master:docs/data/pipeline-health.json'))
+    assert health['stalled'] is False and health['last_publish_utc']           # an hourly pass is a publish
+
+
+def _stall_state(hours, reason='pull --rebase failed: conflict in a hand-made file (a person merges): data/budget.json'):
+    import datetime as dt
+    now = dt.datetime(2026, 10, 11, 7, 0, tzinfo=dt.timezone.utc)
+    last = now - dt.timedelta(hours=hours)
+    st = {'history': [{'at': (last + dt.timedelta(minutes=10)).isoformat(), 'outcome': 'rebase_failed', 'reason': reason},
+                      {'at': (last - dt.timedelta(hours=1)).isoformat(), 'outcome': 'blocked', 'reason': 'older, fixed'}],
+          'open_failures': {}}
+    return now, last, st
+
+
+def _log_run(*entries):
+    out = '\n'.join(sha + '\x1f' + t.isoformat() + '\x1f' + subj for sha, t, subj in entries)
+    return lambda cmd, **k: subprocess.CompletedProcess(cmd, 0, out, '')
+
+
+def test_stall_is_computed_from_the_last_hourly_publish_and_pending_work(tmp_path):
+    import datetime as dt
+    import pipeline_health as PH
+    import lesson_alerts as A
+    now, last, st = _stall_state(29)
+    hourly = tmp_path / 'hourly'
+    write(hourly / 'data' / 'publish-guard' / 'state.json', st)
+    root = tmp_path / 'repo'
+    write(root / 'docs' / 'data' / 'lessons.json', {'lessons': [{'date': '2026-10-09'}]})
+    run = _log_run(('f' * 40, last + dt.timedelta(hours=1), "Lesson 2026-10-09: English lines, the hourly job's leftover data"),   # manual
+                   ('a' * 40, last, 'Publish guard: all required checks passed (hourly: tutor refresh)'))
+    h = PH.compute(root, run=run, now=now, hourly_root=hourly, raw=tmp_path / 'raw', prev={})
+    assert h['last_publish_sha'] == 'a' * 40 and h['hours_since_publish'] == 29.0
+    assert h['stalled'] is True and 'budget.json' in h['first_block_reason'] and h['blocked_since_utc']
+    assert '1 blocked push(es) since the last publish' in h['pending']        # the older, fixed block is not counted
+    w = PH.warning_line(h)
+    assert w.startswith('WARNING: the hourly robot has not published for 29 h: ') and 'budget.json' in w
+    p = PH.alert_problem(h)                                                     # the LS-04 line on Progress + Lessons
+    assert A.line_for(p).startswith('The hourly robot has not published since {since}: ') and p['since'] == h['last_publish_utc']
+    # 1 h since the last publish: not stalled, whatever waits
+    now2, last2, _ = _stall_state(1)
+    h2 = PH.compute(root, run=_log_run(('b' * 40, last2, 'Publish guard: all required checks passed (hourly: x)')), now=now2,
+                    hourly_root=hourly, raw=tmp_path / 'raw', prev={})
+    assert h2['stalled'] is False and PH.warning_line(h2) is None
+    # 29 h but nothing waits (no lesson today, no block, no failure, nothing pending): not stalled
+    write(hourly / 'data' / 'publish-guard' / 'state.json', {'history': [], 'open_failures': {}})
+    h3 = PH.compute(root, run=run, now=now, hourly_root=hourly, raw=tmp_path / 'raw', prev={})
+    assert h3['pending'] == [] and h3['stalled'] is False
+    # a lesson today is pending work on its own
+    write(root / 'docs' / 'data' / 'lessons.json', {'lessons': [{'date': now.astimezone().date().isoformat()}]})
+    assert PH.compute(root, run=run, now=now, hourly_root=hourly, raw=tmp_path / 'raw', prev={})['stalled'] is True
+
+
+def test_guard_check_and_push_print_the_stall_warning_and_never_block_on_it(repo, monkeypatch, capsys):
+    import pipeline_health as PH
+    stalled = {'stalled': True, 'hours_since_publish': 29.4, 'first_block_reason': 'conflict in a hand-made file: data/budget.json',
+               'last_publish_utc': '2026-10-09T18:16:25Z', 'pending': ['x']}
+    monkeypatch.setattr(PH, 'compute', lambda *a, **k: dict(stalled))
+    real_checks = G.run_checks
+    monkeypatch.setattr(G, 'run_checks', lambda *a, **k: {'ok': True, 'at': G.now_iso(), 'sha': 'a' * 40, 'checks': [], 'reason': '', 'warnings': []})
+    assert G.main(['check', '--root', str(repo)]) == 0                         # advisory: the exit code is the checks' own
+    out = capsys.readouterr().out
+    assert 'WARNING: the hourly robot has not published for 29 h: conflict in a hand-made file: data/budget.json' in out
+    monkeypatch.setattr(G, 'run_checks', real_checks)
+    res, lines = push(repo, FakeRun({**PASSING, 'check_numbers.py': (1, 'Word Bank 312 != Lessons 309')}))
+    assert res['outcome'] == 'blocked'
+    assert any(l.startswith('WARNING: the hourly robot has not published for 29 h') for l in lines)
+    assert json.loads((repo / G.HEALTH).read_text(encoding='utf-8'))['stalled'] is True   # a block rewrites the health file
+    ok, _ = G.check_clean_tree(repo, {'clean_paths': ['docs']}, FakeRun(dirty=' M docs/data/pipeline-health.json\n'))
+    assert ok                                                                   # it never makes the tree "dirty" for the next check

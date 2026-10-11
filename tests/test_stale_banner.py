@@ -37,3 +37,34 @@ def test_banner_appears_when_build_changes(tmp_path, rest_stub):
         assert pg.evaluate("document.querySelector('#stale-reload').getBoundingClientRect().height") >= 44
         b.close()
     assert not rest_stub.calls, rest_stub.calls      # opening the Flashcards page writes nothing
+
+
+def _stall_text(health, now_iso):
+    """docs/js/stale.js stallText(health, now) through node (no browser needed)."""
+    import os, subprocess
+    node = r"C:\dev\tools\node-v24.18.0-win-x64\node.exe"
+    js = ("const s = require('./docs/js/stale.js'); process.stdout.write(JSON.stringify(s.stallText(%s, new Date(%s))))"
+          % (json.dumps(health), json.dumps(now_iso)))
+    out = subprocess.run([node if os.path.exists(node) else 'node', '-e', js], cwd=ROOT, capture_output=True, encoding='utf-8', check=True).stdout
+    return json.loads(out)
+
+
+def test_stall_banner_names_the_hours_and_the_reason():
+    """Overnight brief 2026-10-10 §3 (Medi: "MAKE A SYSTEM"): while the hourly robot cannot publish, every page (PG-01,
+    docs/js/stale.js) says "The hourly robot has not published for N h: <reason>", counting on in the viewer's clock."""
+    h = {'last_publish_utc': '2026-10-09T18:16:25Z', 'hours_since_publish': 3.0, 'stalled': True, 'pending': ['x'],
+         'first_block_reason': 'pull --rebase failed (a conflict with master; a person merges): data/budget.json'}
+    assert _stall_text(h, '2026-10-11T07:16:25Z') == ('The hourly robot has not published for 37 h: pull --rebase failed '
+                                                      '(a conflict with master; a person merges): data/budget.json')
+    # a file published while fine (stalled false) still turns on once 2 h pass with work waiting: the robot cannot republish it
+    fine = {'last_publish_utc': '2026-10-11T00:00:00Z', 'hours_since_publish': 0.1, 'stalled': False, 'pending': ['lesson day (2026-10-11)'],
+            'first_block_reason': None, 'last_block_reason': None, 'open_failures': []}
+    assert _stall_text(fine, '2026-10-11T01:00:00Z') is None
+    assert _stall_text(fine, '2026-10-11T05:00:00Z') == 'The hourly robot has not published for 5 h: waiting: lesson day (2026-10-11)'
+    assert _stall_text({**fine, 'pending': []}, '2026-10-11T05:00:00Z') is None      # nothing waits: no banner
+    assert _stall_text(None, '2026-10-11T05:00:00Z') is None                         # no file: fails quiet
+
+
+def test_stale_js_fetches_the_pipeline_health():
+    s = (DOCS / 'js' / 'stale.js').read_text(encoding='utf-8')
+    assert "data/pipeline-health.json" in s and "stall-bar" in s and 'The hourly robot has not published for ' in s
