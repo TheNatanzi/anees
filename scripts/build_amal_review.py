@@ -117,6 +117,8 @@ def main(clips=True):
         if not rows:
             continue
         claimed.update(r["uid"] for r in rows)
+        if p.get("hidden"):                 # Medi took it off her list (e.g. 2026-10-11 'just erase it for now'): its rows stay claimed, no card
+            continue
         kind = "vocab" if str(p.get("kind", rows[0]["kind"])).startswith("vocab") else "grammar"
         bucket = p.get("bucket") or (rows[0].get("bucket") if kind == "grammar" else None)
         dates = sorted({r["date"] for r in rows})

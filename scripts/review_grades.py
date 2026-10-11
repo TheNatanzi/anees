@@ -347,7 +347,7 @@ def build(repo=REPO, corrections=None, reviews=None, pick_dir=None, tutor_rows=N
     rows = []
     for rv in reviews:
         row = {"date": rv["date"], "full": bool(rv.get("full")), "note": rv.get("note") or "",
-               "minutes_medi": minutes_of(fast.get(rv["date"])), "coverage_medi": None}
+               "minutes_medi": minutes_of(fast.get(rv["date"])), "coverage_medi": None, "exam": bool(rv.get("exam"))}
         if rv["date"] in fast:
             n, m = coverage_of(his_lines(rv["date"], repo, pick_dir=pick_dir), live.get(rv["date"]) or [])
             row.update({"coverage_medi": round(float(n) / m, 3) if m else None, "lines_checked": n, "lines_total": m})
@@ -368,7 +368,7 @@ def build(repo=REPO, corrections=None, reviews=None, pick_dir=None, tutor_rows=N
                 except SystemExit:
                     snap = None
             if not snap:
-                row["status"] = "no answer key frozen yet"
+                row["status"] = "exam: review in progress" if rv.get("exam") else "no answer key frozen yet"
             else:
                 now = snapshot(page_at(None, rv["date"], repo), rv["date"])
                 row.update({"status": "graded", "before_commit": snap["before_commit"], "key_commit": snap["key_commit"],
@@ -407,7 +407,8 @@ def main(argv):
     out = build()
     if "--check" in argv:
         old = J(OUT_P)
-        bad = [r["date"] for r in out["lessons"] if r["full"] and r["status"] != "graded"]
+        # an exam whose review is still going (PR-23: the key freezes itself at full coverage) is not a missing key
+        bad = [r["date"] for r in out["lessons"] if r["full"] and r["status"] != "graded" and not r.get("exam")]
         if bad:
             print("review_grades: full review with no frozen answer key: " + ", ".join(bad))
             return 1

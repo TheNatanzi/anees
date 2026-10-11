@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T00:43:14-07:00",
+ "updated": "2026-10-11T01:34:39-07:00",
  "note": "What Amal needs to check right now. Rebuilt by scripts/build_tutor_data.py every hour and after every same-day lesson review; answered counts are read live from Supabase with each link's own token. Medi sends every link himself; the app never contacts Amal.",
  "tutor_from": "2026-10-08",
  "paused": {
@@ -18,94 +18,6 @@
  },
  "open": [
   {
-   "id": "after-2026-10-10",
-   "title": "After the lesson · Oct 10",
-   "kind": "after",
-   "token": "8KY-di7_q_pvQB-UqMJG7NjSh-DT4rmf",
-   "lesson_date": "2026-10-10",
-   "what": "3-5 moments from this lesson the app was least sure about: was he right here? One tap each, with the clip.",
-   "who": "You answer · the student sends the link",
-   "url": "amal/after.html?t=8KY-di7_q_pvQB-UqMJG7NjSh-DT4rmf",
-   "total": 5,
-   "expires": "2026-10-17",
-   "detail": {
-    "answered": 0,
-    "total": 5,
-    "asked": [
-     {
-      "ask": "Did the student get this wrong here?",
-      "word": "Mufaddale  ->  مفضلين",
-      "arabic": "Mufaddale  ->  مفضلين",
-      "english": "favourite (plural)",
-      "t": "33:28",
-      "clip": null,
-      "medi": null,
-      "amal": null,
-      "answer": null,
-      "at": null,
-      "result": null,
-      "carried": false
-     },
-     {
-      "ask": "Did the student get this wrong here?",
-      "word": "تلات  ->  التقيت (Alta'at)",
-      "arabic": "تلات  ->  التقيت (Alta'at)",
-      "english": "I met (my fiancée).",
-      "t": "13:52",
-      "clip": null,
-      "medi": null,
-      "amal": null,
-      "answer": null,
-      "at": null,
-      "result": null,
-      "carried": false
-     },
-     {
-      "ask": "Did the student mean this word?",
-      "word": "(didn't know)  ->  عصير",
-      "arabic": "(didn't know)  ->  عصير",
-      "english": "juice / drink",
-      "t": "48:04",
-      "clip": null,
-      "medi": null,
-      "amal": null,
-      "answer": null,
-      "at": null,
-      "result": null,
-      "carried": false
-     },
-     {
-      "ask": "Did the student get this wrong here?",
-      "word": "يوم الخميس  ->  الخميس الجاي",
-      "arabic": "يوم الخميس  ->  الخميس الجاي",
-      "english": "on (this coming) Thursday",
-      "t": "8:43",
-      "clip": null,
-      "medi": null,
-      "amal": null,
-      "answer": null,
-      "at": null,
-      "result": null,
-      "carried": false
-     },
-     {
-      "ask": "Did the student get this wrong here?",
-      "word": "10 سن  ->  سنتين",
-      "arabic": "10 سن  ->  سنتين",
-      "english": "more than two years",
-      "t": "16:18",
-      "clip": null,
-      "medi": null,
-      "amal": null,
-      "answer": null,
-      "at": null,
-      "result": null,
-      "carried": false
-     }
-    ]
-   }
-  },
-  {
    "id": "slips-review",
    "title": "The student's mistakes to review",
    "kind": "review",
@@ -113,8 +25,8 @@
    "what": "Mistakes the student made (a wrong word or wrong grammar) that you let pass in the lesson, grouped by kind, with the real moments to play. For each kind you say: yes, count it, or no, he was fine. New lessons add their patterns here the same day.",
    "who": "You answer · the student sends the link",
    "url": "amal/review.html?t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
-   "total": 7,
-   "moments": 8,
+   "total": 14,
+   "moments": 7,
    "expires": "2026-10-26"
   },
   {
@@ -301,6 +213,91 @@
   }
  ],
  "closed": [
+  {
+   "id": "after-2026-10-10",
+   "title": "After the lesson · Oct 10",
+   "why": "answered",
+   "kind": "after",
+   "lesson_date": "2026-10-10",
+   "token": "8KY-di7_q_pvQB-UqMJG7NjSh-DT4rmf",
+   "expires": "2026-10-17",
+   "detail": {
+    "answered": 0,
+    "total": 5,
+    "asked": [
+     {
+      "ask": "Did the student get this wrong here?",
+      "word": "Mufaddale  ->  مفضلين",
+      "arabic": "Mufaddale  ->  مفضلين",
+      "english": "favourite (plural)",
+      "t": "33:28",
+      "clip": null,
+      "medi": null,
+      "amal": null,
+      "answer": null,
+      "at": null,
+      "result": null,
+      "carried": false
+     },
+     {
+      "ask": "Did the student get this wrong here?",
+      "word": "تلات  ->  التقيت (Alta'at)",
+      "arabic": "تلات  ->  التقيت (Alta'at)",
+      "english": "I met (my fiancée).",
+      "t": "13:52",
+      "clip": null,
+      "medi": null,
+      "amal": null,
+      "answer": null,
+      "at": null,
+      "result": null,
+      "carried": false
+     },
+     {
+      "ask": "Did the student mean this word?",
+      "word": "(didn't know)  ->  عصير",
+      "arabic": "(didn't know)  ->  عصير",
+      "english": "juice / drink",
+      "t": "48:04",
+      "clip": null,
+      "medi": null,
+      "amal": null,
+      "answer": null,
+      "at": null,
+      "result": null,
+      "carried": false
+     },
+     {
+      "ask": "Did the student get this wrong here?",
+      "word": "يوم الخميس  ->  الخميس الجاي",
+      "arabic": "يوم الخميس  ->  الخميس الجاي",
+      "english": "on (this coming) Thursday",
+      "t": "8:43",
+      "clip": null,
+      "medi": null,
+      "amal": null,
+      "answer": null,
+      "at": null,
+      "result": null,
+      "carried": false
+     },
+     {
+      "ask": "Did the student get this wrong here?",
+      "word": "10 سن  ->  سنتين",
+      "arabic": "10 سن  ->  سنتين",
+      "english": "more than two years",
+      "t": "16:18",
+      "clip": null,
+      "medi": null,
+      "amal": null,
+      "answer": null,
+      "at": null,
+      "result": null,
+      "carried": false
+     }
+    ]
+   }
+  },
   {
    "id": "after-2026-10-09",
    "title": "After the lesson · Oct 9",

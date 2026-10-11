@@ -20,7 +20,9 @@
     const H = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'Content-Type': 'application/json', 'X-Anees-Token': TOKEN };
     const api = (m, p, b, extra) => fetch(ANEES.url + '/rest/v1/' + p, { method: m, headers: { ...H, ...(extra || {}) }, body: b ? JSON.stringify(b) : undefined });
     const QK = 'anees-amal-review-q-' + TOKEN, AK = 'anees-amal-review-a-' + TOKEN;
-    let DATA = null, answers = {}, filter = 'all', flushing = false, shown = 20;
+    // 'open' = Unanswered: every card not decided yet, patterns and new words together, first by default (Medi 2026-10-11:
+    // 'lets build an undanswered filter for these')
+    let DATA = null, answers = {}, filter = 'open', flushing = false, shown = 20;
     el.innerHTML = '<div class="hb-task"><p class="hb-sub">One card per kind of mistake (a wrong word or wrong grammar the student said more than once). Play a moment if you like, then tap: <b>Yes, the student was wrong</b> counts it against him; <b>No, the student was fine</b> (say why in a line) drops it and the app never asks about this pattern again.</p><div class="hb-chips" data-filters></div><p class="hb-prog" data-prog>Loading…</p><div data-root></div><p class="hb-foot" data-foot>Saved as you tap · stop any time</p></div>';
     const $root = el.querySelector('[data-root]'), $prog = el.querySelector('[data-prog]'), $filters = el.querySelector('[data-filters]');
 
@@ -74,12 +76,12 @@
     function render() {
       if (!DATA) return;
       const W = DATA.new_words || [], P = patterns();
-      const list = filter === 'new' ? W : P.filter(p => filter === 'all' || p.kind === filter);
+      const list = filter === 'open' ? P.concat(W).filter(x => !answerOf(x)) : filter === 'new' ? W : P.filter(p => filter === 'all' || p.kind === filter);
       const done = P.filter(answerOf).length;
-      $prog.textContent = filter === 'new' ? `${W.filter(answerOf).length} of ${W.length} new words decided` : `${done} of ${P.length} patterns decided`;
+      $prog.textContent = filter === 'open' ? (list.length ? `${list.length} left to decide` : 'Nothing left to decide - thank you') : filter === 'new' ? `${W.filter(answerOf).length} of ${W.length} new words decided` : `${done} of ${P.length} patterns decided`;
       // open cards first, then the answered ones (each with Undo); long lists 20 at a time
       const open = list.filter(x => !answerOf(x)), ans = list.filter(answerOf), ord = open.concat(ans), page = ord.slice(0, shown);
-      $root.innerHTML = (page.map(filter === 'new' ? wcard : card).join('') || '<p class="hb-empty">Nothing to review.</p>')
+      $root.innerHTML = (page.map(x => W.includes(x) ? wcard(x) : card(x)).join('') || '<p class="hb-empty">Nothing to review.</p>')
         + (ord.length > shown ? `<button type="button" class="hb-ans" data-more>Show the next ${Math.min(20, ord.length - shown)} (${ord.length - shown} more)</button>` : '');
       $root.querySelectorAll('details[data-exs]').forEach(d => d.addEventListener('toggle', () => {
         if (!d.open || d.dataset.wired) return; d.dataset.wired = '1';
@@ -88,6 +90,7 @@
       }));
       const more = $root.querySelector('[data-more]'); if (more) more.onclick = () => { shown += 20; render(); };
       // the new words are cards to decide too: the To do count includes them (Medi 2026-10-11: 'this looks complete ... why is it still here')
+      drawFilters();                       // the Unanswered count follows every tap
       const all = P.length + W.length, allDone = done + W.filter(answerOf).length;
       opt.onChange && opt.onChange({ total: all, done: allDone, finished: all > 0 && allDone === all });
     }
@@ -121,8 +124,9 @@
     });
     $filters.addEventListener('click', e => { const b = e.target.closest('button[data-f]'); if (!b) return; filter = b.dataset.f; shown = 20; drawFilters(); render(); });
     function drawFilters() {
-      const P = patterns(), kinds = [['all', 'All', P.length], ['vocab', 'Words', P.filter(p => p.kind === 'vocab').length], ['grammar', 'Grammar', P.filter(p => p.kind === 'grammar').length], ['new', 'New words (not on sheet)', (DATA.new_words || []).length]];
-      $filters.innerHTML = kinds.filter(k => k[2] || k[0] === 'all').map(([k, l, n]) => `<button type="button" class="hb-chip" data-f="${k}" aria-pressed="${k === filter}">${esc(l)} (${n})</button>`).join('');
+      const P = patterns(), open = P.concat(DATA.new_words || []).filter(x => !answerOf(x)).length,
+        kinds = [['open', 'Unanswered', open], ['all', 'All', P.length], ['vocab', 'Words', P.filter(p => p.kind === 'vocab').length], ['grammar', 'Grammar', P.filter(p => p.kind === 'grammar').length], ['new', 'New words (not on sheet)', (DATA.new_words || []).length]];
+      $filters.innerHTML = kinds.filter(k => k[2] || k[0] === 'all' || k[0] === 'open').map(([k, l, n]) => `<button type="button" class="hb-chip" data-f="${k}" aria-pressed="${k === filter}">${esc(l)} (${n})</button>`).join('');
     }
     (async () => {
       if (!TOKEN) { $prog.textContent = 'No open review link, so answers cannot be saved right now.'; }

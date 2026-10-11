@@ -491,3 +491,7 @@ Chairman verdict: **APPROVE** · confidence **7/10** (8+ once his first real ses
 | 7 | **APPROVE** | none |
 
 Guard before the push: all 18 required checks PASS (818 Python tests, node tests), ledger OK, registry OK; advisory: the stall WARNING (38 h), lesson 10-10 not on the site (waits for the hourly reset).
+
+### 2026-10-11 morning: Amal's 50-moment check (AM-29), banner in plain words, To do fixes
+- Codex review of the batch: CHANGES REQUIRED, 2 findings. (1) the exam marked full before its key -> `--check` now treats an exam in progress as "exam: review in progress", not a missing key (fixed). (2) "blindness leak": the public review-pick file names each line's tier, and the tutor's card names its times, so someone opening both JSON files could match them -> KEPT on purpose, logged: the tutor never reads raw data files, and hiding the tiers would also blind the student's own review mode. Re-check if she ever gets file access.
+- Medi: "just erase it for now" -> the grammar pattern C7 enno-for-illi is marked hidden in patterns.json (no card, its 2 rows kept); "lets build an undanswered filter for these" -> the mistakes card opens on "Unanswered" (patterns + new words not decided yet).

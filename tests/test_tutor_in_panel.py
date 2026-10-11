@@ -228,3 +228,15 @@ def test_the_mistakes_card_counts_its_new_words_too():
     assert "review: 'cards'," in (ROOT / 'docs' / 'js' / 'tutor.js').read_text(encoding='utf-8')
     b = (ROOT / 'scripts' / 'build_tutor_data.py').read_text(encoding='utf-8')
     assert '.get("patterns", 0) + (review.get("counts") or {}).get("new_words", 0)' in b
+
+
+def test_the_mistakes_card_opens_on_unanswered_and_an_erased_pattern_is_gone():
+    """Medi 2026-10-11: 'lets build an undanswered filter for these' (the Unanswered chip, first and on by default: every
+    pattern and new word not decided yet) and 'just erase it for now' (a pattern marked hidden: no card, rows kept)."""
+    js = (ROOT / 'docs' / 'js' / 'hub' / 'review-task.js').read_text(encoding='utf-8')
+    assert "filter = 'open'" in js and "kinds = [['open', 'Unanswered', open]" in js
+    assert "filter === 'open' ? P.concat(W).filter(x => !answerOf(x))" in js
+    assert 'if p.get("hidden"):' in (ROOT / 'scripts' / 'build_amal_review.py').read_text(encoding='utf-8')
+    built = json.loads((ROOT / 'docs' / 'data' / 'amal-review.json').read_text(encoding='utf-8'))
+    assert 'p-enno-for-illi' not in {p['id'] for p in built['patterns']}
+    assert not any('FA-4a508f5b' in p['id'] or 'FA-5759d0be' in p['id'] for p in built['patterns'])
