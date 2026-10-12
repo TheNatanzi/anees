@@ -17,3 +17,19 @@ test('PG-39 a joined sentence: one green vocab pill with every word, one pill pe
  assert.ok(shown.find(c=>c.s==='wrong')&&shown.find(c=>c.s==='na'));     // other chips untouched
  assert.equal(cs[0].words,undefined);                                       // the page data is not changed
 });
+
+test('PG-39 the same grey reason on every piece of a joined sentence shows once (off-lesson)',()=>{
+ const why='off-lesson (shows Amal the grading app and how to correct transcripts)';
+ const cs=Array.from({length:14},(_, i)=>({id:'g'+i,k:'na',s:'na',label:'lesson',why}));
+ const shown=mergeCorrect(cs).filter(c=>!c.hide);
+ assert.equal(shown.length,1);
+});
+
+test('PG-39 the same word credited 3 times in one line is listed once; off-lesson pills are not drawn; grammar pills are blue/pink',()=>{
+ const out=mergeCorrect([{id:'a',k:'vocab',s:'correct',words:[{w:'Ana ba5a66et',ar:'بخطط'},{w:'Ana ba5a66et',ar:'بخطط'},{w:'Ana ba5a66et',ar:'بخطط'}]}]);
+ assert.equal(out[0].words,undefined); assert.equal(out[0].w,'Ana ba5a66et');   // one word left: a plain pill with its word
+ assert.match(src,/c\.s === 'na' && \/\^off-lesson\/\.test\(c\.why/);
+ assert.match(src,/' tm-gram'/);
+ const css=fs.readFileSync(path.join(__dirname,'..','docs','css','lessons.css'),'utf8');
+ assert.match(css,/\.tm-gram\.tm-correct\{--c:light-dark\(#1f5fbf/); assert.match(css,/\.tm-gram\.tm-wrong\{--c:light-dark\(#a8236f/);
+});

@@ -721,8 +721,13 @@ function goesOn(prev, t, gap) { return gap <= JOIN_GAP || (gap <= JOIN_LONG && (
 // sentence" · "theres like 6 different vocab pills here"): a JOINED sentence shows ONE green ✓ vocab pill listing every
 // correct word of all its pieces, and one ✓ grammar pill per rule (A1 twice = one A1). Display only; nothing is recounted.
 function mergeCorrect(cs) {
-  var out = [], vocab = null, gram = {};
+  var out = [], vocab = null, gram = {}, grey = {};
   cs.forEach(function (c) {
+    // the same grey reason on every piece (10-10 04:14: 14 'off-lesson' pills, Medi 2026-10-12 'Get rid of these'): one pill
+    if (!c.hide && c.s === 'na' && c.why && !c.w && !c.ar) {
+      if (grey[c.why]) { out.push(Object.assign({}, c, { hide: grey[c.why].id })); return; }
+      grey[c.why] = c;
+    }
     if (c.hide || c.s !== 'correct' || (c.k !== 'vocab' && c.k !== 'grammar')) { out.push(c); return; }
     if (c.k === 'vocab') {
       var ws = c.words || [{ ar: c.ar, w: c.w, said: c.said }];
@@ -734,7 +739,11 @@ function mergeCorrect(cs) {
     if (!gram[k]) { gram[k] = c; out.push(c); }
     else out.push(Object.assign({}, c, { hide: gram[k].id }));
   });
-  if (vocab && vocab.words.length < 2) delete vocab.words;
+  if (vocab && vocab.words) {                     // the same word said again in the sentence is listed once (07:50 ba5a66et x3)
+    var seenW = {};
+    vocab.words = vocab.words.filter(function (w) { var k = (w.w || '') + '|' + (w.ar || ''); if (seenW[k]) return false; seenW[k] = 1; return true; });
+  }
+  if (vocab && vocab.words.length < 2) { var one = vocab.words[0] || {}; vocab.w = vocab.w || one.w; vocab.ar = vocab.ar || one.ar; vocab.said = vocab.said || one.said; delete vocab.words; }
   return out;
 }
 function sentences(turns, tm) {
@@ -791,8 +800,9 @@ function tmRow(x, t, m, i) {
   if (t.en) main.appendChild(el('div', 'ls-line-en', t.en));    // PG-40: the English of the line, under the Arabic
   heardNote(main, t, toArabizi);
   var chips = el('div', 'tm-chips');
-  (m.c || []).forEach(function (c) {
+  mergeCorrect(m.c || []).forEach(function (c) {      // every line: one green pill, words listed once, one pill per rule
     if (c.hide) return;                                   // PG-39: one chip per word (the others are listed on it)
+    if (c.s === 'na' && /^off-lesson/.test(c.why || '')) return;   // Medi 2026-10-12 'just get rid of them all together'
     chips.appendChild(chipButton(x, t, c));
   });
   main.appendChild(chips);
@@ -803,7 +813,7 @@ function tmRow(x, t, m, i) {
 function chipButton(x, t, c) {
     var TMK = window.AneesTranscriptMarks;
     var v = TMK.chipModel(c, toArabizi);
-    var b = el('button', 'tm-chip tm-' + c.s);
+    var b = el('button', 'tm-chip tm-' + c.s + (c.k === 'grammar' ? ' tm-gram' : ''));   // PG-39: grammar ✓ blue / ✗ pink
     b.type = 'button';
     b.dataset.chip = c.id;
     b.id = 'tm-' + x.date + '-' + c.id;

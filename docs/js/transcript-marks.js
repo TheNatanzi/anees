@@ -10,8 +10,9 @@ var FILTERS = [['all', 'All'], ['marked', 'Only marked'], ['wrong', 'Only ✗'],
 // PG-39 (Medi 2026-10-09 "Lets assign a new color for new words and another color for repeats, and another for
 // corrections" - key approved 'go'): one colour per meaning, one chip per word
 var LEGEND = [
-  ['correct', '✓', 'Correct · your own (full point)'], ['partial', '◐', 'Half · she said it just before, or you asked'],
-  ['wrong', '✗', 'Wrong · the tutor corrected it'], ['repeat', '↻', 'Repeat · said right after she gave or fixed it: no credit, not a mistake'],
+  ['correct', '✓', 'Correct word · your own (full point)'], ['correct tm-gram', '✓', 'Correct grammar'],
+  ['partial', '◐', 'Half · she said it just before, or you asked'],
+  ['wrong', '✗', 'Wrong word · the tutor corrected it'], ['wrong tm-gram', '✗', 'Wrong grammar'], ['repeat', '↻', 'Repeat · said right after she gave or fixed it: no credit, not a mistake'],
   ['new', '★', 'New word · taught this lesson, not scored yet'], ['fix', '←', "The tutor's correction (on her line)"],
   ['na', '–', 'Not scored (reason on the chip)'],
   ['medi', '?', 'Open question · two judges disagree; the tutor decides on her Tutor hub, counted as before until she answers']

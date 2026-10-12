@@ -9836,9 +9836,9 @@
    "scope": "pages",
    "status": "enforced",
    "change": "new",
-   "statement": "Transcript chips: one chip per word and one colour per meaning (key approved by Medi 2026-10-09 'go'). Green ✓ correct (his own, full point), blue ◐ half (she said it just before, or he asked), red ✗ wrong (she corrected it), purple ↻ repeat (said right after she gave or fixed it: no credit, not a mistake), yellow ★ new word (taught this lesson and not on her list yet: not scored), orange ← her correction on her line, grey – not scored with the reason. On his line every word shows the strongest of its chips (✗ > ↻ > ★ > ◐ > ✓ > –; scripts/transcript_marks.py one_per_word); the others stay in the data hidden and are listed on the shown chip ('also'). Display only: no count changes. A preposition is grammar, so it never gets a word chip of its own (10-08 07:28 من نار: one ↻ Repeat · grammar D1, her fix من نار was written by the engine as 'Men not.', so a repeat is now also checked against the fix the slip row gives). From 2026-10-08 on. All the ✓ words of a line show as ONE green chip listing them (Medi 2026-10-09 'Lets put all the correct words in one correct vocab pil'); the 'Recording engine wrote ... fixed:' line shows each fixed word in her Arabizi with the Arabic after it ('do the corrections in arabizi as well'). A sentence the page joins from several pieces (PG-23 / PG-42) shows ONE green ✓ vocab pill listing every correct word of all its pieces and one ✓ grammar pill per rule (Medi 2026-10-11 'theres like 6 different vocab pills here'; docs/js/lessons-page.js mergeCorrect).",
-   "plain": "Each word on the transcript gets one mark, in one colour per meaning: green right, blue half, red wrong, purple repeat, yellow new word, orange the tutor's correction, grey not scored. All your right words in a sentence sit in one green chip (also when the page joins several pieces), one chip per grammar rule, and fixed words show in Arabizi.",
-   "plain_for": "460c8e02",
+   "statement": "Transcript chips: one chip per word and one colour per meaning (key approved by Medi 2026-10-09 'go'). Green ✓ correct (his own, full point), blue ◐ half (she said it just before, or he asked), red ✗ wrong (she corrected it), purple ↻ repeat (said right after she gave or fixed it: no credit, not a mistake), yellow ★ new word (taught this lesson and not on her list yet: not scored), orange ← her correction on her line, grey – not scored with the reason. On his line every word shows the strongest of its chips (✗ > ↻ > ★ > ◐ > ✓ > –; scripts/transcript_marks.py one_per_word); the others stay in the data hidden and are listed on the shown chip ('also'). Display only: no count changes. A preposition is grammar, so it never gets a word chip of its own (10-08 07:28 من نار: one ↻ Repeat · grammar D1, her fix من نار was written by the engine as 'Men not.', so a repeat is now also checked against the fix the slip row gives). From 2026-10-08 on. All the ✓ words of a line show as ONE green chip listing them (Medi 2026-10-09 'Lets put all the correct words in one correct vocab pil'); the 'Recording engine wrote ... fixed:' line shows each fixed word in her Arabizi with the Arabic after it ('do the corrections in arabizi as well'). A sentence the page joins from several pieces (PG-23 / PG-42) shows ONE green ✓ vocab pill listing every correct word of all its pieces and one ✓ grammar pill per rule (Medi 2026-10-11 'theres like 6 different vocab pills here'; docs/js/lessons-page.js mergeCorrect). Grammar pills have their own colours (Medi 2026-10-11 'Vocab green/red, grammar blue/pink'): grammar ✓ blue, grammar ✗ pink-magenta; the half ◐ pill is grey-blue (docs/css/lessons.css .tm-gram). The same word credited more than once in a line is listed once; an off-lesson grey pill is not drawn (Medi 2026-10-12 'just get rid of them all together').",
+   "plain": "Each word on the transcript gets one mark, one colour per meaning: words green right / red wrong, grammar blue right / pink wrong, grey-blue half, purple repeat, yellow new word, orange the tutor's correction, grey not scored. All your right words in a sentence sit in one green chip (each word once), one chip per grammar rule, off-lesson lines show no chips, and fixed words show in Arabizi.",
+   "plain_for": "51278411",
    "topic": "the lessons page",
    "source": [
     {
@@ -9875,6 +9875,16 @@
      "by": "medi",
      "date": "2026-10-11",
      "quote": "lets simplify the correct vocab and just make one pill box for all the correct words in the sentence"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "just get rid of them all together"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-11",
+     "quote": "can we have different colors for correct and incorrect grammar and differnt colors for correct and incorrect vocab"
     }
    ],
    "enforcement": [
@@ -9910,6 +9920,10 @@
     {
      "path": "tests/test_sentence_pills.cjs",
      "contains": "test('PG-39 a joined sentence: one green vocab pill"
+    },
+    {
+     "path": "tests/test_sentence_pills.cjs",
+     "contains": "test('PG-39 the same word credited 3 times in one line"
     }
    ],
    "example": {
