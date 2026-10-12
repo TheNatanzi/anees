@@ -25,6 +25,20 @@ var i=0;function next(){if(i>=files.length){document.getElementById('end').textC
   row(f,ok,why);next();};
  x.onerror=function(){row(f,false,'did not download (network or a blocker)');next();};
  x.ontimeout=function(){row(f,false,'timed out after 20 s');next();};x.send();}
+// round 2 (her files all loaded): the database, and the Lessons page itself loaded in a hidden frame, its own errors listed
+function db(){var u='https://yljcbdxvnkfrwvelypfu.supabase.co/rest/v1/transcript_corrections?select=id&limit=1';
+ var x=new XMLHttpRequest();x.open('GET',u);x.timeout=20000;x.setRequestHeader('apikey',window.ANEES_ANON);x.setRequestHeader('Authorization','Bearer '+window.ANEES_ANON);
+ x.onload=function(){row('database (supabase.co)',x.status<400,'HTTP '+x.status);frame();};
+ x.onerror=function(){row('database (supabase.co)',false,'did not connect (blocked in this network or country?)');frame();};
+ x.ontimeout=function(){row('database (supabase.co)',false,'timed out after 20 s');frame();};x.send();}
+function frame(){var f=document.createElement('iframe');f.style.cssText='width:100%;height:240px;border:1px solid #999';f.src='lessons.html?check='+Date.now();
+ var errs=[];document.body.appendChild(f);
+ f.onload=function(){try{f.contentWindow.addEventListener('error',function(e){errs.push(e.message+' ('+(e.filename||'').split('/').pop()+':'+e.lineno+')');});}catch(e){}
+  setTimeout(function(){var d=f.contentDocument,n=d?d.querySelectorAll('article').length:0,msg=d?((d.getElementById('ls-notice')||{}).textContent||''):'';
+   row('Lessons page: lessons shown',n>0,n+' lessons'+(msg?' · '+msg:''));if(errs.length)row('Lessons page: errors',false,errs.slice(0,3).join(' | '));
+   document.getElementById('end').textContent='Done.';},15000);};}
+var s=document.createElement('script');s.src='js/config.js?check='+Date.now();s.onload=function(){window.ANEES_ANON=(window.ANEES||{}).anon;};document.head.appendChild(s);
+var _next=next;next=function(){if(i>=files.length){db();return;}_next();};
 next();
 })();
 </script></body></html>
