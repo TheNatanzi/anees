@@ -187,3 +187,14 @@ def test_flashcard_set_counts_are_readable_in_light_and_dark():
         light, dark = re.search(re.escape(var) + r':light-dark\((#[0-9a-fA-F]{6}),(#[0-9a-fA-F]{6})\)', s).groups()
         assert contrast(light, tile['light']) >= 4.5, (band, light, round(contrast(light, tile['light']), 2))
         assert contrast(dark, tile['dark']) >= 4.5, (band, dark, round(contrast(dark, tile['dark']), 2))
+
+
+def test_pages_survive_a_stylesheet_with_no_href():
+    """Medi 2026-10-12 ('the entire anees lessons page isnt loading for her'): the tutor's browser adds a
+    <link rel=stylesheet> with no href (an extension); the build-stamp loop did null.split() and the whole Lessons page
+    stopped. Every loader that re-stamps stylesheets only touches links that have an href."""
+    import glob, re
+    root = Path(__file__).resolve().parent.parent / "docs"
+    bad = [p for p in glob.glob(str(root / "*.html")) + glob.glob(str(root / "amal" / "*.html"))
+           if re.search(r"""querySelectorAll\('link\[rel="stylesheet"\]'\)""", open(p, encoding="utf-8").read())]
+    assert bad == []

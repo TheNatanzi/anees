@@ -20,7 +20,7 @@
   let build='settings-1';
   try{const response=await fetch('data/build.json',{cache:'no-store',signal:AbortSignal.timeout(10000)});if(response.ok){const latest=await response.json();if(latest.build)build=latest.build;}}catch{}
   window.ANEES_SETTINGS_BUILD=build;
-  for(const link of document.querySelectorAll('link[rel="stylesheet"]'))link.href=link.getAttribute('href').split('?')[0]+'?build='+encodeURIComponent(build);
+  for(const link of document.querySelectorAll('link[rel="stylesheet"][href]'))link.href=link.getAttribute('href').split('?')[0]+'?build='+encodeURIComponent(build);
   await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='js/settings-page.js?build='+encodeURIComponent(build);script.onload=resolve;script.onerror=reject;document.body.append(script);});
   const guard=document.createElement('script');guard.src='js/publish-guard-status.js?build='+encodeURIComponent(build);document.body.append(guard);
   const amal=document.createElement('script');amal.src='js/amal-trigger-status.js?build='+encodeURIComponent(build);document.body.append(amal);

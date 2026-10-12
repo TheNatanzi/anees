@@ -19,7 +19,7 @@
   let build='lessons-1';
   try{const response=await fetch('data/build.json',{cache:'no-store',signal:AbortSignal.timeout(10000)});if(response.ok){const latest=await response.json();if(latest.build)build=latest.build;}}catch{}
   window.ANEES_LESSONS_BUILD=build;
-  for(const link of document.querySelectorAll('link[rel="stylesheet"]'))link.href=link.getAttribute('href').split('?')[0]+'?build='+encodeURIComponent(build);
+  for(const link of document.querySelectorAll('link[rel="stylesheet"][href]'))link.href=link.getAttribute('href').split('?')[0]+'?build='+encodeURIComponent(build);
   for(const name of ['live-reread','config','lesson-behind','lesson-math','word-bank-arabizi','sound-tags','transcript-marks','correction-parse','transcript-corrections','lessons-page']){
    // a file that fails to download is tried 3 times (Medi 2026-10-12: 'the lesson page isnt loading for amal')
    let ok=false;
