@@ -14,6 +14,7 @@ REREADS = re.compile(r"AneesLive\.onReturn|addEventListener\(\s*'visibilitychang
 
 # Reads live data once ON PURPOSE. Each reason says why a re-read on return would hurt or is not needed.
 ONCE_OK = {
+    'docs/check.html': 'a one-time connection test the viewer screenshots; a re-read would add rows mid-check',
     'docs/cards.html': 'a flashcard session: re-reading the deck mid-session would reshuffle the cards under Medi',
     'docs/amal/after.html': "Amal's answer page: her unsent answers live on the page; re-reading would reset them",
     'docs/amal/plan.html': "Amal's answer page (see after.html)",
