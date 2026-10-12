@@ -21,8 +21,11 @@
   window.ANEES_LESSONS_BUILD=build;
   for(const link of document.querySelectorAll('link[rel="stylesheet"]'))link.href=link.getAttribute('href').split('?')[0]+'?build='+encodeURIComponent(build);
   for(const name of ['live-reread','config','lesson-behind','lesson-math','word-bank-arabizi','sound-tags','transcript-marks','correction-parse','transcript-corrections','lessons-page']){
-   await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='js/'+name+'.js?build='+encodeURIComponent(build);script.onload=resolve;script.onerror=reject;document.body.append(script);});
+   // a file that fails to download is tried 3 times (Medi 2026-10-12: 'the lesson page isnt loading for amal')
+   let ok=false;
+   for(let k=0;k<3&&!ok;k++){ok=await new Promise(resolve=>{const script=document.createElement('script');script.src='js/'+name+'.js?build='+encodeURIComponent(build)+(k?'&try='+k:'');script.onload=()=>resolve(true);script.onerror=()=>{script.remove();resolve(false);};document.body.append(script);});if(!ok)await new Promise(r=>setTimeout(r,1500*(k+1)));}
+   if(!ok)throw new Error(name);
   }
- }catch{document.getElementById('ls-notice').textContent='The lessons page could not load. Please refresh to retry.';}
+ }catch(e){document.getElementById('ls-notice').textContent='The lessons page could not load ('+((e&&e.message)||'a file')+' did not download). Please refresh to retry.';}
 })();
 </script><script src="js/review-mode.js?v=20261011-1" defer></script><script src="js/rule-names.js?v=20261002-1" defer></script><script src="js/phone-nav.js?v=20261006-2"></script></body></html>
