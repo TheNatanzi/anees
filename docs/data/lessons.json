@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11T12:18:39-07:00",
+ "updated": "2026-10-12T12:04:50-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -8085,28 +8085,28 @@
     ]
    },
    "words": {
-    "unique": 117,
-    "right": 311,
+    "unique": 116,
+    "right": 310,
     "wrong": 4,
-    "partial": 6,
-    "pct": 97.8,
-    "scored": 321,
+    "partial": 5,
+    "pct": 98.0,
+    "scored": 319,
     "audit_wrong": 2,
-    "audit_partial": 4,
-    "not_on_sheet": 3,
+    "audit_partial": 3,
+    "not_on_sheet": 4,
     "rehear_word_conflicts": 1,
-    "unique_rows": 114,
-    "eligible": 321,
+    "unique_rows": 113,
+    "eligible": 319,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 97.8,
+    "eligible_pct": 98.0,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 270,
+    "uses": 276,
     "mistakes": 34,
-    "pct": 87.4,
+    "pct": 87.7,
     "estimate": false,
     "scored_mistakes": 34,
     "unscored_mistakes": 0,
@@ -8119,7 +8119,7 @@
       "3 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (A15, A16, A9b, C7)"
      ],
-     "uses": 239,
+     "uses": 245,
      "slips": 34,
      "slips_latin": 1,
      "slips_in_zero_use_rules": 3,
@@ -8339,13 +8339,13 @@
     "turns": 1103,
     "chat_lines": 56,
     "vocab_errors": 11,
-    "vocab_correct": 313,
+    "vocab_correct": 312,
     "grammar_errors": 34,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-09.json",
-    "marks": 736,
+    "marks": 743,
     "conflicts": 5,
     "resolved": 1,
     "needs_medi": 2,
@@ -8647,15 +8647,15 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 245,
-    "mistakes": 24,
-    "pct": 90.2,
+    "uses": 246,
+    "mistakes": 25,
+    "pct": 89.8,
     "estimate": false,
-    "scored_mistakes": 24,
+    "scored_mistakes": 25,
     "unscored_mistakes": 0,
     "eligible": 24,
-    "excluded": 0,
-    "pending": 2,
+    "excluded": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -8663,7 +8663,7 @@
       "4 rules have more slips than counted uses (C2, C9, D2, E3)"
      ],
      "uses": 224,
-     "slips": 24,
+     "slips": 25,
      "slips_latin": 12,
      "slips_in_zero_use_rules": 5,
      "rules_slips_over_uses": [
@@ -8793,12 +8793,12 @@
     "chat_lines": 41,
     "vocab_errors": 5,
     "vocab_correct": 273,
-    "grammar_errors": 24,
+    "grammar_errors": 25,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-10.json",
-    "marks": 588,
+    "marks": 589,
     "conflicts": 3,
     "resolved": 1,
     "needs_medi": 0,
@@ -8811,8 +8811,7 @@
      "reader agreement: pass 1 62.5 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: 1 stretches of Amal's speech written as '[speaking ...]' markers (00:01 in all)",
      "coverage: speaker labels agree with an independent check on only 85.0 % of 846 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3804 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3804 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",

@@ -8663,6 +8663,92 @@
    "aliases": []
   },
   {
+   "id": "AM-30",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Before a lesson the student reviewed is graded, the tutor checks his notes on it on her Tutor page (10-09 first): one card per DISTINCT note he wrote on the lesson's transcript (data/lesson-work/medi-corrections.json; medi_corrections.effective() first, so an undone or edited note collapses to the latest live one; the rows of one note - his note, the rows read out of it, its done marker - grouped by line time + his raw words, the same words again on a line within 10 s = one note; every kind he writes - note, text, add, missing, not-use, not-slip, speaker - and never a fast-review trace row or an undo). Each card: the moment's clip (the lesson page's clip of the line, else the lesson audio from 1 s before to 4 s after it), the line he wrote on (Arabizi first, the Arabic small after, the English under - S1, PG-44, PG-48), the other speaker's line just before and after, then 'The student's note' quoting his own words ('The student wrote: «...»', names as PG-33 has them: Amal -> the tutor, Medi -> the student; his 'I' stays his), and four plain sentences (AM-23): 'The student is right' / 'The student is partly right' (a box: what is right) / 'The student is wrong' (a box: why, optional) / 'Not sure', with Undo (AM-17), the note box (AM-27), the progress line and one To do row 'Check the student's notes on Oct 9 (about N min)'. scripts/build_tutor_note_check.py builds it (run by build_tutor_data.py, so the hourly Tutor refresh and every Amal trigger rebuild it; the AM-29 module docs/js/hub/check-task.js shows it); her taps are amal_rules rows of her checking lists (source listen-check, kind note_check, word_key notecheck:<id>; no migration), pulled read-only into data/lesson-work/review-grades/tutor-note-check-answers.json (build_tutor_note_check.py pull, hourly and on her trigger, before the grade book). Her answers change nothing - no page, no score, no row of his. They HOLD the lesson: while the card has a note she has not answered, scripts/review_grades.py neither freezes nor grades it (status 'waiting for the tutor to check the student's notes (N of M answered)'; review_grades.py freeze <date> refuses), and no code clears or undoes his notes (the only code that writes his table, correction_parse.py, only appends).",
+   "plain": "Before a lesson you reviewed is graded, your tutor gets one card for each note you wrote on it: the moment to play, the line, the lines around it and your own words. She taps right, partly right, wrong or not sure. Her answers change nothing by themselves, but the lesson is not frozen or graded until she has answered every note.",
+   "plain_for": "88144066",
+   "topic": "testing engines",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "wait I want amal to look at my notes on 10-9 before grading and clearing it"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "go"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_note_check.py",
+     "contains": "def notes(date, rows=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_note_check.py",
+     "contains": "def waiting(date, repo=REPO, rows=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_data.py",
+     "contains": "build_tutor_note_check.build_all()"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_grades.py",
+     "contains": "def notes_hold(date, repo=REPO, rows=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_grades.py",
+     "contains": "if hold and hold[\"waiting\"]:"
+    },
+    {
+     "type": "code",
+     "path": "scripts/hourly_lessons.py",
+     "contains": "'build_tutor_note_check.py pull'"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_note_check.py",
+     "contains": "def test_am_30_one_card_per_distinct_live_note"
+    },
+    {
+     "path": "tests/test_tutor_note_check.py",
+     "contains": "def test_am_30_the_lesson_is_held_while_a_note_is_unanswered"
+    },
+    {
+     "path": "tests/test_tutor_note_check.py",
+     "contains": "def test_am_30_nothing_clears_his_notes"
+    },
+    {
+     "path": "tests/test_tutor_note_check.cjs",
+     "contains": "test('AM-30 each choice -> the row shape her other checking lists save'"
+    },
+    {
+     "path": "tests/test_tutor_page_english.py",
+     "contains": "def test_no_name_in_her_page_data"
+    },
+    {
+     "path": "tests/test_tutor_page_english.py",
+     "contains": "def test_no_labelled_english_in_any_cache"
+    }
+   ],
+   "example": {
+    "date": "2026-10-12",
+    "note": "First build for 10-09: 80 notes of his (200 live rows after 69 undos, grouped by line + his words; 'amal not aman' at 42:50 and 42:53 is one note), about 27 minutes; 10-09 in the grade book reads 'waiting for the tutor to check the student's notes (0 of 80 answered)'. With it on her page: the student's Latin lines on her cards get English (task B1, 'akli khatibti / il mufaddal'), the AI readers' text on her page says 'the tutor' / 'the student' (B2), and no English carries 'Tutor:' / 'Student:' or '(filler)' (B3)."
+   },
+   "aliases": []
+  },
+  {
    "id": "TR-28",
    "kind": "data",
    "scope": "transcription",

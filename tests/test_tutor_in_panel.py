@@ -118,7 +118,8 @@ def test_PG_18_expired_links_keep_their_questions_and_one_lesson_is_one_row(tmp_
     asked = e["detail"]["asked"]
     assert [(a["word"], a["answer"], a["at"]) for a in asked] == [("kalb", "Wrong word", "2026-10-01"), ("bet", None, None)]   # not answered stays visible
     sep30 = next(x for x in out["closed"] if x["title"] == "After the lesson · Sep 30")
-    assert sep30["detail"]["total"] == 1 and sep30["detail"]["asked"][0]["ask"] == "Was Medi right here?"
+    # the question is kept; on her page it reads with PG-33's words (screen_names.screen_data, 2026-10-12)
+    assert sep30["detail"]["total"] == 1 and sep30["detail"]["asked"][0]["ask"] == "Was the student right here?"
 
 
 # ---- AM-18: one after link per lesson; a re-review never re-opens a lesson Amal answered -----------------------------

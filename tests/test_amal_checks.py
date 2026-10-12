@@ -83,7 +83,9 @@ def test_cards_are_blind_and_complete():
             assert "medi" not in raw, name
         for x, k in zip(D["items"], KEYS[name]["items"]):
             # PG-33: lists built on 2026-10-07 label his clip "The student's microphone"; older lists keep their item files as built
-            assert x["clips"] and x["clips"][0]["label"] == ("The student's microphone" if after_pg33 else "Medi's microphone"), name
+            # every list reads 'The student's microphone' on her page: built that way after PG-33, screened at build time before
+            # (scripts/screen_names.py screen_tutor_files, 2026-10-12)
+            assert x["clips"] and x["clips"][0]["label"] == "The student's microphone", name
             if name != "one-or-two":
                 texts = {v["k"]: v["text"] for v in x["versions"]}
                 assert set(texts) == set(k["roles"]) and len(texts) >= 2

@@ -17,16 +17,16 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-09-19 | 87.2 | 86 | 94.1 | 3 | 51 | 0 / 1 |
 | 2026-09-21 | 94.4 | 471 | 83.6 | 64 | 378 | 3 / 0 |
 | 2026-09-23 | 89.6 | 173 | 83.0 | 39 | 230 | 1 / 1 |
-| 2026-09-26 | 93.6 | 354 -> **353** | 86.7 | 35 | 264 | 7 / 2 |
+| 2026-09-26 | 93.6 | 353 | 86.7 | 35 | 264 | 7 / 2 |
 | 2026-09-28 | 93.2 | 266 | 88.8 | 25 | 223 | 1 / 0 |
 | 2026-09-30 | 94.2 | 226 | 90.1 | 21 | 212 | 1 / 2 |
-| 2026-10-01 | 96.4 -> **96.3** | 206 -> **205** | 91.7 | 15 | 169 | 1 / 0 |
+| 2026-10-01 | 96.3 | 205 | 91.7 | 15 | 169 | 1 / 0 |
 | 2026-10-02 | 95.4 | 208 | 86.4 | 27 | 199 | 3 / 1 |
-| 2026-10-05 | 95.0 | 280 -> **279** | 88.7 | 24 | 213 | 2 / 1 |
-| 2026-10-06 | 93.5 | 215 -> **214** | 81.4 | 33 | 177 | 1 / 0 |
+| 2026-10-05 | 95.0 | 279 | 88.7 | 24 | 213 | 2 / 1 |
+| 2026-10-06 | 93.5 | 214 | 81.4 | 33 | 177 | 1 / 0 |
 | 2026-10-08 | 95.8 | 261 | 86.4 | 27 | 198 | 1 / 1 |
-| 2026-10-09 | 97.8 | 322 -> **321** | 87.4 | 34 | 269 -> **270** | 1 / 2 |
-| 2026-10-10 | None -> **97.8** | None -> **276** | None -> **90.2** | None -> **24** | None -> **245** | 1 / 0 |
+| 2026-10-09 | 97.8 -> **98.0** | 321 -> **319** | 87.4 -> **87.7** | 34 | 270 -> **276** | 1 / 2 |
+| 2026-10-10 | 97.8 | 276 | 90.2 -> **89.8** | 24 -> **25** | 245 -> **246** | 1 / 0 |
 
 
 ## Conflicts
@@ -135,7 +135,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 
 ## Medi's corrections (PR-15)
 
-- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2, chat-20261003-aa5er-el-moazafa, chat-20261009-3ayaana-again, chat-20261010-2amar-el, chat-20261010-3asafeer-sky, chat-20261010-8eir-not-slip, chat-20261010-aju-awi, chat-20261010-aju-awi-key, chat-20261010-deeri-baalik, chat-20261010-maadi-abel, chat-20261010-snan-sneen, chat-20261010-tayour-plural, ef6f0080-82c7-45c5-a8f9-26f19f625ba8, 8767098c-4321-4544-9edf-31413606e4b0
+- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2, chat-20261003-aa5er-el-moazafa, chat-20261009-3ayaana-again, chat-20261010-2amar-el, chat-20261010-3asafeer-sky, chat-20261010-8eir-not-slip, chat-20261010-aju-awi, chat-20261010-aju-awi-key, chat-20261010-deeri-baalik, chat-20261010-maadi-abel, chat-20261010-snan-sneen, chat-20261010-tayour-plural, ef6f0080-82c7-45c5-a8f9-26f19f625ba8, 8767098c-4321-4544-9edf-31413606e4b0, 3641b721-a395-468b-b995-0966f7d5dc24, 915f1458-d691-4f69-b37e-4f0df728ba3d, c86e80d5-bd6c-4b37-aa13-39fc3b8843e7, b34853b3-a2d2-4b47-8e3b-b1dcf29602e2, d196fe12-e494-4d1c-8319-376b5849b24e, 992b0ce6-305e-4d7c-ac6b-75f71c1a17e0, 552207de-0b45-4011-966d-c7db23a22958, 321ead15-8a61-4390-9726-e79d7a00cdf9, 8525eb42-283a-496b-9187-6f580ae818c7, 71f28cc0-2e82-4026-b112-7b8b745b4bb0, 20306163-076c-4f5e-8d46-dd2b761e06e6, 1ff62366-166d-445b-9de1-dc1bda9adc2b, abe7e45d-6874-4d51-94df-65358490e6fb, 5810be71-532f-4d4b-a6c6-1885f0c9a9e1, 52d0a105-5eee-4828-89ec-ddd5e7c25405
 - orphaned (match nothing, re-check): none
 - waiting for Amal: none
 - standing rules: none

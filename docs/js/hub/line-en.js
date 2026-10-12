@@ -3,6 +3,7 @@
    (PG-40); her cards quote the same lines (the student's line, her line, the lines around a moment, the two versions of a
    listen check), so every element whose whole text is one of those lines gets its English, small, right under it.
    Data: data/tutor-line-en.json (scripts/translate_lines.py tutor) - key = the line with punctuation folded (tnorm()).
+   The student's lines in Latin letters that the Arabizi reader reads as Arabic are in the map too (task B1, 2026-10-12).
    Works on any page that loads it (tutor.html, amal/*.html): it watches the page and adds the English as cards render. */
 (function () {
   'use strict';
@@ -24,9 +25,10 @@
     for (const el of (root || document).querySelectorAll(PICK)) {
       if (el.dataset.en || el.classList.contains('hb-line-en') || el.closest('.hb-line-en')) continue;
       const t = el.textContent;
-      if (!t || t.length > 420 || !AR.test(t)) continue;
+      if (!t || t.length > 420) continue;
+      // Arabic script, or the student's Latin-letter Arabic the map holds ('akli khatibti / il mufaddal', Medi 2026-10-12)
       const k = norm(t), en = MAP[k];
-      if (!en) continue;
+      if (!en || (!AR.test(t) && (k.length < 4 || !/[A-Za-z]/.test(k)))) continue;
       // the innermost element holding the line: a child with the same line gets it instead
       if ([...el.children].some(c => norm(c.textContent) === k)) continue;
       // the card already gives this English (a review example's own translation): never twice

@@ -1,60 +1,6 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 2,
- "by_date": {
-  "2026-10-10": 2
- },
- "rows": [
-  {
-   "uid": "FA-30eaf260",
-   "date": "2026-10-10",
-   "t": "19:32",
-   "t_amal": "19:51",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D1",
-   "medi_said": "وكان في / الـ / عشاء. No، uh، كان في الـ-- yeah.",
-   "amal_said": "On-- We say on dinner.",
-   "wrong": "في الـ عشاء",
-   "right": "على العشاء",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Medi appears to be constructing “كان في آخر العشاء,” and Amal's “on dinner” is a preposition hint while he is searching, not a clear correction from “في العشاء” to “على العشاء.” The final accepted chat form is also «كان في آخر العشاء»."
-   },
-   "listen_from": "19:22",
-   "listen_to": "20:11"
-  },
-  {
-   "uid": "FA-b7fa7005",
-   "date": "2026-10-10",
-   "t": "29:55",
-   "t_amal": "30:23",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A3",
-   "medi_said": "akli khatibti / il mufaddal",
-   "amal_said": "هذي أكلة خطيبتي المفضلة كمان.",
-   "wrong": "akli khatibti",
-   "right": "aklit khatibti",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "The evidence does not clearly show Amal correcting an idafa -t; her immediate correction is to the adjective, from «المفضل» to «المفضلة», and the later full recast follows Medi asking for the whole sentence."
-   },
-   "listen_from": "29:45",
-   "listen_to": "30:43"
-  }
- ]
+ "count": 0,
+ "by_date": {},
+ "rows": []
 }

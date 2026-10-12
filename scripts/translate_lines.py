@@ -24,16 +24,35 @@ CLAUDE = os.environ.get("ANEES_CLAUDE", "claude")
 BATCH = 60
 AR = re.compile(r"[ء-ي]")
 PROMPT = """You translate lines from a one-to-one Levantine (Palestinian / Jordanian) Arabic lesson into English.
-The student (Medi) is learning; the tutor (Amal) teaches. Lines mix English, Arabic script and Arabic in Latin letters
+The student is learning; the tutor teaches. Each line below starts with who said it; never write that label in the English. Lines mix English, Arabic script and Arabic in Latin letters
 (Arabizi: 2=hamza, 3=ain, 5=kh, 6=ta, 7=ha, 8=ghain, 9=sad). For each line give ONE short, natural English sentence of
 what was said, ALL in English: when a line mixes Arabic and English, give the full sentence in English - translate every
 Arabic and Arabizi word, never copy an Arabic letter into the English. When the line talks ABOUT an Arabic word ("آخر
 المرة means..."), write that word in Latin letters in quotes ('aakher el-marra' means...). Keep the English parts as
 they are. Translate what the student meant, even when his Arabic has a mistake. Fillers (um, آآآ) and cut-off words
-are left out. Return ONLY a JSON object {"<id>": "<english>", ...} with every id below and nothing else.
+are left out (a line that is only a filler gets ""). Return ONLY a JSON object {"<id>": "<english>", ...} with every id below and nothing else.
 
 Lines:
 """
+
+
+# Medi 2026-10-12 (task B3): the English never carries the speaker label the prompt gives ("Tutor: ...", "Student: ...") or a
+# "(filler)" tag; such a cache row is dropped (load) and the line is translated again; a line that is only a filler keeps
+# "" (no English shown, never asked again).
+LABEL = re.compile(r"^\s*(?:Tutor|Student|Line|Teacher)\s*:\s*", re.I)
+FILLER = re.compile(r"\s*\((?:filler|fillers)\)\s*", re.I)
+
+
+def labelled(v):
+    """True when an English still carries a speaker label or a (filler) tag."""
+    return bool(LABEL.search(v or "") or FILLER.search(v or ""))
+
+
+def clean(v):
+    """The English without a speaker label or a (filler) tag ('' when nothing is left)."""
+    v = LABEL.sub("", str(v or "").strip())
+    v = FILLER.sub(" ", v).strip()
+    return re.sub(r"\s{2,}", " ", v).strip(" ,")
 
 
 def J(p, d=None):
@@ -69,7 +88,7 @@ def path(date):
 def load(date):
     """The cache; an English that still holds Arabic letters is dropped (PG-40: Medi 2026-10-09 "if we are speaking arabic and
     english in the same sentence, just put the full english sentence for the translatuion"), so it is translated again."""
-    return {k: v for k, v in ((J(path(date), {}) or {}).get("lines") or {}).items() if not AR.search(v or "")}
+    return {k: v for k, v in ((J(path(date), {}) or {}).get("lines") or {}).items() if not AR.search(v or "") and not labelled(v)}
 
 
 def attach(date, turns):
@@ -105,7 +124,7 @@ def _call(lines):
         out = json.loads(m.group(0)) if m else {}
     except ValueError:
         return {}
-    return {str(k): str(v).strip() for k, v in out.items() if isinstance(v, (str, int, float)) and str(v).strip() and not AR.search(str(v))}
+    return {str(k): clean(v) for k, v in out.items() if isinstance(v, (str, int, float)) and not AR.search(str(v))}
 
 
 def run(date, workers=4, log=print):
@@ -156,22 +175,44 @@ def tnorm(s):
     return re.sub(r"[\s.,?!،؟…\-—:;\"'()«»\[\]]+", " ", str(s or "")).strip()
 
 
+STUDENT_KEYS = ("medi_said",)
+
+
+def student_latin(text):
+    """His line on her cards written in Latin letters ('akli khatibti / il mufaddal'): it gets English too (Medi 2026-10-12,
+    task B1; the Lessons page does the same, PG-40). On her cards every such line is sent, not only the ones the Arabizi
+    reader reads (it reads neither 'akli' nor 'khatibti'): an English line comes back as itself, and docs/js/hub/line-en.js
+    never shows an English the card already holds. Only the student's lines of two words or more ('Okay.' is left alone)."""
+    if not text or AR.search(text):
+        return False
+    return len(re.findall(r"[A-Za-z][A-Za-z']+", text)) >= 2
+
+
 def tutor_lines(repo=REPO):
-    """{norm text: (label, text)} - every Arabic transcript line on her Tutor data files (the paused blocks left out)."""
+    """{norm text: (label, text)} - every transcript line on her Tutor data files that holds Arabic (Arabic script, or the
+    student's Latin letters the Arabizi reader reads; the paused blocks left out). A card line object ({label, ar, az, en},
+    docs/js/hub/check-task.js) without its English counts too."""
     out = {}
+
+    def add(lab, o):
+        n = tnorm(o)
+        if n and n not in out:
+            out[n] = (lab, o.strip())
 
     def walk(o, key=None):
         if isinstance(o, dict):
+            if isinstance(o.get("ar"), str) and "label" in o and "az" in o and not o.get("en"):
+                lab = "Student" if "student" in str(o.get("label")).lower() else "Tutor"
+                if len(o["ar"]) <= 400 and (AR.search(o["ar"]) or (lab == "Student" and student_latin(o["ar"]))):
+                    add(lab, o["ar"])
             for k, v in o.items():
                 if k != "paused":
                     walk(v, k)
         elif isinstance(o, list):
             for x in o:
                 walk(x, key)
-        elif isinstance(o, str) and key in LINE_KEYS and AR.search(o) and len(o) <= 400:
-            n = tnorm(o)
-            if n and n not in out:
-                out[n] = (LINE_KEYS[key], o.strip())
+        elif isinstance(o, str) and key in LINE_KEYS and len(o) <= 400 and (AR.search(o) or (key in STUDENT_KEYS and student_latin(o))):
+            add(LINE_KEYS[key], o)
     for f in sorted(os.listdir(os.path.join(repo, "docs", "data"))):
         if f.startswith("amal-") and f.endswith(".json"):
             walk(J(os.path.join(repo, "docs", "data", f), {}) or {})
@@ -185,11 +226,11 @@ def tutor(repo=REPO, workers=4, log=print):
     for f in os.listdir(os.path.join(repo, "docs", "data", "lessons")):
         if f.endswith(".json"):
             for u in (J(os.path.join(repo, "docs", "data", "lessons", f), {}) or {}).get("turns") or []:
-                if u.get("en") and not AR.search(u["en"]):
+                if u.get("en") and not AR.search(u["en"]) and not labelled(u["en"]):
                     for t in (u.get("text"), u.get("engine")):
                         if t:
                             known.setdefault(tnorm(t), u["en"])
-    cache = {k: v for k, v in ((J(TUTOR_CACHE, {}) or {}).get("lines") or {}).items() if not AR.search(v or "")}
+    cache = {k: v for k, v in ((J(TUTOR_CACHE, {}) or {}).get("lines") or {}).items() if not AR.search(v or "") and not labelled(v)}
     ck = lambda n: hashlib.sha1(n.encode("utf-8")).hexdigest()[:12]
     todo = [(ck(n), lab, txt) for n, (lab, txt) in lines.items() if n not in known and ck(n) not in cache]
     if todo and os.environ.get("ANEES_TRANSLATE") != "off":

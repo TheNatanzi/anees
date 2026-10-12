@@ -20,6 +20,7 @@ NOTES = os.path.join(DOCS, "data", "amal-grammar-notes.json")
 LISTEN = os.path.join(DOCS, "data", "amal-listen.json")
 CHECKS = os.path.join(DOCS, "data", "amal-checks.json")
 KEY_CHECKS = os.path.join(DOCS, "data", "amal-check-key-check-*.json")     # AM-29: the tutor's half of an exam's answer key
+NOTE_CHECKS = os.path.join(DOCS, "data", "amal-check-note-check-*.json")   # AM-30: the student's notes on a lesson, checked before it is graded
 
 
 
@@ -255,6 +256,11 @@ def main():
             build_tutor_key_check.build_all()
         except Exception as e:  # noqa: BLE001 - the rest of her page never waits on this list
             print("tutor key check not built:", type(e).__name__, str(e)[:160])
+        try:      # AM-30 (Medi 2026-10-12 "wait I want amal to look at my notes on 10-9 before grading and clearing it")
+            import build_tutor_note_check
+            build_tutor_note_check.build_all()
+        except Exception as e:  # noqa: BLE001
+            print("tutor note check not built:", type(e).__name__, str(e)[:160])
     scoped = tutor_scope.scope_all() if os.path.abspath(OUT) == os.path.abspath(HUB_OUT) else {}
     paused_links = []
     now = datetime.datetime.now(datetime.timezone.utc)
@@ -311,7 +317,8 @@ def main():
             # AM-29 (Medi 2026-10-11 "mix 30-20" · "Put it in the tutor panel I will have amal work on it as well"): one row per
             # exam lesson, "Check 50 moments of the Oct 9 lesson (about 12 minutes)" - same token, same saving, same module
             import glob as _glob
-            for f in sorted(_glob.glob(KEY_CHECKS)):
+            # AM-30 (Medi 2026-10-12): "Check the student's notes on Oct 9 (about N min)" - same token, same saving, same module
+            for f in sorted(_glob.glob(KEY_CHECKS)) + sorted(_glob.glob(NOTE_CHECKS)):
                 K = json.load(open(f, encoding="utf-8"))
                 n = len(K.get("items") or [])
                 if n and tutor_scope.in_scope(K.get("date")):
@@ -382,6 +389,10 @@ def main():
         for k in ("title", "what", "who"):
             if k in x:
                 x[k] = on_screen(x[k])
+    # PG-33 (task B2, 2026-10-12): every visible string on her page's data says 'the tutor' / 'the student' - the AI readers'
+    # explanations ("Reader AI says", "Listening AI says") and every builder's text included, whoever wrote the file
+    import screen_names
+    kept, open_, closed = screen_names.screen_data(kept, False), screen_names.screen_data(open_, False), screen_names.screen_data(closed, False)
     # keep the old stamp when nothing changed, so the hourly job does not commit a new file every hour
     paused = {"why": tutor_scope.WHY, "from": tutor_scope.TUTOR_FROM, "links": paused_links,
               "lists": {f: v for f, v in sorted(scoped.items()) if any(v.values())}}
@@ -396,6 +407,8 @@ def main():
         write_notes(db.select("amal_rules", {"select": "kind,word_key,payload,created_at,token", "source": "eq.note", "order": "created_at.asc"}, undo=False), open_ + closed)
     except Exception as e:  # noqa: BLE001
         print("notes not read:", type(e).__name__)
+    if os.path.abspath(OUT) == os.path.abspath(HUB_OUT):
+        screen_names.screen_tutor_files()
     json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     for x in out["open"]:
         print(f"open   {x['id']:22} {x.get('total', x.get('done', '')):>5}  {x['title']}")

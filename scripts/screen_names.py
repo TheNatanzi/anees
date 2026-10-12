@@ -201,6 +201,107 @@ def hits():
     return found
 
 
+# ------------------------------------------------------------------ her page's data (PG-33, task B2 2026-10-12)
+# The text the builders and the AI readers write into her Tutor data files ("Reader AI says: He addresses Amal (f) ...",
+# "Listening AI says: Medi appears to be ...", "Did Medi say ...", "Medi's microphone") is screened at build time:
+# Amal -> the tutor, Medi -> the student (these files are read on his pages too - the promised list, the Lessons page -
+# so the neutral words PG-33 allows read right for both). Not screened: keys that are never shown or are someone's own
+# recorded / written words (DATA_KEEP), a dated attribution (ALLOW "*"), a literal that is exactly a name (a data value).
+TUTOR_DATA_SKIP_FILES = {"amal-trigger.json"}      # System Settings' log of what fired, never read by her page
+DATA_KEEP = {
+    # ids, paths and data keys
+    "id", "token", "audio", "src", "fallback", "clip", "url", "word_key", "list", "set", "kind", "prefix", "owner", "who",
+    "speaker", "typed_by", "file", "path", "key", "uid", "audit_uid", "status", "rule", "source",
+    # file-level notes for the builders (not shown)
+    "about", "built", "updated",
+    # someone's own words, kept word for word: the transcript lines and their English (S2), her Doc notes
+    "medi_said", "amal_said", "ar", "az", "en", "engine", "html", "raw",
+}
+_SCREEN = [(re.compile(r"\bMedi track\b"), "the student's track"),
+           (re.compile(r"\bAmal'?s\b"), "the tutor's"), (re.compile(r"\bAmal\b"), "the tutor"),
+           (re.compile(r"\bMedi'?s\b"), "the student's"), (re.compile(r"\bMedi\b"), "the student")]
+_DATED = re.compile(ALLOW[0][1])
+
+
+def screen_text(text):
+    """A builder / AI sentence with the names as PG-33 has them on screen; a dated attribution and a bare name stay."""
+    if not isinstance(text, str) or not NAME.search(text) or _is_internal(text):
+        return text
+    keep = []
+
+    def hold(m):
+        keep.append(m.group(0))
+        return "\x00%d\x00" % (len(keep) - 1)
+    t = _DATED.sub(hold, text)
+    for rx, b in _SCREEN:
+        t = rx.sub(b, t)
+    t = re.sub(r"(^|[.!?]\s+|[\[«\"“]\s*)the (tutor|student)\b", lambda m: m.group(1) + "The " + m.group(2), t)
+    for i, v in enumerate(keep):
+        t = t.replace("\x00%d\x00" % i, v)
+    return t
+
+
+def _kept(k, top):
+    return k in DATA_KEEP or (top and k in ("note", "why"))
+
+
+def screen_data(o, top=True):
+    """The same object with every visible string screened (DATA_KEEP keys left alone; a file's top-level 'note' / 'why'
+    are notes for the builders)."""
+    if isinstance(o, dict):
+        return {k: (v if _kept(k, top) else screen_data(v, False)) for k, v in o.items()}
+    if isinstance(o, list):
+        return [screen_data(v, False) for v in o]
+    return screen_text(o) if isinstance(o, str) else o
+
+
+def tutor_data_files(repo=REPO):
+    d = os.path.join(repo, "docs", "data")
+    return [p for p in sorted(glob.glob(os.path.join(d, "amal-*.json"))) if os.path.basename(p) not in TUTOR_DATA_SKIP_FILES] \
+        + [os.path.join(d, "tutor.json")]
+
+
+def screen_tutor_files(repo=REPO, log=print):
+    """Rewrite each of her page's data files whose visible text still names Amal or Medi. -> the files changed."""
+    import json
+    changed = []
+    for p in tutor_data_files(repo):
+        if not os.path.exists(p):
+            continue
+        with open(p, encoding="utf-8-sig") as f:
+            doc = json.load(f)
+        new = screen_data(doc)
+        if new != doc:
+            with open(p, "w", encoding="utf-8", newline="\n") as f:
+                json.dump(new, f, ensure_ascii=False, indent=1)
+                f.write("\n")
+            changed.append(os.path.basename(p))
+    log("screen names (PG-33): %d tutor data file(s) rewritten%s" % (len(changed), (": " + ", ".join(changed)) if changed else ""))
+    return changed
+
+
+def data_hits(repo=REPO):
+    """[(file, key path, text)] - visible strings of her page's data files that still name Amal or Medi."""
+    import json
+    out = []
+
+    def walk(o, f, path, top=True):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if not _kept(k, top):
+                    walk(v, f, path + "/" + k, False)
+        elif isinstance(o, list):
+            for i, v in enumerate(o):
+                walk(v, f, path + "[%d]" % i, False)
+        elif isinstance(o, str) and NAME.search(o) and not _is_internal(o) and NAME.search(strip_allowed("*", o)):
+            out.append((f, path, o))
+    for p in tutor_data_files(repo):
+        if os.path.exists(p):
+            with open(p, encoding="utf-8-sig") as fh:
+                walk(json.load(fh), os.path.basename(p), "")
+    return out
+
+
 if __name__ == "__main__":
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")

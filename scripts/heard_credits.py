@@ -110,6 +110,9 @@ def build(rows=None, words=None, evidence=None, lessons=None):
             turns = (J(os.path.join(LESSONS_DIR, d + ".json"), {}) or {}).get("turns", [])
         t0 = float(r["t"])
         t1 = max(t0, float(r.get("turn_end") or t0))
+        if t1 <= t0:      # a row with no line end (10-09 69:12, his text fix on the next line): the line runs to the next one, at most 10 s
+            nxt = [float(u.get("t")) for u in turns or [] if u.get("t") is not None and float(u.get("t")) > t0]
+            t1 = round(min(min(nxt) if nxt else t0 + 1.0, t0 + 10.0), 2)
         engine_keys = {h[2] for h in find_words(r.get("engine_wrote"), matcher)}
         for i, (s, e_, key, method, said) in enumerate(find_words(r["heard"], matcher, r.get("word_key"))):
             if key in engine_keys:

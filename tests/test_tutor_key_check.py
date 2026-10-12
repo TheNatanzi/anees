@@ -127,8 +127,8 @@ def test_am_29_refresh_order_pulls_her_answers_then_the_grade_book():
     names = [n for n, _ in T.STEPS]
     assert names.index("build_tutor_data") < names.index("tutor_key_check_pull") < names.index("review_grades")
     src = (ROOT / "scripts" / "amal_trigger.py").read_text(encoding="utf-8")       # the sandbox fixture empties SOURCES
-    assert '"steps": ["build_tutor_data", "tutor_key_check_pull", "review_grades"]' in src
-    assert src.index('{"id": "listen_check"') < src.index('"steps": ["build_tutor_data", "tutor_key_check_pull", "review_grades"]') < src.index('{"id": "tutor_notes"')
+    assert '"steps": ["build_tutor_data", "tutor_key_check_pull", "tutor_note_check_pull", "review_grades"]' in src
+    assert src.index('{"id": "listen_check"') < src.index('"steps": ["build_tutor_data", "tutor_key_check_pull", "tutor_note_check_pull", "review_grades"]') < src.index('{"id": "tutor_notes"')
     hourly = (ROOT / "scripts" / "hourly_lessons.py").read_text(encoding="utf-8")
     assert hourly.index("'build_tutor_key_check.py pull'") < hourly.index("run_step('review_grades.py'")
 

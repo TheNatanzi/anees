@@ -29,6 +29,7 @@ REPO = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 import accuracy_gates as G  # noqa: E402
 import source_audit as S  # noqa: E402
+import screen_names as SN  # noqa: E402
 
 QUEUE_P = os.path.join(REPO, "data", "accuracy", "verification-queue.json")
 LEDGER_P = os.path.join(REPO, "data", "accuracy", "verifications.json")
@@ -321,7 +322,8 @@ def amal_list(queue_rows=None, ledger=None, audit=None, repo=REPO, hold=None):
                       "kind": r.get("kind"), "bucket": r.get("bucket"), "tier": r.get("tier"),
                       "medi_said": r.get("medi_said"), "amal_said": r.get("amal_said"), "chat": r.get("chat"),
                       "wrong": r.get("wrong"), "right": r.get("right"), "english": r.get("english"),
-                      "readers_say": r.get("why") or r.get("mistake"), "codex_says": c.get("reason"), "codex_verdict": c["verdict"],
+                      # PG-33 (task B2 2026-10-12): the AI text she reads says 'the tutor' / 'the student', never the names
+                      "readers_say": SN.screen_text(r.get("why") or r.get("mistake")), "codex_says": SN.screen_text(c.get("reason")), "codex_verdict": c["verdict"],
                       "audio": (f"lessons/{c.get('date') or r.get('date')}/audio/lesson.mp3#t={max(0, int(c['evidence']['t_start']))},{int(c['evidence']['t_end']) + 1}"
                                 if os.path.exists(os.path.join(repo, "docs", "lessons", c.get("date") or r.get("date") or "-", "audio", "lesson.mp3")) else None),
                       "sec": t, **({"answered": {"kind": "audit_confirm" if h["verdict"] == "confirmed" else "audit_skip",

@@ -53,6 +53,7 @@ sys.path.insert(0, HERE)
 DIR = os.path.join(REPO, "data", "lesson-work", "review-grades")
 REVIEWS_P = os.path.join(DIR, "reviews.json")
 OUT_P = os.path.join(REPO, "docs", "data", "review-grades.json")
+WAITING = "waiting for the tutor to check the student's notes"     # AM-30
 TYPES = {"missed_slip": "missed slip: the tutor corrected him, no mistake marked",
          "fake_slip": "fake slip: a mistake marked that was not one",
          "untracked": "untracked or wrong credit: no mark, a wrong credit or a wrong grey reason",
@@ -286,7 +287,18 @@ def coverage_of(lines, rows):
     return sum(1 for a, b in lines if any(a - 0.6 <= t <= b + 0.6 for t in ts)), len(lines)
 
 
+def notes_hold(date, repo=REPO, rows=None):
+    """AM-30 (Medi 2026-10-12 "wait I want amal to look at my notes on 10-9 before grading and clearing it"): while the
+    tutor's card of the student's notes on this lesson has a note she has not answered, the lesson is neither frozen nor
+    graded. -> {total, answered, waiting} or None (no note card for the lesson)."""
+    import build_tutor_note_check as NC
+    return NC.status(date, repo, rows)
+
+
 def freeze(date, repo=REPO, log=print, rv=None):
+    h = notes_hold(date, repo)
+    if h and h["waiting"]:
+        raise SystemExit("%s: %s (%d of %d answered) - not frozen (AM-30)" % (date, WAITING, h["answered"], h["total"]))
     rv = rv or next((r for r in J(REVIEWS_P, {}).get("reviews", []) if r["date"] == date), None)
     first, first_sha = first_publish(date)            # protocol §2.1: the page as first published, frozen at that publish
     if not rv and first is not None and date in fast_rows():
@@ -331,7 +343,7 @@ def tutor_check(date, his_rows, repo=REPO, tutor_rows=None):
     return TK.agreement(key["items"], tutor_rows, his_rows)
 
 
-def build(repo=REPO, corrections=None, reviews=None, pick_dir=None, tutor_rows=None):
+def build(repo=REPO, corrections=None, reviews=None, pick_dir=None, tutor_rows=None, note_rows=None):
     reviews = [dict(r) for r in (reviews if reviews is not None else J(REVIEWS_P, {}).get("reviews", []))]
     fast = fast_rows(corrections)                      # minutes: every fast row (an undone answer still took his time)
     try:                                               # coverage: only answers still standing (an undo takes one back)
@@ -348,6 +360,17 @@ def build(repo=REPO, corrections=None, reviews=None, pick_dir=None, tutor_rows=N
     for rv in reviews:
         row = {"date": rv["date"], "full": bool(rv.get("full")), "note": rv.get("note") or "",
                "minutes_medi": minutes_of(fast.get(rv["date"])), "coverage_medi": None, "exam": bool(rv.get("exam"))}
+        try:
+            hold = notes_hold(rv["date"], repo, note_rows)
+        except Exception:  # noqa: BLE001 - a broken hold file holds nothing open by mistake: it is read again next hour
+            hold = None
+        if hold is not None:
+            row["notes_check"] = {"total": hold["total"], "answered": hold["answered"]}
+        if hold and hold["waiting"]:                     # AM-30: never frozen or graded while she has his notes to check
+            row["status"] = "%s (%d of %d answered)" % (WAITING, hold["answered"], hold["total"])
+            row["waiting_for_tutor"] = True
+            rows.append(row)
+            continue
         if rv["date"] in fast:
             n, m = coverage_of(his_lines(rv["date"], repo, pick_dir=pick_dir), live.get(rv["date"]) or [])
             row.update({"coverage_medi": round(float(n) / m, 3) if m else None, "lines_checked": n, "lines_total": m})
@@ -408,7 +431,7 @@ def main(argv):
     if "--check" in argv:
         old = J(OUT_P)
         # an exam whose review is still going (PR-23: the key freezes itself at full coverage) is not a missing key
-        bad = [r["date"] for r in out["lessons"] if r["full"] and r["status"] != "graded" and not r.get("exam")]
+        bad = [r["date"] for r in out["lessons"] if r["full"] and r["status"] != "graded" and not r.get("exam") and not r.get("waiting_for_tutor")]
         if bad:
             print("review_grades: full review with no frozen answer key: " + ", ".join(bad))
             return 1

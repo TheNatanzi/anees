@@ -232,6 +232,8 @@ STEPS = [
     ("build_tutor_data", [sys.executable, "scripts/build_tutor_data.py"]),
     # AM-29: her key-check taps mirrored read-only into data/, then the grade book's tutor-vs-student agreement
     ("tutor_key_check_pull", [sys.executable, "scripts/build_tutor_key_check.py", "pull"]),
+    # AM-30: her answers on the student's notes, read-only; while one is open the grade book holds the lesson
+    ("tutor_note_check_pull", [sys.executable, "scripts/build_tutor_note_check.py", "pull"]),
     ("review_grades", [sys.executable, "scripts/review_grades.py"]),
     # Amal's uploads + homework -> Student tab / Flashcards data (Medi 2026-10-05)
     ("build_student_data", [sys.executable, "scripts/build_student_data.py"]),
@@ -250,7 +252,7 @@ SOURCES = [
     {"id": "after_links", "label": "After-lesson questions", "fetch": fetch_after, "steps": AUDIT_CHAIN},
     {"id": "plan_links", "label": "Before-lesson planner", "fetch": fetch_plan, "steps": ["build_tutor_data"]},
     {"id": "listen_check", "label": "Listening check: which version is right", "fetch": fetch_listen_check,
-     "steps": ["build_tutor_data", "tutor_key_check_pull", "review_grades"],
+     "steps": ["build_tutor_data", "tutor_key_check_pull", "tutor_note_check_pull", "review_grades"],
      "note": "her taps are read by scripts/amal_listen_results.py; nothing is re-scored, only her hub list is refreshed "
              "(AM-29: her key-check taps feed only the grade book's tutor-vs-student agreement)"},
     {"id": "tutor_notes", "label": "Notes she writes on her Tutor screens (AM-27)", "fetch": fetch_notes, "steps": ["build_tutor_data", "build_student_data"]},
