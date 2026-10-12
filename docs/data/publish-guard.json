@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-12T11:04:19-07:00",
+ "updated": "2026-10-12T11:10:02-07:00",
  "result": "pass",
- "source": "manual: lessons page retries its scripts",
- "checked_commit": "728d1c20e1fe",
- "secs": 117.2,
+ "source": "manual: grammar colours + pill cleanup (PG-39)",
+ "checked_commit": "10e6e50dade5",
+ "secs": 119.6,
  "checks": [
   {
    "id": "step_failures",
@@ -17,7 +17,7 @@
    "id": "clean_tree",
    "required": true,
    "ok": true,
-   "secs": 0.1,
+   "secs": 0.0,
    "what": "what is checked is exactly what gets published",
    "detail": "nothing uncommitted under docs, data/full-audit-2026-09-26.json, data/accuracy, RULE-BOOK.md, data/lesson-work/ledger, data/lesson-work/ledger-amal.json"
   },
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.2,
+   "secs": 1.3,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "150 JSON files parse"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 3.3,
+   "secs": 3.5,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 3.4,
+   "secs": 3.5,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...8 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -129,9 +129,9 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 85.6,
+   "secs": 87.0,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "................... [ 94%] | .................................................                        [100%] | 837 passed, 1 skipped, 3 xfailed in 83.54s (0:01:23)"
+   "detail": "................... [ 94%] | .................................................                        [100%] | 837 passed, 1 skipped, 3 xfailed in 82.90s (0:01:22)"
   },
   {
    "id": "tests_node",
@@ -139,13 +139,13 @@
    "ok": true,
    "secs": 5.4,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5332.2051"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5289.5813"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.6,
+   "secs": 5.8,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -161,7 +161,7 @@
    "id": "data_freshness",
    "required": false,
    "ok": false,
-   "secs": 0.0,
+   "secs": 0.5,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
    "detail": "Amal's answers last checked 58 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
   },
@@ -197,6 +197,6 @@
   "secs": 136.4,
   "commits_waiting": "2"
  },
- "blocks_before_this_pass": 2,
+ "blocks_before_this_pass": 0,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
