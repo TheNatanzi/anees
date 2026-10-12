@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Page check · Anees</title><meta name="robots" content="noindex,nofollow">
+<style>body{margin:0;padding:16px;font:15px/1.5 system-ui,sans-serif;background:#F5F6F2;color:#1D2521}h1{font-size:20px}
+table{border-collapse:collapse;width:100%;max-width:760px}td{border-bottom:1px solid #ccc;padding:4px 6px;word-break:break-all}
+.ok{color:#2f7d4f;font-weight:700}.bad{color:#b42332;font-weight:700}#ua{font-size:12px;color:#555}</style></head>
+<body><h1>Anees page check</h1><p>Please send a screenshot of this page to the student.</p>
+<p id="ua"></p><table id="t"></table><p id="end"></p>
+<script>
+// Medi 2026-10-12 "no dude the entire anees lessons page isnt loading for her": every file the Lessons page loads,
+// fetched one by one, with the browser's own version, so a failure names itself.
+(function(){
+var t=document.getElementById('t');
+document.getElementById('ua').textContent=navigator.userAgent+' · '+new Date().toString();
+function row(name,ok,why){var r=t.insertRow();r.insertCell().textContent=name;var c=r.insertCell();c.textContent=ok?'OK':'FAILED';c.className=ok?'ok':'bad';r.insertCell().textContent=why||'';}
+var feats=[['fetch',typeof fetch==='function'],['Promise',typeof Promise==='function'],['AbortSignal.timeout',!!(window.AbortSignal&&AbortSignal.timeout)],
+ ['CSS light-dark()',window.CSS&&CSS.supports&&CSS.supports('color','light-dark(#000,#fff)')],['CSS color-mix()',window.CSS&&CSS.supports&&CSS.supports('color','color-mix(in srgb,red 10%,blue)')]];
+feats.forEach(function(f){row('browser: '+f[0],!!f[1]);});
+var files=['data/build.json','data/lessons.json','css/lessons.css','js/live-reread.js','js/config.js','js/lesson-behind.js','js/lesson-math.js','js/word-bank-arabizi.js',
+ 'js/sound-tags.js','js/transcript-marks.js','js/correction-parse.js','js/transcript-corrections.js','js/lessons-page.js','js/review-mode.js','js/phone-nav.js','js/stale.js'];
+var i=0;function next(){if(i>=files.length){document.getElementById('end').textContent='Done.';return;}
+ var f=files[i++],x=new XMLHttpRequest();x.open('GET',f+'?check='+Date.now());x.timeout=20000;
+ x.onload=function(){var ok=x.status===200;var why='HTTP '+x.status+' · '+x.responseText.length+' bytes';
+  if(ok&&/\.js$/.test(f)){try{new Function(x.responseText);}catch(e){ok=false;why='this browser cannot read it: '+e.message;}}
+  row(f,ok,why);next();};
+ x.onerror=function(){row(f,false,'did not download (network or a blocker)');next();};
+ x.ontimeout=function(){row(f,false,'timed out after 20 s');next();};x.send();}
+next();
+})();
+</script></body></html>
