@@ -55,6 +55,14 @@ VOICED = {"recast", "explicit-no", "prompt-then-fix", "named-rule", "finished-se
 REVIEW_PROPOSALS = ("review:fast", "review:relisten")
 
 
+def is_use_row(r):
+    """GR-37 (Medi 2026-10-11 "e5 should be added", 10-09 19:41): his "<rule> should be added" on a line with no mistake
+    = a RIGHT USE of that rule, saved as an 'add' row (the table's kinds) with payload.use = true and payload.rule; it is
+    never a slip (apply_rows skips it) and reaches the grammar counter through use_additions()."""
+    p = (r or {}).get("payload") or {}
+    return isinstance(r, dict) and r.get("kind") == "add" and (p.get("use") is True or ((r.get("target") or {}).get("k") == "use"))
+
+
 def review_trace(r):
     """True for a fast-review trace row (PG-50): kept in the mirror, applied nowhere, not counted for the hold."""
     return isinstance(r, dict) and r.get("kind") == "rule-answer" and r.get("proposal") in REVIEW_PROPOSALS
@@ -378,7 +386,7 @@ def apply_rows(rows, corrections=None, quote_date=None, uid_of=None, turns=None,
     answers = amal_answers() if answers is None else answers
     for c in effective(corrections):
         k = c.get("kind")
-        if k not in ROW_KINDS:
+        if k not in ROW_KINDS or is_use_row(c):      # GR-37: a use row is never a slip (use_additions)
             continue
         p, tg = c.get("payload") or {}, c.get("target") or {}
         who = "Medi %s" % str(c.get("ts"))[:10]
@@ -433,27 +441,55 @@ def apply_rows(rows, corrections=None, quote_date=None, uid_of=None, turns=None,
                     voiced = r.get("signal") in VOICED or amal_voiced(c, right or r.get("right"), turns=turns)
                     r.setdefault("medi_corrections", []).append(c["id"])
                     was = r.get("kind_before_rejection") or "vocab-A"
-                    r.update(kind=was if voiced else ("grammar-B" if was.startswith("grammar") else "vocab-B"),
-                             confidence="high" if voiced else "medium", signal=r.get("signal") or SIGNAL)
-                    r["why"] = "%s: it was a mistake%s. %s" % (who, words, r.get("why") or "")
+                    # GR-39: his own mark on a grammar slip is the signal S3 asks for - counted, with or without her voice
+                    own = was.startswith("grammar") and bool(r.get("bucket")) and not r.get("amal_ruling") and r.get("signal") != "amal-ruling"
+                    counted = voiced or own
+                    r.update(kind=("grammar" if own else was) if counted else ("grammar-B" if was.startswith("grammar") else "vocab-B"),
+                             confidence="high" if counted else "medium", signal=r.get("signal") or SIGNAL)
+                    r["why"] = "%s: it was a mistake%s%s. %s" % (who, words, " (his own mark is the signal: counted, GR-39)" if own and not voiced else "", r.get("why") or "")
                     r.pop("rejected_why", None)
-                    if not voiced:
+                    if not counted:
                         rep["tier_b"].append(c["id"])
                 rep["applied"].append(c["id"])
                 continue
+        if p.get("at") is not None and sec(p.get("at")) is not None:
+            # GR-39: a note written on one line that names another (his 10-09 58:23 note is about 58:37 'سؤالي آخر إلي؟'):
+            # the slip sits on the line it names (payload.at, at_end); the row keeps the line he wrote on (AM-30 groups
+            # his notes by that line)
+            c = dict(c, turn_t=sec(p["at"]), payload=dict(p, turn_end=p.get("at_end")))
+            p = c["payload"]
         g = (p.get("k") or tg.get("k")) == "grammar"
         voiced = amal_voiced(c, right, turns=turns)
+        bucket = _rule_id(p.get("rule") or tg.get("rule")) if g and (p.get("rule") or tg.get("rule")) else None
+        # GR-39 (Medi 2026-10-12 "fix all"; his 10-09 note "should be marked wrong for grammar, saarat a7san"): his own mark
+        # that a line has a grammar mistake IS the signal S3 asks for (S3: "Amal recasting it, or Medi asking") - the slip
+        # counts (✗ grammar pill, in the Grammar %) when it names its rule, with or without her voiced fix. A slip already
+        # counted at the same moment for the same rule is that slip (his row confirms it, never a second slip).
+        own = g and bool(bucket)
+        if own:
+            t0, t1 = float(c["turn_t"]) - 3, float(p.get("turn_end") or c["turn_t"]) + 15
+            same = [r for r in rows if r.get("kind") == "grammar" and r.get("bucket") == bucket and str(r.get("date")) == str(c["lesson_date"])
+                    and sec(r.get("t")) is not None and t0 <= sec(r.get("t")) <= t1]
+            if same:
+                for r in same[:1]:
+                    r.setdefault("medi_corrections", []).append(c["id"])
+                    r["medi_confirmed"] = "%s marked it a mistake too%s (GR-39)" % (who, words)
+                rep["applied"].append(c["id"])
+                continue
         new = {"id": "MC-" + c["id"][:8], "date": str(c["lesson_date"]), "t": mmss(c["turn_t"]), "t_amal": p.get("t_amal"),
                "medi_said": p.get("line"), "amal_said": p.get("amal_said"),
                "wrong": p.get("wrong") or tg.get("word") or tg.get("said"), "right": right,
-               "kind": ("grammar" if voiced else "grammar-B") if g else ("vocab-A" if voiced else "vocab-B"),
-               "bucket": (p.get("rule") or tg.get("rule")) if g else None, "tier": None if g else 1, "mode": "speaking",
-               "signal": "recast" if voiced else SIGNAL, "confidence": "high" if voiced else "medium", "source": "audit-2026-09-26",
+               "kind": ("grammar" if (voiced or own) else "grammar-B") if g else ("vocab-A" if voiced else "vocab-B"),
+               "bucket": bucket if g else None, "tier": None if g else 1, "mode": "speaking",
+               "signal": "recast" if voiced else SIGNAL, "confidence": "high" if (voiced or own) else "medium", "source": "audit-2026-09-26",
                "added_by": "medi-correction",
                "correction": c["id"], "agreed_by": "medi-correction",
-               "why": "%s marked it a mistake%s%s" % (who, words, "" if voiced else " (Amal did not voice a fix: on her review page, tier B)")}
+               "why": "%s marked it a mistake%s%s" % (who, words, "" if voiced else (" (his own mark is the signal: counted, GR-39)" if own else
+                                                                                    " (Amal did not voice a fix: on her review page, tier B)"))}
+        if own:
+            new["rule"] = "GR-39"
         rows.append(new)
-        if not voiced:
+        if not (voiced or own):
             rep["tier_b"].append(c["id"])
         rep["applied"].append(c["id"])
     rep["standing"] = apply_standing(rows, rules)
@@ -472,6 +508,32 @@ def _refile(r, p, why):
     if p.get("right"):
         r["right_before_medi"], r["right"] = r.get("right"), p["right"]
     r["why"] = "%s. Readers wrote: %s" % (why, r.get("why"))
+
+
+def use_additions(corrections=None):
+    """GR-37: his "<rule> should be added" rows (is_use_row) -> rows in the shape of data/grammar-usage-additions.json, which
+    detect_grammar_usage.addition_line puts on his line (the hit as the page shows it, else the rule's own hit there)."""
+    if off():
+        return []
+    out = []
+    for c in effective(corrections):
+        if not is_use_row(c):
+            continue
+        p, tg = c.get("payload") or {}, c.get("target") or {}
+        rule = p.get("rule") or tg.get("rule")
+        if not rule:
+            continue
+        out.append({"date": str(c["lesson_date"]), "t": float(c["turn_t"]), "bucket": _rule_id(rule),
+                    "hit": p.get("said") or tg.get("said") or None, "rule": "GR-37", "correction": c["id"],
+                    "by": "medi-correction %s" % str(c.get("ts"))[:10],
+                    "why": "Medi %s: a right use of %s%s" % (str(c.get("ts"))[:10], _rule_id(rule), (": " + (c.get("note") or p.get("raw"))) if (c.get("note") or p.get("raw")) else "")})
+    return out
+
+
+def _rule_id(r):
+    """'e5' -> 'E5', 'a10B' -> 'A10b' (the bucket ids of docs/data/grammar-buckets.json)."""
+    m = re.match(r"^\s*([A-Fa-f])\s*(\d{1,2})\s*([bB]?)\s*$", str(r or ""))
+    return (m.group(1).upper() + m.group(2) + m.group(3).lower()) if m else str(r or "")
 
 
 def use_rulings(corrections=None, rules=None):
@@ -635,6 +697,8 @@ def propose(corrections=None, repo=REPO, rows=None, uses_=None):
                             if reason == "fixed-first" else "Shape: you were asking Amal, not trying (%s). Claude writes this as a code rule, like GR-25." % (tg.get("sig") or sig))
             else:
                 prop.update(owner="one-off", plain="Wrong speaker or time: fixed on this line only.")
+        elif is_use_row(c):
+            prop.update(owner="one-off", plain="A right use of %s on this line (GR-37): counted as a use, never a slip." % _rule_id(p.get("rule") or tg.get("rule")))
         elif k in ("add", "was-wrong") and (p.get("wrong") or tg.get("said") or tg.get("word")):
             Wd = p.get("wrong") or tg.get("said") or tg.get("word")
             hits = [_moment(d, float(u["t"]), u["text"], "ask Amal") for d, T in lessons for u in T

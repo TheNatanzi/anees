@@ -11064,6 +11064,328 @@
     "date": "2026-10-09",
     "note": "hourly blocked from 10-09 18:23Z (budget.json conflict) to 10-11: 37 h, 99 blocked pushes, lesson 10-10 recorded but not published"
    }
+  },
+  {
+   "id": "GR-37",
+   "kind": "process",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Grammar uses are read on the text the lesson page SHOWS - after every overlay (the second listen, his own heard-word fixes, the tutor-evidence fixes TR-31) - in every lesson, and every correction (his page fix, a note-reader row, a TR-31 fix, Amal's answer) re-scores that lesson from the corrected line: the 15-minute trigger (scripts/amal_trigger.py medi_corrections and every Amal-answer source) and the hourly job run the use counter AFTER the audit is rebuilt with the corrections (full_audit_build -> apply_amal_audit_rulings -> detect_grammar_usage -> build_lessons_page_data: word coverage, grammar uses, the readers' slips on misheard words (TR-24 - now also when the tutor's own words, TR-31, or her listen, TR-27, fixed the word, never on a machine listen alone), chips, ledger, review picker). A hand-added use lands on the line that holds its words as the page shows them (detect_grammar_usage.addition_line), never on the first line within 3 s; his '<rule> should be added' on a line is a RIGHT use of that rule (an 'add' row with payload.use, docs/js/correction-parse.js useItem), never a slip. 10-09 19:41 'Um, كم جبل' (the second listen's text for the engine's جبال): E5 ✓ shows, and the D1 use the reader wrote as 'بي كاليفورنيا' sits on 19:44 'في كاليفورنيا' as 'في كاليفورنيا'; his note 'e5 should be added' (read as a vocab slip 'e5') is undone and is the E5 use. 2026-10-12 rebuild: 8 hand-added uses re-read through the line's overlay (10-09 8); his own use rows counted: 10-09 1.",
+   "plain": "Grammar is read on the line exactly as the page shows it, after every fix, and any correction (yours, the tutor's, or a transcript fix) re-scores that lesson within 15 minutes and every hour. Writing '<rule> should be added' on a line counts that rule as a right use.",
+   "plain_for": "dc30bfd2",
+   "topic": "grammar scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-11",
+     "quote": "e5 should be added"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "so please add to the work flow that anytime a correction is made it should reevaluate the scoring"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "fix all"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "def addition_line(T, r, window=3.0):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/medi_corrections.py",
+     "contains": "def use_additions(corrections=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_trigger.py",
+     "contains": "GR-37: the use counter reads the corrected audit"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/correction-parse.js",
+     "contains": "function useItem(rule, said)"
+    },
+    {
+     "type": "code",
+     "path": "scripts/full_audit_build.py",
+     "contains": "f.get(\"rule\") in (\"TR-31\", \"TR-27\")"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_gr_37_end_to_end_10_09_19_41_shows_e5_and_no_d1"
+    },
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_gr_37_every_correction_rescores_the_lesson_from_the_corrected_line"
+    }
+   ],
+   "example": {
+    "date": "2026-10-09",
+    "t": "19:41",
+    "note": "Um, كم جبل: E5 ✓ shown, no D1 (D1 'في كاليفورنيا' on 19:44)"
+   }
+  },
+  {
+   "id": "WS-39",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "One judgment per word, and the header always equals the chips (the 2026-10-11 audit, top 1-4 and 10). (1) A chip is hidden only under a chip about the SAME word(s) - every word it is about is a word of the shown chip - never under a transitive group (scripts/transcript_marks.py one_per_word: a two-word grammar chip like B2 'لازم أدير' no longer joins two words so that ✓ لازم hid under ★ أدير; 10-09 19:41 E5 'كم جبل' ✓ no longer hides under ↻ جبل); a hidden counted chip is always listed on the shown pill ('also', or the green pill's words). (2) One utterance is never counted ✓ and ✗: a Word Bank ✓ whose word is exactly what a counted ✗ on the same line says is that slip's attempt (scripts/lesson_ledger.py conflict C5: 10-09 27:05 غادة؟ = ✗ غابة, no longer also ✓ غدا; 59:23 لعب). (3) The same word in the same form said twice in ONE line, nothing from the tutor between, counts once (scripts/word_coverage.py said_twice; 10-10 13:52 تلاقت؟ تلاقت؟), and a word he only asks about ('is it X?', 'would it be X?', 'X or Y?') is no use (asked_forms; 10-09 48:56 'So is it اكتبي؟ اكتبي؟') - from 10-08 on, like WS-36. (4) No counted item without a pill: a line with no end time runs to his next line (10-10 00:31 عالي, 1:00:59 نفس were counted with no chip), a list word 'عالي / عالية' is found by either form, and a scored word on no line is not counted (ledger NP). (5) The publish guard recomputes, per lesson, the header's words right / half / wrong, grammar slips and grammar uses from the chips (visible + listed on the pill they merge into) and fails on any drift (scripts/check_numbers.py chip_checks); a merged grammar pill says how many uses it stands for ('A1 ×3'). 2026-10-12 rebuild, every lesson: 646 credits hidden under a pill about another word -> 0; credits no longer counted: 18 'is it X?' questions (10-08 7, 10-09 7, 10-10 4), 9 same word twice in one line (10-08 3, 10-09 1, 10-10 5), 14 right+wrong at once (08-25 1, 09-05 1, 09-10 1, 09-18 1, 09-19 1, 09-23 1, 09-30 2, 10-02 1, 10-05 1, 10-09 2, 10-10 2), 2 with no pill (09-05 1, 09-10 1).",
+   "plain": "Every number in a lesson's header can be counted from the pills on its transcript, and the publish check fails if they ever differ. A pill hides only under a pill about the same word; one thing you say is never both right and wrong; the same word said twice in one breath counts once; asking 'is it X?' is not using X.",
+   "plain_for": "1fff0ccc",
+   "topic": "word scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "the math seems off to me, the vocab and grammar correct"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "fix all"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "def _open_end(turns, i, cap=15.0):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "WS-39 (Medi 2026-10-12 \"fix all\", audit top 2)"
+    },
+    {
+     "type": "code",
+     "path": "scripts/lesson_ledger.py",
+     "contains": "c = conflict(\"C5\", m, x)"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def said_twice(date, turns, rows, adds, patches, evs):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def asked_forms(text):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/check_numbers.py",
+     "contains": "def chip_checks(lesson, detail, by_rule=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/lesson_ledger.py",
+     "contains": "c[\"one_judgment\"] = True"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_ws_39_every_lesson_header_equals_its_chips"
+    },
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_ws_39_a_chip_hides_only_under_a_chip_about_the_same_words"
+    },
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_ws_39_one_utterance_is_never_right_and_wrong"
+    }
+   ],
+   "example": {
+    "date": "2026-10-09",
+    "t": "27:05",
+    "note": "غادة؟: ✗ غابة counted once, no longer also ✓ غدا"
+   }
+  },
+  {
+   "id": "PG-51",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A grammar repeat pill is never empty ('↻ Repeat · grammar · ·', 33 on 10-08/09/10): a line repeat (GR-28 'repeat of the line Amal just fixed (20:02)') carries the rule of the counted slip it repeats (the slip nearest the time its reason names, +-6 s) and his words (his Arabic, else his Arabizi line); a WS-36 quote carries his words; the page falls back to the reason when it has neither (scripts/transcript_marks.py repeated_rule, docs/js/transcript-marks.js repeatMain). 2026-10-12 rebuild: 121 empty grammar repeat pills -> 0 (every lesson).",
+   "plain": "A grey-purple repeat pill always says which rule and which of your words it is about, never an empty pill.",
+   "plain_for": "438f4ba1",
+   "topic": "the lesson page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "fix all"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "def repeated_rule(r, slips):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/transcript-marks.js",
+     "contains": "function repeatMain(main, c)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_pg_51_a_grammar_repeat_pill_is_never_empty"
+    }
+   ]
+  },
+  {
+   "id": "PG-52",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The Vocab list's error label splits the way the header counts (10-09: 'Errors (11)' beside '4 wrong'): 'Errors (4 ✗ · 4 ◐ asked · 3 not on her list)' - the counted wrong words, the asked ones (half a point) and the words not on her list (counted nowhere); lessons.json counts.vocab_errors_split (scripts/build_lessons_page_data.py), docs/js/lessons-page.js errorsSplit.",
+   "plain": "The Vocab 'Errors' button says how many are wrong, how many you asked for, and how many are not on her list, so it matches the header.",
+   "plain_for": "f0fc3a3c",
+   "topic": "the lesson page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "the math seems off to me, the vocab and grammar correct"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "fix all"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "function errorsSplit(c)"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "L[\"counts\"][\"vocab_errors_split\"]"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_pg_52_the_errors_label_splits_like_the_header"
+    }
+   ]
+  },
+  {
+   "id": "GR-38",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "D2 'verb + its fixed preposition' is detected from the tutor's own data: the verbs and the prepositions she gave in her level-2 verb check (data/vocab/amal_addon_checks.json preps_ok, AM-26), the short list it asked (data/vocab/verb-short-list.json) and her Doc's verb rows that name it ('Ana ba6lub (min)', 'Enbese6 (fi / bi)'), plus the student's note that banbese6 takes bi (b- = fi). A use (an attempt) = one of these verbs in any person or tense with a preposition right after it, also across his split lines (scripts/detect_grammar_usage.py verb_preps / verb_prep): 10-09 21:34 'أنا بنبسط بالشاطئ' = D2 ✓. A wrong preposition is still an attempt; it is a D2 ✗ only with a signal - her fix (10-09 05:10 أطلب إلها -> أطلب منها) or his own mark (GR-39). 2026-10-12 rebuild: D2 uses 8 -> 74 over the lessons (08-25 1->5, 09-04 0->1, 09-05 0->3, 09-11 0->4, 09-14 3->15, 09-16 0->3, 09-17 0->2, 09-18 0->2, 09-19 0->1, 09-21 0->6, 09-23 0->4, 09-26 0->1, 09-28 0->2, 10-02 0->4, 10-05 0->2, 10-06 0->2, 10-08 1->4, 10-09 3->7, 10-10 0->6).",
+   "plain": "A verb that takes a set little word after it (banbese6 bi, ba6lub min) counts as a use of that grammar rule when you say it with its preposition; the list comes from the tutor's own answers and her Doc.",
+   "plain_for": "9ff44e8e",
+   "topic": "grammar scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-11",
+     "quote": "bi el sha66.  Banbese6 always takes bi should be a grammar rule"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "fix all"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "def verb_preps(repo=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "def verb_prep(words):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_gr_38_verb_and_its_fixed_preposition_from_her_answers_and_her_doc"
+    }
+   ],
+   "example": {
+    "date": "2026-10-09",
+    "t": "21:34",
+    "note": "أنا بنبسط بالشاطئ: D2 ✓ (his note 'Banbese6 always takes bi')"
+   }
+  },
+  {
+   "id": "GR-39",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "His own review note that a line has a grammar mistake is the signal S3 asks for ('A grammar or word miss needs Amal recasting it, or Medi asking'): an 'add' or 'was-wrong' row of his on a grammar slip that names its rule is a counted slip (✗ grammar pill, in the Grammar %), with or without her voiced fix (amends PR-17's tier B for grammar; a vocab mark keeps PR-17). A slip already counted for the same rule at the same moment (his line to 15 s after) is that slip - his row confirms it, never a second one; a row Amal ruled is never changed; a row with no rule waits as a proposed rule (GR-18); a note written on one line about another sits on the line it names (payload.at) and keeps the line he wrote on, so the tutor's note check (AM-30) shows his note once (scripts/medi_corrections.py apply_rows). His 10-09 note rows that the note reader saved with his words as the 'slip' were re-read by hand into rows with their rule (data/lesson-work/medi-corrections-hand.json, chat-20261012-*), his notes that named a RIGHT use became uses (GR-37 path). 2026-10-12 rebuild: his marks on 10-09 counted as grammar slips: 3 new (10-09: 45:24 D1 إلا أكل, 58:37 A15 سؤالي آخر, 1:00:35 A10 هذا لعبي) and his asked word 14:58 مسلسلين refiled from a half-point vocab ask to an A9 slip (his note 'I know I asked but it should be marked wrong'), 4 confirming a slip already counted (10-02 2, 10-08 1, 10-09 1).",
+   "plain": "When you mark a line as a grammar mistake in your review, that counts as the signal: the slip is counted even if the tutor didn't correct it out loud, once per moment.",
+   "plain_for": "0bcd2805",
+   "topic": "grammar scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-11",
+     "quote": "should be marked wrong for grammar, saarat a7san"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "I should have gotten the adjective el rule wrong.  Just because I ask it in a question doesnt mean its not wrong"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "fix all"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/medi_corrections.py",
+     "contains": "his own mark is the signal: counted, GR-39"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_gr_39_his_own_grammar_mark_is_the_signal_and_one_moment_is_one_slip"
+    },
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_gr_39_10_09_his_marks_are_counted_slips"
+    }
+   ],
+   "example": {
+    "date": "2026-10-09",
+    "t": "58:37",
+    "note": "سؤالي آخر إلي؟ -> سؤالي الأخير: A15 ✗ from his note"
+   }
   }
  ]
 }

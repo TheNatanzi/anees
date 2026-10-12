@@ -214,11 +214,12 @@ STEPS = [
     ("build_verb_addon_tags", [NODE, "scripts/build_verb_addon_tags.cjs"]),
     # PR-15: pull Medi's corrections (fail-open, quarantine, proposals, his yes -> registry) BEFORE every builder reads them
     ("pull_medi_corrections", [sys.executable, "scripts/medi_corrections.py", "pull"]),
-    ("detect_grammar_usage", [sys.executable, "scripts/detect_grammar_usage.py"]),
     ("full_audit_build", [sys.executable, "scripts/full_audit_build.py"]),
     # AFTER full_audit_build: the build rewrites the audit JSON without her rulings (2026-09-30 bug: 134 answers wiped)
     ("apply_amal_audit_rulings", [sys.executable, "scripts/apply_amal_audit_rulings.py"]),
     ("amal_grammar_notes", [sys.executable, "scripts/amal_grammar_notes.py"]),
+    # GR-37: the use counter reads the corrected audit (his and Amal's corrections in), before the lesson data rebuilds
+    ("detect_grammar_usage", [sys.executable, "scripts/detect_grammar_usage.py"]),
     ("build_grammar_console", [sys.executable, "scripts/build_grammar_console.py"]),
     ("build_amal_docs", [sys.executable, "scripts/build_amal_docs.py"]),   # her two Google Docs as Anees pages (2026-10-01)
     ("build_amal_grammar_rules", [sys.executable, "scripts/build_amal_grammar_rules.py"]),
@@ -242,7 +243,11 @@ STEPS = [
     ("medi_corrections_propose", [sys.executable, "scripts/medi_corrections.py", "propose"]),
     ("write_build", [sys.executable, "scripts/write_build.py"]),
 ]
-AUDIT_CHAIN = ["full_audit_build", "apply_amal_audit_rulings", "amal_grammar_notes", "build_grammar_console", "build_amal_docs",
+# GR-37 (Medi 2026-10-12 "so please add to the work flow that anytime a correction is made it should reevaluate the scoring"):
+# the grammar use counter runs AFTER the audit is rebuilt with every correction (his, Amal's), so the uses it pairs with
+# the slips and the repeats it finds are read from the corrected rows; then the lesson data rebuilds the word coverage,
+# chips, ledger and review picker from the corrected line (build_lessons_page_data)
+AUDIT_CHAIN = ["full_audit_build", "apply_amal_audit_rulings", "amal_grammar_notes", "detect_grammar_usage", "build_grammar_console", "build_amal_docs",
                "build_amal_grammar_rules", "build_amal_review", "build_lessons_page_data", "codex_list", "accuracy_annotate", "build_sentence_ladder", "amal_new_words",
                "build_tutor_data", "build_tutor_weak"]
 
@@ -269,7 +274,7 @@ SOURCES = [
     {"id": "grammar_doc", "label": "Her grammar-rules Google Doc", "fetch": fetch_grammar_doc, "steps": [],
      "note": "a change is logged as 'needs a read': Claude re-reads the Doc into data/amal-docs/ with Medi's Drive connector (build_amal_docs.py shows it on the Anees rules page); her notes become scoring rulings only after a row-by-row read"},
     {"id": "medi_corrections", "label": "Medi's corrections on the Lessons transcript (PR-15)", "fetch": fetch_medi_corrections,
-     "steps": ["pull_medi_corrections", "detect_grammar_usage"] + AUDIT_CHAIN + ["medi_corrections_propose", "write_build"],
+     "steps": ["pull_medi_corrections"] + AUDIT_CHAIN + ["medi_corrections_propose", "write_build"],
      "note": "his own taps, not Amal's: recounted within 15 min; 'my Arabic was right' becomes a card on her hub"},
     {"id": "quizlet", "label": "Her Quizlet sets", "fetch": fetch_quizlet, "steps": ["write_build"], "pass_state": True},
 ]

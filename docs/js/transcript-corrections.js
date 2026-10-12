@@ -293,7 +293,7 @@ var PARSER = function () { return root.AneesCorrectionParse || null; };
 var AI_WAIT_MS = 900, AI_MAX_MS = 7000;
 function rowFor(it) {
   var tg = it.target || null;
-  if (it.kind === 'add' && tg) tg = { k: tg.k, said: tg.said };
+  if (it.kind === 'add' && tg) tg = tg.k === 'use' ? { k: 'use', rule: tg.rule, said: tg.said || null } : { k: tg.k, said: tg.said };   // GR-37: a use keeps its rule
   return { kind: it.kind, target: tg, payload: Object.assign({}, it.payload || {}) };
 }
 // PR-22: the lines around the one he writes under (his sentence is split over short lines; his note often names them)
@@ -419,6 +419,7 @@ function moreMenu(row, x, turn, parts, prefill, replaces) {
     else if (it.kind === 'time') f('Right time (m:ss)', 't', PR ? PR.mmss(p.t) : p.t);
     else if (it.kind === 'missing') f('The word the engine dropped', 'heard', p.heard);
     else if (it.kind === 'text') { f('Engine wrote', 'engine_wrote', p.engine_wrote); f('You said', 'heard', p.heard); }
+    else if (it.kind === 'add' && p.use) f('Grammar rule (e.g. E5)', 'rule', p.rule);   // GR-37: a right use
     else if (it.kind === 'add') { f('You said', 'wrong', p.wrong); f('It should be', 'right', p.right); f('Kind', 'k', p.k, true); }
     else f('Your words', 'raw', p.raw);
     var ok = btn('tc-big', 'OK', function () {
@@ -427,6 +428,7 @@ function moreMenu(row, x, turn, parts, prefill, replaces) {
       else if (it.kind === 'speaker') { var w = /^(a|t|h)/i.test(v.who) ? 'Amal' : 'Medi'; /* tutor / her -> the tutor's line */ it.payload = Object.assign({}, p, { who: w }); it.label = 'This was ' + w; }
       else if (it.kind === 'missing') { if (!v.heard) return; it.payload = Object.assign({}, p, { heard: v.heard }); it.label = 'Missing word: ' + v.heard; }
       else if (it.kind === 'text') { if (!v.engine_wrote || !v.heard) return; it.payload = Object.assign({}, p, { engine_wrote: v.engine_wrote, heard: v.heard, from: 'typed' }); it.target = { word: v.engine_wrote }; it.label = 'You said ' + v.heard + ', engine wrote ' + v.engine_wrote; }
+      else if (it.kind === 'add' && p.use) { var u = PR && PR.useItem && PR.ruleId(v.rule) ? PR.useItem(v.rule, p.said) : null; if (!u) return; it.payload = Object.assign({}, p, u.payload); it.target = u.target; it.label = u.label; }
       else if (it.kind === 'add') { if (!v.wrong) return; it.payload = Object.assign({}, p, { wrong: v.wrong, right: v.right || null, k: v.k }); it.target = { k: v.k, said: v.wrong }; it.label = 'You said ' + v.wrong + (v.right ? ', should be ' + v.right : '') + ', ' + (v.k === 'grammar' ? 'grammar' : 'wrong word'); }
       else { it.payload = Object.assign({}, p, { raw: v.raw || p.raw }); it.label = 'Note: ' + (v.raw || p.raw); }
       it.by = 'you'; box.remove(); paintChips();

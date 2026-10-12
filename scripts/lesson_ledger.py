@@ -60,6 +60,9 @@ PRECEDENCE = {
     "C3": {"rules": ["GR-14"], "decides": "a use and a slip of the same rule on one turn are one attempt, Wrong (build_grammar_console.use_verdict)"},
     "C4": {"rules": [], "decides": "a reader slip and a Word Bank miss on the same word within 5 s are one mark (one judgment = one mark)"},
     "CR": {"rules": [], "decides": None},         # needs Medi: his own Word Bank edit vs the ledger
+    "C5": {"rules": ["WS-39", "S3"], "decides": "a Word Bank right on exactly the words a counted wrong on the same line says: one utterance, "
+           "one judgment - the slip counts, the right is its attempt"},
+    "NP": {"rules": ["WS-39"], "decides": "a scored item that sits on no line the page shows has no pill: not counted until it has one"},
 }
 MEDI_ANSWERS = {"C1q": "a word of the phrase = that word was the wrong one; keep = both stand",
                 "C2q": "grammar = the grammar slip only; both = both count",
@@ -532,6 +535,20 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
             key = "heard_other" if "observation_only" in (set(pt.get("changes") or {}) | set(pt.get("expected") or {})) else "observation_only"
             actions["overrides"].append({"event_id": m["by"]["ref"], "date": date, "mark": m["id"], "was": m["was"],
                                          "changes": {key: True, "ledger": m["id"], "ledger_reason": why}})
+    # NP (WS-39, Medi 2026-10-12 "fix all"; audit: 10-10 had 2 credits with no chip): a scored word that sits on no line the
+    # page shows has no pill, so it is not counted (kept, with the reason) until it has one
+    for m in marks:
+        if m["kind"] != "vocab" or m["turn"] is not None or m["verdict"] not in ("right", "partial", "wrong", "asked") or not resolve:
+            continue
+        why = "on no line of the page (its words are not on any line near %s): no pill, not counted (WS-39)" % mmss(m["t"])
+        lst = "vocab_correct" if m["verdict"] in ("right", "partial") else "vocab_errors"
+        m.update(verdict="not-scored", why=why, why_by="NP", was=m["verdict"])
+        actions["move"].append((lst, m["id"], why, "NP"))
+        if m["by"]["producer"] == "word-bank":
+            pt = (review_patches or {}).get(m["by"]["ref"]) or {}
+            key = "heard_other" if "observation_only" in (set(pt.get("changes") or {}) | set(pt.get("expected") or {})) else "observation_only"
+            actions["overrides"].append({"event_id": m["by"]["ref"], "date": date, "mark": m["id"], "was": m["was"],
+                                         "changes": {key: True, "ledger": m["id"], "ledger_reason": why}})
     on_turn = collections.defaultdict(list)
     for m in marks:
         if m["turn"] is not None:
@@ -694,6 +711,17 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                 q = (AMAL_WORDS["CR"] % (m.get("tok") or "") if patched else AMAL_WORDS["C1q1"] % one if one else AMAL_WORDS["C1q"])
                 c["one"] = one
                 ans = needs_medi(c, opts, q, group=r["id"])
+                one_word = not patched and r["verdict"] == "wrong" and norm(m.get("tok")) and norm(m.get("tok")) == norm(r.get("wrong"))
+                if not ans and one_word and resolve:
+                    # WS-39 (Medi 2026-10-12 "fix all"; audit top 3): his whole wrong piece IS the word the Word Bank credited
+                    # (10-09 27:05 غادة؟ = ✗ غابة and ✓ غدا; 59:23 لعب = ✗ لعبة and ✓ لعبت) - one utterance is never counted right
+                    # AND wrong: while the tutor's yes/no is open it counts once, as the slip; her 'nothing was wrong' drops the
+                    # slip and gives the right back (the question stays on her hub)
+                    c["counted_as_now"] = "once, as the slip (one utterance, one judgment, WS-39), until Amal answers"
+                    c["one_judgment"] = True
+                    supersede_wb(m, r, "One utterance, one judgment: %s here is the counted slip (%s), not also a right use, until the "
+                                 "tutor answers (WS-39)" % (m.get("tok"), r.get("fix") or r.get("arabic") or ""), bool(why_same))
+                    actions["move"].append(("vocab_correct", m["id"], m["why"], "C5"))
                 if ans:
                     c["resolved"] = True
                     who = "Amal" if (c.get("ruled") or {}).get("by") == "amal" else "Medi"
@@ -731,6 +759,25 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                         actions["move"].append(("vocab_errors", m["id"], why, c["kind"]))
                     settle(c)
                     break
+        # C5 (WS-39, Medi 2026-10-12 "fix all"; audit top 3): one utterance is never counted right AND wrong - a ✓ whose
+        # word is exactly what a counted ✗ on the same line says (10-09 27:05 غادة؟ = ✗ غابة, also ✓ غدا 'tomorrow'; 59:23
+        # لعب = ✓ لعبت and ✗ لعبة) is that slip's attempt, folded into it. A hand review of the event keeps its call (C1r).
+        bad = [m for m in ms if m["kind"] == "vocab" and m["verdict"] == "wrong" and norm(m.get("wrong"))]
+        for m in [m for m in ms if m["by"]["producer"] == "word-bank" and m["verdict"] in ("right", "partial") and not m.get("conflicts")]:
+            t = norm(m.get("tok"))
+            # his word as said, or the list word it was credited as (10-10 13:52 تلاقت؟ credited as تلات 'three', the slip
+            # says he said تلات for التقيت)
+            forms = {t} | {norm(a) for a in re.split(r"\s*/\s*", str(m.get("arabic") or "")) if norm(a)}
+            x = next((x for x in bad if t and (norm(x.get("wrong")) in forms or t == norm(x.get("tok")))), None)
+            if x is None or reviewed(review_patches, m["by"]["ref"]) == "hand":
+                continue
+            m["_was"] = m["verdict"]
+            c = conflict("C5", m, x)
+            if resolve:
+                supersede_wb(m, x, "One utterance, one judgment: %s here is the counted slip (%s), not also a right use (WS-39)"
+                             % (m.get("tok"), x.get("fix") or x.get("arabic") or ""), x.get("word_key") == m.get("word_key"))
+                actions["move"].append(("vocab_correct", m["id"], m["why"], "C5"))
+            settle(c)
         # C3: a use and a slip of the same rule on one turn (GR-14)
         for u in [m for m in ms if m["verdict"] == "use"]:
             g = next((g for g in gs if g.get("bucket") == u["bucket"]), None)
@@ -794,7 +841,8 @@ KIND_WORDS = {"C1": "Word Bank said right, Amal said no to that word: her no cou
               "C1p": "slip elsewhere in the phrase: the word stays right", "C1a": "he asked for another word: both stand",
               "C1q": "which word of the phrase was wrong: Medi", "C1r": "the Word Bank's context review already settled it: unchanged", "C2": "one slip was counted twice (word + grammar): counted once, as grammar",
               "C2b": "a different word and a wrong form in one word: both count", "C2q": "word slip or grammar slip: Medi", "C2w": "a grammar slip the Word Bank also called a wrong word: counted once, as grammar",
-              "C3": "one turn was both a use and a slip of the same rule: one attempt, wrong", "CR": "a Word Bank re-read (or Medi's edit) vs Amal's no: Medi"}
+              "C3": "one turn was both a use and a slip of the same rule: one attempt, wrong",
+              "C5": "one word counted right and wrong at once: counted once, as the slip", "NP": "a scored item on no line of the page: not counted", "CR": "a Word Bank re-read (or Medi's edit) vs Amal's no: Medi"}
 
 
 def medi_item(led, c):

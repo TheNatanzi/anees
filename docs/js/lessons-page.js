@@ -486,6 +486,18 @@ function headWord(v) {
   if (note) box.appendChild(el('span', 'gc-spellnote', 'Unverified spelling stays in Arabic'));
   return box;
 }
+// PG-52 (Medi 2026-10-12 "the math seems off to me, the vocab and grammar correct"): 'Errors (11)' beside the header's
+// '4 wrong' read as a mismatch - the list holds ✗ counted, ◐ asked (half a point) and words not on her list (counted
+// nowhere), so the label says which: 'Errors (4 ✗ · 4 ◐ asked · 3 not on her list)'
+function errorsSplit(c) {
+  var s = c && c.vocab_errors_split;
+  if (!s) return '';
+  var p = [];
+  if (s.wrong) p.push(s.wrong + ' ✗');
+  if (s.half) p.push(s.half + ' ◐ asked');
+  if (s.off_list) p.push(s.off_list + ' not on her list');
+  return p.join(' · ') || '0';
+}
 // Medi 2026-09-26: a switch next to "Vocab" - Errors (default) · Correct · All.
 function vocabAcc(c) {
   var mode = 'errors', X = null, B = null;
@@ -496,7 +508,7 @@ function vocabAcc(c) {
   var sw = el('span', 'ls-seg');
   var opts = [['errors', 'Errors', c.vocab_errors], ['correct', 'Correct', c.vocab_correct], ['all', 'All', num(c.vocab_errors) && num(c.vocab_correct) ? c.vocab_errors + c.vocab_correct : null]];
   opts.forEach(function (o) {
-    var b = el('button', 'ls-segbtn', o[1] + (num(o[2]) ? ' (' + o[2] + ')' : ''));
+    var b = el('button', 'ls-segbtn', o[0] === 'errors' && errorsSplit(c) ? 'Errors (' + errorsSplit(c) + ')' : o[1] + (num(o[2]) ? ' (' + o[2] + ')' : ''));
     b.type = 'button'; b.setAttribute('aria-pressed', o[0] === mode);
     b.addEventListener('click', function (e) {
       e.preventDefault(); e.stopPropagation(); mode = o[0];
@@ -735,9 +747,11 @@ function mergeCorrect(cs) {
       else { vocab.words = vocab.words.concat(ws); out.push(Object.assign({}, c, { hide: vocab.id })); }
       return;
     }
+    // WS-39 (Medi 2026-10-12 "the math seems off to me, the vocab and grammar correct"): the merged pill says how many
+    // counted uses it stands for ('A1 ×3'), so the visible pills add up to the Grammar % uses
     var k = c.rule || c.name || '';
-    if (!gram[k]) { gram[k] = c; out.push(c); }
-    else out.push(Object.assign({}, c, { hide: gram[k].id }));
+    if (!gram[k]) { gram[k] = Object.assign({}, c, { n: c.n || 1 }); out.push(gram[k]); }   // a sentence is merged twice: keep the count
+    else { gram[k].n += c.n || 1; out.push(Object.assign({}, c, { hide: gram[k].id })); }
   });
   if (vocab && vocab.words) {                     // the same word said again in the sentence is listed once (07:50 ba5a66et x3)
     var seenW = {};

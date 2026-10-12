@@ -137,6 +137,15 @@ def _speaker(turn, who):
     return turn["who"] == "Amal" or (turn["who"] == "chat" and turn.get("typed_by") == "Amal")
 
 
+def _open_end(turns, i, cap=15.0):
+    """WS-39 (audit 2026-10-11: 10-10 00:31 عالي and 1:00:59 نفس were counted with no chip): a line with no end time (the
+    engine gave none) runs until the next line starts, at most `cap` s - before, it ended where it began, so a word said
+    2.3 s into it found no line and its credit was counted with no pill."""
+    a = float(turns[i]["t"])
+    nxt = next((float(u["t"]) for u in turns[i + 1:] if float(u["t"]) > a), None)
+    return min(nxt, a + cap) if nxt is not None else a + cap
+
+
 def place(turns, t, who, needle=None):
     """Index of the turn this item was said in, or None. (index, how) with how = time | text."""
     if t is None:
@@ -145,13 +154,15 @@ def place(turns, t, who, needle=None):
     for i, u in enumerate(turns):
         if not _speaker(u, who):
             continue
-        a, b = u["t"], u.get("end") if u.get("end") is not None else u["t"]
+        a, b = u["t"], u.get("end") if u.get("end") is not None else _open_end(turns, i)
         d = 0.0 if a - SLACK <= t <= b + SLACK else min(abs(t - a), abs(t - b))
         if d <= LOOSE:
             cand.append((d, i))
     if not cand:
         return None
-    has = (lambda i: bool(needle) and find_span(turns[i]["text"], needle) is not None)
+    # WS-39: a list word written 'عالي / عالية' (her two forms) is found by either form
+    alts = [x for x in re.split(r"\s*/\s*", str(needle or "")) if x.strip()] if needle else []
+    has = (lambda i: any(find_span(turns[i]["text"], x) is not None for x in alts))
     near = [c for c in cand if c[0] == 0.0]
     if near:
         # a turn that ENDED before the item's time is the least likely home (whole-second reader times sit up to 1 s
@@ -275,42 +286,92 @@ def one_per_word(tmarks, turns):
     """PG-39 (Medi 2026-10-09 "Im confused here you counted the preposition then didnt score? Just make one mark"): on
     his line each word shows ONE chip - the strongest of the chips about it (✗ wrong, ↻ repeat, ★ new, ◐ half, ✓ correct,
     – not scored); the others stay in the data with hide = the shown chip's id and are listed on it ('also'). Nothing is
-    counted differently: hiding is display only."""
+    counted differently: hiding is display only.
+
+    WS-39 (Medi 2026-10-12 "fix all", audit top 2): a chip hides only under a chip about the SAME word(s) - every word it
+    is about is a word of the hiding chip (never a transitive group: before, a two-word grammar chip such as B2 'لازم أدير'
+    joined two words into one group and a ✓ on لازم hid under ★ أدير; 10-09 19:41 E5 'كم جبل' ✓ hid under ↻ جبل)."""
     for k, v in tmarks.items():
         if turns[int(k)].get("who") != "Medi":
             continue
+        text = turns[int(k)].get("text")
         # a quiet chip (PG-43: a grey reason that only restates a standing rule) is never shown nor listed as 'also'
         cs = [c for c in v["c"] if c.get("k") in ("vocab", "grammar", "na") and c.get("label") != "lesson" and not c.get("quiet")]
-        groups = []
+        W = {id(c): _words_of(c, text) for c in cs}
+        order = sorted(cs, key=lambda c: (RANK.get(c.get("s"), 6), 0 if c.get("k") == "grammar" else 1, -len(W[id(c)])))
+        under = {}
         for c in cs:
-            ws = _words_of(c, turns[int(k)].get("text"))
+            ws = W[id(c)]
             if not ws:
                 continue
-            g = next((g for g in groups if g["w"] & ws), None)
-            if g:
-                g["w"] |= ws
-                g["c"].append(c)
-            else:
-                groups.append({"w": set(ws), "c": [c]})
-        for g in groups:
-            if len(g["c"]) < 2:
+            # the strongest chip whose words hold all of c's words; same rank: a vocab and a grammar judgment both show
+            for t in order:
+                if t is c:
+                    break
+                if not (ws <= W[id(t)]):
+                    continue
+                if RANK.get(t.get("s"), 6) == RANK.get(c.get("s"), 6) and t.get("k") != c.get("k") and {t.get("k"), c.get("k")} <= {"vocab", "grammar"}:
+                    continue
+                under[id(c)] = t
+                break
+        # a chain (c under t, t under u) points at the shown chip
+        top_of = {}
+        for c in cs:
+            t, seen = under.get(id(c)), 0
+            while t is not None and id(t) in under and seen < 10:
+                t, seen = under[id(t)], seen + 1
+            if t is not None:
+                top_of[id(c)] = t
+        for c in cs:
+            t = top_of.get(id(c))
+            if t is None:
                 continue
-            top = sorted(g["c"], key=lambda c: (RANK.get(c.get("s"), 6), 0 if c.get("k") == "grammar" else 1))[0]
-            keep = [c for c in g["c"] if c is top or (RANK.get(c.get("s"), 6) == RANK.get(top.get("s")) and c.get("k") != top.get("k")
-                                                       and c.get("k") in ("vocab", "grammar"))]
-            for c in g["c"]:
-                if c not in keep:
-                    c["hide"] = top["id"]
-            also = [{"k": c.get("k"), "s": c.get("s"), "rule": c.get("rule"), "w": c.get("ar") or c.get("said")} for c in g["c"] if c not in keep]
-            if also:
-                top["also"] = also
+            c["hide"] = t["id"]
+            t.setdefault("also", []).append({"k": c.get("k"), "s": c.get("s"), "rule": c.get("rule"), "w": c.get("ar") or c.get("said")})
         # Medi 2026-10-09 "Lets put all the correct words in one correct vocab pil": the ✓ words of a line, one green chip
         ok = [c for c in v["c"] if c.get("k") == "vocab" and c.get("s") == "correct" and not c.get("hide")]
         if len(ok) > 1:
             ok[0]["words"] = [{"ar": c.get("ar"), "w": c.get("w"), "said": c.get("said")} for c in ok]
             for c in ok[1:]:
                 c["hide"] = ok[0]["id"]
+            # WS-39: a chip listed on a ✓ that just joined the green pill is listed on the green pill (never on a hidden one)
+            gone = {c["id"]: c for c in ok[1:]}
+            for c in v["c"]:
+                if c.get("hide") in gone and c not in ok:
+                    c["hide"] = ok[0]["id"]
+                    if c.get("k") == "vocab" and c.get("s") == "correct":      # a ✓ word is listed in the green pill itself
+                        ok[0]["words"].append({"ar": c.get("ar"), "w": c.get("w"), "said": c.get("said")})
+            for c in ok[1:]:
+                if c.get("also"):
+                    ok[0].setdefault("also", []).extend(a for a in c.pop("also") if not (a.get("k") == "vocab" and a.get("s") == "correct"))
+            if "also" in ok[0] and not ok[0]["also"]:
+                ok[0].pop("also")
     return tmarks
+
+
+_AT = re.compile(r"\((?:[^()]*?)(\d{1,2}):(\d{2})(?::(\d{2}))?\)")
+
+
+def repeated_rule(r, slips):
+    """PG-51: the rule of the counted slip a line repeat (GR-28 'repeat of the line Amal just fixed (20:02)') repeats - the
+    counted grammar slip nearest the time the reason names (+-6 s) - else None (a WS-36 quote names no slip)."""
+    m = _AT.search(str(r.get("why") or ""))
+    if not m:
+        return None
+    a, b, c = m.groups()
+    t = int(a) * 3600 + int(b) * 60 + int(c) if c else int(a) * 60 + int(b)
+    near = [(abs((_sec(g.get("t")) or -99) - t), g) for g in slips if g.get("bucket") and _sec(g.get("t")) is not None]
+    near = [x for x in near if x[0] <= 6]
+    return min(near, key=lambda x: x[0])[1]["bucket"] if near else None
+
+
+def _his_words(s):
+    """PG-51: his Arabic words of a line (Latin and fillers out), for a repeat chip that has no hit of its own."""
+    ws = [w for w in re.findall(r"[ء-ي][ء-يـ]*", str(s or ""))]
+    if ws:
+        return " ".join(ws[:6])
+    t = re.sub(r"\s+", " ", str(s or "")).strip()          # his Arabizi line ('Inta 3am tetwajja3?'): his words as written
+    return (t[:40] + "…") if len(t) > 40 else t
 
 
 def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_uses=(), off_lesson=(), ledger=None):
@@ -519,9 +580,12 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
                 if not p:
                     rep["grey_missed"] += 1
                     continue
-                b = r.get("bucket")
+                b = r.get("bucket") or repeated_rule(r, detail.get("grammar_errors") or [])
+                # PG-51 (Medi 2026-10-12 "fix all"; audit: 33 empty '↻ Repeat · grammar · ·' pills): a line repeat (GR-28 /
+                # WS-36) names no rule of its own - it carries the rule of the slip it repeats, and his words
                 put(p[0], {"id": nid("y"), "k": "grammar", "s": "repeat", "rule": b, "name": (buckets.get(b) or {}).get("name") if b else None,
-                           "said": r.get("hit") or "", "why": r.get("why"), **({"amal_t": r["amal_t"], "amal_line": r.get("amal_line")} if r.get("amal_t") is not None else {})})
+                           "said": r.get("hit") or _his_words(r.get("said")) or "", "why": r.get("why"),
+                           **({"amal_t": r["amal_t"], "amal_line": r.get("amal_line")} if r.get("amal_t") is not None else {})})
                 rep["grammar_repeats"] = rep.get("grammar_repeats", 0) + 1
                 continue
             grey(r.get("t"), r.get("why") or "not a use", "grammar" + (" · " + r["bucket"] if r.get("bucket") else ""), r.get("hit"))

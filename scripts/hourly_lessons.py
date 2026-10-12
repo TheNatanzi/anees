@@ -393,7 +393,8 @@ def tutor_refresh(no_push=False, rebuild_all=False):
         if stale and not rebuild_all:
             log('lesson ledger older than its inputs: rebuilding the lesson data')
         if rebuild_all or stale:  # an earlier hour failed: rebuild everything that reads the audit, not only on new taps
-            for s in ('build_amal_review.py', 'build_lessons_page_data.py', 'build_grammar_console.py', 'build_amal_grammar_rules.py'):
+            # GR-37: the use counter reads the audit Amal's taps just changed, before the lesson data is rebuilt
+            for s in ('detect_grammar_usage.py', 'build_amal_review.py', 'build_lessons_page_data.py', 'build_grammar_console.py', 'build_amal_grammar_rules.py'):
                 run_step(s, [sys.executable, str(HERE / s)], failures, timeout=1800)
         run_step('build_tutor_data.py', [sys.executable, str(HERE / 'build_tutor_data.py')], failures, timeout=300)
         run_step('translate_lines.py tutor', [sys.executable, str(HERE / 'translate_lines.py'), 'tutor'], failures, timeout=900)   # PG-48: English under every line on her cards (new lines only)

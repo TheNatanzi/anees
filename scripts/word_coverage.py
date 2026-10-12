@@ -1086,6 +1086,8 @@ def plan(date, detail, events, keys, off=(), rulings=None):
     if date >= AGAIN_FROM:
         said_again(date, turns, rows, adds, patches, evs)
         quoted_events(turns, evs, keys, patches, rows)
+        asked_events(date, turns, rows, adds, patches, evs)      # WS-39
+        said_twice(date, turns, rows, adds, patches, evs)        # WS-39
     return adds, patches, rows
 
 
@@ -1215,6 +1217,123 @@ def said_again(date, turns, rows, adds, patches, evs, window=10.0):
                                                                   "audit_bin": "not_counted", "audit_kind": "repeat"}}
                 r["patched"] = "again"
         prev = i
+
+
+ASKS_FORM = re.compile(r"\b(?P<k>is it|is that|isn'?t it|would it be|or would it be|or is it|so it'?s|do you say|should it be|"
+                       r"or)\b(?P<q>[^?؟.!]*?[ء-ي][^?؟.!]*)[?؟]", re.I)
+
+
+def asked_forms(text):
+    """WS-39 (Medi 2026-10-12 "fix all"; audit: 10-09 48:56 'So is it اكتبي؟ اكتبي؟' credited twice): the Arabic words he
+    ASKS about ('is it X?', 'would it be X?', 'X or Y?') - a question about the form, not a use of the word. -> set of cores.
+    Only the words inside the question: 'من أول اللعبة. Or would it be أولى؟' asks about أولى, not his sentence before it."""
+    out = set()
+    text = SOUND_TAG.sub(" ", text or "")
+    for m in ASKS_FORM.finditer(text):
+        q = m.group("q")
+        if m.group("k").lower() == "or":
+            pre = re.split(r"[.!?؟،,]", text[:m.start()])[-1]
+            last = re.findall(r"[ء-ي]+", pre)[-1:]
+            if not last:
+                continue                  # a bare 'or X?' counts only right after an Arabic word ('فجر or سجر؟')
+            q = last[0] + " " + q
+        out |= {core(w) for w in re.findall(r"[ء-ي]+", q)}
+    return out
+
+
+def _ignore(e, why):
+    """A Word Bank event that is not a try of the word: no credit, kept with the reason (WS-36 / WS-39)."""
+    exp = {k: e.get(k) for k in ["source_sha256", "row_id", "word_key", "text", "t_start", "t_end", "assessment", "reason"]}
+    return {"expected": exp, "changes": {"assessment": "unresolved", "vocab_points": None, "ignored": True, "classification": "ignored",
+                                         "reason": why, "by": BY, "rule": "WS-39", "audit_bin": "not_counted", "audit_kind": "repeat"}}
+
+
+def _credited(e, patches):
+    ch = ((patches.get(e["id"]) or {}).get("changes") or {})
+    a = ch.get("assessment", e.get("assessment"))
+    return a in ("independent", "helped") and not (ch.get("repeat") or e.get("repeat") or ch.get("ignored") or e.get("ignored")
+                                                   or e.get("immediate_repeat"))
+
+
+def _line_span(turns, i):
+    """WS-39: the time span whose Word Bank events belong to his line i - from its start to the start of his next line (two
+    lines of his can overlap: 10-09 1:00:25 'Um... هذا' ends after 1:00:35 'هذا لعبي' starts), at most 1 s past its end."""
+    u = turns[i]
+    t0, t1 = float(u["t"]) - 0.3, float(u.get("end") or u["t"]) + 1.0
+    nxt = next((float(x["t"]) for x in turns[i + 1:] if x.get("who") == "Medi" and float(x["t"]) > float(u["t"])), None)
+    return t0, (min(t1, nxt - 0.3) if nxt is not None else t1)
+
+
+def _tutor_between(turns, a, b, inside=False):
+    """WS-39: a line of the tutor (not a nod, not the chat) that starts between a and b - or, for two words his line gives
+    one time (inside=True), a line of hers said wholly inside his (10-10 10:08 'واحدة.' within his 'واحدة وربع. واحدة');
+    her line that starts inside his and goes on after it answers the whole line (13:52 'Mm-hmm. Tlat.')."""
+    return any(x.get("who") == "Amal" and a < float(x["t"]) < b and not TUTOR_NOD.match(x.get("text") or "")
+               and (not inside or float(x.get("end") or x["t"]) <= b) for x in turns)
+
+
+def said_twice(date, turns, rows, adds, patches, evs):
+    """WS-39 (Medi 2026-10-12 "fix all"; audit: 10-10 13:52 'تلاقت؟ تلاقت؟' credited twice, 12:18 'نفس المرة، نفس المرة'):
+    the same word in the same form said twice in ONE line, nothing from the tutor between, is one try - counted once, like
+    WS-36's two lines in a row. Another form is another try. A mark a person gave is never changed."""
+    add_by = {a["event"]["id"]: a["event"] for a in adds}
+    for i, u in enumerate(turns):
+        if u.get("who") != "Medi":
+            continue
+        t0, t1 = _line_span(turns, i)
+        mine = sorted((e for e in evs if t0 <= float(e.get("t_start") or -99) < t1 and e.get("word_key") and _credited(e, patches)),
+                      key=lambda e: (float(e.get("t_start") or 0), e["id"]))
+        seen = {}
+        for e in mine:
+            k = (e["word_key"], core(str(e.get("text") or "").strip(" .،,؟?!")))
+            if not k[1]:
+                continue
+            if k not in seen:
+                seen[k] = e
+                continue
+            a, b = float(seen[k].get("t_start") or 0), float(e.get("t_start") or 0)
+            if (_tutor_between(turns, a, b) if a < b else _tutor_between(turns, float(u["t"]), float(u.get("end") or u["t"]), inside=True)):
+                seen[k] = e               # the tutor spoke between the two: two tries (her 10-10 10:10 'واحدة.' inside his line)
+                continue
+            why = "said again in the same line, right after his own %s: one try, counted once (WS-39)" % seen[k].get("text")
+            ev = add_by.get(e["id"])
+            if ev is not None:
+                ev.update(assessment="unresolved", vocab_points=None, ignored=True, classification="ignored", reason=why, rule="WS-39",
+                          audit_bin="not_counted", audit_kind="repeat")
+                continue
+            if e.get("review_locked") or e.get("medi_ruling") or e.get("id") in ledger_ids():
+                continue
+            patches[e["id"]] = _ignore(e, why)
+            for r in rows:
+                if r.get("event") == e["id"]:
+                    r["patched"] = "again"
+
+
+def asked_events(date, turns, rows, adds, patches, evs):
+    """WS-39: the Word Bank events on a word he only ASKS about ('So is it اكتبي؟') are no try of it: not credited."""
+    add_by = {a["event"]["id"]: a["event"] for a in adds}
+    for i, u in enumerate(turns):
+        if u.get("who") != "Medi":
+            continue
+        asked = asked_forms(u.get("text"))
+        if not asked:
+            continue
+        t0, t1 = _line_span(turns, i)
+        for e in evs:
+            if not (t0 <= float(e.get("t_start") or -99) < t1) or not _credited(e, patches):
+                continue
+            if core(str(e.get("text") or "").strip(" .،,؟?!")) not in asked:
+                continue
+            why = "he asks whether it is this form ('%s'): a question, not a use (WS-39)" % (u.get("text") or "")[:60]
+            ev = add_by.get(e["id"])
+            if ev is not None:
+                ev.update(assessment="unresolved", vocab_points=None, ignored=True, classification="ignored", reason=why, rule="WS-39",
+                          audit_bin="not_counted", audit_kind="question")
+                continue
+            if e.get("review_locked") or e.get("medi_ruling") or e.get("id") in ledger_ids():
+                continue
+            patches[e["id"]] = _ignore(e, why)
+            patches[e["id"]]["changes"]["audit_kind"] = "question"
 
 
 PLACES_EXTRA = {"كاليفورنيا", "تكساس", "نيويورك", "فلوريدا"}   # US states the place list (Wikidata countries / cities) lacks

@@ -4,29 +4,29 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 
 | Lesson | Words % | Words scored | Grammar % | Slips | Uses | Conflicts (settled / Medi?) |
 |---|---|---|---|---|---|---|
-| 2026-08-25 | 89.4 | 226 | 85.6 | 33 | 208 | 3 / 1 |
-| 2026-09-04 | 92.0 | 75 | 65.9 | 43 | 126 | 0 / 0 |
-| 2026-09-05 | 92.3 | 124 | 75.7 | 37 | 148 | 0 / 1 |
-| 2026-09-10 | 92.1 | 208 | 80.5 | 43 | 220 | 1 / 2 |
-| 2026-09-11 | 93.5 | 185 | 78.7 | 42 | 197 | 3 / 0 |
-| 2026-09-14 | 97.1 | 221 | 77.4 | 44 | 195 | 1 / 1 |
+| 2026-08-25 | 89.4 -> **89.6** | 226 -> **225** | 85.6 -> **85.8** | 33 | 208 -> **212** | 3 / 1 |
+| 2026-09-04 | 92.0 | 75 | 65.9 -> **66.1** | 43 | 126 -> **127** | 0 / 0 |
+| 2026-09-05 | 92.3 -> **92.2** | 124 -> **122** | 75.7 -> **76.2** | 37 | 148 -> **151** | 1 / 1 |
+| 2026-09-10 | 92.1 -> **92.0** | 208 -> **206** | 80.5 | 43 | 220 | 1 / 2 |
+| 2026-09-11 | 93.5 | 185 | 78.7 -> **79.1** | 42 | 197 -> **201** | 3 / 0 |
+| 2026-09-14 | 97.1 | 221 | 77.4 -> **78.7** | 44 | 195 -> **207** | 1 / 1 |
 | 2026-09-15 | 95.9 | 209 | 78.2 | 44 | 202 | 1 / 0 |
-| 2026-09-16 | 93.9 | 189 | 85.3 | 35 | 231 | 1 / 0 |
-| 2026-09-17 | 95.1 | 144 | 81.9 | 37 | 204 | 0 / 0 |
-| 2026-09-18 | 89.3 | 70 | 74.0 | 33 | 123 | 1 / 1 |
-| 2026-09-19 | 87.2 | 86 | 94.1 | 3 | 51 | 0 / 1 |
-| 2026-09-21 | 94.4 | 471 | 83.6 | 64 | 378 | 3 / 0 |
-| 2026-09-23 | 89.6 | 173 | 83.0 | 39 | 230 | 1 / 1 |
-| 2026-09-26 | 93.6 | 353 | 86.7 | 35 | 264 | 7 / 2 |
-| 2026-09-28 | 93.2 | 266 | 88.8 | 25 | 223 | 1 / 0 |
-| 2026-09-30 | 94.2 | 226 | 90.1 | 21 | 212 | 1 / 2 |
+| 2026-09-16 | 93.9 | 189 | 85.3 -> **85.5** | 35 | 231 -> **234** | 1 / 0 |
+| 2026-09-17 | 95.1 | 144 | 81.9 -> **82.0** | 37 | 204 -> **206** | 0 / 0 |
+| 2026-09-18 | 89.3 -> **89.1** | 70 -> **69** | 74.0 -> **74.4** | 33 | 123 -> **125** | 1 / 1 |
+| 2026-09-19 | 87.2 -> **87.1** | 86 -> **85** | 94.1 -> **94.2** | 3 | 51 -> **52** | 0 / 1 |
+| 2026-09-21 | 94.4 | 471 | 83.6 -> **83.9** | 64 | 378 -> **384** | 3 / 0 |
+| 2026-09-23 | 89.6 -> **89.5** | 173 -> **172** | 83.0 -> **83.3** | 39 | 230 -> **234** | 1 / 1 |
+| 2026-09-26 | 93.6 | 353 | 86.7 -> **86.8** | 35 | 264 -> **265** | 7 / 2 |
+| 2026-09-28 | 93.2 | 266 | 88.8 -> **88.9** | 25 | 223 -> **225** | 1 / 0 |
+| 2026-09-30 | 94.2 | 226 -> **224** | 90.1 | 21 | 212 | 1 / 2 |
 | 2026-10-01 | 96.3 | 205 | 91.7 | 15 | 169 | 1 / 0 |
-| 2026-10-02 | 95.4 | 208 | 86.4 | 27 | 199 | 3 / 1 |
-| 2026-10-05 | 95.0 | 279 | 88.7 | 24 | 213 | 2 / 1 |
-| 2026-10-06 | 93.5 | 214 | 81.4 | 33 | 177 | 1 / 0 |
-| 2026-10-08 | 95.8 | 261 | 86.4 | 27 | 198 | 1 / 1 |
-| 2026-10-09 | 97.8 -> **98.0** | 321 -> **319** | 87.4 -> **87.7** | 34 | 270 -> **276** | 1 / 2 |
-| 2026-10-10 | 97.8 | 276 | 90.2 -> **89.8** | 24 -> **25** | 245 -> **246** | 1 / 0 |
+| 2026-10-02 | 95.4 | 208 -> **207** | 86.4 -> **86.7** | 27 | 199 -> **203** | 3 / 1 |
+| 2026-10-05 | 95.0 | 279 -> **278** | 88.7 -> **88.8** | 24 | 213 -> **215** | 2 / 1 |
+| 2026-10-06 | 93.5 | 214 | 81.4 -> **81.6** | 33 | 177 -> **179** | 1 / 0 |
+| 2026-10-08 | 95.8 | 261 -> **251** | 86.4 -> **86.6** | 27 | 198 -> **202** | 1 / 0 |
+| 2026-10-09 | 98.0 | 319 -> **307** | 87.7 -> **86.7** | 34 -> **38** | 276 -> **286** | 1 / 2 |
+| 2026-10-10 | 97.8 -> **97.7** | 276 -> **266** | 89.8 -> **90.1** | 25 | 246 -> **252** | 3 / 0 |
 
 
 ## Conflicts
@@ -44,6 +44,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-09-05 16:00 C1a both stand: ليلة (word-bank right) vs إمبارح ليلة؟ أو ليلة إمبارح؟ -> ليلة امبارح (readers not-scored) - he asked for another word: both stand
 - 2026-09-05 16:00 C1a both stand: أو (word-bank right) vs إمبارح ليلة؟ أو ليلة إمبارح؟ -> ليلة امبارح (readers not-scored) - he asked for another word: both stand
 - 2026-09-05 20:32 C1q Medi?: ليلك (word-bank right) vs ليلك -> ليلتك (بليلتك) (readers not-scored) - which word of the phrase was wrong: Medi
+- 2026-09-05 42:57 C5 settled: الكلمة (word-bank right) vs الكلمة ->  (word-bank wrong) - one word counted right and wrong at once: counted once, as the slip
 - 2026-09-10 07:08 C1q Medi?: تلات (word-bank right) vs تلات إلا تلت -> تنتين إلا تلت (readers not-scored) - which word of the phrase was wrong: Medi
 - 2026-09-10 07:08 C1p both stand: تلت (word-bank right) vs تلات إلا تلت -> تنتين إلا تلت (readers not-scored) - slip elsewhere in the phrase: the word stays right
 - 2026-09-10 07:08 C1p both stand: إلا (word-bank right) vs تلات إلا تلت -> تنتين إلا تلت (readers not-scored) - slip elsewhere in the phrase: the word stays right
@@ -123,7 +124,6 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-06 41:36 C1 settled: بدل (word-bank right) vs بدل -> بستعمل (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
 - 2026-10-06 55:57 C1r both stand: وحيد، (word-bank right) vs وحيد -> بس (readers wrong) - the Word Bank's context review already settled it: unchanged
 - 2026-10-08 31:42 C1 settled: الأول (word-bank right) vs الأول -> الهوا (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
-- 2026-10-08 48:38 C1q Medi?: رمل (word-bank right) vs رمل -> تراب (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-10-09 08:39 C2 settled: الطبيعات (readers wrong) vs الكلمات الطبيعات -> كلمات الطبيعة (readers slip A2) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-10-09 10:24 C1a both stand: نسيت (word-bank right) vs (nothing - نسيت) -> هواء (readers asked) - he asked for another word: both stand
 - 2026-10-09 27:05 C1q Medi?: غادة (word-bank right) vs غادة -> غابة (readers wrong) - which word of the phrase was wrong: Medi
@@ -131,11 +131,13 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-09 1:05:03 C1r both stand: أحسن. (word-bank right) vs أحسن -> بتبسط أكتر (readers not-scored) - the Word Bank's context review already settled it: unchanged
 - 2026-10-10 08:43 C1a both stand: يوم (word-bank right) vs يوم الخميس -> الخميس الجاي (readers asked) - he asked for another word: both stand
 - 2026-10-10 08:45 C1a both stand: يوم الخميس. (word-bank right) vs يوم الخميس -> الخميس الجاي (readers asked) - he asked for another word: both stand
+- 2026-10-10 13:52 C5 settled: تلاقت (word-bank right) vs تلات -> التقيت (elta2ait) (readers wrong) - one word counted right and wrong at once: counted once, as the slip
+- 2026-10-10 13:52 C5 settled: تلاقت (word-bank right) vs تلات -> التقيت (elta2ait) (readers wrong) - one word counted right and wrong at once: counted once, as the slip
 - 2026-10-10 21:45 C1 settled: كليًا (word-bank right) vs كليًا -> بشكل عام (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
 
 ## Medi's corrections (PR-15)
 
-- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2, chat-20261003-aa5er-el-moazafa, chat-20261009-3ayaana-again, chat-20261010-2amar-el, chat-20261010-3asafeer-sky, chat-20261010-8eir-not-slip, chat-20261010-aju-awi, chat-20261010-aju-awi-key, chat-20261010-deeri-baalik, chat-20261010-maadi-abel, chat-20261010-snan-sneen, chat-20261010-tayour-plural, ef6f0080-82c7-45c5-a8f9-26f19f625ba8, 8767098c-4321-4544-9edf-31413606e4b0, 3641b721-a395-468b-b995-0966f7d5dc24, 915f1458-d691-4f69-b37e-4f0df728ba3d, c86e80d5-bd6c-4b37-aa13-39fc3b8843e7, b34853b3-a2d2-4b47-8e3b-b1dcf29602e2, d196fe12-e494-4d1c-8319-376b5849b24e, 992b0ce6-305e-4d7c-ac6b-75f71c1a17e0, 552207de-0b45-4011-966d-c7db23a22958, 321ead15-8a61-4390-9726-e79d7a00cdf9, 8525eb42-283a-496b-9187-6f580ae818c7, 71f28cc0-2e82-4026-b112-7b8b745b4bb0, 20306163-076c-4f5e-8d46-dd2b761e06e6, 1ff62366-166d-445b-9de1-dc1bda9adc2b, abe7e45d-6874-4d51-94df-65358490e6fb, 5810be71-532f-4d4b-a6c6-1885f0c9a9e1, 52d0a105-5eee-4828-89ec-ddd5e7c25405
+- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2, chat-20261003-aa5er-el-moazafa, chat-20261009-3ayaana-again, chat-20261010-2amar-el, chat-20261010-3asafeer-sky, chat-20261010-8eir-not-slip, chat-20261010-aju-awi, chat-20261010-aju-awi-key, chat-20261010-deeri-baalik, chat-20261010-maadi-abel, chat-20261010-snan-sneen, chat-20261010-tayour-plural, ef6f0080-82c7-45c5-a8f9-26f19f625ba8, 8767098c-4321-4544-9edf-31413606e4b0, 915f1458-d691-4f69-b37e-4f0df728ba3d, b34853b3-a2d2-4b47-8e3b-b1dcf29602e2, 552207de-0b45-4011-966d-c7db23a22958, 20306163-076c-4f5e-8d46-dd2b761e06e6, 1ff62366-166d-445b-9de1-dc1bda9adc2b, chat-20261012-d2-a6lub, chat-20261012-a9-musalsalein, chat-20261012-d1-min-akel, chat-20261012-a15-suali-akher, chat-20261012-a10-hada-lu3bi
 - orphaned (match nothing, re-check): none
 - waiting for Amal: none
 - standing rules: none

@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-12",
- "total": 246,
+ "total": 252,
  "replaced": 8,
  "counts": {
-  "Automatic": 163,
+  "Automatic": 169,
   "Written down": 71,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -882,7 +882,7 @@
    "key": "words",
    "title": "Words: what counts and what doesn't",
    "intro": "Which words you said get scored, and which don't.",
-   "count": 38,
+   "count": 39,
    "sections": [
     {
      "kind": "error",
@@ -1193,6 +1193,25 @@
          "who": "Medi",
          "date": "2026-10-11",
          "quote": "not a repeat, just responding. For repeat its when I am repeating a correction"
+        }
+       ]
+      },
+      {
+       "id": "WS-39",
+       "text": "Every number in a lesson's header can be counted from the pills on its transcript, and the publish check fails if they ever differ. A pill hides only under a pill about the same word; one thing you say is never both right and wrong; the same word said twice in one breath counts once; asking 'is it X?' is not using X.",
+       "status": "enforced",
+       "topic": "word scoring",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-12",
+         "quote": "the math seems off to me, the vocab and grammar correct"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-12",
+         "quote": "fix all"
         }
        ]
       }
@@ -1538,7 +1557,7 @@
    "key": "grammar",
    "title": "Grammar slips: what counts and what doesn't",
    "intro": "When a grammar mistake counts as a slip, and when it doesn't.",
-   "count": 36,
+   "count": 39,
    "sections": [
     {
      "kind": "error",
@@ -1773,6 +1792,49 @@
          "who": "Medi",
          "date": "2026-10-10",
          "quote": "mmhhmm can be a signal for \"correct\" like mumtaz"
+        }
+       ]
+      },
+      {
+       "id": "GR-38",
+       "text": "A verb that takes a set little word after it (banbese6 bi, ba6lub min) counts as a use of that grammar rule when you say it with its preposition; the list comes from the tutor's own answers and her Doc.",
+       "status": "enforced",
+       "topic": "grammar scoring",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-11",
+         "quote": "bi el sha66.  Banbese6 always takes bi should be a grammar rule"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-12",
+         "quote": "fix all"
+        }
+       ]
+      },
+      {
+       "id": "GR-39",
+       "text": "When you mark a line as a grammar mistake in your review, that counts as the signal: the slip is counted even if the tutor didn't correct it out loud, once per moment.",
+       "status": "enforced",
+       "topic": "grammar scoring",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-11",
+         "quote": "should be marked wrong for grammar, saarat a7san"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-12",
+         "quote": "I should have gotten the adjective el rule wrong.  Just because I ask it in a question doesnt mean its not wrong"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-12",
+         "quote": "fix all"
         }
        ]
       },
@@ -2119,6 +2181,30 @@
          "who": "Medi",
          "date": "2026-10-05",
          "quote": "For the grammar additions this should be at the top of her todo list."
+        }
+       ]
+      },
+      {
+       "id": "GR-37",
+       "text": "Grammar is read on the line exactly as the page shows it, after every fix, and any correction (yours, the tutor's, or a transcript fix) re-scores that lesson within 15 minutes and every hour. Writing '<rule> should be added' on a line counts that rule as a right use.",
+       "status": "enforced",
+       "topic": "grammar scoring",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-11",
+         "quote": "e5 should be added"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-12",
+         "quote": "so please add to the work flow that anytime a correction is made it should reevaluate the scoring"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-12",
+         "quote": "fix all"
         }
        ]
       },
@@ -2913,7 +2999,7 @@
    "key": "pages",
    "title": "Pages, audio & numbers on screen",
    "intro": "What each page shows, the audio clips, and keeping numbers up to date.",
-   "count": 63,
+   "count": 65,
    "sections": [
     {
      "kind": "not-error",
@@ -3447,6 +3533,39 @@
          "who": "Medi",
          "date": "2026-10-05",
          "quote": "This is way to wordy.  Please simplify it.  We should be very clear about the exact new grammar rule with the accordian for examples and bulleted explanation"
+        }
+       ]
+      },
+      {
+       "id": "PG-51",
+       "text": "A grey-purple repeat pill always says which rule and which of your words it is about, never an empty pill.",
+       "status": "enforced",
+       "topic": "the lesson page",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-12",
+         "quote": "fix all"
+        }
+       ]
+      },
+      {
+       "id": "PG-52",
+       "text": "The Vocab 'Errors' button says how many are wrong, how many you asked for, and how many are not on her list, so it matches the header.",
+       "status": "enforced",
+       "topic": "the lesson page",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-12",
+         "quote": "the math seems off to me, the vocab and grammar correct"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-12",
+         "quote": "fix all"
         }
        ]
       },

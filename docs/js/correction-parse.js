@@ -63,6 +63,18 @@ function slipItem(said, right, k) {
   return { kind: 'add', label: 'You said ' + said + (right ? ', should be ' + right : '') + ', ' + kindWord(k),
     target: { k: k, said: said }, payload: { k: k, wrong: said, right: right || null } };
 }
+// GR-37 (Medi 2026-10-11 "e5 should be added", 10-09 19:41 'Um, كم جبل'): "<rule id> should be added" on his line = a RIGHT
+// use of that grammar rule, never a slip. Saved as an 'add' row (the table's kinds) with payload.use = true + payload.rule;
+// scripts/medi_corrections.py use_additions() hands it to the grammar counter, apply_rows() never makes it a mistake.
+var RULE_ID = /^([A-Fa-f])\s?(\d{1,2})([bB]?)$/;
+function ruleId(s) { var m = String(s || '').trim().match(RULE_ID); return m ? m[1].toUpperCase() + m[2] + m[3].toLowerCase() : null; }
+function useItem(rule, said) {
+  var r = ruleId(rule);
+  return { kind: 'add', label: 'Right use of grammar ' + r + (said ? ': ' + said : '') + ' (counts as a correct use)',
+    target: { k: 'use', rule: r, said: said || null }, payload: { k: 'use', use: true, rule: r, said: said || null } };
+}
+var USE_SAID = /^(?:(?:rule|grammar)\s+)?([A-Fa-f]\s?\d{1,2}[bB]?)\s+(?:should\s+(?:be\s+)?(?:added|counted|included|there|marked|given|credited)|(?:is\s+)?missing|needs?\s+(?:to\s+be\s+)?(?:added|counted)|(?:is\s+)?(?:a\s+)?(?:right|correct)\s+use)(?:\s+(?:here|too|on this line))?\s*[.!]*$/i;
+var USE_ADD = /^(?:add|count|credit)\s+(?:(?:rule|grammar)\s+)?([A-Fa-f]\s?\d{1,2}[bB]?)(?:\s+(?:here|too|as\s+a\s+(?:right\s+|correct\s+)?use|use))?\s*[.!]*$/i;
 function noteItem(text) { return { kind: 'note', label: 'Note: ' + text, payload: {} }; }
 // PR-22: ctx.parts = the pieces of his joined sentence [{t, line}]; the one named by m:ss (+-1.5 s), else the one holding w
 function pieceFor(ctx, w, at) {
@@ -95,6 +107,12 @@ function parse(text, ctx) {
     m = rest.match(/^(?:(?:the\s+)?time\s*(?:is|was|should be|=|:|->|→)?\s*|at\s+|should be\s+)?((?:\d+:)?\d{1,2}:\d{2})\s*$/i)
       || rest.match(/\b(?:time|at)\s*(?:is|was|should be|=|:|->|→)?\s*((?:\d+:)?\d{1,2}:\d{2})\b/i);
     if (m && parseTime(m[1]) != null) { items.push(timeItem(parseTime(m[1]))); rest = rest.replace(m[0], ' ').trim(); }
+  }
+
+  // 2b. GR-37: "e5 should be added" / "add E5" on his line = a right use of that grammar rule (before 'add X' = missing word)
+  if (rest && who === 'Medi') {
+    m = rest.match(USE_SAID) || rest.match(USE_ADD);
+    if (m && ruleId(m[1].replace(/\s+/g, ''))) { items.push(useItem(m[1].replace(/\s+/g, ''), null)); rest = ''; }
   }
 
   // 3. missing word: "missing word X", "missing X", "dropped X", "left out X", "add X", "forgot X", "X is missing"
@@ -184,6 +202,7 @@ function fromAI(ans, text, ctx) {
       it = { kind: 'text', label: 'Count ' + cw + ' as right', target: { word: cw }, payload: { engine_wrote: cw, heard: cw, credit: 'independent' } };
     }
     else if (a.kind === 'not-use' && clean(a.said)) { it = noteItem(raw); it.label = 'Not a use: ' + clean(a.said) + ' (read within the hour)'; }
+    else if (a.kind === 'use' && ruleId(a.rule) && (ctx.who || 'Medi') === 'Medi') it = useItem(a.rule, clean(a.said) || null);   // GR-37
     else if (a.kind === 'add' && clean(a.said) && (ctx.who || 'Medi') === 'Medi') it = slipItem(clean(a.said), clean(a.right) || null, a.k === 'grammar' ? 'grammar' : 'vocab');
     if (it) { it.payload = Object.assign({}, it.payload, { raw: raw, from: 'ai' }); it.by = 'ai'; out.push(it); }
   });
@@ -191,7 +210,7 @@ function fromAI(ans, text, ctx) {
   return out;
 }
 
-var api = { parse: parse, fromAI: fromAI, pieceFor: pieceFor, sim: sim, inLine: inLine, parseTime: parseTime, mmss: mmss, slipKind: slipKind, words: words, AR: AR };
+var api = { parse: parse, fromAI: fromAI, ruleId: ruleId, useItem: useItem, pieceFor: pieceFor, sim: sim, inLine: inLine, parseTime: parseTime, mmss: mmss, slipKind: slipKind, words: words, AR: AR };
 if (typeof module !== 'undefined' && module.exports) module.exports = api;
 else root.AneesCorrectionParse = api;
 })(typeof window !== 'undefined' ? window : this);

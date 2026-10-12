@@ -152,7 +152,11 @@ def apply_misheard(rows, fixes=None):
     slip the readers built on the engine's word there is not his slip: it is kept, rejected, with the reason. Only his own
     overlay rows - a reader's overlay row never drops a slip by itself. -> how many rows it dropped."""
     import transcript_fixes as TF
-    fixes = [f for f in (TF.load() if fixes is None else fixes) if f.get("by") == "medi" and f.get("engine_wrote") and f.get("who", "Medi") == "Medi"]
+    # GR-37 (Medi 2026-10-12 "so please add to the work flow that anytime a correction is made it should reevaluate the
+    # scoring"): a fix the TUTOR's own evidence made (TR-31: her line or chat shows what he said; TR-27: she listened) is a
+    # correction too - a reader slip built on the engine's word there is not his slip. A machine listen alone never is.
+    fixes = [f for f in (TF.load() if fixes is None else fixes) if (f.get("by") == "medi" or f.get("rule") in ("TR-31", "TR-27"))
+             and f.get("engine_wrote") and f.get("who", "Medi") == "Medi"]
     fixes = [f for f in fixes if f.get("engine_wrote") != f.get("heard")]      # a confirming row (he DID say the engine's word) drops no slip
     n = 0
     for r in rows:
@@ -168,7 +172,9 @@ def apply_misheard(rows, fixes=None):
             if ew and w == ew:
                 r["kind_before_rejection"] = r["kind"]
                 r.update(kind="rejected", rejected_rule="TR-24",
-                         rejected_why="TR-24: the recording engine wrote %s; Medi said %s (%s), so it is not his slip" % (f["engine_wrote"], f["heard"], f.get("on") or ""))
+                         rejected_why=("TR-24: the recording engine wrote %s; Medi said %s (%s), so it is not his slip" % (f["engine_wrote"], f["heard"], f.get("on") or ""))
+                         if f.get("by") == "medi" else ("TR-24 / GR-37: the recording engine wrote %s; he said %s (%s: the tutor's own words show it), so it is not his slip"
+                                                       % (f["engine_wrote"], f["heard"], f.get("rule"))))
                 n += 1
                 break
     return n

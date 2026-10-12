@@ -392,12 +392,121 @@ names = {b["id"]: b["name"] for b in buckets}
 # F1/F2/F3 are sounds (rule M4) - not counted as grammar uses.
 NOT_COUNTED = {"F1", "F2", "F3"}
 
+# ---------------------------------------------------------------- GR-38: verb + its fixed preposition (D2)
+# Medi 2026-10-12 "fix all"; his note on 10-09 21:34 'أنا بنبسط بالشاطئ': "bi el sha66.  Banbese6 always takes bi should be a
+# grammar rule". The verbs that take a preposition and which ones, from the tutor herself: her level-2 verb check answers
+# (data/vocab/amal_addon_checks.json preps_ok, AM-26), the short list it asked (data/vocab/verb-short-list.json) and her
+# Doc's verb rows that name it ('Ana ba6lub (min)', 'Enbese6 (fi / bi)'). A use (an attempt) = one of these verbs, in any
+# person or tense, with a preposition right after it; a wrong preposition is still an attempt - it is a slip only with a
+# signal (her fix, or his own mark: GR-39, S3).
+PREP_AR = {   # her Latin preposition -> how it is written at the start of the next word
+    "min": ("من",), "3ala": ("على", "عل", "عال", "ع"), "3an": ("عن",), "ma3": ("مع",),
+    "fi": ("في", "فال", "ب"), "bi": ("ب",), "la": ("ل", "إل", "ال"),
+}
+_PREP_LAT = {"min", "3ala", "3an", "ma3", "fi", "bi", "la", "la-"}
+
+
+def _vstem(arabic):
+    """'أنا بطلب' -> 'طلب'; 'أنا بنبسط' -> 'نبسط'; 'انبسط' -> 'نبسط' (the verb without the pronoun, b- and the a- of a command)."""
+    ws = [nrm(w) for w in AR_WORD.findall(arabic or "") if nrm(w) not in PRONOUN_WORDS]
+    if not ws:
+        return None
+    w = ws[0]
+    for p in ("بت", "بن", "بي", "ب", "ا"):
+        if w.startswith(p) and len(w) - len(p) >= (3 if p == "ا" else 2):     # بحس -> حس, برد -> رد
+            return w[len(p):]
+    return w if len(w) >= 3 else None
+
+
+def verb_preps(repo=None):
+    """{verb stem: {her prepositions}} - GR-38's list, built from her answers and her Doc (nothing guessed)."""
+    root = repo or os.path.dirname(DOCS)
+    keys = {x.get("key"): x for x in _items}
+    out = defaultdict(set)
+
+    def put(key_or_ar, preps):
+        x = keys.get(key_or_ar)
+        st = _vstem(x.get("arabic") if x else key_or_ar)
+        ps = {p.rstrip("-") for p in preps if p.rstrip("-") in _PREP_LAT}
+        if st and ps:
+            out[st] |= ps
+    try:
+        for k, v in (json.load(open(os.path.join(root, "data", "vocab", "amal_addon_checks.json"), encoding="utf-8")) or {}).items():
+            put(k, (v or {}).get("preps_ok") or [])
+    except (OSError, ValueError):
+        pass
+    try:
+        for v in json.load(open(os.path.join(root, "data", "vocab", "verb-short-list.json"), encoding="utf-8")).get("verbs") or []:
+            put(v.get("verb"), [a.get("k") for a in v.get("asks") or []])
+    except (OSError, ValueError):
+        pass
+    for x in _items:                                   # her Doc: 'Ana ba6lub (min)', 'Enbese6 (fi' + alias 'bi)'
+        lat = " ".join([x.get("arabizi") or ""] + list(x.get("aliases") or []))
+        m = re.findall(r"\(\s*([0-9a-z\-]+)|\b([0-9a-z\-]+)\s*\)", lat.lower())
+        ps = {a or b for a, b in m}
+        if ps & _PREP_LAT:
+            put(x.get("arabic"), ps)
+    if _vstem("أنا بنبسط") in out:
+        out[_vstem("أنا بنبسط")].add("bi")               # Medi 2026-10-11: "Banbese6 always takes bi"
+    return dict(out)
+
+
+VERB_PREPS = verb_preps()
+_VPFX = ("", "ب", "بت", "بن", "بي", "ا", "أ", "ت", "ن", "ي")
+_VSFX = ("", "ت", "تي", "تو", "نا", "وا", "و", "ي", "ين")
+
+
+def _verb_of(w):
+    """The GR-38 verb stem a word of his is a form of (بطلب, أطلب, طلبت, بنبسط, انبسطت, بتنبسطي), else None."""
+    n = nrm(w)
+    for st in VERB_PREPS:
+        for p in _VPFX:
+            if not n.startswith(p + st) or (len(st) < 3 and p in ("", "ا")):      # a two-letter stem only with b- / a person prefix
+                continue
+            rest = n[len(p) + len(st):]
+            if rest in _VSFX:
+                return st
+    return None
+
+
+def _prep_of(w):
+    """The preposition a word starts with ('بالشاطئ' -> ب, 'منها' -> من, 'إلها' -> إل), else None. A b- present verb
+    (بحب) is not the preposition b-."""
+    n = w.replace("ـ", "")
+    for lat, forms in PREP_AR.items():
+        for f in forms:
+            if n == f or (n.startswith(f) and len(n) > len(f)):
+                if f == "ب" and (is_b_present(nrm(n)) or not (n.startswith("بال") or len(n) >= 4)):
+                    continue
+                if f in ("ل", "ال") and not (n.startswith("لل") or re.fullmatch(r"(?:ا|إ)?ل(?:ي|ك|كي|ه|ها|نا|كم|هم|و)", n)):
+                    continue
+                if f == "إل" and not re.fullmatch(r"إل(?:ي|ك|كي|ه|ها|نا|كم|هم|و)", n):
+                    continue
+                if f in ("ع", "عل") and not (n.startswith("عال") or n in ("ع", "عليه", "عليها", "علي", "عليك", "علينا", "عليهم")):
+                    continue
+                if f == "فال" and not n.startswith("فال"):
+                    continue
+                return f
+    return None
+
+
+def verb_prep(words):
+    """GR-38: 'بنبسط بالشاطئ', 'أطلب إلها', 'بطلب منها' -> the hit (verb + preposition word), else None."""
+    for i, w in enumerate(words[:-1]):
+        if _verb_of(w) and _prep_of(words[i + 1]):
+            return w + " " + words[i + 1]
+    return None
+
+
 def detect(txt, only=None):
     """{bucket: hit} for one line already in Arabic script (names masked). `only` limits the buckets."""
     txt = re.sub(r"(?:^|\s)الـ(?=\s|$|[،,.])", " ", txt)
     txt = re.sub(r"\S+(--|—)", " ", txt)  # a word he broke off
     words = AR_WORD.findall(txt)
     found = word_rules(words)
+    vp = verb_prep(words)                 # GR-38
+    if vp:
+        found.setdefault("D2", vp)
     for bid, hit in possession(txt).items():
         found.setdefault(bid, hit)
     for bid in ids:
@@ -418,7 +527,7 @@ def detect(txt, only=None):
 JOIN_GAP = 4.0
 OPEN_END = re.compile(r"(?:b(?:el|al|il)|الـ|ال)\s*[,،]?\s*$", re.I)   # "Hadi el," - the noun is still coming
 OPEN_GAP = 8.0
-JOIN_RULES = {"A2", "A3", "A5", "A6", "A7", "A10b"}
+JOIN_RULES = {"A2", "A3", "A5", "A6", "A7", "A10b", "D2"}   # GR-38: a verb at the end of one line, its preposition on the next (10-09 05:07 أطلب، / 05:09 إلها)
 BACKCHANNEL = {nrm(w) for w in ("إيه", "ايه", "اه", "آه", "مم", "ممم", "اي", "أيوه", "ايوه", "نعم", "صح", "اوكي", "أوكي")} | \
     {"mm", "mhm", "mm-hmm", "uh-huh", "yes", "yeah", "okay", "ok", "right"}
 
@@ -703,6 +812,43 @@ def repeat_row(date, t, j_turn, bid, hit, said):
                    % (int(j_turn["t"]) // 60, int(j_turn["t"]) % 60, (j_turn.get("text") or "")[:60])}
 
 
+def shown_hit(line, hit):
+    """GR-37: a hand-written hit read through the line's heard-word overlay (the words the page shows): the reader wrote
+    the engine's بي كاليفورنيا, the page shows في كاليفورنيا (TR-31), so the use reads في كاليفورنيا."""
+    hit = str(hit or "")
+    for sp in line.get("heard") or []:
+        ew, hd = (sp or {}).get("engine_wrote"), (sp or {}).get("heard")
+        if ew and hd and ew in hit:
+            hit = hit.replace(ew, hd)
+    return hit
+
+
+def addition_line(T, r, window=3.0):
+    """GR-37 (Medi 2026-10-11 'e5 should be added', 10-09 19:41): the line a hand-added use belongs to = among his lines
+    within `window` s of the row's time, the one whose shown text holds the hit's Arabic words (read through its
+    overlay), nearest first; else the nearest. Before: the FIRST line within 3 s, so the 19:44 'بي كاليفورنيا' D1 (his
+    19:45 line) sat on 19:41 'Um, كم جبل' and the page showed D1 prepositions there. Returns (line, hit as shown)."""
+    t0 = _secs(r["t"]) if isinstance(r.get("t"), str) else float(r["t"])
+    near = sorted((x for x in T if x["speaker"] == "Medi" and abs(x["start"] - t0) <= window), key=lambda x: abs(x["start"] - t0))
+    if not near:
+        return None, r.get("hit")
+
+    def holds(x):
+        ws = [w for w in AR_WORD.findall(shown_hit(x, r.get("hit"))) if w]
+        return bool(ws) and all(w in x["text"] for w in ws)
+
+    at = next((x for x in near if holds(x)), None)
+    if at is None and r.get("hit") is None and r.get("bucket"):      # his use row names only the rule: the line where it is found
+        at = next((x for x in near if r["bucket"] in detect(read_turn(x)[0] or "")), None)
+    at = at or near[0]
+    hit = shown_hit(at, r.get("hit")) if r.get("hit") else None
+    if not hit:
+        txt, back, _ra = read_turn(at)
+        h = detect(txt or "").get(r.get("bucket")) if txt else None
+        hit = (unmask(h, back) if back else h) if h else at["text"][:80]
+    return at, hit
+
+
 if __name__ == "__main__":
     import word_coverage as WC
     dates = sorted(d for d in os.listdir(ANEES) if re.fullmatch(r"\d{4}-\d{2}-\d{2}", d))
@@ -712,6 +858,12 @@ if __name__ == "__main__":
     RULINGS = load_rulings()
     _ap = os.path.join(os.path.dirname(DOCS), "data", "grammar-usage-additions.json")
     ADDITIONS = (json.load(open(_ap, encoding="utf-8")).get("rows") or []) if os.path.exists(_ap) else []
+    try:   # PR-15 / GR-37: his "<rule> should be added" on a line = a right use of that rule (medi_corrections.use_additions)
+        import medi_corrections as _MC
+        MC_USES = _MC.use_additions()
+    except Exception as e:  # noqa: BLE001 - a bad corrections file never stops a build (council 5)
+        print("detect_grammar_usage: Medi's use rows not applied (%s)" % type(e).__name__)
+        MC_USES = []
 
     uses = defaultdict(list)
     ruled_out = []
@@ -821,15 +973,22 @@ if __name__ == "__main__":
                     continue
                 add(T[at], bid, hit, unmask(joined_txt, back), back, joined=[round(T[i]["start"], 1) for i in run])
         # GR-34: the right uses a line-by-line read found that the counter cannot see (data/grammar-usage-additions.json)
-        for r in ADDITIONS:
+        # GR-37: each row lands on the line it names (the nearest line holding its words, read through the line's
+        # heard-word overlay), never on the first line within 3 s; PR-15 his "<rule> should be added" rows join them
+        for r in ADDITIONS + MC_USES:
             if r.get("date") != date:
                 continue
-            at = next((T[i] for i in range(len(T)) if T[i]["speaker"] == "Medi" and abs(T[i]["start"] - _secs(r["t"])) <= 3.0), None)
+            at, hit = addition_line(T, r)
             if at is None or any(u_["date"] == date and abs(u_["t"] - at["start"]) <= 0.2 for u_ in uses.get(r["bucket"], [])):
                 continue
             seen_here[r["bucket"]] += 1
-            uses[r["bucket"]].append({"date": date, "t": round(at["start"], 1), "mmss": "%02d:%02d" % (int(at["start"]) // 60, int(at["start"]) % 60),
-                                      "hit": r.get("hit"), "said": at["text"][:300], "added_by": r.get("by"), "why": r.get("why"), "rule": r.get("rule")})
+            u = {"date": date, "t": round(at["start"], 1), "mmss": "%02d:%02d" % (int(at["start"]) // 60, int(at["start"]) % 60),
+                 "hit": hit, "said": at["text"][:300], "added_by": r.get("by"), "why": r.get("why"), "rule": r.get("rule")}
+            if hit != r.get("hit"):
+                u["hit_as_written"] = r.get("hit")
+            if r.get("correction"):
+                u["correction"] = r["correction"]
+            uses[r["bucket"]].append(u)
         per_lesson[date] = {
             "source": src,
             "medi_arabic_turns": n_turns,

@@ -1,5 +1,5 @@
 {
- "built": "2026-10-12T11:59:35-07:00",
+ "built": "2026-10-12T12:27:11-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -15124,25 +15124,24 @@
     "new_bucket_group": null
    },
    {
-    "id": "FA-170463d8",
+    "id": "FA-2e2c8ce6",
     "date": "2026-10-02",
-    "t": "09:35",
+    "t": "09:38",
     "t_amal": "09:41",
     "medi_said": "أنا لازم / آآآ عطلة و",
     "amal_said": "لازم you should take.",
-    "chat": null,
+    "chat": "ana laazem aa5ud 3otle u asaafer",
     "wrong": "أنا لازم آآآ عطلة",
     "right": "أنا لازم آخد عطلة",
     "confidence": "high",
-    "confidence_why": "medi-correction",
-    "signal": "recast",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
     "machine_audit": false,
     "mode": "speaking",
     "source": "audit-2026-09-26",
-    "uid": "FA-170463d8",
+    "uid": "FA-2e2c8ce6",
     "sweep_id": null,
-    "correction": "chat-20261003-laazem-3utle",
-    "mistake": "Medi 2026-10-03 marked it a mistake: i dont know what grammer rule this would fall under but you \"take\" a day off, it cant be 3utle by itself",
+    "mistake": "laazem went straight to a noun; Amal supplied the verb in English ('you should take') and he said لازم أخد عطلة (GR-27).",
     "bucket": "B2",
     "bucket2": null,
     "new_bucket_group": null
@@ -15633,25 +15632,24 @@
     "new_bucket_group": null
    },
    {
-    "id": "FA-0d9dd3dc",
+    "id": "FA-74c03e97",
     "date": "2026-10-02",
-    "t": "44:59",
+    "t": "45:01",
     "t_amal": "45:05",
-    "medi_said": "آخر عشرة دقايق. عشرة دقايق؟",
-    "amal_said": "عشر y.",
-    "chat": null,
+    "medi_said": "آخر / عشرة / دقايق. عشرة دقايق؟",
+    "amal_said": "صح. / عشر y. / y عشر not عشرة.",
+    "chat": "aa5er 3ashar da2aaye2",
     "wrong": "عشرة دقايق",
     "right": "عشر دقايق",
     "confidence": "high",
-    "confidence_why": "medi-correction",
+    "confidence_why": "r1+r2",
     "signal": "recast",
     "machine_audit": false,
     "mode": "speaking",
     "source": "audit-2026-09-26",
-    "uid": "FA-0d9dd3dc",
+    "uid": "FA-74c03e97",
     "sweep_id": null,
-    "correction": "chat-20261003-3ashrah-da2aye2",
-    "mistake": "Medi 2026-10-03 marked it a mistake: grammar incorrect, when counting its not 3asharah, its 3ashar",
+    "mistake": "Before a counted noun ten is 3ashar not 3ashra; Amal said 'عشر not عشرة' and he said عشر دقايق.",
     "bucket": "E1",
     "bucket2": null,
     "new_bucket_group": null
@@ -17777,6 +17775,29 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-783b5103",
+    "date": "2026-10-09",
+    "t": "15:02",
+    "t_amal": "15:04",
+    "medi_said": "هدول الـ-- Is it مسلسلين؟",
+    "amal_said": "مسلسلات.",
+    "chat": null,
+    "wrong": "مسلسلين",
+    "right": "مسلسلات",
+    "confidence": "medium",
+    "confidence_why": "He asked and she supplied the form = didn't-know, vocab-A tier 0.",
+    "signal": "asked",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-783b5103",
+    "sweep_id": null,
+    "mistake": "Medi 2026-10-12: grammar A9: musalsalein is the wrong plural for musalsal.  I know I asked but it should be marked wrong. Readers wrote: He stopped mid-sentence and asked for the plural of series; she supplied مسلسلات (didn't-know, tier 0).",
+    "bucket": "A9",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
     "id": "FA-edb2bf51",
     "date": "2026-10-09",
     "t": "17:12",
@@ -18122,6 +18143,30 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-d5ce2ff2",
+    "date": "2026-10-09",
+    "t": "45:24",
+    "t_amal": null,
+    "medi_said": "is just أكل؟ ... إلا أكل.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "إلا أكل",
+    "right": "من الأكل",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-d5ce2ff2",
+    "sweep_id": null,
+    "correction": "chat-20261012-d1-min-akel",
+    "mistake": "Medi 2026-10-12 marked it a mistake: jarrabet shouldnt be new, past tense of bajarreb.  Preposition grammar rule for min. el akel not illa akel?",
+    "bucket": "D1",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
     "id": "FA-3c7028fb",
     "date": "2026-10-09",
     "t": "45:25",
@@ -18306,6 +18351,30 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-74ddd68f",
+    "date": "2026-10-09",
+    "t": "58:37",
+    "t_amal": null,
+    "medi_said": "Would would it be سؤالي آخر إلي؟",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "سؤالي آخر",
+    "right": "سؤالي الأخير",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-74ddd68f",
+    "sweep_id": null,
+    "correction": "chat-20261012-a15-suali-akher",
+    "mistake": "Medi 2026-10-12 marked it a mistake: I should have gotten the adjective el rule wrong.  Just because I ask it in a question doesnt mean its not wrong",
+    "bucket": "A15",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
     "id": "FA-4ba3949f",
     "date": "2026-10-09",
     "t": "1:00:35",
@@ -18326,6 +18395,30 @@
     "mistake": "لعبة is feminine: -t before the ending, هذه, الأولى; she recast لعبتي and he built هذه لعبتي الأولى.",
     "bucket": "A3",
     "bucket2": "A8",
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-c2013b1d",
+    "date": "2026-10-09",
+    "t": "1:00:35",
+    "t_amal": null,
+    "medi_said": "هذا لعبي",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "هذا لعبي",
+    "right": "هذه لعبتي",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-c2013b1d",
+    "sweep_id": null,
+    "correction": "chat-20261012-a10-hada-lu3bi",
+    "mistake": "Medi 2026-10-12 marked it a mistake: haada was wrong, its haadi",
+    "bucket": "A10",
+    "bucket2": null,
     "new_bucket_group": null
    },
    {
@@ -28778,31 +28871,6 @@
     "amal_gave_arabizi": null
    },
    {
-    "id": "FA-3615de02",
-    "date": "2026-10-09",
-    "t": "15:02",
-    "t_amal": "15:04",
-    "medi_said": "هدول الـ-- Is it مسلسلين؟",
-    "amal_said": "مسلسلات.",
-    "chat": null,
-    "wrong": "مسلسلين",
-    "right": "مسلسلات",
-    "confidence": "medium",
-    "confidence_why": "He asked and she supplied the form = didn't-know, vocab-A tier 0.",
-    "signal": "asked",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-3615de02",
-    "sweep_id": null,
-    "amal_gave": "مسلسلات",
-    "english": "these series",
-    "why": "He stopped mid-sentence and asked for the plural of series; she supplied مسلسلات (didn't-know, tier 0).",
-    "kind": "didn't-know",
-    "tier": 0,
-    "amal_gave_arabizi": null
-   },
-   {
     "id": "FA-08534439",
     "date": "2026-10-09",
     "t": "27:01",
@@ -29126,35 +29194,35 @@
   "pron_from_sweep": [],
   "hand_check": {},
   "totals": {
-   "speaking_grammar": 731,
-   "vocab": 359,
+   "speaking_grammar": 735,
+   "vocab": 358,
    "machine_caught_speaking": 105
   }
  },
  "decisions": "A counts (every fix Amal voiced; a chat-only fix never counts - GR-19, Medi 2026-10-02); B (she let it pass) is unscored until she rules on Amal's review page; tiers 1-3 vocab, tier 0 = she supplied a word he asked for; grammar filed by bucket; listening rows kept apart.",
  "lessons_missing": [],
  "totals": {
-  "rows": 1382,
-  "grammar_A": 731,
+  "rows": 1372,
+  "grammar_A": 735,
   "grammar_B": 115,
-  "grammar_proposed": 28,
-  "vocab_A": 359,
+  "grammar_proposed": 19,
+  "vocab_A": 358,
   "vocab_A_by_tier": {
    "1": 170,
-   "0": 143,
+   "0": 142,
    "2": 78,
    "3": 2
   },
-  "vocab_B": 33,
+  "vocab_B": 32,
   "vocab_B_by_tier": {
-   "1": 24,
+   "1": 23,
    "2": 8,
    "3": 1
   },
   "listening": 65,
-  "from_readers": 1253,
+  "from_readers": 1243,
   "readers_also_in_sweep": 358,
-  "readers_new": 895,
+  "readers_new": 885,
   "sweep_only_kept": 129,
   "machine_had": 105,
   "sweep_before": {
@@ -29173,13 +29241,13 @@
   "B12": 51,
   "A7": 40,
   "D4": 40,
+  "A9": 38,
   "B1": 37,
-  "A9": 37,
-  "D1": 33,
+  "D1": 34,
   "A2": 30,
-  "PROPOSE": 28,
   "A1": 27,
   "A4": 23,
+  "PROPOSE": 19,
   "B2": 18,
   "E1": 17,
   "C2": 16,
@@ -29188,10 +29256,10 @@
   "B6": 14,
   "B11": 13,
   "C4": 13,
-  "A15": 12,
+  "A15": 13,
   "E2": 11,
   "B15": 11,
-  "A10": 10,
+  "A10": 11,
   "B3": 9,
   "A3": 9,
   "C3": 8,
@@ -29418,10 +29486,10 @@
    "sweep_vocab_before": 0
   },
   "2026-10-09": {
-   "grammar_A": 34,
+   "grammar_A": 38,
    "grammar_B": 2,
-   "vocab_A": 8,
-   "vocab_B": 6,
+   "vocab_A": 7,
+   "vocab_B": 5,
    "listening": 1,
    "sweep_grammar_before": 0,
    "sweep_vocab_before": 0
@@ -31682,32 +31750,6 @@
    ]
   },
   {
-   "id": "P-FA-7ce9a99c",
-   "name": null,
-   "proposed_rule": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-7ce9a99c (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-7ce9a99c",
-     "date": "2026-10-09",
-     "t": "05:00",
-     "t_amal": null,
-     "medi_said": "Mm. أنا راح،",
-     "amal_said": null,
-     "chat": null,
-     "wrong": "use amals spelling, a6lub",
-     "right": "marked wrong for not using the right preposition for a6lub",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "medium",
-     "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
    "id": "P-FA-93c3db17",
    "name": null,
    "proposed_rule": "'My favorite' standing on its own (X is my favorite) is el-mufaddal 3indi, not el-mufaddal alone.",
@@ -31734,32 +31776,6 @@
    ]
   },
   {
-   "id": "P-FA-923d3798",
-   "name": null,
-   "proposed_rule": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-923d3798 (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-923d3798",
-     "date": "2026-10-09",
-     "t": "14:58",
-     "t_amal": null,
-     "medi_said": "هدول الـ--",
-     "amal_said": null,
-     "chat": null,
-     "wrong": "musalsalein is the wrong plural for musalsal.  I know I asked but it",
-     "right": "marked wrong",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "medium",
-     "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
    "id": "P-FA-1833555e",
    "name": null,
    "proposed_rule": "'My favorite' on its own is el-mufaddal 3indi (المفضل عندي), not el-mufaddal alone or noun+-i",
@@ -31781,116 +31797,6 @@
      "bucket": "PROPOSE",
      "confidence": "high",
      "why": "'Mountains are my favorite' needs el-mufaddal 3indi, not the -i ending; she said No.",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
-   "id": "P-FA-a93e3407",
-   "name": null,
-   "proposed_rule": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-a93e3407 (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-a93e3407",
-     "date": "2026-10-09",
-     "t": "21:34",
-     "t_amal": null,
-     "medi_said": "أنا بنبسط بالشاطئ.",
-     "amal_said": null,
-     "chat": null,
-     "wrong": "bi el sha66.  Banbese6 always takes bi",
-     "right": "a grammar rule",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "medium",
-     "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
-   "id": "P-FA-c65e537b",
-   "name": null,
-   "proposed_rule": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-c65e537b (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-c65e537b",
-     "date": "2026-10-09",
-     "t": "44:52",
-     "t_amal": null,
-     "medi_said": "أنا--",
-     "amal_said": null,
-     "chat": null,
-     "wrong": "إلا أكل",
-     "right": "من الأكل",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "medium",
-     "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
-   "id": "P-FA-9cb22de4",
-   "name": null,
-   "proposed_rule": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-9cb22de4 (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-9cb22de4",
-     "date": "2026-10-09",
-     "t": "47:10",
-     "t_amal": null,
-     "medi_said": "Um, so أنواع مختلفين الأكل.",
-     "amal_said": null,
-     "chat": null,
-     "wrong": "مختلفين",
-     "right": "",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "medium",
-     "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-     "also_counted_as": [
-      {
-       "uid": "FA-8a74acd6",
-       "kind": "grammar",
-       "bucket": "D1"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "P-FA-7711aebb",
-   "name": null,
-   "proposed_rule": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-7711aebb (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-7711aebb",
-     "date": "2026-10-09",
-     "t": "49:00",
-     "t_amal": null,
-     "medi_said": "اكتب",
-     "amal_said": null,
-     "chat": null,
-     "wrong": "اكتب",
-     "right": "اكتبي",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "medium",
-     "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
      "also_counted_as": []
     }
    ]
@@ -31943,84 +31849,6 @@
      "bucket": "PROPOSE",
      "confidence": "medium",
      "why": "She pushed him off ورقة كمان to كمان ورقة and stated kamaan meaning 'another' goes before the noun.",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
-   "id": "P-FA-e9ce701f",
-   "name": null,
-   "proposed_rule": "Medi 2026-10-12 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-e9ce701f (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-e9ce701f",
-     "date": "2026-10-09",
-     "t": "55:13",
-     "t_amal": null,
-     "medi_said": "Aqlab asilti",
-     "amal_said": null,
-     "chat": null,
-     "wrong": "muhimin",
-     "right": "muheimeen",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "medium",
-     "why": "Medi 2026-10-12 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
-   "id": "P-FA-4ece894f",
-   "name": null,
-   "proposed_rule": "Medi 2026-10-12 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-4ece894f (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-4ece894f",
-     "date": "2026-10-09",
-     "t": "58:23",
-     "t_amal": null,
-     "medi_said": "Akher suali would be the end of my sentence. Um, the la-- So akhe- or sual il",
-     "amal_said": null,
-     "chat": null,
-     "wrong": "suali akher ili",
-     "right": "سؤالي الأخير",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "medium",
-     "why": "Medi 2026-10-12 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
-   "id": "P-FA-c5ff9597",
-   "name": null,
-   "proposed_rule": "Medi 2026-10-12 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-c5ff9597 (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-c5ff9597",
-     "date": "2026-10-09",
-     "t": "1:00:07",
-     "t_amal": null,
-     "medi_said": "This is my first game.",
-     "amal_said": null,
-     "chat": null,
-     "wrong": "haada",
-     "right": "haadi",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "medium",
-     "why": "Medi 2026-10-12 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
      "also_counted_as": []
     }
    ]
@@ -70866,36 +70694,6 @@
    "n": 1095
   },
   {
-   "id": "MC-chat-202",
-   "date": "2026-10-02",
-   "t": "09:35",
-   "t_amal": "09:41",
-   "medi_said": "أنا لازم / آآآ عطلة و",
-   "amal_said": "لازم you should take.",
-   "wrong": "أنا لازم آآآ عطلة",
-   "right": "أنا لازم آخد عطلة",
-   "kind": "grammar",
-   "bucket": "B2",
-   "tier": null,
-   "mode": "speaking",
-   "signal": "recast",
-   "confidence": "high",
-   "source": "audit-2026-09-26",
-   "added_by": "medi-correction",
-   "correction": "chat-20261003-laazem-3utle",
-   "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-03 marked it a mistake: i dont know what grammer rule this would fall under but you \"take\" a day off, it cant be 3utle by itself",
-   "bucket_name": "b-drop after modals",
-   "uid": "FA-170463d8",
-   "n": 1096,
-   "passes": [
-    1
-   ],
-   "duplicates_merged": [
-    "FA-2e2c8ce6"
-   ]
-  },
-  {
    "id": "A7",
    "t": "09:38",
    "t_amal": "09:41",
@@ -70904,7 +70702,7 @@
    "chat": "ana laazem aa5ud 3otle u asaafer",
    "wrong": "أنا لازم آآآ عطلة",
    "right": "أنا لازم آخد عطلة",
-   "kind": "rejected",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B2",
    "bucket2": null,
@@ -70925,12 +70723,13 @@
    "date": "2026-10-02",
    "source": "audit-2026-09-26",
    "machine_had": false,
+   "medi_corrections": [
+    "chat-20261003-laazem-3utle"
+   ],
+   "medi_confirmed": "Medi 2026-10-03 marked it a mistake too: i dont know what grammer rule this would fall under but you \"take\" a day off, it cant be 3utle by itself (GR-39)",
    "bucket_name": "b-drop after modals",
    "uid": "FA-2e2c8ce6",
-   "n": 1097,
-   "kind_before_rejection": "grammar",
-   "duplicate_of": "FA-170463d8",
-   "rejected_why": "duplicate of FA-170463d8: he repeated the same wrong phrase within 30 s, one slip (Medi 2026-10-01)"
+   "n": 1096
   },
   {
    "id": "A8",
@@ -70963,7 +70762,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-c7cbcaff",
-   "n": 1098
+   "n": 1097
   },
   {
    "id": "A9",
@@ -70998,7 +70797,7 @@
    "bucket_name": "verb + its fixed preposition",
    "uid_carried_from": "FA-ad47d816",
    "uid": "FA-2b7a0857",
-   "n": 1099
+   "n": 1098
   },
   {
    "id": "A10",
@@ -71032,7 +70831,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-863596b1",
-   "n": 1100
+   "n": 1099
   },
   {
    "id": "A11",
@@ -71067,7 +70866,7 @@
    "bucket_name": "future with ra7",
    "uid_carried_from": "FA-783460fd",
    "uid": "FA-058fc180",
-   "n": 1101
+   "n": 1100
   },
   {
    "id": "1002-13",
@@ -71102,7 +70901,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-24cd2cbd",
-   "n": 1102
+   "n": 1101
   },
   {
    "id": "A12",
@@ -71137,7 +70936,7 @@
    "bucket_name": "prepositions",
    "uid_carried_from": "FA-037314b6",
    "uid": "FA-147722d0",
-   "n": 1103
+   "n": 1102
   },
   {
    "id": "A13",
@@ -71171,7 +70970,7 @@
    "machine_had": false,
    "uid_carried_from": "FA-a9c3deab",
    "uid": "FA-f6326df4",
-   "n": 1104,
+   "n": 1103,
    "kind_before_rejection": "vocab-A",
    "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-03",
    "amal_ruling": {
@@ -71218,7 +71017,7 @@
    "machine_had": false,
    "bucket_name": "future with ra7",
    "uid": "FA-3d30bd91",
-   "n": 1105
+   "n": 1104
   },
   {
    "id": "A14",
@@ -71252,7 +71051,7 @@
    "machine_had": false,
    "uid_carried_from": "FA-2635e65d",
    "uid": "FA-c093d0ab",
-   "n": 1106
+   "n": 1105
   },
   {
    "id": "A15",
@@ -71286,7 +71085,7 @@
    "machine_had": false,
    "uid_carried_from": "FA-feef7645",
    "uid": "FA-ee7adb71",
-   "n": 1107
+   "n": 1106
   },
   {
    "id": "1002-17",
@@ -71320,7 +71119,7 @@
    "machine_had": false,
    "bucket_name": "awal / oola: before or after the noun",
    "uid": "FA-2c93edc8",
-   "n": 1108
+   "n": 1107
   },
   {
    "id": "A11",
@@ -71356,7 +71155,7 @@
    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-57c40cde",
-   "n": 1109
+   "n": 1108
   },
   {
    "id": "A16",
@@ -71390,7 +71189,7 @@
    "machine_had": false,
    "bucket_name": "awal / oola: before or after the noun",
    "uid": "FA-788243b3",
-   "n": 1110
+   "n": 1109
   },
   {
    "id": "A17",
@@ -71425,7 +71224,7 @@
    "bucket_name": "taani: before or after the noun",
    "uid_carried_from": "FA-14df96fd",
    "uid": "FA-0529f692",
-   "n": 1111
+   "n": 1110
   },
   {
    "id": "A18",
@@ -71458,7 +71257,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-5442b74f",
-   "n": 1112,
+   "n": 1111,
    "amal_ruling": {
     "kind": "confirm",
     "at": "2026-10-03T22:00:30.795296+00:00",
@@ -71505,7 +71304,7 @@
    "bucket_name": "awal / oola: before or after the noun",
    "uid_carried_from": "FA-3775b20a",
    "uid": "FA-9d06f6cf",
-   "n": 1113
+   "n": 1112
   },
   {
    "id": "A20",
@@ -71539,7 +71338,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-285457d3",
-   "n": 1114
+   "n": 1113
   },
   {
    "id": "1002-23",
@@ -71574,7 +71373,7 @@
    "bucket_name": "awal / oola: before or after the noun",
    "uid_carried_from": "FA-dbb0a32c",
    "uid": "FA-478fa349",
-   "n": 1115
+   "n": 1114
   },
   {
    "id": "A21",
@@ -71609,7 +71408,7 @@
    "bucket_name": "awal / oola: before or after the noun",
    "uid_carried_from": "FA-8a473d26",
    "uid": "FA-ae711e92",
-   "n": 1116
+   "n": 1115
   },
   {
    "id": "1002-24",
@@ -71644,7 +71443,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-4a5c4e80",
-   "n": 1117
+   "n": 1116
   },
   {
    "id": "1002-25",
@@ -71678,7 +71477,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-ceceda0c",
-   "n": 1118
+   "n": 1117
   },
   {
    "id": "1002-26",
@@ -71712,7 +71511,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-d716d39c",
-   "n": 1119
+   "n": 1118
   },
   {
    "id": "MC-chat-202",
@@ -71734,9 +71533,10 @@
    "correction": "chat-20261003-re7le-a5eera",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-03 marked it a mistake: my first attempt didnt have the \"el\" in the second word and amal corrected",
+   "rule": "GR-39",
    "bucket_name": "el- (the)",
    "uid": "FA-43aadef1",
-   "n": 1120
+   "n": 1119
   },
   {
    "id": "A22",
@@ -71770,7 +71570,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-970981d1",
-   "n": 1121
+   "n": 1120
   },
   {
    "id": "A23",
@@ -71806,7 +71606,7 @@
    "bucket_name": "8eir: other / different, no el-",
    "uid_carried_from": "FA-4920160b",
    "uid": "FA-76206565",
-   "n": 1122
+   "n": 1121
   },
   {
    "id": "A24",
@@ -71841,7 +71641,7 @@
    "bucket_name": "awal / oola: before or after the noun",
    "uid_carried_from": "FA-ed31118c",
    "uid": "FA-7f27b005",
-   "n": 1123
+   "n": 1122
   },
   {
    "id": "A25",
@@ -71876,7 +71676,7 @@
    "bucket_name": "taani: before or after the noun",
    "uid_carried_from": "FA-84bd6e8b",
    "uid": "FA-ea740d3c",
-   "n": 1124
+   "n": 1123
   },
   {
    "id": "A26",
@@ -71910,37 +71710,7 @@
    "machine_had": false,
    "bucket_name": "taani: before or after the noun",
    "uid": "FA-2a4b4458",
-   "n": 1125
-  },
-  {
-   "id": "MC-chat-202",
-   "date": "2026-10-02",
-   "t": "44:59",
-   "t_amal": "45:05",
-   "medi_said": "آخر عشرة دقايق. عشرة دقايق؟",
-   "amal_said": "عشر y.",
-   "wrong": "عشرة دقايق",
-   "right": "عشر دقايق",
-   "kind": "grammar",
-   "bucket": "E1",
-   "tier": null,
-   "mode": "speaking",
-   "signal": "recast",
-   "confidence": "high",
-   "source": "audit-2026-09-26",
-   "added_by": "medi-correction",
-   "correction": "chat-20261003-3ashrah-da2aye2",
-   "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-03 marked it a mistake: grammar incorrect, when counting its not 3asharah, its 3ashar",
-   "bucket_name": "number + noun",
-   "uid": "FA-0d9dd3dc",
-   "n": 1126,
-   "passes": [
-    1
-   ],
-   "duplicates_merged": [
-    "FA-74c03e97"
-   ]
+   "n": 1124
   },
   {
    "id": "A27",
@@ -71951,7 +71721,7 @@
    "chat": "aa5er 3ashar da2aaye2",
    "wrong": "عشرة دقايق",
    "right": "عشر دقايق",
-   "kind": "rejected",
+   "kind": "grammar",
    "tier": null,
    "bucket": "E1",
    "bucket2": null,
@@ -71972,12 +71742,13 @@
    "date": "2026-10-02",
    "source": "audit-2026-09-26",
    "machine_had": false,
+   "medi_corrections": [
+    "chat-20261003-3ashrah-da2aye2"
+   ],
+   "medi_confirmed": "Medi 2026-10-03 marked it a mistake too: grammar incorrect, when counting its not 3asharah, its 3ashar (GR-39)",
    "bucket_name": "number + noun",
    "uid": "FA-74c03e97",
-   "n": 1127,
-   "kind_before_rejection": "grammar",
-   "duplicate_of": "FA-0d9dd3dc",
-   "rejected_why": "duplicate of FA-0d9dd3dc: he repeated the same wrong phrase within 30 s, one slip (Medi 2026-10-01)"
+   "n": 1125
   },
   {
    "id": "A28",
@@ -72011,7 +71782,7 @@
    "machine_had": false,
    "bucket_name": "aa5er / a5eer: before or after the noun",
    "uid": "FA-fba0d615",
-   "n": 1128
+   "n": 1126
   },
   {
    "id": "1002-r3-11",
@@ -72047,7 +71818,7 @@
    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-f4b60b4a",
-   "n": 1129,
+   "n": 1127,
    "kind_before_rejection": "vocab-A",
    "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-03",
    "amal_ruling": {
@@ -72096,7 +71867,7 @@
    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-50c3a19a",
-   "n": 1130
+   "n": 1128
   },
   {
    "id": "MC-chat-202",
@@ -72118,9 +71889,10 @@
    "correction": "chat-20261003-aa5er-el-moazafa",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-03 marked it a mistake: I said it wrong the first time and amal corrected in english and I said the right the 2nd time / I said \"2aa5er EL Moazafa, right?\"",
+   "rule": "GR-39",
    "bucket_name": "el- (the)",
    "uid": "FA-439fd3f5",
-   "n": 1131,
+   "n": 1129,
    "bucket_before_refile": "A1",
    "refiled_by": "P-A15 approved by Medi (GR-18)"
   },
@@ -72157,7 +71929,7 @@
    "bucket_name": "aa5er / a5eer: before or after the noun",
    "uid_carried_from": "FA-9cf9d91f",
    "uid": "FA-07c3e8d5",
-   "n": 1132
+   "n": 1130
   },
   {
    "id": "A30",
@@ -72191,7 +71963,7 @@
    "machine_had": false,
    "uid_carried_from": "FA-601c3cba",
    "uid": "FA-0583f785",
-   "n": 1133
+   "n": 1131
   },
   {
    "id": "A31",
@@ -72224,7 +71996,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-605b741f",
-   "n": 1134
+   "n": 1132
   },
   {
    "id": "1005-1",
@@ -72257,7 +72029,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-7eeb2a79",
-   "n": 1135
+   "n": 1133
   },
   {
    "id": "A1",
@@ -72291,7 +72063,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-71e3c0ea",
-   "n": 1136
+   "n": 1134
   },
   {
    "id": "A2",
@@ -72324,7 +72096,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-bf5ddaa3",
-   "n": 1137
+   "n": 1135
   },
   {
    "id": "A3",
@@ -72357,7 +72129,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-75e802ae",
-   "n": 1138
+   "n": 1136
   },
   {
    "id": "1005-6",
@@ -72391,7 +72163,7 @@
    "machine_had": false,
    "bucket_name": "calendar",
    "uid": "FA-1c5c5e1a",
-   "n": 1139
+   "n": 1137
   },
   {
    "id": "A4",
@@ -72425,7 +72197,7 @@
    "machine_had": false,
    "bucket_name": "clock time",
    "uid": "FA-92b3a7d2",
-   "n": 1140
+   "n": 1138
   },
   {
    "id": "A5",
@@ -72459,7 +72231,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-03f27373",
-   "n": 1141
+   "n": 1139
   },
   {
    "id": "A6",
@@ -72493,7 +72265,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-50587a6a",
-   "n": 1142
+   "n": 1140
   },
   {
    "id": "A7",
@@ -72526,7 +72298,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-02c630f3",
-   "n": 1143
+   "n": 1141
   },
   {
    "id": "A8",
@@ -72560,7 +72332,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-a82b14f1",
-   "n": 1144
+   "n": 1142
   },
   {
    "id": "A9",
@@ -72594,7 +72366,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-c10f800a",
-   "n": 1145
+   "n": 1143
   },
   {
    "id": "1005-13",
@@ -72628,7 +72400,7 @@
    "machine_had": false,
    "bucket_name": "saying no",
    "uid": "FA-5dc5d196",
-   "n": 1146
+   "n": 1144
   },
   {
    "id": "1005-14",
@@ -72662,7 +72434,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-13f6cac9",
-   "n": 1147
+   "n": 1145
   },
   {
    "id": "A10",
@@ -72695,7 +72467,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-dac3cdc1",
-   "n": 1148
+   "n": 1146
   },
   {
    "id": "A11",
@@ -72730,7 +72502,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-a2267598",
-   "n": 1149
+   "n": 1147
   },
   {
    "id": "A12",
@@ -72764,7 +72536,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-9fc71cb0",
-   "n": 1150
+   "n": 1148
   },
   {
    "id": "A13",
@@ -72798,7 +72570,7 @@
    "machine_had": false,
    "bucket_name": "chain possession",
    "uid": "FA-4419e330",
-   "n": 1151
+   "n": 1149
   },
   {
    "id": "A14",
@@ -72832,7 +72604,7 @@
    "machine_had": false,
    "bucket_name": "chain possession",
    "uid": "FA-770718d7",
-   "n": 1152
+   "n": 1150
   },
   {
    "id": "A15",
@@ -72866,7 +72638,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-0572b949",
-   "n": 1153
+   "n": 1151
   },
   {
    "id": "A16",
@@ -72900,7 +72672,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-570e6827",
-   "n": 1154
+   "n": 1152
   },
   {
    "id": "A17",
@@ -72933,7 +72705,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-c0e4d09d",
-   "n": 1155
+   "n": 1153
   },
   {
    "id": "A18",
@@ -72966,7 +72738,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-310fd0ae",
-   "n": 1156
+   "n": 1154
   },
   {
    "id": "A19",
@@ -73000,7 +72772,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-89dd7735",
-   "n": 1157
+   "n": 1155
   },
   {
    "id": "1005-21",
@@ -73033,7 +72805,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-8e86056a",
-   "n": 1158
+   "n": 1156
   },
   {
    "id": "A20",
@@ -73067,7 +72839,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-2625734d",
-   "n": 1159
+   "n": 1157
   },
   {
    "id": "1005-23",
@@ -73101,7 +72873,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-da7c0a66",
-   "n": 1160
+   "n": 1158
   },
   {
    "id": "A21",
@@ -73135,7 +72907,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-f04a2c9f",
-   "n": 1161
+   "n": 1159
   },
   {
    "id": "A22",
@@ -73168,7 +72940,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-973f126e",
-   "n": 1162
+   "n": 1160
   },
   {
    "id": "A23",
@@ -73201,7 +72973,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-0571abfc",
-   "n": 1163
+   "n": 1161
   },
   {
    "id": "A24",
@@ -73235,7 +73007,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-89701583",
-   "n": 1164,
+   "n": 1162,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-89701583"
@@ -73271,7 +73043,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-a216df38",
-   "n": 1165
+   "n": 1163
   },
   {
    "id": "A26",
@@ -73305,7 +73077,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-0601f0e6",
-   "n": 1166
+   "n": 1164
   },
   {
    "id": "A27",
@@ -73339,7 +73111,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-5ecfb7dc",
-   "n": 1167,
+   "n": 1165,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-5ecfb7dc"
@@ -73376,7 +73148,7 @@
    "machine_had": false,
    "bucket_name": "kaan = was / were",
    "uid": "FA-1eb284ef",
-   "n": 1168
+   "n": 1166
   },
   {
    "id": "A29",
@@ -73410,7 +73182,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-e2fac85a",
-   "n": 1169
+   "n": 1167
   },
   {
    "id": "A30",
@@ -73443,7 +73215,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-9ea3b0b3",
-   "n": 1170
+   "n": 1168
   },
   {
    "id": "A31",
@@ -73477,7 +73249,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-ec3ba385",
-   "n": 1171
+   "n": 1169
   },
   {
    "id": "A32",
@@ -73510,7 +73282,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-0ef0c833",
-   "n": 1172
+   "n": 1170
   },
   {
    "id": "A33",
@@ -73544,7 +73316,7 @@
    "machine_had": false,
    "bucket_name": "hada / hadi",
    "uid": "FA-e0df28e5",
-   "n": 1173
+   "n": 1171
   },
   {
    "id": "A1",
@@ -73578,7 +73350,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-0f048477",
-   "n": 1174
+   "n": 1172
   },
   {
    "id": "A2",
@@ -73611,7 +73383,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-713b9e9e",
-   "n": 1175
+   "n": 1173
   },
   {
    "id": "1006-3",
@@ -73646,7 +73418,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-783866f3",
-   "n": 1176
+   "n": 1174
   },
   {
    "id": "A3",
@@ -73680,7 +73452,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-874cbfa9",
-   "n": 1177,
+   "n": 1175,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-874cbfa9"
@@ -73717,7 +73489,7 @@
    "machine_had": false,
    "bucket_name": "calendar",
    "uid": "FA-ebf8ebcd",
-   "n": 1178
+   "n": 1176
   },
   {
    "id": "1006-6",
@@ -73751,7 +73523,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-a35ee497",
-   "n": 1179
+   "n": 1177
   },
   {
    "id": "A5",
@@ -73785,7 +73557,7 @@
    "machine_had": false,
    "bucket_name": "preposition keeps el-",
    "uid": "FA-0280caa1",
-   "n": 1180
+   "n": 1178
   },
   {
    "id": "1006-7",
@@ -73818,7 +73590,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-73641c62",
-   "n": 1181
+   "n": 1179
   },
   {
    "id": "1006-8",
@@ -73852,7 +73624,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-e3afb2a2",
-   "n": 1182
+   "n": 1180
   },
   {
    "id": "A6",
@@ -73885,7 +73657,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-2493ea87",
-   "n": 1183
+   "n": 1181
   },
   {
    "id": "1006-10",
@@ -73919,7 +73691,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-2cc06086",
-   "n": 1184
+   "n": 1182
   },
   {
    "id": "A7",
@@ -73953,7 +73725,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-f757f66c",
-   "n": 1185
+   "n": 1183
   },
   {
    "id": "A8",
@@ -73987,7 +73759,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-e09df81e",
-   "n": 1186
+   "n": 1184
   },
   {
    "id": "1006-13",
@@ -74020,7 +73792,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d63dedeb",
-   "n": 1187
+   "n": 1185
   },
   {
    "id": "1006-12",
@@ -74053,7 +73825,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f3c66254",
-   "n": 1188
+   "n": 1186
   },
   {
    "id": "A9",
@@ -74087,7 +73859,7 @@
    "machine_had": false,
    "bucket_name": "number + noun",
    "uid": "FA-dce24dc3",
-   "n": 1189
+   "n": 1187
   },
   {
    "id": "1006-14",
@@ -74121,7 +73893,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-b9edcda1",
-   "n": 1190
+   "n": 1188
   },
   {
    "id": "A10",
@@ -74156,7 +73928,7 @@
    "machine_had": false,
    "bucket_name": "demonstrative keeps el-",
    "uid": "FA-bb44b7a0",
-   "n": 1191
+   "n": 1189
   },
   {
    "id": "A11",
@@ -74190,7 +73962,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-ff759ee6",
-   "n": 1192
+   "n": 1190
   },
   {
    "id": "A12",
@@ -74224,7 +73996,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-978cbd09",
-   "n": 1193
+   "n": 1191
   },
   {
    "id": "A13",
@@ -74258,7 +74030,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-9bfd5768",
-   "n": 1194
+   "n": 1192
   },
   {
    "id": "A14",
@@ -74292,7 +74064,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-87d76f1c",
-   "n": 1195,
+   "n": 1193,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-87d76f1c"
@@ -74329,7 +74101,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after modals",
    "uid": "FA-dcc889d1",
-   "n": 1196
+   "n": 1194
   },
   {
    "id": "A16",
@@ -74363,7 +74135,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-02e89d27",
-   "n": 1197
+   "n": 1195
   },
   {
    "id": "A17",
@@ -74396,7 +74168,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f6bc3d4c",
-   "n": 1198
+   "n": 1196
   },
   {
    "id": "A18",
@@ -74430,7 +74202,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-b83f6f11",
-   "n": 1199
+   "n": 1197
   },
   {
    "id": "1006-26",
@@ -74463,7 +74235,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-cd19688b",
-   "n": 1200
+   "n": 1198
   },
   {
    "id": "A19",
@@ -74497,7 +74269,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-b38f8ac9",
-   "n": 1201
+   "n": 1199
   },
   {
    "id": "1006-29",
@@ -74531,7 +74303,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-96d2feab",
-   "n": 1202
+   "n": 1200
   },
   {
    "id": "1006-30",
@@ -74564,7 +74336,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-28ef7d0a",
-   "n": 1203
+   "n": 1201
   },
   {
    "id": "A20",
@@ -74598,7 +74370,7 @@
    "machine_had": false,
    "bucket_name": "the pointer rule",
    "uid": "FA-52cfb4ef",
-   "n": 1204
+   "n": 1202
   },
   {
    "id": "A21",
@@ -74631,7 +74403,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-e6c3b544",
-   "n": 1205
+   "n": 1203
   },
   {
    "id": "A22",
@@ -74665,7 +74437,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-4e7a006e",
-   "n": 1206
+   "n": 1204
   },
   {
    "id": "A23",
@@ -74699,7 +74471,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-9a87ec7c",
-   "n": 1207
+   "n": 1205
   },
   {
    "id": "A24",
@@ -74733,7 +74505,7 @@
    "machine_had": false,
    "bucket_name": "illi",
    "uid": "FA-09b526f3",
-   "n": 1208
+   "n": 1206
   },
   {
    "id": "A25",
@@ -74767,7 +74539,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-348c7972",
-   "n": 1209
+   "n": 1207
   },
   {
    "id": "1006-34",
@@ -74802,7 +74574,7 @@
    "machine_had": false,
    "bucket_name": "number + noun",
    "uid": "FA-101e92e1",
-   "n": 1210
+   "n": 1208
   },
   {
    "id": "A26",
@@ -74836,7 +74608,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-37caf5df",
-   "n": 1211
+   "n": 1209
   },
   {
    "id": "A27",
@@ -74870,7 +74642,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-3e995841",
-   "n": 1212
+   "n": 1210
   },
   {
    "id": "A28",
@@ -74903,7 +74675,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-dd054a6f",
-   "n": 1213
+   "n": 1211
   },
   {
    "id": "1006-38",
@@ -74937,7 +74709,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-75dc1bf0",
-   "n": 1214
+   "n": 1212
   },
   {
    "id": "A29",
@@ -74971,7 +74743,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-1c580ba6",
-   "n": 1215
+   "n": 1213
   },
   {
    "id": "A30",
@@ -75004,7 +74776,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-7c3420c3",
-   "n": 1216
+   "n": 1214
   },
   {
    "id": "1006-44",
@@ -75038,7 +74810,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-23b1bccc",
-   "n": 1217
+   "n": 1215
   },
   {
    "id": "A31",
@@ -75072,7 +74844,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-e35707ea",
-   "n": 1218
+   "n": 1216
   },
   {
    "id": "1006-43",
@@ -75105,7 +74877,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-868ef076",
-   "n": 1219
+   "n": 1217
   },
   {
    "id": "A32",
@@ -75139,7 +74911,7 @@
    "machine_had": false,
    "bucket_name": "number + noun",
    "uid": "FA-4a3e654c",
-   "n": 1220
+   "n": 1218
   },
   {
    "id": "1006-45",
@@ -75173,7 +74945,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-0788b479",
-   "n": 1221
+   "n": 1219
   },
   {
    "id": "A33",
@@ -75207,7 +74979,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-d5baa4c6",
-   "n": 1222
+   "n": 1220
   },
   {
    "id": "A34",
@@ -75241,7 +75013,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-7eb585e6",
-   "n": 1223
+   "n": 1221
   },
   {
    "id": "A35",
@@ -75275,7 +75047,7 @@
    "machine_had": false,
    "bucket_name": "illi",
    "uid": "FA-b4e79fe8",
-   "n": 1224
+   "n": 1222
   },
   {
    "id": "A36",
@@ -75309,7 +75081,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-c8e9f344",
-   "n": 1225
+   "n": 1223
   },
   {
    "id": "A37",
@@ -75342,7 +75114,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f35210da",
-   "n": 1226
+   "n": 1224
   },
   {
    "id": "A38",
@@ -75376,7 +75148,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-e7d38531",
-   "n": 1227
+   "n": 1225
   },
   {
    "id": "A1",
@@ -75410,10 +75182,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-08622c0f",
-   "n": 1228,
-   "duplicates_merged": [
-    "FA-be749df3"
-   ]
+   "n": 1226
   },
   {
    "id": "A2",
@@ -75445,36 +75214,13 @@
    "date": "2026-10-08",
    "source": "audit-2026-09-26",
    "machine_had": false,
+   "medi_corrections": [
+    "chat-20261009-3ayaana-again"
+   ],
+   "medi_confirmed": "Medi 2026-10-09 marked it a mistake too: she corrected 3ayaana feminine test I should get marked for a grammar error (GR-39)",
    "bucket_name": "gender on adjectives",
    "uid": "FA-fddf422c",
-   "n": 1229
-  },
-  {
-   "id": "MC-chat-202",
-   "date": "2026-10-08",
-   "t": "02:21",
-   "t_amal": "02:22",
-   "medi_said": "uh, خطيبتي شوي عيان",
-   "amal_said": "لسة الخطيب بتاع عيانة.",
-   "wrong": "عيان",
-   "right": "عيانة",
-   "kind": "rejected",
-   "bucket": "A8",
-   "tier": null,
-   "mode": "speaking",
-   "signal": "recast",
-   "confidence": "high",
-   "source": "audit-2026-09-26",
-   "added_by": "medi-correction",
-   "correction": "chat-20261009-3ayaana-again",
-   "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-09 marked it a mistake: she corrected 3ayaana feminine test I should get marked for a grammar error",
-   "bucket_name": "gender on adjectives",
-   "uid": "FA-be749df3",
-   "n": 1230,
-   "kind_before_rejection": "grammar",
-   "duplicate_of": "FA-08622c0f",
-   "rejected_why": "duplicate of FA-08622c0f: he repeated the same wrong phrase within 30 s, one slip (Medi 2026-10-01)"
+   "n": 1227
   },
   {
    "id": "A3",
@@ -75508,7 +75254,7 @@
    "machine_had": false,
    "bucket_name": "word order",
    "uid": "FA-2a110f8a",
-   "n": 1231
+   "n": 1228
   },
   {
    "id": "A4",
@@ -75541,7 +75287,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d2072f44",
-   "n": 1232
+   "n": 1229
   },
   {
    "id": "A5",
@@ -75575,7 +75321,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-20c54397",
-   "n": 1233
+   "n": 1230
   },
   {
    "id": "A6",
@@ -75608,7 +75354,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-08a9169e",
-   "n": 1234
+   "n": 1231
   },
   {
    "id": "A7",
@@ -75641,7 +75387,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-b3401eed",
-   "n": 1235
+   "n": 1232
   },
   {
    "id": "A8",
@@ -75675,7 +75421,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-2a5c8403",
-   "n": 1236
+   "n": 1233
   },
   {
    "id": "A9",
@@ -75709,7 +75455,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-b996a678",
-   "n": 1237
+   "n": 1234
   },
   {
    "id": "A10",
@@ -75749,7 +75495,7 @@
    "rejected_rule": "PR-15",
    "bucket_name": "possessive endings",
    "uid": "FA-cf9ae136",
-   "n": 1238
+   "n": 1235
   },
   {
    "id": "A11",
@@ -75783,7 +75529,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after modals",
    "uid": "FA-f4503711",
-   "n": 1239
+   "n": 1236
   },
   {
    "id": "A12",
@@ -75817,7 +75563,7 @@
    "machine_had": false,
    "bucket_name": "illi",
    "uid": "FA-5759d0be",
-   "n": 1240
+   "n": 1237
   },
   {
    "id": "1008-r3-1",
@@ -75853,7 +75599,7 @@
    "rejected_rule": "TR-24",
    "rejected_why": "TR-24: the recording engine wrote تفتتلي; Medi said تخططي (2026-10-10), so it is not his slip",
    "uid": "FA-297d80da",
-   "n": 1241
+   "n": 1238
   },
   {
    "id": "MC-chat-202",
@@ -75876,7 +75622,7 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-10 marked it a mistake: 3asafeer should be marked incorrect / she coerrected (16:16 'No، عصافير is birds.')",
    "uid": "FA-f8af5dbf",
-   "n": 1242
+   "n": 1239
   },
   {
    "id": "A13",
@@ -75909,7 +75655,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-1893c1e4",
-   "n": 1243
+   "n": 1240
   },
   {
    "id": "A14",
@@ -75943,7 +75689,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-dfb8e833",
-   "n": 1244
+   "n": 1241
   },
   {
    "id": "1008-r3-2",
@@ -75977,7 +75723,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-1b185478",
-   "n": 1245
+   "n": 1242
   },
   {
    "id": "1008-r3-3",
@@ -76010,7 +75756,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-89b3ee97",
-   "n": 1246
+   "n": 1243
   },
   {
    "id": "A15",
@@ -76043,7 +75789,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d414c208",
-   "n": 1247
+   "n": 1244
   },
   {
    "id": "1008-r3-11",
@@ -76077,7 +75823,7 @@
    "machine_had": false,
    "bucket_name": "8eir: other / different, no el-",
    "uid": "FA-1e5f6a44",
-   "n": 1248
+   "n": 1245
   },
   {
    "id": "MC-chat-202",
@@ -76099,9 +75845,10 @@
    "correction": "chat-20261010-tayour-plural",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-10 marked it a mistake: plural for tayara was wrong here (21:15 'Did you mean bird or plane?')",
+   "rule": "GR-39",
    "bucket_name": "plurals",
    "uid": "FA-66c265e0",
-   "n": 1249
+   "n": 1246
   },
   {
    "id": "A16",
@@ -76135,7 +75882,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-d5e4f88e",
-   "n": 1250
+   "n": 1247
   },
   {
    "id": "MC-chat-202",
@@ -76157,9 +75904,10 @@
    "correction": "chat-20261010-2amar-el",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-10 marked it a mistake: he said it correctly 'fi 3amar' then incorrectly 'el-3amar' so he wasnt sure about the answer and tutor had to correct",
+   "rule": "GR-39",
    "bucket_name": "el- (the)",
    "uid": "FA-81c561f9",
-   "n": 1251
+   "n": 1248
   },
   {
    "id": "A17",
@@ -76192,7 +75940,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-6cf635f4",
-   "n": 1252
+   "n": 1249
   },
   {
    "id": "A18",
@@ -76230,7 +75978,7 @@
    "rejected_why": "GR-33: the tutor praised it right after (23:58 «Great job.»), so he said it right",
    "bucket_name": "number + noun",
    "uid": "FA-cf56bd2f",
-   "n": 1253
+   "n": 1250
   },
   {
    "id": "A19",
@@ -76264,7 +76012,7 @@
    "machine_had": false,
    "bucket_name": "taani: before or after the noun",
    "uid": "FA-32f9d106",
-   "n": 1254
+   "n": 1251
   },
   {
    "id": "A20",
@@ -76298,7 +76046,7 @@
    "machine_had": false,
    "bucket_name": "the pointer rule",
    "uid": "FA-a97979bb",
-   "n": 1255
+   "n": 1252
   },
   {
    "id": "A21",
@@ -76331,7 +76079,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d0c19ff2",
-   "n": 1256
+   "n": 1253
   },
   {
    "id": "A22",
@@ -76364,7 +76112,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d234700d",
-   "n": 1257
+   "n": 1254
   },
   {
    "id": "A23",
@@ -76404,7 +76152,7 @@
    "rejected_why": "Medi 2026-10-10: not a mistake - not a mistake: 8eir* (not ba3eed): he said غير; the engine wrote بيد and the second listen بعيد - the transcript was wrong, not his word (her 'What's the word?' = she did not catch it: pronunciation, S4)",
    "rejected_rule": "PR-15",
    "uid": "FA-e2fb4314",
-   "n": 1258
+   "n": 1255
   },
   {
    "id": "A24",
@@ -76438,7 +76186,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-36405b72",
-   "n": 1259
+   "n": 1256
   },
   {
    "id": "A25",
@@ -76472,7 +76220,7 @@
    "machine_had": false,
    "bucket_name": "aa5er / a5eer: before or after the noun",
    "uid": "FA-79739dca",
-   "n": 1260
+   "n": 1257
   },
   {
    "id": "A26",
@@ -76506,7 +76254,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-3770f7c5",
-   "n": 1261
+   "n": 1258
   },
   {
    "id": "MC-chat-202",
@@ -76529,7 +76277,7 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-10 marked it a mistake: el maadi is wrong, its supposed to be abel",
    "uid": "FA-874e798c",
-   "n": 1262
+   "n": 1259
   },
   {
    "id": "A27",
@@ -76562,7 +76310,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-95cb8b4a",
-   "n": 1263
+   "n": 1260
   },
   {
    "id": "MC-chat-202",
@@ -76585,7 +76333,7 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-10 marked it a mistake: talat snan* (said teeth isntead of years)",
    "uid": "FA-ef113bd1",
-   "n": 1264,
+   "n": 1261,
    "passes": [
     1
    ],
@@ -76625,7 +76373,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-3218244c",
-   "n": 1265,
+   "n": 1262,
    "kind_before_rejection": "vocab-A",
    "duplicate_of": "FA-ef113bd1",
    "rejected_why": "duplicate of FA-ef113bd1: he repeated the same wrong phrase within 30 s, one slip (Medi 2026-10-01)"
@@ -76669,7 +76417,7 @@
    "wrong_before_medi": "أجو",
    "right_before_medi": "كان قوي",
    "uid": "FA-3cb71af9",
-   "n": 1266,
+   "n": 1263,
    "duplicates_merged": [
     "FA-3cb71af9x"
    ]
@@ -76695,7 +76443,7 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-10 marked it a mistake: so this is wrong if you read he was trying to say the wind was very strong and we went through corrections (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-3cb71af9x",
-   "n": 1267,
+   "n": 1264,
    "kind_before_rejection": "vocab-B",
    "duplicate_of": "FA-3cb71af9",
    "rejected_why": "duplicate of FA-3cb71af9: same lesson, second, wrong piece and kind (eng audit 2026-09-29)"
@@ -76732,7 +76480,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-08bfd239",
-   "n": 1268
+   "n": 1265
   },
   {
    "id": "A29",
@@ -76766,7 +76514,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-f2eab111",
-   "n": 1269
+   "n": 1266
   },
   {
    "id": "A30",
@@ -76799,7 +76547,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f074c94a",
-   "n": 1270
+   "n": 1267
   },
   {
    "id": "1008-r3-14",
@@ -76832,7 +76580,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-27b0290c",
-   "n": 1271
+   "n": 1268
   },
   {
    "id": "A31",
@@ -76865,7 +76613,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-471dcc1d",
-   "n": 1272
+   "n": 1269
   },
   {
    "id": "A32",
@@ -76899,7 +76647,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-2e67f894",
-   "n": 1273
+   "n": 1270
   },
   {
    "id": "A33",
@@ -76933,7 +76681,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-95f32294",
-   "n": 1274
+   "n": 1271
   },
   {
    "id": "A34",
@@ -76967,7 +76715,7 @@
    "machine_had": false,
    "bucket_name": "taani: before or after the noun",
    "uid": "FA-fa913393",
-   "n": 1275
+   "n": 1272
   },
   {
    "id": "1008-r3-8",
@@ -77002,7 +76750,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-6dcf7ff5",
-   "n": 1276
+   "n": 1273
   },
   {
    "id": "A35",
@@ -77036,7 +76784,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-c619decf",
-   "n": 1277
+   "n": 1274
   },
   {
    "id": "A36",
@@ -77070,7 +76818,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-12fe602d",
-   "n": 1278
+   "n": 1275
   },
   {
    "id": "A37",
@@ -77104,7 +76852,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-cfa2382d",
-   "n": 1279
+   "n": 1276
   },
   {
    "id": "1008-r3-9",
@@ -77139,7 +76887,7 @@
    "machine_had": false,
    "bucket_name": "no word for 'to be'",
    "uid": "FA-209d238d",
-   "n": 1280
+   "n": 1277
   },
   {
    "id": "MC-ef6f0080",
@@ -77162,7 +76910,7 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-dae07ce8",
-   "n": 1281,
+   "n": 1278,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "single-FA-dae07ce8",
@@ -77206,7 +76954,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-8f4f1a37",
-   "n": 1282
+   "n": 1279
   },
   {
    "id": "A2",
@@ -77239,7 +76987,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-011bdc53",
-   "n": 1283
+   "n": 1280
   },
   {
    "id": "MC-8767098c",
@@ -77262,7 +77010,7 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-03cd932f",
-   "n": 1284,
+   "n": 1281,
    "kind_before_proposal": "grammar-B",
    "bucket_before_proposal": null,
    "proposal": "P-FA-03cd932f",
@@ -77300,37 +77048,10 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-ebba00aa",
-   "n": 1285,
+   "n": 1282,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-ebba00aa"
-  },
-  {
-   "id": "MC-3641b721",
-   "date": "2026-10-09",
-   "t": "05:00",
-   "t_amal": null,
-   "medi_said": "Mm. أنا راح،",
-   "amal_said": null,
-   "wrong": "use amals spelling, a6lub",
-   "right": "marked wrong for not using the right preposition for a6lub",
-   "kind": "grammar-propose",
-   "bucket": "PROPOSE",
-   "tier": null,
-   "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
-   "source": "audit-2026-09-26",
-   "added_by": "medi-correction",
-   "correction": "3641b721-a395-468b-b995-0966f7d5dc24",
-   "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "uid": "FA-7ce9a99c",
-   "n": 1286,
-   "kind_before_proposal": "grammar-B",
-   "bucket_before_proposal": null,
-   "proposal": "P-FA-7ce9a99c",
-   "proposed_rule": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)"
   },
   {
    "id": "A4",
@@ -77362,9 +77083,13 @@
    "date": "2026-10-09",
    "source": "audit-2026-09-26",
    "machine_had": false,
+   "medi_corrections": [
+    "chat-20261012-d2-a6lub"
+   ],
+   "medi_confirmed": "Medi 2026-10-12 marked it a mistake too: use amals spelling, a6lub.  Should be marked wrong for not using the right preposition for a6lub (GR-39)",
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-cc5d35a6",
-   "n": 1287
+   "n": 1283
   },
   {
    "id": "MC-915f1458",
@@ -77387,7 +77112,7 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-2f40ea41",
-   "n": 1288
+   "n": 1284
   },
   {
    "id": "A5",
@@ -77421,7 +77146,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-4c7bae8f",
-   "n": 1289
+   "n": 1285
   },
   {
    "chat": null,
@@ -77456,7 +77181,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-c0766599",
-   "n": 1290
+   "n": 1286
   },
   {
    "chat": null,
@@ -77489,7 +77214,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-17891bdf",
-   "n": 1291
+   "n": 1287
   },
   {
    "id": "A6",
@@ -77522,7 +77247,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-4a010073",
-   "n": 1292
+   "n": 1288
   },
   {
    "id": "A7",
@@ -77556,7 +77281,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-93c3db17",
-   "n": 1293,
+   "n": 1289,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-93c3db17"
@@ -77593,7 +77318,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-6aa21af3",
-   "n": 1294
+   "n": 1290
   },
   {
    "chat": "el-buza el-mufaddala 3indi",
@@ -77627,7 +77352,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-1a8d64e1",
-   "n": 1295
+   "n": 1291
   },
   {
    "id": "MC-b34853b3",
@@ -77650,41 +77375,14 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-6bb6bc97",
-   "n": 1296
-  },
-  {
-   "id": "MC-c86e80d5",
-   "date": "2026-10-09",
-   "t": "14:58",
-   "t_amal": null,
-   "medi_said": "هدول الـ--",
-   "amal_said": null,
-   "wrong": "musalsalein is the wrong plural for musalsal.  I know I asked but it",
-   "right": "marked wrong",
-   "kind": "grammar-propose",
-   "bucket": "PROPOSE",
-   "tier": null,
-   "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
-   "source": "audit-2026-09-26",
-   "added_by": "medi-correction",
-   "correction": "c86e80d5-bd6c-4b37-aa13-39fc3b8843e7",
-   "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "uid": "FA-923d3798",
-   "n": 1297,
-   "kind_before_proposal": "grammar-B",
-   "bucket_before_proposal": null,
-   "proposal": "P-FA-923d3798",
-   "proposed_rule": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)"
+   "n": 1292
   },
   {
    "chat": null,
    "bucket2": null,
    "mode": "speaking",
    "tier": 0,
-   "bucket": null,
+   "bucket": "A9",
    "id": "1009-r3-9",
    "t": "15:02",
    "t_amal": "15:04",
@@ -77692,10 +77390,10 @@
    "amal_said": "مسلسلات.",
    "wrong": "مسلسلين",
    "right": "مسلسلات",
-   "kind": "vocab-A",
+   "kind": "grammar",
    "signal": "asked",
    "confidence": "medium",
-   "why": "He stopped mid-sentence and asked for the plural of series; she supplied مسلسلات (didn't-know, tier 0).",
+   "why": "Medi 2026-10-12: grammar A9: musalsalein is the wrong plural for musalsal.  I know I asked but it should be marked wrong. Readers wrote: He stopped mid-sentence and asked for the plural of series; she supplied مسلسلات (didn't-know, tier 0).",
    "english": "these series",
    "ids": [
     "1009-12"
@@ -77709,8 +77407,16 @@
    "date": "2026-10-09",
    "source": "audit-2026-09-26",
    "machine_had": false,
-   "uid": "FA-3615de02",
-   "n": 1298
+   "medi_corrections": [
+    "chat-20261012-a9-musalsalein"
+   ],
+   "kind_before_medi": "vocab-A",
+   "bucket_before_medi": null,
+   "wrong_before_medi": "مسلسلين",
+   "right_before_medi": "مسلسلات",
+   "bucket_name": "plurals",
+   "uid": "FA-783b5103",
+   "n": 1293
   },
   {
    "id": "A9",
@@ -77744,7 +77450,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-edb2bf51",
-   "n": 1299
+   "n": 1294
   },
   {
    "id": "A10",
@@ -77778,7 +77484,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-1833555e",
-   "n": 1300,
+   "n": 1295,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-1833555e"
@@ -77815,7 +77521,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-b78a9aa4",
-   "n": 1301
+   "n": 1296
   },
   {
    "id": "A11",
@@ -77849,57 +77555,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-42649aa5",
-   "n": 1302
-  },
-  {
-   "id": "MC-d196fe12",
-   "date": "2026-10-09",
-   "t": "19:41",
-   "t_amal": null,
-   "medi_said": "Um, جبال",
-   "amal_said": null,
-   "wrong": "e5",
-   "right": "added",
-   "kind": "vocab-B",
-   "bucket": null,
-   "tier": 1,
-   "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
-   "source": "audit-2026-09-26",
-   "added_by": "medi-correction",
-   "correction": "d196fe12-e494-4d1c-8319-376b5849b24e",
-   "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "uid": "FA-8b051f26",
-   "n": 1303
-  },
-  {
-   "id": "MC-992b0ce6",
-   "date": "2026-10-09",
-   "t": "21:34",
-   "t_amal": null,
-   "medi_said": "أنا بنبسط بالشاطئ.",
-   "amal_said": null,
-   "wrong": "bi el sha66.  Banbese6 always takes bi",
-   "right": "a grammar rule",
-   "kind": "grammar-propose",
-   "bucket": "PROPOSE",
-   "tier": null,
-   "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
-   "source": "audit-2026-09-26",
-   "added_by": "medi-correction",
-   "correction": "992b0ce6-305e-4d7c-ac6b-75f71c1a17e0",
-   "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "uid": "FA-a93e3407",
-   "n": 1304,
-   "kind_before_proposal": "grammar-B",
-   "bucket_before_proposal": null,
-   "proposal": "P-FA-a93e3407",
-   "proposed_rule": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)"
+   "n": 1297
   },
   {
    "id": "A12",
@@ -77933,7 +77589,7 @@
    "machine_had": false,
    "bucket_name": "taani: before or after the noun",
    "uid": "FA-49e5f20e",
-   "n": 1305
+   "n": 1298
   },
   {
    "id": "A13",
@@ -77967,7 +77623,7 @@
    "machine_had": false,
    "bucket_name": "hada / hadi",
    "uid": "FA-be610505",
-   "n": 1306
+   "n": 1299
   },
   {
    "id": "A14",
@@ -78000,7 +77656,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-08534439",
-   "n": 1307
+   "n": 1300
   },
   {
    "chat": null,
@@ -78033,7 +77689,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-743054ec",
-   "n": 1308
+   "n": 1301
   },
   {
    "id": "A15",
@@ -78067,7 +77723,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-bd955a0c",
-   "n": 1309
+   "n": 1302
   },
   {
    "id": "MC-552207de",
@@ -78090,7 +77746,7 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-9c77fb71",
-   "n": 1310
+   "n": 1303
   },
   {
    "chat": null,
@@ -78125,7 +77781,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-3ee347b9",
-   "n": 1311
+   "n": 1304
   },
   {
    "id": "A16",
@@ -78161,7 +77817,7 @@
    "rejected_rule": "TR-24",
    "rejected_why": "TR-24: the recording engine wrote bachtar; Medi said بختر (2026-10-11), so it is not his slip",
    "uid": "FA-0eb9a4aa",
-   "n": 1312
+   "n": 1305
   },
   {
    "id": "A17",
@@ -78195,7 +77851,7 @@
    "machine_had": false,
    "bucket_name": "hada / hadi",
    "uid": "FA-187f3950",
-   "n": 1313
+   "n": 1306
   },
   {
    "id": "A18",
@@ -78229,7 +77885,7 @@
    "machine_had": false,
    "bucket_name": "illi",
    "uid": "FA-42de5fbf",
-   "n": 1314
+   "n": 1307
   },
   {
    "id": "A19",
@@ -78263,7 +77919,7 @@
    "machine_had": false,
    "bucket_name": "broken plurals are patterns",
    "uid": "FA-666b39c5",
-   "n": 1315
+   "n": 1308
   },
   {
    "id": "A20",
@@ -78297,7 +77953,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-f235b604",
-   "n": 1316
+   "n": 1309
   },
   {
    "id": "A21",
@@ -78331,7 +77987,7 @@
    "machine_had": false,
    "bucket_name": "8eir: other / different, no el-",
    "uid": "FA-e7f3abca",
-   "n": 1317
+   "n": 1310
   },
   {
    "id": "A22",
@@ -78365,7 +78021,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-d6e491b6",
-   "n": 1318
+   "n": 1311
   },
   {
    "id": "A23",
@@ -78399,7 +78055,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-24b0dff1",
-   "n": 1319
+   "n": 1312
   },
   {
    "id": "A24",
@@ -78433,34 +78089,32 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-a0bb8bae",
-   "n": 1320
+   "n": 1313
   },
   {
-   "id": "MC-321ead15",
+   "id": "MC-chat-202",
    "date": "2026-10-09",
-   "t": "44:52",
+   "t": "45:24",
    "t_amal": null,
-   "medi_said": "أنا--",
+   "medi_said": "is just أكل؟ ... إلا أكل.",
    "amal_said": null,
    "wrong": "إلا أكل",
    "right": "من الأكل",
-   "kind": "grammar-propose",
-   "bucket": "PROPOSE",
+   "kind": "grammar",
+   "bucket": "D1",
    "tier": null,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "recast",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
-   "correction": "321ead15-8a61-4390-9726-e79d7a00cdf9",
+   "correction": "chat-20261012-d1-min-akel",
    "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "uid": "FA-c65e537b",
-   "n": 1321,
-   "kind_before_proposal": "grammar-B",
-   "bucket_before_proposal": null,
-   "proposal": "P-FA-c65e537b",
-   "proposed_rule": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)"
+   "why": "Medi 2026-10-12 marked it a mistake: jarrabet shouldnt be new, past tense of bajarreb.  Preposition grammar rule for min. el akel not illa akel?",
+   "rule": "GR-39",
+   "bucket_name": "prepositions",
+   "uid": "FA-d5ce2ff2",
+   "n": 1314
   },
   {
    "chat": "min el-akel",
@@ -78494,7 +78148,7 @@
    "machine_had": false,
    "bucket_name": "preposition keeps el-",
    "uid": "FA-3c7028fb",
-   "n": 1322
+   "n": 1315
   },
   {
    "id": "A25",
@@ -78528,7 +78182,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-0f1f4bb7",
-   "n": 1323
+   "n": 1316
   },
   {
    "id": "A26",
@@ -78562,34 +78216,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-8a74acd6",
-   "n": 1324
-  },
-  {
-   "id": "MC-8525eb42",
-   "date": "2026-10-09",
-   "t": "47:10",
-   "t_amal": null,
-   "medi_said": "Um, so أنواع مختلفين الأكل.",
-   "amal_said": null,
-   "wrong": "مختلفين",
-   "right": "",
-   "kind": "grammar-propose",
-   "bucket": "PROPOSE",
-   "tier": null,
-   "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
-   "source": "audit-2026-09-26",
-   "added_by": "medi-correction",
-   "correction": "8525eb42-283a-496b-9187-6f580ae818c7",
-   "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "uid": "FA-9cb22de4",
-   "n": 1325,
-   "kind_before_proposal": "grammar-B",
-   "bucket_before_proposal": null,
-   "proposal": "P-FA-9cb22de4",
-   "proposed_rule": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)"
+   "n": 1317
   },
   {
    "id": "A27",
@@ -78623,7 +78250,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-c40cfbec",
-   "n": 1326
+   "n": 1318
   },
   {
    "id": "A28",
@@ -78657,34 +78284,7 @@
    "machine_had": false,
    "bucket_name": "number + noun",
    "uid": "FA-356759f1",
-   "n": 1327
-  },
-  {
-   "id": "MC-71f28cc0",
-   "date": "2026-10-09",
-   "t": "49:00",
-   "t_amal": null,
-   "medi_said": "اكتب",
-   "amal_said": null,
-   "wrong": "اكتب",
-   "right": "اكتبي",
-   "kind": "grammar-propose",
-   "bucket": "PROPOSE",
-   "tier": null,
-   "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
-   "source": "audit-2026-09-26",
-   "added_by": "medi-correction",
-   "correction": "71f28cc0-2e82-4026-b112-7b8b745b4bb0",
-   "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "uid": "FA-7711aebb",
-   "n": 1328,
-   "kind_before_proposal": "grammar-B",
-   "bucket_before_proposal": null,
-   "proposal": "P-FA-7711aebb",
-   "proposed_rule": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)"
+   "n": 1319
   },
   {
    "id": "A29",
@@ -78718,7 +78318,7 @@
    "machine_had": false,
    "bucket_name": "8eir: other / different, no el-",
    "uid": "FA-6513c2ac",
-   "n": 1329
+   "n": 1320
   },
   {
    "id": "MC-20306163",
@@ -78741,7 +78341,7 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-eda2c9c6",
-   "n": 1330,
+   "n": 1321,
    "kind_before_proposal": "grammar-B",
    "bucket_before_proposal": null,
    "proposal": "P-FA-eda2c9c6",
@@ -78779,7 +78379,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d28341e4",
-   "n": 1331,
+   "n": 1322,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-d28341e4"
@@ -78816,34 +78416,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-fac7d30d",
-   "n": 1332
-  },
-  {
-   "id": "MC-abe7e45d",
-   "date": "2026-10-09",
-   "t": "55:13",
-   "t_amal": null,
-   "medi_said": "Aqlab asilti",
-   "amal_said": null,
-   "wrong": "muhimin",
-   "right": "muheimeen",
-   "kind": "grammar-propose",
-   "bucket": "PROPOSE",
-   "tier": null,
-   "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
-   "source": "audit-2026-09-26",
-   "added_by": "medi-correction",
-   "correction": "abe7e45d-6874-4d51-94df-65358490e6fb",
-   "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-12 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "uid": "FA-e9ce701f",
-   "n": 1333,
-   "kind_before_proposal": "grammar-B",
-   "bucket_before_proposal": null,
-   "proposal": "P-FA-e9ce701f",
-   "proposed_rule": "Medi 2026-10-12 marked it a mistake (Amal did not voice a fix: on her review page, tier B)"
+   "n": 1323
   },
   {
    "id": "MC-1ff62366",
@@ -78866,7 +78439,7 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-337afd2f",
-   "n": 1334
+   "n": 1324
   },
   {
    "id": "A32",
@@ -78900,34 +78473,32 @@
    "machine_had": false,
    "bucket_name": "aa5er / a5eer: before or after the noun",
    "uid": "FA-76331fcd",
-   "n": 1335
+   "n": 1325
   },
   {
-   "id": "MC-5810be71",
+   "id": "MC-chat-202",
    "date": "2026-10-09",
-   "t": "58:23",
+   "t": "58:37",
    "t_amal": null,
-   "medi_said": "Akher suali would be the end of my sentence. Um, the la-- So akhe- or sual il",
+   "medi_said": "Would would it be سؤالي آخر إلي؟",
    "amal_said": null,
-   "wrong": "suali akher ili",
+   "wrong": "سؤالي آخر",
    "right": "سؤالي الأخير",
-   "kind": "grammar-propose",
-   "bucket": "PROPOSE",
+   "kind": "grammar",
+   "bucket": "A15",
    "tier": null,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "recast",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
-   "correction": "5810be71-532f-4d4b-a6c6-1885f0c9a9e1",
+   "correction": "chat-20261012-a15-suali-akher",
    "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-12 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "uid": "FA-4ece894f",
-   "n": 1336,
-   "kind_before_proposal": "grammar-B",
-   "bucket_before_proposal": null,
-   "proposal": "P-FA-4ece894f",
-   "proposed_rule": "Medi 2026-10-12 marked it a mistake (Amal did not voice a fix: on her review page, tier B)"
+   "why": "Medi 2026-10-12 marked it a mistake: I should have gotten the adjective el rule wrong.  Just because I ask it in a question doesnt mean its not wrong",
+   "rule": "GR-39",
+   "bucket_name": "aa5er / a5eer: before or after the noun",
+   "uid": "FA-74ddd68f",
+   "n": 1326
   },
   {
    "chat": null,
@@ -78960,34 +78531,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f04fa096",
-   "n": 1337
-  },
-  {
-   "id": "MC-52d0a105",
-   "date": "2026-10-09",
-   "t": "1:00:07",
-   "t_amal": null,
-   "medi_said": "This is my first game.",
-   "amal_said": null,
-   "wrong": "haada",
-   "right": "haadi",
-   "kind": "grammar-propose",
-   "bucket": "PROPOSE",
-   "tier": null,
-   "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
-   "source": "audit-2026-09-26",
-   "added_by": "medi-correction",
-   "correction": "52d0a105-5eee-4828-89ec-ddd5e7c25405",
-   "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-12 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
-   "uid": "FA-c5ff9597",
-   "n": 1338,
-   "kind_before_proposal": "grammar-B",
-   "bucket_before_proposal": null,
-   "proposal": "P-FA-c5ff9597",
-   "proposed_rule": "Medi 2026-10-12 marked it a mistake (Amal did not voice a fix: on her review page, tier B)"
+   "n": 1327
   },
   {
    "id": "A33",
@@ -79021,7 +78565,32 @@
    "machine_had": false,
    "bucket_name": "feminine -t in idafa",
    "uid": "FA-4ba3949f",
-   "n": 1339
+   "n": 1328
+  },
+  {
+   "id": "MC-chat-202",
+   "date": "2026-10-09",
+   "t": "1:00:35",
+   "t_amal": null,
+   "medi_said": "هذا لعبي",
+   "amal_said": null,
+   "wrong": "هذا لعبي",
+   "right": "هذه لعبتي",
+   "kind": "grammar",
+   "bucket": "A10",
+   "tier": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "high",
+   "source": "audit-2026-09-26",
+   "added_by": "medi-correction",
+   "correction": "chat-20261012-a10-hada-lu3bi",
+   "agreed_by": "medi-correction",
+   "why": "Medi 2026-10-12 marked it a mistake: haada was wrong, its haadi",
+   "rule": "GR-39",
+   "bucket_name": "hada / hadi",
+   "uid": "FA-c2013b1d",
+   "n": 1329
   },
   {
    "id": "A34",
@@ -79055,7 +78624,7 @@
    "machine_had": false,
    "bucket_name": "clock time",
    "uid": "FA-24e35421",
-   "n": 1340
+   "n": 1330
   },
   {
    "id": "A35",
@@ -79089,7 +78658,7 @@
    "machine_had": false,
    "bucket_name": "taani: before or after the noun",
    "uid": "FA-2ae13907",
-   "n": 1341
+   "n": 1331
   },
   {
    "id": "A36",
@@ -79122,7 +78691,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-bcfa2d43",
-   "n": 1342
+   "n": 1332
   },
   {
    "id": "A37",
@@ -79156,7 +78725,7 @@
    "machine_had": false,
    "bucket_name": "broken plurals are patterns",
    "uid": "FA-0c7d5d95",
-   "n": 1343
+   "n": 1333
   },
   {
    "id": "A38",
@@ -79190,7 +78759,7 @@
    "machine_had": false,
    "bucket_name": "aa5er / a5eer: before or after the noun",
    "uid": "FA-b6fd6580",
-   "n": 1344
+   "n": 1334
   },
   {
    "id": "A39",
@@ -79224,7 +78793,7 @@
    "machine_had": false,
    "bucket_name": "aa5er / a5eer: before or after the noun",
    "uid": "FA-c717240c",
-   "n": 1345
+   "n": 1335
   },
   {
    "id": "A40",
@@ -79258,7 +78827,7 @@
    "machine_had": false,
    "bucket_name": "aa5er / a5eer: before or after the noun",
    "uid": "FA-6dbc2c81",
-   "n": 1346
+   "n": 1336
   },
   {
    "id": "A41",
@@ -79292,7 +78861,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-fbe0b865",
-   "n": 1347
+   "n": 1337
   },
   {
    "id": "A1",
@@ -79326,7 +78895,7 @@
    "machine_had": false,
    "bucket_name": "kaan = was / were",
    "uid": "FA-384e12bd",
-   "n": 1348,
+   "n": 1338,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "single-FA-384e12bd",
@@ -79371,7 +78940,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-cb27ba1a",
-   "n": 1349,
+   "n": 1339,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "single-FA-cb27ba1a",
@@ -79417,7 +78986,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-fe8dfac4",
-   "n": 1350
+   "n": 1340
   },
   {
    "bucket2": null,
@@ -79451,7 +79020,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-a3c9f1bd",
-   "n": 1351
+   "n": 1341
   },
   {
    "id": "A4",
@@ -79484,7 +79053,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-21abe1aa",
-   "n": 1352,
+   "n": 1342,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "single-FA-21abe1aa",
@@ -79529,7 +79098,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-89976ca7",
-   "n": 1353,
+   "n": 1343,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "single-FA-89976ca7",
@@ -79575,7 +79144,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-755d5677",
-   "n": 1354
+   "n": 1344
   },
   {
    "bucket2": null,
@@ -79609,7 +79178,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-aabe08df",
-   "n": 1355
+   "n": 1345
   },
   {
    "id": "A6",
@@ -79643,7 +79212,7 @@
    "machine_had": false,
    "bucket_name": "kaan = was / were",
    "uid": "FA-378c2019",
-   "n": 1356
+   "n": 1346
   },
   {
    "id": "A7",
@@ -79677,7 +79246,7 @@
    "machine_had": false,
    "bucket_name": "time units, two-of and many-of",
    "uid": "FA-df3b3c88",
-   "n": 1357
+   "n": 1347
   },
   {
    "id": "A8",
@@ -79711,7 +79280,7 @@
    "machine_had": false,
    "bucket_name": "the pointer rule",
    "uid": "FA-11e64d26",
-   "n": 1358
+   "n": 1348
   },
   {
    "bucket2": null,
@@ -79745,7 +79314,7 @@
    "machine_had": false,
    "bucket_name": "the pointer rule",
    "uid": "FA-ff521e1c",
-   "n": 1359
+   "n": 1349
   },
   {
    "bucket2": null,
@@ -79778,7 +79347,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-cd1f68d7",
-   "n": 1360
+   "n": 1350
   },
   {
    "bucket2": null,
@@ -79812,7 +79381,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-30eaf260",
-   "n": 1361
+   "n": 1351
   },
   {
    "id": "A9",
@@ -79845,7 +79414,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f84e91fa",
-   "n": 1362
+   "n": 1352
   },
   {
    "id": "A10",
@@ -79879,7 +79448,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-af5c94c3",
-   "n": 1363
+   "n": 1353
   },
   {
    "id": "A11",
@@ -79913,7 +79482,7 @@
    "machine_had": false,
    "bucket_name": "kul: all vs every",
    "uid": "FA-bc0354e6",
-   "n": 1364
+   "n": 1354
   },
   {
    "id": "A12",
@@ -79947,7 +79516,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-5873e68f",
-   "n": 1365,
+   "n": 1355,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "single-FA-5873e68f",
@@ -79993,7 +79562,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-324d2b55",
-   "n": 1366
+   "n": 1356
   },
   {
    "bucket2": null,
@@ -80027,7 +79596,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-cd6447fc",
-   "n": 1367
+   "n": 1357
   },
   {
    "id": "A14",
@@ -80061,7 +79630,7 @@
    "machine_had": false,
    "bucket_name": "word order",
    "uid": "FA-3257032d",
-   "n": 1368
+   "n": 1358
   },
   {
    "id": "A15",
@@ -80095,7 +79664,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-f7e2f5d2",
-   "n": 1369
+   "n": 1359
   },
   {
    "id": "A16",
@@ -80129,7 +79698,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-77d1a6d6",
-   "n": 1370
+   "n": 1360
   },
   {
    "bucket2": null,
@@ -80163,7 +79732,7 @@
    "machine_had": false,
    "bucket_name": "feminine -t in idafa",
    "uid": "FA-b7fa7005",
-   "n": 1371
+   "n": 1361
   },
   {
    "bucket2": null,
@@ -80197,7 +79766,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-474da895",
-   "n": 1372
+   "n": 1362
   },
   {
    "id": "A17",
@@ -80231,7 +79800,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-4c5064e7",
-   "n": 1373
+   "n": 1363
   },
   {
    "id": "A18",
@@ -80265,7 +79834,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-213637a3",
-   "n": 1374
+   "n": 1364
   },
   {
    "bucket2": null,
@@ -80298,7 +79867,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-24ab42fe",
-   "n": 1375
+   "n": 1365
   },
   {
    "id": "A19",
@@ -80333,7 +79902,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-aa558d66",
-   "n": 1376
+   "n": 1366
   },
   {
    "id": "A20",
@@ -80367,7 +79936,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-1218b232",
-   "n": 1377
+   "n": 1367
   },
   {
    "id": "A21",
@@ -80401,7 +79970,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-9aca9353",
-   "n": 1378
+   "n": 1368
   },
   {
    "id": "A22",
@@ -80435,7 +80004,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-f9da1f39",
-   "n": 1379
+   "n": 1369
   },
   {
    "id": "A23",
@@ -80469,7 +80038,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-c2d986e3",
-   "n": 1380
+   "n": 1370
   },
   {
    "id": "A24",
@@ -80504,7 +80073,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-1ee29ceb",
-   "n": 1381,
+   "n": 1371,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-1ee29ceb"
@@ -80542,12 +80111,12 @@
    "machine_had": false,
    "bucket_name": "aa5er / a5eer: before or after the noun",
    "uid": "FA-a60f3b7c",
-   "n": 1382
+   "n": 1372
   }
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-12T18:59:37.081643+00:00",
+   "at": "2026-10-12T19:27:13.239109+00:00",
    "rules": [
     1928,
     1929,
@@ -80596,8 +80165,6 @@
     2031,
     2032,
     2033,
-    37906,
-    37937,
     37999,
     38000,
     38001,

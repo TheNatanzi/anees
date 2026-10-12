@@ -60,6 +60,12 @@ function pair(said, right, toArabizi) {
   return p.join(' → ');
 }
 // The chip's words: {sign, word, kind, main, ar, tip}
+// PG-51 (Medi 2026-10-12 "fix all"; audit: 33 empty '↻ Repeat · grammar · ·' pills): a grammar repeat names its rule and
+// his words; with neither, the reason it is a repeat - never an empty pill
+function repeatMain(main, c) {
+  var parts = [main, c.said || ''].filter(function (x) { return String(x || '').trim(); });
+  return parts.length ? parts.join(' · ') : String(c.why || 'repeat');
+}
 function clock(t) { t = Math.max(0, Math.floor(Number(t) || 0)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); }
 function chipModel(c, toArabizi) {
   var s = subject(c, toArabizi), tip = '';
@@ -80,7 +86,7 @@ function chipModel(c, toArabizi) {
   if (c.also && c.also.length) tip += ' · also: ' + c.also.map(function (a) { return (WORD[a.s] || a.s) + ' ' + (a.k === 'na' ? '' : a.k) + (a.rule ? ' ' + a.rule : ''); }).join('; ');
   var arSrc = [c.said, c.right].filter(isArabic).join(' → ');
   return {
-    sign: SIGN[c.s] || '', word: WORD[c.s] || '', kind: s.kind, main: s.na ? s.main : c.s === 'na' || c.s === 'medi' ? (c.why || '') : c.s === 'repeat' && c.k === 'grammar' ? s.main + ' · ' + (c.said || '') : s.main,
+    sign: SIGN[c.s] || '', word: WORD[c.s] || '', kind: s.kind, main: s.na ? s.main : c.s === 'na' || c.s === 'medi' ? (c.why || '') : c.s === 'repeat' && c.k === 'grammar' ? repeatMain(s.main, c) : s.main + (c.n > 1 ? ' ×' + c.n : ''),
     ar: s.ar, tip: tip, tipAr: arSrc, sig: c.s === 'fix' ? c.sig : ''
   };
 }

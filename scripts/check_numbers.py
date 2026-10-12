@@ -67,6 +67,55 @@ def pct1(num, den):
     return round(100 * num / den, 1) if den else None
 
 
+COUNTED = {("vocab", "correct"): "right", ("vocab", "partial"): "partial", ("vocab", "asked"): "partial", ("vocab", "wrong"): "wrong",
+           ("grammar", "correct"): "g_ok", ("grammar", "wrong"): "g_slip"}
+
+
+def chip_checks(lesson, detail, by_rule=None):
+    """WS-39 (Medi 2026-10-12 "the math seems off to me, the vocab and grammar correct"; audit 2026-10-11: the header could
+    not be rebuilt from the transcript). Per lesson, the numbers the header shows = the counts recomputed from the chips on
+    the transcript, and every counted chip has a pill: it is drawn, or it is listed on the pill it is merged into (the green
+    pill's words, or the shown pill's 'also'). -> [(name, ok, detail)]. by_rule = the ledger's {rule: {scored}} (which
+    rules are in the Grammar %), else every grammar chip is compared with the slips only."""
+    d, w, g = lesson["date"], lesson["words"], lesson["grammar"]
+    tm, turns = detail.get("tmarks") or {}, detail.get("turns") or []
+    n = collections.Counter()
+    hidden_bad = []
+    scored = {b for b, r in (by_rule or {}).items() if r.get("scored")}
+    for k, v in tm.items():
+        cs = v.get("c") or []
+        byid = {c.get("id"): c for c in cs}
+        for c in cs:
+            what = COUNTED.get((c.get("k"), c.get("s")))
+            if not what:
+                continue
+            if what.startswith("g_"):
+                n[what + "_all"] += 1
+                if c.get("rule") in scored and c.get("rule") not in ("F1", "F2", "F3"):
+                    n[what] += 1
+            else:
+                n[what] += 1
+            if not c.get("hide"):
+                continue
+            top = byid.get(c["hide"])
+            listed = top is not None and not top.get("hide") and (
+                (c.get("k") == "vocab" and c.get("s") == "correct" and top.get("words")) or
+                any(a.get("k") == c.get("k") and a.get("s") == c.get("s") and a.get("rule") == c.get("rule") for a in top.get("also") or []))
+            if not listed:
+                t = turns[int(k)]["t"] if int(k) < len(turns) else None
+                hidden_bad.append("%s %s %s %s" % (int(t // 60) if t is not None else "?", c.get("k"), c.get("s"), c.get("ar") or c.get("rule") or ""))
+    out = [(f"{d} chips: words right", n["right"] == w["right"], f"{d}: the header says {w['right']} words right, the transcript has {n['right']} ✓ word chips"),
+           (f"{d} chips: words half", n["partial"] == w["partial"], f"{d}: the header says {w['partial']} partial, the transcript has {n['partial']} ◐ word chips"),
+           (f"{d} chips: words wrong", n["wrong"] == w["wrong"], f"{d}: the header says {w['wrong']} wrong, the transcript has {n['wrong']} ✗ word chips"),
+           (f"{d} chips: grammar slips", n["g_slip_all"] == g["mistakes"], f"{d}: the header says {g['mistakes']} grammar slips, the transcript has {n['g_slip_all']} ✗ grammar chips"),
+           (f"{d} chips: every counted item has a pill", not hidden_bad,
+            f"{d}: {len(hidden_bad)} counted chip(s) are hidden under no pill that lists them (e.g. {', '.join(hidden_bad[:3])})")]
+    if by_rule is not None and g.get("uses") is not None:
+        out.append((f"{d} chips: grammar uses", n["g_ok"] + n["g_slip"] == g["uses"],
+                    f"{d}: the header says {g['uses']} grammar uses, the transcript has {n['g_ok']} ✓ + {n['g_slip']} ✗ grammar chips in scored rules"))
+    return out
+
+
 def run(repo=REPO):
     global REPO
     REPO = repo
@@ -248,6 +297,12 @@ def run(repo=REPO):
                   f"{x['date']}: {'not verified' if not ver else 'verified'} but the pages {'do not show' if not ver else 'show'} ≈")
             check(f"{x['date']} no verified % when not verified", ver or (x["words"].get("verified_pct") is None and x["grammar"].get("verified_pct") is None),
                   f"{x['date']}: a verified % is stored for a lesson that is not verified")
+    # ---------------- 7. chips = numbers (WS-39)
+    for x in L:
+        led_p = os.path.join(REPO, "data", "lesson-work", "ledger", x["date"] + ".json")
+        by_rule = ((J("data", "lesson-work", "ledger", x["date"] + ".json").get("counts") or {}).get("grammar") or {}).get("by_rule") if os.path.exists(led_p) else None
+        for name, ok, detail in chip_checks(x, D[x["date"]], by_rule):
+            check(name, ok, detail)
     # both pages use the one averaging function
     for f in ("lessons-page.js", "lesson-overview.js"):
         src = open(os.path.join(REPO, "docs", "js", f), encoding="utf-8").read()

@@ -1258,6 +1258,13 @@ def build():
             L["notes"].append(f"{len(led['needs_medi'])} moment(s) wait for Medi (counted as before until he picks): "
                               + "; ".join(x["mmss"] for x in led["conflicts"] if x["id"] in led["needs_medi"]) + ".")
         L["counts"]["vocab_errors"], L["counts"]["vocab_correct"] = len(v["vocab_errors"]), len(v["vocab_correct"])
+        # PG-52 (Medi 2026-10-12 "the math seems off to me, the vocab and grammar correct"; audit: 'Errors (11)' beside '4
+        # wrong'): the Vocab list's error cards split the way the header counts them - ✗ counted, ◐ asked / half (half a
+        # point), and the words not on her list (counted nowhere)
+        _on = [e for e in v["vocab_errors"] if e.get("on_sheet") is not False]
+        L["counts"]["vocab_errors_split"] = {"wrong": sum(1 for e in _on if e.get("kind") == "wrong"),
+                                             "half": sum(1 for e in _on if e.get("kind") != "wrong"),
+                                             "off_list": len(v["vocab_errors"]) - len(_on)}
         v["marks"] = [m for m in v["marks"] if m["kind"] != "vocab" or any(abs(m["t"] - e["t"]) < .01 for e in v["vocab_errors"])]
     _wcc = os.path.join(REPO, "data", "lesson-work", "rehear", "rejudge", "word-credit-conflicts.json")
     if os.path.isdir(os.path.dirname(_wcc)):
