@@ -8824,6 +8824,80 @@
    "aliases": []
   },
   {
+   "id": "AM-32",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Grammar Claude HEARS the tutor teach in a lesson becomes a card on her 'Add grammar' list (AM-31). When a lesson is reviewed (scripts/review_lesson.py step 7f; the hourly `tutor_grammar.py pull` retries a failed read, 3 tries at most), ONE lean `claude -p` read of the lesson TRANSCRIPT (scripts/tutor_grammar_heard_prompt.md, tutor_grammar.lean_cmd on Sonnet 5.5 at low effort with no prompt cache, about $0.15 a lesson - measured 10-10 $0.145: the transcript alone is ~30K tokens, so the $0.05 of a short AM-31 read is not reachable - logged in data/runs and data/budget.json) finds grammar she TAUGHT or explained that fits no bucket in docs/data/grammar-buckets.json and no rule already proposed. Each finding is checked in code, never trusted: her quote must be on one of her own lines within 20 s of the time given (the line and the student's line before it are copied from the transcript); a GR-18 proposal moment within 30 s of the same lesson, or a rule / proposal / card with the same name, drops it (GR-18 keeps turning bare corrections into proposals; not duplicated); at most 5 a lesson. A kept finding is the same proposal shape with the same id assignment (next free per letter, ids_given never reused) and the same Yes, add it / Change it / Not a rule rows (tgram:heard-<yyyymmdd>-<mmss>:answer; no submit row), marked 'Claude heard this in the <date> lesson at mm:ss' with her quote and the student's line. Only her yes adds the rule (no automatic detection); past lessons are re-scored only on Medi's yes (PR-05). Lessons before TUTOR_FROM are not read (AM-28). Code never contacts her (AM-01).",
+   "plain": "After each lesson Claude reads the transcript once (about 15 cents) and, when your tutor taught a grammar rule you do not have yet, puts it on her 'Add grammar' list as a rule card saying where in the lesson it heard it. Nothing is added until she taps Yes.",
+   "plain_for": "36a9e200",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "it would be nice to have you detect new grammar and suggest it if you hear it in our convo"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "cant we tell from the transcript about the grammar rules?"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "def hear(date, store, repo=REPO, runner=None, log=print, spend=None, now=None, force=False):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "def place_quote(turns, t, quote):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "def gr18_moments(repo=REPO):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "def heard_grammar_step(d, dry_run, repo=None, runner=None, spend=None):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/grammar-add-task.js",
+     "contains": "Claude heard this in the ${esc(pretty(h.date))} lesson at ${esc(h.t)}"
+    },
+    {
+     "type": "brief",
+     "path": "scripts/tutor_grammar_heard_prompt.md",
+     "contains": "A correction counts only when she EXPLAINS it"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_grammar_heard.py",
+     "contains": "def test_am_32_a_rule_she_taught_becomes_a_card_marked_heard_with_her_quote_the_line_and_the_next_free_id"
+    },
+    {
+     "path": "tests/test_tutor_grammar_heard.py",
+     "contains": "def test_am_32_gr_18_is_reused_not_duplicated_and_a_known_name_is_not_new"
+    },
+    {
+     "path": "tests/test_tutor_grammar_heard.py",
+     "contains": "def test_am_32_one_read_per_lesson_a_failed_read_is_retried_and_lessons_before_tutor_from_are_not_read"
+    },
+    {
+     "path": "tests/test_grammar_add_task.cjs",
+     "contains": "test('AM-32 a card Claude heard in a lesson"
+    }
+   ],
+   "aliases": []
+  },
+  {
    "id": "TR-28",
    "kind": "data",
    "scope": "transcription",

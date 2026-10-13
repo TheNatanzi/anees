@@ -23,6 +23,8 @@ builder that fails, a broken reader file or Arabizi gaps left = exit 1 and no pu
               -> build_amal_review.py -> amal_review_link.py (refreshes her hub payload) -> prints the hub link
   7d new words amal_new_words.py --candidates -> `claude -p` by-meaning reader -> amal_new_words.py (Tutor hub: words Amal
               used that are not on her Doc; add / later / forget)
+  7f heard    tutor_grammar.py hear: one lean `claude -p` read of the transcript -> grammar the tutor taught that fits no
+              rule becomes a card on her 'Add grammar' list (AM-32; never fails the review)
   7c tutor     build_tutor_data.py -> docs/data/tutor.json (the Tutor page = Medi's menu of everything open for Amal)
   7b after     after_from_audit.py -> 3-5 "was he right here?" questions with clips -> amal_links kind after (on her hub)
   8 git       commit; push through scripts/publish_guard.py (unless --no-push / --dry-run / a failure above)
@@ -349,6 +351,19 @@ def taught_cross_step(d, dry_run, failures, repo=None, reader=None):
     return issues
 
 
+def heard_grammar_step(d, dry_run, repo=None, runner=None, spend=None):
+    """Step 7f, AM-32 (Medi 2026-10-12 "it would be nice to have you detect new grammar and suggest it if you hear it in
+    our convo" / "cant we tell from the transcript about the grammar rules?"): ONE lean `claude -p` read of the transcript
+    finds grammar the tutor taught that fits no rule -> cards on her 'Add grammar' list (scripts/tutor_grammar.py hear).
+    Lessons before TUTOR_FROM are not read (AM-28). It never fails the review: a failed read is retried by the hourly
+    `tutor_grammar.py pull`."""
+    if dry_run:
+        log("dry-run: the heard-grammar read (AM-32) would run once for", d)
+        return None
+    import tutor_grammar as TG
+    return TG.hear_and_save(d, repo or REPO, runner=runner, log=log, spend=spend)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("date")
@@ -533,6 +548,7 @@ def main():
     # Unjudged candidates are never shown to Amal; a reader that fails leaves them unjudged (counted) and fails the run.
     new_words_step(d, a.dry_run, failures)
     taught_cross_step(d, a.dry_run, failures)
+    heard_grammar_step(d, a.dry_run)
     # 7e the lesson audit's checks (scripts/lesson_audit.py, plan/LESSON-AUDIT-RUNBOOK.md): logged every run so a missing
     # mark, Latin on an Arabic line or a word credited twice is seen the same day; it reports, it never blocks
     r_ = subprocess.run([sys.executable, os.path.join(HERE, "lesson_audit.py"), d], cwd=REPO, capture_output=True, text=True,
@@ -546,7 +562,8 @@ def main():
     # nothing above failed (scripts/publish_guard.py; Medi decision 7, 2026-09-29)
     if not a.dry_run:
         subprocess.run(["git", "add", "-A", "data/full-audit-2026-09-26.json", "plan/FULL-AUDIT-2026-09-26.md", "docs", "data/lesson-work/full-audit",
-                        "data/lesson-work/amal-new-words", "data/lesson-work/amal-new-words-verdicts.json", "data/lesson-work/lesson-types"], cwd=REPO)
+                        "data/lesson-work/amal-new-words", "data/lesson-work/amal-new-words-verdicts.json", "data/lesson-work/lesson-types",
+                        "data/lesson-work/tutor-grammar"], cwd=REPO)
         subprocess.run(["git", "commit", "-q", "-m", f"Same-day review {d}: two readers + third reader, pages fed, Amal's items\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"], cwd=REPO)
         if failures:
             log("NOT PUSHED:", "; ".join(failures))

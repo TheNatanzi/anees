@@ -1,8 +1,149 @@
 {
  "rule": "AM-31",
- "updated": "2026-10-12T17:56:43-07:00",
+ "updated": "2026-10-12T23:16:37-07:00",
  "about": "Grammar the tutor added on her Tutor page: her words, Claude's rewrite as a rule with a letter-number, and her answer. Only her 'Yes, add it' adds the rule (scripts/tutor_grammar.py).",
- "waiting_for_tutor": 0,
- "items": [],
+ "waiting_for_tutor": 3,
+ "items": [
+  {
+   "sid": "heard-20261010-2900",
+   "text": "كمان at the end. Don't worry about كمان.",
+   "example": "",
+   "at": "2026-10-13T06:16:22+00:00",
+   "state": "proposed",
+   "versions": [
+    {
+     "grammar": true,
+     "id": "A19",
+     "family": "A",
+     "name": "kamaan at the end = also",
+     "one_line": "To say 'also / too', put kamaan at the very end of the sentence, after the thing it adds to.",
+     "formula": "sentence + kamaan",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "هذي أكلة خطيبتي المفضلة كمان.",
+       "english": "This is my fiancée's favorite dish too.",
+       "hers": true
+      }
+     ],
+     "why": "English puts 'also' near the verb; she moved kamaan to the end of the sentence for 'too'.",
+     "overlaps": null,
+     "v": 1,
+     "made_at": "2026-10-13T06:16:22+00:00",
+     "model": "claude-sonnet-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-10-10"
+    }
+   ],
+   "heard": {
+    "date": "2026-10-10",
+    "t": "29:00",
+    "quote": "كمان at the end. Don't worry about كمان.",
+    "line": "كمان at the end. Don't worry about كمان.",
+    "before": "كمان أكلة"
+   }
+  },
+  {
+   "sid": "heard-20261008-3614",
+   "text": "Ago is قبل. So قبل ثلاث سنين.",
+   "example": "",
+   "at": "2026-10-13T06:14:21+00:00",
+   "state": "proposed",
+   "versions": [
+    {
+     "grammar": true,
+     "id": "E6",
+     "family": "E",
+     "name": "ago = qabel + number + noun",
+     "one_line": "To say 'ago', put قبل in front of the number and time unit: قبل ثلاث سنين means three years ago.",
+     "formula": "qabel + number + plural time unit (qabel talat sneen)",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "قبل ثلاث سنين.",
+       "english": "three years ago",
+       "hers": true
+      }
+     ],
+     "why": "English puts 'ago' after the time phrase, but Arabic puts قبل in front of the number.",
+     "overlaps": {
+      "id": "E1",
+      "name": "number + noun",
+      "why": "Both use a number with a plural noun after it; this rule adds قبل in front of the whole phrase."
+     },
+     "v": 1,
+     "made_at": "2026-10-13T06:14:21+00:00",
+     "model": "claude-haiku-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-10-08"
+    }
+   ],
+   "heard": {
+    "date": "2026-10-08",
+    "t": "36:14",
+    "quote": "Ago is قبل. So قبل ثلاث سنين.",
+    "line": "Ago is قبل. So قبل ثلاث سنين.",
+    "before": "Um, so just..."
+   }
+  },
+  {
+   "sid": "heard-20261008-3746",
+   "text": "يعني it's feminine but it sounds masculine or it's masculine",
+   "example": "",
+   "at": "2026-10-13T06:14:21+00:00",
+   "state": "proposed",
+   "versions": [
+    {
+     "grammar": true,
+     "id": "A18",
+     "family": "A",
+     "name": "hidden gender: nature words",
+     "one_line": "Some nature nouns look or sound masculine but are feminine (sun, fire, earth, sky), while هواء (air) is masculine even though it sounds feminine.",
+     "formula": "shams / nar / ard / sama = feminine; hawa = masculine",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "امتى الشمس بتطلع؟",
+       "english": "When does the sun come up?",
+       "hers": false
+      },
+      {
+       "arabizi": "",
+       "arabic": "النار بتحرق.",
+       "english": "The fire burns.",
+       "hers": false
+      },
+      {
+       "arabizi": "",
+       "arabic": "السما بالليل.",
+       "english": "The sky at night.",
+       "hers": false
+      }
+     ],
+     "why": "The gender of these nature nouns does not match their sound, so a learner cannot guess it from the word's shape.",
+     "overlaps": {
+      "id": "A8",
+      "name": "gender on adjectives",
+      "why": "A8 says a feminine noun takes a feminine adjective, but it assumes you already know which nouns are feminine; this rule supplies that for nature words."
+     },
+     "v": 1,
+     "made_at": "2026-10-13T06:14:21+00:00",
+     "model": "claude-haiku-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-10-08"
+    }
+   ],
+   "heard": {
+    "date": "2026-10-08",
+    "t": "37:46",
+    "quote": "يعني it's feminine but it sounds masculine or it's masculine",
+    "line": "That we just, we just talked about يعني three, five, six min-mi-minutes ago. Um, it doesn't sound like it's gender. يعني it's feminine but it sounds masculine or it's masculine",
+    "before": "Okay, the nature lesson. Yeah."
+   }
+  }
+ ],
  "rows": []
 }

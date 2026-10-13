@@ -50,3 +50,18 @@ test('AM-31 a row this browser wrote shows at once and once only (dropped when t
   const live = [Object.assign({ id: 9 }, local[0])];
   assert.equal(G.merge([Object.assign({}, live[0])], live, local).length, 1);
 });
+
+test('AM-32 a card Claude heard in a lesson has no submit row, says where it was heard, and takes the same answers', () => {
+  const sid = 'heard-20261009-1004';
+  const D = { items: [{ sid, at: '2026-10-12T09:00:00Z', heard: { date: '2026-10-09', t: '10:04', quote: 'بعد بدي الفعل بدون ب', line: 'x', before: 'أنا بدي روح' }, versions: [V1] }] };
+  let L = G.items([], D);
+  assert.equal(L.length, 1); assert.equal(L[0].state, 'proposed'); assert.equal(L[0].sub.heard.t, '10:04');
+  assert.deepEqual(G.count(L), { toApprove: 1, waiting: 0, total: 1 });
+  const rows = [ans(sid, 'grammar_change', 1, '2026-10-12T10:00:00Z', 1, 'shorter name')];
+  assert.equal(G.items(rows, D)[0].state, 'waiting');
+  rows.push(ans(sid, 'grammar_yes', 1, '2026-10-12T10:01:00Z', 2));
+  assert.equal(G.items(rows, D)[0].state, 'added');
+  const y = G.row(G.YES, sid, 'tok', { v: 1, id: 'A18' });
+  assert.equal(y.word_key, 'tgram:' + sid + ':answer');
+  assert.ok(G.sidOf(y.word_key).sid === sid);
+});
