@@ -2,8 +2,8 @@
   "version": "2026-09-21-reliability-v1+silence+zibdeh-wrong-form+azra2-gender-form+ustaaz-vocab-miss+context-sweep-0925+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+lessons-1012+vocab-unresolved-audit-0928",
   "checks": {
     "learner_occurrences": 8348,
-    "initial_pending": 1981,
-    "extra_checked": 2034,
+    "initial_pending": 1982,
+    "extra_checked": 2035,
     "integrity_failures": 25
   },
   "ledger": [
@@ -277749,7 +277749,27 @@
           "grouping_lossless": true
         }
       },
-      "status": "Not scored",
+      "extra": {
+        "pass4": {
+          "method": "wider available source context",
+          "rows": 32,
+          "context_sha256": "f20be5ab0fa7cd564800dee0d765247f2ee544dd88f87276ada5efaab15cad6e"
+        },
+        "pass5": {
+          "method": "catalog identity and alternative transcript check",
+          "catalog_candidates": [
+            "shufet"
+          ],
+          "transcript_status": "asr",
+          "raw_source_preserved": true
+        },
+        "pass6": {
+          "method": "final counterexample check: repetition, grammar, prompt versus supplied answer, self-correction, false ASR binding",
+          "outcome": "Needs review",
+          "remaining_reason": "Isolated production; insufficient evidence of independent contextual success"
+        }
+      },
+      "status": "Needs review",
       "reason": "Isolated production; insufficient evidence of independent contextual success"
     },
     {
