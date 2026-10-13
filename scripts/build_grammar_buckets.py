@@ -610,6 +610,19 @@ A("F3", "F", "causative verbs: 3 forms",
    "Replaces the old shadda card (Amal 2026-09-30). make-X / get-X slips are scored under B12; this card is "
    "still not scored on its own (family F)."])
 
+# AM-31 (Medi 2026-10-12 "make it an option in the tutor portal \"add grammar\""): the rules the tutor added on her Tutor
+# page and said "Yes, add it" to (scripts/tutor_grammar.py: her words, Claude's rewrite, her yes). Read from the mirror of
+# her rows + the proposal store, never from the network. Each is added_by 'tutor' with detector None: no automatic detection
+# until a person writes one (scripts/detect_grammar_usage.py lists it under no_automatic_detection).
+import sys  # noqa: E402
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import tutor_grammar  # noqa: E402
+_have = {x["id"] for x in b}
+for _r in tutor_grammar.approved_buckets(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))):
+    if _r["id"] not in _have:
+        b.append(_r)
+        _have.add(_r["id"])
+
 payload = {
     "updated": "2026-10-02",
     "source": "wiki/18-grammar-buckets.md + Medi additions B16/B17/C10 (2026-09-22) + Amal's written notes (2026-09-27, applied 2026-09-29; her 2026-09-30 notes C4b-F3 applied 2026-09-30) + Medi-approved GR-18 proposals A12/C11/C12 (2026-10-02)",
@@ -622,6 +635,11 @@ payload = {
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as f:
     json.dump(payload, f, ensure_ascii=False, indent=1)
+
+# the AI readers' bucket list (data/lesson-work/full-audit/buckets.md) follows the buckets, so a rule the tutor added is in
+# the readers' brief from the next lesson on (AM-31)
+import full_audit_prep  # noqa: E402
+full_audit_prep.write_buckets_md()
 
 print("wrote", len(b), "buckets ->", OUT)
 print(Counter(x["family"] for x in b))

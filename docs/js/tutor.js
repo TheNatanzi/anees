@@ -16,7 +16,7 @@
   const pretty = d => d ? new Date(String(d).slice(0, 10) + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
   const today = () => new Date().toISOString().slice(0, 10);
   const PAGE = 20;
-  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null, UP = null, HW = null, PR = null, AT = null, RS = null;
+  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null, UP = null, HW = null, PR = null, AT = null, RS = null, GA = null;
 
   async function rest(path, token) {
     const H = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'X-Anees-Token': token };
@@ -170,6 +170,15 @@
     if (tab === 'upload') AneesUploadTask.mount($('#hb-body'), UP, { onChange: s => on({ total: s.total }) });
     else AneesHomeworkTask.mount($('#hb-body'), HW, { onChange: s => on({ left: s.total - s.done }) });
   }
+  // ---- AM-31 (Medi 2026-10-12 "make it an option in the tutor portal \"add grammar\""): she writes a grammar lesson, Claude
+  // gives it a letter-number and rewrites it as a rule card, she says yes / change / not a rule (docs/js/hub/grammar-add-task.js)
+  function grammarAdd() {
+    setTab('add-grammar');
+    const view = $('#hb-view');
+    if (!GA) { view.innerHTML = '<div class="vp-notice">Loading…</div>'; return; }
+    view.innerHTML = '<div class="hb-panel hb-tool" id="hb-panel"><h2 class="hb-ptitle">Add grammar</h2><div id="hb-body"></div></div>';
+    AneesGrammarAdd.mount($('#hb-body'), GA, { onChange: c => { $('#hb-n-add-grammar').textContent = c.toApprove ? c.toApprove + ' to approve' : ''; } });
+  }
   // ---- Grammar · Vocab · Decay (PG-30, Medi 2026-10-05 "the grammar and materials feel redundant ... Instead lets have grammar
   // and vocab. For now lets add my worst performing 20 vocab words and 10 grammar lessons. for her"; "lets add a 5th page for
   // decay. Words that are untested or decaying"): what Medi struggles with, from docs/data/tutor-weak.json
@@ -299,6 +308,7 @@
     hold(); window.AneesClip && AneesClip.stopAll();
     const [tab, id] = (decodeURIComponent(location.hash.slice(1)) || 'todo').split('/');
     if (tab === 'upload' || tab === 'homework') return tool(tab);
+    if (tab === 'add-grammar') return grammarAdd();
     if (tab === 'grammar') return grammar(id);
     if (tab === 'vocab') return vocab(id);
     if (tab === 'decay') return decay(id);
@@ -357,6 +367,13 @@
         tasks.push({ id: 'proposals', kind: 'proposals', item: {}, title: 'New grammar rules to approve', total: c.total, done: c.done, left: c.left, unit: 'rules', rank: -0.1, date: '', finished: c.left === 0 });
       }
     } catch (e) {}
+    try {   // AM-31 Add grammar: Claude's proposals (docs/data/tutor-grammar.json) + her rows, written with the grammar-notes link token
+      const g = T.open.find(x => x.kind === 'grammar_notes'), tok = g ? g.token : noteToken({});
+      const D = await (await fetch('data/tutor-grammar.json', { cache: 'no-store' })).json().catch(() => ({ items: [], rows: [] }));
+      GA = { token: tok, data: D };
+      const c = AneesGrammarAdd.count(AneesGrammarAdd.items(D.rows || [], D));
+      $('#hb-n-add-grammar').textContent = c.toApprove ? c.toApprove + ' to approve' : '';
+    } catch (e) { GA = GA || { token: '', data: { items: [], rows: [] } }; }
     try {   // Medi 2026-10-06 "attention ... sent to the tutor portal": his flashcard questions, a To do row right after the proposals
       const g = T.open.find(x => x.kind === 'grammar_notes'), tok = g ? g.token : '';
       const rows = await rest('card_attention?select=*&order=created_at.asc', tok);
@@ -402,7 +419,7 @@
   }
   // rule L1 (2026-10-02): her list, counts and answers are re-read when the tab comes back; the view is re-drawn only on
   // the bare to-do list, so an open task (or a rule, a section, an open accordion) is never reset under her.
-  function onList() { const h = decodeURIComponent(location.hash.slice(1)); return !h || h === 'todo'; }   // #upload / #homework: her typing is never reset
+  function onList() { const h = decodeURIComponent(location.hash.slice(1)); return !h || h === 'todo'; }   // #upload / #homework / #add-grammar: her typing is never reset
   main();
   window.AneesLive && AneesLive.onReturn(main, { busy: () => !onList() });
 })();

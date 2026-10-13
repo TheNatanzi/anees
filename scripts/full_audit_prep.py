@@ -17,6 +17,26 @@ def mmss(t):
     t = int(round(t)); h, m, s = t // 3600, (t % 3600) // 60, t % 60
     return (f"{h}:{m:02d}:{s:02d}" if h else f"{m:02d}:{s:02d}")
 
+def write_buckets_md(repo=None):
+    """data/lesson-work/full-audit/buckets.md - the readers' bucket list - from docs/data/grammar-buckets.json (also run by
+    scripts/build_grammar_buckets.py, so a rule the tutor added (AM-31) reaches the readers' brief)."""
+    repo = repo or REPO
+    out = os.path.join(repo, "data", "lesson-work", "full-audit")
+    B = json.load(open(os.path.join(repo, "docs", "data", "grammar-buckets.json"), encoding="utf-8"))
+    fam = B["families"]
+    blines = []
+    for b in B["buckets"]:
+        one = b.get("one_line") or b.get("rule") or b.get("short") or ""
+        blines.append(f"- **{b['id']}** {b.get('name','')} ({fam.get(b['id'][0],'')}): {one}"
+                      + (" **NOT TAUGHT YET - file it, it is shown but never counted.**" if b.get("taught") == "not-yet" else "")
+                      + (" (added by the tutor %s; no automatic detection yet - file her corrections and his uses here)" % b.get("added_on", "")
+                         if b.get("added_by") == "tutor" else ""))
+        # Amal's own notes on the rule (2026-09-27): what is and is not a mistake, so readers file by her rulings
+        blines += [f"  - {m}" for m in b.get("more", []) if "(Amal" in m]
+    open(os.path.join(out, "buckets.md"), "w", encoding="utf-8").write("# Grammar buckets (docs/data/grammar-buckets.json)\n\n" + "\n".join(blines) + "\n")
+    return B
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     for d in DATES:
@@ -33,16 +53,7 @@ def main():
     open(os.path.join(OUT, "amal-sheet.txt"), "w", encoding="utf-8").write(
         "# Amal's vocabulary Doc (docs/data/words.json) - english | her arabizi | arabic | key\n" +
         "\n".join(f"{e} | {a} | {ar} | {k}" for e, a, ar, k in rows) + "\n")
-    B = json.load(open(os.path.join(REPO, "docs", "data", "grammar-buckets.json"), encoding="utf-8"))
-    fam = B["families"]
-    blines = []
-    for b in B["buckets"]:
-        one = b.get("one_line") or b.get("rule") or b.get("short") or ""
-        blines.append(f"- **{b['id']}** {b.get('name','')} ({fam.get(b['id'][0],'')}): {one}"
-                      + (" **NOT TAUGHT YET - file it, it is shown but never counted.**" if b.get("taught") == "not-yet" else ""))
-        # Amal's own notes on the rule (2026-09-27): what is and is not a mistake, so readers file by her rulings
-        blines += [f"  - {m}" for m in b.get("more", []) if "(Amal" in m]
-    open(os.path.join(OUT, "buckets.md"), "w", encoding="utf-8").write("# Grammar buckets (docs/data/grammar-buckets.json)\n\n" + "\n".join(blines) + "\n")
+    B = write_buckets_md()
     print("wrote", len(DATES), "transcripts,", len(rows), "sheet words,", len(B["buckets"]), "buckets ->", OUT)
 
 if __name__ == "__main__":

@@ -366,7 +366,7 @@ def _commit(paths, message):
 TUTOR_PATHS = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'RULE-BOOK.md',
                'data/lesson-work/ledger', 'data/lesson-work/ledger-amal.json',
                'data/lesson-work/translations/tutor.json',   # PG-48: English of her card lines; LS-11: the lesson ledgers change with every build of the lesson data
-               'data/lesson-work/review-grades']   # AM-29: her key-check answers + key; PG-46: a frozen exam key written by review_grades.py
+               'data/lesson-work/review-grades', 'data/lesson-work/tutor-grammar', 'data/lesson-work/full-audit/buckets.md', 'data/budget.json', 'data/runs']   # AM-29: her key-check answers + key; PG-46: a frozen exam key written by review_grades.py
 # everything a run may build that the site or the guard reads: committed before the run's one push
 BUILT_PATHS = ['docs', 'RULE-BOOK.md', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'data/lesson-work/ledger', 'data/lesson-work/ledger-amal.json', 'plan/FULL-AUDIT-2026-09-26.md',
                'data/budget.json', 'data/lessons/recall_bots.json', 'data/runs', 'data/decisions', 'data/backfill',
@@ -396,6 +396,10 @@ def tutor_refresh(no_push=False, rebuild_all=False):
             # GR-37: the use counter reads the audit Amal's taps just changed, before the lesson data is rebuilt
             for s in ('detect_grammar_usage.py', 'build_amal_review.py', 'build_lessons_page_data.py', 'build_grammar_console.py', 'build_amal_grammar_rules.py'):
                 run_step(s, [sys.executable, str(HERE / s)], failures, timeout=1800)
+        # AM-31: her 'Add grammar' rows -> Claude's proposals -> her yes = a bucket; the rules pages follow
+        run_step('tutor_grammar.py pull', [sys.executable, str(HERE / 'tutor_grammar.py'), 'pull'], failures, timeout=900)
+        for s in ('build_grammar_buckets.py', 'build_grammar_console.py', 'build_amal_grammar_rules.py'):
+            run_step(s, [sys.executable, str(HERE / s)], failures, timeout=600)
         run_step('build_tutor_data.py', [sys.executable, str(HERE / 'build_tutor_data.py')], failures, timeout=300)
         run_step('translate_lines.py tutor', [sys.executable, str(HERE / 'translate_lines.py'), 'tutor'], failures, timeout=900)   # PG-48: English under every line on her cards (new lines only)
         run_step('build_student_data.py', [sys.executable, str(HERE / 'build_student_data.py')], failures, timeout=300)   # Student tab + her uploads (Medi 2026-10-05)

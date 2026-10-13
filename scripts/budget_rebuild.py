@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parent.parent
 REL = 'data/budget.json'
 SERVICES = ('elevenlabs', 'openai', 'gemini', 'anthropic')
 PROVIDER = {'elevenlabs': 'elevenlabs', 'openai': 'openai', 'google': 'gemini', 'gemini': 'gemini', 'anthropic': 'anthropic'}
-LEDGER_STEPS = re.compile(r'^(scribe\.|context\.listen$|bench\.total\.|correction_parse\.|meet_gap_fill)')
+LEDGER_STEPS = re.compile(r'^(scribe\.|context\.listen$|bench\.total\.|correction_parse\.|tutor_grammar\.|meet_gap_fill)')
 TOL_USD, TOL_H = 0.00015, 14
 
 

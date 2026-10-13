@@ -48,6 +48,33 @@ def header(m):
     return '<article id="%s"><header>%s</header>' % (rid, head)
 
 
+# AM-31: the rules the tutor added on her Tutor page ('Add grammar', her yes) get their own section, rebuilt every run
+# between two markers (never section id proposed-*: that is the GR-29 proposals list docs/js/hub/proposals-task.js reads)
+import html as _html  # noqa: E402
+TUTOR_START, TUTOR_END = "<!--tutor-added:start-->", "<!--tutor-added:end-->"
+
+
+def tutor_section(bs):
+    e = lambda x: _html.escape(str(x or ""), quote=True)  # noqa: E731
+    if not bs:
+        return ""
+    arts = []
+    for b in bs:
+        ex = "".join('<tr><td class="az">%s</td><td class="en">%s</td></tr>' % (e(a), e(en)) for a, en in b.get("examples", []))
+        more = "".join("<li>%s</li>" % e(m) for m in b.get("more", []))
+        arts.append('<article id="%s"><header><span class="id">%s</span><h3>%s</h3><span class="pill s-Untested">Untested</span>'
+                    '<span class="uses">0 uses</span></header><p class="one">%s</p><p class="why">%s</p><div class="grid"><div><h4>Examples</h4>'
+                    '<table class="ext">%s</table><h4>The detail</h4><ul class="more">%s</ul></div><div><h4>From the student&#39;s lessons</h4>'
+                    '<p class="none">No automatic detection yet: counted only from the AI readers and your and the student&#39;s notes.</p></div></div></article>'
+                    % (e(b["id"]), e(b["id"]), e(b["name"]), e(b["one_line"]), e(b.get("why")), ex, more))
+    return ('<section id="tutor-added"><h2><span class="fl">+</span>Rules you added</h2><p class="lede">Rules you wrote on your Tutor page '
+            '(Add grammar) and said yes to. The app has no automatic detection for them yet.</p>' + "".join(arts) + "</section>")
+
+
+_tb = [x for x in json.load(open(os.path.join(ROOT, "docs", "data", "grammar-buckets.json"), encoding="utf-8"))["buckets"] if x.get("added_by") == "tutor"]
+s = re.sub(re.escape(TUTOR_START) + ".*?" + re.escape(TUTOR_END), "", s, flags=re.S)
+s = s.replace("<footer>", TUTOR_START + tutor_section(_tb) + TUTOR_END + "<footer>", 1)
+
 s = re.sub(r'<article id="([^"]+)"><header>(.*?)</header>', header, s, flags=re.S)
 missing = sorted(set(rules) - seen)
 

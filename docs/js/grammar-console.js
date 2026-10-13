@@ -646,6 +646,8 @@ function detail(r) {
   } else if (!list.length) {
     d.appendChild(el('div', 'gc-empty', all.length
       ? 'No wrong uses on record for this rule in this range.'
+      : r.no_detector
+        ? 'The tutor added this rule' + (r.added_on ? ' on ' + r.added_on : '') + '. No automatic detection yet: it is counted only from the AI readers and the notes of the tutor and the student until a person adds a detector.'
       : r.tally_rule
         ? 'Nothing recorded in this range. Widen the range to All.'
         : 'No detector for this rule yet, so nothing is counted. It stays Untested until one lands.'));
@@ -783,6 +785,7 @@ function row(r) {
   name.appendChild(el('span', null, r.name));
   c1.appendChild(name);
   c1.appendChild(el('div', 'gc-oneline', r.one_line.replace(/`/g, '')));
+  if (r.no_detector) c1.appendChild(el('div', 'ab-mini', 'Added by the tutor · no automatic detection yet'));   // AM-31
   head.appendChild(c1);
 
   var used = el('div', 'gc-num', r.uses ? String(r.uses) : '—');

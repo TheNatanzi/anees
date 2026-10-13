@@ -498,6 +498,13 @@ def verb_prep(words):
     return None
 
 
+def no_detector(bs=None):
+    """AM-31: the buckets nothing in this file can see - a rule the tutor added (added_by 'tutor') with no pattern in P.
+    [{id, name, why}]; the Grammar pages show 'no automatic detection yet' for each."""
+    return [{"id": b["id"], "name": b.get("name", ""), "why": "added by the tutor %s; no automatic detection yet" % b.get("added_on", "")}
+            for b in (buckets if bs is None else bs) if b.get("added_by") == "tutor" and not P.get(b["id"])]
+
+
 def detect(txt, only=None):
     """{bucket: hit} for one line already in Arabic script (names masked). `only` limits the buckets."""
     txt = re.sub(r"(?:^|\s)الـ(?=\s|$|[،,.])", " ", txt)
@@ -1017,6 +1024,9 @@ if __name__ == "__main__":
         "uses": {k: v for k, v in uses.items()},
         "ruled_out": ruled_out,
         "not_uses_auto": not_uses,
+        # AM-31: a rule the tutor added on her Tutor page has no detector (the AI never writes a pattern): its uses come
+        # only from the readers and the tutor's and the student's notes until a person adds one here
+        "no_automatic_detection": no_detector(),
     }, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
     print("\nwrote", OUT)

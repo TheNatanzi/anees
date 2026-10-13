@@ -8749,6 +8749,81 @@
    "aliases": []
   },
   {
+   "id": "AM-31",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "'Add grammar' on the Tutor page (FOR THE STUDENT bar, next to Upload flashcards and Assign homework, with the count of her proposals to approve): the tutor writes a grammar lesson in her own words (one box) plus an optional example sentence (Arabic or Arabizi) - no rule id asked of her. Claude (one lean `claude -p` read, claude-sonnet-5-5, scripts/tutor_grammar_prompt.md; run by the 15-minute trigger and the hourly job, logged in data/runs and data/budget.json) proposes the rule in the app's format: the next free id in its letter group A-E (one more than the highest number any bucket, any GR-18 proposal or any id ever handed out has used, so a retired id is never reused), a short name, the one-line rule, the pattern, 1-4 examples with hers first (an example whose words are not all hers is marked 'spelling unverified', S1) and the existing rule it is close to. She sees 'Rule A18 · <name> · <rule> · <examples>' and taps Yes, add it · Change it (one box: what to change -> Claude rewrites it as a new version) · Not a rule, with Undo (AM-17), a note box (AM-27) and plain sentences (AM-23, AM-24, PG-33). Her rows are amal_rules source tutor_grammar (no migration; tgram:<sid> submit, tgram:<sid>:answer yes / change / no / undo; latest row wins; an answer counts only for the version it names), mirrored read-only into data/lesson-work/tutor-grammar/rows.json; the proposals are kept in data/lesson-work/tutor-grammar/proposals.json. Only her yes adds the rule: a new bucket (added_by tutor, detector None) in docs/data/grammar-buckets.json through scripts/build_grammar_buckets.py, on the Grammar Rules page, her rules page ('Rules you added') and the readers' bucket list (buckets.md). The AI never writes a detector: scripts/detect_grammar_usage.py lists the rule under no_automatic_detection and the pages say 'no automatic detection yet'; it is counted only from the readers and her and his notes until a person adds one. Past lessons are re-scored only on Medi's yes (PR-05). Code never contacts her (AM-01).",
+   "plain": "Your tutor can now add a grammar rule herself: she writes it in her own words on her Tutor page, Claude gives it a letter-number and rewrites it as a rule card, and it is added only when she taps Yes. A new rule has no automatic counter yet, so it is counted only from the AI readers and your and her notes.",
+   "plain_for": "553ba49c",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "lets do a handoff chip to create a way for amal to add grammar. Shes jsut going to put the lesson and you give it a letter# and rewrite it and have her approve"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "make it an option in the tutor portal \"add grammar\""
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/hub/grammar-add-task.js",
+     "contains": "function state(sub, vs) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/tutor.js",
+     "contains": "function grammarAdd() {"
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "def next_id(family, taken):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "def approved_buckets(repo=REPO):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_grammar_buckets.py",
+     "contains": "tutor_grammar.approved_buckets("
+    },
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "\"no_automatic_detection\": no_detector(),"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_trigger.py",
+     "contains": "(\"tutor_grammar_pull\", [sys.executable, \"scripts/tutor_grammar.py\", \"pull\"]),"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_grammar.py",
+     "contains": "def test_am_31_next_id_is_one_more_than_the_highest_in_the_letter_group_and_never_fills_a_gap"
+    },
+    {
+     "path": "tests/test_tutor_grammar.py",
+     "contains": "def test_am_31_a_rule_with_no_detector_is_listed_as_no_automatic_detection_yet"
+    },
+    {
+     "path": "tests/test_grammar_add_task.cjs",
+     "contains": "test('AM-31 Change it waits for the rewrite"
+    }
+   ],
+   "aliases": []
+  },
+  {
    "id": "TR-28",
    "kind": "data",
    "scope": "transcription",

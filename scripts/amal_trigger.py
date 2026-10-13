@@ -115,7 +115,7 @@ def fetch_plan():
 
 
 # listen-check: her listening check (amal/listen-check.html, 2026-10-04) - nothing is rebuilt from it but her hub list
-KNOWN_RULE_SOURCES = ("review", "after", "before", "plan", "planner", "grammar_notes", "listen-check", "note")
+KNOWN_RULE_SOURCES = ("review", "after", "before", "plan", "planner", "grammar_notes", "listen-check", "note", "tutor_grammar")
 # not Amal: machine flags from flashcard answers, and Medi's own marks
 NOT_AMAL_SOURCES = ("flashcards", "medi")
 
@@ -141,6 +141,11 @@ def fetch_notes():
 
 def fetch_rules_other():
     return fp_rows(_amal_rules(lambda r: r.get("source") not in KNOWN_RULE_SOURCES + NOT_AMAL_SOURCES), ("id", "source", "kind", "word_key", "payload"))
+
+
+def fetch_tutor_grammar():
+    """AM-31: what she writes and taps under 'Add grammar' on the Tutor page (amal_rules source tutor_grammar)."""
+    return fp_rows(_amal_rules(lambda r: r.get("source") == "tutor_grammar"), ("id", "kind", "word_key", "payload"))
 
 
 def fetch_verb_checks():
@@ -211,6 +216,9 @@ def fetch_quizlet(state_entry=None):
 STEPS = [
     ("pull_verb_checks", [sys.executable, "scripts/verb_check_links.py", "pull"]),
     ("build_word_bank_catalog", [sys.executable, "scripts/build_word_bank_catalog.py"]),
+    # AM-31: her 'Add grammar' rows -> Claude's proposal (one paid read each) -> her yes adds a bucket, before anything reads them
+    ("tutor_grammar_pull", [sys.executable, "scripts/tutor_grammar.py", "pull"]),
+    ("build_grammar_buckets", [sys.executable, "scripts/build_grammar_buckets.py"]),
     ("build_verb_addon_tags", [NODE, "scripts/build_verb_addon_tags.cjs"]),
     # PR-15: pull Medi's corrections (fail-open, quarantine, proposals, his yes -> registry) BEFORE every builder reads them
     ("pull_medi_corrections", [sys.executable, "scripts/medi_corrections.py", "pull"]),
@@ -262,6 +270,9 @@ SOURCES = [
              "(AM-29: her key-check taps feed only the grade book's tutor-vs-student agreement)"},
     {"id": "tutor_notes", "label": "Notes she writes on her Tutor screens (AM-27)", "fetch": fetch_notes, "steps": ["build_tutor_data", "build_student_data"]},
     {"id": "amal_rules_other", "label": "Any other answer she gives in the app", "fetch": fetch_rules_other, "steps": AUDIT_CHAIN},
+    {"id": "tutor_grammar", "label": "Add grammar: a rule she writes, Claude's rewrite, her yes (AM-31)", "fetch": fetch_tutor_grammar,
+     "steps": ["tutor_grammar_pull", "build_grammar_buckets", "detect_grammar_usage", "build_grammar_console", "build_amal_grammar_rules", "write_build"],
+     "note": "a new submission or 'Change it' gets Claude's rewrite (scripts/tutor_grammar.py, logged in data/runs + budget); only her yes adds the rule, with no automatic detection; past lessons are re-scored only on Medi's yes"},
     {"id": "verb_checks", "label": "Verb check lists 1 and 2", "fetch": fetch_verb_checks,
      "steps": ["pull_verb_checks", "build_word_bank_catalog", "build_verb_addon_tags", "build_sentence_ladder", "build_tutor_data"]},
     {"id": "word_review", "label": "Word review", "fetch": fetch_word_review, "steps": ["build_tutor_data"],

@@ -344,6 +344,7 @@ def use_verdict(u, slips):
     return "right"
 
 
+NO_DETECTOR = {x["id"] for x in usage.get("no_automatic_detection", [])} | {b["id"] for b in buckets if b.get("added_by") == "tutor" and not b.get("detector")}
 rows = []
 for b in buckets:
     rid = b.get("tally_rule")
@@ -396,7 +397,10 @@ for b in buckets:
         # a % would read 0 for lack of a counter, not for lack of skill. Show it unscored.
         "pct": None if nt or (not u and mistakes) else (round(100 * (uses - mistakes) / uses) if uses else None),
         "status": "NotTaught" if nt else "Unscored" if (not u and mistakes) else status(uses, mistakes),
-        "status_label": "Not taught yet" if nt else None,
+        "status_label": "Not taught yet" if nt else ("No automatic detection yet" if b.get("added_by") == "tutor" and not u and not mistakes else None),
+        # AM-31: a rule the tutor added has no detector until a person writes one; counted only from the readers and notes
+        "added_by": b.get("added_by"), "added_on": b.get("added_on"), "formula": b.get("formula"),
+        "no_detector": b["id"] in NO_DETECTOR,
         "not_taught": nt,
         "not_taught_why": AMAL.NOT_TAUGHT.get(b["id"]),
         "uses_seen": uses_seen,
