@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13T00:17:03-07:00",
+ "updated": "2026-10-13T00:43:47-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -6739,24 +6739,24 @@
     ]
    },
    "words": {
-    "unique": 99,
-    "right": 169,
-    "wrong": 7,
+    "unique": 92,
+    "right": 158,
+    "wrong": 6,
     "partial": 1,
-    "pct": 95.8,
-    "scored": 177,
-    "audit_wrong": 7,
+    "pct": 96.1,
+    "scored": 165,
+    "audit_wrong": 6,
     "audit_partial": 0,
     "not_on_sheet": 4,
     "rehear_word_conflicts": 0,
-    "unique_rows": 93
+    "unique_rows": 88
    },
    "grammar": {
-    "uses": 209,
-    "mistakes": 29,
-    "pct": 86.1,
+    "uses": 211,
+    "mistakes": 31,
+    "pct": 85.3,
     "estimate": false,
-    "scored_mistakes": 29,
+    "scored_mistakes": 31,
     "unscored_mistakes": 0
    },
    "talk": {
@@ -6786,7 +6786,7 @@
       2
      ]
     ],
-    "in_turns": 165,
+    "in_turns": 164,
     "comparable": true
    },
    "latency": {
@@ -6893,10 +6893,9 @@
      "t": "1:02:20"
     }
    ],
-   "coverage": "Long English stretches (collocation meta talk 12:00-13:30, hear vs listen 31:00-34:00, rule-adding 22:40-23:30). Latin-transliterated Medi turns 10:29-11:57, 13:29-27:39, 49:00-54:00. [foreign language] holes at 28:18, 29:37, 30:11, 31:07-33:04 (اسمعيني / اسمع له attempts unreadable). 09:52 and 10:05-10:11 engine garbage (soup). 47:06 'عمان ما را' = kaman marra (he answered 'one more time'), not Amman. 58:01 / 59:19 'Ramallah?' = he asked what she said. 10:47 'ana rah kunet' was a question about order, not counted. 45:24 'أي سهل؟' = he misheard her هاي سهلة, not scored. / Long Latin-transliterated stretches 10:16-30:00 and 47:00-55:00 (engine spelled his Arabic in English letters). Holes: 28:18-28:28 and 31:05-33:04 marked [foreign language] (the 'listen to me' drill - his attempts unreadable); 30:11 Arabic taken from echo-candidates context. Engine: 05:12 حليت بوجه = 7al2i beywajje3 (S4/engine, not scored); 05:34 بعدت -> قعدت he fixed himself after her 'what?' (S4/self-fix); 13:29 Basakir = bafakkir; 26:24 kihki = te7ki; 35:17 سنكي/سناني = استناني; 47:06 'عمان ما را' = kamaan marra (not the place); 28:25/28:46 'Matthew' = Mahdi; 54:43 mishtahaz = mish jaahez; 56:17 بنسير = بنصير (S4). Echo candidates: all real English/filler, no sound-alikes. Amal's 'ونخطط' 55:23 likely engine for بنخطط. No tier-3 English drops on her sheet found. Most of the lesson is English meta-talk about collocations.",
+   "coverage": "Engine garbles: 09:52 'I collect ... Shan Halloween' likely akalet shorba; 08:21 تمن = tenain; 05:12 بوجه = بوجع; 49:38 كتبتي = خطيبتي; 30:11 and 31:21-33:04 '[foreign language]' stretches unreadable (listen/hear examples). Long English meta stretches 03:18-04:33, 22:40-23:28, 1:02:38-end. 06:01 echo file shows 'الولاد ... في المدرسة' so no el- slip there. 1:02:10 Amal offered إجازة beside his عطلة - read as an alternative, not a fix. 50:44 عرسه after her fix and 51:16 'thalath meet' are repeats. / Medi's 30:11 example (باجي + preposition) is [foreign language] in the transcript; Amal said 'two other verbs are better fit' - cannot be filed. 31:07-33:04 several [foreign language] holes (اسمعيني/اسمعلي drill). Long Latin stretches 11:47, 14:48, 20:15, 50:33-53:35. Engine: 49:38 كتبتي = خطيبتي; 05:34 بعدت = قعدت (S4); 46:48 اشرحيلي يا = اشرحيلي إياه; 50:44 في عرسه = في عرسي. Echo: 'Fee.' (17:13) = في. 48:51 Amal عزمتك likely = عزومتك (not filed). 34:47 صوت بخوف = بيخوف (S4, not filed).",
    "notes": [
-    "timings: anees-20261012-recall-medi-seg2576: page/engine offset spread 140.12s",
-    "1 moment(s) wait for Medi (counted as before until he picks): 48:43."
+    "timings: anees-20261012-recall-medi-seg2576: page/engine offset spread 140.12s"
    ],
    "page": "lessons/2026-10-12.html",
    "detail": "data/lessons/2026-10-12.json",
@@ -6910,55 +6909,24 @@
    "counts": {
     "turns": 1009,
     "chat_lines": 53,
-    "vocab_errors": 11,
-    "vocab_correct": 170,
-    "grammar_errors": 29,
+    "vocab_errors": 10,
+    "vocab_correct": 159,
+    "grammar_errors": 31,
     "grammar_not_counted": 1,
     "vocab_errors_split": {
-     "wrong": 7,
+     "wrong": 6,
      "half": 0,
      "off_list": 4
     }
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-12.json",
-    "marks": 482,
+    "marks": 472,
     "conflicts": 1,
     "resolved": 0,
-    "needs_medi": 1,
+    "needs_medi": 0,
     "mode": "on",
-    "items": [
-     {
-      "id": "C1q-8df0944ee3",
-      "kind": "C1q",
-      "t": 2923.41,
-      "mmss": "48:43",
-      "line": "أعزمني، أعزمني home على أعزمتك، عزومتك، عزوم- عزومتك.",
-      "question": "Was «أعزمتك» wrong here?",
-      "options": [
-       "wrong",
-       "other",
-       "none"
-      ],
-      "now": "both judgments count as before until Amal answers",
-      "also": [],
-      "a": {
-       "by": "word-bank",
-       "verdict": "right",
-       "word": "أعزمتك",
-       "word_key": "ana 3azamet"
-      },
-      "b": {
-       "by": "readers",
-       "verdict": "not-scored",
-       "wrong": "أعزمتك",
-       "fix": "عزومتك",
-       "bucket": null,
-       "signal": "recast"
-      },
-      "ask": "amal"
-     }
-    ]
+    "items": []
    }
   }
  ]

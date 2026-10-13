@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13T00:16:49-07:00",
+ "updated": "2026-10-13T00:43:34-07:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -3760,32 +3760,13 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "بعدت",
-   "said": "بعدت، uh، امبارح مع بنات أخوي.",
-   "reason": "He said بعدت (I went away) twice; after Amal asked back (engine wrote أنا وقت؟) he switched to قعدت, which her chat confirms; may be the engine hearing a glottal ق as ب.",
+   "said": "بعدت، uh, امبارح مع بنات أخوي.",
+   "reason": "He said ba3adet (I went away) for 'I sat / stayed'; Amal queried 'ana ...?' (engine wrote وقت, likely her echo a3adet?) and he then said 'no no أنا بعدت. أ-قعدت' - his fix came after her query, so not a self-fix; low because ba3adet/2a3adet could be a sound slip or the engine.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-4b036412"
   },
   {
-   "id": "audit:FA-08dae902",
-   "word_key": "teneinv",
-   "entry_id": "teneinv:word",
-   "lesson_date": "2026-10-12",
-   "t_start": 498,
-   "t_end": 498,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "الثنتين",
-   "said": "No، يوم ال-- oh، يوم الثنتين.",
-   "reason": "He gave the feminine 'two' as the day name; she said No and gave tenain.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-08dae902"
-  },
-  {
-   "id": "audit:FA-181a59f4",
+   "id": "audit:FA-96a96e5e",
    "word_key": "ana ba7ki",
    "entry_id": "ana ba7ki:present",
    "lesson_date": "2026-10-12",
@@ -3797,30 +3778,11 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "baul",
-   "said": "So ba-, uh, ba- baul is speak.",
-   "reason": "He named بقول (say) as the verb for 'speak'; Amal said no three times and gave بحكي.",
+   "text": "بقول",
+   "said": "So بـ، uh, بـ بقول is speak.",
+   "reason": "In the talking-verbs quiz he named بقول (say) as 'speak'; Amal: 'لا، لا، لا. Just بحكي' - wrong lexical item for the meaning, same type as agreed A33 (بطلب = go out).",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-181a59f4"
-  },
-  {
-   "id": "audit:FA-394155fd",
-   "word_key": "ana baru7",
-   "entry_id": "ana baru7:present",
-   "lesson_date": "2026-10-12",
-   "t_start": 1811,
-   "t_end": 1811,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "باجي",
-   "said": "[foreign language] (his باجي example; words not in the transcript)",
-   "reason": "She asked for an example with باجي; after his example she said two other verbs fit better and gave برجع للبيت / بروح على البيت. His line is missing (transcript hole), so the exact words are unproven.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-394155fd"
+   "audit_uid": "FA-96a96e5e"
   },
   {
    "id": "audit:FA-df0be12d",
@@ -3836,8 +3798,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "منظرة",
-   "said": "أنا بحب أتطلع على منظرة--",
-   "reason": "Wrong (feminine) form of منظر; she gave منظر and he repeated it.",
+   "said": "أنا، أنا بحب أتطلع على منظرة--",
+   "reason": "Wrong (feminine) form of 'view'; Amal said منظر and he repeated.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-df0be12d"
   }
@@ -4293,24 +4255,35 @@
    "keyed_by": "auto-part"
   },
   {
-   "uid": "FA-65aa9e0a",
+   "uid": "FA-5443cbf0",
+   "date": "2026-10-12",
+   "t": 1282,
+   "key": "ana bafaker",
+   "kind": "wrong",
+   "said": "عن شو bitihki",
+   "wrong": "bitihki",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
+  },
+  {
+   "uid": "FA-92e56277",
    "date": "2026-10-12",
    "t": 3033,
    "key": null,
    "kind": "wrong",
-   "said": "Thalath mie ashkhass fi 'arus-- 'arusiti? 'Arusi?",
-   "wrong": "'arusi",
+   "said": "fi 'arus-- 'arusiti? 'Arusi?",
+   "wrong": "'arusiti",
    "why": "which list word it is waits for a reader (the automatic match was taught-earlier)",
    "keyed_by": "taught-earlier"
   },
   {
-   "uid": "FA-42067f58",
+   "uid": "FA-f9156fbc",
    "date": "2026-10-12",
    "t": 3532,
    "key": "ana ba6lub min",
    "kind": "wrong",
-   "said": "batlab means to go out.",
-   "wrong": "batlab = go out",
+   "said": "بطلب means to go out.",
+   "wrong": "بطلب = go out",
    "why": "which list word it is waits for a reader (the automatic match was part)",
    "keyed_by": "auto-part"
   }

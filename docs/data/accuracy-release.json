@@ -11,10 +11,10 @@
   "threshold_pct": 95.0,
   "words": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 94.2,
+   "unverified_avg_pct": 94.3,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 5045,
-   "excluded": 27,
+   "eligible": 5087,
+   "excluded": 26,
    "pending": 0
   },
   "grammar": {
@@ -22,18 +22,18 @@
    "unverified_avg_pct": 84.1,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 2,
-   "eligible": 747,
+   "eligible": 749,
    "excluded": 49,
    "pending": 0
   },
   "verification_queue": 0,
   "word_bank": {
-   "occurrences": 8260,
-   "eligible": 4822,
-   "excluded_not_scored": 3060,
-   "pending_needs_review": 378,
+   "occurrences": 8349,
+   "eligible": 4863,
+   "excluded_not_scored": 3110,
+   "pending_needs_review": 376,
    "other": 0,
-   "pct": 98.4,
+   "pct": 98.5,
    "lessons_in_audit": 24,
    "lessons_missing": [],
    "note": "pct = (Correct + half Partial) / (Correct + Partial + Wrong); 'Needs review' is pending and counts nowhere; 'Not scored' is excluded by rule (English, names, glue words...)."
@@ -1314,44 +1314,43 @@
    "date": "2026-10-12",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 72.3 %; 2 consecutive passes at >= 95 % are needed",
-    "coverage: 10 stretches of Medi's speech written as '[speaking ...]' markers (01:10 in all)",
+    "reader agreement: pass 1 65.4 %; 2 consecutive passes at >= 95 % are needed",
+    "coverage: 7 stretches of Medi's speech written as '[speaking ...]' markers (00:51 in all)",
     "coverage: Amal not transcribed 00:16-04:09 while the other person talks",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model"
    ],
    "words": {
-    "pct": 93.6,
-    "eligible_pct": 94.2,
+    "pct": 95.5,
+    "eligible_pct": 95.4,
     "verified_pct": null,
-    "scored": 125,
-    "eligible": 121,
-    "excluded": 4,
+    "scored": 166,
+    "eligible": 163,
+    "excluded": 3,
     "pending": 0,
     "excluded_why": {
-     "Amal not transcribed": 3,
-     "his line": 1
+     "Amal not transcribed": 3
     }
    },
    "grammar": {
-    "pct": 83.9,
+    "pct": 85.3,
     "verified_pct": null,
-    "mistakes": 29,
-    "uses": 180,
-    "eligible": 29,
+    "mistakes": 31,
+    "uses": 211,
+    "eligible": 31,
     "excluded": 0,
     "pending": 0,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
-     "10 slips are in rules the counter found 0 uses of in this lesson",
-     "6 rules have more slips than counted uses (B18, B8, C10, C2, D2, E1)"
+     "8 slips are in rules the counter found 0 uses of in this lesson",
+     "5 rules have more slips than counted uses (B18, B8, C10, C2, E1)"
     ]
    },
    "coverage": {
     "Medi": {
      "covered_pct": 100.0,
      "missing_s": 0,
-     "hole_s": 69.5
+     "hole_s": 51.0
     },
     "Amal": {
      "covered_pct": 95.3,
@@ -1364,7 +1363,7 @@
     "timing": "engine"
    },
    "agreement": [
-    72.3
+    65.4
    ],
    "between_passes": []
   }
