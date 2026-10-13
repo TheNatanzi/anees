@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-12T23:20:03-07:00",
+ "updated": "2026-10-13T11:28:19-07:00",
  "result": "pass",
- "source": "manual: suggested grammar from lessons",
- "checked_commit": "3b7d81cd13a4",
- "secs": 146.1,
+ "source": "manual: two-reader test for heard grammar",
+ "checked_commit": "ed4382effb16",
+ "secs": 124.5,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 1.5,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "152 JSON files parse"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.5,
+   "secs": 1.3,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 2.2,
+   "secs": 2.3,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 903 checks"
   },
@@ -97,15 +97,15 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 5.1,
+   "secs": 3.5,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
-   "detail": "...5 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
+   "detail": "...1 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
   {
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 6.0,
+   "secs": 6.3,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 74 pages, every link, data file and clip resolves (28 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 1.8,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.6,
+   "secs": 0.7,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 110.8,
+   "secs": 89.8,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": ".................. [ 96%] | ..................................                                       [100%] | 894 passed, 1 skipped, 3 xfailed in 108.06s (0:01:48)"
+   "detail": "................... [ 96%] | ..................................                                       [100%] | 894 passed, 1 skipped, 3 xfailed in 85.63s (0:01:25)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 5.5,
+   "secs": 6.0,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5436.7303"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5919.936"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.9,
+   "secs": 6.0,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -163,15 +163,15 @@
    "ok": false,
    "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
-   "detail": "lesson 2026-10-12 transcribed 10-12 16:16 but not on the site (not in lessons.json); Amal's answers last checked 70 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
+   "detail": "lesson 2026-10-12 transcribed 10-12 16:16 but not on the site (not in lessons.json); Amal's answers last checked 83 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
   },
   {
    "id": "medi_corrections",
    "required": false,
-   "ok": true,
+   "ok": false,
    "secs": 0.1,
    "what": "Medi's transcript corrections: none orphaned, held or quarantined, no rule paused by probation (PR-15; a warning only, never blocks)",
-   "detail": "corrections: none orphaned, none held, no paused rule"
+   "detail": "exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)"
   },
   {
    "id": "foreign_script",
@@ -184,10 +184,19 @@
  ],
  "warnings": [
   "review_freshness: 2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it; 2026-10-10: transcript changed after the readers read it",
-  "data_freshness: lesson 2026-10-12 transcribed 10-12 16:16 but not on the site (not in lessons.json); Amal's answers last checked 70 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
+  "data_freshness: lesson 2026-10-12 transcribed 10-12 16:16 but not on the site (not in lessons.json); Amal's answers last checked 83 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
+  "medi_corrections: exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
- "last_block": null,
- "blocks_before_this_pass": 0,
+ "last_block": {
+  "at": "2026-10-13T11:26:05-07:00",
+  "source": "manual: two-reader test for heard grammar",
+  "outcome": "blocked",
+  "sha": "ed4382effb16f77b7f64fab4db934a08117b0a7c",
+  "reason": "clean_tree: 1 uncommitted change(s) in what would be published, e.g. docs/data/tutor-notes.json",
+  "secs": 153.4,
+  "commits_waiting": "1"
+ },
+ "blocks_before_this_pass": 1,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
