@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13T11:16:51-07:00",
+ "updated": "2026-10-13T11:30:55-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -68,7 +68,13 @@
     "not_on_sheet": 4,
     "first_read_cards": 2,
     "rehear_word_conflicts": 0,
-    "unique_rows": 125
+    "unique_rows": 125,
+    "eligible": 225,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 89.6,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 212,
@@ -79,7 +85,29 @@
     "unscored_mistakes": 3,
     "provisional": "re-read, but the recording has no separate microphone track, so almost no line was re-heard; 5 of its slips come from the first read only and wait for a check",
     "first_read_cards": 5,
-    "maybe_counted_twice": 1
+    "maybe_counted_twice": 1,
+    "eligible": 33,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "9 slips are in rules the counter found 0 uses of in this lesson",
+      "5 rules have more slips than counted uses (A12, A7, B16, B18, C12)"
+     ],
+     "uses": 185,
+     "slips": 33,
+     "slips_latin": 5,
+     "slips_in_zero_use_rules": 9,
+     "rules_slips_over_uses": [
+      "A12",
+      "A7",
+      "B16",
+      "B18",
+      "C12"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1054.9,
@@ -220,6 +248,59 @@
       "ask": "amal"
      }
     ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 79.3 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
+     "grammar % provisional: re-read, but the recording has no separate microphone track, so almost no line was re-heard; 5 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 54,
+       "r2": 51,
+       "agreed": 46,
+       "disputed": 12,
+       "agreement_pct": 79.3
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3756.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3756.0,
+     "first_t": 174.0,
+     "last_t": 3594.0,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3756.0,
+     "first_t": 174.0,
+     "last_t": 3595.0,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -248,7 +329,13 @@
     "not_on_sheet": 7,
     "first_read_cards": 0,
     "rehear_word_conflicts": 0,
-    "unique_rows": 49
+    "unique_rows": 49,
+    "eligible": 75,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 92.0,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 127,
@@ -259,7 +346,33 @@
     "unscored_mistakes": 0,
     "provisional": "re-read, but the recording has no separate microphone track, so almost no line was re-heard; 9 of its slips come from the first read only and wait for a check",
     "first_read_cards": 9,
-    "maybe_counted_twice": 5
+    "maybe_counted_twice": 5,
+    "eligible": 41,
+    "excluded": 2,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "13 slips are in rules the counter found 0 uses of in this lesson",
+      "9 rules have more slips than counted uses (A10, A2, A3, A7, B18, B5, C10, C3)"
+     ],
+     "uses": 87,
+     "slips": 43,
+     "slips_latin": 24,
+     "slips_in_zero_use_rules": 13,
+     "rules_slips_over_uses": [
+      "A10",
+      "A2",
+      "A3",
+      "A7",
+      "B18",
+      "B5",
+      "C10",
+      "C3",
+      "D2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1080.8,
@@ -410,6 +523,60 @@
     "needs_medi": 0,
     "mode": "on",
     "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 63.8 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
+     "coverage: speaker labels agree with an independent check on only 86.7 % of 875 lines (voice pitch per line (Medi < 155 Hz, Amal > 180 Hz) vs the engine's diarization labels)",
+     "grammar % provisional: re-read, but the recording has no separate microphone track, so almost no line was re-heard; 9 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 48,
+       "r2": 51,
+       "agreed": 37,
+       "disputed": 21,
+       "agreement_pct": 63.8
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3876.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3875.9999999999995,
+     "first_t": 8.0,
+     "last_t": 3789.0,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3875.9999999999995,
+     "first_t": 4.0,
+     "last_t": 3791.0,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -438,7 +605,13 @@
     "not_on_sheet": 2,
     "first_read_cards": 0,
     "rehear_word_conflicts": 0,
-    "unique_rows": 50
+    "unique_rows": 50,
+    "eligible": 122,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 92.2,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 151,
@@ -449,7 +622,32 @@
     "unscored_mistakes": 1,
     "first_read_cards": 4,
     "provisional": "4 of its slips come from the first read only and wait for a check",
-    "maybe_counted_twice": 2
+    "maybe_counted_twice": 2,
+    "eligible": 34,
+    "excluded": 3,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "9 slips are in rules the counter found 0 uses of in this lesson",
+      "8 rules have more slips than counted uses (A3, B18, B5, B6, C4, C9, D2, F3)"
+     ],
+     "uses": 120,
+     "slips": 37,
+     "slips_latin": 17,
+     "slips_in_zero_use_rules": 9,
+     "rules_slips_over_uses": [
+      "A3",
+      "B18",
+      "B5",
+      "B6",
+      "C4",
+      "C9",
+      "D2",
+      "F3"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1381.9,
@@ -588,6 +786,60 @@
       "ask": "amal"
      }
     ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 58.1 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
+     "coverage: speaker labels agree with an independent check on only 89.8 % of 659 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+     "grammar % provisional: 4 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 9 excerpts (241 s of 3762 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 33,
+       "r2": 39,
+       "agreed": 25,
+       "disputed": 18,
+       "agreement_pct": 58.1
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 9,
+     "model_compared_s": 240.8,
+     "lesson_s": 3762.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3762.0,
+     "first_t": 29.93,
+     "last_t": 3733.58,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3762.0,
+     "first_t": 26.01,
+     "last_t": 3734.5,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -616,7 +868,13 @@
     "not_on_sheet": 6,
     "first_read_cards": 1,
     "rehear_word_conflicts": 0,
-    "unique_rows": 94
+    "unique_rows": 94,
+    "eligible": 206,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 92.0,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 220,
@@ -627,7 +885,31 @@
     "unscored_mistakes": 0,
     "first_read_cards": 5,
     "provisional": "5 of its slips come from the first read only and wait for a check",
-    "maybe_counted_twice": 2
+    "maybe_counted_twice": 2,
+    "eligible": 39,
+    "excluded": 4,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "15 slips are in rules the counter found 0 uses of in this lesson",
+      "7 rules have more slips than counted uses (A13, A7, B18, B2, C7, D2, E1)"
+     ],
+     "uses": 186,
+     "slips": 43,
+     "slips_latin": 2,
+     "slips_in_zero_use_rules": 15,
+     "rules_slips_over_uses": [
+      "A13",
+      "A7",
+      "B18",
+      "B2",
+      "C7",
+      "D2",
+      "E1"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 883.3,
@@ -814,6 +1096,59 @@
       "ask": "amal"
      }
     ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 54.5 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: line times estimated from each person's recording by silence detection (no engine word timings)",
+     "grammar % provisional: 5 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 21 excerpts (519 s of 3762 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 45,
+       "r2": 51,
+       "agreed": 30,
+       "disputed": 25,
+       "agreement_pct": 54.5
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 21,
+     "model_compared_s": 518.8,
+     "lesson_s": 3762.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3762.0,
+     "first_t": 11.92,
+     "last_t": 3758.14,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3762.0,
+     "first_t": 3.94,
+     "last_t": 3760.18,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -842,7 +1177,13 @@
     "not_on_sheet": 1,
     "first_read_cards": 1,
     "rehear_word_conflicts": 0,
-    "unique_rows": 102
+    "unique_rows": 102,
+    "eligible": 185,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 93.5,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 201,
@@ -853,7 +1194,32 @@
     "unscored_mistakes": 0,
     "first_read_cards": 6,
     "provisional": "6 of its slips come from the first read only and wait for a check",
-    "maybe_counted_twice": 2
+    "maybe_counted_twice": 2,
+    "eligible": 31,
+    "excluded": 11,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "10 slips are in rules the counter found 0 uses of in this lesson",
+      "8 rules have more slips than counted uses (A11, A2, A3, A9, B12, B18, B3, C2)"
+     ],
+     "uses": 162,
+     "slips": 42,
+     "slips_latin": 12,
+     "slips_in_zero_use_rules": 10,
+     "rules_slips_over_uses": [
+      "A11",
+      "A2",
+      "A3",
+      "A9",
+      "B12",
+      "B18",
+      "B3",
+      "C2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1366.5,
@@ -964,6 +1330,202 @@
     "needs_medi": 0,
     "mode": "on",
     "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 69.8 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 18 stretches of Medi's speech written as '[speaking ...]' markers (03:22 in all)",
+     "coverage: 10 stretches of Amal's speech written as '[speaking ...]' markers (00:58 in all)",
+     "grammar % provisional: 6 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 36,
+       "r2": 38,
+       "agreed": 30,
+       "disputed": 13,
+       "agreement_pct": 69.8
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3756.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3756.0,
+     "first_t": 55.03,
+     "last_t": 3746.64,
+     "missing": [],
+     "holes": [
+      [
+       1093.56,
+       1102.56,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1104.6,
+       1115.41,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1248.56,
+       1258.07,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1267.72,
+       1273.2,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1279.1,
+       1290.92,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1303.48,
+       1311.16,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1336.96,
+       1343.68,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1362.1,
+       1375.92,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1838.21,
+       1915.0,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1929.87,
+       1936.67,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1966.55,
+       1970.47,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2023.17,
+       2034.77,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2041.33,
+       2044.75,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2047.91,
+       2058.63,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2095.95,
+       2099.97,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2111.43,
+       2115.33,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2136.06,
+       2137.44,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2181.29,
+       2185.91,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 202.0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3756.0,
+     "first_t": 41.13,
+     "last_t": 3746.37,
+     "missing": [],
+     "holes": [
+      [
+       2984.65,
+       2990.09,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2992.35,
+       2993.35,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3003.93,
+       3014.46,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3043.33,
+       3049.45,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3191.12,
+       3194.67,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3230.09,
+       3239.57,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3243.15,
+       3247.19,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3271.01,
+       3279.35,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3282.83,
+       3290.83,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3306.15,
+       3307.15,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 57.5,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -992,7 +1554,13 @@
     "not_on_sheet": 5,
     "first_read_cards": 2,
     "rehear_word_conflicts": 0,
-    "unique_rows": 112
+    "unique_rows": 112,
+    "eligible": 221,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 97.1,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 207,
@@ -1002,7 +1570,31 @@
     "scored_mistakes": 44,
     "unscored_mistakes": 0,
     "first_read_cards": 4,
-    "provisional": "4 of its slips come from the first read only and wait for a check"
+    "provisional": "4 of its slips come from the first read only and wait for a check",
+    "eligible": 41,
+    "excluded": 3,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "7 slips are in rules the counter found 0 uses of in this lesson",
+      "7 rules have more slips than counted uses (B12, B18, B2, B5, B7, C7, E1)"
+     ],
+     "uses": 166,
+     "slips": 44,
+     "slips_latin": 8,
+     "slips_in_zero_use_rules": 7,
+     "rules_slips_over_uses": [
+      "B12",
+      "B18",
+      "B2",
+      "B5",
+      "B7",
+      "C7",
+      "E1"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1070.8,
@@ -1143,6 +1735,58 @@
       "ask": "amal"
      }
     ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 73.2 %; 2 consecutive passes at >= 95 % are needed",
+     "grammar % provisional: 4 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3768 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 50,
+       "r2": 48,
+       "agreed": 41,
+       "disputed": 15,
+       "agreement_pct": 73.2
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3768.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3768.0,
+     "first_t": 2.01,
+     "last_t": 3757.72,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3768.0,
+     "first_t": 7.45,
+     "last_t": 3760.16,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -1170,7 +1814,13 @@
     "audit_partial": 2,
     "first_read_cards": 0,
     "rehear_word_conflicts": 0,
-    "unique_rows": 117
+    "unique_rows": 117,
+    "eligible": 209,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 95.9,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 202,
@@ -1181,7 +1831,31 @@
     "unscored_mistakes": 0,
     "first_read_cards": 9,
     "provisional": "9 of its slips come from the first read only and wait for a check",
-    "maybe_counted_twice": 4
+    "maybe_counted_twice": 4,
+    "eligible": 43,
+    "excluded": 1,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "9 slips are in rules the counter found 0 uses of in this lesson",
+      "7 rules have more slips than counted uses (B10, B16, B18, B2, D2, D4, E5)"
+     ],
+     "uses": 160,
+     "slips": 44,
+     "slips_latin": 5,
+     "slips_in_zero_use_rules": 9,
+     "rules_slips_over_uses": [
+      "B10",
+      "B16",
+      "B18",
+      "B2",
+      "D2",
+      "D4",
+      "E5"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1193.7,
@@ -1306,6 +1980,58 @@
     "needs_medi": 0,
     "mode": "on",
     "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 66.7 %; 2 consecutive passes at >= 95 % are needed",
+     "grammar % provisional: 9 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4026 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 44,
+       "r2": 41,
+       "agreed": 32,
+       "disputed": 16,
+       "agreement_pct": 66.7
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4026.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 4025.9999999999995,
+     "first_t": 37.78,
+     "last_t": 4020.6,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 4025.9999999999995,
+     "first_t": 36.75,
+     "last_t": 4023.06,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -1381,7 +2107,16 @@
     "not_on_sheet": 1,
     "first_read_cards": 3,
     "rehear_word_conflicts": 0,
-    "unique_rows": 103
+    "unique_rows": 103,
+    "eligible": 182,
+    "excluded": 7,
+    "pending": 0,
+    "eligible_pct": 94.8,
+    "excluded_why": {
+     "Medi's speech": 4,
+     "his line": 3
+    },
+    "verified_pct": null
    },
    "grammar": {
     "uses": 234,
@@ -1392,7 +2127,32 @@
     "unscored_mistakes": 1,
     "first_read_cards": 6,
     "provisional": "6 of its slips come from the first read only and wait for a check",
-    "maybe_counted_twice": 1
+    "maybe_counted_twice": 1,
+    "eligible": 31,
+    "excluded": 4,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "10 slips are in rules the counter found 0 uses of in this lesson",
+      "8 rules have more slips than counted uses (A12, B12, B13, B16, B18, C10, C9, D4)"
+     ],
+     "uses": 200,
+     "slips": 35,
+     "slips_latin": 11,
+     "slips_in_zero_use_rules": 10,
+     "rules_slips_over_uses": [
+      "A12",
+      "B12",
+      "B13",
+      "B16",
+      "B18",
+      "C10",
+      "C9",
+      "D4"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1919.9,
@@ -1609,6 +2369,156 @@
     "needs_medi": 0,
     "mode": "on",
     "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 57.4 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 19 stretches of Medi's speech written as '[speaking ...]' markers (04:46 in all)",
+     "coverage: speaker labels agree with an independent check on only 78.1 % of 795 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+     "grammar % provisional: 6 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4182 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 42,
+       "r2": 49,
+       "agreed": 31,
+       "disputed": 23,
+       "agreement_pct": 57.4
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4182.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 4182.0,
+     "first_t": 28.06,
+     "last_t": 4155.52,
+     "missing": [],
+     "holes": [
+      [
+       287.16,
+       294.48,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       328.3,
+       373.16,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       373.22,
+       382.28,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       387.84,
+       413.6,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1605.69,
+       1625.82,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1665.45,
+       1677.35,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1705.55,
+       1710.57,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1712.43,
+       1734.94,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1735.03,
+       1749.38,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1795.95,
+       1807.03,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1807.11,
+       1812.87,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1820.45,
+       1830.18,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3793.7,
+       3800.75,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3807.4,
+       3826.5,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       4028.68,
+       4052.86,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       4070.8,
+       4093.04,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       4100.88,
+       4112.59,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       4146.3,
+       4153.25,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       4155.52,
+       4162.69,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 285.9,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 4182.0,
+     "first_t": 26.62,
+     "last_t": 4152.92,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -1715,7 +2625,13 @@
     "not_on_sheet": 1,
     "first_read_cards": 2,
     "rehear_word_conflicts": 0,
-    "unique_rows": 93
+    "unique_rows": 93,
+    "eligible": 144,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 95.1,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 206,
@@ -1726,7 +2642,28 @@
     "unscored_mistakes": 0,
     "first_read_cards": 6,
     "provisional": "6 of its slips come from the first read only and wait for a check",
-    "maybe_counted_twice": 2
+    "maybe_counted_twice": 2,
+    "eligible": 33,
+    "excluded": 4,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "7 slips are in rules the counter found 0 uses of in this lesson",
+      "4 rules have more slips than counted uses (A13, B18, B7, C2)"
+     ],
+     "uses": 171,
+     "slips": 37,
+     "slips_latin": 13,
+     "slips_in_zero_use_rules": 7,
+     "rules_slips_over_uses": [
+      "A13",
+      "B18",
+      "B7",
+      "C2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1959.6,
@@ -1922,6 +2859,146 @@
     "needs_medi": 0,
     "mode": "on",
     "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 60.7 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 17 stretches of Medi's speech written as '[speaking ...]' markers (04:47 in all)",
+     "coverage: speaker labels agree with an independent check on only 89.1 % of 801 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+     "grammar % provisional: 6 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 49,
+       "r2": 49,
+       "agreed": 34,
+       "disputed": 22,
+       "agreement_pct": 60.7
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3828.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3828.0,
+     "first_t": 31.94,
+     "last_t": 3824.03,
+     "missing": [],
+     "holes": [
+      [
+       851.24,
+       859.02,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       980.8,
+       985.52,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       990.58,
+       1002.12,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1085.24,
+       1100.62,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1231.36,
+       1298.68,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1266.8,
+       1304.7,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1326.3,
+       1330.26,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1333.7,
+       1385.26,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1385.46,
+       1393.68,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1430.4,
+       1443.66,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1446.68,
+       1458.52,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1458.68,
+       1474.6,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1550.3,
+       1553.46,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1953.65,
+       1958.93,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1967.81,
+       1972.19,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1983.23,
+       1996.1,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2166.37,
+       2178.3,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 287.0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3828.0,
+     "first_t": 30.67,
+     "last_t": 3825.87,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -1950,7 +3027,13 @@
     "not_on_sheet": 2,
     "first_read_cards": 4,
     "rehear_word_conflicts": 0,
-    "unique_rows": 43
+    "unique_rows": 43,
+    "eligible": 69,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 89.1,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 125,
@@ -1961,7 +3044,30 @@
     "unscored_mistakes": 1,
     "provisional": "re-read, but the recording has no separate microphone track, so almost no line was re-heard; 11 of its slips come from the first read only and wait for a check",
     "first_read_cards": 11,
-    "maybe_counted_twice": 4
+    "maybe_counted_twice": 4,
+    "eligible": 31,
+    "excluded": 2,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "7 slips are in rules the counter found 0 uses of in this lesson",
+      "6 rules have more slips than counted uses (A12, B12, B18, B3, D2, E2)"
+     ],
+     "uses": 93,
+     "slips": 33,
+     "slips_latin": 21,
+     "slips_in_zero_use_rules": 7,
+     "rules_slips_over_uses": [
+      "A12",
+      "B12",
+      "B18",
+      "B3",
+      "D2",
+      "E2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 884.0,
@@ -2116,6 +3222,59 @@
       "ask": "amal"
      }
     ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 76.5 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: speakers guessed by voice pitch on one mixed recording",
+     "grammar % provisional: re-read, but the recording has no separate microphone track, so almost no line was re-heard; 11 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 33,
+       "r2": 30,
+       "agreed": 26,
+       "disputed": 8,
+       "agreement_pct": 76.5
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3828.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3828.0,
+     "first_t": 16.58,
+     "last_t": 3788.87,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3828.0,
+     "first_t": 12.72,
+     "last_t": 3787.77,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -2145,7 +3304,15 @@
     "not_on_sheet": 3,
     "first_read_cards": 3,
     "rehear_word_conflicts": 0,
-    "unique_rows": 55
+    "unique_rows": 55,
+    "eligible": 84,
+    "excluded": 1,
+    "pending": 0,
+    "eligible_pct": 88.1,
+    "excluded_why": {
+     "rejected on a human check by Amal": 1
+    },
+    "verified_pct": null
    },
    "grammar": {
     "uses": 52,
@@ -2154,7 +3321,20 @@
     "estimate": false,
     "scored_mistakes": 3,
     "unscored_mistakes": 0,
-    "first_read_cards": 0
+    "first_read_cards": 0,
+    "eligible": 2,
+    "excluded": 1,
+    "pending": 0,
+    "denominator": {
+     "valid": true,
+     "reasons": [],
+     "uses": 50,
+     "slips": 3,
+     "slips_latin": 0,
+     "slips_in_zero_use_rules": 0,
+     "rules_slips_over_uses": []
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 782.9,
@@ -2270,6 +3450,121 @@
       "ask": "amal"
      }
     ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 71.1 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 2 stretches of Medi's speech written as '[speaking ...]' markers (00:17 in all)",
+     "coverage: 10 stretches of Amal's speech written as '[speaking ...]' markers (01:08 in all)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3726 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 31,
+       "r2": 38,
+       "agreed": 27,
+       "disputed": 11,
+       "agreement_pct": 71.1
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3726.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3726.0,
+     "first_t": 0.15,
+     "last_t": 3721.8,
+     "missing": [],
+     "holes": [
+      [
+       70.45,
+       82.11,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3308.71,
+       3314.29,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 17.2,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3726.0,
+     "first_t": 0.27,
+     "last_t": 3723.08,
+     "missing": [],
+     "holes": [
+      [
+       53.17,
+       64.25,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       64.29,
+       65.29,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       125.49,
+       137.47,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       137.51,
+       147.79,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       147.79,
+       159.49,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       174.65,
+       175.65,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       197.53,
+       198.53,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       202.45,
+       210.93,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       226.85,
+       230.47,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       236.55,
+       244.85,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 68.4,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -2299,7 +3594,13 @@
     "not_on_sheet": 9,
     "first_read_cards": 4,
     "rehear_word_conflicts": 0,
-    "unique_rows": 184
+    "unique_rows": 184,
+    "eligible": 471,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 94.4,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 384,
@@ -2310,7 +3611,31 @@
     "unscored_mistakes": 2,
     "first_read_cards": 8,
     "provisional": "8 of its slips come from the first read only and wait for a check",
-    "maybe_counted_twice": 7
+    "maybe_counted_twice": 7,
+    "eligible": 62,
+    "excluded": 2,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "9 slips are in rules the counter found 0 uses of in this lesson",
+      "7 rules have more slips than counted uses (A12, B10, B16, B18, C11, C2, E1)"
+     ],
+     "uses": 326,
+     "slips": 64,
+     "slips_latin": 17,
+     "slips_in_zero_use_rules": 9,
+     "rules_slips_over_uses": [
+      "A12",
+      "B10",
+      "B16",
+      "B18",
+      "C11",
+      "C2",
+      "E1"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1397.9,
@@ -2440,6 +3765,58 @@
     "needs_medi": 0,
     "mode": "on",
     "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 66.3 %; 2 consecutive passes at >= 95 % are needed",
+     "grammar % provisional: 8 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4332 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 84,
+       "r2": 76,
+       "agreed": 61,
+       "disputed": 31,
+       "agreement_pct": 66.3
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4332.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 4332.0,
+     "first_t": 1.01,
+     "last_t": 4323.81,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 4332.0,
+     "first_t": 5.86,
+     "last_t": 4324.86,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -2516,7 +3893,17 @@
     "not_on_sheet": 1,
     "first_read_cards": 3,
     "rehear_word_conflicts": 0,
-    "unique_rows": 87
+    "unique_rows": 87,
+    "eligible": 164,
+    "excluded": 8,
+    "pending": 0,
+    "eligible_pct": 92.1,
+    "excluded_why": {
+     "Medi's speech": 2,
+     "rejected on a human check by Amal": 2,
+     "his line": 4
+    },
+    "verified_pct": null
    },
    "grammar": {
     "uses": 234,
@@ -2527,7 +3914,29 @@
     "unscored_mistakes": 0,
     "first_read_cards": 7,
     "provisional": "7 of its slips come from the first read only and wait for a check",
-    "maybe_counted_twice": 1
+    "maybe_counted_twice": 1,
+    "eligible": 33,
+    "excluded": 6,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "4 slips are in rules the counter found 0 uses of in this lesson",
+      "5 rules have more slips than counted uses (A5, B12, B8, E1, E2)"
+     ],
+     "uses": 199,
+     "slips": 39,
+     "slips_latin": 5,
+     "slips_in_zero_use_rules": 4,
+     "rules_slips_over_uses": [
+      "A5",
+      "B12",
+      "B8",
+      "E1",
+      "E2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1251.8,
@@ -2707,6 +4116,210 @@
       "ask": "amal"
      }
     ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 72.9 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 30 stretches of Medi's speech written as '[speaking ...]' markers (05:09 in all)",
+     "grammar % provisional: 7 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 55,
+       "r2": 49,
+       "agreed": 43,
+       "disputed": 16,
+       "agreement_pct": 72.9
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3876.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3875.9999999999995,
+     "first_t": 54.32,
+     "last_t": 3872.88,
+     "missing": [],
+     "holes": [
+      [
+       2533.11,
+       2540.11,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2542.59,
+       2555.51,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2555.59,
+       2560.37,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2584.75,
+       2593.57,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2593.57,
+       2598.97,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2608.77,
+       2630.45,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2649.45,
+       2665.55,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2675.53,
+       2678.35,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2719.41,
+       2727.87,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2727.99,
+       2753.21,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2788.79,
+       2799.03,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2799.03,
+       2828.09,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2847.33,
+       2864.71,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2869.25,
+       2879.93,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3268.73,
+       3276.99,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3311.09,
+       3318.29,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3319.53,
+       3327.65,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3341.91,
+       3351.71,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3397.25,
+       3403.65,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3415.45,
+       3420.65,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3433.81,
+       3441.17,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3445.77,
+       3447.89,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3472.79,
+       3475.35,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3475.75,
+       3476.75,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3623.35,
+       3625.99,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3656.44,
+       3673.52,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3683.72,
+       3686.1,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3699.06,
+       3713.16,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3725.98,
+       3732.1,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3732.2,
+       3760.18,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 308.9,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3875.9999999999995,
+     "first_t": 52.52,
+     "last_t": 3871.63,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -2774,7 +4387,15 @@
     "not_on_sheet": 11,
     "first_read_cards": 1,
     "rehear_word_conflicts": 0,
-    "unique_rows": 162
+    "unique_rows": 162,
+    "eligible": 352,
+    "excluded": 1,
+    "pending": 0,
+    "eligible_pct": 93.6,
+    "excluded_why": {
+     "Amal not transcribed": 1
+    },
+    "verified_pct": null
    },
    "grammar": {
     "uses": 265,
@@ -2785,7 +4406,28 @@
     "unscored_mistakes": 0,
     "first_read_cards": 2,
     "provisional": "2 of its slips come from the first read only and wait for a check",
-    "maybe_counted_twice": 2
+    "maybe_counted_twice": 2,
+    "eligible": 34,
+    "excluded": 1,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "3 slips are in rules the counter found 0 uses of in this lesson",
+      "4 rules have more slips than counted uses (A11, B18, B6, D4)"
+     ],
+     "uses": 235,
+     "slips": 35,
+     "slips_latin": 1,
+     "slips_in_zero_use_rules": 3,
+     "rules_slips_over_uses": [
+      "A11",
+      "B18",
+      "B6",
+      "D4"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1221.5,
@@ -3109,6 +4751,67 @@
       "ask": "amal"
      }
     ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 63.6 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: Amal not transcribed 17:30-20:17 while the other person talks",
+     "coverage: speaker labels agree with an independent check on only 87.7 % of 1002 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+     "coverage: Amal 00:00-20:17 comes from the mixed Meet recording, speakers split by diarization (their own track is silent there)",
+     "grammar % provisional: 2 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4188 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 57,
+       "r2": 61,
+       "agreed": 42,
+       "disputed": 24,
+       "agreement_pct": 63.6
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4188.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 4188.0,
+     "first_t": 1.8,
+     "last_t": 4180.03,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 4188.0,
+     "first_t": 3.87,
+     "last_t": 4185.03,
+     "missing": [
+      [
+       1049.51,
+       1217.25,
+       "no transcript for Amal while the other person talks"
+      ]
+     ],
+     "holes": [],
+     "missing_s": 167.7,
+     "hole_s": 0,
+     "covered_pct": 96.0
+    }
    }
   },
   {
@@ -3208,7 +4911,13 @@
     "not_on_sheet": 3,
     "first_read_cards": 1,
     "rehear_word_conflicts": 0,
-    "unique_rows": 114
+    "unique_rows": 114,
+    "eligible": 266,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 93.2,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 225,
@@ -3218,7 +4927,30 @@
     "scored_mistakes": 25,
     "unscored_mistakes": 0,
     "first_read_cards": 5,
-    "provisional": "5 of its slips come from the first read only and wait for a check"
+    "provisional": "5 of its slips come from the first read only and wait for a check",
+    "eligible": 22,
+    "excluded": 3,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "12 slips are in rules the counter found 0 uses of in this lesson",
+      "6 rules have more slips than counted uses (A14, A8, B12, B18, B3, E1)"
+     ],
+     "uses": 200,
+     "slips": 25,
+     "slips_latin": 2,
+     "slips_in_zero_use_rules": 12,
+     "rules_slips_over_uses": [
+      "A14",
+      "A8",
+      "B12",
+      "B18",
+      "B3",
+      "E1"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 2144.7,
@@ -3435,6 +5167,111 @@
     "needs_medi": 0,
     "mode": "on",
     "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 70.0 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 10 stretches of Medi's speech written as '[speaking ...]' markers (02:00 in all)",
+     "coverage: speaker labels agree with an independent check on only 87.3 % of 874 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+     "grammar % provisional: 5 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3948 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 45,
+       "r2": 45,
+       "agreed": 35,
+       "disputed": 15,
+       "agreement_pct": 70.0
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3948.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3948.0,
+     "first_t": 0.06,
+     "last_t": 3934.67,
+     "missing": [],
+     "holes": [
+      [
+       943.01,
+       954.63,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       954.81,
+       963.99,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       964.11,
+       977.94,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       997.79,
+       1011.46,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1012.01,
+       1015.74,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1050.57,
+       1059.38,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1071.79,
+       1083.53,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1089.99,
+       1101.16,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1106.47,
+       1130.28,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1148.01,
+       1160.06,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 119.6,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3948.0,
+     "first_t": 2.87,
+     "last_t": 3933.31,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -3593,7 +5430,15 @@
     "not_on_sheet": 3,
     "first_read_cards": 3,
     "rehear_word_conflicts": 0,
-    "unique_rows": 114
+    "unique_rows": 114,
+    "eligible": 223,
+    "excluded": 1,
+    "pending": 0,
+    "eligible_pct": 94.6,
+    "excluded_why": {
+     "rejected on a human check by Amal": 1
+    },
+    "verified_pct": null
    },
    "grammar": {
     "uses": 212,
@@ -3602,7 +5447,27 @@
     "estimate": false,
     "scored_mistakes": 21,
     "unscored_mistakes": 0,
-    "first_read_cards": 0
+    "first_read_cards": 0,
+    "eligible": 21,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "3 slips are in rules the counter found 0 uses of in this lesson",
+      "3 rules have more slips than counted uses (B18, D2, D4)"
+     ],
+     "uses": 192,
+     "slips": 21,
+     "slips_latin": 1,
+     "slips_in_zero_use_rules": 3,
+     "rules_slips_over_uses": [
+      "B18",
+      "D2",
+      "D4"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1194.3,
@@ -3799,6 +5664,57 @@
       "ask": "amal"
      }
     ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 86.5 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3942 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 37,
+       "r2": 33,
+       "agreed": 32,
+       "disputed": 5,
+       "agreement_pct": 86.5
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3942.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3943.43,
+     "first_t": 0.28,
+     "last_t": 3939.93,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3943.43,
+     "first_t": 47.21,
+     "last_t": 3942.35,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -3977,7 +5893,15 @@
     "audit_partial": 0,
     "not_on_sheet": 1,
     "rehear_word_conflicts": 0,
-    "unique_rows": 94
+    "unique_rows": 94,
+    "eligible": 200,
+    "excluded": 5,
+    "pending": 0,
+    "eligible_pct": 96.2,
+    "excluded_why": {
+     "Amal not transcribed": 5
+    },
+    "verified_pct": null
    },
    "grammar": {
     "uses": 169,
@@ -3985,7 +5909,27 @@
     "pct": 91.7,
     "estimate": false,
     "scored_mistakes": 14,
-    "unscored_mistakes": 1
+    "unscored_mistakes": 1,
+    "eligible": 15,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "3 slips are in rules the counter found 0 uses of in this lesson",
+      "3 rules have more slips than counted uses (A12, A3, B18)"
+     ],
+     "uses": 157,
+     "slips": 15,
+     "slips_latin": 0,
+     "slips_in_zero_use_rules": 3,
+     "rules_slips_over_uses": [
+      "A12",
+      "A3",
+      "B18"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1086.3,
@@ -4099,6 +6043,83 @@
     "needs_medi": 0,
     "mode": "on",
     "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 82.8 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 2 stretches of Medi's speech written as '[speaking ...]' markers (00:02 in all)",
+     "coverage: Amal not transcribed 09:57-14:05 while the other person talks",
+     "coverage: Amal not transcribed 18:46-23:14 while the other person talks",
+     "coverage: speaker labels agree with an independent check on only 88.3 % of 792 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 28,
+       "r2": 27,
+       "agreed": 24,
+       "disputed": 5,
+       "agreement_pct": 82.8
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3966.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3965.9999999999995,
+     "first_t": 4.36,
+     "last_t": 3961.34,
+     "missing": [],
+     "holes": [
+      [
+       2005.7,
+       2006.7,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3494.98,
+       3495.98,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 2.0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3965.9999999999995,
+     "first_t": 4.47,
+     "last_t": 3958.76,
+     "missing": [
+      [
+       597.46,
+       845.37,
+       "no transcript for Amal while the other person talks"
+      ],
+      [
+       1126.5,
+       1393.67,
+       "no transcript for Amal while the other person talks"
+      ]
+     ],
+     "holes": [],
+     "missing_s": 515.1,
+     "hole_s": 0,
+     "covered_pct": 87.0
+    }
    }
   },
   {
@@ -4326,7 +6347,13 @@
     "not_on_sheet": 1,
     "first_read_cards": 0,
     "rehear_word_conflicts": 0,
-    "unique_rows": 68
+    "unique_rows": 68,
+    "eligible": 207,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 95.4,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 203,
@@ -4337,7 +6364,28 @@
     "unscored_mistakes": 0,
     "first_read_cards": 2,
     "provisional": "2 of its slips come from the first read only and wait for a check",
-    "maybe_counted_twice": 2
+    "maybe_counted_twice": 2,
+    "eligible": 27,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "2 slips are in rules the counter found 0 uses of in this lesson",
+      "4 rules have more slips than counted uses (A15, A8, B2, E1)"
+     ],
+     "uses": 178,
+     "slips": 27,
+     "slips_latin": 2,
+     "slips_in_zero_use_rules": 2,
+     "rules_slips_over_uses": [
+      "A15",
+      "A8",
+      "B2",
+      "E1"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1238.0,
@@ -4521,6 +6569,58 @@
       "ask": "amal"
      }
     ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 77.5 %; 2 consecutive passes at >= 95 % are needed",
+     "grammar % provisional: 2 of its slips come from the first read only and wait for a check",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3852 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 36,
+       "r2": 37,
+       "agreed": 31,
+       "disputed": 9,
+       "agreement_pct": 77.5
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3852.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3852.0,
+     "first_t": 2.46,
+     "last_t": 3845.8,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3852.0,
+     "first_t": 3.88,
+     "last_t": 3843.87,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -4690,7 +6790,13 @@
     "audit_partial": 1,
     "not_on_sheet": 2,
     "rehear_word_conflicts": 0,
-    "unique_rows": 114
+    "unique_rows": 114,
+    "eligible": 278,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 95.0,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 215,
@@ -4698,7 +6804,26 @@
     "pct": 88.8,
     "estimate": false,
     "scored_mistakes": 24,
-    "unscored_mistakes": 0
+    "unscored_mistakes": 0,
+    "eligible": 24,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "1 slips are in rules the counter found 0 uses of in this lesson",
+      "2 rules have more slips than counted uses (A5, E2)"
+     ],
+     "uses": 192,
+     "slips": 24,
+     "slips_latin": 4,
+     "slips_in_zero_use_rules": 1,
+     "rules_slips_over_uses": [
+      "A5",
+      "E2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1137.0,
@@ -4915,6 +7040,57 @@
       "ask": "amal"
      }
     ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 76.7 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3912 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 40,
+       "r2": 36,
+       "agreed": 33,
+       "disputed": 10,
+       "agreement_pct": 76.7
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3912.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3912.0,
+     "first_t": 6.67,
+     "last_t": 3907.07,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3912.0,
+     "first_t": 22.17,
+     "last_t": 3909.84,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -5071,7 +7247,13 @@
     "audit_partial": 0,
     "not_on_sheet": 7,
     "rehear_word_conflicts": 0,
-    "unique_rows": 88
+    "unique_rows": 88,
+    "eligible": 214,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 93.5,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 179,
@@ -5079,7 +7261,29 @@
     "pct": 81.6,
     "estimate": false,
     "scored_mistakes": 33,
-    "unscored_mistakes": 0
+    "unscored_mistakes": 0,
+    "eligible": 33,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "10 slips are in rules the counter found 0 uses of in this lesson",
+      "5 rules have more slips than counted uses (A10b, A7, A8, B12, B18)"
+     ],
+     "uses": 148,
+     "slips": 33,
+     "slips_latin": 0,
+     "slips_in_zero_use_rules": 10,
+     "rules_slips_over_uses": [
+      "A10b",
+      "A7",
+      "A8",
+      "B12",
+      "B18"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1255.1,
@@ -5254,6 +7458,57 @@
     "needs_medi": 0,
     "mode": "on",
     "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 63.3 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3738 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 51,
+       "r2": 53,
+       "agreed": 38,
+       "disputed": 22,
+       "agreement_pct": 63.3
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3738.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3738.0,
+     "first_t": 3.03,
+     "last_t": 3733.77,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3738.0,
+     "first_t": 2.86,
+     "last_t": 3731.89,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -5398,7 +7653,13 @@
     "audit_partial": 6,
     "not_on_sheet": 5,
     "rehear_word_conflicts": 2,
-    "unique_rows": 106
+    "unique_rows": 106,
+    "eligible": 251,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 95.8,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 202,
@@ -5406,7 +7667,20 @@
     "pct": 86.6,
     "estimate": false,
     "scored_mistakes": 27,
-    "unscored_mistakes": 0
+    "unscored_mistakes": 0,
+    "eligible": 26,
+    "excluded": 1,
+    "pending": 0,
+    "denominator": {
+     "valid": true,
+     "reasons": [],
+     "uses": 176,
+     "slips": 27,
+     "slips_latin": 0,
+     "slips_in_zero_use_rules": 0,
+     "rules_slips_over_uses": []
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1219.9,
@@ -5648,6 +7922,57 @@
     "needs_medi": 0,
     "mode": "on",
     "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 71.2 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4032 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 46,
+       "r2": 48,
+       "agreed": 37,
+       "disputed": 15,
+       "agreement_pct": 71.2
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4032.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 4032.0,
+     "first_t": 10.37,
+     "last_t": 4018.93,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 4032.0,
+     "first_t": 9.29,
+     "last_t": 4016.62,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -5830,7 +8155,13 @@
     "audit_partial": 2,
     "not_on_sheet": 7,
     "rehear_word_conflicts": 1,
-    "unique_rows": 112
+    "unique_rows": 112,
+    "eligible": 308,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 97.7,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 286,
@@ -5838,7 +8169,28 @@
     "pct": 86.7,
     "estimate": false,
     "scored_mistakes": 38,
-    "unscored_mistakes": 0
+    "unscored_mistakes": 0,
+    "eligible": 38,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "3 slips are in rules the counter found 0 uses of in this lesson",
+      "4 rules have more slips than counted uses (A15, A16, A9b, C7)"
+     ],
+     "uses": 251,
+     "slips": 38,
+     "slips_latin": 1,
+     "slips_in_zero_use_rules": 3,
+     "rules_slips_over_uses": [
+      "A15",
+      "A16",
+      "A9b",
+      "C7"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1521.4,
@@ -6125,6 +8477,57 @@
       "ask": "amal"
      }
     ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 71.9 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4236 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 47,
+       "r2": 53,
+       "agreed": 41,
+       "disputed": 16,
+       "agreement_pct": 71.9
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4236.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 5193.69,
+     "first_t": 56.82,
+     "last_t": 4234.49,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 5193.69,
+     "first_t": 93.66,
+     "last_t": 4234.53,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -6300,7 +8703,13 @@
     "audit_partial": 2,
     "not_on_sheet": 2,
     "rehear_word_conflicts": 0,
-    "unique_rows": 104
+    "unique_rows": 104,
+    "eligible": 269,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 97.8,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 251,
@@ -6308,7 +8717,27 @@
     "pct": 90.0,
     "estimate": false,
     "scored_mistakes": 25,
-    "unscored_mistakes": 0
+    "unscored_mistakes": 0,
+    "eligible": 24,
+    "excluded": 1,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "4 slips are in rules the counter found 0 uses of in this lesson",
+      "3 rules have more slips than counted uses (C2, C9, E3)"
+     ],
+     "uses": 229,
+     "slips": 25,
+     "slips_latin": 12,
+     "slips_in_zero_use_rules": 4,
+     "rules_slips_over_uses": [
+      "C2",
+      "C9",
+      "E3"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 2001.3,
@@ -6444,6 +8873,65 @@
     "needs_medi": 0,
     "mode": "on",
     "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 62.5 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 1 stretches of Amal's speech written as '[speaking ...]' markers (00:01 in all)",
+     "coverage: speaker labels agree with an independent check on only 85.0 % of 846 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3804 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 30,
+       "r2": 37,
+       "agreed": 25,
+       "disputed": 15,
+       "agreement_pct": 62.5
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3804.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 6742.8,
+     "first_t": 3.2,
+     "last_t": 3800.48,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 6742.8,
+     "first_t": 3.5,
+     "last_t": 3800.66,
+     "missing": [],
+     "holes": [
+      [
+       355.16,
+       356.16,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 1.0,
+     "covered_pct": 100.0
+    }
    }
   },
   {
@@ -6749,7 +9237,15 @@
     "audit_partial": 0,
     "not_on_sheet": 4,
     "rehear_word_conflicts": 0,
-    "unique_rows": 88
+    "unique_rows": 88,
+    "eligible": 162,
+    "excluded": 3,
+    "pending": 0,
+    "eligible_pct": 96.0,
+    "excluded_why": {
+     "Amal not transcribed": 3
+    },
+    "verified_pct": null
    },
    "grammar": {
     "uses": 209,
@@ -6757,7 +9253,30 @@
     "pct": 85.2,
     "estimate": false,
     "scored_mistakes": 31,
-    "unscored_mistakes": 0
+    "unscored_mistakes": 0,
+    "eligible": 31,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "11 slips are in rules the counter found 0 uses of in this lesson",
+      "6 rules have more slips than counted uses (B18, B6, B8, C10, C2, E1)"
+     ],
+     "uses": 178,
+     "slips": 31,
+     "slips_latin": 3,
+     "slips_in_zero_use_rules": 11,
+     "rules_slips_over_uses": [
+      "B18",
+      "B6",
+      "B8",
+      "C10",
+      "C2",
+      "E1"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 951.7,
@@ -6927,6 +9446,101 @@
     "needs_medi": 0,
     "mode": "on",
     "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 65.4 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 7 stretches of Medi's speech written as '[speaking ...]' markers (00:51 in all)",
+     "coverage: Amal not transcribed 00:16-04:09 while the other person talks",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 47,
+       "r2": 42,
+       "agreed": 34,
+       "disputed": 18,
+       "agreement_pct": 65.4
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3828.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 4950.89,
+     "first_t": 197.63,
+     "last_t": 3819.55,
+     "missing": [],
+     "holes": [
+      [
+       1810.69,
+       1811.69,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1880.67,
+       1891.47,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1891.59,
+       1902.23,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1902.23,
+       1907.91,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1971.31,
+       1977.05,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1978.29,
+       1984.01,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1984.05,
+       1995.51,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 51.0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 4950.89,
+     "first_t": 8.29,
+     "last_t": 3824.48,
+     "missing": [
+      [
+       15.65,
+       249.31,
+       "no transcript for Amal while the other person talks"
+      ]
+     ],
+     "holes": [],
+     "missing_s": 233.7,
+     "hole_s": 0,
+     "covered_pct": 95.3
+    }
    }
   }
  ]
