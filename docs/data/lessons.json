@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-12T23:51:47-07:00",
+ "updated": "2026-10-13T00:00:49-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -6739,17 +6739,17 @@
     ]
    },
    "words": {
-    "unique": 74,
-    "right": 116,
+    "unique": 99,
+    "right": 99,
     "wrong": 7,
-    "partial": 2,
-    "pct": 93.6,
-    "scored": 125,
+    "partial": 1,
+    "pct": 93.0,
+    "scored": 107,
     "audit_wrong": 7,
     "audit_partial": 0,
     "not_on_sheet": 4,
     "rehear_word_conflicts": 0,
-    "unique_rows": 72
+    "unique_rows": 93
    },
    "grammar": {
     "uses": 180,
@@ -6786,7 +6786,7 @@
       2
      ]
     ],
-    "in_turns": 140,
+    "in_turns": 165,
     "comparable": true
    },
    "latency": {
@@ -6813,6 +6813,12 @@
      "arabic": "شوربة",
      "english": "soup (we drink soup: شربت شوربة)",
      "t": "10:01"
+    },
+    {
+     "latin": "rej3at",
+     "arabic": "رجعت",
+     "english": "she went back / returned (Medi asked 07:38 'would you say رجعت'; she confirmed 07:51 and typed 'heyye saarat a7san u rej3at 3ala shu8ulha' at 08:10)",
+     "t": "07:51"
     },
     {
      "latin": null,
@@ -6895,16 +6901,17 @@
    "page": "lessons/2026-10-12.html",
    "detail": "data/lessons/2026-10-12.json",
    "rehear": {
-    "status": "pending",
+    "status": "applied",
     "since": "2026-10-13",
-    "label": "Second listen: pending",
-    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+    "label": "Second listen: applied",
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "240 of your lines changed (104 with a different word, 136 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 16 lines wait: 1 held for a check, 7 where the 3 runs did not agree. 8 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word)."
    },
    "counts": {
     "turns": 1009,
     "chat_lines": 53,
     "vocab_errors": 11,
-    "vocab_correct": 118,
+    "vocab_correct": 100,
     "grammar_errors": 29,
     "grammar_not_counted": 1,
     "vocab_errors_split": {
@@ -6926,7 +6933,7 @@
       "kind": "C1q",
       "t": 2923.41,
       "mmss": "48:43",
-      "line": "أعزمني، أعزمني home على أعزمتك، أعزمتك، أعزم، أعزمتك.",
+      "line": "أعزمني، أعزمني home على أعزمتك، عزومتك، عزوم- عزومتك.",
       "question": "Was «أعزمتك» wrong here?",
       "options": [
        "wrong",

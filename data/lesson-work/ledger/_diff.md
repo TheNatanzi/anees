@@ -26,7 +26,8 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-06 | 93.5 | 214 | 81.6 | 33 | 179 | 1 / 0 |
 | 2026-10-08 | 95.8 | 251 | 86.6 | 27 | 202 | 1 / 0 |
 | 2026-10-09 | 98.0 | 307 | 86.7 | 38 | 286 | 1 / 2 |
-| 2026-10-10 | 97.7 | 266 | 90.1 | 25 | 252 | 3 / 0 |
+| 2026-10-10 | 97.7 -> **97.8** | 266 -> **269** | 90.1 -> **90.0** | 25 | 252 -> **251** | 3 / 0 |
+| 2026-10-12 | None -> **93.0** | None -> **107** | None -> **83.9** | None -> **29** | None -> **180** | 0 / 1 |
 
 
 ## Conflicts
@@ -134,6 +135,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-10 13:52 C5 settled: تلاقت (word-bank right) vs تلات -> التقيت (elta2ait) (readers wrong) - one word counted right and wrong at once: counted once, as the slip
 - 2026-10-10 13:52 C5 settled: تلاقت (word-bank right) vs تلات -> التقيت (elta2ait) (readers wrong) - one word counted right and wrong at once: counted once, as the slip
 - 2026-10-10 21:45 C1 settled: كليًا (word-bank right) vs كليًا -> بشكل عام (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
+- 2026-10-12 48:43 C1q Medi?: أعزمتك (word-bank right) vs أعزمتك -> عزومتك (readers not-scored) - which word of the phrase was wrong: Medi
 
 ## Medi's corrections (PR-15)
 

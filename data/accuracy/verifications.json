@@ -29032,6 +29032,406 @@
    "at": "2026-10-12T11:58:58.137958+00:00",
    "rule_id": 37937,
    "source": "amal_rules review (Tutor page)"
+  },
+  {
+   "uid": "FA-783b5103",
+   "date": "2026-10-09",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi reached for the plural as «مسلسلين» and Amal immediately supplied «مسلسلات», which he then repeated.",
+   "evidence": {
+    "t_start": 892.0,
+    "t_end": 924.0,
+    "quote": "Medi: «Is it مسلسلين؟» / Amal: «مسلسلات.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-09/FA-783b5103_Medi_Medi_Natanzi-cee20a49424.mp3",
+      "sha256": "f58b5582b9d75aeed2d126f3ba04f895bb8f9289c52bdc85afc629bfee45a4d3",
+      "source": "Medi_Natanzi-cee20a4942487ab2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-09/FA-783b5103_Amal_Amal-e18b5466abc818f8.mp3",
+      "sha256": "8d9d37a51574171b4200f0856052fa4c2a7bbee42064f48f0caf5a7edf0825ee",
+      "source": "Amal-e18b5466abc818f8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-09/FA-783b5103_mixed_lesson.mp3",
+      "sha256": "daf7af4b02d5aafc8f17f4dd02e9b6398092b9a32ddf594801a662fb692af31a",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هدول المسلسلين هدول المسلسلات المفتل المفتلين باندي اوك",
+     "Amal": "دعنا نقول أن هذه المشاهدات أفضل مني اه",
+     "mixed": "دعنا نقول أن هذه المشاهدات هي أفضل مني. هؤلاء المسلسلين المسلسلات المسلسلات هؤلاء المسلسلات المفضلين عندي؟"
+    }
+   },
+   "claim": {
+    "wrong": "مسلسلين",
+    "right": "مسلسلات",
+    "bucket": "A9",
+    "tier": 0
+   },
+   "at": "2026-10-12T23:47:55-07:00",
+   "run_id": "ed2ca18fe3f3402ca0afdee1f03260ef"
+  },
+  {
+   "uid": "FA-4b036412",
+   "date": "2026-10-12",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi first says «أنا بعدت امبارح مع بنات أخوي»; after Amal asks back «أنا وات؟», he repairs it to «أنا قعدت».",
+   "evidence": {
+    "t_start": 324.0,
+    "t_end": 364.0,
+    "quote": "«أنا بعدت ...» / «أنا وات؟» / «أنا قعدت»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-4b036412_Medi_Medi_Natanzi-41d3af5d98c.mp3",
+      "sha256": "5d8e4600c28163e07135e156e2b826b8dbc5c9058553da467f52efd29d808f17",
+      "source": "Medi_Natanzi-41d3af5d98cb5491.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-4b036412_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "a76b5b91c8a2fd06a5be0ace0c9967b7f7b73410a6f0e5b6e31afe0f970a71d0",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-4b036412_mixed_lesson.mp3",
+      "sha256": "80fb43676cee0fcc2b0bce89bb60c058d715d6596a7425bc464ac1b3cc450e97",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا بعدت امبارح مع بنات اخوي انا بعدت انا قادت أنا قعدت مع بنات أخوي و عشان الولاد دايما",
+     "Amal": "منشور أنا وات المكان وعينات",
+     "mixed": "من شو? من شو? انا بعدت اه امبارح مع بنات اخوي. انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا ا"
+    }
+   },
+   "claim": {
+    "wrong": "بعدت",
+    "right": "قعدت",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-12T23:47:55-07:00",
+   "run_id": "ed2ca18fe3f3402ca0afdee1f03260ef"
+  },
+  {
+   "uid": "FA-4830a88d",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi leaves the future construction hanging as «أنا كنت راح بس», and Amal explicitly says no and supplies the completed form «أنا كنت راح أدرس».",
+   "evidence": {
+    "t_start": 635.0,
+    "t_end": 672.0,
+    "quote": "Medi: «أنا كنت راح بس» / Amal: «No، أنا كنت راح أدرس»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-4830a88d_Medi_Medi_Natanzi-41d3af5d98c.mp3",
+      "sha256": "6cbfd145d43d5364213655e389b958e552f6e7e6d452c65ef9806e4253cc5307",
+      "source": "Medi_Natanzi-41d3af5d98cb5491.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-4830a88d_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "10b79da57c3dcc77fd1a9e76d625c78bcab995b16956dabcf847298c1a560cb2",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-4830a88d_mixed_lesson.mp3",
+      "sha256": "543ed7ae3426a81707cb975d7ea7c69467357a06593c1bea865c0b6c2c08250d",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أنا كنت راح أنا كنت راح بس أنا كنت راح أدرسه بس زباين أجو",
+     "Amal": "لقد كنت جيدة. لا أستطيع فقط أن أقول ذلك. لقد ذهبت لتدرس. هم أصلا",
+     "mixed": "انا كنت راح. انا كنت راح بس. انا كنت راح ادرسه. انا كنت راح أدرسه بس زباين عاجو هم أصلا"
+    }
+   },
+   "claim": {
+    "wrong": "Ana kunet rah bas",
+    "right": "أنا كنت راح أدرس",
+    "bucket": "B13",
+    "tier": null
+   },
+   "at": "2026-10-12T23:47:55-07:00",
+   "run_id": "ed2ca18fe3f3402ca0afdee1f03260ef"
+  },
+  {
+   "uid": "FA-181a59f4",
+   "date": "2026-10-12",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi identifies «بقول» as 'speak', and Amal rejects it with «لا لا لا» and gives «بحكي».",
+   "evidence": {
+    "t_start": 1055.0,
+    "t_end": 1091.0,
+    "quote": "Medi: «بقول ... is speak» / Amal: «لا لا لا، just بحكي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-181a59f4_Medi_Medi_Natanzi-41d3af5d98c.mp3",
+      "sha256": "1294f19aa92fdc841cdfef88a7598766e09b7b04e265203f90d2f97bc7ef4b15",
+      "source": "Medi_Natanzi-41d3af5d98cb5491.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-181a59f4_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "91860c6d16fb2e364fd2ed00956debd66aff1ca106f9ea773abef04b952d3ff0",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-181a59f4_mixed_lesson.mp3",
+      "sha256": "45c1003be84e0479ef7d9b25dd1aa7396c2f3080e279ee7d8fed1130c12c97b2",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "او تتحدث اه تتحدث او نعم لذا باول هو تحدث حسنا نعم تحدث اخبر تحدث نعم أحكي ما اس بيك انتاك",
+     "Amal": "There's four talking verbs Two gets this Two gets this Which gets what لا لا لا Just بحكي So I'm gonna make it easier on you We have speak Say Tell And talk وبحكي مع أزوات",
+     "mixed": "or talk to uh talk to there's four talking verbs two gets this two gets this which gets what so okay so i'm gonna make it easier on you we have speak yeah speak tell بحكي ما بحكي ما بحكي ما"
+    }
+   },
+   "claim": {
+    "wrong": "baul",
+    "right": "بحكي",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-12T23:47:55-07:00",
+   "run_id": "ed2ca18fe3f3402ca0afdee1f03260ef"
+  },
+  {
+   "uid": "FA-e4ad97d7",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi uses «عن» in the question, and Amal explicitly says they do not need «عن» and gives the fixed-preposition question with «في».",
+   "evidence": {
+    "t_start": 1270.0,
+    "t_end": 1309.0,
+    "quote": "Medi: «عن شو بتفكري؟» / Amal: «we don't need عن ... في شو بتفكري»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-e4ad97d7_Medi_Medi_Natanzi-41d3af5d98c.mp3",
+      "sha256": "497064b1144c335bd5fae11e5b475dee1b4ea8343de8aef7e56a7b25c9e0c8f5",
+      "source": "Medi_Natanzi-41d3af5d98cb5491.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-e4ad97d7_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "dd1fa3f78315a1256e696d393e1e63bfab93bc5d60c5fbdacb058f08382d395a",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-e4ad97d7_mixed_lesson.mp3",
+      "sha256": "49cd17b9d9d3bd28bd36a5023684d4724544c3cade5ec21e0e13e15193da5bd8",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "تفكر في أنت تفكر و أنت تفكر في فهل هذا شوانفي لكن لم يكن هذا أيضاً مثل من أنت تفكر فيه أو لذا فهذا نفس من من وماذا ومين",
+     "Amal": "بس بتفكر no we don't need عن خلص بفكر فيه so if I want to make it a question it would be في شو بتفكره سوف يكون مرتفع",
+     "mixed": "تفكر في تفكر في تفكر في تفكر في تفكر في تفكر في تفكر في تفكر في ولكن هل يمكن أن يكون هذا أيضاً مثل من أنت تفكر فيه أو سيكون فى لذا فهذا نفس من وماذا وماذا"
+    }
+   },
+   "claim": {
+    "wrong": "An shu",
+    "right": "في شو بتفكري",
+    "bucket": "D2",
+    "tier": null
+   },
+   "at": "2026-10-12T23:47:55-07:00",
+   "run_id": "ed2ca18fe3f3402ca0afdee1f03260ef"
+  },
+  {
+   "uid": "FA-0f9b965d",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says «تلات مية» for 300 before the noun, and Amal explains the counted form as «تلاتميت شخص», which he repeats.",
+   "evidence": {
+    "t_start": 3023.0,
+    "t_end": 3082.0,
+    "quote": "Medi: «تلات مية ... أشخاص» / Amal: «we say تلاتميت ... تلاتميت شخص»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-0f9b965d_Medi_Medi_Natanzi-179e8571340.mp3",
+      "sha256": "c896840395cd96f2e7f60bd90a5996d5701e061a2e26b135a651e17ca0a060ef",
+      "source": "Medi_Natanzi-179e8571340961f0.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-0f9b965d_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "ce57a7e7c718a0fbee3fb2318c9f1c16c342eece47ab446abd79708f820f8f29",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-0f9b965d_mixed_lesson.mp3",
+      "sha256": "d5869fae53ccf07dc068ba4268ba8d1bdc4100ee9dfd1fd9e14c8f7ab34047a3",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أكثر من 300 أشخاص في أروسي ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائة ثلاثمائ مرحبا بكم. شكرا لك. مرحبا بكم.",
+     "Amal": "اشتركوا في القناة أشخاص أم شخص؟ أشخاص أم شخص؟ أشخاص أم شخص؟ أشخاص أم شخص؟ أشخاص أم شخص؟ أشخاص أم شخص؟ أشخاص أم شخص؟ أشخاص أم شخص؟ أشخاص أم شخص؟ أشخاص أم شخص؟ أشخاص أم شخص؟ أشخاص أم شخص؟ ترجمة نانسي قنقر",
+     "mixed": "أكثر من 300 أشخاص في أرسلتي أرسلتي بس 300 is more than 10 ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئة ثلاثمئ مرحبا بك"
+    }
+   },
+   "claim": {
+    "wrong": "thalath mie",
+    "right": "تلتمية (talatmeet)",
+    "bucket": "E1",
+    "tier": null
+   },
+   "at": "2026-10-12T23:47:55-07:00",
+   "run_id": "ed2ca18fe3f3402ca0afdee1f03260ef"
+  },
+  {
+   "uid": "FA-678caf03",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi tries to say the timing with just «أكتر من ست شهر» after rejecting «في», and Amal immediately prompts «كيف تقوله؟» / says they do not say «عرسنا» so straightforward. He then asks «Is it baad?» and she confirms «بعد is best», so the missing «بعد» was signalled.",
+   "evidence": {
+    "t_start": 3142.0,
+    "t_end": 3193.0,
+    "quote": "Medi: «أكتر من ست شهر» ... «Is it بعد?»; Amal: «How do you say it؟ ... Yes, بعد is best.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-678caf03_Medi_Medi_Natanzi-179e8571340.mp3",
+      "sha256": "2523692067ed3d68c9f7ec205baf877284bb47bb42e6e2eec6b3579b4740b9c6",
+      "source": "Medi_Natanzi-179e8571340961f0.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-678caf03_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "79a757aade5540a4b7024b07800bdf229895951c35332cd96263efcae96e384f",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-678caf03_mixed_lesson.mp3",
+      "sha256": "7c8f6c5a7e576eb48cd90860ad777910098394436c8a91e8ecf740fde3449d95",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "في أكتر من أكتر من ستة أكتر من ست شهر. لا أعتقد أنه لا يوجد إز في العربية هل هذا سيئ؟ اروسنا بعد اكتر",
+     "Amal": "أرسلنا كيف تقول ذلك؟ لا نقول ذلك بطريقة صحيحة نعم، السماء هي الأفضل السماء أنت تساعدني أنت تساعدني في لغتي أكترمنت",
+     "mixed": "أكتر من أكتر من ست شهر أرسنة أكرر أنه لا يوجد إذ في العربية نعم أرسنة كيف تقوله؟ أرسنة لا نقوله بطريقة صحيحة أرسنة أرسنة أرسنة أرسنة لقد أساعدني لقد أساعدني في لغتي أكترمنت"
+    }
+   },
+   "claim": {
+    "wrong": "arasna akthar min",
+    "right": "عرسنا بعد أكثر من",
+    "bucket": "D1",
+    "tier": null
+   },
+   "at": "2026-10-12T23:48:13-07:00",
+   "run_id": "f351368a1be34329a09d66842eae1844"
+  },
+  {
+   "uid": "FA-47300a13",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says «ست شهر» twice, and Amal explicitly invokes the less-than-ten rule, contrasting «شهر is one month» with «ستة». Medi then repairs to «ست شهور».",
+   "evidence": {
+    "t_start": 3151.0,
+    "t_end": 3211.0,
+    "quote": "Medi: «أكثر من ست ... شهر» / «ست شهر»; Amal: «ست is less than ten» and «شهر is one month بس ستة is less than 10»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-47300a13_Medi_Medi_Natanzi-179e8571340.mp3",
+      "sha256": "24e15b6c78c1b09c5cb5dcb07763d5b44f94c2a819a01959f6ccf3e280ee3e3a",
+      "source": "Medi_Natanzi-179e8571340961f0.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-47300a13_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "84319a461f5d010dcb7cb0c7adede84ded3c22e525f8329cbc081e81b2f210e7",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-47300a13_mixed_lesson.mp3",
+      "sha256": "7a98b1ea8f0ef5a0e8aed35c8783e5a637a570688c79e29dcfa9c1fa4e6c326d",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أكثر من أكثر من ست أكثر من ست شهر. أعتقد أنه لا يوجد إذ في العربية هل هذا سيئ؟ أعتقد أنه سيئ اكتر من ست اشهر. ست شهر.",
+     "Amal": "موسيقى موسيقى موسيقى انا لا اقولها بطريقة صحيحة نعم السماء هي الأفضل السماء انها تساعدني انها تساعدني في لغتي اكترمنت اوه ستزنة less than ten",
+     "mixed": "اكتر من اكتر من ستة اكتر من ست شهر. أرسنة أكرر أنه لا يوجد إذ في العربية. نعم. أرسنة كيف تقوله؟ لا نقول أرسنة بطريقة صحيحة. هل هذا سيء؟ نعم السيء هو الأفضل. حسنا المسنة بعد it just helped me it just helped me in my own language أكثر من أكثر من ست أشهر ست شهر less than ten"
+    }
+   },
+   "claim": {
+    "wrong": "shahar",
+    "right": "شهور (shuhoor)",
+    "bucket": "E1",
+    "tier": null
+   },
+   "at": "2026-10-12T23:48:13-07:00",
+   "run_id": "f351368a1be34329a09d66842eae1844"
   }
  ]
 }
