@@ -91,7 +91,7 @@
     return `<li><b>${esc(e.arabizi || e.arabic)}</b>${e.arabizi && e.arabic ? ` <span lang="ar" dir="rtl" class="tg-ar">${esc(e.arabic)}</span>` : ''}${e.english ? ` · ${esc(e.english)}` : ''}${e.hers ? '' : ' <span class="tg-unv">example by Claude · spelling unverified</span>'}</li>`;
   }
   function cardHtml(x) {
-    const s = x.sub, c = x.cur, U = root.AneesUndo;
+    const s = x.sub, c = x.cur, U = { answered: (t, a) => root.AneesUndo.answered(t, a) };   // AM-17: the shared Undo
     const yours = `<p class="tg-yours"><span>Your words:</span> «${esc(s.text)}»${s.example ? ` · your example: «${esc(s.example)}»` : ''}</p>`;
     const id = `data-id="tgram-${esc(s.sid)}"`;
     if (x.state === 'withdrawn') return `<article class="tg-card tg-off" ${id}>${yours}${U.answered('You took this one back', { 'data-tg-resend': s.sid })}</article>`;
@@ -194,8 +194,7 @@
     draw();
     readLive().then(draw);
     // rule L1 (S7): her rows are live data - read again when the tab comes back into view (draw keeps her typing)
-    const AL = root.AneesLive;
-    if (AL && AL.onReturn) AL.onReturn(() => readLive().then(draw), { label: 'add grammar' });
+    if (root.AneesLive && root.AneesLive.onReturn) root.AneesLive.onReturn(() => readLive().then(draw), { label: 'add grammar' });
     return { redraw: draw };
   }
   return { mount, count, items, reduce, state, answerFor, current, merge, row, sidOf, SOURCE, SUBMIT, YES, CHANGE, NO, UNDO };
