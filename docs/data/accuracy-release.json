@@ -6,15 +6,15 @@
   "max_reader_passes": 2
  },
  "totals": {
-  "lessons": 23,
+  "lessons": 24,
   "verified_lessons": 0,
   "threshold_pct": 95.0,
   "words": {
    "verified_avg_pct": null,
    "unverified_avg_pct": 94.2,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 4921,
-   "excluded": 23,
+   "eligible": 5045,
+   "excluded": 27,
    "pending": 0
   },
   "grammar": {
@@ -22,19 +22,19 @@
    "unverified_avg_pct": 84.1,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 2,
-   "eligible": 718,
+   "eligible": 747,
    "excluded": 49,
-   "pending": 1
+   "pending": 0
   },
-  "verification_queue": 1,
+  "verification_queue": 0,
   "word_bank": {
-   "occurrences": 7998,
-   "eligible": 4701,
-   "excluded_not_scored": 2963,
-   "pending_needs_review": 334,
+   "occurrences": 8260,
+   "eligible": 4822,
+   "excluded_not_scored": 3060,
+   "pending_needs_review": 378,
    "other": 0,
    "pct": 98.4,
-   "lessons_in_audit": 23,
+   "lessons_in_audit": 24,
    "lessons_missing": [],
    "note": "pct = (Correct + half Partial) / (Correct + Partial + Wrong); 'Needs review' is pending and counts nowhere; 'Not scored' is excluded by rule (English, names, glue words...)."
   }
@@ -1207,8 +1207,7 @@
    "release": "not verified",
    "reasons": [
     "reader agreement: pass 1 71.9 %; 2 consecutive passes at >= 95 % are needed",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4236 s) compared with a second model",
-    "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4236 s) compared with a second model"
    ],
    "words": {
     "pct": 98.0,
@@ -1227,7 +1226,7 @@
     "uses": 286,
     "eligible": 38,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -1266,20 +1265,20 @@
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3804 s) compared with a second model"
    ],
    "words": {
-    "pct": 97.7,
-    "eligible_pct": 97.7,
+    "pct": 97.8,
+    "eligible_pct": 97.8,
     "verified_pct": null,
-    "scored": 266,
-    "eligible": 266,
+    "scored": 269,
+    "eligible": 269,
     "excluded": 0,
     "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 90.1,
+    "pct": 90.0,
     "verified_pct": null,
     "mistakes": 25,
-    "uses": 252,
+    "uses": 251,
     "eligible": 24,
     "excluded": 1,
     "pending": 0,
@@ -1308,6 +1307,64 @@
    },
    "agreement": [
     62.5
+   ],
+   "between_passes": []
+  },
+  {
+   "date": "2026-10-12",
+   "release": "not verified",
+   "reasons": [
+    "reader agreement: pass 1 72.3 %; 2 consecutive passes at >= 95 % are needed",
+    "coverage: 10 stretches of Medi's speech written as '[speaking ...]' markers (01:10 in all)",
+    "coverage: Amal not transcribed 00:16-04:09 while the other person talks",
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model"
+   ],
+   "words": {
+    "pct": 93.6,
+    "eligible_pct": 94.2,
+    "verified_pct": null,
+    "scored": 125,
+    "eligible": 121,
+    "excluded": 4,
+    "pending": 0,
+    "excluded_why": {
+     "Amal not transcribed": 3,
+     "his line": 1
+    }
+   },
+   "grammar": {
+    "pct": 83.9,
+    "verified_pct": null,
+    "mistakes": 29,
+    "uses": 180,
+    "eligible": 29,
+    "excluded": 0,
+    "pending": 0,
+    "estimate": false,
+    "denominator_valid": false,
+    "denominator_reasons": [
+     "10 slips are in rules the counter found 0 uses of in this lesson",
+     "6 rules have more slips than counted uses (B18, B8, C10, C2, D2, E1)"
+    ]
+   },
+   "coverage": {
+    "Medi": {
+     "covered_pct": 100.0,
+     "missing_s": 0,
+     "hole_s": 69.5
+    },
+    "Amal": {
+     "covered_pct": 95.3,
+     "missing_s": 233.7,
+     "hole_s": 0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "agreement": [
+    72.3
    ],
    "between_passes": []
   }
