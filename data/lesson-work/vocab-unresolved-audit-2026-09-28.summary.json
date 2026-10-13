@@ -2,56 +2,56 @@
  "reviewer": "Claude audit 2026-09-28",
  "version": "2026-09-28-vocab-unresolved-audit",
  "before": {
-  "medi_events_report": 3450,
-  "unresolved_or_on_hold": 1485,
+  "medi_events_report": 3586,
+  "unresolved_or_on_hold": 1549,
   "by_report_group": {
-   "repeat": 524,
+   "repeat": 526,
    "wrongword": 123,
-   "wording": 311,
+   "wording": 326,
    "grammar": 81,
-   "other": 61,
-   "clar": 14,
+   "other": 73,
+   "clar": 16,
    "noamal": 5,
-   "isolated": 214,
-   "hold": 45,
-   "cue": 107
+   "isolated": 235,
+   "hold": 53,
+   "cue": 111
   }
  },
  "after": {
-  "still_unresolved_or_on_hold_raw_flag": 1455,
-  "genuinely_open": 284,
+  "still_unresolved_or_on_hold_raw_flag": 1523,
+  "genuinely_open": 319,
   "bins": {
    "no_evidence:transcript_unclear": 14,
    "no_evidence:tutor_audio_missing": 1,
-   "not_counted:clarification": 26,
-   "not_counted:echo": 275,
+   "not_counted:clarification": 28,
+   "not_counted:echo": 281,
    "not_counted:farsi": 1,
-   "not_counted:filler": 46,
-   "not_counted:form_not_on_list": 19,
+   "not_counted:filler": 52,
+   "not_counted:form_not_on_list": 27,
    "not_counted:grammar": 114,
-   "not_counted:not_this_word": 129,
+   "not_counted:not_this_word": 135,
    "not_counted:quote": 53,
-   "not_counted:repeat": 493,
-   "open:question": 287,
+   "not_counted:repeat": 498,
+   "open:question": 322,
    "settled:helped": 9,
    "settled:incorrect": 5,
    "settled:independent": 229
   }
  },
- "audited_events": 1701,
+ "audited_events": 1769,
  "sources": {
   "rule:farsi": 1,
-  "rule:filler": 45,
+  "rule:filler": 51,
   "hand": 451,
-  "rule:stutter": 312,
-  "rule:restart": 14,
-  "mech:flagged": 581,
+  "rule:stutter": 315,
+  "rule:restart": 15,
+  "mech:flagged": 596,
   "mech:sep18": 26,
-  "mech:form": 17,
+  "mech:form": 25,
   "mech:noamal": 1,
-  "mech:unclassified": 253
+  "mech:unclassified": 288
  },
- "scored_events_now_not_counted": 178,
+ "scored_events_now_not_counted": 182,
  "unscored_events_now_scored": 223,
  "rules": {
   "farsi_turns": [
@@ -235,19 +235,29 @@
      "mi+verb"
     ],
     "source": "lesson page"
+   },
+   {
+    "date": "2026-10-12",
+    "who": "Amal",
+    "t": 3521.76,
+    "end": 3523.78,
+    "signals": [
+     "w:بكن"
+    ],
+    "source": "lesson page"
    }
   ],
   "farsi_events": 1,
   "and_events": {
-   "located": 99,
-   "real_and": 54,
-   "filler": 45,
+   "located": 108,
+   "real_and": 57,
+   "filler": 51,
    "not_located": 1
   },
-  "and_fillers_that_were_scored": 21,
-  "restart_pairs": 16,
-  "restart_drops_that_were_scored": 14,
-  "stutter_events_collapsed": 312,
+  "and_fillers_that_were_scored": 24,
+  "restart_pairs": 17,
+  "restart_drops_that_were_scored": 15,
+  "stutter_events_collapsed": 315,
   "stutter_drops_that_were_scored": 78,
   "duplicate_records": 0
  },
@@ -322,6 +332,9 @@
    },
    "2026-10-10": {
     "clip ok": 219
+   },
+   "2026-10-12": {
+    "clip ok": 173
    }
   },
   "missing": [
@@ -414,12 +427,12 @@
  ],
  "log": {
   "hand_verdict_overridden_by_rule:filler": 7,
-  "unclassified": 297,
+  "unclassified": 335,
   "restart_overrode_hand_settled": 2,
   "stutter_overrode_hand_settled": 5
  },
  "reset": {
-  "removed": 677,
-  "restored": 891
+  "removed": 726,
+  "restored": 902
  }
 }
