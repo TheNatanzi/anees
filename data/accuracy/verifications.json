@@ -29432,6 +29432,456 @@
    },
    "at": "2026-10-12T23:48:13-07:00",
    "run_id": "f351368a1be34329a09d66842eae1844"
+  },
+  {
+   "uid": "FA-6f9f6d35",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi first reaches for the future/present form without كنت, then Amal prompts the English frame and later supplies the corrected Arabic. The dialect track has “أنا راح” before he repeats “أنا كنت راح.”",
+   "evidence": {
+    "t_start": 625.0,
+    "t_end": 657.0,
+    "quote": "Medi: «أنا راح…» / Amal: «I was…» / «نو أنا كنت راح أدرس» / Medi: «أنا كنت راح»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-6f9f6d35_Medi_Medi_Natanzi-41d3af5d98c.mp3",
+      "sha256": "42ff9780f0e4e903f5a9af6e40225fb80f3ee837009645be9a9205e0d4bac50a",
+      "source": "Medi_Natanzi-41d3af5d98cb5491.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-6f9f6d35_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "4cb4de4818bfa381c038f580533d9dfc0d5f08f30315540b884b1e4d966ef519",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-6f9f6d35_mixed_lesson.mp3",
+      "sha256": "95bd27bc6d2905ef679e68b7dfaa345f7bfc7548eb100dd1b2276899a71da02e",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "لا انا ما بقدر انا راح انا كنت راح انا كنت راح بس اه انا كنت راح ادرس",
+     "Amal": "I was well I was well I was well I was well I was well شكرا",
+     "mixed": "لا انا ما بقدر انا راح انا كنت راح انا كنت راح انا كنت راح ادرسه أنا كنت راح أدرس"
+    }
+   },
+   "claim": {
+    "wrong": "أنا راح",
+    "right": "أنا كنت راح",
+    "bucket": "B6",
+    "tier": null
+   },
+   "at": "2026-10-13T00:40:49-07:00",
+   "run_id": "c0f547c17f8c40788d54b2a151a37656"
+  },
+  {
+   "uid": "FA-96a96e5e",
+   "date": "2026-10-12",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi identifies بقول as the verb for “speak,” and Amal immediately rejects it and gives بحكي. This is a lexical correction, not just pronunciation.",
+   "evidence": {
+    "t_start": 1055.0,
+    "t_end": 1091.0,
+    "quote": "Medi: «بقول … is speak» / Amal: «لا لا لا، Just بحكي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-96a96e5e_Medi_Medi_Natanzi-41d3af5d98c.mp3",
+      "sha256": "1294f19aa92fdc841cdfef88a7598766e09b7b04e265203f90d2f97bc7ef4b15",
+      "source": "Medi_Natanzi-41d3af5d98cb5491.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-96a96e5e_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "91860c6d16fb2e364fd2ed00956debd66aff1ca106f9ea773abef04b952d3ff0",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-96a96e5e_mixed_lesson.mp3",
+      "sha256": "45c1003be84e0479ef7d9b25dd1aa7396c2f3080e279ee7d8fed1130c12c97b2",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "او تتحدث اه تتحدث او نعم لذا باول هو تحدث حسنا نعم تحدث اخبر تحدث نعم أحكي ما اس بيك انتاك",
+     "Amal": "There's four talking verbs Two gets this Two gets this Which gets what لا لا لا Just بحكي So I'm gonna make it easier on you We have speak Say Tell And talk وبحكي مع أزوات",
+     "mixed": "or talk to uh talk to there's four talking verbs two gets this two gets this which gets what so okay so i'm gonna make it easier on you we have speak yeah speak tell بحكي ما بحكي ما بحكي ما"
+    }
+   },
+   "claim": {
+    "wrong": "بقول",
+    "right": "بحكي",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-13T00:40:49-07:00",
+   "run_id": "c0f547c17f8c40788d54b2a151a37656"
+  },
+  {
+   "uid": "FA-47fb6067",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi gives بسمعك for “listen to me,” and Amal redirects him to the command form, then supplies اسمعيني. The mixed track preserves both the wrong form and the correction.",
+   "evidence": {
+    "t_start": 1857.0,
+    "t_end": 1907.0,
+    "quote": "Medi: «فقط بسمعك؟» / Amal: «it’s listen to me, it’s command… اسمعيني»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-47fb6067_Medi_Medi_Natanzi-41d3af5d98c.mp3",
+      "sha256": "159ceab4498498455c384d6df35914c34a32caf951e731044d7fdf302d531ef3",
+      "source": "Medi_Natanzi-41d3af5d98cb5491.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-47fb6067_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "db5360df621dd939755c6618f4a70053227ac5c28d749e63324f8433761b828e",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-47fb6067_mixed_lesson.mp3",
+      "sha256": "311cc583c5e56bfd648b1959fcfdc716fa9bde580c632dc59e667461f4e6ccd9",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "بس ما doesn't take one right it's just بس ما ما I thought it did it's not سماء I just thought it was سماء سماء نعم، أسمعك أسمعيني أسمعيني أو أسمعيني؟ أسمعيني",
+     "Amal": "ماذا يأخذ؟ على سبيل المثال، اسمع لي. اسمع لي. it's both but it's listen to me it's command listen to me اسمعيني اسمعيني لاش",
+     "mixed": "ماذا يأخذ؟ على سبيل المثال، إستمع إلي بسمع لا يأخذ أحدًا، صحيح؟ فقط بسمعك؟ إستمع إلي سمع أعتقد أنه ليس سمعك إنه سمعك it's both but it's listen to me it's command yes so اسمعك or اسمعيك listen to me oh اسمعيني اسمعيني is it اسمعيني or اسمعيني اسمعيني لاش اسمعيني"
+    }
+   },
+   "claim": {
+    "wrong": "بسمعك",
+    "right": "اسمعيني",
+    "bucket": "B10",
+    "tier": null
+   },
+   "at": "2026-10-13T00:40:49-07:00",
+   "run_id": "c0f547c17f8c40788d54b2a151a37656"
+  },
+  {
+   "uid": "FA-aa7b1b2d",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi starts with a بـ present-form attempt around بشرحك, and Amal immediately says it should be a command. The audio is messy, but the dialect/mixed tracks support the same correction sequence.",
+   "evidence": {
+    "t_start": 2758.0,
+    "t_end": 2796.0,
+    "quote": "Medi: «بشراهك… بشرى…» / Amal: «Explain, it’s command» / Medi: «إشراه…»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-aa7b1b2d_Medi_Medi_Natanzi-179e8571340.mp3",
+      "sha256": "90bdfa469b6ff73cc807c2db0fe455f977d75d188b8e239d5c9fc8231c35fee0",
+      "source": "Medi_Natanzi-179e8571340961f0.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-aa7b1b2d_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "bf17a6b1d46c7fd27fc1655f15ac9c64374323e6019038d1c2d1a9dc5381f264",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-aa7b1b2d_mixed_lesson.mp3",
+      "sha256": "85fcec75024d4b3185fb8f3b4aad9fb47ee9d6efa63ff70dd6c1b8aac6aa625e",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اشتركوا في القناة أشرحها لي هل هي إيلي؟",
+     "Amal": "أخبرني مرة أخرى أخبرني مرة أخرى اشرحيني is like explain me",
+     "mixed": "لي مرة أخرى هذا لا يأخذ إليه أليس كذلك هذا هو أعرف أنه يجب أن تشرحه لي نعم تشرح أشرحها لي لا أشرحها لي أشرحها لي أشرحها لي"
+    }
+   },
+   "claim": {
+    "wrong": "بشرحك",
+    "right": "اشرحي",
+    "bucket": "B10",
+    "tier": null
+   },
+   "at": "2026-10-13T00:40:49-07:00",
+   "run_id": "c0f547c17f8c40788d54b2a151a37656"
+  },
+  {
+   "uid": "FA-35827176",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says اشرحيني/اشرحني, and Amal explicitly explains that this means “explain me,” then gives اشرحيلي for “to me.”",
+   "evidence": {
+    "t_start": 2771.0,
+    "t_end": 2813.0,
+    "quote": "Medi: «إشرحيني» / Amal: «اشرحيني is like explain me… So اشرحيلي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-35827176_Medi_Medi_Natanzi-179e8571340.mp3",
+      "sha256": "00e9411b5c34180645c789a0ae4fafb26d7c51ea14f4cc388f6e7731e0a63b7b",
+      "source": "Medi_Natanzi-179e8571340961f0.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-35827176_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "ddad7d858cb24f4030682a977eee92a4fc0d2ae7d4002191345813532481917c",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-35827176_mixed_lesson.mp3",
+      "sha256": "0ab63f7ba16af6b0d32d3d714e6efd68c994070a85b3aeda317f73ece5fd4ea9",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أعلم أنه يجب أن تشرحه لي. نعم. نعم. نعم. أشرح. أشرح. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. أشرحني. اشرحيلي اياه",
+     "Amal": "اشرحيني اشرحيني اشرحيني اشرحيني مرة أخرى",
+     "mixed": "أعلم أنه يجب أن تشرحه لي. نعم بشرة لا بشرة. تشرح. إشرح إشرحيني. تشرحه لي. اشرحيني اشرحيني اشرحيني اشرحيني اشرحيني"
+    }
+   },
+   "claim": {
+    "wrong": "اشرحيني",
+    "right": "اشرحيلي",
+    "bucket": "D2",
+    "tier": null
+   },
+   "at": "2026-10-13T00:40:49-07:00",
+   "run_id": "c0f547c17f8c40788d54b2a151a37656"
+  },
+  {
+   "uid": "FA-321a2d88",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi goes from اعزمي straight to على, omitting “them,” and Amal prompts “Invite them,” after which he adds هم. This is a signalled missing-object ending.",
+   "evidence": {
+    "t_start": 2890.0,
+    "t_end": 2926.0,
+    "quote": "Medi: «أعزمي على» / Amal: «Invite them» / Medi: «أعزميهم على»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-321a2d88_Medi_Medi_Natanzi-179e8571340.mp3",
+      "sha256": "9698c7e99474f91ec60b04d3c5682ca65aba36cb0d770bacc0250ee91e7b05b6",
+      "source": "Medi_Natanzi-179e8571340961f0.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-321a2d88_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "1836a3fc7670bb4b4d7caca0ec65716cf9064c311b647b9d8e912b8f2e8d5e71",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-321a2d88_mixed_lesson.mp3",
+      "sha256": "13d95a9e83b50c3ae105ab53091447609da0352578d1a36da394c2a57bcb31f2",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أحبهم إلى مجموعةك. لذا أعزمي ألا أعزمي هم ألا قلت إلى مقابلتك صحيح؟ أعزمي أعزمي هم",
+     "Amal": "مرحبا بكم اشتركوا في القناة",
+     "mixed": "أعزمي أعزمي أعزمي أعزمي إلى المجلس أعزمي أعزمي هم"
+    }
+   },
+   "claim": {
+    "wrong": "أعزمي على",
+    "right": "اعزميهم على",
+    "bucket": "D4",
+    "tier": null
+   },
+   "at": "2026-10-13T00:40:49-07:00",
+   "run_id": "c0f547c17f8c40788d54b2a151a37656"
+  },
+  {
+   "uid": "FA-fad74954",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi built the sentence without بعد: \"عرسنا ... أكتر من ست شهر\". Amal then prompted him to reformulate and accepted/supplied بعد: \"Yes, بعد is best\" / \"يس، بعد\".",
+   "evidence": {
+    "t_start": 3129.0,
+    "t_end": 3189.0,
+    "quote": "Medi: «عرسنا ... أكتر من ست شهر»; Amal: «Yes, بعد is best».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-fad74954_Medi_Medi_Natanzi-179e8571340.mp3",
+      "sha256": "f5c29d785cb4f0aea425eb3976a0925fd6f85bbdca3e95d087e2217aea4ea9bc",
+      "source": "Medi_Natanzi-179e8571340961f0.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-fad74954_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "e31f2a738a532d3c98184c8cffa69ebcccd78542e654d6688b8f5e0933576c09",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-fad74954_mixed_lesson.mp3",
+      "sha256": "7667dc2df43a27e66cc7eda89af1f629d6a1aa4d4f3653041eb37943c9f59316",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه ا كرمان ست شهر أكرر أنه لا يوجد إز في العربية هل هذا سيئ؟",
+     "Amal": "شكرا كيف تقول ذلك؟ لا نقول ذلك بشكل صحيح نعم نعم نعم نعم نعم نعم كيف تقول ذلك؟ كيف تقول ذلك؟ نعم نعم نعم نعم، الأسوأ هي الأفضل",
+     "mixed": "اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه روسنا is in روسنا I just say أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من أكتر من شهر أكتر من أكرر أنه لا يوجد إذ في العربية نعم أرسل كيف تقوله؟ أرسل لا نقوله بطريقة صحيحة هل هو سيء"
+    }
+   },
+   "claim": {
+    "wrong": "عرسنا أكتر من",
+    "right": "عرسنا بعد أكتر من",
+    "bucket": "D1",
+    "tier": null
+   },
+   "at": "2026-10-13T00:41:08-07:00",
+   "run_id": "d0710a4b06ed42c09509022130d39279"
+  },
+  {
+   "uid": "FA-53a13a76",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used the b-form after مش جاهزين: the dialect transcription has «بن سير», and the lesson transcript later has «بنصير». Amal corrected it to the bare form: «ونصير», after which he repeated «نصير».",
+   "evidence": {
+    "t_start": 3289.0,
+    "t_end": 3349.0,
+    "quote": "Medi: «مش جاهزين ... بنصير»; Amal: «ونصير»; Medi: «نصير».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-53a13a76_Medi_Medi_Natanzi-179e8571340.mp3",
+      "sha256": "805f72b361c37081eca6eb9e09cefbf098ee6f19d407111fee752ba1ae240ee7",
+      "source": "Medi_Natanzi-179e8571340961f0.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-53a13a76_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "f2c173b6e92958b9fa9089c8a887e86e6229ebfc29fac55874aa76a60c41aad6",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-53a13a76_mixed_lesson.mp3",
+      "sha256": "abc9f1f5e8a698492683a29ce1448a6a4570f52d73fe63480247494693466c8a",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "نحن جاهزين نصبح عروس وعريس و نحن بنخطط بنخطط بنخطط بنخطط بنخطط بنخطط بنخطط بنخطط this doesn't continue from the last one we're not ready to plan away",
+     "Amal": "شكرا ونخطط نحن نحن نحن نحن نحن نحن نحن نحن نحن طيب نعم لكن نحن نحن نحن نحن اشتركوا في القناة",
+     "mixed": "نحن جاهزين نحن نصير عروس وعريس بنخطط بنخطط بنخطط بنخطط بنخطط بنخطط بنخطط بنخطط بنخطط بنخطط هذا لا يستمر من السؤال الأخير. نحن لا نستعد. نعم نحن نحن نحن نحن نحن نحن نحن نحن"
+    }
+   },
+   "claim": {
+    "wrong": "بنصير",
+    "right": "نصير",
+    "bucket": "B2",
+    "tier": null
+   },
+   "at": "2026-10-13T00:41:08-07:00",
+   "run_id": "d0710a4b06ed42c09509022130d39279"
+  },
+  {
+   "uid": "FA-e6a58cdb",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi again said the object without the required preposition: «بنخطط ... عرس». Amal prompted «لا؟», and Medi immediately repaired it to «بنخطط لـ عرس».",
+   "evidence": {
+    "t_start": 3388.0,
+    "t_end": 3421.0,
+    "quote": "Medi: «بنخطط، اه، عرس»; Amal: «لا؟»; Medi: «بنخطط لـ عرس».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-e6a58cdb_Medi_Medi_Natanzi-179e8571340.mp3",
+      "sha256": "1846883534680b828d737074c4b7302b17cd90280dc81d71f87430314a4a1a2f",
+      "source": "Medi_Natanzi-179e8571340961f0.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-e6a58cdb_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "f0e1d2fa56e32d1b0cf9518e4828cbfe76695c780ecc774611b13ba784ca6ebb",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-e6a58cdb_mixed_lesson.mp3",
+      "sha256": "c5581b2805f002ce19b2fc7e83fc07e2515b5f17faeeee95bba1635cb3610455",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "بن خدت بن خدت بن خدت أرس بن خدت لخ أرس that's darn it okay i'm gonna do it one more time رناد إيانا",
+     "Amal": "بنخطط لا how about our wedding make it our wedding شكرا",
+     "mixed": "اه بنخطط بنخطط بنخطط بنخطط اه اروس لا بنخطط لا اروس اوكي انا سوف افعلها مرة اخرى اوكي رناد إيانا"
+    }
+   },
+   "claim": {
+    "wrong": "بنخطط ... عرس",
+    "right": "بنخطط لـ عرس",
+    "bucket": "D2",
+    "tier": null
+   },
+   "at": "2026-10-13T00:41:08-07:00",
+   "run_id": "d0710a4b06ed42c09509022130d39279"
   }
  ]
 }

@@ -27,7 +27,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-08 | 95.8 | 251 | 86.6 | 27 | 202 | 1 / 0 |
 | 2026-10-09 | 98.0 | 307 | 86.7 | 38 | 286 | 1 / 2 |
 | 2026-10-10 | 97.7 -> **97.8** | 266 -> **269** | 90.1 -> **90.0** | 25 | 252 -> **251** | 3 / 0 |
-| 2026-10-12 | None -> **95.8** | None -> **177** | None -> **86.1** | None -> **29** | None -> **209** | 0 / 1 |
+| 2026-10-12 | None -> **96.1** | None -> **165** | None -> **85.3** | None -> **31** | None -> **211** | 0 / 0 |
 
 
 ## Conflicts
@@ -135,7 +135,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-10 13:52 C5 settled: تلاقت (word-bank right) vs تلات -> التقيت (elta2ait) (readers wrong) - one word counted right and wrong at once: counted once, as the slip
 - 2026-10-10 13:52 C5 settled: تلاقت (word-bank right) vs تلات -> التقيت (elta2ait) (readers wrong) - one word counted right and wrong at once: counted once, as the slip
 - 2026-10-10 21:45 C1 settled: كليًا (word-bank right) vs كليًا -> بشكل عام (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
-- 2026-10-12 48:43 C1q Medi?: أعزمتك (word-bank right) vs أعزمتك -> عزومتك (readers not-scored) - which word of the phrase was wrong: Medi
+- 2026-10-12 58:52 C1p both stand: بطلب (word-bank right) vs بطلب = go out -> بطلب = request / ask for (readers wrong) - slip elsewhere in the phrase: the word stays right
 
 ## Medi's corrections (PR-15)
 
