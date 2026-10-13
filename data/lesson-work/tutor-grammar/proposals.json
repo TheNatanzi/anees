@@ -13,9 +13,19 @@
     "examples": [
      {
       "arabizi": "",
-      "arabic": "قبل ثلاث سنين.",
+      "arabic": "قبل ثلاث سنين",
       "english": "three years ago",
-      "hers": true
+      "hers": true,
+      "date": "2026-10-08",
+      "t": "36:14"
+     },
+     {
+      "arabizi": "",
+      "arabic": "قبل كم يوم من السفرة بتحجز التذكرة؟",
+      "english": "How many days before the trip do you book the ticket?",
+      "hers": true,
+      "date": "2026-09-23",
+      "t": "42:07"
      }
     ],
     "why": "English puts 'ago' after the time phrase, but Arabic puts قبل in front of the number.",
@@ -29,7 +39,14 @@
     "model": "claude-haiku-5-5",
     "cost_usd": null,
     "asked": null,
-    "heard_run": "2026-10-08"
+    "heard_run": "2026-10-08",
+    "checked": {
+     "new": true,
+     "covered_by": null,
+     "why": "No existing rule or proposal teaches 'ago' with قبل before a number and time unit; E1/E3 cover number+noun forms and the others are different uses of قبل.",
+     "her_examples": 2,
+     "cost_usd": 0.028476
+    }
    }
   ],
   "heard-20261008-3746": [
@@ -43,21 +60,35 @@
     "examples": [
      {
       "arabizi": "",
-      "arabic": "امتى الشمس بتطلع؟",
-      "english": "When does the sun come up?",
-      "hers": false
+      "arabic": "طب امتى الشمس بتطلع؟",
+      "english": "So when does the sun rise?",
+      "hers": true,
+      "date": "2026-10-08",
+      "t": "17:32"
+     },
+     {
+      "arabizi": "",
+      "arabic": "النار حرقتني.",
+      "english": "The fire burned me.",
+      "hers": true,
+      "date": "2026-10-08",
+      "t": "44:14"
      },
      {
       "arabizi": "",
       "arabic": "النار بتحرق.",
-      "english": "The fire burns.",
-      "hers": false
+      "english": "Fire burns.",
+      "hers": true,
+      "date": "2026-10-08",
+      "t": "44:11"
      },
      {
       "arabizi": "",
-      "arabic": "السما بالليل.",
-      "english": "The sky at night.",
-      "hers": false
+      "arabic": "أنا الشمس بتضايقني.",
+      "english": "The sun bothers me.",
+      "hers": true,
+      "date": "2026-09-26",
+      "t": "1:00:06"
      }
     ],
     "why": "The gender of these nature nouns does not match their sound, so a learner cannot guess it from the word's shape.",
@@ -71,7 +102,14 @@
     "model": "claude-haiku-5-5",
     "cost_usd": null,
     "asked": null,
-    "heard_run": "2026-10-08"
+    "heard_run": "2026-10-08",
+    "checked": {
+     "new": true,
+     "covered_by": null,
+     "why": "No existing rule or proposal covers hidden grammatical gender of nature nouns like sun, fire, sky; A8 and A10 only cover agreement, not which nouns are feminine.",
+     "her_examples": 4,
+     "cost_usd": 0.029372
+    }
    }
   ],
   "heard-20261010-2900": [
@@ -87,7 +125,25 @@
       "arabizi": "",
       "arabic": "هذي أكلة خطيبتي المفضلة كمان.",
       "english": "This is my fiancée's favorite dish too.",
-      "hers": true
+      "hers": true,
+      "date": "2026-10-10",
+      "t": "30:23"
+     },
+     {
+      "arabizi": "",
+      "arabic": "هذي الأكلة المفضلة عند خطيبتي كمان.",
+      "english": "This dish is my fiancée's favorite too.",
+      "hers": true,
+      "date": "2026-10-10",
+      "t": "31:26"
+     },
+     {
+      "arabizi": "",
+      "arabic": "المفضلة كمان.",
+      "english": "The favorite too.",
+      "hers": true,
+      "date": "2026-10-10",
+      "t": "29:41"
      }
     ],
     "why": "English puts 'also' near the verb; she moved kamaan to the end of the sentence for 'too'.",
@@ -97,7 +153,14 @@
     "model": "claude-sonnet-5-5",
     "cost_usd": null,
     "asked": null,
-    "heard_run": "2026-10-10"
+    "heard_run": "2026-10-10",
+    "checked": {
+     "new": true,
+     "covered_by": null,
+     "why": "No existing rule or proposal says kamaan goes at the end of the sentence to mean 'also'; P-FA-d28341e4 covers a different kamaan ('another', before the noun).",
+     "her_examples": 3,
+     "cost_usd": 0.028456
+    }
    }
   ]
  },

@@ -8829,9 +8829,9 @@
    "scope": "amal-data",
    "status": "enforced",
    "change": "new",
-   "statement": "Grammar Claude HEARS the tutor teach in a lesson becomes a card on her 'Add grammar' list (AM-31). When a lesson is reviewed (scripts/review_lesson.py step 7f; the hourly `tutor_grammar.py pull` retries a failed read, 3 tries at most), ONE lean `claude -p` read of the lesson TRANSCRIPT (scripts/tutor_grammar_heard_prompt.md, tutor_grammar.lean_cmd on Sonnet 5.5 at low effort with no prompt cache, about $0.15 a lesson - measured 10-10 $0.145: the transcript alone is ~30K tokens, so the $0.05 of a short AM-31 read is not reachable - logged in data/runs and data/budget.json) finds grammar she TAUGHT or explained that fits no bucket in docs/data/grammar-buckets.json and no rule already proposed. Each finding is checked in code, never trusted: her quote must be on one of her own lines within 20 s of the time given (the line and the student's line before it are copied from the transcript); a GR-18 proposal moment within 30 s of the same lesson, or a rule / proposal / card with the same name, drops it (GR-18 keeps turning bare corrections into proposals; not duplicated); at most 5 a lesson. A kept finding is the same proposal shape with the same id assignment (next free per letter, ids_given never reused) and the same Yes, add it / Change it / Not a rule rows (tgram:heard-<yyyymmdd>-<mmss>:answer; no submit row), marked 'Claude heard this in the <date> lesson at mm:ss' with her quote and the student's line. Only her yes adds the rule (no automatic detection); past lessons are re-scored only on Medi's yes (PR-05). Lessons before TUTOR_FROM are not read (AM-28). Code never contacts her (AM-01).",
-   "plain": "After each lesson Claude reads the transcript once (about 15 cents) and, when your tutor taught a grammar rule you do not have yet, puts it on her 'Add grammar' list as a rule card saying where in the lesson it heard it. Nothing is added until she taps Yes.",
-   "plain_for": "36a9e200",
+   "statement": "Grammar Claude HEARS the tutor teach in a lesson becomes a card on her 'Add grammar' list (AM-31). When a lesson is reviewed (scripts/review_lesson.py step 7f; the hourly `tutor_grammar.py pull` retries a failed read, 3 tries at most), ONE lean `claude -p` read of the lesson TRANSCRIPT (scripts/tutor_grammar_heard_prompt.md, tutor_grammar.lean_cmd on Sonnet 5.5 at low effort with no prompt cache, about $0.15 a lesson - measured 10-10 $0.145: the transcript alone is ~30K tokens, so the $0.05 of a short AM-31 read is not reachable - logged in data/runs and data/budget.json) finds grammar she TAUGHT or explained that fits no bucket in docs/data/grammar-buckets.json and no rule already proposed. Each finding is checked in code, never trusted: her quote must be on one of her own lines within 20 s of the time given (the line and the student's line before it are copied from the transcript); a GR-18 proposal moment within 30 s of the same lesson, or a rule / proposal / card with the same name, drops it (GR-18 keeps turning bare corrections into proposals; not duplicated); at most 5 a lesson. A kept finding is the same proposal shape with the same id assignment (next free per letter, ids_given never reused) and the same Yes, add it / Change it / Not a rule rows (tgram:heard-<yyyymmdd>-<mmss>:answer; no submit row), marked 'Claude heard this in the <date> lesson at mm:ss' with her quote and the student's line. Only her yes adds the rule (no automatic detection); past lessons are re-scored only on Medi's yes (PR-05). Lessons before TUTOR_FROM are not read (AM-28). Code never contacts her (AM-01). Amended by Medi 2026-10-13: every card then gets ONE short check read (scripts/tutor_grammar_check_prompt.md, about $0.03): is it really new (a 'covered' verdict needs a real rule or proposal id, and takes the card off her list, its id still taken) and which of HER own lines from any lesson are examples of it (each must be copied from one of her lines; it shows 'you said it <date> at mm:ss'; Claude's made-up examples are replaced). A second independent reader runs on the next 10 lessons only (the two-reader trial): per lesson it records what each read found, what only the second found and her answers on those cards (`python scripts/tutor_grammar.py trial`), then stops.",
+   "plain": "After each lesson Claude reads the transcript (about 15 cents) and, when your tutor taught a grammar rule you do not have yet, puts it on her 'Add grammar' list with her own sentences as examples, after a second check that it is really new. For the next 10 lessons a second reader also reads each lesson, to measure whether it finds more. Nothing is added until she taps Yes.",
+   "plain_for": "4f641840",
    "topic": "the Tutor page",
    "source": [
     {
@@ -8843,6 +8843,11 @@
      "by": "medi",
      "date": "2026-10-12",
      "quote": "cant we tell from the transcript about the grammar rules?"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-13",
+     "quote": "just do 1-2 and 3 but for 3 keep track for 10 lessons and see how much improvement its actually giving"
     }
    ],
    "enforcement": [
@@ -8875,6 +8880,21 @@
      "type": "brief",
      "path": "scripts/tutor_grammar_heard_prompt.md",
      "contains": "A correction counts only when she EXPLAINS it"
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "def check_card(card, h, buckets, repo, runner=None, log=print, spend=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "TRIAL_LESSONS = 10"
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "def trial_report(store, rows=None):"
     }
    ],
    "test": [
@@ -8893,6 +8913,18 @@
     {
      "path": "tests/test_grammar_add_task.cjs",
      "contains": "test('AM-32 a card Claude heard in a lesson"
+    },
+    {
+     "path": "tests/test_tutor_grammar_heard.py",
+     "contains": "def test_am_32_check_examples_and_verdict"
+    },
+    {
+     "path": "tests/test_tutor_grammar_heard.py",
+     "contains": "def test_am_32_a_card_the_check_finds_already_covered_is_never_shown_and_a_made_up_rule_id_does_not_drop_it"
+    },
+    {
+     "path": "tests/test_tutor_grammar_heard.py",
+     "contains": "def test_am_32_two_reader_trial_runs_ten_lessons_and_keeps_score_of_what_the_second_read_added"
     }
    ],
    "aliases": []

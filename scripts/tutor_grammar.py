@@ -120,7 +120,8 @@ def reduce_rows(rows, heard=None):
         elif r.get("kind") == UNDO and sid in subs:
             subs[sid]["withdrawn"] = True
     for sid, h in (heard or {}).items():
-        subs.setdefault(sid, heard_sub(sid, h))
+        if not h.get("dropped"):                 # Claude's check found it already covered: off her list, the id stays taken
+            subs.setdefault(sid, heard_sub(sid, h))
     for sid, s in subs.items():
         s["answer"] = answer.get(sid)
     return subs
@@ -481,8 +482,145 @@ def pending_lessons(repo, store):
     return out
 
 
+CHECK_PROMPT_REL = os.path.join("scripts", "tutor_grammar_check_prompt.md")
+TRIAL_LESSONS = 10       # Medi 2026-10-13: the second reader runs on the next 10 lessons read here, then stops; the score shows what it added
+EXAMPLE_CANDIDATES = 40  # her lines from every lesson sent to the check as possible examples
+STOP = set("و في من على عن الى إلى انا أنا انت إنت هو هي احنا إحنا هم هما يعني بس لا اه أه ايوه مش ما شو كيف هاد هذا هذي هادا هاي كمان مع ل ب ال "
+           "so and the is a it to of yes no okay ok".split())
+
+
+def read_once(date, text, buckets, repo, store, runner, log, spend, reader="a"):
+    """One read of the transcript -> (the AI's findings list or None, cost)."""
+    tag = "" if reader == "a" else "." + reader
+    ai, cost = claude_read(heard_prompt(date, text, buckets, repo, store), runner=runner, log=log, spend=spend,
+                           sid="heard-%s%s" % (date, tag), step="tutor_grammar.hear" + tag,
+                           prompt_file=HEARD_PROMPT_REL.replace(os.sep, "/"), lesson_date=date,
+                           what="tutor-grammar heard %s%s (%s)" % (date, "" if reader == "a" else " reader " + reader, HEAR_MODEL),
+                           model=HEAR_MODEL, effort="low")
+    found = ai.get("found") if isinstance(ai, dict) else None
+    return (found if isinstance(found, list) else None), cost
+
+
+def trial(store):
+    """The two-reader trial (Medi 2026-10-13 "for 3 keep track for 10 lessons and see how much improvement its actually
+    giving"): one record per lesson, at most TRIAL_LESSONS."""
+    return store.setdefault("two_reader", {
+        "limit": TRIAL_LESSONS, "lessons": {},
+        "about": "Upgrade #3 on trial: a second independent read of each lesson for %d lessons. Per lesson: what each read found "
+                 "(her quote placed on her line), what only the second read found, and which cards came from it; her answers on "
+                 "those cards are read from her rows by `python scripts/tutor_grammar.py trial`." % TRIAL_LESSONS})
+
+
+def trial_on(store, date):
+    t = trial(store)
+    return date in t["lessons"] or len(t["lessons"]) < int(t.get("limit") or 0)
+
+
+def merge_reads(turns, a, b):
+    """[[finding, her line or None, {readers}]], reader a first; a reader-b finding whose quote is on a line within NEAR_S of
+    a placed reader-a finding is the same moment (found by both)."""
+    out = []
+    for f in a or []:
+        if isinstance(f, dict):
+            out.append([f, place_quote(turns, f.get("t"), f.get("quote")), {"a"}])
+    for f in b or []:
+        if not isinstance(f, dict):
+            continue
+        her = place_quote(turns, f.get("t"), f.get("quote"))
+        same = next((o for o in out if her and o[1] and abs(float(o[1]["t"]) - float(her["t"])) <= NEAR_S), None)
+        if same:
+            same[2].add("b")
+        else:
+            out.append([f, her, {"b"}])
+    return out
+
+
+def her_lines(repo=REPO):
+    """(date, seconds, text) of every line of hers in every lesson on the site."""
+    import glob
+    out = []
+    for f in sorted(glob.glob(P(repo, os.path.join("docs", "data", "lessons", "20??-??-??.json")))):
+        d = os.path.basename(f)[:10]
+        out += [(d, float(t["t"]), t["text"]) for t in (J(f, {}) or {}).get("turns", []) if is_tutor(t) and t.get("text")]
+    return out
+
+
+def example_candidates(repo, h, card, k=EXAMPLE_CANDIDATES):
+    """Her lines from every lesson most likely to use the rule: the teaching line first, then the lines sharing the most
+    (rare) Arabic words with her quote, her line and the card's examples."""
+    from collections import Counter
+    lines = her_lines(repo)
+    src = " ".join([h.get("quote") or "", h.get("line") or ""] + [e.get("arabic") or "" for e in card.get("examples") or []])
+    words = {w for w in _norm(src).split() if len(w) >= 2 and re.search(r"[ء-ي]", w) and w not in STOP}
+    df = Counter(w for _, _, x in lines for w in set(_norm(x).split()) if w in words)
+    scored = []
+    for d, t, x in lines:
+        if d == h.get("date") and abs(t - float(h.get("sec") or 0)) < 1:
+            continue
+        hit = words & set(_norm(x).split())
+        if hit:
+            scored.append((sum(1.0 / df[w] for w in hit), d, t, x))
+    scored.sort(key=lambda r: (-r[0], r[1], r[2]))
+    first = [(h.get("date"), float(h.get("sec") or 0), h.get("line") or "")]
+    return [{"id": "L%d" % i, "date": d, "t": mmss(t), "text": x[:240]}
+            for i, (d, t, x) in enumerate(first + [(d, t, x) for _, d, t, x in scored[:k]])]
+
+
+def _proposal_ids_and_lines(repo):
+    ids, lines = set(), []
+    for rel in (os.path.join("docs", "data", "grammar-proposals.json"), os.path.join("data", "lesson-work", "full-audit", "proposed-buckets.json")):
+        for p in (J(P(repo, rel), {}) or {}).get("proposals", []):
+            ids.add(p.get("id"))
+            lines.append("- %s %s: %s" % (p.get("id"), p.get("name"), p.get("proposed_rule") or ""))
+    return ids, list(dict.fromkeys(lines))
+
+
+def check_prompt(card, h, cands, buckets, repo):
+    with open(P(repo, CHECK_PROMPT_REL), encoding="utf-8") as f:
+        tpl = f.read()
+    rules = "\n".join("- %s %s: %s" % (b["id"], b.get("name", ""), str(b.get("one_line") or "").replace("`", "")) for b in buckets if b.get("family") in FAMILIES)
+    lines = "\n".join("[%s] %s %s: %s" % (c["id"], c["date"], c["t"], c["text"]) for c in cands)
+    return (tpl.replace("{card}", json.dumps({k: card.get(k) for k in ("id", "name", "one_line", "formula")}, ensure_ascii=False))
+            .replace("{quote}", h.get("quote") or "").replace("{line}", h.get("line") or "").replace("{rules}", rules)
+            .replace("{proposed}", "\n".join(_proposal_ids_and_lines(repo)[1]) or "(none)").replace("{lines}", lines))
+
+
+def check_card(card, h, buckets, repo, runner=None, log=print, spend=None):
+    """#1 + #2 (Medi 2026-10-13 "just do 1-2"): ONE short read per card. Is it really new (not covered by a rule or a
+    proposal)? Which of her own lines, from any lesson, are examples of it? Checked here: 'covered' needs a real rule or
+    proposal id; an example must be copied from one of her candidate lines. Returns {new, covered_by, why, examples,
+    cost_usd} or None (the read failed: the card stays, unchecked)."""
+    cands = example_candidates(repo, h, card)
+    ai, cost = claude_read(check_prompt(card, h, cands, buckets, repo), runner=runner, log=log, spend=spend, sid="check-" + str(card.get("id")),
+                           step="tutor_grammar.check", prompt_file=CHECK_PROMPT_REL.replace(os.sep, "/"), lesson_date=h.get("date"),
+                           what="tutor-grammar card check %s (%s)" % (card.get("id"), HEAR_MODEL), model=HEAR_MODEL, effort="low")
+    if not isinstance(ai, dict) or not isinstance(ai.get("new"), bool):
+        return None
+    ids = {b["id"] for b in buckets} | _proposal_ids_and_lines(repo)[0]
+    cov = ai.get("covered_by") if ai.get("covered_by") in ids else None
+    by = {c["id"]: c for c in cands}
+    ex = []
+    for e in (ai.get("examples") or [])[:4]:
+        c = by.get(str((e or {}).get("line")))
+        ar = str((e or {}).get("arabic") or "").strip()[:200]
+        if c and len(_norm(ar)) >= 3 and _norm(ar) in _norm(c["text"]):
+            ex.append({"arabizi": "", "arabic": ar, "english": str(e.get("english") or "").strip()[:200], "hers": True, "date": c["date"], "t": c["t"]})
+    return {"new": not (ai["new"] is False and cov), "covered_by": cov, "why": str(ai.get("why") or "")[:300], "examples": ex, "cost_usd": cost}
+
+
+def apply_check(p, chk):
+    """Her real examples replace Claude's (when the check found any); the verdict is kept on the card."""
+    if chk.get("examples"):
+        p["examples"] = chk["examples"]
+    p["checked"] = {"new": chk["new"], "covered_by": chk["covered_by"], "why": chk["why"], "her_examples": len(chk["examples"]),
+                    "cost_usd": chk["cost_usd"]}
+    return p
+
+
 def hear(date, store, repo=REPO, runner=None, log=print, spend=None, now=None, force=False):
-    """AM-32: ONE Claude read of the lesson transcript -> new cards on her 'Add grammar' list (in the store, in place).
+    """AM-32: Claude reads the lesson transcript -> new cards on her 'Add grammar' list (in the store, in place). Reader a
+    always; reader b too while the two-reader trial runs (TRIAL_LESSONS lessons). Every finding is placed on her line and
+    run through the drop rules, then ONE short check per card (#1 her real examples, #2 really new?).
     Returns {"date", "kept": [sid], "dropped": [{name, why}], "cost_usd"} or None when the lesson needs no read."""
     import tutor_scope
     now = now or dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
@@ -498,58 +636,116 @@ def hear(date, store, repo=REPO, runner=None, log=print, spend=None, now=None, f
     text = transcript(date, turns)
     run = {"tries": int(run.get("tries") or 0) + 1, "at": now, "model": HEAR_MODEL}
     store["heard_runs"][date] = run
-    ai, cost = claude_read(heard_prompt(date, text, buckets, repo, store), runner=runner, log=log, spend=spend, sid="heard-" + date,
-                           step="tutor_grammar.hear", prompt_file=HEARD_PROMPT_REL.replace(os.sep, "/"), lesson_date=date,
-                           what="tutor-grammar heard %s (%s)" % (date, HEAR_MODEL), model=HEAR_MODEL, effort="low")
+    found, cost = read_once(date, text, buckets, repo, store, runner, log, spend, "a")
     run["cost_usd"] = cost
-    found = ai.get("found") if isinstance(ai, dict) else None
-    if not isinstance(found, list):
+    if found is None:
         run["error"] = "no usable answer"
         log("tutor_grammar hear: no usable answer for %s (try %d of %d)" % (date, run["tries"], HEAR_TRIES))
         return {"date": date, "kept": [], "dropped": [], "cost_usd": cost}
+    two = trial_on(store, date)
+    found_b, cost_b = read_once(date, text, buckets, repo, store, runner, log, spend, "b") if two else (None, None)
+    merged = merge_reads(turns, found, found_b)
     near = [s for d, s in gr18_moments(repo) if d == date]
     names = known_names(repo, store, buckets)
     taken = taken_ids(repo, store)
-    kept, dropped = [], []
-    for f in found[:MAX_HEARD * 2]:
-        if not isinstance(f, dict):
-            continue
+    kept, dropped, check_cost = [], [], 0.0
+    for f, her, readers in merged[:MAX_HEARD * 3]:
         name = str(f.get("name") or "")
-        her = place_quote(turns, f.get("t"), f.get("quote"))
-        why = None
+        why, p, sid, h = None, None, None, None
         if not her:
             why = "her quote is not on her line at that time"
         elif any(abs(float(her["t"]) - s) <= NEAR_S for s in near):
             why = "a GR-18 proposal already has this moment"
         elif _norm(name) in names:
             why = "a rule or proposal with this name exists"
-        elif any(h.get("date") == date and abs(float(h.get("sec") or 0) - float(her["t"])) <= NEAR_S for h in store["heard"].values()):
+        elif any(x.get("date") == date and abs(float(x.get("sec") or 0) - float(her["t"])) <= NEAR_S for x in store["heard"].values()):
             why = "already heard at this moment"
         elif len(kept) >= MAX_HEARD:
             why = "more than %d in one lesson" % MAX_HEARD
+        if not why:
+            before = line_before(turns, her)
+            h = {"date": date, "t": mmss(her["t"]), "sec": float(her["t"]), "quote": str(f.get("quote")).strip()[:400],
+                 "line": her["text"][:600], "before": before["text"][:600] if before else "", "hers": her_words_near(turns, her), "at": now}
+            sid = "heard-%s-%s" % (date.replace("-", ""), re.sub(r"\D", "", h["t"]))
+            while sid in store["heard"] or sid in store["subs"]:
+                sid += "b"
+            p = clean(f, heard_sub(sid, h), buckets, taken | set(store["ids_given"]))
+            if not p or not p.get("grammar"):
+                why = "not a usable rule card"
+        if not why:
+            chk = check_card(p, h, buckets, repo, runner=runner, log=log, spend=spend)
+            check_cost += float((chk or {}).get("cost_usd") or 0)
+            if chk and not chk["new"]:
+                why = "Claude's check: already covered by %s (%s)" % (chk["covered_by"], chk["why"][:120])
+            elif chk:
+                apply_check(p, chk)
         if why:
-            dropped.append({"t": f.get("t"), "name": name[:60], "why": why})
+            dropped.append({"t": f.get("t"), "name": name[:60], "why": why, "readers": sorted(readers)})
             continue
-        before = line_before(turns, her)
-        h = {"date": date, "t": mmss(her["t"]), "sec": float(her["t"]), "quote": str(f.get("quote")).strip()[:400],
-             "line": her["text"][:600], "before": before["text"][:600] if before else "", "hers": her_words_near(turns, her), "at": now}
-        sid = "heard-%s-%s" % (date.replace("-", ""), re.sub(r"\D", "", h["t"]))
-        while sid in store["heard"] or sid in store["subs"]:
-            sid += "b"
-        p = clean(f, heard_sub(sid, h), buckets, taken | set(store["ids_given"]))
-        if not p or not p.get("grammar"):
-            dropped.append({"t": f.get("t"), "name": name[:60], "why": "not a usable rule card"})
-            continue
-        p.update({"v": 1, "made_at": now, "model": HEAR_MODEL, "cost_usd": None, "asked": None, "heard_run": date})
+        p.update({"v": 1, "made_at": now, "model": HEAR_MODEL, "cost_usd": None, "asked": None, "heard_run": date, "readers": sorted(readers)})
         store["heard"][sid] = h
         store["ids_given"].append(p["id"])
         store["subs"][sid] = [p]
         names.add(_norm(p["name"]))
         kept.append(sid)
-    run.update({"done": True, "found": len(found), "kept": kept, "dropped": dropped})
+    run.update({"done": True, "found": len(found), "kept": kept, "dropped": dropped, "check_cost_usd": round(check_cost, 4)})
     run.pop("error", None)
-    log("tutor_grammar hear %s: %d found, %d new cards (%s), %d dropped" % (date, len(found), len(kept), ", ".join(store["subs"][s][0]["id"] for s in kept) or "-", len(dropped)))
+    if two:
+        placed = [m for m in merged if m[1]]
+        trial(store)["lessons"][date] = {
+            "at": now, "a": sum(1 for m in placed if "a" in m[2]),
+            "b": sum(1 for m in placed if "b" in m[2]) if found_b is not None else None,
+            "both": sum(1 for m in placed if m[2] == {"a", "b"}), "only_a": sum(1 for m in placed if m[2] == {"a"}),
+            "only_b": sum(1 for m in placed if m[2] == {"b"}), "b_failed": found_b is None, "cost_b": cost_b,
+            "cards_only_b": [s for s in kept if store["subs"][s][0]["readers"] == ["b"]],
+            "cards_a": [s for s in kept if "a" in store["subs"][s][0]["readers"]]}
+        n = len(trial(store)["lessons"])
+        if n >= int(trial(store).get("limit") or 0):
+            log("tutor_grammar: the two-reader trial has its %d lessons - see `python scripts/tutor_grammar.py trial`" % n)
+    log("tutor_grammar hear %s: %d found%s, %d new cards (%s), %d dropped" % (
+        date, len(found), "" if found_b is None else " + %d by reader b" % len(found_b), len(kept),
+        ", ".join(store["subs"][s][0]["id"] for s in kept) or "-", len(dropped)))
     return {"date": date, "kept": kept, "dropped": dropped, "cost_usd": cost}
+
+
+def recheck(store, repo=REPO, runner=None, log=print, spend=None):
+    """#1 + #2 for the cards made before the check existed: a heard card she has not answered and that was never checked
+    gets the check; 'already covered' takes it off her list (heard[sid].dropped, the id stays taken), else her real
+    examples go on the card (in place: the version she answers is unchanged)."""
+    buckets = (J(P(repo, os.path.join("docs", "data", "grammar-buckets.json")), {}) or {}).get("buckets", [])
+    rows = (J(P(repo, ROWS_REL), {}) or {}).get("rows", [])
+    subs = reduce_rows(rows, store.get("heard"))
+    out = []
+    for sid, h in sorted((store.get("heard") or {}).items()):
+        cur = current((store.get("subs") or {}).get(sid) or [])
+        if h.get("dropped") or not cur or cur.get("checked") or not cur.get("grammar") or (sid in subs and subs[sid].get("answer")):
+            continue
+        chk = check_card(cur, h, buckets, repo, runner=runner, log=log, spend=spend)
+        if not chk:
+            continue
+        if not chk["new"]:
+            h["dropped"] = "Claude's check: already covered by %s (%s)" % (chk["covered_by"], chk["why"][:120])
+        else:
+            apply_check(cur, chk)
+        out.append({"sid": sid, "id": cur.get("id"), "new": chk["new"], "covered_by": chk["covered_by"], "her_examples": len(chk["examples"]),
+                     "cost_usd": chk["cost_usd"]})
+    return out
+
+
+def trial_report(store, rows=None):
+    """The two-reader trial so far: per lesson what each read found, and her answers on the cards only reader b found."""
+    t = trial(store)
+    subs = reduce_rows(rows or [], store.get("heard"))
+    L = t.get("lessons") or {}
+    tot = {k: sum(int(v.get(k) or 0) for v in L.values()) for k in ("a", "b", "both", "only_a", "only_b")}
+    tot["cost_b"] = round(sum(float(v.get("cost_b") or 0) for v in L.values()), 4)
+    cards_b = [s for v in L.values() for s in v.get("cards_only_b") or []]
+    answers = {}
+    for s in cards_b:
+        st = state(subs[s], store["subs"].get(s, [])) if s in subs else "taken off by the check"
+        answers[st] = answers.get(st, 0) + 1
+    return {"lessons_done": len(L), "limit": t.get("limit"), "totals": tot, "cards_only_b": len(cards_b),
+            "her_answers_on_only_b": answers, "per_lesson": L}
 
 
 def load_store(repo=REPO):
@@ -692,11 +888,22 @@ def check(repo=REPO):
 def main(argv=None):
     import argparse
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["pull", "build", "check", "hear"])
+    ap.add_argument("cmd", choices=["pull", "build", "check", "hear", "recheck", "trial"])
     ap.add_argument("date", nargs="?", help="hear: the lesson date (default: every reviewed lesson not read yet)")
     ap.add_argument("--force", action="store_true", help="hear: read the lesson again even if it was read (one more paid call)")
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8")
+    if a.cmd == "trial":
+        print(json.dumps(trial_report(load_store(), (J(P(REPO, ROWS_REL), {}) or {}).get("rows", [])), ensure_ascii=False, indent=1))
+        return 0
+    if a.cmd == "recheck":
+        store = load_store()
+        out = recheck(store)
+        if out:
+            W(P(REPO, STORE_REL), store)
+            build()
+        print(json.dumps(out, ensure_ascii=False))
+        return 0
     if a.cmd == "hear":
         dates = [a.date] if a.date else pending_lessons(REPO, load_store())
         print(json.dumps([hear_and_save(d, force=a.force) for d in dates], ensure_ascii=False))

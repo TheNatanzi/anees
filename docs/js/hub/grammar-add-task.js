@@ -95,7 +95,7 @@
   }
 
   function exHtml(e) {
-    return `<li><b>${esc(e.arabizi || e.arabic)}</b>${e.arabizi && e.arabic ? ` <span lang="ar" dir="rtl" class="tg-ar">${esc(e.arabic)}</span>` : ''}${e.english ? ` · ${esc(e.english)}` : ''}${e.hers ? '' : ' <span class="tg-unv">example by Claude · spelling unverified</span>'}</li>`;
+    return `<li><b>${esc(e.arabizi || e.arabic)}</b>${e.arabizi && e.arabic ? ` <span lang="ar" dir="rtl" class="tg-ar">${esc(e.arabic)}</span>` : ''}${e.english ? ` · ${esc(e.english)}` : ''}${e.date ? ` <span class="tg-src">you said it ${esc(pretty(e.date))} at ${esc(e.t)}</span>` : ''}${e.hers ? '' : ' <span class="tg-unv">example by Claude · spelling unverified</span>'}</li>`;
   }
   function cardHtml(x) {
     const s = x.sub, c = x.cur, U = { answered: (t, a) => root.AneesUndo.answered(t, a) };   // AM-17: the shared Undo
@@ -200,7 +200,7 @@
 #anees-bank .tg-off{opacity:.7}#anees-bank .tg-title{font-family:var(--sabz-font-serif);font-size:18px;font-weight:500;margin:0}#anees-bank .tg-id{color:var(--vp-sage,#2E6A4E);font-weight:600}
 #anees-bank .tg-one{margin:0;font-size:15px}#anees-bank .tg-formula,#anees-bank .tg-yours,#anees-bank .tg-over{margin:0;font-size:14px}#anees-bank .tg-formula span,#anees-bank .tg-yours span{color:var(--ab-muted)}
 #anees-bank .tg-ex{margin:0;padding-left:18px;display:grid;gap:3px}#anees-bank .tg-ar{font-size:15px}#anees-bank .tg-unv{font-size:12px;color:var(--ab-muted);border:1px dashed var(--ab-line);border-radius:999px;padding:0 6px}
-#anees-bank .tg-wait{margin:0;font-weight:600}#anees-bank .tg-heard{margin:0;font-size:13px;font-weight:600;color:var(--vp-sage,#2E6A4E)}#anees-bank .tg-chg{display:grid;gap:6px}#anees-bank .tg-chg[hidden]{display:none}`;
+#anees-bank .tg-wait{margin:0;font-weight:600}#anees-bank .tg-src{font-size:12px;color:var(--ab-muted)}#anees-bank .tg-heard{margin:0;font-size:13px;font-weight:600;color:var(--vp-sage,#2E6A4E)}#anees-bank .tg-chg{display:grid;gap:6px}#anees-bank .tg-chg[hidden]{display:none}`;
       document.head.appendChild(s);
     }
     draw();
