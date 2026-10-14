@@ -2,11 +2,19 @@
  "about": "Problems the hourly lesson job hit (rule LS-04). Written by scripts/hourly_lessons.py, shown on Progress and Lessons by js/lesson-behind.js; empty = every recorded lesson loaded.",
  "problems": [
   {
+   "key": "load:2026-10-14",
+   "kind": "not-loaded",
+   "date": "2026-10-14",
+   "cause": "loading failed",
+   "since": "2026-10-14T15:23:59-07:00",
+   "text": "10-14 lesson not loaded: loading failed"
+  },
+  {
    "key": "stalled",
    "kind": "stalled",
    "since": "2026-10-09T18:16:25Z",
-   "cause": "pull --rebase failed (a conflict with master; a person merges): conflict in a hand-made file (a person merges): data/lesson-work/tutor-grammar/proposals.json",
-   "text": "The hourly robot has not published since {since}: pull --rebase failed (a conflict with master; a person merges): conflict in a hand-made file (a person merges): data/lesson-work/tutor-grammar/proposals.json"
+   "cause": "pull --rebase failed (a conflict with master; a person merges): conflict in a hand-made file (a person merges): data/lesson-work/tutor-grammar/proposals.json | now: pull --rebase failed (a conflict wi",
+   "text": "The hourly robot has not published since {since}: pull --rebase failed (a conflict with master; a person merges): conflict in a hand-made file (a person merges): data/lesson-work/tutor-grammar/proposals.json | now: pull --rebase failed (a conflict wi"
   }
  ]
 }
