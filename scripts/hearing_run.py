@@ -32,7 +32,7 @@ a reservation, held 30 % high, until the real dollars are in). Gemini goes throu
 scripts/batch_jobs.py; job files in harness/<date>/jobs/, git-ignored). Production's own allowance
 (data/lesson-work/rehear/spend.json) is neither used nor touched. ANEES_REHEAR_AUTO=off is set for the run.
 """
-import argparse, collections, hashlib, json, os, sys, time
+import argparse, collections, hashlib, json, os, re, sys, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -114,10 +114,16 @@ class _Lock:
 
 
 def reserve(item, est, root=None, **fields):
-    """Check the allowance and book the estimate as owed, as one step under the lock (no two runs pass on the same room)."""
+    """Check the allowance and book the estimate as owed, as one step under the lock (no two runs pass on the same room).
+    An item already in the file (an earlier attempt of the same step: its money is kept) gets a new name. Returns it."""
     with _Lock(root):
         check_budget(est, item, root)
-        _record(item, root, state="owed", est_usd=est, usd=0.0, **fields)
+        items = spend_doc(root).get("items") or {}
+        name, n = item, 2
+        while name in items:
+            name, n = "%s#%d" % (item, n), n + 1
+        _record(name, root, state="owed", est_usd=est, usd=0.0, **fields)
+        return name
 
 
 def record(item, root=None, **fields):
@@ -244,7 +250,7 @@ class Gemini:
         if todo:
             est = estimate([(c, p) for _, c, p, _ in todo], out_tokens or self.out_tokens) * (2 if self.instant else 1)
             item = "%s/%s-%s" % (self.L.date, stage, hashlib.sha256("\n".join(k for k, *_ in todo).encode()).hexdigest()[:8])
-            reserve(item, est, self.L.root, date=self.L.date, what="gemini " + stage, requests=len(todo))
+            item = reserve(item, est, self.L.root, date=self.L.date, what="gemini " + stage, requests=len(todo))
             self.log("%s %s: %d Gemini requests (%s), about $%.2f" % (self.L.date, stage, len(todo), "instant" if self.instant else "Batch", est))
             factor = 1.0 if self.instant else BATCH_FACTOR
             answers = (self._instant if self.instant else self._batch)(stage, item, todo)
@@ -257,8 +263,8 @@ class Gemini:
                 u = out.pop("usd", 0.0) or 0.0
                 usd += u
                 log_paid(stage, self.L.date, "google", MODEL, u, {"key": k, "transport": "instant" if self.instant else "batch"})
-                if out.get("error") and not out.get("text"):
-                    out["error"] = str(out["error"])[:200]
+                if out.get("error") and not out.get("text") and not out.get("raw"):
+                    continue                                   # an error is never cached: missing, sent again next run
                 C.put(k, out, "gemini", MODEL, os.path.basename(clip), prompt)
             C.save()
             missing = [k for k, *_ in todo if C.get(k) is None]
@@ -282,7 +288,7 @@ class Gemini:
         import batch_jobs as BJ
         import bench_run as BR
         folder = os.path.join(self.L.dir, "jobs")
-        name = item.split("/", 1)[1]
+        name = item.split("/", 1)[1].split("#")[0]
         P = BJ.paths(folder, name)
         if not (BC.J(P["job"]) or {}).get("job"):
             BJ.build(folder, name, MODEL, ((k, BR.gemini_body(MODEL, c, p, as_json=True, temp=TEMP, cfg_extra=cfg)) for k, c, p, cfg in todo),
@@ -376,7 +382,8 @@ def judge(L, G, stage, items, log=print):
     for i, (k, key) in meta.items():
         o = A.get(k) or {}
         raw = o.get("raw") if isinstance(o.get("raw"), dict) else {}
-        pick = str(raw.get("pick") or "").strip().upper()
+        m = re.match(r"\s*(?:VERSION\s+)?([XYZ])\b", str(raw.get("pick") or "").upper())
+        pick = m.group(1) if m else ""
         out[i] = (key.get(pick), str(raw.get("heard") or "").strip(), str(raw.get("why") or "")[:200])
     return out
 
@@ -408,7 +415,7 @@ def deepgram_lines(L, log=print, net=None):
             secs = BR.wav_seconds(wav)
             usd = BR.PRICE["deepgram-ar"] * secs
             item = "%s/deepgram-%d" % (L.date, k)
-            reserve(item, round(usd, 4), L.root, date=L.date, what="deepgram nova-3 his track %d" % k)
+            item = reserve(item, round(usd, 4), L.root, date=L.date, what="deepgram nova-3 his track %d" % k)
             call = (net or {}).get("deepgram") or (lambda p: BR.tried(lambda: BR.deepgram("ar")(p, whole=True)))
             out = call(wav)
             if out.get("error") and not out.get("words"):
@@ -480,25 +487,35 @@ def cell_F(L, G, log=print, net=None, whole=None):
         secs = sum(BR.wav_seconds(c) for _, c, _ in todo)
         usd_est = BR.PRICE["eleven"] * secs
         item = "%s/eleven-relisten-F" % L.date
-        reserve(item, round(usd_est, 4), L.root, date=L.date, what="ElevenLabs second listen, F", requests=len(todo))
-        usd = 0.0
-        for i, clip, ck in todo:
-            o = eleven(clip)
-            u = BR.PRICE["eleven"] * BR.wav_seconds(clip) if not (o.get("error") and not o.get("text")) else 0.0
-            usd += u
-            L.cache.put(ck, {"text": o.get("text") or "", "error": o.get("error")}, "elevenlabs", "scribe_v2", os.path.basename(clip))
-            log_paid("eleven-relisten", L.date, "elevenlabs", "scribe_v2", u, {"line": i})
-        L.cache.save()
-        record(item, L.root, state="paid", usd=round(usd, 6))
-        log("%s ElevenLabs second listen: %d clips, $%.3f" % (L.date, len(todo), usd))
+        item = reserve(item, round(usd_est, 4), L.root, date=L.date, what="ElevenLabs second listen, F", requests=len(todo))
+        usd, failed = 0.0, collections.Counter()
+        try:
+            for n, (i, clip, ck) in enumerate(todo):
+                o = eleven(clip)
+                if o.get("error") and not o.get("text"):
+                    failed[str(o["error"])[:60]] += 1           # never cached: no answer, sent again next run
+                    continue
+                u = BR.PRICE["eleven"] * BR.wav_seconds(clip)
+                usd += u
+                L.cache.put(ck, {"text": o.get("text") or ""}, "elevenlabs", "scribe_v2", os.path.basename(clip))
+                log_paid("eleven-relisten", L.date, "elevenlabs", "scribe_v2", u, {"line": i})
+                if n % 25 == 24:
+                    L.cache.save()
+        finally:
+            L.cache.save()
+            record(item, L.root, state="paid", usd=round(usd, 6), missing=sum(failed.values()))
+        log("%s ElevenLabs second listen: %d clips, $%.3f, %d failed %s" % (L.date, len(todo), usd, sum(failed.values()), dict(failed)))
     # 3. the blind judge, both second-listen versions (+ Gemini's reasons)
-    items = []
+    items, no_el = [], 0
     for i in disputed:
         g = A.get(gk[i]) or {}
         raw = g.get("raw") if isinstance(g.get("raw"), dict) else {}
         reasons = "; ".join(x for x in [str(raw.get("why") or "")] + ["%s -> %s" % (c.get("engine"), c.get("said")) for c in raw.get("changes") or [] if isinstance(c, dict)] if x)
         gtext = g.get("text") or his.get(i, "")
-        etext = (L.cache.get(el[i]) or {}).get("text") or E[i]
+        eo = L.cache.get(el[i])
+        if not eo or eo.get("error"):
+            no_el += 1                                # no second listen (an engine error): its first version stands
+        etext = (eo or {}).get("text") or E[i]
         items.append((i, [(gtext, reasons), (etext, "")]))
     J = judge(L, G, "judge-F", items, log)
     lines, n = {}, collections.Counter()
@@ -509,7 +526,7 @@ def cell_F(L, G, log=print, net=None, whole=None):
         lines[i] = versions[pick][0] if pick is not None else (heard or versions[0][0])
         n["Gemini second listen" if pick == 0 else "ElevenLabs second listen" if pick == 1 else "neither"] += 1
     return lines, {"how": "Gemini whole track vs ElevenLabs raw; disputed listen lines: both listen again, blind Gemini judge",
-                   "disputed": len(disputed), "picks": dict(n)}
+                   "disputed": len(disputed), "picks": dict(n), "eleven_second_listen_missing": no_el}
 
 
 def write_version(L, cell, lines, info):
@@ -609,6 +626,7 @@ def cell_cost(date, cell, root=None):
     tot = 0.0
     for k, it in (spend_doc(root).get("items") or {}).items():
         d, _, rest = k.partition("/")
+        rest = rest.split("#")[0]
         if d == date and any(rest == st or rest.startswith(st + "-") for st in stages):
             tot += it.get("usd") or 0.0
     return round(tot, 4)

@@ -178,9 +178,16 @@ def estimate(out=print):
 
 # ------------------------------------------------------------------ one read
 
+def spent_reads():
+    return round(sum(c for _, _, c in measured()), 4)
+
+
 def run(model, n, lesson=None, turns=None, yes=False, log=print):
     if not yes:
         raise SystemExit("paid: needs Medi's yes on the estimate (`estimate`); pass --yes only after he said yes")
+    lim = (BC.J(os.path.join(DIR, "spend.json")) or {}).get("limit_usd")
+    if lim is None:
+        raise SystemExit("no limit in data/lesson-work/reader-tiers/spend.json (Medi's number) - nothing run")
     mid = MODELS[model]
     dates = [lesson] if lesson else list(LESSONS)
     for d in dates:
@@ -192,6 +199,8 @@ def run(model, n, lesson=None, turns=None, yes=False, log=print):
                 f.write(txt)
         else:
             check_frozen()
+        if spent_reads() + per_read(mid) > float(lim):
+            raise SystemExit("reader-tier limit $%.2f: $%.2f spent + ~$%.2f for this read - stopped" % (float(lim), spent_reads(), per_read(mid)))
         prompt, out = prompt_for(d, model, n, suffix)
         os.makedirs(os.path.dirname(out), exist_ok=True)
         cmd = [CLAUDE, "-p", prompt, "--output-format", "json", "--permission-mode", "bypassPermissions", "--add-dir", REPO,
@@ -291,8 +300,9 @@ def score(suffix="", until=None):
             else:
                 preds = [predicted(r.get("rows"), until.get(d) if until else None) for r in
                          (load_run(d, model, n, suffix) for n in range(1, RUNS + 1)) if r]
-            if not preds:
-                continue
+            if len(preds) < (1 if model == "haiku-x3" else RUNS):   # a tier is compared only on all runs of all 3 lessons
+                per = {}
+                break
             for p in preds:
                 m = match(p, ks)
                 tot["matched"] += m

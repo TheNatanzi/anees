@@ -191,3 +191,35 @@ def test_decision_needs_a_win_on_both_lessons(tmp_path):
     res["d2"] = rows(20, 2, 0.001, 2.5)
     run = HR.write_experiments(res, "d1", "d2", path=str(tmp_path / "e.json"))
     assert run["winner"] == ["B"] and run["adopted"] is False
+
+
+def test_review_fixes_2026_10_14(tmp_path, monkeypatch):
+    # a dropped word: the version must keep the anchor, losing the whole line is not "erased"
+    E = HH.slip_erased
+    assert E("في المطعم", "المطعم", "كنت في المطعم", "") is False
+    assert E("في المطعم", "المطعم", "كنت في المطعم", "كنت") is False
+    assert E("في المطعم", "المطعم", "كنت في المطعم", "كنت المطعم") is True
+    # an engine error is never cached (sent again next run) and is counted missing
+    L = _lesson(tmp_path, monkeypatch)
+    his = {"10.00": "مرحبا كيفك", "20.00": "أنا سمعت متأخر", "30.00": "بدي أروح على البيت", "40.00": "", "50.00": "عصافير"}
+    lines, info = HR.cell_F(L, HR.Gemini(L, net={"batch": FakeGemini()}, log=lambda *a: None), log=lambda *a: None,
+                            net={"eleven": lambda p: {"text": "", "error": "401 quota_exceeded"}}, whole=(his, {}))
+    assert info["eleven_second_listen_missing"] == 2
+    assert not any(e["engine"] == "elevenlabs" for e in L.cache.d.values())
+    item = next(v for k, v in HR.spend_doc(L.root)["items"].items() if "eleven" in k)
+    assert item["missing"] == 2 and item["usd"] == 0
+    # a second attempt of the same step never overwrites the first one's money
+    a = HR.reserve("d/x", 0.01, L.root)
+    b = HR.reserve("d/x", 0.01, L.root)
+    assert (a, b) == ("d/x", "d/x#2")
+
+
+def test_judge_pick_written_as_version_letter(tmp_path, monkeypatch):
+    L = _lesson(tmp_path, monkeypatch)
+
+    def batch(stage, todo):
+        return {k: {"text": "", "raw": {"pick": "Version Y.", "heard": ""}, "usd": 0.0} for k, *_ in todo}
+    r = HR.judge(L, HR.Gemini(L, net={"batch": batch}, log=lambda *a: None), "judge-C",
+                 [("20.00", [("a", ""), ("b", ""), ("c", "")])])
+    jp = HH.judge_prompt_n([("a", ""), ("b", ""), ("c", "")], seed=D, item="20.00")
+    assert r["20.00"][0] == jp["key"]["Y"]

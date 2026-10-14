@@ -610,12 +610,14 @@ def slip_erased(wrong, right, key_line, text):
         r = _slip_toks(alt)
         if not r or r == w:
             continue
-        ch = _changes(w, r)
+        # a spot where she only DROPS words is testable only when an anchor word stays and the key holds his form
+        ch = [c for c in _changes(w, r) if c[1] or (c[3] and _count(c[2], k))]
         if not ch:
             continue
         judged = True
-        if all((not rc or _count(ra, v) > _count(ra, k)) and (not wc or _count(wa, k) == 0 or _count(wa, v) < _count(wa, k))
-               for wc, rc, wa, ra in ch) and any(rc or _count(wa, k) for wc, rc, wa, ra in ch):
+        if all((_count(ra, v) > _count(ra, k) and (not wc or _count(wa, k) == 0 or _count(wa, v) < _count(wa, k))) if rc else
+               (_count(wa, v) < _count(wa, k) and _count(ra, v) >= _count(ra, k))     # dropped: his words gone, the anchor kept
+               for wc, rc, wa, ra in ch):
             return True
     return False if judged else None
 

@@ -44,3 +44,12 @@ def test_haiku_vote_two_of_three():
     b = [("grammar", 108.0)]
     c = [("vocab", 500.0)]
     assert RT.vote([a, b, c]) == [("grammar", 100.0)]
+
+
+def test_no_limit_no_read(tmp_path, monkeypatch):
+    monkeypatch.setattr(RT, "DIR", str(tmp_path))
+    try:
+        RT.run("haiku", 1, lesson="2026-10-10", yes=True)
+        raise AssertionError("ran")
+    except SystemExit as e:
+        assert "no limit" in str(e)
