@@ -8,12 +8,12 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 |---|---|
 | Grammar fixes Amal voiced (A) | **767** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 116 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 21 |
-| Vocab fixes Amal voiced (A) | **367** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 178, '0': 142, '2': 80, '3': 2} |
-| Vocab she let pass (B, to Amal) | **33** by tier {'1': 24, '2': 8, '3': 1} |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 24 |
+| Vocab fixes Amal voiced (A) | **366** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 177, '0': 142, '2': 80, '3': 2} |
+| Vocab she let pass (B, to Amal) | **34** by tier {'1': 25, '2': 8, '3': 1} |
 | Listening-drill misreads (kept apart) | 66 |
-| Rows the readers found that the sweep did not have | 931 |
+| Rows the readers found that the sweep did not have | 935 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -43,7 +43,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-06 | 33 | 2 | 17 | 0 | 0 | 0 | 0 | 63.3 % |
 | 2026-10-08 | 27 | 1 | 17 | 0 | 1 | 0 | 0 | 71.2 % |
 | 2026-10-09 | 38 | 2 | 7 | 5 | 1 | 0 | 0 | 71.9 % |
-| 2026-10-10 | 24 | 3 | 5 | 3 | 0 | 0 | 0 | 62.5 % |
+| 2026-10-10 | 24 | 3 | 4 | 4 | 0 | 0 | 0 | 62.5 % |
 | 2026-10-12 | 32 | 1 | 9 | 0 | 1 | 0 | 0 | 65.4 % |
 
 ## Reader passes (the loop)
@@ -90,7 +90,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A2 | idafa (possession) | 30 |
 | A1 | el- (the) | 29 |
 | A4 | possessive endings | 25 |
-| PROPOSE | ? | 21 |
+| PROPOSE | ? | 24 |
 | B2 | b-drop after modals | 20 |
 | E1 | number + noun | 19 |
 | C2 | the pointer rule | 17 |
@@ -1765,10 +1765,14 @@ _Medi's lines between 35:37 and 37:12 are missing (only Amal's side, e.g. 'No, y
 | FA-a3c9f1bd | 08:43 | vocab-A | tier 0 | uh, يوم الـ-- يوم الخميس. | الخميس الجاي. ... (09:02) Oh, we would say خميس الجاي cause it's next Thursday. | يوم الخميس -> الخميس الجاي | He left out الجاي for 'this coming Thursday'; Amal supplied it and explained, and at 09:31 he showed he did not know the word ('Oh, it doesn't mean next, it means coming?') - a didn't-know, so tier 0, not a wrong word (sheet: 'next / the coming (m) / El-jaay'). | medium | r3 |
 | FA-21abe1aa | 08:59 | vocab-B | tier 1 | أنا راحل. | مم. Oh, we would say خميس الجاي | راحل -> رايح | راحل is MSA 'departing'; colloquial 'I am going' is رايح - could be the engine; Amal reacted only to the Thursday word. | low | r1+r2 |
 | FA-89976ca7 | 09:57 | vocab-B | tier 1 | عشرة، عشرة ألفين تسعة وعشرين. | Nice. | ألفين تسعة وعشرين -> ألفين وستة وعشرين | Year said as 2029 (no و) while her chat types 'alfain u sitte u 3eshreen' (2026); may be the engine (تسعة/ستة); chat alone is not a correction. | low | r1+r2 |
-| FA-755d5677 | 13:52 | vocab-A | tier 1 | تلات، تلات. ... (13:57) لا، عمت. | Alta'at. | تلات -> التقيت (elta2ait) | He attempted 'I met' with non-words تلات then عمت (he tried, so not a didn't-know); Amal supplied Alta'at and he took it at 14:01 (التقت). | medium | r3 |
+| FA-b2c51001 | 10:06 | grammar-propose | PROPOSE | الساعة |  | واحد -> واحدة | Medi 2026-10-14 marked it a mistake | high | medi-correction |
+| FA-5063cd20 | 12:01 | grammar-propose | PROPOSE | So أول، أول مرة |  | kaan -> kaanat | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
+| FA-e6f9fe35 | 13:52 | rejected | tier 1 | تلات، تلات. ... (13:57) لا، عمت. | Alta'at. | تلات -> التقيت (elta2ait) | He attempted 'I met' with non-words تلات then عمت (he tried, so not a didn't-know); Amal supplied Alta'at and he took it at 14:01 (التقت). | medium | r3 |
+| FA-c35399ad | 14:01 | grammar-propose | PROPOSE | التقت. |  | التقت -> التقيت مع | Medi 2026-10-14 marked it a mistake | high | medi-correction |
 | FA-aabe08df | 14:32 | grammar | D1 | أول مرة. Yeah. Okay. I th-threw a lot in there. | Oh, for the first time. You want, you wanna say when I met her for the first time. Sah. La awal mara. | أول مرة -> لأول مرة | 'for the first time' at the end of the clause needs la- (la-awal marra); Amal supplied it and he confirmed he had said plain أول مرة (15:21 'I thought I said أول مرة'), then used لا أول مرة at 16:06. | medium | r3 |
 | FA-378c2019 | 15:45 | grammar | B6 | نفس المرة. | Kanat nafs al mara. | نفس المرة -> كانت نفس المرة | Past 'it was the same time' needs كانت; Amal supplied 'Kanat' and he repeated كان، كانت نفس المرة. | high | r1+r2 |
 | FA-df3b3c88 | 16:16 | grammar | E3 | أكثر من- 10 آآآ 10 سن. / ثلاث سنان؟ | Mm-mm-mm. How do you say two years؟ ... No, two. ... So how do I say dual for year؟ | 10 سن -> سنتين | Two years needs the dual سنتين; Amal said 'Mm-mm-mm', asked for the dual, rejected ثلاث سنان; chat 'aktar min santain'. | high | r1+r2 |
+| FA-e7274741 | 16:30 | vocab-B | tier 1 | ثلاث سنان؟ |  | سنان -> سنين | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
 | FA-11e64d26 | 17:17 | grammar | C2 | أول أكل أنا جربت، | I tried. You have to point back to it. | أول أكل أنا جربت -> أول أكل أنا جربته | Fronted object needs the pointer ending -o on the verb; Amal named the rule. | high | r1+r2 |
 | FA-ff521e1c | 18:05 | grammar | C2 | And then، uh، تاني أكل / أنا جربت، | Ana. | تاني أكل أنا جربت -> تاني أكل أنا جربته | Same pointer slip 40 s after her 17:25 rule ('You have to point back to it'); his line ended on جربت, she repeated 'Ana' up to the error point and only then he said جربته (18:14) - a fresh slip after her fix (GR-32); low because 'Ana' could be a bare echo. | low | r3 |
 | FA-cd1f68d7 | 18:21 | vocab-A | tier 0 | Oh، no، I forgot the name. What is this name? The, the one with the bread and the pomegranate and the chicken? | مسخن مع onion. ... (19:15) مسخن. مسخن الزاكي. | مسخة -> مسخن | He asked the dish name; Amal supplied مسخن and re-said it at 19:15 when he kept saying مسخة - a didn't-know (tier 0). | medium | r3 |
