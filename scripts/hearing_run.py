@@ -88,7 +88,44 @@ def check_budget(est, what, root=None):
             os.path.relpath(spend_path(root), REPO), s, est, what, lim))
 
 
+class _Lock:
+    """One writer of the spend file at a time (both lessons run in parallel processes)."""
+
+    def __init__(self, root=None):
+        self.p = spend_path(root) + ".lock"
+
+    def __enter__(self):
+        t0 = time.time()
+        while True:
+            try:
+                os.close(os.open(self.p, os.O_CREAT | os.O_EXCL | os.O_WRONLY))
+                return self
+            except FileExistsError:
+                if time.time() - os.path.getmtime(self.p) > 120:      # left by a killed process
+                    os.unlink(self.p)
+                elif time.time() - t0 > 300:
+                    raise SystemExit("another run holds %s" % self.p)
+                else:
+                    time.sleep(0.2)
+
+    def __exit__(self, *a):
+        if os.path.exists(self.p):
+            os.unlink(self.p)
+
+
+def reserve(item, est, root=None, **fields):
+    """Check the allowance and book the estimate as owed, as one step under the lock (no two runs pass on the same room)."""
+    with _Lock(root):
+        check_budget(est, item, root)
+        _record(item, root, state="owed", est_usd=est, usd=0.0, **fields)
+
+
 def record(item, root=None, **fields):
+    with _Lock(root):
+        _record(item, root, **fields)
+
+
+def _record(item, root=None, **fields):
     """One spend item (a Batch job or an instant call group): {date, what, state owed|paid, est_usd, usd, when}."""
     doc = spend_doc(root)
     doc.setdefault("items", {})
@@ -207,8 +244,7 @@ class Gemini:
         if todo:
             est = estimate([(c, p) for _, c, p, _ in todo], out_tokens or self.out_tokens) * (2 if self.instant else 1)
             item = "%s/%s-%s" % (self.L.date, stage, hashlib.sha256("\n".join(k for k, *_ in todo).encode()).hexdigest()[:8])
-            check_budget(est, item, self.L.root)
-            record(item, self.L.root, date=self.L.date, what="gemini " + stage, state="owed", est_usd=est, usd=0.0, requests=len(todo))
+            reserve(item, est, self.L.root, date=self.L.date, what="gemini " + stage, requests=len(todo))
             self.log("%s %s: %d Gemini requests (%s), about $%.2f" % (self.L.date, stage, len(todo), "instant" if self.instant else "Batch", est))
             factor = 1.0 if self.instant else BATCH_FACTOR
             answers = (self._instant if self.instant else self._batch)(stage, item, todo)
@@ -372,8 +408,7 @@ def deepgram_lines(L, log=print, net=None):
             secs = BR.wav_seconds(wav)
             usd = BR.PRICE["deepgram-ar"] * secs
             item = "%s/deepgram-%d" % (L.date, k)
-            check_budget(usd, item, L.root)
-            record(item, L.root, date=L.date, what="deepgram nova-3 his track %d" % k, state="owed", est_usd=round(usd, 4), usd=0.0)
+            reserve(item, round(usd, 4), L.root, date=L.date, what="deepgram nova-3 his track %d" % k)
             call = (net or {}).get("deepgram") or (lambda p: BR.tried(lambda: BR.deepgram("ar")(p, whole=True)))
             out = call(wav)
             if out.get("error") and not out.get("words"):
@@ -445,8 +480,7 @@ def cell_F(L, G, log=print, net=None, whole=None):
         secs = sum(BR.wav_seconds(c) for _, c, _ in todo)
         usd_est = BR.PRICE["eleven"] * secs
         item = "%s/eleven-relisten-F" % L.date
-        check_budget(usd_est, item, L.root)
-        record(item, L.root, date=L.date, what="ElevenLabs second listen, F", state="owed", est_usd=round(usd_est, 4), usd=0.0, requests=len(todo))
+        reserve(item, round(usd_est, 4), L.root, date=L.date, what="ElevenLabs second listen, F", requests=len(todo))
         usd = 0.0
         for i, clip, ck in todo:
             o = eleven(clip)
