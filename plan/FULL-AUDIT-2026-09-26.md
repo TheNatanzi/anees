@@ -8,12 +8,12 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 |---|---|
 | Grammar fixes Amal voiced (A) | **767** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 116 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 24 |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 25 |
 | Vocab fixes Amal voiced (A) | **366** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 177, '0': 142, '2': 80, '3': 2} |
-| Vocab she let pass (B, to Amal) | **34** by tier {'1': 25, '2': 8, '3': 1} |
+| Vocab she let pass (B, to Amal) | **36** by tier {'1': 27, '2': 8, '3': 1} |
 | Listening-drill misreads (kept apart) | 66 |
-| Rows the readers found that the sweep did not have | 935 |
+| Rows the readers found that the sweep did not have | 938 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -43,7 +43,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-06 | 33 | 2 | 17 | 0 | 0 | 0 | 0 | 63.3 % |
 | 2026-10-08 | 27 | 1 | 17 | 0 | 1 | 0 | 0 | 71.2 % |
 | 2026-10-09 | 38 | 2 | 7 | 5 | 1 | 0 | 0 | 71.9 % |
-| 2026-10-10 | 24 | 3 | 4 | 4 | 0 | 0 | 0 | 62.5 % |
+| 2026-10-10 | 24 | 3 | 4 | 6 | 0 | 0 | 0 | 62.5 % |
 | 2026-10-12 | 32 | 1 | 9 | 0 | 1 | 0 | 0 | 65.4 % |
 
 ## Reader passes (the loop)
@@ -90,7 +90,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A2 | idafa (possession) | 30 |
 | A1 | el- (the) | 29 |
 | A4 | possessive endings | 25 |
-| PROPOSE | ? | 24 |
+| PROPOSE | ? | 25 |
 | B2 | b-drop after modals | 20 |
 | E1 | number + noun | 19 |
 | C2 | the pointer rule | 17 |
@@ -1777,12 +1777,15 @@ _Medi's lines between 35:37 and 37:12 are missing (only Amal's side, e.g. 'No, y
 | FA-ff521e1c | 18:05 | grammar | C2 | And then، uh، تاني أكل / أنا جربت، | Ana. | تاني أكل أنا جربت -> تاني أكل أنا جربته | Same pointer slip 40 s after her 17:25 rule ('You have to point back to it'); his line ended on جربت, she repeated 'Ana' up to the error point and only then he said جربته (18:14) - a fresh slip after her fix (GR-32); low because 'Ana' could be a bare echo. | low | r3 |
 | FA-cd1f68d7 | 18:21 | vocab-A | tier 0 | Oh، no، I forgot the name. What is this name? The, the one with the bread and the pomegranate and the chicken? | مسخن مع onion. ... (19:15) مسخن. مسخن الزاكي. | مسخة -> مسخن | He asked the dish name; Amal supplied مسخن and re-said it at 19:15 when he kept saying مسخة - a didn't-know (tier 0). | medium | r3 |
 | FA-30eaf260 | 19:32 | grammar | D1 | وكان في / الـ / عشاء. No، uh، كان في الـ-- yeah. | On-- We say on dinner. | في الـ عشاء -> على العشاء | She voiced 'we say on dinner' (3al-3asha) right after his في الـ عشاء; low because his كان في may be existential 'there was' (her chat: kaan fi aa5er el-3asha) and he moved to آخر العشاء. | low | r3 |
+| FA-e1a4d8a0 | 21:17 | vocab-B | tier 1 | uh، احنا اندنا مطعم اسمه mata manakish. |  | mata-* he said mat3am esem -> esmo | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
 | FA-f84e91fa | 21:44 | vocab-A | tier 1 | كليًا المفضل، uh، أكل-- no. / it would be kolyan, right? Kolyan. | كليًا is like completely. ... You would say بشكل عام. | كليًا -> بشكل عام | He used كليًا for 'in general'; Amal said it means 'completely' and gave بشكل عام (sheet: 'completely / fully / Kulliyyan / كليًا'). | high | r1+r2 |
 | FA-af5c94c3 | 21:55 | grammar | A7 | أكل المفضل، مفضل الأكل. No، أكل المفضل. | الأكل. مم. الأكل. | أكل المفضل -> الأكل المفضل | Noun + el-adjective phrase needs el- on the noun too; Amal said الأكل twice. | high | r1+r2 |
 | FA-bc0354e6 | 24:18 | grammar | A11 | kol akel Filastini. | بشكل. Every. | kol akel Filastini -> kol el-akel el-Filastini | kul + bare noun = every; Amal said 'Every' and he fixed to kol el akel el Filastini for 'all Palestinian food'. | high | r1+r2 |
 | FA-5873e68f | 25:44 | grammar-B | A8 | akeli el mofadalt. | Mm-hmm. Or | akeli el mofadalt -> akli el-mufaddal | Feminine ending on the adjective for masculine akel; Amal let it pass. | low | r1+r2 |
+| FA-e23ee3c8 | 25:46 | grammar-propose | PROPOSE | Akeli, |  | favorite ->  | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
 | FA-324d2b55 | 25:51 | grammar | A7 | akel el mofadal andi, | الأكل المفضل عندي. | akel el mofadal andi -> الأكل المفضل عندي | Again no el- on the noun before el-mufaddal (after her 22:01 fix); Amal recast الأكل المفضل عندي. | medium | r1+r2 |
 | FA-cd6447fc | 26:15 | grammar | A7 | Matlube ush. Uh, shu ism el akel, / uh, khadra akhtar, / uh, akle | أكلة الخضرا. ... (26:32) ملوخية. الأكلة الخضرا. شو اسم | el akel, uh, khadra -> الأكلة الخضرا | el-noun + adjective needs el- on the adjective too (and the dish is feminine akle); Amal recast الأكلة الخضرا at 26:32, 26:50 and 26:58. | medium | r3 |
+| FA-c87d3c79 | 27:31 | vocab-B | tier 1 | Al, al bit. [laughs] Uh, |  | 3ala albek/2albek* sa7tain response -> credited for knowing pleasantries responses like sa7tain, ya3tik el-3aafie, aasef, etc | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
 | FA-3257032d | 28:51 | grammar | C9 | No, hadi kaman il kaman akli. | كمان at the end. Don't worry about كمان. | hadi kaman il kaman akli -> هذي أكلة ... كمان (kaman at the end) | 'also' كمان put up front; Amal told him it goes at the end. | medium | r1+r2 |
 | FA-f7e2f5d2 | 29:13 | grammar | A2 | Akli il mufaddal khatibti kaman. | How about a cleaner version؟ هذي أكلة خطيبتي المفضلة. ... (31:39) No. You would have to link خطيبتي. يعني لا خطيبتي or عند خطيبتي. | Akli il mufaddal khatibti -> هذي أكلة خطيبتي المفضلة كمان | Owner خطيبتي tacked after 'my favorite food' with no link; Amal recast it as idafa أكلة خطيبتي and said 'No' when he asked if his version works. | high | r1+r2 |
 | FA-77d1a6d6 | 29:55 | grammar | A8 | akli khatibti il mufaddal | المفضلة. | il mufaddal -> المفضلة | أكلة is feminine so the adjective is المفضلة; Amal recast and he repeated il faddale. | high | r1+r2 |
