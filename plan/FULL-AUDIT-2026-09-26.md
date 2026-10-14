@@ -11,9 +11,9 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 29 |
 | Vocab fixes Amal voiced (A) | **366** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 177, '0': 142, '2': 80, '3': 2} |
-| Vocab she let pass (B, to Amal) | **38** by tier {'1': 29, '2': 8, '3': 1} |
+| Vocab she let pass (B, to Amal) | **40** by tier {'1': 31, '2': 8, '3': 1} |
 | Listening-drill misreads (kept apart) | 66 |
-| Rows the readers found that the sweep did not have | 944 |
+| Rows the readers found that the sweep did not have | 946 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -43,7 +43,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-06 | 33 | 2 | 17 | 0 | 0 | 0 | 0 | 63.3 % |
 | 2026-10-08 | 27 | 1 | 17 | 0 | 1 | 0 | 0 | 71.2 % |
 | 2026-10-09 | 38 | 2 | 7 | 5 | 1 | 0 | 0 | 71.9 % |
-| 2026-10-10 | 24 | 3 | 4 | 8 | 0 | 0 | 0 | 62.5 % |
+| 2026-10-10 | 24 | 3 | 4 | 10 | 0 | 0 | 0 | 62.5 % |
 | 2026-10-12 | 32 | 1 | 9 | 0 | 1 | 0 | 0 | 65.4 % |
 
 ## Reader passes (the loop)
@@ -1802,7 +1802,9 @@ _Medi's lines between 35:37 and 37:12 are missing (only Amal's side, e.g. 'No, y
 | FA-24ab42fe | 48:04 | vocab-A | tier 0 | بشرب... Oh, I don't know how to say drink. | "Aseer"? | بشرب -> عصير | He asked how to say the drink (noun); Amal supplied عصير and he used it at 48:16 (بشرب عصير) - didn't-know, tier 0. | medium | r3 |
 | FA-aa558d66 | 52:59 | grammar | D3 | عشان أحسن. | Ashan it is ahsan. You could say ashano, ashano or ashan huwa ahsan. | عشان أحسن -> عشانه أحسن / عشان هو أحسن | 'because it is better' needs the 'it' (3ashaan-o or huwwe); Amal voiced both and at 53:40 said 'هو أو هي'. | medium | r1+r2 |
 | FA-1218b232 | 56:32 | grammar | A1 | um, Halloween, | الـ Halloween | Halloween -> الـ Halloween | Her whole reply was الـ, prompting el-; he repeated el-Halloween. | medium | r1+r2 |
+| FA-2070837e | 56:37 | vocab-B | tier 1 | el-Halloween, |  | byesbe6 -> byebse6 | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
 | FA-9aca9353 | 56:40 | grammar | B1 | uh, yisbut. | be... / صح، the verb is right، but say it right. / No, the be goes before the s. | yisbut -> byebsut (بيبسط) | Present habitual verb needs b- (byebse6); Amal cued 'be' and said it goes before the s. | medium | r1+r2 |
+| FA-2a51920e | 56:53 | vocab-B | tier 1 | Uh, |  | he says bysbu6* -> byebse6 | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
 | FA-f9da1f39 | 58:03 | grammar | D2 | So Halloween بيبسوت لا-- | So no preposition needed. 'Cause it makes them happy. | بيبسوت لا-- -> بيبسط الولاد | He started a لـ after the causative verb right after she said no preposition is needed; she repeated it. | low | r1+r2 |
 | FA-c2d986e3 | 58:12 | grammar | A9 | Uh, for little-- El walad or walad. No. Yeah, el walad. El walad el zahar. | صح، الأولاد. | El walad el zahar -> الأولاد الزغار | He used singular walad for 'kids'; Amal recast the plural الأولاد. | high | r1+r2 |
 | FA-1ee29ceb | 1:02:11 | grammar-propose | PROPOSE | aghla-aghlab il-- No, it's aghlab ishi. | No, we do. صح. | aghlab ishi -> aghlab el-ishi | Asked 'Do I put ال؟' he said no; Amal said 'No, we do' and he fixed to aghlab il ishi. | medium | r1+r2 |
