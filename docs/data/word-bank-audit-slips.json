@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-14T06:51:56-07:00",
+ "updated": "2026-10-14T07:07:28-07:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -3709,25 +3709,6 @@
    "audit_uid": "FA-f04fa096"
   },
   {
-   "id": "audit:FA-755d5677",
-   "word_key": "ana balte2",
-   "entry_id": "ana balte2:present",
-   "lesson_date": "2026-10-10",
-   "t_start": 832,
-   "t_end": 832,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "تلات",
-   "said": "تلات، تلات. ... (13:57) لا، عمت.",
-   "reason": "He attempted 'I met' with non-words تلات then عمت (he tried, so not a didn't-know); Amal supplied Alta'at and he took it at 14:01 (التقت).",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-755d5677"
-  },
-  {
    "id": "audit:FA-24ab42fe",
    "word_key": "3a9ir",
    "entry_id": "3a9ir:word",
@@ -6596,6 +6577,21 @@
    }
   },
   {
+   "event_id": "9573f735887d4803ad5ddc997ae1651e3c426f02b245aa2782597f9fd56a0fff",
+   "date": "2026-10-10",
+   "mark": "wb:9573f735887d4803ad5ddc997ae1651e3c426f02b245aa2782597f9fd56a0fff",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:9573f735887d4803ad5ddc997ae1651e3c426f02b245aa2782597f9fd56a0fff",
+    "ledger_reason": "the recording engine wrote تلات; you said تلايت (PR-15)"
+   },
+   "expected": {
+    "word_key": "talat",
+    "t_start": 833.665291972
+   }
+  },
+  {
    "event_id": "90b3bf637b04cee84bafe6ded24b1378b63a2e9f5c14a8cf8ec381c64acc35e0",
    "date": "2026-10-10",
    "mark": "wb:90b3bf637b04cee84bafe6ded24b1378b63a2e9f5c14a8cf8ec381c64acc35e0",
@@ -6638,36 +6634,6 @@
    "expected": {
     "word_key": "shukran",
     "t_start": 3795.075291691
-   }
-  },
-  {
-   "event_id": "21be3c3e9785106d542a99d33a9c876da4f10086bee9bc7fd12bde63f0333f85",
-   "date": "2026-10-10",
-   "mark": "ra:FA-755d5677",
-   "was": "right",
-   "changes": {
-    "observation_only": true,
-    "ledger": "ra:FA-755d5677",
-    "ledger_reason": "One utterance, one judgment: تلاقت here is the counted slip (التقيت (elta2ait)), not also a right use (WS-39)"
-   },
-   "expected": {
-    "word_key": "talat",
-    "t_start": 832.35
-   }
-  },
-  {
-   "event_id": "521c33065f29e43e5d6f5c1b252ceba2558d6c984888421550ce4134a16b5884",
-   "date": "2026-10-10",
-   "mark": "ra:FA-755d5677",
-   "was": "right",
-   "changes": {
-    "observation_only": true,
-    "ledger": "ra:FA-755d5677",
-    "ledger_reason": "One utterance, one judgment: تلاقت here is the counted slip (التقيت (elta2ait)), not also a right use (WS-39)"
-   },
-   "expected": {
-    "word_key": "talat",
-    "t_start": 832.35
    }
   },
   {

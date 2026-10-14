@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-14T06:52:08-07:00",
+ "updated": "2026-10-14T07:07:40-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -8693,28 +8693,28 @@
     ]
    },
    "words": {
-    "unique": 109,
-    "right": 261,
-    "wrong": 1,
-    "partial": 10,
-    "pct": 97.8,
-    "scored": 272,
-    "audit_wrong": 1,
+    "unique": 108,
+    "right": 262,
+    "wrong": 0,
+    "partial": 9,
+    "pct": 98.3,
+    "scored": 271,
+    "audit_wrong": 0,
     "audit_partial": 2,
     "not_on_sheet": 2,
     "rehear_word_conflicts": 0,
     "unique_rows": 104,
-    "eligible": 272,
+    "eligible": 271,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 97.8,
+    "eligible_pct": 98.3,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 254,
+    "uses": 258,
     "mistakes": 25,
-    "pct": 90.2,
+    "pct": 90.3,
     "estimate": false,
     "scored_mistakes": 25,
     "unscored_mistakes": 0,
@@ -8727,7 +8727,7 @@
       "4 slips are in rules the counter found 0 uses of in this lesson",
       "3 rules have more slips than counted uses (C2, C9, E3)"
      ],
-     "uses": 232,
+     "uses": 236,
      "slips": 25,
      "slips_latin": 12,
      "slips_in_zero_use_rules": 4,
@@ -8841,7 +8841,7 @@
    "coverage": "Medi's lines between 35:37 and 37:12 are missing (only Amal's side, e.g. 'No, you said طريق التاني'). Much of 21:00-33:00 and 44:00-1:03:00 is Latin-letter Arabizi. 03:52-06:16 and 53:23-55:00 are English-only. Echo: 06:43 the echo file shows 'متحمّس for بكرا' (English 'for' dropped in the audit text). 06:57-08:04: Amal heard ما خططت as مخطط (planning) - a pronunciation/listening mix-up, not filed. 33:19 hadol hawaii imi il mufaddalin was right (Amal confirmed مفضلين), not filed. Pronunciation (S4) not filed: matlube/مقلوبة, طريا/طريق, hawaii/أواعي, befawwer/بيخوف, zahar/زغار, Shalina/خلينا. Self-fixes not filed: 00:46 بصوت، 10:09 واحدة، 15:52 كانت، 20:09 حلو، 39:31 بدنا، 42:18 على آخر الطريق، 52:21 ما تروحي، 55:27 زي الـ Halloween. 1:00:30 'Is it ishi iltani?' is a question, not filed. / 35:37-37:12 Medi's lines are missing (only Amal's prompts 'Before طريق', 'No', 'you said طريق التاني' survive); 1:00 summary stretch is mostly English. Latin-transliterated Medi stretches 22:13-34:11, 41:54-47:12, 54:58-1:03:14. Engine: 'Allah' = 3ala (41:54, 42:18, 43:28); 'Shalina' = 5allina; 'hawaii' = awaa3i; 'befawwer' = bey5awwef; 'taman' = kaman (45:13); 'Ma li one' = laymoon; 'el zahar' = el-z8aar; '10' at 16:18 = his number for two. 06:57 ما خططت was right - Amal misheard مخطط and confirmed ما خططت (08:04), not a slip. Self-fixes skipped: 00:46 بصوت عالي, 10:09 واحدة, 10:36 بنطلون أزرق, 20:09 حلو, 39:31 بدنا, 42:18 3ala aa5er, 52:21 تروحي, 55:27 el-Halloween. 26:11 matlube for ma2loobe and 35:01 طريا = S4. 19:10 سمك is likely English 'sumac' heard as fish. 1:00:30 'ishi iltani?' was a question (not scored).",
    "notes": [
     "timings: anees-20261010-recall-medi-seg1: page/engine offset spread 63.64s; anees-20261010-recall-amal-seg2821: page/engine offset spread 485.28s; anees-20261010-recall-medi-seg3474: page/engine offset spread 115.38s; anees-20261010-recall-amal-seg3762: page/engine offset spread 17.40s",
-    "one ledger (LS-11): 3 moment(s) where two judges disagreed were settled by the existing rules: 13:52 one word counted right and wrong at once: counted once, as the slip; 13:52 one word counted right and wrong at once: counted once, as the slip; 21:45 Word Bank said right, Amal said no to that word: her no counts."
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 21:45 Word Bank said right, Amal said no to that word: her no counts."
    ],
    "page": "lessons/2026-10-10.html",
    "detail": "data/lessons/2026-10-10.json",
@@ -8855,21 +8855,21 @@
    "counts": {
     "turns": 1060,
     "chat_lines": 41,
-    "vocab_errors": 5,
+    "vocab_errors": 4,
     "vocab_correct": 269,
     "grammar_errors": 25,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
-     "wrong": 1,
+     "wrong": 0,
      "half": 2,
      "off_list": 2
     }
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-10.json",
-    "marks": 594,
-    "conflicts": 5,
-    "resolved": 3,
+    "marks": 592,
+    "conflicts": 3,
+    "resolved": 1,
     "needs_medi": 0,
     "mode": "on",
     "items": []

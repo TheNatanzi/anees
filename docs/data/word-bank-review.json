@@ -78985,29 +78985,6 @@
         "audit_created": true
       }
     },
-    "9573f735887d4803ad5ddc997ae1651e3c426f02b245aa2782597f9fd56a0fff": {
-      "expected": {
-        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
-        "row_id": "anees-20261010-recall-medi:row:981",
-        "word_key": "talat",
-        "text": "تلات.",
-        "t_start": 833.665291972,
-        "t_end": 834.085291972,
-        "assessment": "unresolved",
-        "reason": "Isolated production; insufficient evidence of independent contextual success"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "open",
-        "audit_kind": "question",
-        "audit_note": "",
-        "contextual_audit": true,
-        "audit_question": "Not classified by the audit: Isolated production; insufficient evidence of independent contextual success",
-        "audit_created": true
-      }
-    },
     "96860d4fb0f41c6e7bb496a477b02d0e9b818fe7a83029ed1c977738bc2c10b8": {
       "expected": {
         "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
@@ -82178,6 +82155,27 @@
         "medi_ruling": true,
         "by": "heard-credit",
         "medi_correction": "a4171f94-a9e5-4fee-a2ac-11e68f089e95",
+        "classification": "lexical",
+        "vocab_points": 1
+      }
+    },
+    "0c8c77b91d5869d554741ac5b4156f47656688cf73ba897bfcd1c2cda5472a32": {
+      "expected": {
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "anees-20261010-recall-medi:row:1139",
+        "word_key": "awal",
+        "text": "أول.",
+        "t_start": 916.625291972,
+        "t_end": 917.025291972,
+        "assessment": "helped",
+        "reason": "Same vocabulary supplied by Amal within 15 seconds; repetition is practice, not independent credit"
+      },
+      "changes": {
+        "assessment": "independent",
+        "reason": "His own ruling (WS-29): should count",
+        "medi_ruling": true,
+        "by": "heard-credit",
+        "medi_correction": "9f486c7e-33e2-44eb-b4cd-5e0cb5daefc5",
         "classification": "lexical",
         "vocab_points": 1
       }
@@ -93280,6 +93278,26 @@
           "t": 445.54,
           "text": "[تضحك] شو مخطط طيب؟ ولا ما بدك تحكي لي؟"
         }
+      }
+    },
+    "9573f735887d4803ad5ddc997ae1651e3c426f02b245aa2782597f9fd56a0fff": {
+      "expected": {
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "anees-20261010-recall-medi:row:981",
+        "word_key": "talat",
+        "text": "تلات.",
+        "t_start": 833.665291972,
+        "t_end": 834.085291972,
+        "assessment": "unresolved",
+        "reason": "Isolated production; insufficient evidence of independent contextual success"
+      },
+      "changes": {
+        "assessment": "independent",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other) (WS-30)",
+        "by": "word-coverage",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "vocab_points": 1
       }
     },
     "4598c1998f40d52ff9831a12b7f7aa78289d17aadbf7026ea66ff0a02cb7318d": {
@@ -284089,98 +284107,6 @@
         "ignored": true,
         "audit_bin": "not_counted",
         "audit_kind": "repeat"
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
-      "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-      "event": {
-        "id": "21be3c3e9785106d542a99d33a9c876da4f10086bee9bc7fd12bde63f0333f85",
-        "lesson_date": "2026-10-10",
-        "word_key": "talat",
-        "local_start": 830.555,
-        "local_end": 834.745,
-        "candidate_keys": [
-          "talat"
-        ],
-        "source_id": "anees-20261010-recall-medi-seg1",
-        "source_sha256": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-        "row_id": "cover:2026-10-10:832.35",
-        "item_ids": [],
-        "t_start": 832.35,
-        "t_end": 836.54,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "تلاقت",
-        "original_text": "تلات، تلات.",
-        "match_method": "word_coverage",
-        "assessment": "independent",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-10-10:832.35",
-            "speaker": "Medi",
-            "text": "تلاقت؟ تلاقت؟",
-            "timeline_start": 832.35,
-            "timeline_end": 836.54
-          }
-        ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "coverage": true,
-        "vocab_points": 1
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
-      "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-      "event": {
-        "id": "521c33065f29e43e5d6f5c1b252ceba2558d6c984888421550ce4134a16b5884",
-        "lesson_date": "2026-10-10",
-        "word_key": "talat",
-        "local_start": 830.555,
-        "local_end": 834.745,
-        "candidate_keys": [
-          "talat"
-        ],
-        "source_id": "anees-20261010-recall-medi-seg1",
-        "source_sha256": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-        "row_id": "cover:2026-10-10:832.35",
-        "item_ids": [],
-        "t_start": 832.35,
-        "t_end": 836.54,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "تلاقت",
-        "original_text": "تلات، تلات.",
-        "match_method": "word_coverage",
-        "assessment": "independent",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-10-10:832.35",
-            "speaker": "Medi",
-            "text": "تلاقت؟ تلاقت؟",
-            "timeline_start": 832.35,
-            "timeline_end": 836.54
-          }
-        ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "coverage": true,
-        "vocab_points": 1
       },
       "by": "word-coverage"
     },
