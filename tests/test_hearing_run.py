@@ -177,3 +177,17 @@ def test_harness_cli_run_needs_a_date_and_cell():
     with contextlib.redirect_stdout(buf):
         assert HH.main(["run"]) == 2
     assert "paid" in buf.getvalue() and "forced alignment" in buf.getvalue()
+
+
+def test_decision_needs_a_win_on_both_lessons(tmp_path):
+    def rows(b_only, a_only, p, fcr):
+        return {"rows": [{"version": "A", "label": "", "hit_rate": 90.0, "hidden": 1, "slips_judged": 40, "fcr": 2.5, "vs_A": None, "cost_usd": None},
+                         {"version": "B", "label": "", "hit_rate": 93.0, "hidden": 1, "slips_judged": 40, "fcr": fcr,
+                          "vs_A": {"only_this": b_only, "only_A": a_only, "p_sign": p}, "cost_usd": 0.6}]}
+    res = {"d1": rows(20, 3, 0.001, 2.5), "d2": rows(9, 7, 0.8, 2.5)}
+    assert HR.decide(res, "d1", "d2") == [{"version": "B", "wins_first": True, "wins_second": False, "adopt_candidate": False}]
+    res["d2"] = rows(20, 2, 0.001, 5.0)                                     # wins on words but FCR rose: not a win
+    assert HR.decide(res, "d1", "d2")[0]["wins_second"] is False
+    res["d2"] = rows(20, 2, 0.001, 2.5)
+    run = HR.write_experiments(res, "d1", "d2", path=str(tmp_path / "e.json"))
+    assert run["winner"] == ["B"] and run["adopted"] is False

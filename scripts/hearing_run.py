@@ -636,6 +636,44 @@ def report(dates, data_root=None, root=None):
     return out
 
 
+def decide(res, first, second, base="A", alpha=0.05):
+    """Protocol section 6 on two exam lessons: a version is a candidate when it beats today's way (A) on the first lesson
+    (more words right, paired sign p < alpha) without a higher FCR; it is confirmed when the same holds on the second.
+    Cost / human minutes and the key's own error rate (not measured yet) are left to Medi."""
+    def wins(date, v):
+        rows = {x["version"]: x for x in res[date]["rows"]}
+        x, a = rows.get(v), rows[base]
+        if not x or x["vs_A"] is None:
+            return False
+        return (x["vs_A"]["only_this"] > x["vs_A"]["only_A"] and x["vs_A"]["p_sign"] < alpha
+                and (x["fcr"] or 0) <= (a["fcr"] or 0))
+    out = []
+    for x in res[first]["rows"]:
+        v = x["version"]
+        if v in (base, "page"):
+            continue
+        c1, c2 = wins(first, v), wins(second, v)
+        out.append({"version": v, "wins_first": c1, "wins_second": c2, "adopt_candidate": c1 and c2})
+    return out
+
+
+def write_experiments(res, first, second, note="", path=None):
+    """Append (or replace, same date + lessons) this run in data/lesson-work/harness/experiments.json: the Grades tab's
+    `experiments` (docs/data/review-grades.json, built by review_grades.py)."""
+    path = path or os.path.join(HDIR, "experiments.json")
+    doc = BC.J(path) or {"about": "Pipeline tests on exam lessons (protocol sections 5-7), written by scripts/hearing_run.py "
+                                  "report --write; read into docs/data/review-grades.json `experiments` by review_grades.py.", "runs": []}
+    dec = decide(res, first, second)
+    winners = [d["version"] for d in dec if d["adopt_candidate"]]
+    run = {"date": time.strftime("%Y-%m-%d"), "lessons": [first, second], "base": "A",
+           "scores": {d: [{k: x[k] for k in ("version", "label", "hit_rate", "hidden", "slips_judged", "fcr", "vs_A", "cost_usd")}
+                          for x in r["rows"]] for d, r in res.items()},
+           "decision": dec, "winner": winners or None, "adopted": False, "note": note}
+    doc["runs"] = [r for r in doc["runs"] if (r["date"], r["lessons"]) != (run["date"], run["lessons"])] + [run]
+    BC.W(path, doc)
+    return run
+
+
 def print_report(res):
     for date, r in res.items():
         print("%s (key %s)" % (date, r["key"]))
@@ -675,6 +713,8 @@ def main(argv=None):
     rp = sub.add_parser("report")
     rp.add_argument("dates", nargs="+")
     rp.add_argument("--json", action="store_true")
+    rp.add_argument("--write", action="store_true", help="two lessons: the decision (protocol section 6) -> harness/experiments.json")
+    rp.add_argument("--note", default="")
     a = ap.parse_args(argv)
     cells = [x.strip().upper() for x in getattr(a, "cell", "").split(",") if x.strip()] if hasattr(a, "cell") else []
     if a.cmd == "plan":
@@ -686,6 +726,10 @@ def main(argv=None):
             print(k, os.path.relpath(v, REPO))
     elif a.cmd == "report":
         res = report(a.dates)
+        if a.write:
+            if len(a.dates) != 2:
+                raise SystemExit("--write needs the two exam lessons, first then second")
+            print(json.dumps(write_experiments(res, a.dates[0], a.dates[1], a.note)["decision"]))
         if a.json:
             print(json.dumps(res, ensure_ascii=False, indent=1))
         else:
