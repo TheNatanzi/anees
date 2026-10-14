@@ -93613,6 +93613,26 @@
         }
       }
     },
+    "87371968481c22fcc6ddf6998fd36859892bac8eccf225af1f547610c0d80b92": {
+      "expected": {
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "heard:76a8cf39-2e1d-4876-9008-25585c87987e",
+        "word_key": "hada",
+        "text": "هادا",
+        "t_start": 2248.94,
+        "t_end": 2249.78,
+        "assessment": "unresolved",
+        "reason": "A correction cue from Amal right after; the readers decide (WS-29: the engine wrote هذي; he said هادا)"
+      },
+      "changes": {
+        "assessment": "independent",
+        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30) (WS-30)",
+        "by": "word-coverage",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "vocab_points": 1
+      }
+    },
     "7c664e017b53dcd13ef65159d47f16c8801f4ddcf91955ee1b579954a97da0bf": {
       "expected": {
         "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
@@ -94097,6 +94117,29 @@
         "ignored": true,
         "classification": "ignored",
         "reason": "said again right after his own هادي at 28:48 with nothing from the tutor between: one try, counted once (WS-36)",
+        "by": "word-coverage",
+        "rule": "WS-36",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
+      }
+    },
+    "8bae6608bbc3faacb948a962d3c491d05a9cd40d66e388d39e5bddad3a5ffde7": {
+      "expected": {
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "heard:6de7fc19-e0c1-450c-b7a8-2409567f0978",
+        "word_key": "i7na 5alaina",
+        "text": "خلّينا",
+        "t_start": 2137.26,
+        "t_end": 2147.26,
+        "assessment": "independent",
+        "reason": "Word he said, written by his own correction (the recording engine misheard it) (WS-29: the engine wrote خلنا; he said خلّينا)"
+      },
+      "changes": {
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "ignored": true,
+        "classification": "ignored",
+        "reason": "said again right after his own خلينا at 35:36 with nothing from the tutor between: one try, counted once (WS-36)",
         "by": "word-coverage",
         "rule": "WS-36",
         "audit_bin": "not_counted",
@@ -96698,6 +96741,99 @@
         "rule": "WS-29",
         "classification": "lexical",
         "vocab_points": 1
+      },
+      "by": "heard-credit"
+    },
+    {
+      "anchor_id": "0145b3ba885532c27e12aa857418dc2786bd4774a5c79c9ef18930d69fbcb89b",
+      "expected_source": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+      "event": {
+        "id": "8bae6608bbc3faacb948a962d3c491d05a9cd40d66e388d39e5bddad3a5ffde7",
+        "lesson_date": "2026-10-10",
+        "word_key": "i7na 5alaina",
+        "local_start": 1915.145,
+        "local_end": 1925.145,
+        "candidate_keys": [
+          "i7na 5alaina"
+        ],
+        "source_id": "anees-20261010-recall-medi",
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "heard:6de7fc19-e0c1-450c-b7a8-2409567f0978",
+        "item_ids": [],
+        "t_start": 2137.26,
+        "t_end": 2147.26,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "خلّينا",
+        "original_text": "خلنا",
+        "match_method": "pronoun_omission",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "human_reviewed",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "heard:6de7fc19-e0c1-450c-b7a8-2409567f0978",
+            "speaker": "Medi",
+            "text": "خلّينا",
+            "timeline_start": 2137.26,
+            "timeline_end": 2147.26
+          }
+        ],
+        "reason": "Word he said, written by his own correction (the recording engine misheard it) (WS-29: the engine wrote خلنا; he said خلّينا)",
+        "heard_credit": true,
+        "medi_correction": "6de7fc19-e0c1-450c-b7a8-2409567f0978",
+        "rule": "WS-29",
+        "classification": "lexical",
+        "vocab_points": 1
+      },
+      "by": "heard-credit"
+    },
+    {
+      "anchor_id": "0145b3ba885532c27e12aa857418dc2786bd4774a5c79c9ef18930d69fbcb89b",
+      "expected_source": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+      "event": {
+        "id": "87371968481c22fcc6ddf6998fd36859892bac8eccf225af1f547610c0d80b92",
+        "lesson_date": "2026-10-10",
+        "word_key": "hada",
+        "local_start": 2026.825,
+        "local_end": 2027.665,
+        "candidate_keys": [
+          "hada"
+        ],
+        "source_id": "anees-20261010-recall-medi",
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "heard:76a8cf39-2e1d-4876-9008-25585c87987e",
+        "item_ids": [],
+        "t_start": 2248.94,
+        "t_end": 2249.78,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "هادا",
+        "original_text": "هذي",
+        "match_method": "arabic_exact",
+        "assessment": "unresolved",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "human_reviewed",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "heard:76a8cf39-2e1d-4876-9008-25585c87987e",
+            "speaker": "Medi",
+            "text": "هادا",
+            "timeline_start": 2248.94,
+            "timeline_end": 2249.78
+          }
+        ],
+        "reason": "A correction cue from Amal right after; the readers decide (WS-29: the engine wrote هذي; he said هادا)",
+        "heard_credit": true,
+        "medi_correction": "76a8cf39-2e1d-4876-9008-25585c87987e",
+        "rule": "WS-29",
+        "classification": "lexical"
       },
       "by": "heard-credit"
     },
@@ -287808,103 +287944,6 @@
       "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
       "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
       "event": {
-        "id": "64eeb890d4e0e4d56be3a8ba62a34772f1648677702a0b7646eac87596af6d1d",
-        "lesson_date": "2026-10-10",
-        "word_key": "i7na 5alaina",
-        "local_start": 2134.205,
-        "local_end": 2135.735,
-        "candidate_keys": [
-          "i7na 5alaina"
-        ],
-        "source_id": "anees-20261010-recall-medi-seg1",
-        "source_sha256": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-        "row_id": "cover:2026-10-10:2136.0",
-        "item_ids": [],
-        "t_start": 2136,
-        "t_end": 2137.53,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "خلينا",
-        "original_text": "Uh,",
-        "match_method": "word_coverage",
-        "assessment": "independent",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-10-10:2136.0",
-            "speaker": "Medi",
-            "text": "Uh, خلينا",
-            "timeline_start": 2136.0,
-            "timeline_end": 2137.53
-          }
-        ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "coverage": true,
-        "vocab_points": 1,
-        "entry_id": "ana ba5ali:past"
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
-      "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-      "event": {
-        "id": "ec2483f30507e50d599b0a09731cd9b63cd311b496f8d3bb5360b911afe5b128",
-        "lesson_date": "2026-10-10",
-        "word_key": "i7na 5alaina",
-        "local_start": 2135.465,
-        "local_end": 2229.675,
-        "candidate_keys": [
-          "i7na 5alaina"
-        ],
-        "source_id": "anees-20261010-recall-medi-seg1",
-        "source_sha256": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-        "row_id": "cover:2026-10-10:2137.26",
-        "item_ids": [],
-        "t_start": 2137.26,
-        "t_end": 2231.47,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "خلينا",
-        "original_text": "خلنا",
-        "match_method": "word_coverage",
-        "assessment": "unresolved",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-10-10:2137.26",
-            "speaker": "Medi",
-            "text": "خلينا",
-            "timeline_start": 2137.26,
-            "timeline_end": 2231.47
-          }
-        ],
-        "reason": "said again right after his own خلينا at 35:36 with nothing from the tutor between: one try, counted once (WS-36)",
-        "rule": "WS-36",
-        "classification": "ignored",
-        "coverage": true,
-        "vocab_points": null,
-        "entry_id": "ana ba5ali:past",
-        "ignored": true,
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat"
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
-      "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-      "event": {
         "id": "9987c9a232e7955602e01280cd9afe68df79f69e6af24a19bcb884f83f90e334",
         "lesson_date": "2026-10-10",
         "word_key": "i7na 5alaina",
@@ -288091,52 +288130,6 @@
       "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
       "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
       "event": {
-        "id": "d77c04c227ee58ce9a71d305e4a1803ffdfed7fbdf877adc0f599c2f86975bbb",
-        "lesson_date": "2026-10-10",
-        "word_key": "hadi",
-        "local_start": 2247.145,
-        "local_end": 2247.985,
-        "candidate_keys": [
-          "hadi"
-        ],
-        "source_id": "anees-20261010-recall-medi-seg1",
-        "source_sha256": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-        "row_id": "cover:2026-10-10:2248.94",
-        "item_ids": [],
-        "t_start": 2248.94,
-        "t_end": 2249.78,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "هذي",
-        "original_text": "You wouldn't say هذي،",
-        "match_method": "word_coverage",
-        "assessment": "independent",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-10-10:2248.94",
-            "speaker": "Medi",
-            "text": "You wouldn't say هذي، و-",
-            "timeline_start": 2248.94,
-            "timeline_end": 2249.78
-          }
-        ],
-        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "coverage": true,
-        "vocab_points": 1
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
-      "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-      "event": {
         "id": "34b009ff7203df855e62bcdb8193c0756dd9efda6185e4525c5d63a56616e0b4",
         "lesson_date": "2026-10-10",
         "word_key": "hadi",
@@ -288156,7 +288149,7 @@
         "text": "هذي",
         "original_text": "هذي وا-وا-واحد؟",
         "match_method": "word_coverage",
-        "assessment": "unresolved",
+        "assessment": "independent",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -288171,14 +288164,11 @@
             "timeline_end": 2252.84
           }
         ],
-        "reason": "said again right after his own هذي at 37:28 with nothing from the tutor between: one try, counted once (WS-36)",
-        "rule": "WS-36",
-        "classification": "ignored",
+        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
+        "rule": "WS-30",
+        "classification": "lexical",
         "coverage": true,
-        "vocab_points": null,
-        "ignored": true,
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat"
+        "vocab_points": 1
       },
       "by": "word-coverage"
     },
