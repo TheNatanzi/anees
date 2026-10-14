@@ -8,12 +8,12 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 |---|---|
 | Grammar fixes Amal voiced (A) | **767** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 116 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 20 |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 21 |
 | Vocab fixes Amal voiced (A) | **367** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 178, '0': 142, '2': 80, '3': 2} |
-| Vocab she let pass (B, to Amal) | **32** by tier {'1': 23, '2': 8, '3': 1} |
+| Vocab she let pass (B, to Amal) | **33** by tier {'1': 24, '2': 8, '3': 1} |
 | Listening-drill misreads (kept apart) | 66 |
-| Rows the readers found that the sweep did not have | 929 |
+| Rows the readers found that the sweep did not have | 931 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -43,7 +43,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-06 | 33 | 2 | 17 | 0 | 0 | 0 | 0 | 63.3 % |
 | 2026-10-08 | 27 | 1 | 17 | 0 | 1 | 0 | 0 | 71.2 % |
 | 2026-10-09 | 38 | 2 | 7 | 5 | 1 | 0 | 0 | 71.9 % |
-| 2026-10-10 | 24 | 3 | 5 | 2 | 0 | 0 | 0 | 62.5 % |
+| 2026-10-10 | 24 | 3 | 5 | 3 | 0 | 0 | 0 | 62.5 % |
 | 2026-10-12 | 32 | 1 | 9 | 0 | 1 | 0 | 0 | 65.4 % |
 
 ## Reader passes (the loop)
@@ -90,7 +90,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A2 | idafa (possession) | 30 |
 | A1 | el- (the) | 29 |
 | A4 | possessive endings | 25 |
-| PROPOSE | ? | 20 |
+| PROPOSE | ? | 21 |
 | B2 | b-drop after modals | 20 |
 | E1 | number + noun | 19 |
 | C2 | the pointer rule | 17 |
@@ -1758,8 +1758,10 @@ _Medi's lines between 35:37 and 37:12 are missing (only Amal's side, e.g. 'No, y
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
 | FA-384e12bd | 00:17 | grammar-B | B6 | أنا رحت، آآآ، على مطعم مع صحابي والـ مطعم صوت عالي كتير |  | والـ مطعم صوت عالي كتير -> والمطعم كان صوته عالي كتير | Describing a past evening with no كان (and no pointer ending on صوت); Amal let it pass. | low | r1+r2 |
+| FA-08913bf7 | 00:34 | vocab-B | tier 1 | أنا |  | ma3 -> bi-soat | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
 | FA-cb27ba1a | 01:14 | grammar-B | A4 | آآآ، هدول الـ سحـ-- هدول الصحابي، |  | هدول الصحابي -> هدول الصحاب / صحابي | el- and the possessive -i stacked on the same noun (الصحابي); Amal moved on to re-explain her question. | low | r1+r2 |
 | FA-fe8dfac4 | 06:43 | grammar | D1 | متحمّس بكرا عشان... (echo file: 'متحمّس for بكرا') | متحمس فور بكرة. / متحمس فور بكرة، شو. | متحمّس بكرا -> متحمّس لبكرا | He used English 'for' (the audit text dropped it; echo file shows 'متحمّس for بكرا'); Amal echoed 'فور' twice and he fixed to لبكرا at 06:54. | high | r1+r2 |
+| FA-21bf12f7 | 06:57 | grammar-propose | PROPOSE | عشان بكرا، mm، ما خط-- ما خططت إشي. |  | he meant 5a66atet (I planned). so maybe -> marked as a pronunciation error. also it should be able to identify all forms of verbs/nouns like past conjugations here, and not consider them as new words | Medi 2026-10-14 marked it a mistake | high | medi-correction |
 | FA-a3c9f1bd | 08:43 | vocab-A | tier 0 | uh, يوم الـ-- يوم الخميس. | الخميس الجاي. ... (09:02) Oh, we would say خميس الجاي cause it's next Thursday. | يوم الخميس -> الخميس الجاي | He left out الجاي for 'this coming Thursday'; Amal supplied it and explained, and at 09:31 he showed he did not know the word ('Oh, it doesn't mean next, it means coming?') - a didn't-know, so tier 0, not a wrong word (sheet: 'next / the coming (m) / El-jaay'). | medium | r3 |
 | FA-21abe1aa | 08:59 | vocab-B | tier 1 | أنا راحل. | مم. Oh, we would say خميس الجاي | راحل -> رايح | راحل is MSA 'departing'; colloquial 'I am going' is رايح - could be the engine; Amal reacted only to the Thursday word. | low | r1+r2 |
 | FA-89976ca7 | 09:57 | vocab-B | tier 1 | عشرة، عشرة ألفين تسعة وعشرين. | Nice. | ألفين تسعة وعشرين -> ألفين وستة وعشرين | Year said as 2029 (no و) while her chat types 'alfain u sitte u 3eshreen' (2026); may be the engine (تسعة/ستة); chat alone is not a correction. | low | r1+r2 |

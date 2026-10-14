@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-21-reliability-v1+silence+zibdeh-wrong-form+azra2-gender-form+ustaaz-vocab-miss+context-sweep-0925+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+lessons-1012+vocab-unresolved-audit-0928",
+  "version": "2026-09-21-reliability-v1+silence+zibdeh-wrong-form+azra2-gender-form+ustaaz-vocab-miss+context-sweep-0925+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+lessons-1012+vocab-unresolved-audit-0928",
   "patches": {
     "14451e90578dc9ffc26af8db425e0c639905c361a2bdc850a03be575e3830243": {
       "expected": {
@@ -94248,6 +94248,29 @@
         }
       }
     },
+    "1d5d149e6292d6b4a01d2a79c8dbe38dc7fc08f1297496e3c9e68fbae06f915d": {
+      "expected": {
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "heard:8b34e77c-dbab-40ec-a1ae-033430f3006a",
+        "word_key": "kaman mara",
+        "text": "كمان مرة",
+        "t_start": 118.24,
+        "t_end": 124.1,
+        "assessment": "independent",
+        "reason": "Word he said, written by his own correction (the recording engine misheard it) (WS-29: the engine wrote أم; he said كمان مرة)"
+      },
+      "changes": {
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "ignored": true,
+        "classification": "ignored",
+        "reason": "said again in the same line, right after his own كمان مرة: one try, counted once (WS-39)",
+        "by": "word-coverage",
+        "rule": "WS-39",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
+      }
+    },
     "ad469683ad563bd7a972a8f9ed4e5588dcd3ca906f7b4640dcfd82ee3a4956f6": {
       "expected": {
         "source_sha256": "2d5bfe9212b060d10345bfe8ef9b2a09c422a3dd962cbd43778a976684bb66de",
@@ -96396,6 +96419,53 @@
         "reason": "Word he said, written by his own correction (the recording engine misheard it) (WS-29: the engine wrote أم; he said كمان مرة)",
         "heard_credit": true,
         "medi_correction": "df71bc65-4b7e-46ce-b5e3-04cb83cf6ce6",
+        "rule": "WS-29",
+        "classification": "lexical",
+        "vocab_points": 1
+      },
+      "by": "heard-credit"
+    },
+    {
+      "anchor_id": "0145b3ba885532c27e12aa857418dc2786bd4774a5c79c9ef18930d69fbcb89b",
+      "expected_source": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+      "event": {
+        "id": "1d5d149e6292d6b4a01d2a79c8dbe38dc7fc08f1297496e3c9e68fbae06f915d",
+        "lesson_date": "2026-10-10",
+        "word_key": "kaman mara",
+        "local_start": -103.875,
+        "local_end": -98.015,
+        "candidate_keys": [
+          "kaman mara"
+        ],
+        "source_id": "anees-20261010-recall-medi",
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "heard:8b34e77c-dbab-40ec-a1ae-033430f3006a",
+        "item_ids": [],
+        "t_start": 118.24,
+        "t_end": 124.1,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "كمان مرة",
+        "original_text": "أم",
+        "match_method": "arabic_exact",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "human_reviewed",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "heard:8b34e77c-dbab-40ec-a1ae-033430f3006a",
+            "speaker": "Medi",
+            "text": "كمان مرة",
+            "timeline_start": 118.24,
+            "timeline_end": 124.1
+          }
+        ],
+        "reason": "Word he said, written by his own correction (the recording engine misheard it) (WS-29: the engine wrote أم; he said كمان مرة)",
+        "heard_credit": true,
+        "medi_correction": "8b34e77c-dbab-40ec-a1ae-033430f3006a",
         "rule": "WS-29",
         "classification": "lexical",
         "vocab_points": 1
