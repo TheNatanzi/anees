@@ -61294,48 +61294,6 @@
         "reason": "Same word again in the same sentence: kept as context, scored once."
       }
     },
-    "8d50591be90ba164cc3c8dc40608d3ed5bd30c17df0c61baec3cd56e1d1aa8e1": {
-      "expected": {
-        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
-        "row_id": "anees-20261008-recall-medi:row:0",
-        "word_key": "marhaba",
-        "text": "مرحبا.",
-        "t_start": 10.371813522,
-        "t_end": 10.711813522,
-        "assessment": "unresolved",
-        "reason": "Isolated production; insufficient evidence of independent contextual success"
-      },
-      "changes": {
-        "assessment": "independent",
-        "reason": "His own ruling (WS-29): should count",
-        "medi_ruling": true,
-        "by": "heard-credit",
-        "medi_correction": "a4171f94-a9e5-4fee-a2ac-11e68f089e95",
-        "classification": "lexical",
-        "vocab_points": 1
-      }
-    },
-    "0c8c77b91d5869d554741ac5b4156f47656688cf73ba897bfcd1c2cda5472a32": {
-      "expected": {
-        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
-        "row_id": "anees-20261010-recall-medi:row:1139",
-        "word_key": "awal",
-        "text": "أول.",
-        "t_start": 916.625291972,
-        "t_end": 917.025291972,
-        "assessment": "helped",
-        "reason": "Same vocabulary supplied by Amal within 15 seconds; repetition is practice, not independent credit"
-      },
-      "changes": {
-        "assessment": "independent",
-        "reason": "His own ruling (WS-29): should count",
-        "medi_ruling": true,
-        "by": "heard-credit",
-        "medi_correction": "9f486c7e-33e2-44eb-b4cd-5e0cb5daefc5",
-        "classification": "lexical",
-        "vocab_points": 1
-      }
-    },
     "0bec98912b8ec36508e03e34dcad97a478cfd0c45dc5b9ba5b28c9478bc0c88e": {
       "expected": {
         "source_sha256": "2d5bfe9212b060d10345bfe8ef9b2a09c422a3dd962cbd43778a976684bb66de",
@@ -82180,6 +82138,48 @@
         "audit_created": true
       }
     },
+    "8d50591be90ba164cc3c8dc40608d3ed5bd30c17df0c61baec3cd56e1d1aa8e1": {
+      "expected": {
+        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
+        "row_id": "anees-20261008-recall-medi:row:0",
+        "word_key": "marhaba",
+        "text": "مرحبا.",
+        "t_start": 10.371813522,
+        "t_end": 10.711813522,
+        "assessment": "unresolved",
+        "reason": "Isolated production; insufficient evidence of independent contextual success"
+      },
+      "changes": {
+        "assessment": "independent",
+        "reason": "His own ruling (WS-29): should count",
+        "medi_ruling": true,
+        "by": "heard-credit",
+        "medi_correction": "a4171f94-a9e5-4fee-a2ac-11e68f089e95",
+        "classification": "lexical",
+        "vocab_points": 1
+      }
+    },
+    "0c8c77b91d5869d554741ac5b4156f47656688cf73ba897bfcd1c2cda5472a32": {
+      "expected": {
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "anees-20261010-recall-medi:row:1139",
+        "word_key": "awal",
+        "text": "أول.",
+        "t_start": 916.625291972,
+        "t_end": 917.025291972,
+        "assessment": "helped",
+        "reason": "Same vocabulary supplied by Amal within 15 seconds; repetition is practice, not independent credit"
+      },
+      "changes": {
+        "assessment": "independent",
+        "reason": "His own ruling (WS-29): should count",
+        "medi_ruling": true,
+        "by": "heard-credit",
+        "medi_correction": "9f486c7e-33e2-44eb-b4cd-5e0cb5daefc5",
+        "classification": "lexical",
+        "vocab_points": 1
+      }
+    },
     "a01780ac030adff9a12924899ea4e4d8ac13ff4073a40cdf60c4270d8386991f": {
       "expected": {
         "source_sha256": "8d7bc6c56f50c04129cf65a0be9fbdb8fc847e80d686895a404aef75665e2b77",
@@ -94289,6 +94289,29 @@
         "audit_kind": "repeat"
       }
     },
+    "3d9c304044ca0591b8345551e45f9e6d829e20700749462646e719e5e9ac6118": {
+      "expected": {
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "heard:34f01c46-57ed-4c3c-990a-45df99843c03",
+        "word_key": "awA3i",
+        "text": "awaa3i",
+        "t_start": 2027.69,
+        "t_end": 2029.13,
+        "assessment": "independent",
+        "reason": "Word he said, written by his own correction (the recording engine misheard it) (WS-29: the engine wrote you. Okay. Um; he said awaa3i)"
+      },
+      "changes": {
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "ignored": true,
+        "classification": "ignored",
+        "reason": "said again in the same line, right after his own awaa3i: one try, counted once (WS-39)",
+        "by": "word-coverage",
+        "rule": "WS-39",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
+      }
+    },
     "ad469683ad563bd7a972a8f9ed4e5588dcd3ca906f7b4640dcfd82ee3a4956f6": {
       "expected": {
         "source_sha256": "2d5bfe9212b060d10345bfe8ef9b2a09c422a3dd962cbd43778a976684bb66de",
@@ -96578,6 +96601,100 @@
         "reason": "Word he said, written by his own correction (the recording engine misheard it) (WS-29: the engine wrote Uh, 'cause ma; he said كانت)",
         "heard_credit": true,
         "medi_correction": "ae3aadb5-c039-4576-9e50-51a0d6350068",
+        "rule": "WS-29",
+        "classification": "lexical",
+        "vocab_points": 1
+      },
+      "by": "heard-credit"
+    },
+    {
+      "anchor_id": "0145b3ba885532c27e12aa857418dc2786bd4774a5c79c9ef18930d69fbcb89b",
+      "expected_source": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+      "event": {
+        "id": "76204f3bbc7a187ad829147a61282df1d59d512afad0a933dfe1d9d49964b5b9",
+        "lesson_date": "2026-10-10",
+        "word_key": "hadoal",
+        "local_start": 1776.415,
+        "local_end": 1778.055,
+        "candidate_keys": [
+          "hadoal"
+        ],
+        "source_id": "anees-20261010-recall-medi",
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "heard:b167883c-5d10-4412-bb63-dbde482a0984",
+        "item_ids": [],
+        "t_start": 1998.53,
+        "t_end": 2000.17,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "هدول",
+        "original_text": "hadol hawaii imi",
+        "match_method": "arabic_exact",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "human_reviewed",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "heard:b167883c-5d10-4412-bb63-dbde482a0984",
+            "speaker": "Medi",
+            "text": "هدول إمي",
+            "timeline_start": 1998.53,
+            "timeline_end": 2000.17
+          }
+        ],
+        "reason": "Word he said, written by his own correction (the recording engine misheard it) (WS-29: the engine wrote hadol hawaii imi; he said هدول)",
+        "heard_credit": true,
+        "medi_correction": "b167883c-5d10-4412-bb63-dbde482a0984",
+        "rule": "WS-29",
+        "classification": "lexical",
+        "vocab_points": 1
+      },
+      "by": "heard-credit"
+    },
+    {
+      "anchor_id": "0145b3ba885532c27e12aa857418dc2786bd4774a5c79c9ef18930d69fbcb89b",
+      "expected_source": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+      "event": {
+        "id": "3d9c304044ca0591b8345551e45f9e6d829e20700749462646e719e5e9ac6118",
+        "lesson_date": "2026-10-10",
+        "word_key": "awA3i",
+        "local_start": 1805.575,
+        "local_end": 1807.015,
+        "candidate_keys": [
+          "awA3i"
+        ],
+        "source_id": "anees-20261010-recall-medi",
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "heard:34f01c46-57ed-4c3c-990a-45df99843c03",
+        "item_ids": [],
+        "t_start": 2027.69,
+        "t_end": 2029.13,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "awaa3i",
+        "original_text": "you. Okay. Um",
+        "match_method": "arabizi_exact",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "human_reviewed",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "heard:34f01c46-57ed-4c3c-990a-45df99843c03",
+            "speaker": "Medi",
+            "text": "awaa3i",
+            "timeline_start": 2027.69,
+            "timeline_end": 2029.13
+          }
+        ],
+        "reason": "Word he said, written by his own correction (the recording engine misheard it) (WS-29: the engine wrote you. Okay. Um; he said awaa3i)",
+        "heard_credit": true,
+        "medi_correction": "34f01c46-57ed-4c3c-990a-45df99843c03",
         "rule": "WS-29",
         "classification": "lexical",
         "vocab_points": 1
@@ -287136,6 +287253,52 @@
       "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
       "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
       "event": {
+        "id": "2ddce37455cb5551d980087a912ec2221ea9bb6cdc4538d7a00fe5ab65719ba6",
+        "lesson_date": "2026-10-10",
+        "word_key": "hadoal",
+        "local_start": 1963.275,
+        "local_end": 1967.715,
+        "candidate_keys": [
+          "hadoal"
+        ],
+        "source_id": "anees-20261010-recall-medi-seg1",
+        "source_sha256": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
+        "row_id": "cover:2026-10-10:1965.07",
+        "item_ids": [],
+        "t_start": 1965.07,
+        "t_end": 1969.51,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "hadol",
+        "original_text": "These are my mom's favorite clothes. So hadoy",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-10-10:1965.07",
+            "speaker": "Medi",
+            "text": "These are my mom's favorite clothes. So hadol el-awaa3i el-em",
+            "timeline_start": 1965.07,
+            "timeline_end": 1969.51
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
+      "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
+      "event": {
         "id": "5d53d9521496223fccc03c6d8e98c2212e7c513210685593fd9b0b6424d66a91",
         "lesson_date": "2026-10-10",
         "word_key": "awA3i",
@@ -287221,101 +287384,6 @@
         "classification": "lexical",
         "coverage": true,
         "vocab_points": 1
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
-      "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-      "event": {
-        "id": "2fd235dfe669096c2636fd6d1b01edca9e467885be991baccaf1052a76cf41ad",
-        "lesson_date": "2026-10-10",
-        "word_key": "hadoal",
-        "local_start": 1996.735,
-        "local_end": 1998.375,
-        "candidate_keys": [
-          "hadoal"
-        ],
-        "source_id": "anees-20261010-recall-medi-seg1",
-        "source_sha256": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-        "row_id": "cover:2026-10-10:1998.53",
-        "item_ids": [],
-        "t_start": 1998.53,
-        "t_end": 2000.17,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "هذول",
-        "original_text": "So hadol hawaii imi",
-        "match_method": "word_coverage",
-        "assessment": "independent",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-10-10:1998.53",
-            "speaker": "Medi",
-            "text": "So هذول أواعي إمي",
-            "timeline_start": 1998.53,
-            "timeline_end": 2000.17
-          }
-        ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "coverage": true,
-        "vocab_points": 1
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
-      "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-      "event": {
-        "id": "accc2d2ea500348e6fc0997befbb300ba62a0bc1c29e76044e3fcae81867c945",
-        "lesson_date": "2026-10-10",
-        "word_key": "awA3i",
-        "local_start": 1996.735,
-        "local_end": 1998.375,
-        "candidate_keys": [
-          "awA3i"
-        ],
-        "source_id": "anees-20261010-recall-medi-seg1",
-        "source_sha256": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-        "row_id": "cover:2026-10-10:1998.53",
-        "item_ids": [],
-        "t_start": 1998.53,
-        "t_end": 2000.17,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "أواعي",
-        "original_text": "So hadol hawaii imi",
-        "match_method": "word_coverage",
-        "assessment": "unresolved",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-10-10:1998.53",
-            "speaker": "Medi",
-            "text": "So هذول أواعي إمي",
-            "timeline_start": 1998.53,
-            "timeline_end": 2000.17
-          }
-        ],
-        "reason": "said again right after his own أواعي at 33:16 with nothing from the tutor between: one try, counted once (WS-36)",
-        "rule": "WS-36",
-        "classification": "ignored",
-        "coverage": true,
-        "vocab_points": null,
-        "ignored": true,
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat"
       },
       "by": "word-coverage"
     },
@@ -287493,6 +287561,52 @@
             "text": "كمان مرة؟ I didn't hear you.",
             "timeline_start": 2023.05,
             "timeline_end": 2024.01
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
+      "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
+      "event": {
+        "id": "2852a0dcfcffc279a8e7fa5be01febf7bd3229e6b06ad7c0397ec20b35c617f0",
+        "lesson_date": "2026-10-10",
+        "word_key": "awA3i",
+        "local_start": 2025.895,
+        "local_end": 2027.335,
+        "candidate_keys": [
+          "awA3i"
+        ],
+        "source_id": "anees-20261010-recall-medi-seg1",
+        "source_sha256": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
+        "row_id": "cover:2026-10-10:2027.69",
+        "item_ids": [],
+        "t_start": 2027.69,
+        "t_end": 2029.13,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "awaa3i",
+        "original_text": "you. Okay. Um,",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-10-10:2027.69",
+            "speaker": "Medi",
+            "text": "awaa3i,",
+            "timeline_start": 2027.69,
+            "timeline_end": 2029.13
           }
         ],
         "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
