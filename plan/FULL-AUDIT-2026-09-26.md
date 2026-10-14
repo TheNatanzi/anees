@@ -8,12 +8,12 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 |---|---|
 | Grammar fixes Amal voiced (A) | **767** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 116 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 25 |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 29 |
 | Vocab fixes Amal voiced (A) | **366** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 177, '0': 142, '2': 80, '3': 2} |
-| Vocab she let pass (B, to Amal) | **36** by tier {'1': 27, '2': 8, '3': 1} |
+| Vocab she let pass (B, to Amal) | **38** by tier {'1': 29, '2': 8, '3': 1} |
 | Listening-drill misreads (kept apart) | 66 |
-| Rows the readers found that the sweep did not have | 938 |
+| Rows the readers found that the sweep did not have | 944 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -43,7 +43,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-06 | 33 | 2 | 17 | 0 | 0 | 0 | 0 | 63.3 % |
 | 2026-10-08 | 27 | 1 | 17 | 0 | 1 | 0 | 0 | 71.2 % |
 | 2026-10-09 | 38 | 2 | 7 | 5 | 1 | 0 | 0 | 71.9 % |
-| 2026-10-10 | 24 | 3 | 4 | 6 | 0 | 0 | 0 | 62.5 % |
+| 2026-10-10 | 24 | 3 | 4 | 8 | 0 | 0 | 0 | 62.5 % |
 | 2026-10-12 | 32 | 1 | 9 | 0 | 1 | 0 | 0 | 65.4 % |
 
 ## Reader passes (the loop)
@@ -89,8 +89,8 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | D1 | prepositions | 35 |
 | A2 | idafa (possession) | 30 |
 | A1 | el- (the) | 29 |
+| PROPOSE | ? | 29 |
 | A4 | possessive endings | 25 |
-| PROPOSE | ? | 25 |
 | B2 | b-drop after modals | 20 |
 | E1 | number + noun | 19 |
 | C2 | the pointer rule | 17 |
@@ -1790,9 +1790,15 @@ _Medi's lines between 35:37 and 37:12 are missing (only Amal's side, e.g. 'No, y
 | FA-f7e2f5d2 | 29:13 | grammar | A2 | Akli il mufaddal khatibti kaman. | How about a cleaner version؟ هذي أكلة خطيبتي المفضلة. ... (31:39) No. You would have to link خطيبتي. يعني لا خطيبتي or عند خطيبتي. | Akli il mufaddal khatibti -> هذي أكلة خطيبتي المفضلة كمان | Owner خطيبتي tacked after 'my favorite food' with no link; Amal recast it as idafa أكلة خطيبتي and said 'No' when he asked if his version works. | high | r1+r2 |
 | FA-77d1a6d6 | 29:55 | grammar | A8 | akli khatibti il mufaddal | المفضلة. | il mufaddal -> المفضلة | أكلة is feminine so the adjective is المفضلة; Amal recast and he repeated il faddale. | high | r1+r2 |
 | FA-b7fa7005 | 29:55 | grammar | A3 | akli khatibti / il mufaddal | هذي أكلة خطيبتي المفضلة كمان. | akli khatibti -> aklit khatibti | Feminine akle grows -t before the owner (aklet 5atibti); he said akli right after her 29:20/29:36 model, she re-said the full line at 30:23 and he then said aklit (30:35). | medium | r3 |
+| FA-83783642 | 31:13 | grammar-propose | PROPOSE | No, ha- no, akil-- Yeah. |  | akel el-mufaddal -> el-akle el-mufaddale | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
+| FA-aee5d3e5 | 33:04 | vocab-B | tier 1 | Il... No. 'Cause how do I make this plural? Uh, her possessive. It would be, uh, hawaii il imi. No. Uh, it's just hawaii |  | awaa3i* -> emmi. awaa3i emmi | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
 | FA-474da895 | 33:28 | grammar | A8 | Mufaddale. | مفضلين. | Mufaddale -> مفضلين | Plural hawaii (clothes) takes plural mufaddaleen; after her half-word 'مفض--' he switched from mufaddalin to singular feminine mufaddale and she recast مفضلين. | medium | r3 |
+| FA-94e45451 | 35:00 | grammar-propose | PROPOSE | طريا. |  | طريا -> طريق | Medi 2026-10-14 marked it a mistake | high | medi-correction |
 | FA-4c5064e7 | 36:30 | grammar | A7 | (not transcribed; Amal echoes) طريق التاني | الطريق التاني. / No, you said طريق التاني. | طريق التاني -> الطريق التاني | Medi's lines 35:37-37:12 are missing; Amal quoted him as saying طريق التاني and gave الطريق التاني; he said الطريق الثاني at 37:14. | medium | r1+r2 |
 | FA-213637a3 | 37:54 | grammar | B12 | عشان هذا، uh، خايف. / مخاف، مخاف. / بخاف. بخاف. | Mm, this is scared. What's scary? ... No. It's a verb ba-- verb-based adjective. ... No? ... There you go. | خايف -> بيخوّف | خايف = scared; scary is the causative بيخوّف (sheet: 'scary / bey5awwef / بيخوف'); Amal said 'this is scared', rejected مخاف/بخاف, accepted بخاوه. | high | r1+r2 |
+| FA-8821a8f3 | 38:05 | grammar-propose | PROPOSE | مخاف، مخاف. I know. |  | مخاف -> بيخوّف | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
+| FA-ece88dd9 | 38:15 | grammar-propose | PROPOSE | بخاف. بخاف. |  | بخاف -> بيخوّف | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
+| FA-b2d2dd42 | 40:32 | vocab-B | tier 1 | I'm on, |  | I'm on -> on the/my way | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
 | FA-24ab42fe | 48:04 | vocab-A | tier 0 | بشرب... Oh, I don't know how to say drink. | "Aseer"? | بشرب -> عصير | He asked how to say the drink (noun); Amal supplied عصير and he used it at 48:16 (بشرب عصير) - didn't-know, tier 0. | medium | r3 |
 | FA-aa558d66 | 52:59 | grammar | D3 | عشان أحسن. | Ashan it is ahsan. You could say ashano, ashano or ashan huwa ahsan. | عشان أحسن -> عشانه أحسن / عشان هو أحسن | 'because it is better' needs the 'it' (3ashaan-o or huwwe); Amal voiced both and at 53:40 said 'هو أو هي'. | medium | r1+r2 |
 | FA-1218b232 | 56:32 | grammar | A1 | um, Halloween, | الـ Halloween | Halloween -> الـ Halloween | Her whole reply was الـ, prompting el-; he repeated el-Halloween. | medium | r1+r2 |

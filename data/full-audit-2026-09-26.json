@@ -1,5 +1,5 @@
 {
- "built": "2026-10-14T10:02:31-07:00",
+ "built": "2026-10-14T10:31:46-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -30291,10 +30291,10 @@
  "decisions": "A counts (every fix Amal voiced; a chat-only fix never counts - GR-19, Medi 2026-10-02); B (she let it pass) is unscored until she rules on Amal's review page; tiers 1-3 vocab, tier 0 = she supplied a word he asked for; grammar filed by bucket; listening rows kept apart.",
  "lessons_missing": [],
  "totals": {
-  "rows": 1429,
+  "rows": 1431,
   "grammar_A": 767,
   "grammar_B": 116,
-  "grammar_proposed": 28,
+  "grammar_proposed": 29,
   "vocab_A": 366,
   "vocab_A_by_tier": {
    "1": 177,
@@ -30302,16 +30302,16 @@
    "2": 80,
    "3": 2
   },
-  "vocab_B": 37,
+  "vocab_B": 38,
   "vocab_B_by_tier": {
-   "1": 28,
+   "1": 29,
    "2": 8,
    "3": 1
   },
   "listening": 66,
-  "from_readers": 1300,
+  "from_readers": 1302,
   "readers_also_in_sweep": 358,
-  "readers_new": 942,
+  "readers_new": 944,
   "sweep_only_kept": 129,
   "machine_had": 105,
   "sweep_before": {
@@ -30335,7 +30335,7 @@
   "D1": 35,
   "A2": 30,
   "A1": 29,
-  "PROPOSE": 28,
+  "PROPOSE": 29,
   "A4": 25,
   "B2": 20,
   "E1": 19,
@@ -30587,7 +30587,7 @@
    "grammar_A": 24,
    "grammar_B": 3,
    "vocab_A": 4,
-   "vocab_B": 7,
+   "vocab_B": 8,
    "listening": 0,
    "sweep_grammar_before": 0,
    "sweep_vocab_before": 0
@@ -33176,6 +33176,32 @@
      "amal_said": null,
      "chat": null,
      "wrong": "مخاف",
+     "right": "بيخوّف",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "medium",
+     "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
+   "id": "P-FA-ece88dd9",
+   "name": null,
+   "proposed_rule": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-ece88dd9 (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-ece88dd9",
+     "date": "2026-10-10",
+     "t": "38:15",
+     "t_amal": null,
+     "medi_said": "بخاف. بخاف.",
+     "amal_said": null,
+     "chat": null,
+     "wrong": "بخاف",
      "right": "بيخوّف",
      "kind": "grammar-propose",
      "bucket": "PROPOSE",
@@ -81573,6 +81599,56 @@
    "proposed_rule": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)"
   },
   {
+   "id": "MC-859e5b6e",
+   "date": "2026-10-10",
+   "t": "38:15",
+   "t_amal": null,
+   "medi_said": "بخاف. بخاف.",
+   "amal_said": null,
+   "wrong": "بخاف",
+   "right": "بيخوّف",
+   "kind": "grammar-propose",
+   "bucket": "PROPOSE",
+   "tier": null,
+   "mode": "speaking",
+   "signal": "medi-correction",
+   "confidence": "medium",
+   "source": "audit-2026-09-26",
+   "added_by": "medi-correction",
+   "correction": "859e5b6e-d72e-4c70-91d6-366e8cada404",
+   "agreed_by": "medi-correction",
+   "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+   "uid": "FA-ece88dd9",
+   "n": 1378,
+   "kind_before_proposal": "grammar-B",
+   "bucket_before_proposal": null,
+   "proposal": "P-FA-ece88dd9",
+   "proposed_rule": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)"
+  },
+  {
+   "id": "MC-f1a60b30",
+   "date": "2026-10-10",
+   "t": "40:32",
+   "t_amal": null,
+   "medi_said": "I'm on,",
+   "amal_said": null,
+   "wrong": "I'm on",
+   "right": "on the/my way",
+   "kind": "vocab-B",
+   "bucket": null,
+   "tier": 1,
+   "mode": "speaking",
+   "signal": "medi-correction",
+   "confidence": "medium",
+   "source": "audit-2026-09-26",
+   "added_by": "medi-correction",
+   "correction": "f1a60b30-a419-4ccf-a5c1-d5cf76e5fa4e",
+   "agreed_by": "medi-correction",
+   "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+   "uid": "FA-b2d2dd42",
+   "n": 1379
+  },
+  {
    "bucket2": null,
    "mode": "speaking",
    "chat": null,
@@ -81603,7 +81679,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-24ab42fe",
-   "n": 1378
+   "n": 1380
   },
   {
    "id": "A19",
@@ -81638,7 +81714,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-aa558d66",
-   "n": 1379
+   "n": 1381
   },
   {
    "id": "A20",
@@ -81672,7 +81748,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-1218b232",
-   "n": 1380
+   "n": 1382
   },
   {
    "id": "A21",
@@ -81706,7 +81782,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-9aca9353",
-   "n": 1381
+   "n": 1383
   },
   {
    "id": "A22",
@@ -81740,7 +81816,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-f9da1f39",
-   "n": 1382
+   "n": 1384
   },
   {
    "id": "A23",
@@ -81774,7 +81850,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-c2d986e3",
-   "n": 1383
+   "n": 1385
   },
   {
    "id": "A24",
@@ -81809,7 +81885,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-1ee29ceb",
-   "n": 1384,
+   "n": 1386,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-1ee29ceb"
@@ -81847,7 +81923,7 @@
    "machine_had": false,
    "bucket_name": "aa5er / a5eer: before or after the noun",
    "uid": "FA-a60f3b7c",
-   "n": 1385
+   "n": 1387
   },
   {
    "id": "A1",
@@ -81881,7 +81957,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-c93a9de9",
-   "n": 1386
+   "n": 1388
   },
   {
    "id": "1012-r3-1",
@@ -81914,7 +81990,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-4b036412",
-   "n": 1387
+   "n": 1389
   },
   {
    "id": "A2",
@@ -81948,7 +82024,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-428a70df",
-   "n": 1388
+   "n": 1390
   },
   {
    "id": "A3",
@@ -81982,7 +82058,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-8eba64fc",
-   "n": 1389
+   "n": 1391
   },
   {
    "id": "A4",
@@ -82015,7 +82091,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-e9137c33",
-   "n": 1390
+   "n": 1392
   },
   {
    "id": "A5",
@@ -82048,7 +82124,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-c9bfc0a4",
-   "n": 1391
+   "n": 1393
   },
   {
    "id": "A6",
@@ -82082,7 +82158,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-efdbf051",
-   "n": 1392
+   "n": 1394
   },
   {
    "id": "1012-r3-2",
@@ -82117,7 +82193,7 @@
    "machine_had": false,
    "bucket_name": "kaan = was / were",
    "uid": "FA-6f9f6d35",
-   "n": 1393
+   "n": 1395
   },
   {
    "id": "A7",
@@ -82151,7 +82227,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-3294da3c",
-   "n": 1394
+   "n": 1396
   },
   {
    "id": "A8",
@@ -82185,7 +82261,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-9b877e01",
-   "n": 1395
+   "n": 1397
   },
   {
    "id": "A9",
@@ -82219,7 +82295,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-0b14534d",
-   "n": 1396
+   "n": 1398
   },
   {
    "id": "A10",
@@ -82253,7 +82329,7 @@
    "machine_had": false,
    "bucket_name": "the pointer rule",
    "uid": "FA-0082562d",
-   "n": 1397
+   "n": 1399
   },
   {
    "id": "A11",
@@ -82287,7 +82363,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-80a8d207",
-   "n": 1398
+   "n": 1400
   },
   {
    "id": "1012-r3-3",
@@ -82320,7 +82396,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-96a96e5e",
-   "n": 1399
+   "n": 1401
   },
   {
    "id": "A12",
@@ -82354,7 +82430,7 @@
    "machine_had": false,
    "bucket_name": "preposition goes in front",
    "uid": "FA-e56bb47e",
-   "n": 1400
+   "n": 1402
   },
   {
    "id": "A13",
@@ -82388,7 +82464,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-6c3b1d36",
-   "n": 1401
+   "n": 1403
   },
   {
    "id": "A14",
@@ -82421,7 +82497,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-5443cbf0",
-   "n": 1402
+   "n": 1404
   },
   {
    "id": "A15",
@@ -82455,7 +82531,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-16769418",
-   "n": 1403
+   "n": 1405
   },
   {
    "id": "A16",
@@ -82489,7 +82565,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after modals",
    "uid": "FA-292475ce",
-   "n": 1404
+   "n": 1406
   },
   {
    "id": "1012-r3-4",
@@ -82523,7 +82599,7 @@
    "machine_had": false,
    "bucket_name": "commands",
    "uid": "FA-47fb6067",
-   "n": 1405
+   "n": 1407
   },
   {
    "id": "A17",
@@ -82557,7 +82633,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-fa7dedb1",
-   "n": 1406
+   "n": 1408
   },
   {
    "id": "A18",
@@ -82591,7 +82667,7 @@
    "machine_had": false,
    "bucket_name": "commands",
    "uid": "FA-3b31a572",
-   "n": 1407
+   "n": 1409
   },
   {
    "id": "A19",
@@ -82624,7 +82700,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-6de2aa8a",
-   "n": 1408
+   "n": 1410
   },
   {
    "id": "A20",
@@ -82658,7 +82734,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-dce36023",
-   "n": 1409
+   "n": 1411
   },
   {
    "id": "A21",
@@ -82692,7 +82768,7 @@
    "machine_had": false,
    "bucket_name": "preposition goes in front",
    "uid": "FA-f8c40758",
-   "n": 1410
+   "n": 1412
   },
   {
    "id": "A22",
@@ -82725,7 +82801,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-cd0a1997",
-   "n": 1411
+   "n": 1413
   },
   {
    "id": "A23",
@@ -82759,7 +82835,7 @@
    "machine_had": false,
    "bucket_name": "saying no",
    "uid": "FA-f48115cf",
-   "n": 1412
+   "n": 1414
   },
   {
    "id": "A24",
@@ -82793,7 +82869,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-f1dc8ecf",
-   "n": 1413
+   "n": 1415
   },
   {
    "id": "A25",
@@ -82826,7 +82902,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-df0be12d",
-   "n": 1414
+   "n": 1416
   },
   {
    "id": "A26",
@@ -82860,7 +82936,7 @@
    "machine_had": false,
    "bucket_name": "bakoon / ykoon",
    "uid": "FA-6ae53695",
-   "n": 1415
+   "n": 1417
   },
   {
    "id": "1012-r3-5",
@@ -82895,7 +82971,7 @@
    "machine_had": false,
    "bucket_name": "commands",
    "uid": "FA-aa7b1b2d",
-   "n": 1416
+   "n": 1418
   },
   {
    "id": "1012-r3-6",
@@ -82929,7 +83005,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-35827176",
-   "n": 1417
+   "n": 1419
   },
   {
    "id": "1012-r3-7",
@@ -82963,7 +83039,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-321a2d88",
-   "n": 1418
+   "n": 1420
   },
   {
    "id": "A27",
@@ -82997,7 +83073,7 @@
    "machine_had": false,
    "bucket_name": "participles",
    "uid": "FA-1dbce862",
-   "n": 1419
+   "n": 1421
   },
   {
    "id": "A28",
@@ -83031,7 +83107,7 @@
    "machine_had": false,
    "bucket_name": "number + noun",
    "uid": "FA-9b2db1b6",
-   "n": 1420
+   "n": 1422
   },
   {
    "id": "A29",
@@ -83064,7 +83140,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-92e56277",
-   "n": 1421
+   "n": 1423
   },
   {
    "id": "1012-r3-8",
@@ -83098,7 +83174,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-fad74954",
-   "n": 1422
+   "n": 1424
   },
   {
    "id": "A30",
@@ -83132,7 +83208,7 @@
    "machine_had": false,
    "bucket_name": "number + noun",
    "uid": "FA-a470977f",
-   "n": 1423
+   "n": 1425
   },
   {
    "id": "1012-r3-9",
@@ -83167,7 +83243,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d2cac078",
-   "n": 1424,
+   "n": 1426,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-d2cac078"
@@ -83205,7 +83281,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after modals",
    "uid": "FA-53a13a76",
-   "n": 1425
+   "n": 1427
   },
   {
    "id": "A32",
@@ -83239,7 +83315,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-e7befe69",
-   "n": 1426
+   "n": 1428
   },
   {
    "id": "1012-r3-10",
@@ -83273,7 +83349,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-e6a58cdb",
-   "n": 1427
+   "n": 1429
   },
   {
    "id": "A33",
@@ -83306,7 +83382,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f9156fbc",
-   "n": 1428
+   "n": 1430
   },
   {
    "id": "A34",
@@ -83340,12 +83416,12 @@
    "machine_had": false,
    "bucket_name": "commands",
    "uid": "FA-eceb456a",
-   "n": 1429
+   "n": 1431
   }
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-14T17:02:33.108808+00:00",
+   "at": "2026-10-14T17:31:48.374680+00:00",
    "rules": [
     1928,
     1929,
