@@ -11174,8 +11174,8 @@
     },
     {
      "type": "code",
-     "path": "scripts/hearing_harness.py",
-     "contains": "not built: paid runs need Medi's yes"
+     "path": "scripts/hearing_run.py",
+     "contains": "class BudgetStop(SystemExit)"
     }
    ],
    "example": {
@@ -11184,8 +11184,8 @@
    },
    "test": [
     {
-     "path": "tests/test_hearing_harness.py",
-     "contains": "def test_run_refuses"
+     "path": "tests/test_hearing_run.py",
+     "contains": "def test_budget_stop_sends_nothing"
     }
    ]
   },
