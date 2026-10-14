@@ -2,14 +2,15 @@
 """The hearing harness, SKELETON ONLY (plan/PIPELINE-TEST-PROTOCOL.md section 5; overnight brief 2026-10-10 section 5).
 
 One script, the protocol's switches as flags, Medi's named setups A-F as presets. Every setup is scored the same way
-against the same frozen key. This skeleton has NO paid path at all: it reads cached engine outputs, estimates what a
-missing output would cost, scores versions that already exist, and builds the blind judge prompt. `run` refuses.
+against the same frozen key. This file has no paid path: it reads cached engine outputs, estimates what a missing output
+would cost, scores versions that already exist, and builds the blind judge prompt. `run` hands cells B, C and F to
+scripts/hearing_run.py (the paid step, its own $9 allowance; Medi's yes 2026-10-14).
 
     python scripts/hearing_harness.py dry-run [2026-10-08] [--cell A | --proposer gemini --listens 1 ...] [--json]
     python scripts/hearing_harness.py score 2026-10-08 --version <file|@engine|@before> [--version ...] [--fallback engine]
     python scripts/hearing_harness.py judge-prompt --a "text" --b "text" [--context "..."] [--seed 7] [--item 85.25]
     python scripts/hearing_harness.py judge-prompt 2026-10-08 --line 85.25 [--seed 7]    # ElevenLabs raw vs Gemini run 1, blind
-    python scripts/hearing_harness.py run ...          # refuses: "not built: paid runs need Medi's yes" (exit 2)
+    python scripts/hearing_harness.py run <date> --cell B|C|F    # PAID (Medi's yes 2026-10-14): scripts/hearing_run.py
 
 Switches (protocol section 5):
     --proposer  eleven | gemini | deepgram | cohere, comma list for several (who proposes the words)
@@ -36,7 +37,7 @@ sys.path.insert(0, HERE)
 import bench_common as BC  # noqa: E402  (pure: normaliser + file helpers, no network)
 
 DEFAULT_DATE = "2026-10-08"
-NOT_BUILT = "not built: paid runs need Medi's yes"
+NOT_BUILT = "not built: D needs forced alignment (whole-track text -> line times)"
 
 # ------------------------------------------------------------------ switches and cells
 
@@ -376,7 +377,7 @@ def dry_run(date, data_root, raw_root, cells=None, out=print):
     inv = inventory(date, data_root, raw_root)
     P = prices(data_root, raw_root, date)
     mins = lesson_minutes(date, data_root, raw_root)
-    out("Hearing harness dry-run %s (spends nothing; `run` is not built)" % date)
+    out("Hearing harness dry-run %s (spends nothing; `run` = scripts/hearing_run.py, paid)" % date)
     out("Lesson minutes: " + (", ".join("%s %.1f" % kv for kv in sorted(mins.items())) or "unknown"))
     out("")
     out("Cached engine outputs:")
@@ -711,6 +712,38 @@ Version Y:
 """
 
 
+JUDGE_TEMPLATE_N = """You are judging {n} written versions of ONE short clip from an online Arabic lesson. The speaker is
+Medi, an American learner of Levantine Arabic who mixes English and Arabic and makes learner mistakes. You hear the clip.
+
+Write down what HE really said, word for word, KEEPING his mistakes: never correct his Arabic to the form the tutor would
+use. If the tutor says or types a word near this moment, that is NOT evidence that he said it.
+
+{versions}
+{context}Answer as JSON only: {{"pick": {picks} | "neither", "heard": "<what he said>", "why": "<one sentence>"}}
+"""
+LETTERS = "XYZ"
+
+
+def judge_prompt_n(versions, seed=0, item="", context=""):
+    """The blind prompt for one clip with 2 or 3 versions [(text, reasons)]: shown as version X / Y / Z in a seeded
+    shuffled order, names scrubbed. Returns {prompt, order: [index of the version shown as X, Y, Z], key: {"X": i, ..}}."""
+    if not 2 <= len(versions) <= len(LETTERS):
+        raise ValueError("2 or 3 versions")
+    order = list(range(len(versions)))
+    random.Random("%s|%s|n" % (seed, item)).shuffle(order)
+    blocks = []
+    for L, i in zip(LETTERS, order):
+        text, reasons = versions[i]
+        blocks.append("Version %s:\n%s\n%s" % (L, scrub(text) or "(nothing written)", ("Reasons given with it: %s\n" % scrub(reasons)) if reasons else ""))
+    prompt = JUDGE_TEMPLATE_N.format(n=len(versions), versions="\n".join(blocks),
+                                     picks=" | ".join('"%s"' % L for L in LETTERS[:len(versions)]),
+                                     context=("\nContext (the lesson around the clip, for meaning only):\n%s\n\n" % scrub(context)) if context else "\n")
+    bad = leaks(prompt)
+    if bad:
+        raise AssertionError("engine name in the judge prompt: %s" % bad)
+    return {"prompt": prompt, "order": order, "key": {L: i for L, i in zip(LETTERS, order)}}
+
+
 def scrub(text):
     """Remove every engine / model / vendor name from text that goes to the judge."""
     return _NAME_RE.sub("[name removed]", text or "")
@@ -778,16 +811,28 @@ def build_parser():
     j.add_argument("--seed", default="0")
     j.add_argument("--item", default="")
     j.add_argument("--json", action="store_true")
-    sub.add_parser("run", help="NOT BUILT: paid runs need Medi's yes")
+    r = sub.add_parser("run", help="PAID: run cell B, C or F on a lesson (scripts/hearing_run.py; Medi's yes 2026-10-14)")
+    r.add_argument("date", nargs="?")
+    r.add_argument("--cell", choices=["B", "C", "F", "b", "c", "f"])
+    r.add_argument("--instant", action="store_true")
     return ap
 
 
 def main(argv=None):
     ap = build_parser()
     a, unknown = ap.parse_known_args(argv)
-    if a.cmd == "run":                               # whatever flags follow: there is no paid path in this skeleton
-        print(NOT_BUILT)
-        return 2
+    if a.cmd == "run":                               # the paid path lives in scripts/hearing_run.py (Medi's yes, 2026-10-14)
+        import hearing_run as HR
+        if not a.date or not a.cell:
+            print("usage: hearing_harness.py run <date> --cell B|C|F [--instant]  (paid; cells %s; D needs forced alignment, "
+                  "not built)" % ",".join(HR.RUN_CELLS))
+            return 2
+        try:
+            HR.run(a.date, [a.cell], instant=a.instant)
+        except HR.BudgetStop as e:
+            print(e)
+            return 3
+        return 0
     if unknown:
         ap.error("unrecognized arguments: %s" % " ".join(unknown))
     if a.cmd == "dry-run":

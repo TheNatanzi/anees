@@ -266,10 +266,10 @@ def test_judge_prompt_coin_swaps_order_and_keeps_the_key():
 
 # ------------------------------------------------------------------ no paid path
 
-def test_run_refuses():
-    for argv in (["run"], ["run", "--cell", "B"], ["run", "2026-10-08", "--proposer", "gemini"]):
+def test_run_without_a_date_and_cell_spends_nothing():
+    for argv in (["run"], ["run", "--cell", "B"], ["run", "2026-10-08"]):
         code, out = run_cli(argv)
-        assert code == 2 and "not built: paid runs need Medi's yes" in out
+        assert code == 2 and "usage" in out and "paid" in out
 
 
 def test_no_paid_module_or_network_is_imported():
