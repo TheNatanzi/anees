@@ -11,9 +11,9 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 29 |
 | Vocab fixes Amal voiced (A) | **366** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 177, '0': 142, '2': 80, '3': 2} |
-| Vocab she let pass (B, to Amal) | **40** by tier {'1': 31, '2': 8, '3': 1} |
+| Vocab she let pass (B, to Amal) | **41** by tier {'1': 32, '2': 8, '3': 1} |
 | Listening-drill misreads (kept apart) | 66 |
-| Rows the readers found that the sweep did not have | 946 |
+| Rows the readers found that the sweep did not have | 948 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -43,7 +43,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-06 | 33 | 2 | 17 | 0 | 0 | 0 | 0 | 63.3 % |
 | 2026-10-08 | 27 | 1 | 17 | 0 | 1 | 0 | 0 | 71.2 % |
 | 2026-10-09 | 38 | 2 | 7 | 5 | 1 | 0 | 0 | 71.9 % |
-| 2026-10-10 | 24 | 3 | 4 | 10 | 0 | 0 | 0 | 62.5 % |
+| 2026-10-10 | 24 | 3 | 4 | 11 | 0 | 0 | 0 | 62.5 % |
 | 2026-10-12 | 32 | 1 | 9 | 0 | 1 | 0 | 0 | 65.4 % |
 
 ## Reader passes (the loop)
@@ -1808,6 +1808,8 @@ _Medi's lines between 35:37 and 37:12 are missing (only Amal's side, e.g. 'No, y
 | FA-f9da1f39 | 58:03 | grammar | D2 | So Halloween بيبسوت لا-- | So no preposition needed. 'Cause it makes them happy. | بيبسوت لا-- -> بيبسط الولاد | He started a لـ after the causative verb right after she said no preposition is needed; she repeated it. | low | r1+r2 |
 | FA-c2d986e3 | 58:12 | grammar | A9 | Uh, for little-- El walad or walad. No. Yeah, el walad. El walad el zahar. | صح، الأولاد. | El walad el zahar -> الأولاد الزغار | He used singular walad for 'kids'; Amal recast the plural الأولاد. | high | r1+r2 |
 | FA-1ee29ceb | 1:02:11 | grammar-propose | PROPOSE | aghla-aghlab il-- No, it's aghlab ishi. | No, we do. صح. | aghlab ishi -> aghlab el-ishi | Asked 'Do I put ال؟' he said no; Amal said 'No, we do' and he fixed to aghlab il ishi. | medium | r1+r2 |
+| FA-1ee29cebx | 1:02:11 | rejected |  | aghla-aghlab il-- No, it's aghlab ishi. |  | aghlab ishi -> aghlab il ishi | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
+| FA-50a03cac | 1:02:16 | vocab-B | tier 1 | No, it's, uh... Shoot. Okay, aghlab il ishi. |  | aghlab -> aa5er | Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
 | FA-a60f3b7c | 1:02:40 | grammar | A15 | If it's ishi, ishi akher or ishi il akher. | شو؟ ... (1:03:02) What's آخر as an adjective? | ishi akher or ishi il akher -> el-ishi el-a5eer | After the noun آخر becomes the adjective a5eer; Amal said 'شو؟' then asked for the adjective form and he gave akheer / akheera. | medium | r1+r2 |
 
 ### 2026-10-12
