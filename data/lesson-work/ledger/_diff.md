@@ -26,7 +26,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-06 | 93.5 | 214 | 81.6 | 33 | 179 | 1 / 0 |
 | 2026-10-08 | 95.8 | 251 | 86.6 | 27 | 202 | 1 / 0 |
 | 2026-10-09 | 98.0 -> **97.7** | 307 -> **308** | 86.7 | 38 | 286 | 1 / 2 |
-| 2026-10-10 | 97.7 -> **97.8** | 266 -> **270** | 90.1 -> **90.0** | 25 | 252 -> **251** | 3 / 0 |
+| 2026-10-10 | 97.7 -> **97.8** | 266 -> **272** | 90.1 -> **90.2** | 25 | 252 -> **254** | 3 / 0 |
 | 2026-10-12 | None -> **96.1** | None -> **165** | None -> **85.2** | None -> **31** | None -> **209** | 0 / 0 |
 
 
@@ -139,7 +139,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 
 ## Medi's corrections (PR-15)
 
-- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2, chat-20261003-aa5er-el-moazafa, chat-20261009-3ayaana-again, chat-20261010-2amar-el, chat-20261010-3asafeer-sky, chat-20261010-8eir-not-slip, chat-20261010-aju-awi, chat-20261010-aju-awi-key, chat-20261010-deeri-baalik, chat-20261010-maadi-abel, chat-20261010-snan-sneen, chat-20261010-tayour-plural, ef6f0080-82c7-45c5-a8f9-26f19f625ba8, 8767098c-4321-4544-9edf-31413606e4b0, 915f1458-d691-4f69-b37e-4f0df728ba3d, b34853b3-a2d2-4b47-8e3b-b1dcf29602e2, 552207de-0b45-4011-966d-c7db23a22958, 20306163-076c-4f5e-8d46-dd2b761e06e6, 1ff62366-166d-445b-9de1-dc1bda9adc2b, chat-20261012-d2-a6lub, chat-20261012-a9-musalsalein, chat-20261012-d1-min-akel, chat-20261012-a15-suali-akher, chat-20261012-a10-hada-lu3bi, 4c6577a2-0792-4359-8bfd-833e4df6b027, 8ce6ae9e-a272-4438-9722-b8aec18f315c
+- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2, chat-20261003-aa5er-el-moazafa, chat-20261009-3ayaana-again, chat-20261010-2amar-el, chat-20261010-3asafeer-sky, chat-20261010-8eir-not-slip, chat-20261010-aju-awi, chat-20261010-aju-awi-key, chat-20261010-deeri-baalik, chat-20261010-maadi-abel, chat-20261010-snan-sneen, chat-20261010-tayour-plural, ef6f0080-82c7-45c5-a8f9-26f19f625ba8, 8767098c-4321-4544-9edf-31413606e4b0, 915f1458-d691-4f69-b37e-4f0df728ba3d, b34853b3-a2d2-4b47-8e3b-b1dcf29602e2, 552207de-0b45-4011-966d-c7db23a22958, 20306163-076c-4f5e-8d46-dd2b761e06e6, 1ff62366-166d-445b-9de1-dc1bda9adc2b, chat-20261012-d2-a6lub, chat-20261012-a9-musalsalein, chat-20261012-d1-min-akel, chat-20261012-a15-suali-akher, chat-20261012-a10-hada-lu3bi, 4c6577a2-0792-4359-8bfd-833e4df6b027, 8ce6ae9e-a272-4438-9722-b8aec18f315c, 5e010554-09f5-4366-be19-0d5cf3a79144, a981620e-ae18-4f0f-9140-cfabd3e577f2
 - orphaned (match nothing, re-check): none
 - waiting for Amal: none
 - standing rules: none

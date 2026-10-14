@@ -61294,27 +61294,6 @@
         "reason": "Same word again in the same sentence: kept as context, scored once."
       }
     },
-    "8d50591be90ba164cc3c8dc40608d3ed5bd30c17df0c61baec3cd56e1d1aa8e1": {
-      "expected": {
-        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
-        "row_id": "anees-20261008-recall-medi:row:0",
-        "word_key": "marhaba",
-        "text": "مرحبا.",
-        "t_start": 10.371813522,
-        "t_end": 10.711813522,
-        "assessment": "unresolved",
-        "reason": "Isolated production; insufficient evidence of independent contextual success"
-      },
-      "changes": {
-        "assessment": "independent",
-        "reason": "His own ruling (WS-29): should count",
-        "medi_ruling": true,
-        "by": "heard-credit",
-        "medi_correction": "a4171f94-a9e5-4fee-a2ac-11e68f089e95",
-        "classification": "lexical",
-        "vocab_points": 1
-      }
-    },
     "0bec98912b8ec36508e03e34dcad97a478cfd0c45dc5b9ba5b28c9478bc0c88e": {
       "expected": {
         "source_sha256": "2d5bfe9212b060d10345bfe8ef9b2a09c422a3dd962cbd43778a976684bb66de",
@@ -82182,6 +82161,27 @@
         "audit_created": true
       }
     },
+    "8d50591be90ba164cc3c8dc40608d3ed5bd30c17df0c61baec3cd56e1d1aa8e1": {
+      "expected": {
+        "source_sha256": "c870ccf51c5add98ef5f19d18fefe54fd09d219c2dc3a4b4955c834820238bd4",
+        "row_id": "anees-20261008-recall-medi:row:0",
+        "word_key": "marhaba",
+        "text": "مرحبا.",
+        "t_start": 10.371813522,
+        "t_end": 10.711813522,
+        "assessment": "unresolved",
+        "reason": "Isolated production; insufficient evidence of independent contextual success"
+      },
+      "changes": {
+        "assessment": "independent",
+        "reason": "His own ruling (WS-29): should count",
+        "medi_ruling": true,
+        "by": "heard-credit",
+        "medi_correction": "a4171f94-a9e5-4fee-a2ac-11e68f089e95",
+        "classification": "lexical",
+        "vocab_points": 1
+      }
+    },
     "a01780ac030adff9a12924899ea4e4d8ac13ff4073a40cdf60c4270d8386991f": {
       "expected": {
         "source_sha256": "8d7bc6c56f50c04129cf65a0be9fbdb8fc847e80d686895a404aef75665e2b77",
@@ -96466,6 +96466,100 @@
         "reason": "Word he said, written by his own correction (the recording engine misheard it) (WS-29: the engine wrote أم; he said كمان مرة)",
         "heard_credit": true,
         "medi_correction": "8b34e77c-dbab-40ec-a1ae-033430f3006a",
+        "rule": "WS-29",
+        "classification": "lexical",
+        "vocab_points": 1
+      },
+      "by": "heard-credit"
+    },
+    {
+      "anchor_id": "0145b3ba885532c27e12aa857418dc2786bd4774a5c79c9ef18930d69fbcb89b",
+      "expected_source": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+      "event": {
+        "id": "3e73b14962139888e9e1a7a087e50cf35386c387a8abb07311612a9bb443a2c0",
+        "lesson_date": "2026-10-10",
+        "word_key": "azra2",
+        "local_start": 413.855,
+        "local_end": 417.315,
+        "candidate_keys": [
+          "azra2"
+        ],
+        "source_id": "anees-20261010-recall-medi",
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "heard:df560fad-ecc8-4332-bbf4-a66a9590e74c",
+        "item_ids": [],
+        "t_start": 635.97,
+        "t_end": 639.43,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "أزرق",
+        "original_text": "أزرا",
+        "match_method": "arabic_exact",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "human_reviewed",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "heard:df560fad-ecc8-4332-bbf4-a66a9590e74c",
+            "speaker": "Medi",
+            "text": "أزرق",
+            "timeline_start": 635.97,
+            "timeline_end": 639.43
+          }
+        ],
+        "reason": "Word he said, written by his own correction (the recording engine misheard it) (WS-29: the engine wrote أزرا; he said أزرق)",
+        "heard_credit": true,
+        "medi_correction": "df560fad-ecc8-4332-bbf4-a66a9590e74c",
+        "rule": "WS-29",
+        "classification": "lexical",
+        "vocab_points": 1
+      },
+      "by": "heard-credit"
+    },
+    {
+      "anchor_id": "0145b3ba885532c27e12aa857418dc2786bd4774a5c79c9ef18930d69fbcb89b",
+      "expected_source": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+      "event": {
+        "id": "552c2215f057f12606036a57819dbf3038608bc00360aad162727b81ef0706f8",
+        "lesson_date": "2026-10-10",
+        "word_key": "heiye kAnat",
+        "local_start": 532.935,
+        "local_end": 544.415,
+        "candidate_keys": [
+          "heiye kAnat"
+        ],
+        "source_id": "anees-20261010-recall-medi",
+        "source_sha256": "6168592c4063c558f9ddd40b4a0f8d6a1709393a62afaeeb3f0e174570bb107e",
+        "row_id": "heard:ae3aadb5-c039-4576-9e50-51a0d6350068",
+        "item_ids": [],
+        "t_start": 755.05,
+        "t_end": 766.53,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "كانت",
+        "original_text": "Uh, 'cause ma",
+        "match_method": "pronoun_omission",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "human_reviewed",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "heard:ae3aadb5-c039-4576-9e50-51a0d6350068",
+            "speaker": "Medi",
+            "text": "كانت نفس المرة",
+            "timeline_start": 755.05,
+            "timeline_end": 766.53
+          }
+        ],
+        "reason": "Word he said, written by his own correction (the recording engine misheard it) (WS-29: the engine wrote Uh, 'cause ma; he said كانت)",
+        "heard_credit": true,
+        "medi_correction": "ae3aadb5-c039-4576-9e50-51a0d6350068",
         "rule": "WS-29",
         "classification": "lexical",
         "vocab_points": 1
@@ -282117,7 +282211,7 @@
             "timeline_end": 477.88
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
         "rule": "WS-30",
         "classification": "lexical",
         "coverage": true,
@@ -283065,7 +283159,7 @@
       "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
       "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
       "event": {
-        "id": "d4147d1c09014b2f2b613ace72e1f85277a8a5208ea73fe379e22bef56cf4df2",
+        "id": "6eb319bd77ae4cff453181829d3bea2b67d88565cbf3afbd83800a044d16162a",
         "lesson_date": "2026-10-10",
         "word_key": "ban6aloan",
         "local_start": 634.175,
@@ -283081,7 +283175,7 @@
         "t_end": 638.61,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "بنطلون",
+        "text": "وبنطلون",
         "original_text": "وبنطلون أزرا",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -283094,53 +283188,7 @@
           {
             "row_id": "cover:2026-10-10:635.97",
             "speaker": "Medi",
-            "text": "و بنطلون أزرق",
-            "timeline_start": 635.97,
-            "timeline_end": 638.61
-          }
-        ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "coverage": true,
-        "vocab_points": 1
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
-      "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-      "event": {
-        "id": "df7e58d4092ddf1985adf8a55035f475263400c7245e873dc7f01d6aba1dc62c",
-        "lesson_date": "2026-10-10",
-        "word_key": "azra2",
-        "local_start": 634.175,
-        "local_end": 636.815,
-        "candidate_keys": [
-          "azra2"
-        ],
-        "source_id": "anees-20261010-recall-medi-seg1",
-        "source_sha256": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
-        "row_id": "cover:2026-10-10:635.97",
-        "item_ids": [],
-        "t_start": 635.97,
-        "t_end": 638.61,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "أزرق",
-        "original_text": "وبنطلون أزرا",
-        "match_method": "word_coverage",
-        "assessment": "independent",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-10-10:635.97",
-            "speaker": "Medi",
-            "text": "و بنطلون أزرق",
+            "text": "وبنطلون أزرق",
             "timeline_start": 635.97,
             "timeline_end": 638.61
           }
@@ -283608,6 +283656,52 @@
             "text": "Or was the same time. So كان، كان نفس المرة.",
             "timeline_start": 748.89,
             "timeline_end": 753.19
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "0c30e152ad1fd82e30ff02a9a28d73c01e41835b91c45b4bae39d9a494eab587",
+      "expected_source": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
+      "event": {
+        "id": "6005bf9b87c86a8e3a8193d0926c7cea1fe4264401e630180e5116198dc10786",
+        "lesson_date": "2026-10-10",
+        "word_key": "nafs",
+        "local_start": 753.255,
+        "local_end": 764.735,
+        "candidate_keys": [
+          "nafs"
+        ],
+        "source_id": "anees-20261010-recall-medi-seg1",
+        "source_sha256": "c0e9cbd4557503f0014ddc28d2321eee45bf756614cf57840174c0212ec87f32",
+        "row_id": "cover:2026-10-10:755.05",
+        "item_ids": [],
+        "t_start": 755.05,
+        "t_end": 766.53,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "نفس",
+        "original_text": "Uh, 'cause ma...",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-10-10:755.05",
+            "speaker": "Medi",
+            "text": "كانت نفس المرة...",
+            "timeline_start": 755.05,
+            "timeline_end": 766.53
           }
         ],
         "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
