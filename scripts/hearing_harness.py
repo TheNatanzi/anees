@@ -448,7 +448,8 @@ def load_key(date, data_root):
     key = g["key"]
     slips = []
     for s in key.get("slips") or []:
-        right = re.split(r"\s=\s|\s\(", s.get("ar") or "")[0].strip()
+        # a grammar chip keeps the tutor's form in "right"; a vocab chip in "ar" ("word = meaning (note)")
+        right = (s.get("right") or re.split(r"\s=\s|\s\(", s.get("ar") or "")[0]).strip()
         slips.append({"id": s["i"], "t": s.get("t"), "kind": s.get("k"), "wrong": s.get("said") or "", "right": right})
     engine = {"%.2f" % float(ln["t"]): ln.get("engine") or "" for ln in rlines}
     return {"source": os.path.relpath(gp, data_root), "kind": "grades", "ids": sorted(key["lines"], key=float),
@@ -545,8 +546,81 @@ def word_hits(key, texts):
     return out
 
 
+def _slip_toks(text):
+    """Normalised words of a slip form / line, the article joined to its word ("الـ مطعم" = "المطعم"); Latin letters
+    read as Arabic when the text has any (his Arabizi)."""
+    t = re.sub(r"\([^)]*\)", " ", text or "")
+    out = (BC.tokens(BC.latin_to_arabic(t)) if re.search("[A-Za-z]", t) else []) or BC.tokens(t)  # unread Arabizi stays Latin
+    return _join_article(out)
+
+
+def _join_article(out):
+    """"ال" / "وال" written apart ("الـ مطعم") joined to the next word, never to another lone article."""
+    k = 0
+    while k < len(out) - 1:
+        if out[k] in ("ال", "وال") and out[k + 1] not in ("ال", "وال"):
+            out[k:k + 2] = [out[k] + out[k + 1]]
+        k += 1
+    return out
+
+
+def _line_views(text):
+    """The line read two ways: as written, and with Latin letters read as Arabic (a version may write either)."""
+    t = text or ""
+    raw = _join_article(BC.tokens(t))
+    return (raw, _slip_toks(t)) if re.search("[A-Za-z]", t) else (raw,)
+
+
+def _count(seq, views):
+    """How many times the word sequence sits in the line, adjacent and in order (the best of the line's views)."""
+    n = len(seq)
+    if not n:
+        return 0
+    return max(sum(1 for k in range(len(v) - n + 1) if all(BC.tok_eq(seq[j], v[k + j]) for j in range(n))) for v in views)
+
+
+def _changes(w, r):
+    """The places where the tutor's form differs from his: [(his words, her words, his anchored, her anchored)], each
+    with one shared word on each side as an anchor when there is one. his words = [] when she only ADDS a word there,
+    her words = [] when she only DROPS one (then that side is not tested: the anchor alone proves nothing)."""
+    import difflib
+    out = []
+    for op, a1, a2, b1, b2 in difflib.SequenceMatcher(a=w, b=r, autojunk=False).get_opcodes():
+        if op == "equal":
+            continue
+        lo = 1 if a1 > 0 and b1 > 0 else 0
+        hi = 1 if a2 < len(w) and b2 < len(r) else 0
+        out.append((w[a1 - lo:a2 + hi] if a2 > a1 else [], r[b1 - lo:b2 + hi] if b2 > b1 else [],
+                    w[a1 - lo:a2 + hi], r[b1 - lo:b2 + hi]))
+    return out
+
+
+def slip_erased(wrong, right, key_line, text):
+    """FCR, one slip: did the version write the tutor's correct form where the key has his mistake?
+    Every slip with a known right form is judged, substitutions, added, dropped and moved words alike (2026-10-14; the
+    bench rule judged only a right form that adds a word). Per changed spot (his words -> her words, anchored on a shared
+    neighbour): erased = the version holds her form more often than the key does (where she adds or changes words) AND
+    his form less often (where he had words she changed or dropped, when the key holds his form at all). Every alternative right form ("a / b") is tried; any erased = erased.
+    None = cannot be judged from text: no right form, or his and her forms are the same words once spelling is folded."""
+    w = _slip_toks(wrong)
+    k, v = _line_views(key_line), _line_views(text)
+    judged = False
+    for alt in re.split(r"\s*/\s*", re.sub(r"\([^)]*\)", " ", right or "")):
+        r = _slip_toks(alt)
+        if not r or r == w:
+            continue
+        ch = _changes(w, r)
+        if not ch:
+            continue
+        judged = True
+        if all((not rc or _count(ra, v) > _count(ra, k)) and (not wc or _count(wa, k) == 0 or _count(wa, v) < _count(wa, k))
+               for wc, rc, wa, ra in ch) and any(rc or _count(wa, k) for wc, rc, wa, ra in ch):
+            return True
+    return False if judged else None
+
+
 def slip_results(key, texts):
-    """[(slip, hidden: True/False/None)] - None = cannot be judged from text (no right form, or it adds no word)."""
+    """[(slip, hidden: True/False/None)] - None = cannot be judged from text (no right form, or the same words)."""
     import bench_score as BS
     out = []
     if key["kind"] == "bench":
@@ -554,12 +628,28 @@ def slip_results(key, texts):
             i = str(s["i"])
             out.append((dict(s, id=i), BS.slip_hidden(s, key["text"][i], texts.get(i, ""))))
         return out
+    ids = key["ids"]
     for s in key["slips"]:
         if not s["right"] or not s["wrong"]:
             out.append((s, None))
             continue
-        out.append((s, BS.slip_hidden({"wrong": s["wrong"], "right": s["right"]}, key["text"].get(s["id"], ""), texts.get(s["id"], ""))))
+        span = slip_span(ids, s["id"])
+        out.append((s, slip_erased(s["wrong"], s["right"], " ".join(key["text"].get(i, "") for i in span),
+                                   " ".join(texts.get(i, "") for i in span))))
     return out
+
+
+SLIP_SPAN_S = 20.0
+
+
+def slip_span(ids, sid):
+    """The key lines a slip is judged on: its own line + his next line when it starts within 20 s (a sentence the
+    transcript cut in two: 10-10 17:17 'أول أكل' | 'أنا جربت'). The same ids on both sides, so the pairing holds."""
+    if sid not in ids:
+        return [sid]
+    k = ids.index(sid)
+    nxt = ids[k + 1] if k + 1 < len(ids) else None
+    return [sid, nxt] if nxt is not None and float(nxt) - float(sid) <= SLIP_SPAN_S else [sid]
 
 
 def score_version(key, texts):
@@ -726,7 +816,7 @@ def main(argv=None):
                                                   ("  errors %d" % info["errors"]) if info["errors"] else ""))
             for h in s["hidden_rows"]:
                 print("    erased slip at %s: he said %s, tutor's form %s, version wrote: %s" % (h["id"], h["wrong"], h["right"], h["heard"]))
-        print("FCR counts only slips with a known right form that adds a word (%d of %d key slips judged)." % (rows[0][1]["slips_judged"], rows[0][1]["slips"]))
+        print("FCR judges every key slip with a known right form that differs from his in words (%d of %d key slips judged)." % (rows[0][1]["slips_judged"], rows[0][1]["slips"]))
         for k in range(1, len(rows)):
             pr = paired(rows[0][1], rows[k][1])
             print("paired %s vs %s: both %d, only first %d, only second %d, neither %d, exact sign p=%s" % (

@@ -120,7 +120,8 @@ def snapshot(d, date):
         for c in v.get("c", []):
             if c.get("s") == "wrong" and c.get("k") in ("vocab", "grammar"):
                 slips.append({"i": "%.2f" % float(u["t"]), "t": WC.mmss(u["t"]), "k": c["k"], "rule": c.get("rule"),
-                              "said": str(c.get("said") or c.get("tok") or "")[:60], "ar": str(c.get("ar") or "")[:60]})
+                              "said": str(c.get("said") or c.get("tok") or "")[:60], "ar": str(c.get("ar") or "")[:60],
+                              "right": str(c.get("right") or "")[:80]})
     return {"words": words, "lines": lines, "slips": sorted(slips, key=lambda x: (x["i"], x["k"], x["rule"] or ""))}
 
 
