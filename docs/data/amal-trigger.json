@@ -1,6 +1,66 @@
 {
  "firings": [
   {
+   "at": "2026-10-14T02:35:53-07:00",
+   "changed": [
+    {
+     "source": "pattern_review",
+     "label": "Slips-by-pattern review",
+     "n": 183,
+     "newest": "2026-10-13T11:59:39.253029+00:00"
+    },
+    {
+     "source": "listen_check",
+     "label": "Listening check: which version is right",
+     "n": 543,
+     "newest": "2026-10-13T20:51:51.30647+00:00",
+     "note": "her taps are read by scripts/amal_listen_results.py; nothing is re-scored, only her hub list is refreshed (AM-29: her key-check taps feed only the grade book's tutor-vs-student agreement)"
+    },
+    {
+     "source": "tutor_grammar",
+     "label": "Add grammar: a rule she writes, Claude's rewrite, her yes (AM-31)",
+     "n": 3,
+     "newest": "2026-10-13T15:25:07.734034+00:00",
+     "note": "a new submission or 'Change it' gets Claude's rewrite (scripts/tutor_grammar.py, logged in data/runs + budget); only her yes adds the rule, with no automatic detection; past lessons are re-scored only on Medi's yes"
+    },
+    {
+     "source": "student",
+     "label": "Tutor uploads + homework (uploads, tasks, Medi's answers, her verdicts)",
+     "n": 17,
+     "newest": "2026-10-13T11:56:38.677+00:00"
+    }
+   ],
+   "steps": [
+    "tutor_grammar_pull",
+    "build_grammar_buckets",
+    "full_audit_build",
+    "apply_amal_audit_rulings",
+    "amal_grammar_notes",
+    "detect_grammar_usage",
+    "build_grammar_console",
+    "build_amal_docs",
+    "build_amal_grammar_rules",
+    "build_amal_review",
+    "build_lessons_page_data",
+    "codex_list",
+    "accuracy_annotate",
+    "build_sentence_ladder",
+    "amal_new_words",
+    "build_tutor_data",
+    "tutor_key_check_pull",
+    "tutor_note_check_pull",
+    "review_grades",
+    "build_student_data",
+    "build_tutor_weak",
+    "write_build"
+   ],
+   "failures": [
+    "build_lessons_page_data exit 1: 1e31271cedeae\",\n    \"pass\": \"source\",\n    \"check\": \"catalog\"\n  },\n  {\n    \"id\": \"97db5a0cf5cf77e2457c21f9bd45de905a5ae9ae59014f14da4bf7c45e1566bb\",\n    \"pass\": \"source\",\n    \"check\": \"catalog\"\n  }\n]"
+   ],
+   "numbers_moved": [],
+   "published": null
+  },
+  {
    "at": "2026-10-14T02:22:24-07:00",
    "changed": [
     {
@@ -1739,76 +1799,16 @@
    ],
    "numbers_moved": [],
    "published": null
-  },
-  {
-   "at": "2026-10-13T19:06:19-07:00",
-   "changed": [
-    {
-     "source": "pattern_review",
-     "label": "Slips-by-pattern review",
-     "n": 183,
-     "newest": "2026-10-13T11:59:39.253029+00:00"
-    },
-    {
-     "source": "listen_check",
-     "label": "Listening check: which version is right",
-     "n": 543,
-     "newest": "2026-10-13T20:51:51.30647+00:00",
-     "note": "her taps are read by scripts/amal_listen_results.py; nothing is re-scored, only her hub list is refreshed (AM-29: her key-check taps feed only the grade book's tutor-vs-student agreement)"
-    },
-    {
-     "source": "tutor_grammar",
-     "label": "Add grammar: a rule she writes, Claude's rewrite, her yes (AM-31)",
-     "n": 3,
-     "newest": "2026-10-13T15:25:07.734034+00:00",
-     "note": "a new submission or 'Change it' gets Claude's rewrite (scripts/tutor_grammar.py, logged in data/runs + budget); only her yes adds the rule, with no automatic detection; past lessons are re-scored only on Medi's yes"
-    },
-    {
-     "source": "student",
-     "label": "Tutor uploads + homework (uploads, tasks, Medi's answers, her verdicts)",
-     "n": 17,
-     "newest": "2026-10-13T11:56:38.677+00:00"
-    }
-   ],
-   "steps": [
-    "tutor_grammar_pull",
-    "build_grammar_buckets",
-    "full_audit_build",
-    "apply_amal_audit_rulings",
-    "amal_grammar_notes",
-    "detect_grammar_usage",
-    "build_grammar_console",
-    "build_amal_docs",
-    "build_amal_grammar_rules",
-    "build_amal_review",
-    "build_lessons_page_data",
-    "codex_list",
-    "accuracy_annotate",
-    "build_sentence_ladder",
-    "amal_new_words",
-    "build_tutor_data",
-    "tutor_key_check_pull",
-    "tutor_note_check_pull",
-    "review_grades",
-    "build_student_data",
-    "build_tutor_weak",
-    "write_build"
-   ],
-   "failures": [
-    "build_lessons_page_data exit 1: 1e31271cedeae\",\n    \"pass\": \"source\",\n    \"check\": \"catalog\"\n  },\n  {\n    \"id\": \"97db5a0cf5cf77e2457c21f9bd45de905a5ae9ae59014f14da4bf7c45e1566bb\",\n    \"pass\": \"source\",\n    \"check\": \"catalog\"\n  }\n]"
-   ],
-   "numbers_moved": [],
-   "published": null
   }
  ],
  "about": "Anything Amal does is detected (hash of her answers per source), re-pulled, recalculated, and published only if the publish guard passes (scripts/amal_trigger.py; Medi 2026-09-29).",
- "checked": "2026-10-14T02:22:24-07:00",
+ "checked": "2026-10-14T02:35:53-07:00",
  "sources": [
   {
    "id": "tutor_verify",
    "label": "Tutor page: check these moments",
    "readable": true,
-   "checked": "2026-10-14T02:17:32-07:00",
+   "checked": "2026-10-14T02:31:02-07:00",
    "n": 96,
    "newest": "2026-10-12T11:58:58.137958+00:00",
    "last_change": "2026-10-12T23:23:35-07:00"
@@ -1817,7 +1817,7 @@
    "id": "pattern_review",
    "label": "Slips-by-pattern review",
    "readable": true,
-   "checked": "2026-10-14T02:17:33-07:00",
+   "checked": "2026-10-14T02:31:03-07:00",
    "n": 183,
    "newest": "2026-10-13T11:59:39.253029+00:00",
    "last_change": "2026-10-12T23:23:35-07:00"
@@ -1826,7 +1826,7 @@
    "id": "after_links",
    "label": "After-lesson questions",
    "readable": true,
-   "checked": "2026-10-14T02:17:34-07:00",
+   "checked": "2026-10-14T02:31:03-07:00",
    "n": 61,
    "newest": "2026-10-06T10:44:32.662191+00:00",
    "last_change": "2026-10-06T11:19:32-07:00"
@@ -1835,7 +1835,7 @@
    "id": "plan_links",
    "label": "Before-lesson planner",
    "readable": true,
-   "checked": "2026-10-14T02:17:35-07:00",
+   "checked": "2026-10-14T02:31:04-07:00",
    "n": 4,
    "newest": "2026-09-05T20:45:51.461908+00:00",
    "last_change": "2026-09-29T09:41:30-07:00"
@@ -1844,7 +1844,7 @@
    "id": "listen_check",
    "label": "Listening check: which version is right",
    "readable": true,
-   "checked": "2026-10-14T02:17:35-07:00",
+   "checked": "2026-10-14T02:31:05-07:00",
    "n": 543,
    "newest": "2026-10-13T20:51:51.30647+00:00",
    "note": "her taps are read by scripts/amal_listen_results.py; nothing is re-scored, only her hub list is refreshed (AM-29: her key-check taps feed only the grade book's tutor-vs-student agreement)",
@@ -1854,7 +1854,7 @@
    "id": "tutor_notes",
    "label": "Notes she writes on her Tutor screens (AM-27)",
    "readable": true,
-   "checked": "2026-10-14T02:17:36-07:00",
+   "checked": "2026-10-14T02:31:06-07:00",
    "n": 6,
    "newest": "2026-10-11T13:05:55.525815+00:00",
    "last_change": "2026-10-12T23:23:35-07:00"
@@ -1863,7 +1863,7 @@
    "id": "amal_rules_other",
    "label": "Any other answer she gives in the app",
    "readable": true,
-   "checked": "2026-10-14T02:17:37-07:00",
+   "checked": "2026-10-14T02:31:07-07:00",
    "n": 0,
    "newest": null,
    "last_change": "2026-10-08T17:53:14-07:00"
@@ -1872,7 +1872,7 @@
    "id": "tutor_grammar",
    "label": "Add grammar: a rule she writes, Claude's rewrite, her yes (AM-31)",
    "readable": true,
-   "checked": "2026-10-14T02:17:38-07:00",
+   "checked": "2026-10-14T02:31:07-07:00",
    "n": 3,
    "newest": "2026-10-13T15:25:07.734034+00:00",
    "note": "a new submission or 'Change it' gets Claude's rewrite (scripts/tutor_grammar.py, logged in data/runs + budget); only her yes adds the rule, with no automatic detection; past lessons are re-scored only on Medi's yes",
@@ -1882,7 +1882,7 @@
    "id": "verb_checks",
    "label": "Verb check lists 1 and 2",
    "readable": true,
-   "checked": "2026-10-14T02:17:38-07:00",
+   "checked": "2026-10-14T02:31:08-07:00",
    "n": 3,
    "newest": "2026-10-07T05:44:46.56994+00:00",
    "last_change": "2026-10-07T14:32:01-07:00"
@@ -1891,7 +1891,7 @@
    "id": "word_review",
    "label": "Word review",
    "readable": true,
-   "checked": "2026-10-14T02:17:38-07:00",
+   "checked": "2026-10-14T02:31:08-07:00",
    "n": 1,
    "newest": "2026-09-09T19:39:04.959412+00:00",
    "note": "her answers are detected and logged; showing them in the Word Bank still needs the Speaking release rebuild (not automated)",
@@ -1901,7 +1901,7 @@
    "id": "homework",
    "label": "Homework verdicts",
    "readable": true,
-   "checked": "2026-10-14T02:17:39-07:00",
+   "checked": "2026-10-14T02:31:08-07:00",
    "n": 1,
    "newest": "2026-09-05T21:32:06.328+00:00",
    "last_change": "2026-09-29T09:41:33-07:00"
@@ -1910,7 +1910,7 @@
    "id": "student",
    "label": "Tutor uploads + homework (uploads, tasks, Medi's answers, her verdicts)",
    "readable": true,
-   "checked": "2026-10-14T02:17:40-07:00",
+   "checked": "2026-10-14T02:31:10-07:00",
    "n": 17,
    "newest": "2026-10-13T11:56:38.677+00:00",
    "last_change": "2026-10-12T23:23:35-07:00"
@@ -1919,7 +1919,7 @@
    "id": "grammar_notes",
    "label": "Grammar notes she writes on the rules page",
    "readable": true,
-   "checked": "2026-10-14T02:17:41-07:00",
+   "checked": "2026-10-14T02:31:11-07:00",
    "n": 6,
    "newest": "2026-10-06T11:30:00.89803+00:00",
    "note": "like her Doc notes, a note becomes a scoring ruling only after a row-by-row read (amal_grammar_notes.py)",
@@ -1930,14 +1930,14 @@
    "label": "Her grammar-rules Google Doc",
    "readable": false,
    "why": "her grammar Doc is private (the export URL answers HTTP 401 without a Google sign-in) and this PC has no Google API credentials; publish the Doc to the web and set ANEES_GRAMMAR_DOC_URL",
-   "checked": "2026-10-14T02:17:41-07:00",
+   "checked": "2026-10-14T02:31:11-07:00",
    "last_change": null
   },
   {
    "id": "medi_corrections",
    "label": "Medi's corrections on the Lessons transcript (PR-15)",
    "readable": true,
-   "checked": "2026-10-14T02:17:41-07:00",
+   "checked": "2026-10-14T02:31:11-07:00",
    "n": 723,
    "newest": "2026-10-13T01:02:10.322629+00:00",
    "note": "his own taps, not Amal's: recounted within 15 min; 'my Arabic was right' becomes a card on her hub",
@@ -1947,7 +1947,7 @@
    "id": "quizlet",
    "label": "Her Quizlet sets",
    "readable": true,
-   "checked": "2026-10-14T02:17:41-07:00",
+   "checked": "2026-10-14T02:31:11-07:00",
    "n": 126,
    "newest": null,
    "remote": "not read: quizlet.com answers HTTP 403 to scripts and FIRECRAWL_API_KEY is not set",
