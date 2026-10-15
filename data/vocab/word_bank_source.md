@@ -2886,4 +2886,5 @@ This small group has a unique conjugation style:
 | El-kul | الكل | Everybody / all |
 | Farq i5tilaaf | فرق اختلاف  | Difference |
 | Shu el-farq | شو الفرق | What’s the difference  |
+| A8lab \+ el \+ noun | Most… / most of… |  |
 
