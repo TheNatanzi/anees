@@ -2,12 +2,36 @@
 
 # Newest Nouns 
 
-| Transliteration  | Plural | Arabic | English |
-| :---- | :---- | ----- | :---- |
-| Mitshajje3/a | Mitshajj3een | متشجع/ة | Motivated  |
-| 7aafez  daafe3 | 7awaafez dawaafe3  | حافز دافع | Motivation  |
-| oowla | awaa2el  | أولى | First (feminine) |
-| a5eer/e/a | a5eereen/aat for human nouns  Awaa5er for all | أخير/ة | Last (adjective) |
+## Wedding \+ Marriage 
+
+| Transliteration | Plural | Arabic | English |
+| ----- | ----- | ----- | ----- |
+| 5utbe | — | خطبة | Engagement |
+| 5ateeb | 5utaba? | خطيب | Fiancé |
+| 5ateebe | — | خطيبة | Fiancée |
+| 3urus | — | عرس | Wedding |
+| 3aroos | — | عروس | Bride |
+| 3arees | — | عريس | Groom |
+| 3ersaan | — | عرسان | Bride and groom |
+| Badlet 3aroos | — | بدلة عروس | Bride's dress |
+| 5aatem | 5awaatem | خاتم | Ring |
+| Shahar 3asal | — | شهر عسل | Honeymoon |
+| Ana batjawwaz |  | أنا بتجوز | I get married  |
+
+## Miscellaneous 
+
+| Transliteration | Plural | Arabic | English |
+| ----- | ----- | ----- | ----- |
+| Mashroo3 | Mashaaree3 | مشروع | Project |
+| Daafe3 | — | دافع | Motive / Motivation |
+| 7aafez | — | حافز | Incentive / Motivation |
+| Dareebe | Daraayeb | ضريبة | Tax |
+| 7arb | — | حرب | War |
+
+| Mitshajje3 | Mitshajje3a (feminine) | متشجع | Motivated |
+| :---- | :---- | :---- | :---- |
+| Waade7 | Waad7a (feminine) | واضح | Clear |
+| Bishakel 3aam | — | بشكل عام | In general / Generally |
 
 ## Function (tool) words \+ “el” Combinations
 
@@ -24,7 +48,7 @@
 | A5eer/e/a | أخير/ة | Last (adjective) |
 | El \+ noun \+ el \+ a5eer/e/a | الـ \+ اسم \+ الـ \+ أخير/ة | The last… |
 | Taani \+ noun | ثاني \+ اسم | Second / the second… |
-| El \+ noun \+ el \+ tani/e | الـ \+ اسم \+ الـ \+ ثاني/ة | The second… |
+| El \+ noun \+ el \+ tani/e | الـ \+ اسم \+ الـ \+ ثاني/ة | The second / the other … |
 | Noun \+ tani/e | اسم \+ ثاني/ة | Another… / else |
 | 8eir \+ noun | غير \+ اسم | A different… |
 | El \+ noun \+ el \+ 8eir | الـ \+ اسم \+ الـ \+ غير | The different… |
@@ -56,6 +80,38 @@
 | Lissa |  | لسه | Still / not yet |
 | 3aalam |  | عالم | The world / people (el-3aalam) |
 | Kulliyyan |  | كليًا | Completely / fully |
+
+| Transliteration | Plural | Arabic | English |
+| ----- | ----- | ----- | ----- |
+| na3na3 | — | نعنع | Mint |
+| mumtaaz | — | ممتاز | Excellent |
+| 3eed milaadek | — | ميلادك | Your birthday |
+| jarrabet | — | جربت | I tried |
+| 5aTibti | — | خطيبتي | My fiancée |
+| 7araam | — | حرام | Poor thing (in expressions like يا حرام) |
+| jarrib | — | جرّب | Try |
+| ya 7araam | — | يا حرام | Poor thing / What a pity |
+| wa-a5eeran | — | وأخيرًا | Finally |
+| iḍaafe | iḍaafaat | إضافة | Addition / The possessive construct |
+| dawrak | adwaar | دورك | Your turn |
+| aah | — | آه | Yes / Ah |
+| aaha | — | — | I see / Aha |
+| Tayyib | — | طيب | Okay / Fine |
+| tamaam | — | تمام | Okay / Perfect |
+| maa | — | ما | Not |
+| laa | — | لا | No |
+| mitshajje3 | mitshajje3een | متشجع | Motivated / Encouraged |
+| a5eer / a5eera | — | أخير / أخيرة | Last / Final |
+| barnaamejna | — | برنامجنا | Our program |
+| ḍeef | ḍuyoof | ضيف | Guest |
+| qaanoon | qawaaneen | قانون | Rule / Law |
+| el-far2 | — | الفرق | The difference |
+| ikhtilaaf | ikhtilaafaat | اختلاف | Difference / Disagreement |
+| laffe | laffaat | لفة | A drive / A ride around |
+| keef ṣirti | — | كيف صرتي | How have you been since? / How have you changed? |
+| bil-miyye | — | بالمية | Percent |
+| 3ala el-a8lab | — | على الأغلب | Most likely |
+| shofeer | shofeereyeh | شوفير | Driver / Chauffeur |
 
 # Introductions and Pleasantries
 
@@ -471,6 +527,7 @@ Meat & Other Food Items
 | 3ayaan/e/a | عيان/ة | Sick |
 | kazzaab/e/a | كذاب/ة | Liar |
 | Ma7zooz/a | محظوظ/ة | Lucky |
+| Mitshajje3/a | متشجع/ة | Motivated  |
 
 ## General Adjectives
 
@@ -513,6 +570,7 @@ Meat & Other Food Items
 | beydaaye2  | بيدايق | Upseting  |
 | ma3roof | معروف | Well known |
 | Mashhoor | مشهور | Famous |
+| waade7  | واضح | Clear / obvious  |
 
 ### Colors
 
@@ -1179,6 +1237,7 @@ Meat & Other Food Items
 | Ana ba5arreb | أنا بخرِّب | I ruin / break / mess something up |
 | Ana bakser  | أنا بكسر | I break something(physically) |
 | Ana bankeser | أنا بنكسر | I get broken  |
+| Ana batjawwaz | أنا بتجوز | I get married  |
 
 	
 
@@ -2570,6 +2629,7 @@ This small group has a unique conjugation style:
 | **Hada hu** | هاد هو | That’s it / that’s the one |
 | **6a3em** | طعم | لTaist / flavore  |
 | **ree7a**  | ريحة | Smell  |
+| **Bishakel 3aam** | بشكل عام | In general  |
 
 # Animals
 
@@ -2713,4 +2773,117 @@ This small group has a unique conjugation style:
 | Bankeser | بنكسر | I get broken |
 | Ma tekser | ما تكسر | Don't break (command) |
 | El-s7oon enkasaru bil8ala6 | الصحون انكسروا بالغلط | The plates broke by accident |
+
+# Tab 23
+
+## Verb \+ Prepositions Collocations 
+
+| Transliteration | Arabic | English |
+| ----- | ----- | ----- |
+| Ana ba7ki ma3 | أنا بحكي مع | I speak / talk to or with |
+| Ana ba7ki la- | أنا بحكي لـ | I say to / tell |
+| Ana bafakker fi | أنا بفكر في | I think of / about |
+| Ana ba3raf | أنا بعرف | I know / I know how |
+| Ana baru7 3ala | أنا بروح على | I go to |
+| Ana baru7 la- / 3ind | أنا بروح لـ / عند | I go to someone / someone's place |
+| Ana ba3ti (X) | أنا بعطي | I give (something) |
+| Ana baq3ud 3ala | أنا بقعد على | I sit on |
+| Ana basma3 | أنا بسمع | I hear / listen |
+| Ana basma3 la- | أنا بسمع لـ | I listen to |
+| Ana baaji 3ala | أنا باجي على | I come to |
+| Ana babii3 (X) | أنا ببيع | I sell (something) |
+| Ana bas2al (X) | أنا بسأل | I ask (a question) |
+| Ana bastanna (X) | أنا بستنى | I wait for |
+| Ana bat6alla3 3ala | أنا بتطلع على | I look at |
+| Ana bashra7 la- | أنا بشرح لـ | I explain to |
+| Ana ba3zem 3ala | أنا بعزم على | I invite (someone) to |
+| Ana ba6lob min | أنا بطلب من | I ask / request something from someone |
+| Ana ba6lob | أنا بطلب | I request / order |
+| Ana bajawweb 3ala | أنا بجاوب على | I answer (a question) |
+| Ana barudd 3ala | أنا برد على | I respond to / answer |
+| BiySiir la- / ma3 | بيصير لـ / مع | It happens to / with |
+| Saar \+ duration | صار \+ مدة | Have been doing something for a period of time |
+| Ana barinn 3ala / la- | أنا برن على / لـ | I call |
+| Ana battaSil 3ala / la- | أنا بتصل على / لـ | I call / contact |
+| Ana bab3at la- | أنا ببعت لـ | I send to |
+| Ana bakha66e6 la- | أنا بخطط لـ | I plan to / for |
+| Ana balta2i ma3 / fi | أنا بلتقي مع / في | I meet with / meet at |
+| Ana ba2la2 3ala | أنا بقلق على | I worry about someone / something |
+| Ana ba2ul la- | أنا بقول لـ | I say to / tell |
+| Ana badfa3 | أنا بدفع | I pay / push |
+| Ana badfa3 la- | أنا بدفع لـ | I pay someone / pay to |
+| Ana badfa3 3an | أنا بدفع عن | I pay for someone / on someone's behalf |
+| Ana bakazzeb 3ala | أنا بكذب على | I lie to |
+| Ana bantebeh 3ala | أنا بنتبه على | I pay attention to |
+| Ana bantebeh la- | أنا بنتبه لـ | I pay attention to |
+| Ana badir baali 3ala | أنا بدير بالي على | I take care of / look after |
+| Ana batdarrab 3ala | أنا بتدرب على | I train / practice |
+| Ana batmarran 3ala | أنا بتمرن على | I exercise / practice |
+| Ana basta3mel | أنا بستعمل | I use |
+| Ana basta3mel bi- | أنا بستعمل بـ | I use something for / with |
+| Ana bajeeb la- | أنا بجيب لـ | I bring something to someone |
+| Ana bad7ak la- | أنا بضحك لـ | I smile at |
+| Ana bad7ak 3ala | أنا بضحك على | I laugh at / make fun of / fool |
+| Ana bazha2 min | أنا بزهق من | I get bored of |
+| Ana bashki min | أنا بشكي من | I complain about |
+| Ana bashki 3ala | أنا بشكي على | I complain against / file a complaint against |
+| Ana ba2la2 min | أنا بقلق من | I worry about something that might cause a problem |
+| Ana ba2la2 3ala | أنا بقلق على | I worry about someone / something |
+| Ana bakhaaf min | أنا بخاف من | I am afraid of |
+| Ana bakhaaf 3ala | أنا بخاف على | I worry about / fear for |
+| Ana bafaddel 3ala | أنا بفضل على | I prefer one thing over another |
+| Ana baskut 3an | أنا بسكت عن | I keep quiet about something |
+| Ana basaafer 3ala | أنا بسافر على | I travel to |
+| Ana barawwe7 min | أنا بروّح من | I leave / go home from |
+| Ana barja3 min | أنا برجع من | I return from |
+| Ana barja3 3ala | أنا برجع على | I go back to a place, activity, or situation |
+| Barja3 la- | برجع لـ | I return / go back to someone or something |
+| Barja3-lak | برجعلك | I'll get back to you |
+| Ana banbaset min | أنا بنبسط من | I feel happy / pleased because of something |
+| Ana banbaset la- | أنا بنبسط لـ | I feel happy for someone |
+| Ana banbaset bi / fi | أنا بنبسط بـ / في | I enjoy something / have fun |
+| Ana bashtaa2 la- | أنا بشتاق لـ | I miss someone / something |
+| Ana batwajja3 min | أنا بتوجع من | I get hurt / feel pain because of something |
+| Ana bat7ammas la- | أنا بتحمس لـ | I get excited about / look forward to |
+| Ana bat3ab min | أنا بتعب من | I get tired from / of |
+| Ana banze3ej min | أنا بنزعج من | I get annoyed by / with |
+| Ana ba3aSSeb min | أنا بعصب من | I get angry because of / about |
+| Ana ba3aSSeb 3ala | أنا بعصب على | I get angry at someone |
+| Ana baz3al min | أنا بزعل من | I get upset with someone / because of something |
+| Ana batDaaya2 min | أنا بتضايق من | I get annoyed / upset by something |
+| Ana baz3al 3ala | أنا بزعل على | I feel sad for someone / feel upset about a loss |
+| Ana batDaaya2 3ala | أنا بتضايق على | I feel upset about / for someone, depending on context |
+
+# Tab 24
+
+## Function (tool) words
+
+| Transliteration | Arabic | English |
+| ----- | ----- | ----- |
+| Awal | أول | First / beginning |
+| Awal \+ noun | أول \+ اسم | First / the first… |
+| Awal \+ el \+ noun | أول \+ الـ \+ اسم | The beginning of… |
+| El \+ noun \+ el \+ awal | الـ \+ اسم \+ الـ \+ أول | The first |
+| Oola | أولى | First (feminine) |
+| Awal \+ pronoun-ending noun | The beginning of my… |  |
+| Awal \+ noun \+ ili Pronoun-ending noun \+ el-awal/oola | My first… |  |
+| Aa5er | آخر | Last / end |
+| Aa5er \+ noun | آخر \+ اسم | Last / the last… |
+| Aa5er \+ el \+ noun | آخر \+ الـ \+ اسم | The end of… |
+| A5eer/e/a | أخير/ة | Last (adjective) |
+| El \+ noun \+ el \+ a5eer/e/a | الـ \+ اسم \+ الـ \+ أخير/ة | The last… |
+| Aa5er \+ pronoun \-ending noun | The end of my… |  |
+| Aa5er \+ noun \+ ili Pronoun-ending noun \+ el-a5eer/a | My last… |  |
+| Taani \+ noun | ثاني \+ اسم | Second / the second… |
+| El \+ noun \+ el \+ tani/e | الـ \+ اسم \+ الـ \+ ثاني/ة | The second / the other … |
+| Noun \+ tani/e | اسم \+ ثاني/ة | Another… / else |
+| 8eir \+ noun | غير \+ اسم | A different… |
+| El \+ noun \+ el \+ 8eir | الـ \+ اسم \+ الـ \+ غير | The different… |
+| Nafs \+ el \+ noun | نفس \+ الـ \+ اسم | The same… |
+| Nafs el-ishi | نفس الإشي | The same |
+| Kul \+ noun | كل \+ اسم | Every… |
+| Kul \+ el \+ noun | كل \+ الـ \+ اسم | All / the whole… |
+| El-kul | الكل | Everybody / all |
+| Farq i5tilaaf | فرق اختلاف  | Difference |
+| Shu el-farq | شو الفرق | What’s the difference  |
 

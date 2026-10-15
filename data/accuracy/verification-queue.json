@@ -1,6 +1,53 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 0,
- "by_date": {},
- "rows": []
+ "count": 2,
+ "by_date": {
+  "2026-09-26": 1,
+  "2026-10-06": 1
+ },
+ "rows": [
+  {
+   "uid": "FA-bd5ae37e",
+   "date": "2026-09-26",
+   "t": "00:57",
+   "t_amal": "01:01",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "medi_said": "Uh, كيف حالك؟",
+   "amal_said": "So I don't know if you remember، بس this doesn't have an equivalent in English. كيف صرتي؟ كيف صارت؟",
+   "wrong": "كيف حالك",
+   "right": "كيف صارت / كيف صرتي",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "00:47",
+   "listen_to": "01:21"
+  },
+  {
+   "uid": "FA-75dc1bf0",
+   "date": "2026-10-06",
+   "t": "41:36",
+   "t_amal": "41:53",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "medi_said": "أ-أنا بدل أغلب ... I can say أنا بدل أغلب، أغلب مساري.",
+   "amal_said": "كيف يعني أنا بضل؟ ... No. I stay أنا بضل.",
+   "wrong": "بدل",
+   "right": "بستعمل",
+   "why_check": [
+    "decided by the third reader alone, in one pass only",
+    "the transcript under it is disputed (engine wrote something else)"
+   ],
+   "check": "audio",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "41:26",
+   "listen_to": "42:13"
+  }
+ ]
 }
