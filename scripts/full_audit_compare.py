@@ -383,13 +383,6 @@ def union_rows(date):
         extra.append(b)
     rows = P1["rows"] + extra
     rows.sort(key=lambda r: (sec(r.get("t")) if sec(r.get("t")) is not None else 1e9))
-    # PR-25 (Medi 2026-10-15): on a lesson read by Opus (r1) + Sonnet (r2), a slip stands only when BOTH readers flagged
-    # one of its family within 15 s; the rest is held "one reader only" (AI Reports > Grades), never a chip
-    import reader_agree as RA
-    held = []
-    if pas == 1 and RA.active(date, WORK):
-        A, B = load(date, "r1", pas), load(date, "r2", pas)
-        rows, held = RA.gate(rows, A["rows"], B["rows"])
     for i, r in enumerate(rows, 1):
         r["fid"] = f"{date[5:7]}{date[8:10]}-{i:03d}"
     return {**P1, "rows": rows, "counts": {**P1["counts"], "pass2_final": P2["counts"].get("final"), "in_both_passes": len(used), "pass2_only": len(extra), "pass2_repeats_dropped": repeats},

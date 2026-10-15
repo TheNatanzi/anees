@@ -112,3 +112,16 @@ def test_the_2026_10_15_evidence_replays_exactly():
         tot = [tot[0] + m, tot[1] + len(p), tot[2] + len(k)]
     assert per == [70.7, 68.5, 69.8]
     assert RT.prf(*tot)["f05"] == 69.6
+
+
+def test_union_rows_still_builds_with_a_pass_2_file_on_a_pair_lesson(tmp_path, monkeypatch):
+    """Review 2026-10-15: the gate belongs to settle only; union_rows (full_audit_build) must not touch it."""
+    import full_audit_compare as FAC
+    w = str(tmp_path)
+    monkeypatch.setattr(FAC, "WORK", w)
+    d = "2026-01-09"
+    _manifest(w, d, "r1", "claude-opus-5-5")
+    _manifest(w, d, "r2", "claude-sonnet-5-5")
+    _write(os.path.join(w, d + ".settled.json"), {"rows": [row("01:00", wrong="a")], "counts": {}})
+    _write(os.path.join(w, d + ".p2.settled.json"), {"rows": [], "counts": {}})
+    assert [r["wrong"] for r in FAC.union_rows(d)["rows"]] == ["a"]
