@@ -2,10 +2,10 @@
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-10-09T18:16:25Z",
  "last_publish_sha": "d3762fa65599e32f57006e5a3a84535abf4ae3ee",
- "last_block_reason": "pull --rebase failed (a conflict with master; a person merges): conflict in a hand-made file (a person merges): data/lesson-work/tutor-grammar/proposals.json",
- "last_block_utc": "2026-10-14T21:37:18Z",
+ "last_block_reason": "clean_tree: 1 uncommitted change(s) in what would be published, e.g. docs/data/tutor-notes.json",
+ "last_block_utc": "2026-10-15T20:18:41Z",
  "first_block_reason": "pull --rebase failed (a conflict with master; a person merges): conflict in a hand-made file (a person merges): data/lesson-work/tutor-grammar/proposals.json",
- "blocked_since_utc": "2026-10-13T23:06:35Z",
+ "blocked_since_utc": "2026-10-14T19:51:23Z",
  "open_failures": [
   "amal: build_lessons_page_data exit 1: 1e31271cedeae\",\n    \"pass\": \"source\",\n    \"check\": \"catalog\"\n  },\n  {\n    \"id\": \"97db5a0cf5cf77e2457c21f9bd45de905a5ae9ae59014f1",
   "refresh:2026-10-12: audit_word_bank_reliability.cjs exit 1: ]; build_lessons_page_data.py exit 1: ]; review_lesson.py 2026-10-12 exit 1",
@@ -14,12 +14,13 @@
  ],
  "pending": [
   "lesson 2026-10-12 recorded, not on the site",
+  "lesson 2026-10-14 recorded, not on the site",
   "4 open failure(s): amal, refresh:2026-10-12, rehear-pages, tutor",
-  "100 blocked push(es) since the last publish",
+  "101 blocked push(es) since the last publish",
   "578 of the student's corrections since the last publish"
  ],
- "hours_since_publish": 123.4,
+ "hours_since_publish": 146.1,
  "stalled": true,
- "generated_at": "2026-10-14T21:37:44Z",
- "plain_reason": "its changes clashed with the live site"
+ "generated_at": "2026-10-15T20:21:00Z",
+ "plain_reason": "it had unsaved files"
 }
