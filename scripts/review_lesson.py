@@ -35,6 +35,11 @@ HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 WORK = os.path.join(REPO, "data", "lesson-work", "full-audit")
 LOG = os.path.join(WORK, "review_lesson.log")
 CLAUDE = os.environ.get("ANEES_CLAUDE", "claude")
+# PR-25 (Medi 2026-10-15 "build the Opus + Sonnet both-agree reader into the app"): reader r1 = Opus, r2 = Sonnet, same brief,
+# same pinned effort; full_audit_compare.settle keeps a slip only when both flagged it (scripts/reader_agree.py)
+sys.path.insert(0, HERE)
+import reader_agree as _RA  # noqa: E402
+READER_MODELS, READER_EFFORT = dict(_RA.MODELS), _RA.EFFORT
 NODE = r"C:\dev\tools\node-v24.18.0-win-x64\node.exe"
 try:                                    # run log (data/runs, scripts/track.py); never blocks a review
     sys.path.insert(0, HERE)
@@ -60,7 +65,7 @@ def py(*args, check=True):
 
 
 def claude(prompt, label, timeout=3600, step="claude", lesson_date=None, role=None, pass_=None, brief=None, prompt_sha=None,
-           inputs=(), outputs=()):
+           inputs=(), outputs=(), model=None, effort=None):
     """One headless reader. The prompt says which file to write; we only check that it appeared.
     `--output-format json` so tokens, cost and the model the CLI really used come back; the text logged below is the
     JSON's `result` (exactly what the old text output printed). One line per call goes to data/runs (scripts/track.py):
@@ -68,11 +73,16 @@ def claude(prompt, label, timeout=3600, step="claude", lesson_date=None, role=No
     (DEFAULT_CLAUDE_MODEL = claude-opus-5-5 since 2026-09-29; ANEES_CLAUDE_MODEL=<id> overrides, =cli-default unpins)."""
     log("claude start", label)
     cmd = [CLAUDE, "-p", prompt, "--output-format", "json", "--permission-mode", "bypassPermissions", "--add-dir", REPO]
+    if model:                                  # PR-25: the two slip readers are pinned to their own models + effort
+        cmd += ["--model", model]
+    if effort:
+        cmd += ["--effort", effort]
     ctx, run = None, _NoRun()
     try:
-        cmd += track.claude_model_args()
+        if not model:
+            cmd += track.claude_model_args()
         ctx = track.run(step, lesson_date, kind="inference", role=role, pass_=pass_, provider="anthropic",
-                        request_model=track.CLAUDE_MODEL, tool=track.tool_version(CLAUDE), prompt_file=brief,
+                        request_model=model or track.CLAUDE_MODEL, tool=track.tool_version(CLAUDE), prompt_file=brief,
                         prompt_sha=prompt_sha, inputs=inputs, outputs=outputs,
                         params={"prompt_arg_sha": track.sha256_text(prompt), "timeout_s": timeout,
                                 "permission_mode": "bypassPermissions", "output_format": "json"})
@@ -252,8 +262,10 @@ def cache_decision(out, inputs, prompt, legacy_ok):
     return st
 
 
-def pin(out, inputs, prompt, adopted=False):
+def pin(out, inputs, prompt, adopted=False, model=None):
     extra = {"prompt_sha": _prompt_sha(prompt)}
+    if model:                                  # PR-25: which model wrote the reader file (reader_agree.active reads it)
+        extra.update(model=model, effort=READER_EFFORT)
     if adopted:
         extra["adopted"] = "written before input manifests; its transcript was unchanged when pinned"
     _gates().write_manifest(out, inputs, repo=REPO, extra=extra)
@@ -419,7 +431,8 @@ def main():
         log("dry-run: reader files missing, stopping:", [j[1] for j in jobs]); return 2
     ts = [threading.Thread(target=claude, args=(prompt, f"{d} {r}"),
                            kwargs=dict(step="full_audit.reader", lesson_date=d, role=r, pass_=1,
-                                       brief=os.path.join(WORK, "READER-BRIEF.md"), inputs=[f(".txt")], outputs=[out]))
+                                       brief=os.path.join(WORK, "READER-BRIEF.md"), inputs=[f(".txt")], outputs=[out],
+                                       model=READER_MODELS[r], effort=READER_EFFORT))
           for r, out, prompt in jobs]
     [t.start() for t in ts]; [t.join() for t in ts]
     for r, out, prompt in jobs:
@@ -427,7 +440,7 @@ def main():
             log("a reader wrote nothing; stopping:", r); return 1
         if not valid_reader_file(out, d):
             os.replace(out, out[:-5] + ".invalid.json"); log("a reader wrote a broken file; stopping:", r); return 1
-        pin(out, reader_in, prompt)
+        pin(out, reader_in, prompt, model=READER_MODELS[r])
     # 2b LS-01 (Medi 2026-10-02 "This was clearly a grammar review for 'el' im shocked you didnt detect that"): the lesson's
     # TYPE and TAUGHT words are read from context the same day -> data/lesson-work/lesson-types/<date>.json, which
     # build_lessons_page_data.py reads (its hand dicts stay as overrides). No valid read = the run fails (no push) and the

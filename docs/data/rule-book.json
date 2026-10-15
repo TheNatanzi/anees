@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
- "updated": "2026-10-13",
- "total": 254,
+ "updated": "2026-10-15",
+ "total": 255,
  "replaced": 8,
  "counts": {
-  "Automatic": 171,
+  "Automatic": 172,
   "Written down": 71,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -4194,7 +4194,7 @@
    "key": "process",
    "title": "How Claude and Codex must work",
    "intro": "Rules for the AI helpers that build Anees.",
-   "count": 23,
+   "count": 24,
    "sections": [
     {
      "kind": "data",
@@ -4451,6 +4451,20 @@
          "who": "Medi",
          "date": "2026-10-10",
          "quote": "It takes a lot of time to review in its current state, its gonna take longer in this metod"
+        }
+       ]
+      },
+      {
+       "id": "PR-25",
+       "text": "Two different AI readers (Opus and Sonnet) read each new lesson, and a mistake is shown only when both of them found it; one-reader finds are kept aside on AI Reports, and the next fully reviewed lesson checks that this still beats Opus alone.",
+       "status": "enforced",
+       "topic": "testing engines",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-15",
+         "quote": "Yes: build the Opus + Sonnet both-agree reader into the app, confirm it on the next fully reviewed lesson, and push it through the publish guard."
         }
        ]
       },

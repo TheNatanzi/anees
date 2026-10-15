@@ -11247,6 +11247,60 @@
    }
   },
   {
+   "id": "PR-25",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The two slip readers of every new lesson are Opus 5.5 (r1) and Sonnet 5.5 (r2), same READER-BRIEF, effort pinned high (scripts/review_lesson.py; the model is written in each reader file's manifest). On a lesson read by that pair, full_audit_compare.settle keeps a slip (vocab or grammar, any A/B kind, never a tier-3 vocab row) only when BOTH readers flagged a slip of the same family within 15 s (scripts/reader_agree.py gate = the scorer's own match); every other slip row is held 'one reader only' (settled.json held_one_reader), listed on AI Reports > Grades, never a mistake chip and never sent to the tutor. Lessons read before the pair keep their chips. Evidence 2026-10-15 (one read each on 10-08/09/10, 102 key slips): F0.5 both-agree 69.6 (precision 68.5, recall 74.5) vs Opus alone 65.0, Sonnet 61.9, either 58.4, a cross-judging debate 65.0 (not built); won on every lesson (70.7 / 68.5 / 69.8). Adopted on dev; protocol section 6: the next fully reviewed lesson read by the pair is scored automatically (scripts/review_grades.py -> experiments: both-agree vs Opus alone on its frozen key); a loss is flagged on the Grades tab and told to Medi, never rolled back silently.",
+   "plain": "Two different AI readers (Opus and Sonnet) read each new lesson, and a mistake is shown only when both of them found it; one-reader finds are kept aside on AI Reports, and the next fully reviewed lesson checks that this still beats Opus alone.",
+   "plain_for": "f2912305",
+   "topic": "testing engines",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-15",
+     "quote": "Yes: build the Opus + Sonnet both-agree reader into the app, confirm it on the next fully reviewed lesson, and push it through the publish guard."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/reader_agree.py",
+     "contains": "def gate(rows, r1_rows, r2_rows, window=WINDOW_S):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/full_audit_compare.py",
+     "contains": "rows, held = RA.gate(rows, A[\"rows\"], B[\"rows\"])"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "model=READER_MODELS[r], effort=READER_EFFORT"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_grades.py",
+     "contains": "c = RA.confirm(r[\"date\"], work, snap[\"key\"])"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_reader_agree.py",
+     "contains": "def test_gate_keeps_a_slip_only_when_both_readers_flagged_its_family_within_15_s"
+    },
+    {
+     "path": "tests/test_reader_agree.py",
+     "contains": "def test_confirm_scores_both_agree_vs_opus_alone_and_flags_a_loss"
+    }
+   ],
+   "example": {
+    "date": "2026-10-10",
+    "note": "10-10 replay: both-agree F0.5 69.8 vs Opus alone 63.7 on its key (data/lesson-work/reader-tiers/runs/debate-results-2026-10-15.json)"
+   }
+  },
+  {
    "id": "GR-37",
    "kind": "process",
    "scope": "grammar-scoring",

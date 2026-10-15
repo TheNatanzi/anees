@@ -416,8 +416,17 @@ def build(repo=REPO, corrections=None, reviews=None, pick_dir=None, tutor_rows=N
     graded = [r for r in rows if r.get("status") == "graded"]
     trend = [{"date": r["date"], "tracked_pct": r["before"]["tracked_pct"], "per_100": r["before"]["per_100"]} for r in graded]
     # protocol section 6: the pipeline tests on the exam lessons (scripts/hearing_run.py report --write)
-    experiments = (J(os.path.join(REPO, "data", "lesson-work", "harness", "experiments.json"), {}) or {}).get("runs") or []
-    return {"experiments": experiments, "about": "Grade book (PG-46): the pipeline's first version of each lesson Medi reviewed in full, graded "
+    experiments = list((J(os.path.join(repo, "data", "lesson-work", "harness", "experiments.json"), {}) or {}).get("runs") or [])
+    # PR-25 confirmation (protocol section 6): every graded lesson read by the Opus + Sonnet pair scores both-agree vs Opus
+    # alone on its frozen key, automatically; a loss is flagged on the Grades tab, never rolled back silently
+    import reader_agree as RA
+    work = os.path.join(repo, "data", "lesson-work", "full-audit")
+    for r in graded:
+        snap = J(os.path.join(repo, "data", "lesson-work", "review-grades", r["date"] + ".json"))
+        c = RA.confirm(r["date"], work, snap["key"]) if snap else None
+        if c:
+            experiments.append(c)
+    return {"experiments": experiments, "reader_held": RA.held_rows(work)[:300], "about": "Grade book (PG-46): the pipeline's first version of each lesson Medi reviewed in full, graded "
                      "against his review (the answer key); Arabic words of his lines only. 'now' is shown as drift: today's "
                      "page vs the key, a regression check only, never an accuracy score. minutes_medi / coverage_medi: his "
                      "fast-review minutes and the share of his Arabic lines he answered in fast mode (null = no fast "

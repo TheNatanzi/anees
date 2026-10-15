@@ -41,6 +41,30 @@
     const m = side.mistakes || {};
     return `<td>${pct(side.tracked_pct)}</td>${ORDER.map(t => `<td>${num(m[t])}</td>`).join('')}<td>${num(side.per_100)}</td>`;
   }
+  // PR-25: a pipeline change that lost on the next exam is flagged here, never rolled back silently
+  function flags(d) {
+    const bad = (d.experiments || []).filter(x => x.flag);
+    return bad.map(x => `<div class="vp-notice rg-flag" role="alert">⚠ ${esc(x.flag)}</div>`).join('');
+  }
+  function experiments(d) {
+    const ex = d.experiments || [];
+    if (!ex.length) return '';
+    const row = x => x.both_agree
+      ? `<tr><td>${esc(x.date)}</td><td>${esc(x.kind)}</td><td>both readers agree: F0.5 ${esc(x.both_agree.f05)} vs Opus alone ${esc(x.opus_alone.f05)}</td><td>${x.won ? '✓ won' : '✗ lost'}</td></tr>`
+      : `<tr><td>${esc(x.date)}</td><td>hearing test ${esc((x.lessons || []).join(' + '))}</td><td>winner: ${esc((x.winner || ['none (today’s way stays)']).join(', '))}</td><td>${x.adopted ? 'adopted' : 'not adopted'}</td></tr>`;
+    return `<details class="rg-type rg-exp"><summary>Pipeline tests <span class="rg-n">${ex.length}</span></summary>
+      <table class="rg-tbl"><thead><tr><th>Date</th><th>Test</th><th>Result</th><th>Outcome</th></tr></thead><tbody>${ex.map(row).join('')}</tbody></table></details>`;
+  }
+  // PR-25: slips only one of the two readers flagged - held, never a mistake chip
+  function held(d) {
+    const h = d.reader_held || [];
+    if (!h.length) return '';
+    return `<details class="rg-type rg-held"><summary>Held: one reader only <span class="rg-n">${h.length}</span></summary>
+      <p class="ab-sub">Only one of the two slip readers flagged these, so they are not shown as mistakes.</p>
+      <table class="rg-tbl"><thead><tr><th>Lesson</th><th>Time</th><th>Kind</th><th>He said</th><th>Right form</th><th>Flagged by</th></tr></thead><tbody>${
+        h.map(x => `<tr><td>${esc(x.date)}</td><td>${esc(x.t)}</td><td>${esc(x.kind)}</td><td lang="ar" dir="auto">${esc(x.wrong)}</td><td lang="ar" dir="auto">${esc(x.right)}</td><td>${esc(x.flagged_by)}</td></tr>`).join('')
+      }</tbody></table></details>`;
+  }
   function render(host, d) {
     const rows = d.lessons || [];
     const graded = rows.filter(r => r.status === 'graded');
@@ -61,8 +85,8 @@
       return `<tr class="rg-row" data-date="${esc(r.date)}" data-side="before" tabindex="0"><td rowspan="2"><b>${esc(r.date)}</b>${timeCov(r)}</td><td>First version <span class="ab-tiny">${esc(r.before_commit)}</span></td><td>${num(r.before.words)}</td>${cells(r.before)}</tr>
         <tr class="rg-row" data-date="${esc(r.date)}" data-side="now" tabindex="0" title="${esc(DRIFT_TIP)}"><td>Drift <span class="ab-tiny">${esc(DRIFT_TIP)}</span></td><td>${num(r.now.words)}</td>${cells(r.now)}</tr>`;
     }).join('');
-    host.innerHTML = `${kpis ? `<div class="ar-kpis">${kpis}</div>` : ''}${trend}
-      <div class="ar-tbl"><table>${head}${body}</table></div>
+    host.innerHTML = `${kpis ? `<div class="ar-kpis">${kpis}</div>` : ''}${flags(d)}${trend}
+      <div class="ar-tbl"><table>${head}${body}</table></div>${experiments(d)}${held(d)}
       <div id="rg-detail" class="rg-detail"><p class="ab-sub">Click a row to see every mistake, with its time and word.</p></div>
       <p class="ar-foot">Only Arabic words of the student's own lines count: English, fillers, sounds and the pronouns ana / inta / heyye are out; Arabic he said in English letters counts; cut-off words and prepositions (graded as grammar) are out. The answer key is the lesson after his review. Only lessons he reviewed in full get a grade.</p>`;
     const open = tr => {
