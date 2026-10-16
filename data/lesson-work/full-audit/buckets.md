@@ -67,3 +67,4 @@
 - **F2** vowel length (Sound shape (pronunciation, not grammar)): Holding a vowel longer changes the word.
 - **F3** causative verbs: 3 forms (Sound shape (pronunciation, not grammar)): One root, two sides - doing it to someone vs it happening to you - made 3 ways: doubled middle, n-, or t-.
   - Replaces the old shadda card (Amal 2026-09-30). make-X / get-X slips are scored under B12; this card is still not scored on its own (family F).
+- **E6** ago = qabel + number + noun (Numbers and time): To say 'ago', put قبل in front of the number and time unit: قبل ثلاث سنين means three years ago. (added by the tutor 2026-10-13; no automatic detection yet - file her corrections and his uses here)

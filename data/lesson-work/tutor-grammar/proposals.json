@@ -110,6 +110,51 @@
      "her_examples": 4,
      "cost_usd": 0.029372
     }
+   },
+   {
+    "grammar": true,
+    "id": "A18",
+    "family": "A",
+    "name": "hidden gender nouns",
+    "one_line": "Some nouns have a gender that does not match how they sound: they sound masculine but are feminine, or sound feminine but are masculine. This is not only for nature words (sun, fire, earth, sky, air) but also for words like hand, leg, eye, ear, girl and man.",
+    "formula": "sound ≠ gender: shams / nar / ard / sama = feminine; hawa = masculine",
+    "examples": [
+     {
+      "arabizi": "",
+      "arabic": "طب امتى الشمس بتطلع؟",
+      "english": "So when does the sun rise?",
+      "hers": false
+     },
+     {
+      "arabizi": "",
+      "arabic": "النار حرقتني.",
+      "english": "The fire burned me.",
+      "hers": false
+     },
+     {
+      "arabizi": "",
+      "arabic": "النار بتحرق.",
+      "english": "Fire burns.",
+      "hers": false
+     },
+     {
+      "arabizi": "",
+      "arabic": "أنا الشمس بتضايقني.",
+      "english": "The sun bothers me.",
+      "hers": false
+     }
+    ],
+    "why": "The gender of these nouns does not match their sound, so a learner cannot guess it from the word's shape and has to learn each one.",
+    "overlaps": {
+     "id": "A8",
+     "name": "gender on adjectives",
+     "why": "A8 says a feminine noun takes a feminine adjective, but it assumes you already know which nouns are feminine; this rule covers nouns whose gender is hidden."
+    },
+    "v": 2,
+    "made_at": "2026-10-16T07:47:51+00:00",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.022238,
+    "asked": "It shouldn’t be restricted to nature nouns.\nIt could be about any noun that sounds feminine, but is masculine or vice versa\nLike hand, leg, eye, ear, girl, man, etc."
    }
   ],
   "heard-20261010-2900": [
@@ -161,6 +206,47 @@
      "her_examples": 3,
      "cost_usd": 0.028456
     }
+   },
+   {
+    "grammar": true,
+    "id": "A19",
+    "family": "A",
+    "name": "kamaan: also vs another",
+    "one_line": "Kamaan meaning 'also / too / as well' can go anywhere in the sentence, but kamaan meaning 'another / one more' goes before the noun.",
+    "formula": "also: kamaan anywhere | another: kamaan + noun",
+    "examples": [
+     {
+      "arabizi": "Heyye kamaan bet7eb el-baid / heyye bet7eb el-baid / kamaan heyye bet7eb el-baid",
+      "arabic": "",
+      "english": "She also likes eggs.",
+      "hers": false
+     },
+     {
+      "arabizi": "Kamaan ishi",
+      "arabic": "",
+      "english": "Another / one more thing.",
+      "hers": false
+     },
+     {
+      "arabizi": "",
+      "arabic": "هذي أكلة خطيبتي المفضلة كمان.",
+      "english": "This is my fiancée's favorite dish too.",
+      "hers": true
+     },
+     {
+      "arabizi": "",
+      "arabic": "هذي الأكلة المفضلة عند خطيبتي كمان.",
+      "english": "This dish is my fiancée's favorite too.",
+      "hers": false
+     }
+    ],
+    "why": "English uses two different words, 'also' and 'another', while Arabic uses kamaan for both, so only its place in the sentence shows which one is meant.",
+    "overlaps": null,
+    "v": 2,
+    "made_at": "2026-10-16T07:47:51+00:00",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.021576,
+    "asked": "For kamaan  to mean also, as well, or too,it doesn’t matter where it’s put in the sentence. \nIt matters however, if  we want it to mean, one more or another (meaning more of the same thing)\nTo mean kamaan  as another of the same thing we put it before the knoun\nKamaan ishi = another / one more thing \nHeyye kamaan bet7eb el-baid / heyye bet7eb el-baid / kamaan heyye bet7eb el-baid = she also likes eggs"
    }
   ],
   "drf1l2k5c": [
@@ -361,6 +447,56 @@
     "cost_usd": 0.015584,
     "asked": null
    }
+  ],
+  "heard-20261012-5102": [
+   {
+    "grammar": true,
+    "id": "E7",
+    "family": "E",
+    "name": "feminine number before miyye",
+    "one_line": "For hundreds, use the feminine form of the number (ثلاث مية) because مية is feminine, and the counted noun after it is singular.",
+    "formula": "feminine number + مية + singular noun",
+    "examples": [
+     {
+      "arabizi": "",
+      "arabic": "300 شخص",
+      "english": "300 people",
+      "hers": true,
+      "date": "2026-10-12",
+      "t": "51:14"
+     },
+     {
+      "arabizi": "",
+      "arabic": "we say 300 because مية is feminine so 300 شخص",
+      "english": "we say 300 because مية is feminine, so 300 شخص (300 people)",
+      "hers": true,
+      "date": "2026-10-12",
+      "t": "51:02"
+     }
+    ],
+    "why": "She explained that مية is feminine, so the number in front of it takes the feminine form, and that 300 is more than 10, so the noun after it is singular.",
+    "overlaps": {
+     "id": "E1",
+     "name": "number + noun",
+     "why": "E1 covers singular after 11+, but not the feminine number form in front of مية."
+    },
+    "checked": {
+     "new": true,
+     "covered_by": null,
+     "why": "E1 only says 11+ takes a singular noun; it does not teach using the feminine number form before مية.",
+     "her_examples": 2,
+     "cost_usd": 0.01762
+    },
+    "v": 1,
+    "made_at": "2026-10-16T07:48:14+00:00",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": null,
+    "asked": null,
+    "heard_run": "2026-10-12",
+    "readers": [
+     "b"
+    ]
+   }
   ]
  },
  "ids_given": [
@@ -370,7 +506,8 @@
   "A20",
   "A21",
   "A22",
-  "A23"
+  "A23",
+  "E7"
  ],
  "heard": {
   "heard-20261008-3614": {
@@ -402,6 +539,16 @@
    "before": "كمان أكلة",
    "hers": "يا ملوخية بتاكلها مع ليمون أو لا؟ ليمون وتومة وفلفل. bshakel 3aam el-akel el-mufaddal 3indi / akli el-mufaddal ma2loobe u shu esem el-akle el-5adra. Mm-hmm. mlu5iyye Nice. ممتاز. صحتين. You're making me hungry. أنا بحب الورق دوالي. Top. My top. الـ top عندي ورق دوالي بس. في أكلة تانية. شو يعني في أكلة تانية؟ لا، عادي. هي if you want to. Either هي or no عادي. No، 'cause it's أكلة. 'Cause you're gonna use أكلة. Mm. Mm. You're gonna-- You're trying to make it harder on yourself. [تضحك] Mm-hmm. Use كمان at the end. Don't worry about كمان. How about a cleaner version؟ هذي أكلة خطيبتي المفضلة. كمان. هذي أكلة خطيبتي المفضلة كمان. Mm. المفضلة. Mm-hmm. There's no verb. هذي أكلة خطيبتي المفضلة كمان. said. Yes said. ممتاز. ما عليك. Because before you said هذي، هذي الأكلة المفضلة.",
    "at": "2026-10-13T06:16:22+00:00"
+  },
+  "heard-20261012-5102": {
+   "date": "2026-10-12",
+   "t": "51:02",
+   "sec": 3062.19,
+   "quote": "we say 300 because مية is feminine so 300 شخص",
+   "line": "And اه we say 300 because مية is feminine so 300 شخص. [تضحك] صح",
+   "before": "آه، آه، شخص",
+   "hers": "eshra7ili iyyah kamaan marra it's A أعزمني. أعزمني E three أعزمني. صح، أعطيني جملة غيرها. إم. إم؟ شو يعني we worry؟ You are worried or you worry؟ لا بن-- لا. إم. أها. invite them to your gathering بس. [تضحك] عرس، عرس no. بس 300 is more than 10 so. إم it's more than 10 so أشخاص أو شخص. And اه we say 300 because مية is feminine so 300 شخص. [تضحك] صح 300 شخص. Yes. e3zemihom 3ala  3azoome شو يعني wedding؟ We should actually just add it. No wait. شو يعني wedding؟ So let's make the distinction. No [تضحك] no. عرس. Say it after me عرس is wedding. عرس، عرس. So say our wedding is when is your wedding؟ طيب in how many months whatever say our wedding is in something. إم. أها. عرس no. Yeah. [تضحك] عرس no. How do you say it؟ عرس no. We never say it this straightforward. مم.",
+   "at": "2026-10-16T07:48:14+00:00"
   }
  },
  "heard_runs": {
@@ -439,6 +586,39 @@
     "heard-20261010-2900"
    ],
    "dropped": []
+  },
+  "2026-10-12": {
+   "tries": 1,
+   "at": "2026-10-16T07:48:14+00:00",
+   "model": "claude-sonnet-5-5",
+   "cost_usd": 0.06668,
+   "done": true,
+   "found": 0,
+   "kept": [
+    "heard-20261012-5102"
+   ],
+   "dropped": [],
+   "check_cost_usd": 0.0176
   }
+ },
+ "two_reader": {
+  "limit": 10,
+  "lessons": {
+   "2026-10-12": {
+    "at": "2026-10-16T07:48:14+00:00",
+    "a": 0,
+    "b": 1,
+    "both": 0,
+    "only_a": 0,
+    "only_b": 1,
+    "b_failed": false,
+    "cost_b": 0.07316,
+    "cards_only_b": [
+     "heard-20261012-5102"
+    ],
+    "cards_a": []
+   }
+  },
+  "about": "Upgrade #3 on trial: a second independent read of each lesson for 10 lessons. Per lesson: what each read found (her quote placed on her line), what only the second read found, and which cards came from it; her answers on those cards are read from her rows by `python scripts/tutor_grammar.py trial`."
  }
 }
