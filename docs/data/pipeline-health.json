@@ -1,22 +1,17 @@
 {
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
- "last_publish_utc": "2026-10-09T18:16:25Z",
- "last_publish_sha": "d3762fa65599e32f57006e5a3a84535abf4ae3ee",
- "last_block_reason": "step_failures: rebuild all after the PR-26 catch-up merge (open since 2026-10-16T01:15, tutor); check_pages: exit 1: pages NOT OK: 2 dead audio clip problems. First: lessons/2026-10-12.html: plays clips from data/word-bank-audit.json (2 missing, e.g. lessons/2026-10-12/clips/context-ec03476aa70369c8.mp3) but does not load js/clip-fallback.js, so they are silent",
- "last_block_utc": "2026-10-16T08:22:17Z",
- "first_block_reason": "pull --rebase failed (a conflict with master; a person merges): conflict in a hand-made file (a person merges): data/lesson-work/review-grades/2026-10-12.first.json",
- "blocked_since_utc": "2026-10-15T04:09:32Z",
- "open_failures": [
-  "tutor: rebuild all after the PR-26 catch-up merge"
- ],
+ "last_publish_utc": "2026-10-16T08:25:10Z",
+ "last_publish_sha": "84cbe5c00c26ddde1d6593eaf076ad9784418459",
+ "last_block_reason": null,
+ "last_block_utc": null,
+ "first_block_reason": null,
+ "blocked_since_utc": null,
+ "open_failures": [],
  "pending": [
-  "lesson 2026-10-14 recorded, not on the site",
-  "1 open failure(s): tutor",
-  "99 blocked push(es) since the last publish",
-  "925 of the student's corrections since the last publish"
+  "lesson 2026-10-14 recorded, not on the site"
  ],
- "hours_since_publish": 158.1,
- "stalled": true,
- "generated_at": "2026-10-16T08:22:17Z",
- "plain_reason": "step_failures: rebuild all after the PR-26 catch-up merge (open since 2026-10-16T01:15,..."
+ "hours_since_publish": 0.0,
+ "stalled": false,
+ "generated_at": "2026-10-16T08:25:10Z",
+ "plain_reason": "waiting: lesson 2026-10-14 recorded, not on the site"
 }
