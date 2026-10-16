@@ -1,6 +1,211 @@
 {
  "rule": "AM-31",
  "about": "Every proposal version Claude made (paid output, never rebuilt) and every rule id ever handed out.",
- "subs": {},
- "ids_given": []
+ "subs": {
+  "drf1l2k5c": [
+   {
+    "grammar": true,
+    "id": "A18",
+    "family": "A",
+    "name": "awal / aa5er with el-",
+    "one_line": "Awal and aa5er + a noun without el- mean first / last, but with el- or a possessive ending they mean the beginning / end of, so for 'my first day' use illi or put the adjective after the noun.",
+    "formula": "awal / aa5er + noun = first / last; awal / aa5er + el- or ending + noun = beginning / end of",
+    "examples": [
+     {
+      "arabizi": "awal yoami",
+      "arabic": "",
+      "english": "the beginning of my day",
+      "hers": true
+     },
+     {
+      "arabizi": "yoami el-awal / awal yoam ili",
+      "arabic": "",
+      "english": "my first day",
+      "hers": true
+     },
+     {
+      "arabizi": "el-sayyara el-oola",
+      "arabic": "",
+      "english": "the first car",
+      "hers": true
+     },
+     {
+      "arabizi": "aa5er el-yoam",
+      "arabic": "",
+      "english": "the end of the day",
+      "hers": true
+     }
+    ],
+    "why": "English uses 'first' and 'last' the same way everywhere, but in Arabic el- or a possessive ending on the noun turns them into 'the beginning of' and 'the end of', because idafa overrules the other rules.",
+    "overlaps": {
+     "id": "A13",
+     "name": "awal / oola: before or after the noun",
+     "why": "A13 already covers awal + noun versus awal + el- + noun, and a learner could mix it up with this rule."
+    },
+    "v": 1,
+    "made_at": "2026-10-16T07:18:15+00:00",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.025964,
+    "asked": null
+   }
+  ],
+  "nlz18hhxs": [
+   {
+    "grammar": true,
+    "id": "A19",
+    "family": "A",
+    "name": "taani and 8eir",
+    "one_line": "taani before a noun means second; after the noun without el- it means another; 8eir before a noun means a different or other one, and 8eir + 3an means different from.",
+    "formula": "taani + noun = second | el- + noun + el-taani = the second / the other | noun + taani = another | 8eir + noun = different / other",
+    "examples": [
+     {
+      "arabizi": "taani 7ada",
+      "arabic": "",
+      "english": "second person / the second person",
+      "hers": true
+     },
+     {
+      "arabizi": "yoami el-tani",
+      "arabic": "",
+      "english": "my second day",
+      "hers": true
+     },
+     {
+      "arabizi": "8eir bluze",
+      "arabic": "",
+      "english": "another / different shirt",
+      "hers": true
+     },
+     {
+      "arabizi": "huwwe 8eir 3anni",
+      "arabic": "",
+      "english": "he is different than me",
+      "hers": true
+     }
+    ],
+    "why": "English uses different words for second, another and different, but Arabic uses the same words, so the meaning depends on word order and context.",
+    "overlaps": {
+     "id": "A14",
+     "name": "taani: before or after the noun",
+     "why": "A14 also covers taani before or after the noun, with and without el-."
+    },
+    "v": 1,
+    "made_at": "2026-10-16T07:18:15+00:00",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.026384,
+    "asked": null
+   }
+  ],
+  "1txa2kjvs": [
+   {
+    "grammar": true,
+    "id": "A20",
+    "family": "A",
+    "name": "a8lab and nafs + definite noun",
+    "one_line": "a8lab (most of) and nafs (the same) are followed by a definite noun, meaning el- + noun or a noun with a possessive ending.",
+    "formula": "a8lab / nafs + el- + noun (or noun + possessive ending)",
+    "examples": [
+     {
+      "arabizi": "nafs el-tari2",
+      "arabic": "",
+      "english": "the same road",
+      "hers": true
+     },
+     {
+      "arabizi": "nafs shanteti",
+      "arabic": "",
+      "english": "same as my bag",
+      "hers": true
+     },
+     {
+      "arabizi": "a8lab el-naas",
+      "arabic": "",
+      "english": "most people",
+      "hers": true
+     },
+     {
+      "arabizi": "a8lab akli",
+      "arabic": "",
+      "english": "most of my food",
+      "hers": true
+     }
+    ],
+    "why": "English says 'most people' and 'the same road' with no marker on the noun, but here the noun after a8lab or nafs must be definite, and a noun with a possessive ending already counts as definite.",
+    "overlaps": {
+     "id": "A17",
+     "name": "nafs + el-: the same",
+     "why": "A17 also covers nafs + el- + noun = the same, so a learner could mix up the two cards, while a8lab follows the same pattern with a different meaning."
+    },
+    "v": 1,
+    "made_at": "2026-10-16T07:18:15+00:00",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.024338,
+    "asked": null
+   }
+  ],
+  "c404ipjzg": [
+   {
+    "grammar": true,
+    "id": "A21",
+    "family": "A",
+    "name": "mufaddal + 3ind",
+    "one_line": "Mufaddal (favorite) is an adjective that follows its noun and matches it in gender and definiteness; a noun with a pronoun ending counts as definite, so it takes el-mufaddal, and 3ind + the person can support it when it stands alone or after the noun.",
+    "formula": "noun-ending + el-mufaddal/e/a/een; el-mufaddal + 3ind + person",
+    "examples": [
+     {
+      "arabizi": "akli el-mufaddal",
+      "arabic": "",
+      "english": "my favorite food",
+      "hers": true
+     },
+     {
+      "arabizi": "awaa3iha el-mufaddaleen",
+      "arabic": "",
+      "english": "her favorite clothes",
+      "hers": true
+     },
+     {
+      "arabizi": "had/i el-mufaddal 3indi",
+      "arabic": "",
+      "english": "this is my favorite",
+      "hers": true
+     },
+     {
+      "arabizi": "hadi el-buza el-mufaddala 3indo",
+      "arabic": "",
+      "english": "this is his favorite ice cream",
+      "hers": true
+     }
+    ],
+    "why": "English puts 'favorite' before the noun and never changes it, but in Arabic mufaddal comes after the noun and has to agree with it, and 3ind makes it a matter of preference.",
+    "overlaps": {
+     "id": "A7",
+     "name": "noun + adjective",
+     "why": "Mufaddal is an adjective that goes after its noun, and el- placement and gender follow the same noun + adjective pattern."
+    },
+    "v": 1,
+    "made_at": "2026-10-16T07:18:15+00:00",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.026916,
+    "asked": null
+   }
+  ],
+  "92zgc00ct": [
+   {
+    "grammar": false,
+    "why": "This is an instruction to update an existing collocations rule with a list from another document, not a new grammar rule, and it has no rule content or examples to turn into a card.",
+    "v": 1,
+    "made_at": "2026-10-16T07:18:15+00:00",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.015584,
+    "asked": null
+   }
+  ]
+ },
+ "ids_given": [
+  "A18",
+  "A19",
+  "A20",
+  "A21"
+ ]
 }
