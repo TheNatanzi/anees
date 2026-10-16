@@ -52,6 +52,34 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-6350dadb",
+    "date": "2026-08-25",
+    "t": "06:09",
+    "t_amal": null,
+    "medi_said": "أنا صحيت على ثمانية.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "على ثمانية",
+    "right": "عالثمانية / على الساعة ثمانية (my reading)",
+    "confidence": "high",
+    "confidence_why": "Answer to 'what time did you wake up'; clock time needs el- (E2). Unvoiced, low confidence because the engine can drop the assimilated el-.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-6350dadb",
+    "sweep_id": null,
+    "mistake": "Clock time takes el- (3al-tmaanye); she let it pass and asked what he drank. Low because the engine may have swallowed an assimilated el-.",
+    "bucket": "E2",
+    "bucket2": "A1",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:54:02.267173+00:00",
+     "pattern": "p-clock-time-3ala-number",
+     "rule_id": 1934
+    }
+   },
+   {
     "id": "FA-50bfe675",
     "date": "2026-08-25",
     "t": "09:12",
@@ -98,6 +126,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-72ad65fd",
+    "date": "2026-08-25",
+    "t": "14:08",
+    "t_amal": null,
+    "medi_said": "يفهم عربي، بس ما، آآآم، م-م-ما، ما يقدر أكتب عربي.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "ما يقدر أكتب",
+    "right": "ما بيقدر يكتب (best reading)",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-72ad65fd",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Main-clause present after ما needs b- (ما بيقدر) and the dependent verb must stay 3ms (يكتب); he used 1sg أكتب; she let it pass.",
+    "bucket": "B1",
+    "bucket2": "B18",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:58:24.974896+00:00",
+     "pattern": "p-ma-plus-bare-present",
+     "rule_id": 1942
+    }
+   },
+   {
     "id": "FA-596bc166",
     "date": "2026-08-25",
     "t": "14:44",
@@ -142,6 +199,62 @@
     "bucket": "A7",
     "bucket2": "A1",
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-1769bd6b",
+    "date": "2026-08-25",
+    "t": "15:54",
+    "t_amal": null,
+    "medi_said": "إنه احنا، نكتب في، Arabic or English letters.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "إنه احنا، نكتب",
+    "right": "إنه احنا بنكتب (my reading)",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-1769bd6b",
+    "sweep_id": null,
+    "mistake": "enno keeps the b-: إنه احنا بنكتب; passed.",
+    "bucket": "B3",
+    "bucket2": "B1",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:06:12.3932+00:00",
+     "pattern": "p-b-dropped-after-enno",
+     "rule_id": 1957
+    }
+   },
+   {
+    "id": "FA-779a0b9a",
+    "date": "2026-08-25",
+    "t": "19:32",
+    "t_amal": null,
+    "medi_said": "هو، هما ما، ما، ما يخلصوا.",
+    "amal_said": "يخلصوا.",
+    "chat": null,
+    "wrong": "ما يخلصوا",
+    "right": "ما بيخلصوا (my reading; he says it himself at 22:48)",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-779a0b9a",
+    "sweep_id": null,
+    "mistake": "Plain present habit needs b-; she echoed يخلصوا without fixing.",
+    "bucket": "B1",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:58:24.974896+00:00",
+     "pattern": "p-ma-plus-bare-present",
+     "rule_id": 1942
+    }
    },
    {
     "id": "FA-62b1d2ce",
@@ -494,6 +607,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-8096ecda",
+    "date": "2026-08-25",
+    "t": "45:59",
+    "t_amal": null,
+    "medi_said": "على كلٍ شو، اه، شو، اه، بعصب، بعصب. I'm asking you.",
+    "amal_said": "(47:04) اه، من شو بتعصب؟",
+    "chat": null,
+    "wrong": "شو بعصب",
+    "right": "من شو بتعصبي؟",
+    "confidence": "high",
+    "confidence_why": "Her 47:04 line is not a fix (it re-asks him after a 40-s detour), so this is grammar-B not grammar; the person slip and missing من are visible but noisy - low.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-8096ecda",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Turning her question on her ('I'm asking you': what makes YOU angry) he used 1sg بعصب with no من; her 47:04 من شو بتعصب؟ is her own question to him restated (answering his 'do you mean generally?'), not a recast of his line - so B, no signal; low because he was fumbling and بعصب could be a swallowed بتعصب. Best reading.",
+    "bucket": "B18",
+    "bucket2": "D2",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:04:40.069761+00:00",
+     "pattern": "p-1sg-for-you-f-question",
+     "rule_id": 1954
+    }
+   },
+   {
     "id": "FA-e9a46e90",
     "date": "2026-08-25",
     "t": "48:51",
@@ -678,6 +820,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-a4ad5c2c",
+    "date": "2026-09-04",
+    "t": "00:29",
+    "t_amal": "00:33",
+    "medi_said": "Nerd بعرف، انتَ بتعرف-",
+    "amal_said": "بعرف nerd آه. إنتا nerd.",
+    "chat": null,
+    "wrong": "انتَ بتعرف",
+    "right": "إنتي بتعرفي",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-a4ad5c2c",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "He addresses Amal (f) with the masculine you-form; she let it pass (he was cut off, may have been heading to بتعرفي).",
+    "bucket": "B18",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:58:36.071118+00:00",
+     "pattern": "p-masc-you-to-amal",
+     "rule_id": 1943
+    }
+   },
+   {
     "id": "FA-c1f626ae",
     "date": "2026-09-04",
     "t": "02:15",
@@ -722,6 +893,64 @@
     "bucket": "B18",
     "bucket2": "B2",
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-2ac2dc3d",
+    "date": "2026-09-04",
+    "t": "02:46",
+    "t_amal": null,
+    "medi_said": "أتعلم لغة جديد",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "جديد",
+    "right": "جديدة",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-2ac2dc3d",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "لغة is feminine so the adjective needs -a; she moved on without fixing (my reading).",
+    "bucket": "A8",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:49:46.605423+00:00",
+     "pattern": "p-fem-noun-masc-adj",
+     "rule_id": 1929
+    }
+   },
+   {
+    "id": "FA-b1718391",
+    "date": "2026-09-04",
+    "t": "03:01",
+    "t_amal": null,
+    "medi_said": "مع عربي فلسطيني. آم",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "عربي فلسطيني",
+    "right": "العربي الفلسطيني",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-b1718391",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "A known, specific thing (Palestinian Arabic) with no el- on noun or adjective; she let it pass.",
+    "bucket": "A1",
+    "bucket2": "A7",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:54:18.009168+00:00",
+     "pattern": "p-el-missing-known-thing",
+     "rule_id": 1935
+    }
    },
    {
     "id": "FA-d8f87691",
@@ -793,6 +1022,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-3057a46f",
+    "date": "2026-09-04",
+    "t": "04:28",
+    "t_amal": null,
+    "medi_said": "متحمس من possibility.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "من",
+    "right": "لـ",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-3057a46f",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Sheet row 'excited | mit7ammes | متحمس لَ' fixes the preposition as لـ, not من; she let it pass.",
+    "bucket": "D2",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:13:18.327813+00:00",
+     "pattern": "p-mit7ammes-min",
+     "rule_id": 1972
+    }
+   },
+   {
     "id": "FA-6e75ab24",
     "date": "2026-09-04",
     "t": "07:12",
@@ -862,6 +1120,34 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-78363d8b",
+    "date": "2026-09-04",
+    "t": "10:50",
+    "t_amal": null,
+    "medi_said": "... ووا ال أول مشكلة. I mean, that's",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "ال أول مشكلة",
+    "right": "أول مشكلة",
+    "confidence": "high",
+    "confidence_why": "Only r1 found it; the transcript line shows the el- before أول and no signal from Amal; kept as a let-pass B row with low confidence.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-78363d8b",
+    "sweep_id": null,
+    "mistake": "أول + noun is an idafa and the first word takes no el-; he said ال أول مشكلة and Amal let it pass (she went on to the test idea at 10:57). Low because the 'ووا ال' may be a restart (engine) rather than an el-. My reading, unscored B row.",
+    "bucket": "A2",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:52:16.746133+00:00",
+     "pattern": "p-el-on-first-idafa-word",
+     "rule_id": 1932
+    }
+   },
+   {
     "id": "FA-4e3442ce",
     "date": "2026-09-04",
     "t": "12:54",
@@ -906,6 +1192,35 @@
     "bucket": "A1",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-58b3903d",
+    "date": "2026-09-04",
+    "t": "20:51",
+    "t_amal": null,
+    "medi_said": "muhadatha ma qalil kalima",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "qalil kalima",
+    "right": "kalimaat qalile (adjective after noun, my reading)",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-58b3903d",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Adjective placed before the noun; she moved on (Latin stretch, low). 'ma' for ma3 is S4.",
+    "bucket": "A7",
+    "bucket2": "A9",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:05:49.132351+00:00",
+     "pattern": "p-adjective-before-noun",
+     "rule_id": 1956
+    }
    },
    {
     "id": "FA-01380761",
@@ -2235,6 +2550,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-4f2b2108",
+    "date": "2026-09-05",
+    "t": "41:47",
+    "t_amal": null,
+    "medi_said": "انزعجتم. انزعج، انزعجنا.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "انزعجتم",
+    "right": "انزعجتو",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-4f2b2108",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Levantine you(pl) past ending is -tu (انزعجتو), not the MSA -tum he used; she let it pass while he ran the conjugation.",
+    "bucket": "B5",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:59:02.579204+00:00",
+     "pattern": "p-msa-tum-ending",
+     "rule_id": 1944
+    }
+   },
+   {
     "id": "FA-98cb2fa8",
     "date": "2026-09-05",
     "t": "44:47",
@@ -2256,6 +2600,35 @@
     "bucket": "B1",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-407ececa",
+    "date": "2026-09-05",
+    "t": "46:16",
+    "t_amal": null,
+    "medi_said": "Oh, oh, oh, okay. تستعمل الـ-- يتستعمل الـ telephone.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "تستعمل الـ telephone",
+    "right": "بتستعملي التلفون",
+    "confidence": "high",
+    "confidence_why": "Plausible let-pass b-drop in a form the transcript actually shows; kept low for Amal's review page rather than dropped.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-407ececa",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Restating her 'عم بستعمل الـ telephone' back to her as 'you use the phone' he dropped the b- and the feminine -i (تستعمل); she just went on ('آه، لأنه الـ computer خربان'). Low: casual echo and 'يتستعمل' shows the transcriber struggled with the line. 'telephone' is her own word here and is not on the sheet, so no tier-3 vocab.",
+    "bucket": "B1",
+    "bucket2": "B18",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:49:30.576666+00:00",
+     "pattern": "p-present-no-b",
+     "rule_id": 1928
+    }
    },
    {
     "id": "FA-f01c5c97",
@@ -2536,6 +2909,63 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-b0806e43",
+    "date": "2026-09-10",
+    "t": "07:32",
+    "t_amal": null,
+    "medi_said": "جو كتير كتير. و،",
+    "amal_said": "عن جد؟",
+    "chat": null,
+    "wrong": "جو",
+    "right": "الجو (شوب)",
+    "confidence": "high",
+    "confidence_why": "Both readers saw the same moment; the transcript proves only the missing el- (جو without ال), so the final row is r2's A1 grammar-B, not r1's vocab-B 'missing شوب', which cannot be verified (possible ASR drop, no signal from her).",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-b0806e43",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Answering her كيف الجو عندكم اليوم he said جو كتير كتير: 'the weather' is a known thing and takes el- (her prompt and the sheet row 'it's hot | El-jaw shoab | الجو شوب' both have الجو). The adjective شوب is absent in the transcript but she answered عن جد؟ as if she heard a complete statement, so the missing word is likely an ASR drop and is not scored - only the el- is. B reading.",
+    "bucket": "A1",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:54:18.009168+00:00",
+     "pattern": "p-el-missing-known-thing",
+     "rule_id": 1935
+    }
+   },
+   {
+    "id": "FA-7d36c59d",
+    "date": "2026-09-10",
+    "t": "08:04",
+    "t_amal": null,
+    "medi_said": "شفت فيديو لـ YouTube",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "لـ YouTube",
+    "right": "على YouTube",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-7d36c59d",
+    "sweep_id": null,
+    "mistake": "Levantine says a video على YouTube, not لـ; Amal let it pass (best reading).",
+    "bucket": "D1",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:11:29.068512+00:00",
+     "pattern": "p-la-for-3ala-on",
+     "rule_id": 1967
+    }
+   },
+   {
     "id": "FA-31216f62",
     "date": "2026-09-10",
     "t": "09:00",
@@ -2558,6 +2988,34 @@
     "bucket": "A6",
     "bucket2": "A2",
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-b2f03935",
+    "date": "2026-09-10",
+    "t": "10:15",
+    "t_amal": null,
+    "medi_said": "ما، ما يكون، uh, كهربج-- لا، أه، كهربجي، هو مهندس",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "ما يكون",
+    "right": "مش",
+    "confidence": "high",
+    "confidence_why": "Both readers saw the slip; the sentence contrasts with present هو مهندس, so present negation of a noun (C4, مش) fits better than past ما كان (B6).",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-b2f03935",
+    "sweep_id": null,
+    "mistake": "He meant 'he is not an electrician, he is an engineer': a noun is negated with mish and no 'to be' verb (مش كهربجي); he built ما يكون. Best reading of a halting turn; Amal let it pass.",
+    "bucket": "C4",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:55:38.200534+00:00",
+     "pattern": "p-ykoon-in-plain-present",
+     "rule_id": 1938
+    }
    },
    {
     "id": "FA-a7052438",
@@ -2650,6 +3108,35 @@
     "bucket": "D1",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-5ded86b4",
+    "date": "2026-09-10",
+    "t": "12:53",
+    "t_amal": null,
+    "medi_said": "عشان يكون air conditioning.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "عشان يكون",
+    "right": "عشان في / عشان عندي",
+    "confidence": "high",
+    "confidence_why": "Real let-pass: عشان يكون AC is not how a native states that the AC is there; kept as grammar-B, low because his intent (cause vs purpose) is not spelled out.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-5ded86b4",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Explaining why he stayed home today (اليوم ضليت بي بيتي): 'because there is AC' - existence in the plain present is في / عندي, not يكون (B8: ykoon only after lamma/iza or for habits; C1: no 'to be' in the present). She moved on to شو بتتذكر at 13:04 without a fix. 'air conditioning' is not on her sheet, so the English word itself is not an error. B reading.",
+    "bucket": "B8",
+    "bucket2": "C1",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:55:38.200534+00:00",
+     "pattern": "p-ykoon-in-plain-present",
+     "rule_id": 1938
+    }
    },
    {
     "id": "FA-3bd54075",
@@ -2813,6 +3300,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-50d1116e",
+    "date": "2026-09-10",
+    "t": "20:44",
+    "t_amal": null,
+    "medi_said": "أيام. I even wrote أيام. هدول أيام.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "هدول أيام",
+    "right": "هدول الأيام",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-50d1116e",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "The noun after هدول keeps its el-; he dropped it in the fixed version and she moved on (طيب).",
+    "bucket": "A10b",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:09:30.923392+00:00",
+     "pattern": "p-hadol-drops-el",
+     "rule_id": 1964
+    }
+   },
+   {
     "id": "FA-93db2190",
     "date": "2026-09-10",
     "t": "21:01",
@@ -2834,6 +3350,34 @@
     "bucket": "C7",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-a4b3650b",
+    "date": "2026-09-10",
+    "t": "21:08",
+    "t_amal": null,
+    "medi_said": "از- ازعجتو.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "ازعجتو",
+    "right": "ازعجتوه",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-a4b3650b",
+    "sweep_id": null,
+    "mistake": "'You didn't annoy HIM' needs the object ending -ه on the verb; Amal let it pass (best reading).",
+    "bucket": "D4",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:59:17.743249+00:00",
+     "pattern": "p-object-ending-dropped",
+     "rule_id": 1945
+    }
    },
    {
     "id": "FA-a378b8b3",
@@ -2929,6 +3473,62 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-771fa3a1",
+    "date": "2026-09-10",
+    "t": "27:26",
+    "t_amal": null,
+    "medi_said": "الـ أول الـ فعل، الـ أول الكلمة.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "الـ أول الـ فعل",
+    "right": "أول الفعل",
+    "confidence": "high",
+    "confidence_why": "Repeated el- before awal in both phrases suggests a real A13 slip, but filler الـ is possible - kept low.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-771fa3a1",
+    "sweep_id": null,
+    "mistake": "'The beginning of the word' is awal el-kelme - no el- before awal (A13); he put el- on awal both times. Low: he often uses a bare الـ as a filler, so the first الـ may be a pause (S5). Amal only said Mm.",
+    "bucket": "A13",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:52:16.746133+00:00",
+     "pattern": "p-el-on-first-idafa-word",
+     "rule_id": 1932
+    }
+   },
+   {
+    "id": "FA-5337bfdb",
+    "date": "2026-09-10",
+    "t": "32:14",
+    "t_amal": "32:18",
+    "medi_said": "هم يكسروا.",
+    "amal_said": "Nice.",
+    "chat": null,
+    "wrong": "يكسروا",
+    "right": "بيكسروا",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-5337bfdb",
+    "sweep_id": null,
+    "mistake": "A plain present verb takes b- (بيكسروا), as in all his other forms; Amal said Nice and let it pass.",
+    "bucket": "B1",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:49:30.576666+00:00",
+     "pattern": "p-present-no-b",
+     "rule_id": 1928
+    }
+   },
+   {
     "id": "FA-2264b93a",
     "date": "2026-09-10",
     "t": "32:58",
@@ -2950,6 +3550,35 @@
     "bucket": "B18",
     "bucket2": "B1",
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-cb7be627",
+    "date": "2026-09-10",
+    "t": "37:31",
+    "t_amal": null,
+    "medi_said": "إنتي انكسرتي. انكسرتم. انكسرنا.",
+    "amal_said": "طيب.",
+    "chat": null,
+    "wrong": "انكسرتم",
+    "right": "انكسرتوا",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-cb7be627",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "MSA 2pl past ending -تم instead of Levantine -توا; she let it pass in the conjugation run.",
+    "bucket": "B5",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:59:02.579204+00:00",
+     "pattern": "p-msa-tum-ending",
+     "rule_id": 1944
+    }
    },
    {
     "id": "FA-90e20c58",
@@ -3092,6 +3721,34 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-1e2ca596",
+    "date": "2026-09-10",
+    "t": "45:24",
+    "t_amal": null,
+    "medi_said": "Uh, he, هو uh, بينكسري.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "بينكسري",
+    "right": "بينكسر",
+    "confidence": "high",
+    "confidence_why": "Real agreement slip in a conjugation drill that Amal let pass (her next word إنتو just moves the drill on).",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-1e2ca596",
+    "sweep_id": null,
+    "mistake": "For هو the verb is بينكسر without the feminine -i; Amal moved on to إنتو without fixing it. Low: could be the engine carrying the -i from the previous إنتي بتنكسري line.",
+    "bucket": "B18",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:13:29.602369+00:00",
+     "pattern": "p-mixed-masc-fem-verb-form",
+     "rule_id": 1973
+    }
+   },
+   {
     "id": "FA-09eba1a4",
     "date": "2026-09-10",
     "t": "45:34",
@@ -3113,6 +3770,35 @@
     "bucket": "B18",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-6ee6290b",
+    "date": "2026-09-10",
+    "t": "46:02",
+    "t_amal": null,
+    "medi_said": "بن-بنكسر.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "بنكسر",
+    "right": "بننكسر",
+    "confidence": "high",
+    "confidence_why": "Kept as a low-confidence let-pass: the transcript shows بنكسر after a hesitation, but a merged double ن in ASR is plausible, so the merger should weigh it lightly.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-6ee6290b",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "إحنا of the un-verb انكسر is بننكسر (b-n-nkasir); he gave بنكسر, which is the إحنا form of plain كسر ('we break'), and she went straight into usage talk (46:08). Low: ASR may have collapsed the double ن, and her 45:57 line (transcribed بتنكسر) may itself have been her feeding him بننكسر.",
+    "bucket": "B18",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:15:25.269549+00:00",
+     "pattern": "p-we-form-of-inkasar",
+     "rule_id": 1978
+    }
    },
    {
     "id": "FA-0c94cf34",
@@ -3302,6 +3988,63 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-f5de9971",
+    "date": "2026-09-11",
+    "t": "06:02",
+    "t_amal": null,
+    "medi_said": "Okay. الشمال روس بيكون",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "الشمال روس",
+    "right": "شمال روسيا",
+    "confidence": "high",
+    "confidence_why": "r3",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-f5de9971",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Twenty seconds after her second fix (05:37 بس شمال روسيا, which he repeated right at 05:41) he opened his own sentence with el- on the first word of the idafa again, and clipped روسيا to روس; she let this third instance pass.",
+    "bucket": "A2",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:52:16.746133+00:00",
+     "pattern": "p-el-on-first-idafa-word",
+     "rule_id": 1932
+    }
+   },
+   {
+    "id": "FA-c6dd2687",
+    "date": "2026-09-11",
+    "t": "06:09",
+    "t_amal": null,
+    "medi_said": "الشمال روس بيكون آآآ برد كتير ويكون بيمطر أو بتثلج.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "ويكون بيمطر",
+    "right": "وبيكون بيمطر / وبتمطر (my reading)",
+    "confidence": "high",
+    "confidence_why": "A b- drop with no trigger, let pass; low confidence.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-c6dd2687",
+    "sweep_id": null,
+    "mistake": "Plain habitual present after و with nothing that drops b- (no modal, no ra7/lamma), so ويكون should be وبيكون, as in his بيكون just before; Amal only echoed مطر، ثلج; low because the engine can hear وبيكون as ويكون.",
+    "bucket": "B1",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:49:30.576666+00:00",
+     "pattern": "p-present-no-b",
+     "rule_id": 1928
+    }
+   },
+   {
     "id": "FA-c69abe5b",
     "date": "2026-09-11",
     "t": "09:29",
@@ -3325,6 +4068,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-33c1e051",
+    "date": "2026-09-11",
+    "t": "10:05",
+    "t_amal": null,
+    "medi_said": "الـ المدينة حوالين or الـ المدينة سان فرانسيسكو Oakland",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "الـ المدينة حوالين",
+    "right": "المدن حوالين (my reading)",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-33c1e051",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Singular مدينة for 'the cities around' (he names two cities); she only fixed the adjective's plural, not the noun.",
+    "bucket": "A9",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:55:18.876245+00:00",
+     "pattern": "p-singular-for-plural",
+     "rule_id": 1937
+    }
+   },
+   {
     "id": "FA-d4d36f22",
     "date": "2026-09-11",
     "t": "10:18",
@@ -3346,6 +4118,35 @@
     "bucket": "A9",
     "bucket2": "A9b",
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-c7d9a3fb",
+    "date": "2026-09-11",
+    "t": "12:37",
+    "t_amal": null,
+    "medi_said": "بعدين، آآآ، مزيد. آآآ، بـ A.",
+    "amal_said": "مم. ... بـ a. To the end. To the beginning",
+    "chat": null,
+    "wrong": "مزيد",
+    "right": "بنزيد",
+    "confidence": "high",
+    "confidence_why": "Both readers saw the same slip; the fix is purely the present prefix (b-/bn-), which the reader brief files as grammar (B1), not vocab tier 2. Kept low because the transcribed form could be an engine rendering of منزيد.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-c7d9a3fb",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "'Then we add b-a' came out as مزيد with no present prefix although she had modelled بزيد (11:28) and نزيد (12:02); she said مم and went on. Low: the engine may have swallowed the ن of منزيد (a correct Levantine we-form), so Amal should confirm.",
+    "bucket": "B1",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:49:30.576666+00:00",
+     "pattern": "p-present-no-b",
+     "rule_id": 1928
+    }
    },
    {
     "id": "FA-39494241",
@@ -3721,6 +4522,64 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-d90af8d9",
+    "date": "2026-09-11",
+    "t": "38:53",
+    "t_amal": null,
+    "medi_said": "غرفةك.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "غرفةك",
+    "right": "غرفتك",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-d90af8d9",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Feminine غرفة grows -t- before the possessive ending (غرفتك); the transcript shows غرفةك and she answered mm-hmm. Best reading.",
+    "bucket": "A3",
+    "bucket2": "A4",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:09:04.801884+00:00",
+     "pattern": "p-fem-t-before-ending",
+     "rule_id": 1962
+    }
+   },
+   {
+    "id": "FA-989a3618",
+    "date": "2026-09-11",
+    "t": "39:35",
+    "t_amal": null,
+    "medi_said": "أنا... أنا خربت الغرف بغلط. بالغلط.",
+    "amal_said": "بالغلط.",
+    "chat": null,
+    "wrong": "الغرف",
+    "right": "الغرفة",
+    "confidence": "high",
+    "confidence_why": "As transcribed the noun is plural where the room is meant and she let it pass; kept low because the engine may have dropped the ة.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-989a3618",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "He was answering her 'she messed up your room' prompt with his own turn and said the plural الغرف for 'the room' (sheet: 'room | 8urfa | غرفة'); she fixed only بغلط to بالغلط. Low: a swallowed final ة would give the same transcript, so Amal should confirm.",
+    "bucket": "A9",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:14:54.276608+00:00",
+     "pattern": "p-plural-for-singular",
+     "rule_id": 1976
+    }
+   },
+   {
     "id": "FA-3e165407",
     "date": "2026-09-11",
     "t": "39:42",
@@ -3903,6 +4762,35 @@
     "bucket": "B10",
     "bucket2": "B12",
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-3ee994c9",
+    "date": "2026-09-11",
+    "t": "46:02",
+    "t_amal": null,
+    "medi_said": "Uh, shu, shu ahki? Shu tehki? Shu haket li? ... haket li. Shu haket li?",
+    "amal_said": "حكيت صح. ... حكيت لك صح.",
+    "chat": null,
+    "wrong": "haket li",
+    "right": "حكيتيلي (inti 7akaiti li) - my reading",
+    "confidence": "high",
+    "confidence_why": "r3",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-3ee994c9",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Asking Amal (f) 'what did you say to me' needs the you-f past ending -ti: sheet 'you (f) talked | inti 7akaiti | إنتي حكيتي'; he said haket (the I / you-m form) three times in a row, and she answered the content ('I said صح') without fixing the form.",
+    "bucket": "B5",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:58:36.071118+00:00",
+     "pattern": "p-masc-you-to-amal",
+     "rule_id": 1943
+    }
    },
    {
     "id": "FA-fcbb5a3f",
@@ -4227,6 +5115,34 @@
     "bucket": "A9",
     "bucket2": "A9b",
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-a3e71918",
+    "date": "2026-09-14",
+    "t": "09:56",
+    "t_amal": null,
+    "medi_said": "Uh, more than, uh, the... أنا نسيت، uh, واحد الواجبات.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "واحد الواجبات",
+    "right": "واحد من الواجبات",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-a3e71918",
+    "sweep_id": null,
+    "mistake": "'one of the homeworks' needs min (waa7ad min el-waajebaat); he glued واحد straight to الواجبات; Amal only answered 'أربعة' about the count - my reading.",
+    "bucket": "D1",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:15:11.013595+00:00",
+     "pattern": "p-wahed-min",
+     "rule_id": 1977
+    }
    },
    {
     "id": "FA-5d3e9fc9",
@@ -4967,6 +5883,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-c6f264e1",
+    "date": "2026-09-14",
+    "t": "57:06",
+    "t_amal": null,
+    "medi_said": "هو بسطتك.",
+    "amal_said": null,
+    "chat": "heyye bas6atek",
+    "wrong": "هو",
+    "right": "هي",
+    "confidence": "high",
+    "confidence_why": "Only r2 wrote it. The transcript literally shows هو with the she-verb and no signal, so it is a B row for Amal's review; kept low because the two preceding هي make an engine slip plausible.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-c6f264e1",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "'Did she make you happy': repeating her fix بسطتك he said هو with the feminine verb; she let it pass and her chat has heyye bas6atek. Low: he had said هي correctly at 56:25 and 56:57, so this lone هو may be the engine, not him - for Amal to confirm.",
+    "bucket": "B18",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:09:55.359364+00:00",
+     "pattern": "p-huwwe-for-heyye",
+     "rule_id": 1965
+    }
+   },
+   {
     "id": "FA-8be3c8db",
     "date": "2026-09-14",
     "t": "58:11",
@@ -5014,6 +5959,64 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-9848001e",
+    "date": "2026-09-14",
+    "t": "1:02:38",
+    "t_amal": null,
+    "medi_said": "بشوف، بشوف. Thanks. Bye.",
+    "amal_said": "أهلًا وسهلًا. بشوفك.",
+    "chat": null,
+    "wrong": "بشوف",
+    "right": "بشوفك",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-9848001e",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Echoing her بشوفك he dropped the -ك (see you); not corrected.",
+    "bucket": "D4",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:59:17.743249+00:00",
+     "pattern": "p-object-ending-dropped",
+     "rule_id": 1945
+    }
+   },
+   {
+    "id": "FA-219c3e8b",
+    "date": "2026-09-15",
+    "t": "03:12",
+    "t_amal": "03:15",
+    "medi_said": "على تـ- تسعة ونص.",
+    "amal_said": "من وين؟ Not إمتى.",
+    "chat": null,
+    "wrong": "على تسعة ونص",
+    "right": "الساعة تسعة ونص",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-219c3e8b",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Clock time given as على تسعة ونص; E2 wants el-saa3a + number. She only corrected the where/when misunderstanding, the time form passed.",
+    "bucket": "E2",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:54:02.267173+00:00",
+     "pattern": "p-clock-time-3ala-number",
+     "rule_id": 1934
+    }
+   },
+   {
     "id": "FA-ba72d079",
     "date": "2026-09-15",
     "t": "04:15",
@@ -5036,6 +6039,34 @@
     "bucket": "A8",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-57edc8bd",
+    "date": "2026-09-15",
+    "t": "04:25",
+    "t_amal": null,
+    "medi_said": "خضرا مختلف. مختلفه؟ مختلف. مختلف.",
+    "amal_said": "طيب.",
+    "chat": null,
+    "wrong": "خضرا مختلف",
+    "right": "خضرا مختلفة",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-57edc8bd",
+    "sweep_id": null,
+    "mistake": "Collective/feminine خضرا takes a feminine adjective; he wavered and settled on masculine مختلف, Amal let it pass (my reading).",
+    "bucket": "A8",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:49:46.605423+00:00",
+     "pattern": "p-fem-noun-masc-adj",
+     "rule_id": 1929
+    }
    },
    {
     "id": "FA-a9522104",
@@ -5105,6 +6136,34 @@
     "bucket": "D2",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-6a189634",
+    "date": "2026-09-15",
+    "t": "11:31",
+    "t_amal": null,
+    "medi_said": "Ana خلّي إشي مكسور.",
+    "amal_said": "طيب.",
+    "chat": null,
+    "wrong": "خلّي",
+    "right": "بخلّي",
+    "confidence": "high",
+    "confidence_why": "The line is clear in the transcript (11:26-11:35, split over turns) and nothing between أنا and خلّي drops the b-; Amal gave no fix, so grammar-B for her review.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-6a189634",
+    "sweep_id": null,
+    "mistake": "Defining بكسر as a habit ('I make something broken') needs the ordinary present with b- (أنا بخلّي); he used bare خلّي and Amal let it pass with 'طيب' (right form is my reading).",
+    "bucket": "B1",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:49:30.576666+00:00",
+     "pattern": "p-present-no-b",
+     "rule_id": 1928
+    }
    },
    {
     "id": "FA-36d66a80",
@@ -6358,7 +7417,12 @@
     "mistake": "'Did I hurt you?': he knows the verb (sheet: i hurt | Ana wajja3et) but stalled on stacking the past 1sg ending and the object 'you' (wajja3t + ek); she finished the sentence wajja3tek and he then asked 'To a girl?' and 'What if it's to a guy?'. 'It's a three' is the ع sound (S4, not scored). Low because his attempt is untranscribed.",
     "bucket": "B5",
     "bucket2": "D4",
-    "new_bucket_group": null
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-10-06T10:43:27.205264+00:00",
+     "pattern": null,
+     "rule_id": 2427
+    }
    },
    {
     "id": "FA-d08a8e07",
@@ -6615,30 +7679,6 @@
     "new_bucket_group": null
    },
    {
-    "id": "FA-bc203430",
-    "date": "2026-09-16",
-    "t": "54:29",
-    "t_amal": "54:35",
-    "medi_said": "mashufeta. Uh,",
-    "amal_said": "شفتها.",
-    "chat": "3ashaan ma shufetha el-usboo3 el-maadi",
-    "wrong": "mashufeta",
-    "right": "ma shufetha",
-    "confidence": "low",
-    "confidence_why": "r1+r2",
-    "signal": "recast",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-bc203430",
-    "sweep_id": null,
-    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
-    "mistake": "The object -ha on shuft came out as -a; she recast شفتها; may be only a dropped h (pronunciation), so low.",
-    "bucket": "D4",
-    "bucket2": null,
-    "new_bucket_group": null
-   },
-   {
     "id": "FA-92d67ddc",
     "date": "2026-09-16",
     "t": "57:29",
@@ -6706,7 +7746,12 @@
     "mistake": "After ra7 the verb is bare (ra7 t7arrki); he kept the b- and Amal recast تحركي (engine wrote نوبي before it).",
     "bucket": "B13",
     "bucket2": "B3",
-    "new_bucket_group": null
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-10-06T10:44:32.662191+00:00",
+     "pattern": null,
+     "rule_id": 2429
+    }
    },
    {
     "id": "FA-52c1039e",
@@ -6871,6 +7916,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-313dc8af",
+    "date": "2026-09-17",
+    "t": "03:04",
+    "t_amal": null,
+    "medi_said": "أنا لا بعرف، بتعرف في Jambalaya؟",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "لا بعرف",
+    "right": "ما بعرف",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-313dc8af",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Verb negated with la (fus7a) instead of ma; Amal let it pass (best reading ma ba3ref).",
+    "bucket": "C4",
+    "bucket2": "B11",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:11:44.329751+00:00",
+     "pattern": "p-la-for-ma",
+     "rule_id": 1968
+    }
+   },
+   {
     "id": "FA-f14f0ca2",
     "date": "2026-09-17",
     "t": "04:22",
@@ -7032,6 +8106,34 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-dbd555f6",
+    "date": "2026-09-17",
+    "t": "12:12",
+    "t_amal": null,
+    "medi_said": "Uh, بس، um، في المدينة الأول مطر. Uh,",
+    "amal_said": null,
+    "chat": "mbaare7 ma6arrat",
+    "wrong": "الأول مطر",
+    "right": "أول مطر",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-dbd555f6",
+    "sweep_id": null,
+    "mistake": "awal + noun = 'the first rain' (Amal had just modelled أحلى مطر هو أول مطر at 11:54); he put el- on awal and she let it pass.",
+    "bucket": "A13",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:52:16.746133+00:00",
+     "pattern": "p-el-on-first-idafa-word",
+     "rule_id": 1932
+    }
+   },
+   {
     "id": "FA-ae6076c6",
     "date": "2026-09-17",
     "t": "17:44",
@@ -7055,30 +8157,6 @@
     "new_bucket_group": null
    },
    {
-    "id": "FA-b666db72",
-    "date": "2026-09-17",
-    "t": "19:46",
-    "t_amal": "19:49",
-    "medi_said": "Is it asfi or asafi?",
-    "amal_said": "تتأسفي.",
-    "chat": "ma tet2assaf/i",
-    "wrong": "asfi",
-    "right": "ma tet2assafi",
-    "confidence": "low",
-    "confidence_why": "r1+r2",
-    "signal": "asked",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-b666db72",
-    "sweep_id": null,
-    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
-    "mistake": "Asked which form the negative command takes; she supplied tet2assafi and typed ma tet2assaf/i.",
-    "bucket": "B11",
-    "bucket2": null,
-    "new_bucket_group": null
-   },
-   {
     "id": "FA-f5fcb639",
     "date": "2026-09-17",
     "t": "21:07",
@@ -7099,29 +8177,6 @@
     "mistake": "'If he did something wrong' is past 3emel; Amal quoted his عم بعمل (3am + present = right now) and named the fix 'what's he made? عمل'; he repeated عمل twice. The engine did not transcribe his line - his words come from her echo.",
     "bucket": "B5",
     "bucket2": "B14",
-    "new_bucket_group": null
-   },
-   {
-    "id": "FA-fde513df",
-    "date": "2026-09-17",
-    "t": "22:14",
-    "t_amal": "22:32",
-    "medi_said": "[speaking Arabic] (engine; prompt 'You should apologize to everyone')",
-    "amal_said": "تتأسفي.",
-    "chat": "inti laazem tet2assafi lalkul",
-    "wrong": "[speaking Arabic] (verb form)",
-    "right": "تتأسفي",
-    "confidence": "low",
-    "confidence_why": "Real voiced recast of the verb at 22:32; the engine lost his line, so kept with low confidence. Distinct from D8 (the kul / el-kul fix at 22:49).",
-    "signal": "recast",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-fde513df",
-    "sweep_id": null,
-    "mistake": "Amal recast the verb as تتأسفي right after his untranscribed line and typed 'inti laazem tet2assafi'; the fix is the feminine you-ending (she had just taught تتأسفي at 19:49), but his words are lost so the exact slip cannot be proven.",
-    "bucket": "B18",
-    "bucket2": null,
     "new_bucket_group": null
    },
    {
@@ -7218,29 +8273,6 @@
     "new_bucket_group": null
    },
    {
-    "id": "FA-4b021837",
-    "date": "2026-09-17",
-    "t": "29:18",
-    "t_amal": "29:34",
-    "medi_said": "أنا لازم أتأسف لَـ...",
-    "amal_said": "For who؟ You need to apologize to someone or just, just apologize؟ ... إزعشان.",
-    "chat": "ana laazem at2assaf 3ashaan ma ba2dar aru7 3indek",
-    "wrong": "لَـ",
-    "right": "عشان",
-    "confidence": "low",
-    "confidence_why": "She questioned the preposition he produced (la- reads as 'to someone') and supplied 3ashaan for the reason - a D1 preposition pick; low because his word trailed off.",
-    "signal": "prompt-then-fix",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-4b021837",
-    "sweep_id": null,
-    "mistake": "For 'apologize for not going' he reached for la- (to someone); Amal asked 'For who?', he explained 'for not going' in English and she supplied عشان (engine إزعشان), which he took. Low: his la- trailed off, so it may be help on the way rather than a finished wrong choice.",
-    "bucket": "D1",
-    "bucket2": null,
-    "new_bucket_group": null
-   },
-   {
     "id": "FA-e38d2332",
     "date": "2026-09-17",
     "t": "29:45",
@@ -7261,7 +8293,12 @@
     "mistake": "Plain present 'I won't go' needs the b- (ma baru7); he said ma aru7, Amal prompted the meaning and he rebuilt it as ما بقدر أروح (b- on the modal, bare aru7 after it, B2).",
     "bucket": "B1",
     "bucket2": null,
-    "new_bucket_group": null
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-10-06T10:41:39.277784+00:00",
+     "pattern": null,
+     "rule_id": 2424
+    }
    },
    {
     "id": "FA-ad5eef79",
@@ -7542,6 +8579,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-c5ee0bdf",
+    "date": "2026-09-17",
+    "t": "49:17",
+    "t_amal": null,
+    "medi_said": "lama haket ziyada, ziyada ana, uh, kharab kul shee.",
+    "amal_said": "[laughs] Some peo-- there's another term is like bakharrib ad-dunya.",
+    "chat": null,
+    "wrong": "ana, uh, kharab kul shee",
+    "right": "ana 5arrabt kul shi (my reading)",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-c5ee0bdf",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "'I ruined everything' with the bare he-form and no doubling; she moved on to ba5arreb el-denia without fixing it.",
+    "bucket": "B5",
+    "bucket2": "B12",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:54:56.915892+00:00",
+     "pattern": "p-i-past-as-bare-he-form",
+     "rule_id": 1936
+    }
+   },
+   {
     "id": "FA-92252f56",
     "date": "2026-09-17",
     "t": "51:16",
@@ -7820,6 +8886,34 @@
     "bucket": "B3",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-65d686ec",
+    "date": "2026-09-18",
+    "t": "02:27",
+    "t_amal": null,
+    "medi_said": "اليوم أكل آآآ لحمة عجل.",
+    "amal_said": null,
+    "chat": "el-yoam akalet la7met 3ejel mafroome ma3 ruzz u jazar u basal u 5udra mu5talefa",
+    "wrong": "أكل",
+    "right": "أكلت (akalet) - my reading from her typed line",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-65d686ec",
+    "sweep_id": null,
+    "mistake": "Engine shows 'أكل' (he ate / bare) for 'I ate'; her chat types akalet; she voiced nothing, and the engine may have dropped the -t.",
+    "bucket": "B5",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:54:56.915892+00:00",
+     "pattern": "p-i-past-as-bare-he-form",
+     "rule_id": 1936
+    }
    },
    {
     "id": "FA-acb879ab",
@@ -9374,6 +10468,34 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-0d04f674",
+    "date": "2026-09-21",
+    "t": "14:09",
+    "t_amal": null,
+    "medi_said": "مدينتي آآآ هادي، بس",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "هادي",
+    "right": "هادية",
+    "confidence": "high",
+    "confidence_why": "Real gender slip on the adjective, let pass.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-0d04f674",
+    "sweep_id": null,
+    "mistake": "مدينة is feminine so the adjective should be هادية (my reading); Amal was distracted by the sirens and did not address it.",
+    "bucket": "A8",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:49:46.605423+00:00",
+     "pattern": "p-fem-noun-masc-adj",
+     "rule_id": 1929
+    }
+   },
+   {
     "id": "FA-6a1ea264",
     "date": "2026-09-21",
     "t": "14:27",
@@ -9582,6 +10704,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-cb73ffba",
+    "date": "2026-09-21",
+    "t": "24:29",
+    "t_amal": null,
+    "medi_said": "بعدين أد-أدفع ... أدفع أطفالهم ما credit card",
+    "amal_said": "أدفع. You use the credit card to pay. So what do you use? Which preposition?",
+    "chat": "ba2dar adfa3 bi-el-credit card",
+    "wrong": "أدفع",
+    "right": "بدفع",
+    "confidence": "high",
+    "confidence_why": "Real bare present that she let pass; low because she echoed his form and the sentence was later reframed with بقدر.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-cb73ffba",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "'Then I pay' in the plain present without b-; she echoed أدفع herself and worked on the preposition instead, and her chat wraps it in بقدر أدفع where the bare form is right. My reading.",
+    "bucket": "B1",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:49:30.576666+00:00",
+     "pattern": "p-present-no-b",
+     "rule_id": 1928
+    }
+   },
+   {
     "id": "FA-a36f7b0e",
     "date": "2026-09-21",
     "t": "24:38",
@@ -9744,6 +10895,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-e8b672bd",
+    "date": "2026-09-21",
+    "t": "37:56",
+    "t_amal": null,
+    "medi_said": "yeah, I was gonna say ana, ana ma-ana maruf, ana-- akun ana maruf.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "akun ana maruf",
+    "right": "ana ma3roof",
+    "confidence": "high",
+    "confidence_why": "He did say akun in a plain-present sentence; no fix from her; low because of the restart.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-e8b672bd",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "'I am known (for cooking)' in the plain present takes no 'to be' - أكون is not needed; she let it pass and the talk went to English. My reading; the line is a restart so S5 is possible.",
+    "bucket": "C1",
+    "bucket2": "B8",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:55:38.200534+00:00",
+     "pattern": "p-ykoon-in-plain-present",
+     "rule_id": 1938
+    }
+   },
+   {
     "id": "FA-0d4e7fff",
     "date": "2026-09-21",
     "t": "38:10",
@@ -9883,6 +11063,35 @@
     "bucket": "C2",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-688c6a35",
+    "date": "2026-09-21",
+    "t": "41:55",
+    "t_amal": null,
+    "medi_said": "Il-may sokhon mara yitbukhu, yitbukhu.",
+    "amal_said": "لا، لا، لا. [تضحك] لا. ما بيطبخه، بيخليه، امم، ... يفشفش يعني.",
+    "chat": null,
+    "wrong": "Il-may sokhon",
+    "right": "el-mayy su5na",
+    "confidence": "high",
+    "confidence_why": "Real A8 slip she let pass; her spoken model is 24 seconds earlier.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-688c6a35",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "مي is feminine, she had just said 'بمي سخنة' (41:31; sheet: hot (f) | Su5na); he said the masculine sokhon and her لا لا لا answers the claim that the water cooks the rice, not the gender. Best reading marked B.",
+    "bucket": "A8",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:49:46.605423+00:00",
+     "pattern": "p-fem-noun-masc-adj",
+     "rule_id": 1929
+    }
    },
    {
     "id": "FA-d2009048",
@@ -10370,6 +11579,63 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-c2ac3a65",
+    "date": "2026-09-21",
+    "t": "1:05:16",
+    "t_amal": null,
+    "medi_said": "قريب عشان في الـ دولة زي دولة عربية زي، uh، عما-- Qatar و، um، UAE،",
+    "amal_said": "أم.",
+    "chat": null,
+    "wrong": "دولة زي دولة عربية",
+    "right": "دول زي الدول العربية",
+    "confidence": "high",
+    "confidence_why": "Plural expected with two named countries; she did not react; low.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-c2ac3a65",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "Singular دولة for 'countries like the Arab countries' with two examples (Qatar, UAE); she let it pass. My reading; a singular 'in a country like an Arab country' is just possible.",
+    "bucket": "A9",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:55:18.876245+00:00",
+     "pattern": "p-singular-for-plural",
+     "rule_id": 1937
+    }
+   },
+   {
+    "id": "FA-38c1a9c7",
+    "date": "2026-09-21",
+    "t": "1:05:38",
+    "t_amal": null,
+    "medi_said": "فيه مطعم إيراني كتير.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "مطعم إيراني كتير",
+    "right": "مطاعم إيرانية كتير",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-38c1a9c7",
+    "sweep_id": null,
+    "mistake": "'Many Iranian restaurants' needs the plural مطاعم (she supplies it a minute later); not voiced here.",
+    "bucket": "A9",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:55:18.876245+00:00",
+     "pattern": "p-singular-for-plural",
+     "rule_id": 1937
+    }
+   },
+   {
     "id": "FA-5de31110",
     "date": "2026-09-21",
     "t": "1:05:57",
@@ -10439,6 +11705,35 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-2012c50f",
+    "date": "2026-09-21",
+    "t": "1:09:04",
+    "t_amal": null,
+    "medi_said": "ana, ana ma ba'rif, uh, mit akid bas,",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "ma ba'rif, mit akid",
+    "right": "mish mit2akked",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-2012c50f",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "'I'm not sure' with the participle متأكد (sheet: sure / certain | Mit2akked | متأكد) needs مش; he said ما بعرف... متأكد; she let it pass. My reading.",
+    "bucket": "C4",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:12:00.906153+00:00",
+     "pattern": "p-ma-for-mish-participle",
+     "rule_id": 1969
+    }
+   },
+   {
     "id": "FA-2e9daa0d",
     "date": "2026-09-21",
     "t": "1:09:38",
@@ -10461,6 +11756,92 @@
     "bucket": "C7",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-f64beaa6",
+    "date": "2026-09-21",
+    "t": "1:09:55",
+    "t_amal": null,
+    "medi_said": "enno el akthar, el, el akil, uh, mufaddal, el akil mufaddal fee UAE, uh, akil Irani.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "el akthar",
+    "right": "aktar akel mufaddal",
+    "confidence": "high",
+    "confidence_why": "Distinct piece of the 1:09:55 sentence from D48; kept low for Amal's review.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-f64beaa6",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "'The most preferred food' puts el- on the comparative (el-akthar; sheet: more | Aktar), which C3 never does in Levantine (أكتر أكل مفضل); he stuttered through it and she said 'Mm'. Low: the sentence is fragmented. The el akil mufaddal piece is D48. Best reading marked B.",
+    "bucket": "C3",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:08:03.797133+00:00",
+     "pattern": "p-el-on-comparative",
+     "rule_id": 1960
+    }
+   },
+   {
+    "id": "FA-2b4cb69c",
+    "date": "2026-09-21",
+    "t": "1:10:04",
+    "t_amal": null,
+    "medi_said": "الأكل مفضل في UAE, uh, أكل إيراني",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "الأكل مفضل",
+    "right": "الأكل المفضل",
+    "confidence": "high",
+    "confidence_why": "Real noun+adjective el- slip by context, let pass.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-2b4cb69c",
+    "sweep_id": null,
+    "mistake": "He meant 'the favourite food in the UAE is Iranian food' (a phrase, not 'the food is favoured'), so the adjective needs el-; Amal only said 'Mm'.",
+    "bucket": "A7",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:57:12.195328+00:00",
+     "pattern": "p-el-missing-on-adjective",
+     "rule_id": 1940
+    }
+   },
+   {
+    "id": "FA-3bdc61fc",
+    "date": "2026-09-21",
+    "t": "1:10:32",
+    "t_amal": null,
+    "medi_said": "uh, el akil zai el akil Arabi.",
+    "amal_said": "Yeah.",
+    "chat": null,
+    "wrong": "el akil Arabi",
+    "right": "الأكل العربي",
+    "confidence": "high",
+    "confidence_why": "Clear A7 pattern with no fix from her.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-3bdc61fc",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "'Like Arab food' - el- on the noun but not on the adjective turns the phrase into a sentence (the food is Arab); the phrase is الأكل العربي; she said Yeah and moved on. My reading.",
+    "bucket": "A7",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:57:12.195328+00:00",
+     "pattern": "p-el-missing-on-adjective",
+     "rule_id": 1940
+    }
    },
    {
     "id": "FA-1cecc3fb",
@@ -10693,6 +12074,64 @@
     "bucket": "B12",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-cca6494e",
+    "date": "2026-09-23",
+    "t": "25:24",
+    "t_amal": null,
+    "medi_said": "آآآ لا ما، ما بحب، ما بحب فول.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "ما بحب فول",
+    "right": "ما بحب الفول",
+    "confidence": "high",
+    "confidence_why": "Real per A1 but she did not voice a fix - changed to grammar-B.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-cca6494e",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "General statement 'I don't like ful' takes el- (A1: el-tuffaa7 zaaki); her 25:42 'أنا ما بحب الفول كمان' is her own answer, not a recast, so it is let-pass.",
+    "bucket": "A1",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:54:18.009168+00:00",
+     "pattern": "p-el-missing-known-thing",
+     "rule_id": 1935
+    }
+   },
+   {
+    "id": "FA-b60a3e0a",
+    "date": "2026-09-23",
+    "t": "26:00",
+    "t_amal": null,
+    "medi_said": "ما فهمتي.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "ما فهمتي",
+    "right": "ما فهمت",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-b60a3e0a",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "mistake": "He meant 'I didn't understand' (her question قديش) but used the 'you (f)' ending; she let it pass.",
+    "bucket": "B5",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:15:33.594852+00:00",
+     "pattern": "p-you-f-ending-on-i-verb",
+     "rule_id": 1979
+    }
    },
    {
     "id": "FA-3404f724",
@@ -12685,6 +14124,34 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-678f0d24",
+    "date": "2026-09-28",
+    "t": "56:39",
+    "t_amal": null,
+    "medi_said": "الولاد بيكون ولاد",
+    "amal_said": null,
+    "chat": "a2al min e7da3sh el-walad beykoon walad",
+    "wrong": "الولاد بيكون ولاد",
+    "right": "الولد بيكون ولد",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-678f0d24",
+    "sweep_id": null,
+    "mistake": "Plural ولاد with singular بيكون; my reading from her chat is the singular el-walad beykoon walad, parallel to his singular شاب / زلمة; she let it pass.",
+    "bucket": "B18",
+    "bucket2": "A9",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T17:59:34.668724+00:00",
+     "pattern": "p-plural-people-verb-mismatch",
+     "rule_id": 1946
+    }
+   },
+   {
     "id": "FA-aa694e6b",
     "date": "2026-09-28",
     "t": "59:14",
@@ -12752,7 +14219,12 @@
     "mistake": "He was talking about yesterday with present مش; she recast it into the past with ما كنت.",
     "bucket": "B6",
     "bucket2": null,
-    "new_bucket_group": null
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-10-01T18:59:57.854715+00:00",
+     "pattern": null,
+     "rule_id": 2029
+    }
    },
    {
     "id": "FA-f4ea8cfd",
@@ -12775,29 +14247,6 @@
     "mistake": "He linked متشجع with عشان; she said no, it takes la- and typed 'mitshajje3 + la'.",
     "bucket": "D2",
     "bucket2": "D1",
-    "new_bucket_group": null
-   },
-   {
-    "id": "FA-a0a76d00",
-    "date": "2026-09-30",
-    "t": "09:07",
-    "t_amal": "09:08",
-    "medi_said": "إن، إن. Okay. متهمس إنهم",
-    "amal_said": "متحمس إلهم.",
-    "chat": "kunet mit7ammesilhom",
-    "wrong": "إنهم",
-    "right": "إلهم",
-    "confidence": "high",
-    "confidence_why": "r1+r2",
-    "signal": "recast",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-a0a76d00",
-    "sweep_id": null,
-    "mistake": "Seconds after she gave إلهم he said إنهم (that they) instead of la- + hom; she recast إلهم.",
-    "bucket": "D3",
-    "bucket2": "D2",
     "new_bucket_group": null
    },
    {
@@ -13238,29 +14687,6 @@
     "new_bucket_group": null
    },
    {
-    "id": "FA-2d8205d4",
-    "date": "2026-10-01",
-    "t": "02:21",
-    "t_amal": "02:23",
-    "medi_said": "Uh, واحدة وواحد و...",
-    "amal_said": "واحد.",
-    "chat": "yoam el-5amees, wa7ad 3ashara alafain u sitte u 3eshreen",
-    "wrong": "واحدة",
-    "right": "واحد",
-    "confidence": "medium",
-    "confidence_why": "Real: her voiced recast at 02:23 and his own later remark 'dates are واحد' show the date number was wrong. Not a duplicate of A3, which is the clock time.",
-    "signal": "recast",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-2d8205d4",
-    "sweep_id": null,
-    "mistake": "Asked 'شو اليوم؟' he gave the date as feminine wa7de; Amal recast واحد and at 02:55 he said himself 'dates are واحد, times are واحدة', so he took the fix. This is a different moment from A3 (clock time at 02:49).",
-    "bucket": "E4",
-    "bucket2": null,
-    "new_bucket_group": null
-   },
-   {
     "id": "FA-521a2a9e",
     "date": "2026-10-01",
     "t": "02:49",
@@ -13468,29 +14894,6 @@
     "new_bucket_group": null
    },
    {
-    "id": "FA-963a6f53",
-    "date": "2026-10-01",
-    "t": "30:29",
-    "t_amal": "30:31",
-    "medi_said": "So الـ اسم قديم. No, it's like اسم القديمة. Okay, I don't know.",
-    "amal_said": "لا. [تضحك] لا. ... You just change the gender of Adeem.",
-    "chat": "esem madrasto el-2adeem/e",
-    "wrong": "اسم القديمة",
-    "right": "اسم مدرسته القديم",
-    "confidence": "high",
-    "confidence_why": "r1+r2",
-    "signal": "explicit-no",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-963a6f53",
-    "sweep_id": null,
-    "mistake": "To make 'old' describe the name, the adjective stays after the whole idafa and takes the gender of اسم (masc): el-2adeem; Amal said لا and told him to change the gender of 2adeem.",
-    "bucket": "A8",
-    "bucket2": "A7",
-    "new_bucket_group": null
-   },
-   {
     "id": "FA-3b30ae8f",
     "date": "2026-10-01",
     "t": "34:48",
@@ -13556,30 +14959,6 @@
     "sweep_id": null,
     "mistake": "Verb must be he-form for زبون; Amal recast ما بيشتري and he repeated it.",
     "bucket": "B18",
-    "bucket2": null,
-    "new_bucket_group": null
-   },
-   {
-    "id": "FA-96d64e4f",
-    "date": "2026-10-01",
-    "t": "45:11",
-    "t_amal": "45:15",
-    "medi_said": "اللي بحب أكتر إشي.",
-    "amal_said": "No, no. First you have to say the one ...",
-    "chat": "illi ba7ebbo aktar ishi",
-    "wrong": "بحب",
-    "right": "بحبه",
-    "confidence": "medium",
-    "confidence_why": "r1+r2",
-    "signal": "prompt-then-fix",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-96d64e4f",
-    "sweep_id": null,
-    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
-    "mistake": "After illi the verb needs the pointer ending; after Amal's 'No, no' he restarted and said اللي بحبه أكتر إشي, matching her chat illi ba7ebbo.",
-    "bucket": "C2",
     "bucket2": null,
     "new_bucket_group": null
    },
@@ -17181,6 +18560,34 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-384e12bd",
+    "date": "2026-10-10",
+    "t": "00:17",
+    "t_amal": null,
+    "medi_said": "أنا رحت، آآآ، على مطعم مع صحابي والـ مطعم صوت عالي كتير",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "والـ مطعم صوت عالي كتير",
+    "right": "والمطعم كان صوته عالي كتير",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-384e12bd",
+    "sweep_id": null,
+    "mistake": "Describing a past evening with no كان (and no pointer ending on صوت); Amal let it pass.",
+    "bucket": "B6",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-10-12T12:04:14.981603+00:00",
+     "pattern": "single-FA-384e12bd",
+     "rule_id": 37999
+    }
+   },
+   {
     "id": "FA-fe8dfac4",
     "date": "2026-10-10",
     "t": "06:43",
@@ -19075,6 +20482,37 @@
     "amal_gave_arabizi": null
    },
    {
+    "id": "FA-d20b052c",
+    "date": "2026-08-25",
+    "t": "52:21",
+    "t_amal": null,
+    "medi_said": "مظلوم يعني، آآآه، مش صوت، آآآه، طويل، وما، ما بنعصب، وما، آآآه-",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "صوت طويل",
+    "right": "صوت عالي",
+    "confidence": "high",
+    "confidence_why": "Transcript shows طويل where عالي fits the meaning and the sheet has the exact phrase; unfixed, so vocab-B low for her review.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-d20b052c",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "amal_gave": "صوت عالي",
+    "english": "Not loud (not a loud voice).",
+    "why": "Defining مظلوم as 'not loud, and we don't get angry' he said صوت طويل ('long voice'); sheet: loud/high volume | Soat 3aali | صوت عالي; she was on the مظلوم meaning (52:39) and let it pass; low because the intended meaning is inferred from a halting line. Best reading.",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:27:59.04618+00:00",
+     "pattern": "p-sot-tawil-for-3ali",
+     "rule_id": 2003
+    }
+   },
+   {
     "id": "FA-d8999cbc",
     "date": "2026-08-25",
     "t": "54:58",
@@ -19799,6 +21237,36 @@
     "kind": "didn't-know",
     "tier": 0,
     "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-b1291e4d",
+    "date": "2026-09-05",
+    "t": "45:54",
+    "t_amal": null,
+    "medi_said": "ليش، ليش فرق من-- ليش فرق من WhatsApp? ... 46:06 Why is it different than WhatsApp? ليش فرق؟",
+    "amal_said": "كيف؟ ... No because I'm using لأنه عم بستعمل الـ telephone.",
+    "chat": null,
+    "wrong": "فرق",
+    "right": "مختلف (ليش مختلف عن WhatsApp؟ / ليش في فرق؟)",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-b1291e4d",
+    "sweep_id": null,
+    "amal_gave": "مختلف (ليش مختلف عن WhatsApp؟ / ليش في فرق؟)",
+    "english": "Why is it different from WhatsApp?",
+    "why": "He used the noun فرق (difference) as the adjective 'different'; sheet has 'different (from) | mu5talef | مختلف' and 'difference | Farq'. Amal only asked كيف؟ then answered the question - let pass. My reading.",
+    "kind": "wrong-word",
+    "tier": 2,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:23:57.886029+00:00",
+     "pattern": "p-far2-for-mukhtalef",
+     "rule_id": 1994
+    }
    },
    {
     "id": "FA-a5629148",
@@ -20630,6 +22098,37 @@
     "amal_gave_arabizi": null
    },
    {
+    "id": "FA-a824c060",
+    "date": "2026-09-11",
+    "t": "06:48",
+    "t_amal": null,
+    "medi_said": "شو أكتر، شو أكتر كلمة عندي؟",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "أكتر",
+    "right": "كمان / تانية (my reading)",
+    "confidence": "high",
+    "confidence_why": "Real lexical calque visible in the transcript, no signal from Amal, so vocab-B for her review; low because it is a judgement call on idiom.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-a824c060",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "amal_gave": "كمان / تانية (my reading)",
+    "english": "what else, what other word do I have?",
+    "why": "He wanted 'what else / what other word do I have' and calqued English 'what more' with the comparative أكتر; Levantine is شو كمان or كلمة تانية (sheet: 'also / more / too | Kamaan | كمان', 'else/second/other | taani | تاني'); Amal did not react and he moved to 'How do I say dark again'.",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:19:13.024139+00:00",
+     "pattern": "p-aktar-what-else",
+     "rule_id": 1987
+    }
+   },
+   {
     "id": "FA-f9524956",
     "date": "2026-09-11",
     "t": "06:57",
@@ -20829,6 +22328,37 @@
     "kind": "wrong-word",
     "tier": 1,
     "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-85bd2a71",
+    "date": "2026-09-11",
+    "t": "26:12",
+    "t_amal": null,
+    "medi_said": "إذا ما بتفتحي،",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "بتفتحي",
+    "right": "بتحطي",
+    "confidence": "high",
+    "confidence_why": "r3",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-85bd2a71",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "amal_gave": "بتحطي",
+    "english": "if you don't put it (in the fridge)",
+    "why": "Repeating the rice sentence one minute after her fix ما بتحطي (25:08) he again used فتح (open) for حط (put): sheet 'put | 7ott | حط' vs 'he opened | huwwe fata7 | هو فتح'; she answered ممتاز (26:25). Same slip as D19, which is dropped as a duplicate; the word sits in the 26:12 line, not the 26:04 one.",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:24:22.881241+00:00",
+     "pattern": "p-fata7-for-7att",
+     "rule_id": 1995
+    }
    },
    {
     "id": "FA-22717df0",
@@ -21531,7 +23061,12 @@
     "why": "young/small (f)",
     "kind": "didn't-know",
     "tier": 0,
-    "amal_gave_arabizi": null
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-06T10:42:48.248213+00:00",
+     "pattern": null,
+     "rule_id": 2425
+    }
    },
    {
     "id": "FA-0417c34a",
@@ -21909,7 +23444,12 @@
     "why": "He answered her يعطيك ألف عافية with a phrase the engine hid, she said الله يعافيكي بس ('just ...') and he asked 'does that not work?'; she gave the set reply - his words cannot be verified, low.",
     "kind": "wrong-word",
     "tier": 1,
-    "amal_gave_arabizi": null
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-06T10:43:09.738908+00:00",
+     "pattern": null,
+     "rule_id": 2426
+    }
    },
    {
     "id": "FA-e6badeef",
@@ -22212,7 +23752,12 @@
     "why": "Asked the time he gave 'three' for the hour; she recast tintain (two) and he repeated it; kept because she voiced a fix and his numbers were unstable in this exchange (see D4), low because it may be a clock misread rather than a wrong number word.",
     "kind": "wrong-word",
     "tier": 1,
-    "amal_gave_arabizi": null
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-03T22:04:25.739818+00:00",
+     "pattern": null,
+     "rule_id": 2108
+    }
    },
    {
     "id": "FA-0d375e5e",
@@ -22292,6 +23837,37 @@
     "amal_gave_arabizi": null
    },
    {
+    "id": "FA-8921b46c",
+    "date": "2026-09-18",
+    "t": "28:36",
+    "t_amal": null,
+    "medi_said": "Oh, uh, days off.",
+    "amal_said": "What does mean? ... Mm. ... Meetings make me bored.",
+    "chat": "el-ijtima3aat beyzah2uni",
+    "wrong": "days off",
+    "right": "meetings (el-ijtima3aat)",
+    "confidence": "high",
+    "confidence_why": "Real but the Arabic word was dropped by the engine. In the 'meetings make me bored' exchange she asked 'What does [X] mean?' and he answered 'days off' (3utle), then 'Mm' and asked for the sentence again; she only restated the English. Either he misheard ijtima3aat or he had produced 3utle himself (he already knew 'meetings' at 28:15), so mode is uncertain; a meeting/day-off mix-up either way. Sheet 984 'meeting | Ijtemaa3 | اجتماع', 549 'holiday / day off | 3utle | عطلة'. Kept as vocab-B, low.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-8921b46c",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "amal_gave": "meetings (el-ijtima3aat)",
+    "english": "meetings",
+    "why": "Asked what the word in 'meetings make me bored' meant he glossed it 'days off' (3utle) instead of meetings (ijtima3aat); she gave no explicit fix, only 'Mm' and restated the sentence; the Arabic word itself was dropped by the engine, and he may have produced it himself (he knew 'meetings' at 28:15), so mode and details are uncertain.",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:22:49.655137+00:00",
+     "pattern": "p-days-off-for-meetings",
+     "rule_id": 1992
+    }
+   },
+   {
     "id": "FA-bcbeff67",
     "date": "2026-09-18",
     "t": "32:55",
@@ -22365,7 +23941,12 @@
     "why": "He said مدير then switched to the feminine Mudira for 'the company's manager'; she recast Mudir and he went on with 'Mudir el sharika' (sheet row: manager / director | Mudeer | مدير).",
     "kind": "wrong-word",
     "tier": 2,
-    "amal_gave_arabizi": null
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-03T22:04:39.865298+00:00",
+     "pattern": null,
+     "rule_id": 2109
+    }
    },
    {
     "id": "FA-f17d7066",
@@ -22492,6 +24073,37 @@
     "kind": "wrong-word",
     "tier": 2,
     "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-a25640de",
+    "date": "2026-09-19",
+    "t": "06:49",
+    "t_amal": null,
+    "medi_said": "um, ألفين وسبعة عشرين.",
+    "amal_said": "19 شو؟",
+    "chat": null,
+    "wrong": "ألفين وسبعة عشرين",
+    "right": "ألفين وستة وعشرين (alfein u sitte u 3eshreen) - my reading, the year 2026",
+    "confidence": "high",
+    "confidence_why": "Both readers saw the same unfixed line; the label differed. The piece the transcript proves wrong is the number word (سبعة for the six of 2026, said twice), which is a wrong lexical item, so vocab-B tier 1; the missing و is noted in why but cannot be separated from an engine drop, and no bucket covers year compounds. Amal never reacted, so B, low.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-a25640de",
+    "sweep_id": null,
+    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
+    "amal_gave": "ألفين وستة وعشرين (alfein u sitte u 3eshreen) - my reading, the year 2026",
+    "english": "two thousand twenty-six",
+    "why": "Asked 'إيش من؟' he answered with the year and said seven where 2026 needs six, repeating it at 07:03; the tens compound also lacks the و (sheet pattern: twenty-twenty-five | alfein u 5amsa u 3eshrin); Amal only steered him back to the month (19 شو؟) and her chat omits the year, so no signal; low because the engine may have dropped the و and the year was never asked for.",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:28:51.998516+00:00",
+     "pattern": "p-year-2026-said-wrong",
+     "rule_id": 2006
+    }
    },
    {
     "id": "FA-88ce4612",
@@ -24152,31 +25764,6 @@
     "amal_gave_arabizi": null
    },
    {
-    "id": "FA-4c2c1e18",
-    "date": "2026-09-23",
-    "t": "19:39",
-    "t_amal": "19:44",
-    "medi_said": "Um, موعد، um, hold on.",
-    "amal_said": "No. ما هو this appointment or time of something. ... So it's a booking.",
-    "chat": "7ajez = booking / reservation",
-    "wrong": "موعد",
-    "right": "حجز",
-    "confidence": "medium",
-    "confidence_why": "r1+r2",
-    "signal": "explicit-no",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-4c2c1e18",
-    "sweep_id": null,
-    "amal_gave": "حجز",
-    "english": "booking",
-    "why": "Asked for 'booking' he said موعد (appointment); she said no; sheet 'booking / reservation | 7ajez | حجز'.",
-    "kind": "wrong-word",
-    "tier": 1,
-    "amal_gave_arabizi": null
-   },
-   {
     "id": "FA-36358459",
     "date": "2026-09-23",
     "t": "20:00",
@@ -24852,7 +26439,12 @@
     "why": "He said أبدأ (start) for أبعت (send); Amal echoed 'شو أبدأك؟ what send?' and he realised 'بابدأ is start' and switched to أبعت.",
     "kind": "wrong-word",
     "tier": 1,
-    "amal_gave_arabizi": null
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:21:41.336683+00:00",
+     "pattern": "p-bada-for-b3at",
+     "rule_id": 1990
+    }
    },
    {
     "id": "FA-5aec7a75",
@@ -24903,7 +26495,12 @@
     "why": "He used ساعد / مساعد (helper, from the verb he knows) in his sentence for the noun 'help' before asking; Amal asked 'Help as a noun is?' and gave مساعدة - wrong form of a known word.",
     "kind": "wrong-word",
     "tier": 2,
-    "amal_gave_arabizi": null
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-09-30T18:27:21.135552+00:00",
+     "pattern": "p-musaa3ed-for-musaa3ada",
+     "rule_id": 2001
+    }
    },
    {
     "id": "FA-82f07166",
@@ -25452,31 +27049,6 @@
     "amal_gave": "صغيرة",
     "english": "when you were little",
     "why": "ولاد means kids; for 'when you were little' Amal gave صغيرة and he repeated.",
-    "kind": "wrong-word",
-    "tier": 1,
-    "amal_gave_arabizi": null
-   },
-   {
-    "id": "FA-2a899ac2",
-    "date": "2026-09-26",
-    "t": "1:07:48",
-    "t_amal": "1:07:49",
-    "medi_said": "Oh my God, I forgot the word already. Hold on. لبستي خصلات،",
-    "amal_said": "كلسات.",
-    "chat": "kalsaat",
-    "wrong": "خصلات",
-    "right": "كلسات",
-    "confidence": "low",
-    "confidence_why": "Ruled as r1's word row; r2's أبيض -> بيض row is a separate slip and is ruled as D15.",
-    "signal": "recast",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-2a899ac2",
-    "sweep_id": null,
-    "amal_gave": "كلسات",
-    "english": "socks",
-    "why": "He said he forgot the word and produced خصلات (engine; likely his كصلات, as at 1:02:23); Amal recast كلسات and he repeated - low because it may be a letter slip (S4) rather than a wrong word.",
     "kind": "wrong-word",
     "tier": 1,
     "amal_gave_arabizi": null
@@ -26210,31 +27782,6 @@
     "amal_gave_arabizi": null
    },
    {
-    "id": "FA-121421d4",
-    "date": "2026-09-30",
-    "t": "13:19",
-    "t_amal": "13:27",
-    "medi_said": "كانت متحمسة كتير لما شفت السجادة.",
-    "amal_said": "شافت. ... So I showed is a different verb.",
-    "chat": "lamma farjaitha el-sajjaad",
-    "wrong": "شفت",
-    "right": "فرجيت",
-    "confidence": "high",
-    "confidence_why": "r1+r2",
-    "signal": "explicit-no",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-121421d4",
-    "sweep_id": null,
-    "amal_gave": "فرجيت",
-    "english": "when I showed her the rug",
-    "why": "He meant 'when I showed her the rug' but said شفت (I saw); she told him 'I showed is a different verb' and he moved to فرجيت.",
-    "kind": "wrong-word",
-    "tier": 1,
-    "amal_gave_arabizi": null
-   },
-   {
     "id": "FA-af025a92",
     "date": "2026-09-30",
     "t": "18:50",
@@ -26483,32 +28030,12 @@
     "why": "He used lissa (still/not yet) for 'until'; Amal asked what he meant and gave la (until): 'the one we know is لا'.",
     "kind": "wrong-word",
     "tier": 1,
-    "amal_gave_arabizi": null
-   },
-   {
-    "id": "FA-c24ef29e",
-    "date": "2026-10-01",
-    "t": "06:15",
-    "t_amal": "06:18",
-    "medi_said": "Uh, uh, حافز؟ حافز؟",
-    "amal_said": "Hafiz is a motivation، بس what's about motivated؟ ... متشـ... متشجع.",
-    "chat": "mitshajje3 = motivated",
-    "wrong": "حافز",
-    "right": "متشجع",
-    "confidence": "high",
-    "confidence_why": "Both readers saw the same slip. Tier 1 fits better than tier 0: he offered a wrong word, and she voiced that it was wrong before she supplied the right one.",
-    "signal": "recast",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-c24ef29e",
-    "sweep_id": null,
-    "amal_gave": "متشجع",
-    "english": "motivated",
-    "why": "He did try a word for yesterday's 'motivated': حافز, which is a different word (motivation). Amal said so out loud and gave متشجع (sheet: 'motivated | Mitshajje3 | متشجع'). He tried a wrong word, so this is tier 1, not a didn't-know (tier 0).",
-    "kind": "wrong-word",
-    "tier": 1,
-    "amal_gave_arabizi": null
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-03T22:02:33.144314+00:00",
+     "pattern": null,
+     "rule_id": 2105
+    }
    },
    {
     "id": "FA-9c0751bc",
@@ -26533,7 +28060,12 @@
     "why": "He asked for the verb 'to consider' and Amal supplied بحسب - a didn't-know.",
     "kind": "didn't-know",
     "tier": 0,
-    "amal_gave_arabizi": null
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-03T22:03:06.582474+00:00",
+     "pattern": null,
+     "rule_id": 2107
+    }
    },
    {
     "id": "FA-172fc4ea",
@@ -26636,31 +28168,6 @@
     "amal_gave_arabizi": null
    },
    {
-    "id": "FA-f6326df4",
-    "date": "2026-10-02",
-    "t": "13:14",
-    "t_amal": "13:16",
-    "medi_said": "راح بنجح؟",
-    "amal_said": "No. It's the whole-- It's the reason of our whole one month long lesson.",
-    "chat": "ra7 nenbese6",
-    "wrong": "بنجح",
-    "right": "ننبسط",
-    "confidence": "high",
-    "confidence_why": "r1+r2",
-    "signal": "explicit-no",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-f6326df4",
-    "sweep_id": null,
-    "amal_gave": "ننبسط",
-    "english": "We will have fun.",
-    "why": "nenja7 (succeed) is the wrong verb for 'have fun'; Amal said No and pointed him to the drilled verb, he said ننبسط and she said صح.",
-    "kind": "wrong-word",
-    "tier": 1,
-    "amal_gave_arabizi": null
-   },
-   {
     "id": "FA-c093d0ab",
     "date": "2026-10-02",
     "t": "14:33",
@@ -26733,33 +28240,12 @@
     "why": "He said el-yoam (the day) where he meant el-marra (the time); Amal echoed هذي اليوم then supplied مرة، هذي المرة and he said المرة التانية.",
     "kind": "wrong-word",
     "tier": 1,
-    "amal_gave_arabizi": null
-   },
-   {
-    "id": "FA-f4b60b4a",
-    "date": "2026-10-02",
-    "t": "45:55",
-    "t_amal": "45:58",
-    "medi_said": "العشر دقايق الـ، الآخر.",
-    "amal_said": "ال أخي-",
-    "chat": "el-3ashar da2aaye2 el-a5eeraat",
-    "wrong": "الآخر",
-    "right": "الأخير / الأخيرات",
-    "confidence": "medium",
-    "confidence_why": "r3",
-    "signal": "prompt-then-fix",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-f4b60b4a",
-    "sweep_id": null,
-    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
-    "amal_gave": "الأخير / الأخيرات",
-    "english": "the last ten minutes",
-    "why": "After the noun the adjective form of آخر is أخير (taught at 32:17); he used الآخر, Amal started 'ال أخي-' and he switched to الأخير - wrong form of a word he knows (tier 2). The plural agreement that followed is D12.",
-    "kind": "wrong-word",
-    "tier": 2,
-    "amal_gave_arabizi": null
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-03T22:00:30.795296+00:00",
+     "pattern": null,
+     "rule_id": 2101
+    }
    },
    {
     "id": "FA-0583f785",
@@ -27990,6 +29476,37 @@
     "amal_gave_arabizi": null
    },
    {
+    "id": "FA-dae07ce8",
+    "date": "2026-10-09",
+    "t": "03:42",
+    "t_amal": null,
+    "medi_said": "أنا،",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "tomi",
+    "right": "",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-dae07ce8",
+    "sweep_id": null,
+    "correction": "ef6f0080-82c7-45c5-a8f9-26f19f625ba8",
+    "amal_gave": "",
+    "english": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-12T12:08:57.294717+00:00",
+     "pattern": "single-FA-dae07ce8",
+     "rule_id": 38004
+    }
+   },
+   {
     "id": "FA-8f4f1a37",
     "date": "2026-10-09",
     "t": "03:46",
@@ -28038,6 +29555,37 @@
     "kind": "wrong-word",
     "tier": 2,
     "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-2f40ea41",
+    "date": "2026-10-09",
+    "t": "07:44",
+    "t_amal": null,
+    "medi_said": "شوي،",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "shwai al2a but its wrong and",
+    "right": "A2al",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-2f40ea41",
+    "sweep_id": null,
+    "correction": "915f1458-d691-4f69-b37e-4f0df728ba3d",
+    "amal_gave": "A2al",
+    "english": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-13T11:57:58.311223+00:00",
+     "pattern": "single-FA-2f40ea41",
+     "rule_id": 38067
+    }
    },
    {
     "id": "FA-17891bdf",
@@ -28090,6 +29638,37 @@
     "amal_gave_arabizi": null
    },
    {
+    "id": "FA-6bb6bc97",
+    "date": "2026-10-09",
+    "t": "13:36",
+    "t_amal": null,
+    "medi_said": "So if I wanna say ice cream...",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "So this",
+    "right": "brought up to amal as a possible missed correction.  You need to also correct outside of amals corrections.  It should be mufaddala (fem) because of bouza",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-6bb6bc97",
+    "sweep_id": null,
+    "correction": "b34853b3-a2d2-4b47-8e3b-b1dcf29602e2",
+    "amal_gave": "brought up to amal as a possible missed correction.  You need to also correct outside of amals corrections.  It should be mufaddala (fem) because of bouza",
+    "english": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-13T11:58:56.094416+00:00",
+     "pattern": "single-FA-6bb6bc97",
+     "rule_id": 38090
+    }
+   },
+   {
     "id": "FA-08534439",
     "date": "2026-10-09",
     "t": "27:01",
@@ -28138,6 +29717,68 @@
     "kind": "wrong-word",
     "tier": 1,
     "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-9c77fb71",
+    "date": "2026-10-09",
+    "t": "28:06",
+    "t_amal": null,
+    "medi_said": "So there's no الـ... Uh, no هذي القبة. Okay. Ha-- uh, اللي...",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "she corrected my use of illi I wanst cut off.  It",
+    "right": "counted as wrong",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-9c77fb71",
+    "sweep_id": null,
+    "correction": "552207de-0b45-4011-966d-c7db23a22958",
+    "amal_gave": "counted as wrong",
+    "english": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-13T11:59:39.253029+00:00",
+     "pattern": "single-FA-9c77fb71",
+     "rule_id": 38106
+    }
+   },
+   {
+    "id": "FA-337afd2f",
+    "date": "2026-10-09",
+    "t": "57:36",
+    "t_amal": null,
+    "medi_said": "mish, uh... Oh, kan,",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "she corrected the kaan it",
+    "right": "wrong",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-337afd2f",
+    "sweep_id": null,
+    "correction": "1ff62366-166d-445b-9de1-dc1bda9adc2b",
+    "amal_gave": "wrong",
+    "english": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-13T11:58:22.063023+00:00",
+     "pattern": "single-FA-337afd2f",
+     "rule_id": 38077
+    }
    },
    {
     "id": "FA-f04fa096",
@@ -31709,7 +33350,7 @@
    "chat": null,
    "wrong": "الله يوفقك",
    "right": "الله يعافيك (my reading)",
-   "kind": "vocab-B",
+   "kind": "dropped-by-amal",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
@@ -31731,7 +33372,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-efe70b9a",
-   "n": 3
+   "n": 3,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "p-ya3tik-el-3afye-reply",
+    "reason": "not necessary. it's not part of the lesson. slips like this are ok at the end.",
+    "at": "2026-09-30T18:04:10.340381+00:00",
+    "rule_id": 1952,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0825-4",
@@ -31742,13 +33395,13 @@
    "chat": null,
    "wrong": "على ثمانية",
    "right": "عالثمانية / على الساعة ثمانية (my reading)",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "E2",
    "bucket2": "A1",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Clock time takes el- (3al-tmaanye); she let it pass and asked what he drank. Low because the engine may have swallowed an assimilated el-.",
    "english": "I woke up at eight.",
    "ids": [
@@ -31765,7 +33418,18 @@
    "machine_had": false,
    "bucket_name": "clock time",
    "uid": "FA-6350dadb",
-   "n": 4
+   "n": 4,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-clock-time-3ala-number",
+    "at": "2026-09-30T17:54:02.267173+00:00",
+    "rule_id": 1934,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A4",
@@ -31948,13 +33612,13 @@
    "chat": null,
    "wrong": "حوالين",
    "right": "حوالي (my reading)",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "tier": 2,
    "bucket": null,
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Approximately is حوالي; حوالين means around/surrounding; she only reacted to the number.",
    "english": "around",
    "ids": [
@@ -31970,7 +33634,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-11a0702d",
-   "n": 10
+   "n": 10,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-7awalein-for-7awali",
+    "at": "2026-09-30T18:18:42.000031+00:00",
+    "rule_id": 1985,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   },
+   "compat_same_moment_as": "FA-1ec60d5a"
   },
   {
    "id": "0825-9",
@@ -32118,7 +33794,7 @@
    "chat": null,
    "wrong": "يأتينا",
    "right": "رح يعطينا / بيجينا (my reading)",
-   "kind": "vocab-B",
+   "kind": "dropped-by-amal",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
@@ -32140,7 +33816,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f068d749",
-   "n": 15
+   "n": 15,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "p-ya2ti-for-jab",
+    "reason": "transcription slip",
+    "at": "2026-09-30T18:28:43.966603+00:00",
+    "rule_id": 2005,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0825-13",
@@ -32185,13 +33873,13 @@
    "chat": null,
    "wrong": "ما يقدر أكتب",
    "right": "ما بيقدر يكتب (best reading)",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B1",
    "bucket2": "B18",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Main-clause present after ما needs b- (ما بيقدر) and the dependent verb must stay 3ms (يكتب); he used 1sg أكتب; she let it pass.",
    "english": "but it can't write Arabic",
    "ids": [
@@ -32212,7 +33900,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-72ad65fd",
-   "n": 17
+   "n": 17,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-ma-plus-bare-present",
+    "at": "2026-09-30T17:58:24.974896+00:00",
+    "rule_id": 1942,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "sweep_id": "0825-04",
@@ -32285,13 +33984,13 @@
    "chat": null,
    "wrong": "إنه احنا، نكتب",
    "right": "إنه احنا بنكتب (my reading)",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B3",
    "bucket2": "B1",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "enno keeps the b-: إنه احنا بنكتب; passed.",
    "english": "that we write in Arabic or English letters",
    "ids": [
@@ -32308,7 +34007,18 @@
    "machine_had": false,
    "bucket_name": "b-drop after time words",
    "uid": "FA-1769bd6b",
-   "n": 20
+   "n": 20,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-b-dropped-after-enno",
+    "at": "2026-09-30T18:06:12.3932+00:00",
+    "rule_id": 1957,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A15",
@@ -32387,13 +34097,13 @@
    "chat": null,
    "wrong": "ما يخلصوا",
    "right": "ما بيخلصوا (my reading; he says it himself at 22:48)",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Plain present habit needs b-; she echoed يخلصوا without fixing.",
    "english": "they don't finish",
    "ids": [
@@ -32410,7 +34120,18 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-779a0b9a",
-   "n": 23
+   "n": 23,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-ma-plus-bare-present",
+    "at": "2026-09-30T17:58:24.974896+00:00",
+    "rule_id": 1942,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A18",
@@ -32483,13 +34204,13 @@
    "chat": null,
    "wrong": "اللي، أشتغل معهم",
    "right": "اللي بشتغل معهم (my reading)",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "After illi the present verb keeps b- (بشتغل); she let it pass.",
    "english": "my family that I work with",
    "ids": [
@@ -32506,7 +34227,19 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-4916a145",
-   "n": 26
+   "n": 26,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-present-no-b",
+    "at": "2026-09-30T17:49:30.576666+00:00",
+    "rule_id": 1928,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   },
+   "compat_same_moment_as": "FA-9e441fb3"
   },
   {
    "id": "A20",
@@ -32936,7 +34669,7 @@
    "chat": null,
    "wrong": "لما أنا بأعمل",
    "right": "لما أعمل (my reading)",
-   "kind": "grammar-B",
+   "kind": "dropped-by-amal",
    "tier": null,
    "bucket": "B3",
    "bucket2": null,
@@ -32959,7 +34692,19 @@
    "machine_had": false,
    "bucket_name": "b-drop after time words",
    "uid": "FA-c327abb3",
-   "n": 39
+   "n": 39,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "p-b-kept-after-lamma-iza",
+    "reason": "lamma doesn't take a \"b\" but iza does.",
+    "at": "2026-09-30T17:51:58.775389+00:00",
+    "rule_id": 1931,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A31",
@@ -33654,13 +35399,13 @@
    "chat": null,
    "wrong": "شو بعصب",
    "right": "من شو بتعصبي؟",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B18",
    "bucket2": "D2",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Turning her question on her ('I'm asking you': what makes YOU angry) he used 1sg بعصب with no من; her 47:04 من شو بتعصب؟ is her own question to him restated (answering his 'do you mean generally?'), not a recast of his line - so B, no signal; low because he was fumbling and بعصب could be a swallowed بتعصب. Best reading.",
    "english": "In general, what makes you angry?",
    "ids": [
@@ -33679,7 +35424,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-8096ecda",
-   "n": 60
+   "n": 60,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-1sg-for-you-f-question",
+    "at": "2026-09-30T18:04:40.069761+00:00",
+    "rule_id": 1954,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0825-54",
@@ -33898,13 +35654,13 @@
    "chat": null,
    "wrong": "صوت طويل",
    "right": "صوت عالي",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Defining مظلوم as 'not loud, and we don't get angry' he said صوت طويل ('long voice'); sheet: loud/high volume | Soat 3aali | صوت عالي; she was on the مظلوم meaning (52:39) and let it pass; low because the intended meaning is inferred from a halting line. Best reading.",
    "english": "Not loud (not a loud voice).",
    "ids": [
@@ -33924,7 +35680,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-d20b052c",
-   "n": 67
+   "n": 67,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-sot-tawil-for-3ali",
+    "at": "2026-09-30T18:27:59.04618+00:00",
+    "rule_id": 2003,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "0825-48",
@@ -34174,13 +35941,13 @@
    "chat": null,
    "wrong": "انتَ بتعرف",
    "right": "إنتي بتعرفي",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B18",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "He addresses Amal (f) with the masculine you-form; she let it pass (he was cut off, may have been heading to بتعرفي).",
    "english": "you know (what a nerd is)",
    "ids": [
@@ -34199,7 +35966,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-a4ad5c2c",
-   "n": 75
+   "n": 75,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-masc-you-to-amal",
+    "at": "2026-09-30T17:58:36.071118+00:00",
+    "rule_id": 1943,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A1",
@@ -34476,12 +36254,12 @@
    "chat": null,
    "wrong": "جديد",
    "right": "جديدة",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A8",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
+   "signal": "amal-ruling",
    "confidence": "high",
    "why": "لغة is feminine so the adjective needs -a; she moved on without fixing (my reading).",
    "english": "learn a new language",
@@ -34503,7 +36281,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-2ac2dc3d",
-   "n": 84
+   "n": 84,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-fem-noun-masc-adj",
+    "at": "2026-09-30T17:49:46.605423+00:00",
+    "rule_id": 1929,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "high"
+    }
+   }
   },
   {
    "id": "A8",
@@ -34582,13 +36371,13 @@
    "chat": null,
    "wrong": "عربي فلسطيني",
    "right": "العربي الفلسطيني",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A1",
    "bucket2": "A7",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "A known, specific thing (Palestinian Arabic) with no el- on noun or adjective; she let it pass.",
    "english": "with Palestinian Arabic",
    "ids": [
@@ -34607,7 +36396,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-b1718391",
-   "n": 87
+   "n": 87,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-el-missing-known-thing",
+    "at": "2026-09-30T17:54:18.009168+00:00",
+    "rule_id": 1935,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A9",
@@ -34785,13 +36585,13 @@
    "chat": null,
    "wrong": "من",
    "right": "لـ",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "D2",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Sheet row 'excited | mit7ammes | متحمس لَ' fixes the preposition as لـ, not من; she let it pass.",
    "english": "excited about the possibility",
    "ids": [
@@ -34812,7 +36612,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-3057a46f",
-   "n": 93
+   "n": 93,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-mit7ammes-min",
+    "at": "2026-09-30T18:13:18.327813+00:00",
+    "rule_id": 1972,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "0904-r3-D3",
@@ -35097,13 +36908,13 @@
    "chat": null,
    "wrong": "ال أول مشكلة",
    "right": "أول مشكلة",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A2",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "أول + noun is an idafa and the first word takes no el-; he said ال أول مشكلة and Amal let it pass (she went on to the test idea at 10:57). Low because the 'ووا ال' may be a restart (engine) rather than an el-. My reading, unscored B row.",
    "english": "and the first problem",
    "ids": [
@@ -35120,7 +36931,18 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-78363d8b",
-   "n": 102
+   "n": 102,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-el-on-first-idafa-word",
+    "at": "2026-09-30T17:52:16.746133+00:00",
+    "rule_id": 1932,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A16",
@@ -35261,13 +37083,13 @@
    "chat": null,
    "wrong": "qalil kalima",
    "right": "kalimaat qalile (adjective after noun, my reading)",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A7",
    "bucket2": "A9",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Adjective placed before the noun; she moved on (Latin stretch, low). 'ma' for ma3 is S4.",
    "english": "a conversation with few words",
    "ids": [
@@ -35288,7 +37110,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-58b3903d",
-   "n": 107
+   "n": 107,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-adjective-before-noun",
+    "at": "2026-09-30T18:05:49.132351+00:00",
+    "rule_id": 1956,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A18",
@@ -35534,13 +37367,13 @@
    "chat": null,
    "wrong": "ashan",
    "right": "3an (my reading)",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'I talked with my fiancée about my Arabic' needs 3an (sheet 'about | 3an | عن'); 3ashan is because / for the sake of; she let it pass; low because 'I talked with her for (the sake of) my Arabic' is also a possible reading given the conversation-practice theme.",
    "english": "I talked with my fiancée about my Arabic",
    "ids": [
@@ -35558,7 +37391,19 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-9ebdf05d",
-   "n": 115
+   "n": 115,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-3ashan-for-3an",
+    "at": "2026-09-30T18:17:49.541524+00:00",
+    "rule_id": 1983,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   },
+   "compat_same_moment_as": "FA-62d34e79"
   },
   {
    "id": "0904-r3-D8",
@@ -35775,13 +37620,13 @@
    "chat": null,
    "wrong": "يبستوا",
    "right": "بيبسطوا",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "In the present-tense run (هو بيبسط, هي بتبسط, ...) the they-form came out without the present b- (yebsetu); Amal only fixed the next item (احنا, A23) and let this one pass. Low because the engine may have dropped a short b-. My reading, unscored B row.",
    "english": "they make (someone) happy",
    "ids": [
@@ -35798,7 +37643,19 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-84555d4f",
-   "n": 122
+   "n": 122,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-present-no-b",
+    "at": "2026-09-30T17:49:30.576666+00:00",
+    "rule_id": 1928,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   },
+   "compat_same_moment_as": "FA-6a9cc627"
   },
   {
    "id": "A24",
@@ -38055,13 +39912,13 @@
    "chat": null,
    "wrong": "انزعجتم",
    "right": "انزعجتو",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B5",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Levantine you(pl) past ending is -tu (انزعجتو), not the MSA -tum he used; she let it pass while he ran the conjugation.",
    "english": "You (pl) got annoyed",
    "ids": [
@@ -38082,7 +39939,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-4f2b2108",
-   "n": 188
+   "n": 188,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-msa-tum-ending",
+    "at": "2026-09-30T17:59:02.579204+00:00",
+    "rule_id": 1944,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A16",
@@ -38163,14 +40031,14 @@
    "chat": null,
    "wrong": "فرق",
    "right": "مختلف (ليش مختلف عن WhatsApp؟ / ليش في فرق؟)",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "tier": 2,
    "bucket": null,
    "bucket2": null,
    "proposed_rule": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "He used the noun فرق (difference) as the adjective 'different'; sheet has 'different (from) | mu5talef | مختلف' and 'difference | Farq'. Amal only asked كيف؟ then answered the question - let pass. My reading.",
    "english": "Why is it different from WhatsApp?",
    "ids": [
@@ -38186,7 +40054,18 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-b1291e4d",
-   "n": 191
+   "n": 191,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-far2-for-mukhtalef",
+    "at": "2026-09-30T18:23:57.886029+00:00",
+    "rule_id": 1994,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "0905-D17",
@@ -38197,13 +40076,13 @@
    "chat": null,
    "wrong": "تستعمل الـ telephone",
    "right": "بتستعملي التلفون",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B1",
    "bucket2": "B18",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Restating her 'عم بستعمل الـ telephone' back to her as 'you use the phone' he dropped the b- and the feminine -i (تستعمل); she just went on ('آه، لأنه الـ computer خربان'). Low: casual echo and 'يتستعمل' shows the transcriber struggled with the line. 'telephone' is her own word here and is not on the sheet, so no tier-3 vocab.",
    "english": "You're using the phone.",
    "ids": [
@@ -38222,7 +40101,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-407ececa",
-   "n": 192
+   "n": 192,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-present-no-b",
+    "at": "2026-09-30T17:49:30.576666+00:00",
+    "rule_id": 1928,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "sweep_id": "0905-15",
@@ -38866,13 +40756,13 @@
    "chat": null,
    "wrong": "جو",
    "right": "الجو (شوب)",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Answering her كيف الجو عندكم اليوم he said جو كتير كتير: 'the weather' is a known thing and takes el- (her prompt and the sheet row 'it's hot | El-jaw shoab | الجو شوب' both have الجو). The adjective شوب is absent in the transcript but she answered عن جد؟ as if she heard a complete statement, so the missing word is likely an ASR drop and is not scored - only the el- is. B reading.",
    "english": "The weather is very (hot) tonight.",
    "ids": [
@@ -38892,7 +40782,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-b0806e43",
-   "n": 212
+   "n": 212,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-el-missing-known-thing",
+    "at": "2026-09-30T17:54:18.009168+00:00",
+    "rule_id": 1935,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A2",
@@ -38903,13 +40804,13 @@
    "chat": null,
    "wrong": "لـ YouTube",
    "right": "على YouTube",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "D1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Levantine says a video على YouTube, not لـ; Amal let it pass (best reading).",
    "english": "I watched a video on YouTube",
    "ids": [
@@ -38926,7 +40827,18 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-7d36c59d",
-   "n": 213
+   "n": 213,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-la-for-3ala-on",
+    "at": "2026-09-30T18:11:29.068512+00:00",
+    "rule_id": 1967,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A3",
@@ -39116,13 +41028,13 @@
    "chat": null,
    "wrong": "ما يكون",
    "right": "مش",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "C4",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "He meant 'he is not an electrician, he is an engineer': a noun is negated with mish and no 'to be' verb (مش كهربجي); he built ما يكون. Best reading of a halting turn; Amal let it pass.",
    "english": "he's not an electrician, he's an engineer",
    "ids": [
@@ -39140,7 +41052,18 @@
    "machine_had": false,
    "bucket_name": "saying no",
    "uid": "FA-b2f03935",
-   "n": 219
+   "n": 219,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-ykoon-in-plain-present",
+    "at": "2026-09-30T17:55:38.200534+00:00",
+    "rule_id": 1938,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0910-r3-5",
@@ -39357,13 +41280,13 @@
    "chat": null,
    "wrong": "عشان يكون",
    "right": "عشان في / عشان عندي",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B8",
    "bucket2": "C1",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Explaining why he stayed home today (اليوم ضليت بي بيتي): 'because there is AC' - existence in the plain present is في / عندي, not يكون (B8: ykoon only after lamma/iza or for habits; C1: no 'to be' in the present). She moved on to شو بتتذكر at 13:04 without a fix. 'air conditioning' is not on her sheet, so the English word itself is not an error. B reading.",
    "english": "because there is air conditioning (at home)",
    "ids": [
@@ -39384,7 +41307,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-5ded86b4",
-   "n": 226
+   "n": 226,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-ykoon-in-plain-present",
+    "at": "2026-09-30T17:55:38.200534+00:00",
+    "rule_id": 1938,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A7",
@@ -39726,13 +41660,13 @@
    "chat": null,
    "wrong": "هدول أيام",
    "right": "هدول الأيام",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A10b",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "The noun after هدول keeps its el-; he dropped it in the fixed version and she moved on (طيب).",
    "english": "these days",
    "ids": [
@@ -39753,7 +41687,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-50d1116e",
-   "n": 237
+   "n": 237,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-hadol-drops-el",
+    "at": "2026-09-30T18:09:30.923392+00:00",
+    "rule_id": 1964,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A12",
@@ -39799,13 +41744,13 @@
    "chat": null,
    "wrong": "ازعجتو",
    "right": "ازعجتوه",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "D4",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'You didn't annoy HIM' needs the object ending -ه on the verb; Amal let it pass (best reading).",
    "english": "you (pl) didn't annoy him",
    "ids": [
@@ -39823,7 +41768,18 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-a4b3650b",
-   "n": 239
+   "n": 239,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-object-ending-dropped",
+    "at": "2026-09-30T17:59:17.743249+00:00",
+    "rule_id": 1945,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A14",
@@ -40063,13 +42019,13 @@
    "chat": null,
    "wrong": "الـ أول الـ فعل",
    "right": "أول الفعل",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A13",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'The beginning of the word' is awal el-kelme - no el- before awal (A13); he put el- on awal both times. Low: he often uses a bare الـ as a filler, so the first الـ may be a pause (S5). Amal only said Mm.",
    "english": "the beginning of the verb / word",
    "ids": [
@@ -40086,7 +42042,18 @@
    "machine_had": false,
    "bucket_name": "awal / oola: before or after the noun",
    "uid": "FA-771fa3a1",
-   "n": 247
+   "n": 247,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-el-on-first-idafa-word",
+    "at": "2026-09-30T17:52:16.746133+00:00",
+    "rule_id": 1932,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0910-r3-10",
@@ -40164,13 +42131,13 @@
    "chat": null,
    "wrong": "يكسروا",
    "right": "بيكسروا",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "A plain present verb takes b- (بيكسروا), as in all his other forms; Amal said Nice and let it pass.",
    "english": "they break",
    "ids": [
@@ -40187,7 +42154,18 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-5337bfdb",
-   "n": 250
+   "n": 250,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-present-no-b",
+    "at": "2026-09-30T17:49:30.576666+00:00",
+    "rule_id": 1928,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "0910-r3-11",
@@ -40301,13 +42279,13 @@
    "chat": null,
    "wrong": "انكسرتم",
    "right": "انكسرتوا",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B5",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "MSA 2pl past ending -تم instead of Levantine -توا; she let it pass in the conjugation run.",
    "english": "you (pl) got broken",
    "ids": [
@@ -40328,7 +42306,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-cb7be627",
-   "n": 254
+   "n": 254,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-msa-tum-ending",
+    "at": "2026-09-30T17:59:02.579204+00:00",
+    "rule_id": 1944,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A22",
@@ -40616,13 +42605,13 @@
    "chat": null,
    "wrong": "بينكسري",
    "right": "بينكسر",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B18",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "For هو the verb is بينكسر without the feminine -i; Amal moved on to إنتو without fixing it. Low: could be the engine carrying the -i from the previous إنتي بتنكسري line.",
    "english": "he gets broken",
    "ids": [
@@ -40639,7 +42628,18 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-1e2ca596",
-   "n": 263
+   "n": 263,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-mixed-masc-fem-verb-form",
+    "at": "2026-09-30T18:13:29.602369+00:00",
+    "rule_id": 1973,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A26",
@@ -40684,13 +42684,13 @@
    "chat": null,
    "wrong": "بنكسر",
    "right": "بننكسر",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B18",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "إحنا of the un-verb انكسر is بننكسر (b-n-nkasir); he gave بنكسر, which is the إحنا form of plain كسر ('we break'), and she went straight into usage talk (46:08). Low: ASR may have collapsed the double ن, and her 45:57 line (transcribed بتنكسر) may itself have been her feeding him بننكسر.",
    "english": "we get broken",
    "ids": [
@@ -40711,7 +42711,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-6ee6290b",
-   "n": 265
+   "n": 265,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-we-form-of-inkasar",
+    "at": "2026-09-30T18:15:25.269549+00:00",
+    "rule_id": 1978,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0910-r3-24",
@@ -41330,13 +43341,13 @@
    "chat": null,
    "wrong": "الشمال روس",
    "right": "شمال روسيا",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A2",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Twenty seconds after her second fix (05:37 بس شمال روسيا, which he repeated right at 05:41) he opened his own sentence with el- on the first word of the idafa again, and clipped روسيا to روس; she let this third instance pass.",
    "english": "the north of Russia is...",
    "ids": [
@@ -41357,7 +43368,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-f5de9971",
-   "n": 284
+   "n": 284,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-el-on-first-idafa-word",
+    "at": "2026-09-30T17:52:16.746133+00:00",
+    "rule_id": 1932,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "0911-r3-8",
@@ -41368,13 +43390,13 @@
    "chat": null,
    "wrong": "ويكون بيمطر",
    "right": "وبيكون بيمطر / وبتمطر (my reading)",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Plain habitual present after و with nothing that drops b- (no modal, no ra7/lamma), so ويكون should be وبيكون, as in his بيكون just before; Amal only echoed مطر، ثلج; low because the engine can hear وبيكون as ويكون.",
    "english": "in the north of Russia it is very cold and it rains or snows",
    "ids": [
@@ -41391,7 +43413,18 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-c6dd2687",
-   "n": 285
+   "n": 285,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-present-no-b",
+    "at": "2026-09-30T17:49:30.576666+00:00",
+    "rule_id": 1928,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0911-5",
@@ -41472,13 +43505,13 @@
    "chat": null,
    "wrong": "أكتر",
    "right": "كمان / تانية (my reading)",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "He wanted 'what else / what other word do I have' and calqued English 'what more' with the comparative أكتر; Levantine is شو كمان or كلمة تانية (sheet: 'also / more / too | Kamaan | كمان', 'else/second/other | taani | تاني'); Amal did not react and he moved to 'How do I say dark again'.",
    "english": "what else, what other word do I have?",
    "ids": [
@@ -41496,7 +43529,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-a824c060",
-   "n": 288
+   "n": 288,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-aktar-what-else",
+    "at": "2026-09-30T18:19:13.024139+00:00",
+    "rule_id": 1987,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A3",
@@ -41644,13 +43688,13 @@
    "chat": null,
    "wrong": "الـ المدينة حوالين",
    "right": "المدن حوالين (my reading)",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A9",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Singular مدينة for 'the cities around' (he names two cities); she only fixed the adjective's plural, not the noun.",
    "english": "the cities around",
    "ids": [
@@ -41671,7 +43715,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-33c1e051",
-   "n": 293
+   "n": 293,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-singular-for-plural",
+    "at": "2026-09-30T17:55:18.876245+00:00",
+    "rule_id": 1937,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0911-r3-10",
@@ -41810,13 +43865,13 @@
    "chat": null,
    "wrong": "مزيد",
    "right": "بنزيد",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'Then we add b-a' came out as مزيد with no present prefix although she had modelled بزيد (11:28) and نزيد (12:02); she said مم and went on. Low: the engine may have swallowed the ن of منزيد (a correct Levantine we-form), so Amal should confirm.",
    "english": "then we add b-a",
    "ids": [
@@ -41836,7 +43891,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-c7d9a3fb",
-   "n": 298
+   "n": 298,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-present-no-b",
+    "at": "2026-09-30T17:49:30.576666+00:00",
+    "rule_id": 1928,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A7",
@@ -42404,13 +44470,13 @@
    "chat": null,
    "wrong": "بتفتحي",
    "right": "بتحطي",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Repeating the rice sentence one minute after her fix ما بتحطي (25:08) he again used فتح (open) for حط (put): sheet 'put | 7ott | حط' vs 'he opened | huwwe fata7 | هو فتح'; she answered ممتاز (26:25). Same slip as D19, which is dropped as a duplicate; the word sits in the 26:12 line, not the 26:04 one.",
    "english": "if you don't put it (in the fridge)",
    "ids": [
@@ -42430,7 +44496,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-85bd2a71",
-   "n": 315
+   "n": 315,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-fata7-for-7att",
+    "at": "2026-09-30T18:24:22.881241+00:00",
+    "rule_id": 1995,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "0911-r3-12",
@@ -42685,13 +44762,13 @@
    "chat": null,
    "wrong": "غرفةك",
    "right": "غرفتك",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A3",
    "bucket2": "A4",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Feminine غرفة grows -t- before the possessive ending (غرفتك); the transcript shows غرفةك and she answered mm-hmm. Best reading.",
    "english": "she messed up your room",
    "ids": [
@@ -42712,7 +44789,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-d90af8d9",
-   "n": 323
+   "n": 323,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-fem-t-before-ending",
+    "at": "2026-09-30T18:09:04.801884+00:00",
+    "rule_id": 1962,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "0911-D14",
@@ -42723,13 +44811,13 @@
    "chat": null,
    "wrong": "الغرف",
    "right": "الغرفة",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A9",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "He was answering her 'she messed up your room' prompt with his own turn and said the plural الغرف for 'the room' (sheet: 'room | 8urfa | غرفة'); she fixed only بغلط to بالغلط. Low: a swallowed final ة would give the same transcript, so Amal should confirm.",
    "english": "I ruined the room by mistake",
    "ids": [
@@ -42748,7 +44836,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-989a3618",
-   "n": 324
+   "n": 324,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-plural-for-singular",
+    "at": "2026-09-30T18:14:54.276608+00:00",
+    "rule_id": 1976,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A19",
@@ -43031,13 +45130,13 @@
    "chat": null,
    "wrong": "haket li",
    "right": "حكيتيلي (inti 7akaiti li) - my reading",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B5",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Asking Amal (f) 'what did you say to me' needs the you-f past ending -ti: sheet 'you (f) talked | inti 7akaiti | إنتي حكيتي'; he said haket (the I / you-m form) three times in a row, and she answered the content ('I said صح') without fixing the form.",
    "english": "what did you say to me?",
    "ids": [
@@ -43056,7 +45155,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-3ee994c9",
-   "n": 333
+   "n": 333,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-masc-you-to-amal",
+    "at": "2026-09-30T17:58:36.071118+00:00",
+    "rule_id": 1943,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "sweep_id": "V0911-048",
@@ -44071,14 +46181,14 @@
    "chat": null,
    "wrong": "واحد الواجبات",
    "right": "واحد من الواجبات",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "D1",
    "bucket2": null,
    "proposed_rule": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'one of the homeworks' needs min (waa7ad min el-waajebaat); he glued واحد straight to الواجبات; Amal only answered 'أربعة' about the count - my reading.",
    "english": "I forgot one of the homeworks.",
    "ids": [
@@ -44095,7 +46205,18 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-a3e71918",
-   "n": 363
+   "n": 363,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-wahed-min",
+    "at": "2026-09-30T18:15:11.013595+00:00",
+    "rule_id": 1977,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A15",
@@ -45513,13 +47634,13 @@
    "chat": "heyye bas6atek",
    "wrong": "هو",
    "right": "هي",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B18",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'Did she make you happy': repeating her fix بسطتك he said هو with the feminine verb; she let it pass and her chat has heyye bas6atek. Low: he had said هي correctly at 56:25 and 56:57, so this lone هو may be the engine, not him - for Amal to confirm.",
    "english": "she made you happy",
    "ids": [
@@ -45540,7 +47661,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-c6f264e1",
-   "n": 404
+   "n": 404,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-huwwe-for-heyye",
+    "at": "2026-09-30T18:09:55.359364+00:00",
+    "rule_id": 1965,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0914-47",
@@ -45661,13 +47793,13 @@
    "chat": null,
    "wrong": "بشوف",
    "right": "بشوفك",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "D4",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Echoing her بشوفك he dropped the -ك (see you); not corrected.",
    "english": "See you.",
    "ids": [
@@ -45688,7 +47820,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-9848001e",
-   "n": 408
+   "n": 408,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-object-ending-dropped",
+    "at": "2026-09-30T17:59:17.743249+00:00",
+    "rule_id": 1945,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A1",
@@ -45733,13 +47876,13 @@
    "chat": null,
    "wrong": "على تسعة ونص",
    "right": "الساعة تسعة ونص",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "E2",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Clock time given as على تسعة ونص; E2 wants el-saa3a + number. She only corrected the where/when misunderstanding, the time form passed.",
    "english": "at nine thirty",
    "ids": [
@@ -45760,7 +47903,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-219c3e8b",
-   "n": 410
+   "n": 410,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-clock-time-3ala-number",
+    "at": "2026-09-30T17:54:02.267173+00:00",
+    "rule_id": 1934,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "0915-r3-1",
@@ -45845,13 +47999,13 @@
    "chat": null,
    "wrong": "خضرا مختلف",
    "right": "خضرا مختلفة",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A8",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Collective/feminine خضرا takes a feminine adjective; he wavered and settled on masculine مختلف, Amal let it pass (my reading).",
    "english": "different vegetables",
    "ids": [
@@ -45868,7 +48022,18 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-57edc8bd",
-   "n": 413
+   "n": 413,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-fem-noun-masc-adj",
+    "at": "2026-09-30T17:49:46.605423+00:00",
+    "rule_id": 1929,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A3",
@@ -46087,13 +48252,13 @@
    "chat": null,
    "wrong": "خلّي",
    "right": "بخلّي",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Defining بكسر as a habit ('I make something broken') needs the ordinary present with b- (أنا بخلّي); he used bare خلّي and Amal let it pass with 'طيب' (right form is my reading).",
    "english": "I make something broken",
    "ids": [
@@ -46111,7 +48276,18 @@
    "bucket_name": "present with b-",
    "uid_carried_from": "FA-8f1af265",
    "uid": "FA-6a189634",
-   "n": 420
+   "n": 420,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-present-no-b",
+    "at": "2026-09-30T17:49:30.576666+00:00",
+    "rule_id": 1928,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A6",
@@ -47891,7 +50067,7 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "asked",
-   "confidence": "medium",
+   "confidence": "high",
    "why": "young/small (f)",
    "english": "young/small (f)",
    "machine_had": false,
@@ -47900,7 +50076,19 @@
    "fid": "V0916-065",
    "uid_carried_from": "FA-cd20f6f3",
    "uid": "FA-c90e4e5b",
-   "n": 472
+   "n": 472,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-06T10:42:48.248213+00:00",
+    "rule_id": 2425,
+    "label": "Wrong word",
+    "alias": null,
+    "before": {
+     "kind": "vocab-A",
+     "signal": "asked",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "0916-r3-1",
@@ -48848,7 +51036,7 @@
    "bucket2": "D4",
    "mode": "speaking",
    "signal": "finished-sentence",
-   "confidence": "low",
+   "confidence": "high",
    "why": "'Did I hurt you?': he knows the verb (sheet: i hurt | Ana wajja3et) but stalled on stacking the past 1sg ending and the object 'you' (wajja3t + ek); she finished the sentence wajja3tek and he then asked 'To a girl?' and 'What if it's to a guy?'. 'It's a three' is the ع sound (S4, not scored). Low because his attempt is untranscribed.",
    "english": "Did I hurt you?",
    "ids": [
@@ -48868,7 +51056,19 @@
    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-b7908613",
-   "n": 500
+   "n": 500,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-06T10:43:27.205264+00:00",
+    "rule_id": 2427,
+    "label": "Wrong grammar",
+    "alias": null,
+    "before": {
+     "kind": "grammar",
+     "signal": "finished-sentence",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0916-r3-20",
@@ -49467,7 +51667,7 @@
    "chat": "3ashaan ma shufetha el-usboo3 el-maadi",
    "wrong": "mashufeta",
    "right": "ma shufetha",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "D4",
    "bucket2": null,
@@ -49492,7 +51692,20 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-bc203430",
-   "n": 518
+   "n": 518,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-06",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-06T10:43:55.214845+00:00",
+    "rule_id": 2428,
+    "label": "Right",
+    "before": {
+     "kind": "grammar",
+     "signal": "recast",
+     "confidence": "low"
+    }
+   }
   },
   {
    "sweep_id": "V0916-071",
@@ -49800,7 +52013,19 @@
    "bucket_name": "future with ra7",
    "uid_carried_from": "FA-cf67cf96",
    "uid": "FA-08ccdc50",
-   "n": 527
+   "n": 527,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-06T10:44:32.662191+00:00",
+    "rule_id": 2429,
+    "label": "Wrong grammar",
+    "alias": null,
+    "before": {
+     "kind": "grammar",
+     "signal": "recast",
+     "confidence": "high"
+    }
+   }
   },
   {
    "id": "0916-r3-8",
@@ -50066,7 +52291,7 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "explicit-no",
-   "confidence": "low",
+   "confidence": "high",
    "why": "He answered her يعطيك ألف عافية with a phrase the engine hid, she said الله يعافيكي بس ('just ...') and he asked 'does that not work?'; she gave the set reply - his words cannot be verified, low.",
    "english": "(reply to 'God give you strength')",
    "ids": [
@@ -50082,7 +52307,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-cf6eb60a",
-   "n": 535
+   "n": 535,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-06T10:43:09.738908+00:00",
+    "rule_id": 2426,
+    "label": "Wrong word",
+    "alias": null,
+    "before": {
+     "kind": "vocab-A",
+     "signal": "explicit-no",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A1",
@@ -50129,12 +52366,12 @@
    "chat": null,
    "wrong": "لا بعرف",
    "right": "ما بعرف",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "C4",
    "bucket2": "B11",
    "mode": "speaking",
-   "signal": "none",
+   "signal": "amal-ruling",
    "confidence": "high",
    "why": "Verb negated with la (fus7a) instead of ma; Amal let it pass (best reading ma ba3ref).",
    "english": "I don't know, do you know jambalaya?",
@@ -50156,7 +52393,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-313dc8af",
-   "n": 537
+   "n": 537,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-la-for-ma",
+    "at": "2026-09-30T18:11:44.329751+00:00",
+    "rule_id": 1968,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "high"
+    }
+   }
   },
   {
    "id": "A2",
@@ -50649,14 +52897,14 @@
    "chat": "mbaare7 ma6arrat",
    "wrong": "الأول مطر",
    "right": "أول مطر",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A13",
    "bucket2": null,
    "proposed_rule": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "awal + noun = 'the first rain' (Amal had just modelled أحلى مطر هو أول مطر at 11:54); he put el- on awal and she let it pass.",
    "english": "but in the city the first rain (is dusty)",
    "ids": [
@@ -50673,7 +52921,18 @@
    "machine_had": false,
    "bucket_name": "awal / oola: before or after the noun",
    "uid": "FA-dbd555f6",
-   "n": 552
+   "n": 552,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-el-on-first-idafa-word",
+    "at": "2026-09-30T17:52:16.746133+00:00",
+    "rule_id": 1932,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "0917-r3-3",
@@ -50889,7 +53148,7 @@
    "chat": "ma tet2assaf/i",
    "wrong": "asfi",
    "right": "ma tet2assafi",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "B11",
    "bucket2": null,
@@ -50914,7 +53173,20 @@
    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-b666db72",
-   "n": 559
+   "n": 559,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-06",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-06T10:38:06.773741+00:00",
+    "rule_id": 2418,
+    "label": "Right",
+    "before": {
+     "kind": "grammar",
+     "signal": "asked",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A14",
@@ -50962,7 +53234,7 @@
    "chat": "inti laazem tet2assafi lalkul",
    "wrong": "[speaking Arabic] (verb form)",
    "right": "تتأسفي",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "B18",
    "bucket2": null,
@@ -50987,7 +53259,20 @@
    "bucket_name": "verb matches its subject",
    "uid_carried_from": "FA-a5027d65",
    "uid": "FA-fde513df",
-   "n": 561
+   "n": 561,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-06",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-06T10:38:51.562189+00:00",
+    "rule_id": 2419,
+    "label": "Right",
+    "before": {
+     "kind": "grammar",
+     "signal": "recast",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0917-r3-7",
@@ -51135,7 +53420,7 @@
    "chat": "ana laazem at2assaf 3ashaan ma ba2dar aru7 3indek",
    "wrong": "لَـ",
    "right": "عشان",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "D1",
    "bucket2": null,
@@ -51159,7 +53444,20 @@
    "bucket_name": "prepositions",
    "uid_carried_from": "FA-58c3b7e3",
    "uid": "FA-4b021837",
-   "n": 566
+   "n": 566,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-06",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-06T10:39:33.097542+00:00",
+    "rule_id": 2420,
+    "label": "Right",
+    "before": {
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A16",
@@ -51177,7 +53475,7 @@
    "proposed_rule": null,
    "mode": "speaking",
    "signal": "prompt-then-fix",
-   "confidence": "low",
+   "confidence": "high",
    "why": "Plain present 'I won't go' needs the b- (ma baru7); he said ma aru7, Amal prompted the meaning and he rebuilt it as ما بقدر أروح (b- on the modal, bare aru7 after it, B2).",
    "english": "because I can't go",
    "ids": [
@@ -51196,7 +53494,19 @@
    "bucket_name": "present with b-",
    "uid_carried_from": "FA-6e1667b8",
    "uid": "FA-e38d2332",
-   "n": 567
+   "n": 567,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-06T10:41:39.277784+00:00",
+    "rule_id": 2424,
+    "label": "Wrong grammar",
+    "alias": null,
+    "before": {
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A17",
@@ -51720,13 +54030,13 @@
    "chat": null,
    "wrong": "ana, uh, kharab kul shee",
    "right": "ana 5arrabt kul shi (my reading)",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B5",
    "bucket2": "B12",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'I ruined everything' with the bare he-form and no doubling; she moved on to ba5arreb el-denia without fixing it.",
    "english": "When I talked too much I ruined everything.",
    "ids": [
@@ -51745,7 +54055,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-c5ee0bdf",
-   "n": 582
+   "n": 582,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-i-past-as-bare-he-form",
+    "at": "2026-09-30T17:54:56.915892+00:00",
+    "rule_id": 1936,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A25",
@@ -52474,14 +54795,14 @@
    "chat": "el-yoam akalet la7met 3ejel mafroome ma3 ruzz u jazar u basal u 5udra mu5talefa",
    "wrong": "أكل",
    "right": "أكلت (akalet) - my reading from her typed line",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B5",
    "bucket2": null,
    "proposed_rule": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Engine shows 'أكل' (he ate / bare) for 'I ate'; her chat types akalet; she voiced nothing, and the engine may have dropped the -t.",
    "english": "Today I ate veal.",
    "ids": [
@@ -52498,7 +54819,18 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-65d686ec",
-   "n": 603
+   "n": 603,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-i-past-as-bare-he-form",
+    "at": "2026-09-30T17:54:56.915892+00:00",
+    "rule_id": 1936,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A2",
@@ -52624,7 +54956,7 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "recast",
-   "confidence": "low",
+   "confidence": "high",
    "why": "Asked the time he gave 'three' for the hour; she recast tintain (two) and he repeated it; kept because she voiced a fix and his numbers were unstable in this exchange (see D4), low because it may be a clock misread rather than a wrong number word.",
    "english": "It is three (two) twenty-six.",
    "ids": [
@@ -52642,7 +54974,19 @@
    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-2493098e",
-   "n": 607
+   "n": 607,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-03T22:04:25.739818+00:00",
+    "rule_id": 2108,
+    "label": "Wrong word",
+    "alias": null,
+    "before": {
+     "kind": "vocab-A",
+     "signal": "recast",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0918-9",
@@ -53354,13 +55698,13 @@
    "chat": "el-ijtima3aat beyzah2uni",
    "wrong": "days off",
    "right": "meetings (el-ijtima3aat)",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Asked what the word in 'meetings make me bored' meant he glossed it 'days off' (3utle) instead of meetings (ijtima3aat); she gave no explicit fix, only 'Mm' and restated the sentence; the Arabic word itself was dropped by the engine, and he may have produced it himself (he knew 'meetings' at 28:15), so mode and details are uncertain.",
    "english": "meetings",
    "ids": [
@@ -53378,7 +55722,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-8921b46c",
-   "n": 628
+   "n": 628,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-days-off-for-meetings",
+    "at": "2026-09-30T18:22:49.655137+00:00",
+    "rule_id": 1992,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A15",
@@ -53813,7 +56168,7 @@
    "proposed_rule": null,
    "mode": "speaking",
    "signal": "recast",
-   "confidence": "medium",
+   "confidence": "high",
    "why": "He said مدير then switched to the feminine Mudira for 'the company's manager'; she recast Mudir and he went on with 'Mudir el sharika' (sheet row: manager / director | Mudeer | مدير).",
    "english": "The company's manager.",
    "ids": [
@@ -53829,7 +56184,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-6abf9688",
-   "n": 640
+   "n": 640,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-03T22:04:39.865298+00:00",
+    "rule_id": 2109,
+    "label": "Wrong word",
+    "alias": null,
+    "before": {
+     "kind": "vocab-A",
+     "signal": "recast",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A19",
@@ -54383,13 +56750,13 @@
    "chat": null,
    "wrong": "ألفين وسبعة عشرين",
    "right": "ألفين وستة وعشرين (alfein u sitte u 3eshreen) - my reading, the year 2026",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Asked 'إيش من؟' he answered with the year and said seven where 2026 needs six, repeating it at 07:03; the tens compound also lacks the و (sheet pattern: twenty-twenty-five | alfein u 5amsa u 3eshrin); Amal only steered him back to the month (19 شو؟) and her chat omits the year, so no signal; low because the engine may have dropped the و and the year was never asked for.",
    "english": "two thousand twenty-six",
    "ids": [
@@ -54410,7 +56777,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-a25640de",
-   "n": 656
+   "n": 656,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-year-2026-said-wrong",
+    "at": "2026-09-30T18:28:51.998516+00:00",
+    "rule_id": 2006,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A1",
@@ -56328,7 +58706,7 @@
    "chat": null,
    "wrong": "jacket",
    "right": "جاكيت",
-   "kind": "vocab-B",
+   "kind": "dropped-by-amal",
    "tier": 3,
    "bucket": null,
    "bucket2": null,
@@ -56350,7 +58728,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-902cc6ce",
-   "n": 714
+   "n": 714,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "p-english-word-amal-also-used",
+    "reason": "irrelevant",
+    "at": "2026-09-30T18:03:21.560488+00:00",
+    "rule_id": 1951,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A10",
@@ -56467,13 +58857,13 @@
    "chat": null,
    "wrong": "هادي",
    "right": "هادية",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A8",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "مدينة is feminine so the adjective should be هادية (my reading); Amal was distracted by the sirens and did not address it.",
    "english": "my city is usually calm",
    "ids": [
@@ -56490,7 +58880,18 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-0d04f674",
-   "n": 718
+   "n": 718,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-fem-noun-masc-adj",
+    "at": "2026-09-30T17:49:46.605423+00:00",
+    "rule_id": 1929,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A13",
@@ -57098,13 +59499,13 @@
    "chat": "ba2dar adfa3 bi-el-credit card",
    "wrong": "أدفع",
    "right": "بدفع",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'Then I pay' in the plain present without b-; she echoed أدفع herself and worked on the preposition instead, and her chat wraps it in بقدر أدفع where the bare form is right. My reading.",
    "english": "then I pay (with the credit card)",
    "ids": [
@@ -57125,7 +59526,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-cb73ffba",
-   "n": 737
+   "n": 737,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-present-no-b",
+    "at": "2026-09-30T17:49:30.576666+00:00",
+    "rule_id": 1928,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A24",
@@ -57544,13 +59956,13 @@
    "chat": null,
    "wrong": "akun ana maruf",
    "right": "ana ma3roof",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "C1",
    "bucket2": "B8",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'I am known (for cooking)' in the plain present takes no 'to be' - أكون is not needed; she let it pass and the talk went to English. My reading; the line is a restart so S5 is possible.",
    "english": "I am known / famous (for cooking)",
    "ids": [
@@ -57571,7 +59983,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-e8b672bd",
-   "n": 750
+   "n": 750,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-ykoon-in-plain-present",
+    "at": "2026-09-30T17:55:38.200534+00:00",
+    "rule_id": 1938,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A28",
@@ -57934,13 +60357,13 @@
    "chat": null,
    "wrong": "Il-may sokhon",
    "right": "el-mayy su5na",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A8",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "مي is feminine, she had just said 'بمي سخنة' (41:31; sheet: hot (f) | Su5na); he said the masculine sokhon and her لا لا لا answers the claim that the water cooks the rice, not the gender. Best reading marked B.",
    "english": "the hot water half-cooks it",
    "ids": [
@@ -57959,7 +60382,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-688c6a35",
-   "n": 761
+   "n": 761,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-fem-noun-masc-adj",
+    "at": "2026-09-30T17:49:46.605423+00:00",
+    "rule_id": 1929,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "sweep_id": "V0921-105",
@@ -59651,13 +62085,13 @@
    "chat": null,
    "wrong": "دولة زي دولة عربية",
    "right": "دول زي الدول العربية",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A9",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Singular دولة for 'countries like the Arab countries' with two examples (Qatar, UAE); she let it pass. My reading; a singular 'in a country like an Arab country' is just possible.",
    "english": "nearby, because in countries like the Arab countries - Qatar and the UAE - there are many Iranian restaurants",
    "ids": [
@@ -59676,7 +62110,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-c2ac3a65",
-   "n": 811
+   "n": 811,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-singular-for-plural",
+    "at": "2026-09-30T17:55:18.876245+00:00",
+    "rule_id": 1937,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A60",
@@ -59687,13 +62132,13 @@
    "chat": null,
    "wrong": "مطعم إيراني كتير",
    "right": "مطاعم إيرانية كتير",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A9",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'Many Iranian restaurants' needs the plural مطاعم (she supplies it a minute later); not voiced here.",
    "english": "there are many Iranian restaurants",
    "ids": [
@@ -59710,7 +62155,18 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-38c1a9c7",
-   "n": 812
+   "n": 812,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-singular-for-plural",
+    "at": "2026-09-30T17:55:18.876245+00:00",
+    "rule_id": 1937,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "0921-74",
@@ -59922,13 +62378,13 @@
    "chat": null,
    "wrong": "ma ba'rif, mit akid",
    "right": "mish mit2akked",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "C4",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'I'm not sure' with the participle متأكد (sheet: sure / certain | Mit2akked | متأكد) needs مش; he said ما بعرف... متأكد; she let it pass. My reading.",
    "english": "I don't know, I'm not sure, but",
    "ids": [
@@ -59949,7 +62405,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-2012c50f",
-   "n": 819
+   "n": 819,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-ma-for-mish-participle",
+    "at": "2026-09-30T18:12:00.906153+00:00",
+    "rule_id": 1969,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "sweep_id": "V0921-124",
@@ -60022,13 +62489,13 @@
    "chat": null,
    "wrong": "el akthar",
    "right": "aktar akel mufaddal",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "C3",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'The most preferred food' puts el- on the comparative (el-akthar; sheet: more | Aktar), which C3 never does in Levantine (أكتر أكل مفضل); he stuttered through it and she said 'Mm'. Low: the sentence is fragmented. The el akil mufaddal piece is D48. Best reading marked B.",
    "english": "the most preferred food in the UAE is Iranian food",
    "ids": [
@@ -60047,7 +62514,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-f64beaa6",
-   "n": 822
+   "n": 822,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-el-on-comparative",
+    "at": "2026-09-30T18:08:03.797133+00:00",
+    "rule_id": 1960,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0921-82",
@@ -60058,13 +62536,13 @@
    "chat": null,
    "wrong": "الأكل مفضل",
    "right": "الأكل المفضل",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A7",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "He meant 'the favourite food in the UAE is Iranian food' (a phrase, not 'the food is favoured'), so the adjective needs el-; Amal only said 'Mm'.",
    "english": "the favourite food in the UAE is Iranian food",
    "ids": [
@@ -60082,7 +62560,18 @@
    "bucket_name": "noun + adjective",
    "uid_carried_from": "FA-9fd8018b",
    "uid": "FA-2b4cb69c",
-   "n": 823
+   "n": 823,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-el-missing-on-adjective",
+    "at": "2026-09-30T17:57:12.195328+00:00",
+    "rule_id": 1940,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0921-D50",
@@ -60093,13 +62582,13 @@
    "chat": null,
    "wrong": "el akil Arabi",
    "right": "الأكل العربي",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A7",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "'Like Arab food' - el- on the noun but not on the adjective turns the phrase into a sentence (the food is Arab); the phrase is الأكل العربي; she said Yeah and moved on. My reading.",
    "english": "because the food is like Arab food",
    "ids": [
@@ -60120,7 +62609,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-3bdc61fc",
-   "n": 824
+   "n": 824,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-el-missing-on-adjective",
+    "at": "2026-09-30T17:57:12.195328+00:00",
+    "rule_id": 1940,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A61",
@@ -60879,7 +63379,7 @@
    "chat": "7ajez = booking / reservation",
    "wrong": "موعد",
    "right": "حجز",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
@@ -60902,7 +63402,20 @@
    "machine_had": false,
    "uid_carried_from": "FA-91ed651e",
    "uid": "FA-4c2c1e18",
-   "n": 847
+   "n": 847,
+   "kind_before_rejection": "vocab-A",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-02",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-02T12:14:54.074656+00:00",
+    "rule_id": 2047,
+    "label": "Right",
+    "before": {
+     "kind": "vocab-A",
+     "signal": "explicit-no",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A17",
@@ -61163,13 +63676,13 @@
    "chat": null,
    "wrong": "ما بحب فول",
    "right": "ما بحب الفول",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "General statement 'I don't like ful' takes el- (A1: el-tuffaa7 zaaki); her 25:42 'أنا ما بحب الفول كمان' is her own answer, not a recast, so it is let-pass.",
    "english": "I don't like ful",
    "ids": [
@@ -61190,7 +63703,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-cca6494e",
-   "n": 856
+   "n": 856,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-el-missing-known-thing",
+    "at": "2026-09-30T17:54:18.009168+00:00",
+    "rule_id": 1935,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A19",
@@ -61201,13 +63725,13 @@
    "chat": null,
    "wrong": "ما فهمتي",
    "right": "ما فهمت",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B5",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "He meant 'I didn't understand' (her question قديش) but used the 'you (f)' ending; she let it pass.",
    "english": "I didn't understand",
    "ids": [
@@ -61228,7 +63752,18 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-b60a3e0a",
-   "n": 857
+   "n": 857,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-you-f-ending-on-i-verb",
+    "at": "2026-09-30T18:15:33.594852+00:00",
+    "rule_id": 1979,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "sweep_id": "0923-05",
@@ -63269,7 +65804,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-2a6dae3d",
-   "n": 917
+   "n": 917,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-bada-for-b3at",
+    "at": "2026-09-30T18:21:41.336683+00:00",
+    "rule_id": 1990,
+    "before": {
+     "kind": "vocab-A",
+     "signal": "prompt-then-fix",
+     "confidence": "high"
+    },
+    "on_scored_row": true
+   }
   },
   {
    "id": "A9",
@@ -63441,7 +65988,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-97c9d936",
-   "n": 922
+   "n": 922,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-musaa3ed-for-musaa3ada",
+    "at": "2026-09-30T18:27:21.135552+00:00",
+    "rule_id": 2001,
+    "before": {
+     "kind": "vocab-A",
+     "signal": "asked",
+     "confidence": "high"
+    },
+    "on_scored_row": true
+   }
   },
   {
    "id": "A11",
@@ -65059,7 +67618,7 @@
    "chat": "kalsaat",
    "wrong": "خصلات",
    "right": "كلسات",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
@@ -65082,7 +67641,20 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-2a899ac2",
-   "n": 970
+   "n": 970,
+   "kind_before_rejection": "vocab-A",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-02",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-02T12:12:31.825207+00:00",
+    "rule_id": 2044,
+    "label": "Right",
+    "before": {
+     "kind": "vocab-A",
+     "signal": "recast",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "0926-D15",
@@ -66606,13 +69178,13 @@
    "chat": "a2al min e7da3sh el-walad beykoon walad",
    "wrong": "الولاد بيكون ولاد",
    "right": "الولد بيكون ولد",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B18",
    "bucket2": "A9",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Plural ولاد with singular بيكون; my reading from her chat is the singular el-walad beykoon walad, parallel to his singular شاب / زلمة; she let it pass.",
    "english": "under eleven a boy is a boy",
    "ids": [
@@ -66629,7 +69201,18 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-678f0d24",
-   "n": 1015
+   "n": 1015,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-plural-people-verb-mismatch",
+    "at": "2026-09-30T17:59:34.668724+00:00",
+    "rule_id": 1946,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A31",
@@ -66984,7 +69567,7 @@
    "right": "ما كنت متشجع",
    "kind": "grammar",
    "signal": "recast",
-   "confidence": "medium",
+   "confidence": "high",
    "why": "He was talking about yesterday with present مش; she recast it into the past with ما كنت.",
    "english": "I wasn't motivated yesterday",
    "ids": [
@@ -67003,7 +69586,19 @@
    "kept": "amal-confirmed; the readers did not write this row on the re-heard text",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-825af56d",
-   "n": 1026
+   "n": 1026,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-01T18:59:57.854715+00:00",
+    "rule_id": 2029,
+    "label": "Wrong word",
+    "alias": null,
+    "before": {
+     "kind": "grammar",
+     "signal": "recast",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A3",
@@ -67151,7 +69746,7 @@
    "chat": "kunet mit7ammesilhom",
    "wrong": "إنهم",
    "right": "إلهم",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "D3",
    "bucket2": "D2",
@@ -67174,7 +69769,20 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-a0a76d00",
-   "n": 1031
+   "n": 1031,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-01",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-01T19:00:09.453719+00:00",
+    "rule_id": 2030,
+    "label": "Right",
+    "before": {
+     "kind": "grammar",
+     "signal": "recast",
+     "confidence": "high"
+    }
+   }
   },
   {
    "id": "A7",
@@ -67392,7 +70000,7 @@
    "chat": "lamma farjaitha el-sajjaad",
    "wrong": "شفت",
    "right": "فرجيت",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
@@ -67414,7 +70022,20 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-121421d4",
-   "n": 1038
+   "n": 1038,
+   "kind_before_rejection": "vocab-A",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-01",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-01T18:59:28.600788+00:00",
+    "rule_id": 2026,
+    "label": "Right",
+    "before": {
+     "kind": "vocab-A",
+     "signal": "explicit-no",
+     "confidence": "high"
+    }
+   }
   },
   {
    "id": "A12",
@@ -68273,7 +70894,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-736711de",
-   "n": 1063
+   "n": 1063,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-03T22:02:33.144314+00:00",
+    "rule_id": 2105,
+    "label": "Wrong word",
+    "alias": null,
+    "before": {
+     "kind": "vocab-A",
+     "signal": "explicit-no",
+     "confidence": "high"
+    }
+   }
   },
   {
    "id": "1001-3",
@@ -68284,7 +70917,7 @@
    "chat": "yoam el-5amees, wa7ad 3ashara alafain u sitte u 3eshreen",
    "wrong": "واحدة",
    "right": "واحد",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "E4",
    "bucket2": null,
@@ -68307,7 +70940,20 @@
    "machine_had": false,
    "bucket_name": "calendar",
    "uid": "FA-2d8205d4",
-   "n": 1064
+   "n": 1064,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-03",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-03T22:01:59.654306+00:00",
+    "rule_id": 2103,
+    "label": "Right",
+    "before": {
+     "kind": "grammar",
+     "signal": "recast",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A3",
@@ -68386,7 +71032,7 @@
    "chat": "mitshajje3 = motivated",
    "wrong": "حافز",
    "right": "متشجع",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
@@ -68410,7 +71056,20 @@
    "machine_had": false,
    "uid_carried_from": "FA-349294a2",
    "uid": "FA-c24ef29e",
-   "n": 1067
+   "n": 1067,
+   "kind_before_rejection": "vocab-A",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-03",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-03T22:02:46.473431+00:00",
+    "rule_id": 2106,
+    "label": "Right",
+    "before": {
+     "kind": "vocab-A",
+     "signal": "recast",
+     "confidence": "high"
+    }
+   }
   },
   {
    "id": "A5",
@@ -68444,7 +71103,19 @@
    "machine_had": false,
    "uid_carried_from": "FA-b74ec66e",
    "uid": "FA-9c0751bc",
-   "n": 1068
+   "n": 1068,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-03T22:03:06.582474+00:00",
+    "rule_id": 2107,
+    "label": "Wrong word",
+    "alias": null,
+    "before": {
+     "kind": "vocab-A",
+     "signal": "asked",
+     "confidence": "high"
+    }
+   }
   },
   {
    "id": "A6",
@@ -68732,7 +71403,7 @@
    "chat": "esem madrasto el-2adeem/e",
    "wrong": "اسم القديمة",
    "right": "اسم مدرسته القديم",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "A8",
    "bucket2": "A7",
@@ -68755,7 +71426,20 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-963a6f53",
-   "n": 1077
+   "n": 1077,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-02",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-02T12:10:41.043905+00:00",
+    "rule_id": 2040,
+    "label": "Right",
+    "before": {
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "confidence": "high"
+    }
+   }
   },
   {
    "id": "A14",
@@ -68939,7 +71623,7 @@
    "chat": "illi ba7ebbo aktar ishi",
    "wrong": "بحب",
    "right": "بحبه",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "C2",
    "bucket2": null,
@@ -68964,7 +71648,20 @@
    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-96d64e4f",
-   "n": 1083
+   "n": 1083,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-03",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-03T22:02:13.345956+00:00",
+    "rule_id": 2104,
+    "label": "Right",
+    "before": {
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A19",
@@ -69639,7 +72336,7 @@
    "chat": "ra7 nenbese6",
    "wrong": "بنجح",
    "right": "ننبسط",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
@@ -69662,7 +72359,20 @@
    "machine_had": false,
    "uid_carried_from": "FA-a9c3deab",
    "uid": "FA-f6326df4",
-   "n": 1103
+   "n": 1103,
+   "kind_before_rejection": "vocab-A",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-03",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-03T21:59:53.640526+00:00",
+    "rule_id": 2099,
+    "label": "Right",
+    "before": {
+     "kind": "vocab-A",
+     "signal": "explicit-no",
+     "confidence": "high"
+    }
+   }
   },
   {
    "id": "1002-15",
@@ -69936,7 +72646,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-5442b74f",
-   "n": 1111
+   "n": 1111,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-03T22:00:30.795296+00:00",
+    "rule_id": 2101,
+    "label": "Wrong word",
+    "alias": null,
+    "before": {
+     "kind": "vocab-A",
+     "signal": "recast",
+     "confidence": "high"
+    }
+   }
   },
   {
    "id": "A19",
@@ -70460,7 +73182,7 @@
    "chat": "el-3ashar da2aaye2 el-a5eeraat",
    "wrong": "الآخر",
    "right": "الأخير / الأخيرات",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 2,
    "bucket": null,
    "bucket2": null,
@@ -70485,7 +73207,20 @@
    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-f4b60b4a",
-   "n": 1127
+   "n": 1127,
+   "kind_before_rejection": "vocab-A",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-03",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-03T22:00:43.62658+00:00",
+    "rule_id": 2102,
+    "label": "Right",
+    "before": {
+     "kind": "vocab-A",
+     "signal": "prompt-then-fix",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "1002-r3-12",
@@ -75552,19 +78287,30 @@
    "amal_said": null,
    "wrong": "tomi",
    "right": "",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
    "correction": "ef6f0080-82c7-45c5-a8f9-26f19f625ba8",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-dae07ce8",
-   "n": 1278
+   "n": 1278,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "single-FA-dae07ce8",
+    "at": "2026-10-12T12:08:57.294717+00:00",
+    "rule_id": 38004,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A1",
@@ -75743,19 +78489,30 @@
    "amal_said": null,
    "wrong": "shwai al2a but its wrong and",
    "right": "A2al",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
    "correction": "915f1458-d691-4f69-b37e-4f0df728ba3d",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-2f40ea41",
-   "n": 1284
+   "n": 1284,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "single-FA-2f40ea41",
+    "at": "2026-10-13T11:57:58.311223+00:00",
+    "rule_id": 38067,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A5",
@@ -76006,19 +78763,30 @@
    "amal_said": null,
    "wrong": "So this",
    "right": "brought up to amal as a possible missed correction.  You need to also correct outside of amals corrections.  It should be mufaddala (fem) because of bouza",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
    "correction": "b34853b3-a2d2-4b47-8e3b-b1dcf29602e2",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-6bb6bc97",
-   "n": 1292
+   "n": 1292,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "single-FA-6bb6bc97",
+    "at": "2026-10-13T11:58:56.094416+00:00",
+    "rule_id": 38090,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "chat": null,
@@ -76377,19 +79145,30 @@
    "amal_said": null,
    "wrong": "she corrected my use of illi I wanst cut off.  It",
    "right": "counted as wrong",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
    "correction": "552207de-0b45-4011-966d-c7db23a22958",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-9c77fb71",
-   "n": 1303
+   "n": 1303,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "single-FA-9c77fb71",
+    "at": "2026-10-13T11:59:39.253029+00:00",
+    "rule_id": 38106,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "chat": null,
@@ -77070,19 +79849,30 @@
    "amal_said": null,
    "wrong": "she corrected the kaan it",
    "right": "wrong",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
    "correction": "1ff62366-166d-445b-9de1-dc1bda9adc2b",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-11 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-337afd2f",
-   "n": 1324
+   "n": 1324,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "single-FA-337afd2f",
+    "at": "2026-10-13T11:58:22.063023+00:00",
+    "rule_id": 38077,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A32",
@@ -77515,13 +80305,13 @@
    "chat": null,
    "wrong": "والـ مطعم صوت عالي كتير",
    "right": "والمطعم كان صوته عالي كتير",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B6",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Describing a past evening with no كان (and no pointer ending on صوت); Amal let it pass.",
    "english": "I went to a restaurant with my friends and the restaurant was very loud.",
    "ids": [
@@ -77538,7 +80328,18 @@
    "machine_had": false,
    "bucket_name": "kaan = was / were",
    "uid": "FA-384e12bd",
-   "n": 1338
+   "n": 1338,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "single-FA-384e12bd",
+    "at": "2026-10-12T12:04:14.981603+00:00",
+    "rule_id": 37999,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "MC-4c6577a2",
@@ -77572,7 +80373,7 @@
    "chat": null,
    "wrong": "هدول الصحابي",
    "right": "هدول الصحاب / صحابي",
-   "kind": "grammar-B",
+   "kind": "dropped-by-amal",
    "tier": null,
    "bucket": "A4",
    "bucket2": null,
@@ -77595,7 +80396,19 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-cb27ba1a",
-   "n": 1340
+   "n": 1340,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "single-FA-cb27ba1a",
+    "reason": "He corrected himself",
+    "at": "2026-10-12T12:05:36.028323+00:00",
+    "rule_id": 38000,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A3",
@@ -77701,7 +80514,7 @@
    "chat": null,
    "wrong": "راحل",
    "right": "رايح",
-   "kind": "vocab-B",
+   "kind": "dropped-by-amal",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
@@ -77723,7 +80536,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-21abe1aa",
-   "n": 1344
+   "n": 1344,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "single-FA-21abe1aa",
+    "reason": "He said انا رح اروح",
+    "at": "2026-10-12T12:08:47.096411+00:00",
+    "rule_id": 38003,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A5",
@@ -77734,7 +80559,7 @@
    "chat": "shu el-yoam yoam el-sabt 3ashara 3ashara alfain u sitte u 3eshreen",
    "wrong": "ألفين تسعة وعشرين",
    "right": "ألفين وستة وعشرين",
-   "kind": "vocab-B",
+   "kind": "dropped-by-amal",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
@@ -77756,7 +80581,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-89976ca7",
-   "n": 1345
+   "n": 1345,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "single-FA-89976ca7",
+    "reason": "The audio is not clear. He has no issues with numbers",
+    "at": "2026-10-12T12:07:22.972778+00:00",
+    "rule_id": 38001,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "MC-5e010554",
@@ -78269,7 +81106,7 @@
    "chat": null,
    "wrong": "akeli el mofadalt",
    "right": "akli el-mufaddal",
-   "kind": "grammar-B",
+   "kind": "dropped-by-amal",
    "tier": null,
    "bucket": "A8",
    "bucket2": null,
@@ -78292,7 +81129,19 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-5873e68f",
-   "n": 1362
+   "n": 1362,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "single-FA-5873e68f",
+    "reason": "He said المفضل",
+    "at": "2026-10-12T12:10:20.05185+00:00",
+    "rule_id": 38005,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "MC-c3c52f41",
@@ -80808,6 +83657,114 @@
    "bucket_name": "commands",
    "uid": "FA-eceb456a",
    "n": 1439
+  }
+ ],
+ "rulings_applied": [
+  {
+   "at": "2026-10-16T08:15:15.208308+00:00",
+   "rules": [
+    1928,
+    1929,
+    1931,
+    1932,
+    1934,
+    1935,
+    1936,
+    1937,
+    1938,
+    1940,
+    1942,
+    1943,
+    1944,
+    1945,
+    1946,
+    1951,
+    1952,
+    1954,
+    1956,
+    1957,
+    1960,
+    1962,
+    1964,
+    1965,
+    1967,
+    1968,
+    1969,
+    1972,
+    1973,
+    1976,
+    1977,
+    1978,
+    1979,
+    1983,
+    1985,
+    1987,
+    1990,
+    1992,
+    1994,
+    1995,
+    2001,
+    2003,
+    2005,
+    2006,
+    2031,
+    2032,
+    2033,
+    37999,
+    38000,
+    38001,
+    38003,
+    38004,
+    38005,
+    38067,
+    38077,
+    38090,
+    38106,
+    2026,
+    2027,
+    2028,
+    2029,
+    2030,
+    2036,
+    2037,
+    2038,
+    2039,
+    2040,
+    2041,
+    2042,
+    2043,
+    2044,
+    2045,
+    2046,
+    2047,
+    2048,
+    2049,
+    2050,
+    2098,
+    2099,
+    2100,
+    2101,
+    2102,
+    2103,
+    2104,
+    2105,
+    2106,
+    2107,
+    2108,
+    2109,
+    2110,
+    2111,
+    2112,
+    2418,
+    2419,
+    2420,
+    2424,
+    2425,
+    2426,
+    2427,
+    2428,
+    2429
+   ]
   }
  ]
 }
