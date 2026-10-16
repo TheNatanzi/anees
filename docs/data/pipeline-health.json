@@ -2,23 +2,22 @@
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-10-09T18:16:25Z",
  "last_publish_sha": "d3762fa65599e32f57006e5a3a84535abf4ae3ee",
- "last_block_reason": "rule_registry: exit 1: - PR-26 enforcement[4]: unknown pointer type 'test' | - PR-26 enforcement[5]: unknown pointer type 'test' | - PR-26: enforced in code but no test the guard runs (planted-mistake test or BLOCK check); tests_py: exit 1: FAILED tests/test_rule_registry.py::test_live_registry_passes - AssertionErro... | 1 failed, 930 passed, 1 skipped, 3 xfailed in 151.90s (0:02:31)",
- "last_block_utc": "2026-10-16T07:29:37Z",
+ "last_block_reason": "step_failures: build_lessons_page_data.py (second listen status) exit 1: ] (open since 2026-10-13T00:01, rehear-pages); 3 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/review-grades.json, docs/data/tutor-grammar.json, docs/data/tutor-notes.json: rebuild pending (open since 2026-10-16T00:45, tutor); lesson_ledger: exit 1: 2026-10-10: ledger is older ...",
+ "last_block_utc": "2026-10-16T07:52:11Z",
  "first_block_reason": "pull --rebase failed (a conflict with master; a person merges): conflict in a hand-made file (a person merges): data/lesson-work/review-grades/2026-10-12.first.json",
- "blocked_since_utc": "2026-10-15T02:17:57Z",
+ "blocked_since_utc": "2026-10-15T02:53:03Z",
  "open_failures": [
-  "refresh:2026-10-12: review_lesson.py 2026-10-12 exit 1",
-  "rehear-pages: build_lessons_page_data.py (second listen status) exit 1: ]"
+  "rehear-pages: build_lessons_page_data.py (second listen status) exit 1: ]",
+  "tutor: 3 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/review-grades.json, docs/data/tutor-grammar.json, docs/data/tutor-"
  ],
  "pending": [
-  "lesson 2026-10-12 recorded, not on the site",
   "lesson 2026-10-14 recorded, not on the site",
-  "2 open failure(s): refresh:2026-10-12, rehear-pages",
-  "101 blocked push(es) since the last publish",
-  "578 of the student's corrections since the last publish"
+  "2 open failure(s): rehear-pages, tutor",
+  "100 blocked push(es) since the last publish",
+  "925 of the student's corrections since the last publish"
  ],
- "hours_since_publish": 157.3,
+ "hours_since_publish": 157.6,
  "stalled": true,
- "generated_at": "2026-10-16T07:33:17Z",
- "plain_reason": "a test failed"
+ "generated_at": "2026-10-16T07:52:11Z",
+ "plain_reason": "the lesson ledger check failed"
 }
