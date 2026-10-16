@@ -612,3 +612,67 @@ def test_guard_check_and_push_print_the_stall_warning_and_never_block_on_it(repo
     assert json.loads((repo / G.HEALTH).read_text(encoding='utf-8'))['stalled'] is True   # a block rewrites the health file
     ok, _ = G.check_clean_tree(repo, {'clean_paths': ['docs']}, FakeRun(dirty=' M docs/data/pipeline-health.json\n'))
     assert ok                                                                   # it never makes the tree "dirty" for the next check
+
+
+# ---------------------------------------------------------------- PR-26: job-owned files + one merge (2026-10-16)
+# Medi 2026-10-16: "fix the hourly once and for all" - a session committed its own 2026-10-12.first.json to master and
+# 481 hourly pushes (431 commits waiting) stopped at "a person merges" from 2026-10-14 to 10-16.
+
+FIRST = 'data/lesson-work/review-grades/2026-10-12.first.json'
+
+
+def test_first_publish_files_are_job_owned_and_not_generated():
+    assert G.is_job_owned(FIRST) and not G.is_generated(FIRST)
+    assert not G.is_job_owned('data/lesson-work/review-grades/2026-10-12.json')     # a frozen KEY is a person's file
+
+
+def test_real_git_a_job_owned_clash_keeps_the_hourly_copy_and_publishes(tmp_path):
+    g, remote, work, other = _two_clones(tmp_path)
+    write(other / FIRST, {'page': 'session copy'})
+    g(other, 'add', '-A'); g(other, 'commit', '-qm', 'a session saved a first page'); g(other, 'push', '-q', 'origin', 'HEAD:master')
+    for n in range(3):                                   # the hourly job re-froze it several times while blocked
+        write(work / FIRST, {'page': f'hourly {n}'})
+        g(work, 'add', '-A'); g(work, 'commit', '-qm', f'hourly freeze {n}')
+    res = G.guarded_push(work, source='hourly', log=lambda *p: None)
+    assert res['pushed'], res
+    assert json.loads(g(remote, 'show', f'master:{FIRST}'))['page'] == 'hourly 2'
+
+
+def test_a_session_push_that_changes_a_job_owned_file_is_blocked(tmp_path):
+    g, remote, work, other = _two_clones(tmp_path)
+    write(other / FIRST, {'page': 'session copy'})
+    g(other, 'add', '-A'); g(other, 'commit', '-qm', 'session')
+    good = g(remote, 'rev-parse', 'master')
+    res = G.guarded_push(other, source='manual: hearing test', log=lambda *p: None)
+    assert res['outcome'] == 'blocked' and FIRST in res['reason'] and 'only the hourly job' in res['reason']
+    assert g(remote, 'rev-parse', 'master') == good
+
+
+def test_real_git_a_clash_that_only_replaying_hits_is_joined_in_one_merge(tmp_path):
+    """A local commit edits a hand-made file and a later local commit undoes it: replaying stops on the first one, but the
+    net change is nothing, so one merge with master goes through (each file clashes once, not once per commit)."""
+    g, remote, work, other = _two_clones(tmp_path)
+    write(other / 'scripts' / 'tool.py', 'x = 2\n')
+    g(other, 'commit', '-qam', 'master edit'); g(other, 'push', '-q', 'origin', 'HEAD:master')
+    write(work / 'scripts' / 'tool.py', 'x = 3\n'); g(work, 'commit', '-qam', 'local edit')
+    write(work / 'scripts' / 'tool.py', 'x = 1\n'); g(work, 'commit', '-qam', 'local undo')
+    write(work / 'docs' / 'data' / 'lessons.json', {'lessons': [{'date': '2026-10-12'}]}); g(work, 'commit', '-qam', 'lesson')
+    lines = []
+    res = G.guarded_push(work, source='hourly', log=lambda *p: lines.append(' '.join(map(str, p))))
+    assert res['pushed'], res
+    assert g(remote, 'show', 'master:scripts/tool.py') == 'x = 2'
+    assert json.loads(g(remote, 'show', 'master:docs/data/lessons.json'))['lessons'] == [{'date': '2026-10-12'}]
+    assert any('one merge' in l for l in lines)
+
+
+def test_a_stall_shows_a_windows_popup_at_most_every_6_hours(tmp_path):
+    import datetime as dt
+    shown = []
+    now = dt.datetime(2026, 10, 16, 8, 0, tzinfo=dt.timezone.utc)
+    h = {'stalled': True, 'hours_since_publish': 40.5, 'reason': 'conflict in a hand-made file'}
+    kw = dict(log=lambda *p: None, popen=lambda cmd: shown.append(cmd), system='win32')
+    assert G.stall_popup(tmp_path, h, now=now, **kw)
+    assert shown[0][:2] == ['msg', '*'] and '40.5 hours' in shown[0][-1]
+    assert not G.stall_popup(tmp_path, h, now=now + dt.timedelta(hours=2), **kw)        # not again within 6 h
+    assert G.stall_popup(tmp_path, h, now=now + dt.timedelta(hours=7), **kw)
+    assert not G.stall_popup(tmp_path, h, now=now, log=lambda *p: None, popen=lambda c: None, system='linux')

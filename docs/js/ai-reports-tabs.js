@@ -40,7 +40,7 @@ let gradesMounted=false;
 function mountGrades(){
  if(gradesMounted)return;gradesMounted=true;
  const H=$('air-grades');notice(H,'Loading…');
- chain(['js/review-grades.js']).then(()=>window.AneesReviewGrades.mount(H)).catch(()=>notice(H,'The grade book could not load.'));
+ chain(['js/review-grades.js?v=20261015-pr25']).then(()=>window.AneesReviewGrades.mount(H)).catch(()=>notice(H,'The grade book could not load.'));
 }
 function show(tab){
  if(!TABS.includes(tab))tab='unknowns';

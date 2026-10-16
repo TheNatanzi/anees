@@ -160,6 +160,58 @@ def test_score_engine_raw_and_a_rehear_run_with_fallback():
     assert g2["hit"] == 5 and g2["hidden"] == 1             # a failed call = nothing written: both words of line 20 missed
 
 
+def test_fcr_judges_every_slip_with_a_right_form():
+    """2026-10-14: FCR judged only right forms that ADD a word (4 of 43 key slips on 10-09, 0 of 25 on 10-10).
+    Now substitutions, added, dropped and moved words, Arabizi, and a sentence cut over two lines are all judged."""
+    E = HH.slip_erased
+    # substitution: his غادة, her غابة
+    assert E("غادة", "غابة", "غادة؟", "غابة؟") is True
+    assert E("غادة", "غابة", "غادة؟", "غادة؟") is False
+    # added ending (the pointer rule): جربت -> جربته
+    assert E("أول أكل أنا جربت", "أول أكل أنا جربته", "أول أكل أنا جربت", "أول أكل أنا جربته") is True
+    assert E("أول أكل أنا جربت", "أول أكل أنا جربته", "أول أكل أنا جربت", "أول أكل جربت") is False
+    # added word (kaan): her كانت is already later in the key line; the version must hold one more of it
+    key = "نفس المرة. كان كان، كانت نفس المرة اللي"
+    assert E("نفس المرة", "كانت نفس المرة", key, key) is False
+    assert E("نفس المرة", "كانت نفس المرة", key, "كانت نفس المرة. كان كان، كانت نفس المرة اللي") is True
+    # the article written apart counts as joined; a changed preposition
+    assert E("في الـ عشاء", "على العشاء", "كان في الـ عشاء", "كان على العشاء") is True
+    assert E("أكل المفضل", "الأكل المفضل", "No، أكل المفضل", "No، الـ أكل المفضل") is True
+    # moved word: آخر سؤالي -> سؤالي الأخير
+    assert E("آخر سؤالي", "سؤالي الأخير", "هذا آخر سؤالي", "هذا سؤالي الأخير") is True
+    assert E("آخر سؤالي", "سؤالي الأخير", "هذا آخر سؤالي", "هذا آخر سؤالي") is False
+    # alternatives "a / b": either one written = erased
+    assert E("سما", "سماء / السما", "شفت سما", "شفت السما") is True
+    # Arabizi he said, Arabic key line: the version writing her form is erased
+    assert E("yisbut", "byebsut (بيبسط)", "uh, يسبط It--", "uh, byebsut It--") is True
+    # no right form, or the same words once spelling is folded: not judged
+    assert E("لعبة", "لعبة", "لعبة", "لعبة") is None
+    assert E("لعبة", "", "لعبة", "لعبة") is None
+    # a sentence cut in two: judged over his line + his next line within 20 s, same ids on both sides
+    assert HH.slip_span(["10.00", "15.00", "60.00"], "10.00") == ["10.00", "15.00"]
+    assert HH.slip_span(["10.00", "15.00", "60.00"], "15.00") == ["15.00"]
+    key = {"kind": "grades", "ids": ["10.00", "15.00"], "text": {"10.00": "أول أكل", "15.00": "أنا جربت"},
+           "slips": [{"id": "10.00", "t": "00:10", "kind": "grammar", "wrong": "أول أكل أنا جربت", "right": "أول أكل أنا جربته"}]}
+    assert HH.slip_results(key, {"10.00": "أول أكل", "15.00": "أنا جربته"})[0][1] is True
+    assert HH.slip_results(key, {"10.00": "أول أكل", "15.00": "أنا جربت"})[0][1] is False
+
+
+def test_grades_key_reads_a_grammar_chips_right_form(tmp_path):
+    """A grammar ✗ keeps the tutor's form in "right" (a vocab ✗ in "ar"): the key carries both into the scorer."""
+    import json
+    d = tmp_path / "lesson-work" / "review-grades"
+    d.mkdir(parents=True)
+    snap = {"before": {}, "key": {"lines": {"5.00": "أول أكل أنا جربت"}, "words": [{"i": "5.00", "word": "أكل"}],
+                                  "slips": [{"i": "5.00", "t": "00:05", "k": "grammar", "rule": "C2", "said": "أول أكل أنا جربت",
+                                             "ar": "", "right": "أول أكل أنا جربته"},
+                                            {"i": "5.00", "t": "00:05", "k": "vocab", "said": "جربت", "ar": "جرّبت = tried (past)"}]}}
+    (d / "2026-01-09.json").write_text(json.dumps(snap, ensure_ascii=False), encoding="utf-8")
+    key = HH.load_key("2026-01-09", str(tmp_path))
+    assert [s["right"] for s in key["slips"]] == ["أول أكل أنا جربته", "جرّبت"]
+    s = HH.score_version(key, {"5.00": "أول أكل أنا جربته"})
+    assert (s["slips_judged"], s["hidden"]) == (1, 1)                 # the vocab one: same word once harakat fold
+
+
 def test_paired_word_by_word():
     key = HH.load_key(D, DATA)
     x = HH.score_version(key, HH.load_version(os.path.join(FX, "versions", "x.json"), key)[0])
@@ -214,10 +266,10 @@ def test_judge_prompt_coin_swaps_order_and_keeps_the_key():
 
 # ------------------------------------------------------------------ no paid path
 
-def test_run_refuses():
-    for argv in (["run"], ["run", "--cell", "B"], ["run", "2026-10-08", "--proposer", "gemini"]):
+def test_run_without_a_date_and_cell_spends_nothing():
+    for argv in (["run"], ["run", "--cell", "B"], ["run", "2026-10-08"]):
         code, out = run_cli(argv)
-        assert code == 2 and "not built: paid runs need Medi's yes" in out
+        assert code == 2 and "usage" in out and "paid" in out
 
 
 def test_no_paid_module_or_network_is_imported():

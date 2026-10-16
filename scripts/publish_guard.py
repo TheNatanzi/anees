@@ -490,6 +490,10 @@ REGENERATE_DEFAULT = {
               'data/budget.json'],   # Medi 2026-10-10: a budget.json conflict blocked every hourly push for ~29 h (scripts/budget_rebuild.py)
     # rebuilt right after the rebase, in this push (no hourly rebuild queued, so they never hold a publish back)
     'rebuild_inline': ['data/budget.json', 'docs/data/pipeline-health.json'],
+    # PR-26 (Medi 2026-10-16 "fix the hourly once and for all"): files only the hourly job writes. On a clash the hourly
+    # job's own copy wins (a chat session's copy never does), and a push from anywhere else may not change them. 10-14 ->
+    # 10-16: a session committed its own 2026-10-12.first.json to master and 481 hourly pushes stopped at "a person merges".
+    'job_owned': ['data/lesson-work/review-grades/*.first.json'],
 }
 
 
@@ -505,6 +509,20 @@ def is_generated(path, rules=None):
     return any(fnmatch.fnmatchcase(path, pat) for pat in list(rules.get('paths') or []) + list(rules.get('stamp') or []))
 
 
+def is_job_owned(path, rules=None):
+    rules = rules or REGENERATE_DEFAULT
+    path = path.replace('\\', '/')
+    return any(fnmatch.fnmatchcase(path, pat) for pat in rules.get('job_owned') or [])
+
+
+def _take(run, root, side, p):
+    """Resolve one conflicted file with one side's copy; a side that deleted it keeps it deleted."""
+    if getattr(_git(run, root, 'checkout', side, '--', p), 'returncode', 0):
+        _git(run, root, 'rm', '-q', '--', p)
+    else:
+        _git(run, root, 'add', '--', p)
+
+
 def _rebasing(root, run):
     for name in ('rebase-merge', 'rebase-apply'):
         p = (getattr(_git(run, root, 'rev-parse', '--git-path', name), 'stdout', '') or '').strip()
@@ -518,7 +536,7 @@ def _unmerged(root, run):
     return [l.strip() for l in out.splitlines() if l.strip()]
 
 
-def resolve_generated_conflicts(root, run=subprocess.run, config=None, max_steps=2000):
+def resolve_generated_conflicts(root, run=subprocess.run, config=None, max_steps=2000, hourly=False):
     """Called while a `pull --rebase` is stopped on a conflict. If EVERY conflicted file is generated, keep master's copy
     (during a rebase "ours" = the commit being rebased onto) and continue, step by step. Returns (True, {'resolved':
     [...]}) when the rebase finished, or (False, {'reason': ...}) - the caller aborts; a hand-made file always stops here."""
@@ -538,17 +556,56 @@ def resolve_generated_conflicts(root, run=subprocess.run, config=None, max_steps
                 if getattr(_git(run, root, 'rebase', '--skip'), 'returncode', 0) and _rebasing(root, run) and not _unmerged(root, run):
                     return False, {'reason': 'the rebase stopped and could not continue: ' + _short(getattr(c, 'stderr', ''), 160)}
             continue
-        hand = [p for p in u if not is_generated(p, rules)]
+        hand = [p for p in u if not is_generated(p, rules) and not is_job_owned(p, rules)]
         if hand:
             return False, {'reason': 'conflict in a hand-made file (a person merges): ' + ', '.join(hand[:5]), 'files': hand}
         for p in u:
-            if getattr(_git(run, root, 'checkout', '--ours', '--', p), 'returncode', 0):
-                _git(run, root, 'rm', '-q', '--', p)                 # master deleted it: keep it deleted
-            else:
-                _git(run, root, 'add', '--', p)
+            if is_job_owned(p, rules):                               # during a rebase --theirs = the commit replayed
+                _take(run, root, '--theirs' if hourly else '--ours', p)
+                continue
+            _take(run, root, '--ours', p)                            # generated: master's copy (rebuilt after)
             resolved.append(p)
         _git(run, root, 'rebase', '--continue', env=env)            # the next stop (if any) is handled by the loop
     return False, {'reason': f'the rebase needed more than {max_steps} steps'}
+
+
+def merge_with_master(root, run=subprocess.run, config=None, remote='origin', branch='master', hourly=False):
+    """PR-26: when replaying the local commits one by one onto master stops on a clash, join master in ONE merge instead,
+    so every file clashes once (not once per local commit: 431 commits were waiting on 2026-10-16). Generated files take
+    master's copy (rebuilt after, as for a rebase); job-owned files keep the hourly job's copy; a hand-made file still
+    stops for a person (the merge is aborted, nothing lost). Returns (True, {'resolved': [...]}) or (False, {...})."""
+    rules = regenerate_rules(config)
+    env = {**os.environ, 'GIT_EDITOR': 'true'}
+    m = _git(run, root, 'merge', '--no-edit', '--autostash', f'{remote}/{branch}', env=env)
+    if not getattr(m, 'returncode', 0):
+        return True, {'resolved': []}
+    u = _unmerged(root, run)
+    if not u:
+        _git(run, root, 'merge', '--abort')
+        return False, {'reason': 'merge with master failed: ' + _short(getattr(m, 'stderr', '') or getattr(m, 'stdout', ''), 200)}
+    hand = [p for p in u if not is_generated(p, rules) and not is_job_owned(p, rules)]
+    if hand:
+        _git(run, root, 'merge', '--abort')
+        return False, {'reason': 'conflict in a hand-made file (a person merges): ' + ', '.join(hand[:5]), 'files': hand}
+    resolved = []
+    for p in u:
+        if is_job_owned(p, rules):                                   # during a merge --ours = this checkout
+            _take(run, root, '--ours' if hourly else '--theirs', p)
+            continue
+        _take(run, root, '--theirs', p)                              # generated: master's copy
+        resolved.append(p)
+    c = _git(run, root, 'commit', '--no-edit', '-q', env=env)
+    if getattr(c, 'returncode', 0):
+        _git(run, root, 'merge', '--abort')
+        return False, {'reason': 'merge commit failed: ' + _short(getattr(c, 'stderr', ''), 200)}
+    return True, {'resolved': sorted(set(resolved))}
+
+
+def job_owned_changes(root, run=subprocess.run, config=None, remote='origin', branch='master'):
+    """Job-owned files this checkout would change on master (PR-26: only the hourly job may)."""
+    rules = regenerate_rules(config)
+    out = getattr(_git(run, root, 'diff', '--name-only', f'{remote}/{branch}...HEAD'), 'stdout', '') or ''
+    return [l.strip() for l in out.splitlines() if l.strip() and is_job_owned(l.strip(), rules)]
 
 
 def after_generated_rebase(root, resolved, run=subprocess.run, config=None, log=_log):
@@ -594,6 +651,38 @@ def after_generated_rebase(root, resolved, run=subprocess.run, config=None, log=
     return queued
 
 
+POPUP_P = 'data/publish-guard/popup.json'
+POPUP_EVERY_H = 6
+
+
+def stall_popup(root, h, log=_log, popen=subprocess.Popen, now=None, system=sys.platform):
+    """PR-26 (Medi 2026-10-16): 481 blocked pushes over two days went unseen (a log line and a page banner only). When the
+    hourly job is stalled, show a Windows pop-up on this PC, at most once every POPUP_EVERY_H hours. Never raises; tests
+    and other systems (or ANEES_NO_POPUP=1) skip it. Returns True when a pop-up was shown."""
+    try:
+        if not system.startswith('win') or os.environ.get('ANEES_NO_POPUP') or (popen is subprocess.Popen and 'pytest' in sys.modules):
+            return False
+        now = now or datetime.datetime.now(datetime.timezone.utc)
+        p = Path(root) / POPUP_P
+        try:
+            last = datetime.datetime.fromisoformat(json.loads(p.read_text(encoding='utf-8'))['at'])
+            if (now - last).total_seconds() < POPUP_EVERY_H * 3600:
+                return False
+        except (OSError, ValueError, KeyError):
+            pass
+        hrs = h.get('hours_since_publish')
+        text = ('Anees: the hourly job has not published for %s hours. Reason: %s. Open Claude and say: fix the hourly publish.'
+                % (hrs, str(h.get('reason') or h.get('last_block') or 'see data/publish-guard/state.json')[:160]))
+        popen(['msg', '*', '/TIME:43200', text])
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps({'at': now.isoformat(), 'text': text}, ensure_ascii=False) + '\n', encoding='utf-8')
+        log('publish guard: stall pop-up shown on this PC')
+        return True
+    except Exception as e:
+        log('publish guard: stall pop-up not shown:', type(e).__name__, str(e)[:120])
+        return False
+
+
 def _health(root, run, log, published=None):
     """Write docs/data/pipeline-health.json and print the stall WARNING (advisory, never blocks). Returns the doc."""
     try:
@@ -603,6 +692,7 @@ def _health(root, run, log, published=None):
         w = PH.warning_line(h)
         if w:
             log(w)
+            stall_popup(root, h, log=log)
         return h
     except Exception as e:
         log('publish guard: pipeline health not written:', type(e).__name__, str(e)[:160])
@@ -616,6 +706,7 @@ def guarded_push(root=ROOT, source='?', step_failures=(), run=subprocess.run, lo
     re-checks and pushes them once the numbers add up)."""
     root = Path(root)
     ahead = lambda: (getattr(_git(run, root, 'rev-list', '--count', f'{remote}/{branch}..HEAD'), 'stdout', '') or '').strip()
+    hourly_src = str(source).startswith('hourly')
     if pull:
         r = _git(run, root, 'pull', '--rebase', '--autostash', remote, branch)
         fixed, info = False, {}
@@ -624,9 +715,18 @@ def guarded_push(root=ROOT, source='?', step_failures=(), run=subprocess.run, lo
                 cfg = config or load_config(root)
             except Exception:
                 cfg = {}
-            fixed, info = resolve_generated_conflicts(root, run=run, config=cfg)
+            fixed, info = resolve_generated_conflicts(root, run=run, config=cfg, hourly=hourly_src)
             if fixed:
                 after_generated_rebase(root, info.get('resolved') or [], run=run, config=cfg, log=log)
+            elif _rebasing(root, run):
+                _git(run, root, 'rebase', '--abort')
+                fixed, minfo = merge_with_master(root, run=run, config=cfg, remote=remote, branch=branch, hourly=hourly_src)
+                if fixed:
+                    log('publish guard: replaying onto master stopped (%s); joined master in one merge instead'
+                        % str(info.get('reason', '?'))[:120])
+                    after_generated_rebase(root, minfo.get('resolved') or [], run=run, config=cfg, log=log)
+                elif minfo.get('files'):
+                    info = minfo
         if getattr(r, 'returncode', 0) and not fixed:
             _git(run, root, 'rebase', '--abort')
             why = info.get('reason') if info.get('files') else None
@@ -636,6 +736,18 @@ def guarded_push(root=ROOT, source='?', step_failures=(), run=subprocess.run, lo
             log(block_line(source, reason, ahead()))
             _health(root, run, log)
             return {'pushed': False, 'outcome': 'rebase_failed', 'reason': reason}
+    if not hourly_src:
+        try:
+            owned = job_owned_changes(root, run=run, config=config or load_config(root), remote=remote, branch=branch)
+        except Exception:
+            owned = []
+        if owned:
+            reason = ('only the hourly job writes these files; undo the change here (git checkout origin/master -- <file>): '
+                      + ', '.join(owned[:5]))
+            res = {'at': now_iso(), 'sha': None, 'checks': []}
+            record(root, res, source, 'blocked', reason, ahead())
+            log(block_line(source, reason, ahead()))
+            return {'pushed': False, 'outcome': 'blocked', 'reason': reason}
     res = run_checks(root, config=config, step_failures=step_failures, run=run)
     if not res['ok']:
         waiting = ahead()

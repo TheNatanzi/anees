@@ -1,0 +1,276 @@
+{
+ "about": "Pipeline tests on exam lessons (protocol sections 5-7), written by scripts/hearing_run.py report --write; read into docs/data/review-grades.json `experiments` by review_grades.py.",
+ "runs": [
+  {
+   "date": "2026-10-14",
+   "lessons": [
+    "2026-10-09",
+    "2026-10-10"
+   ],
+   "base": "A",
+   "scores": {
+    "2026-10-09": [
+     {
+      "version": "eleven",
+      "label": "ElevenLabs alone (raw)",
+      "hit_rate": 69.4,
+      "hidden": 0,
+      "slips_judged": 42,
+      "fcr": 0.0,
+      "vs_A": {
+       "only_this": 6,
+       "only_A": 145,
+       "p_sign": 0.0
+      },
+      "cost_usd": null
+     },
+     {
+      "version": "E1",
+      "label": "Gemini 1 listen",
+      "hit_rate": 90.8,
+      "hidden": 2,
+      "slips_judged": 42,
+      "fcr": 4.8,
+      "vs_A": {
+       "only_this": 7,
+       "only_A": 30,
+       "p_sign": 0.0002
+      },
+      "cost_usd": null
+     },
+     {
+      "version": "E2",
+      "label": "E: Gemini 2 listens (word vote)",
+      "hit_rate": 86.2,
+      "hidden": 0,
+      "slips_judged": 42,
+      "fcr": 0.0,
+      "vs_A": {
+       "only_this": 3,
+       "only_A": 51,
+       "p_sign": 0.0
+      },
+      "cost_usd": null
+     },
+     {
+      "version": "A",
+      "label": "A: today (3 listens, word vote)",
+      "hit_rate": 95.0,
+      "hidden": 1,
+      "slips_judged": 42,
+      "fcr": 2.4,
+      "vs_A": null,
+      "cost_usd": null
+     },
+     {
+      "version": "B",
+      "label": "B: Gemini whole track",
+      "hit_rate": 81.4,
+      "hidden": 3,
+      "slips_judged": 42,
+      "fcr": 7.1,
+      "vs_A": {
+       "only_this": 8,
+       "only_A": 82,
+       "p_sign": 0.0
+      },
+      "cost_usd": 0.9736
+     },
+     {
+      "version": "C",
+      "label": "C: 3-engine vote + judge",
+      "hit_rate": 87.8,
+      "hidden": 1,
+      "slips_judged": 42,
+      "fcr": 2.4,
+      "vs_A": {
+       "only_this": 6,
+       "only_A": 45,
+       "p_sign": 0.0
+      },
+      "cost_usd": 0.4995
+     },
+     {
+      "version": "F",
+      "label": "F: both whole + relisten + judge",
+      "hit_rate": 86.6,
+      "hidden": 3,
+      "slips_judged": 42,
+      "fcr": 7.1,
+      "vs_A": {
+       "only_this": 7,
+       "only_A": 53,
+       "p_sign": 0.0
+      },
+      "cost_usd": 1.8865
+     },
+     {
+      "version": "page",
+      "label": "published page before review*",
+      "hit_rate": 97.8,
+      "hidden": 0,
+      "slips_judged": 42,
+      "fcr": 0.0,
+      "vs_A": {
+       "only_this": 15,
+       "only_A": 0,
+       "p_sign": 0.0001
+      },
+      "cost_usd": null
+     }
+    ],
+    "2026-10-10": [
+     {
+      "version": "eleven",
+      "label": "ElevenLabs alone (raw)",
+      "hit_rate": 60.7,
+      "hidden": 0,
+      "slips_judged": 25,
+      "fcr": 0.0,
+      "vs_A": {
+       "only_this": 1,
+       "only_A": 170,
+       "p_sign": 0.0
+      },
+      "cost_usd": null
+     },
+     {
+      "version": "E1",
+      "label": "Gemini 1 listen",
+      "hit_rate": 92.3,
+      "hidden": 0,
+      "slips_judged": 25,
+      "fcr": 0.0,
+      "vs_A": {
+       "only_this": 6,
+       "only_A": 15,
+       "p_sign": 0.0784
+      },
+      "cost_usd": null
+     },
+     {
+      "version": "E2",
+      "label": "E: Gemini 2 listens (word vote)",
+      "hit_rate": 86.6,
+      "hidden": 0,
+      "slips_judged": 25,
+      "fcr": 0.0,
+      "vs_A": {
+       "only_this": 1,
+       "only_A": 39,
+       "p_sign": 0.0
+      },
+      "cost_usd": null
+     },
+     {
+      "version": "A",
+      "label": "A: today (3 listens, word vote)",
+      "hit_rate": 94.1,
+      "hidden": 0,
+      "slips_judged": 25,
+      "fcr": 0.0,
+      "vs_A": null,
+      "cost_usd": null
+     },
+     {
+      "version": "B",
+      "label": "B: Gemini whole track",
+      "hit_rate": 77.9,
+      "hidden": 2,
+      "slips_judged": 25,
+      "fcr": 8.0,
+      "vs_A": {
+       "only_this": 10,
+       "only_A": 92,
+       "p_sign": 0.0
+      },
+      "cost_usd": 1.1529
+     },
+     {
+      "version": "C",
+      "label": "C: 3-engine vote + judge",
+      "hit_rate": 89.5,
+      "hidden": 0,
+      "slips_judged": 25,
+      "fcr": 0.0,
+      "vs_A": {
+       "only_this": 5,
+       "only_A": 28,
+       "p_sign": 0.0001
+      },
+      "cost_usd": 0.4848
+     },
+     {
+      "version": "F",
+      "label": "F: both whole + relisten + judge",
+      "hit_rate": 86.8,
+      "hidden": 2,
+      "slips_judged": 25,
+      "fcr": 8.0,
+      "vs_A": {
+       "only_this": 11,
+       "only_A": 48,
+       "p_sign": 0.0
+      },
+      "cost_usd": 2.2291
+     },
+     {
+      "version": "page",
+      "label": "published page before review*",
+      "hit_rate": 95.5,
+      "hidden": 0,
+      "slips_judged": 25,
+      "fcr": 0.0,
+      "vs_A": {
+       "only_this": 7,
+       "only_A": 0,
+       "p_sign": 0.0156
+      },
+      "cost_usd": null
+     }
+    ]
+   },
+   "decision": [
+    {
+     "version": "eleven",
+     "wins_first": false,
+     "wins_second": false,
+     "adopt_candidate": false
+    },
+    {
+     "version": "E1",
+     "wins_first": false,
+     "wins_second": false,
+     "adopt_candidate": false
+    },
+    {
+     "version": "E2",
+     "wins_first": false,
+     "wins_second": false,
+     "adopt_candidate": false
+    },
+    {
+     "version": "B",
+     "wins_first": false,
+     "wins_second": false,
+     "adopt_candidate": false
+    },
+    {
+     "version": "C",
+     "wins_first": false,
+     "wins_second": false,
+     "adopt_candidate": false
+    },
+    {
+     "version": "F",
+     "wins_first": false,
+     "wins_second": false,
+     "adopt_candidate": false
+    }
+   ],
+   "winner": null,
+   "adopted": false,
+   "note": "10-09 and 10-10 exam keys; A and E built with the production word/span vote; B misplaces about half its missed words onto neighbouring lines (ElevenLabs line times, no forced alignment); D not run (forced alignment not built); F: ElevenLabs credit ran out mid-run, 87 (10-09) and 21 (10-10) of its second listens failed and its first version stood in; the published page is advantaged (Medi corrected that page)"
+  }
+ ]
+}

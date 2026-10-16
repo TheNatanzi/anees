@@ -2,14 +2,15 @@
 """The hearing harness, SKELETON ONLY (plan/PIPELINE-TEST-PROTOCOL.md section 5; overnight brief 2026-10-10 section 5).
 
 One script, the protocol's switches as flags, Medi's named setups A-F as presets. Every setup is scored the same way
-against the same frozen key. This skeleton has NO paid path at all: it reads cached engine outputs, estimates what a
-missing output would cost, scores versions that already exist, and builds the blind judge prompt. `run` refuses.
+against the same frozen key. This file has no paid path: it reads cached engine outputs, estimates what a missing output
+would cost, scores versions that already exist, and builds the blind judge prompt. `run` hands cells B, C and F to
+scripts/hearing_run.py (the paid step, its own $9 allowance; Medi's yes 2026-10-14).
 
     python scripts/hearing_harness.py dry-run [2026-10-08] [--cell A | --proposer gemini --listens 1 ...] [--json]
     python scripts/hearing_harness.py score 2026-10-08 --version <file|@engine|@before> [--version ...] [--fallback engine]
     python scripts/hearing_harness.py judge-prompt --a "text" --b "text" [--context "..."] [--seed 7] [--item 85.25]
     python scripts/hearing_harness.py judge-prompt 2026-10-08 --line 85.25 [--seed 7]    # ElevenLabs raw vs Gemini run 1, blind
-    python scripts/hearing_harness.py run ...          # refuses: "not built: paid runs need Medi's yes" (exit 2)
+    python scripts/hearing_harness.py run <date> --cell B|C|F    # PAID (Medi's yes 2026-10-14): scripts/hearing_run.py
 
 Switches (protocol section 5):
     --proposer  eleven | gemini | deepgram | cohere, comma list for several (who proposes the words)
@@ -36,7 +37,7 @@ sys.path.insert(0, HERE)
 import bench_common as BC  # noqa: E402  (pure: normaliser + file helpers, no network)
 
 DEFAULT_DATE = "2026-10-08"
-NOT_BUILT = "not built: paid runs need Medi's yes"
+NOT_BUILT = "not built: D needs forced alignment (whole-track text -> line times)"
 
 # ------------------------------------------------------------------ switches and cells
 
@@ -376,7 +377,7 @@ def dry_run(date, data_root, raw_root, cells=None, out=print):
     inv = inventory(date, data_root, raw_root)
     P = prices(data_root, raw_root, date)
     mins = lesson_minutes(date, data_root, raw_root)
-    out("Hearing harness dry-run %s (spends nothing; `run` is not built)" % date)
+    out("Hearing harness dry-run %s (spends nothing; `run` = scripts/hearing_run.py, paid)" % date)
     out("Lesson minutes: " + (", ".join("%s %.1f" % kv for kv in sorted(mins.items())) or "unknown"))
     out("")
     out("Cached engine outputs:")
@@ -448,7 +449,8 @@ def load_key(date, data_root):
     key = g["key"]
     slips = []
     for s in key.get("slips") or []:
-        right = re.split(r"\s=\s|\s\(", s.get("ar") or "")[0].strip()
+        # a grammar chip keeps the tutor's form in "right"; a vocab chip in "ar" ("word = meaning (note)")
+        right = (s.get("right") or re.split(r"\s=\s|\s\(", s.get("ar") or "")[0]).strip()
         slips.append({"id": s["i"], "t": s.get("t"), "kind": s.get("k"), "wrong": s.get("said") or "", "right": right})
     engine = {"%.2f" % float(ln["t"]): ln.get("engine") or "" for ln in rlines}
     return {"source": os.path.relpath(gp, data_root), "kind": "grades", "ids": sorted(key["lines"], key=float),
@@ -545,8 +547,83 @@ def word_hits(key, texts):
     return out
 
 
+def _slip_toks(text):
+    """Normalised words of a slip form / line, the article joined to its word ("الـ مطعم" = "المطعم"); Latin letters
+    read as Arabic when the text has any (his Arabizi)."""
+    t = re.sub(r"\([^)]*\)", " ", text or "")
+    out = (BC.tokens(BC.latin_to_arabic(t)) if re.search("[A-Za-z]", t) else []) or BC.tokens(t)  # unread Arabizi stays Latin
+    return _join_article(out)
+
+
+def _join_article(out):
+    """"ال" / "وال" written apart ("الـ مطعم") joined to the next word, never to another lone article."""
+    k = 0
+    while k < len(out) - 1:
+        if out[k] in ("ال", "وال") and out[k + 1] not in ("ال", "وال"):
+            out[k:k + 2] = [out[k] + out[k + 1]]
+        k += 1
+    return out
+
+
+def _line_views(text):
+    """The line read two ways: as written, and with Latin letters read as Arabic (a version may write either)."""
+    t = text or ""
+    raw = _join_article(BC.tokens(t))
+    return (raw, _slip_toks(t)) if re.search("[A-Za-z]", t) else (raw,)
+
+
+def _count(seq, views):
+    """How many times the word sequence sits in the line, adjacent and in order (the best of the line's views)."""
+    n = len(seq)
+    if not n:
+        return 0
+    return max(sum(1 for k in range(len(v) - n + 1) if all(BC.tok_eq(seq[j], v[k + j]) for j in range(n))) for v in views)
+
+
+def _changes(w, r):
+    """The places where the tutor's form differs from his: [(his words, her words, his anchored, her anchored)], each
+    with one shared word on each side as an anchor when there is one. his words = [] when she only ADDS a word there,
+    her words = [] when she only DROPS one (then that side is not tested: the anchor alone proves nothing)."""
+    import difflib
+    out = []
+    for op, a1, a2, b1, b2 in difflib.SequenceMatcher(a=w, b=r, autojunk=False).get_opcodes():
+        if op == "equal":
+            continue
+        lo = 1 if a1 > 0 and b1 > 0 else 0
+        hi = 1 if a2 < len(w) and b2 < len(r) else 0
+        out.append((w[a1 - lo:a2 + hi] if a2 > a1 else [], r[b1 - lo:b2 + hi] if b2 > b1 else [],
+                    w[a1 - lo:a2 + hi], r[b1 - lo:b2 + hi]))
+    return out
+
+
+def slip_erased(wrong, right, key_line, text):
+    """FCR, one slip: did the version write the tutor's correct form where the key has his mistake?
+    Every slip with a known right form is judged, substitutions, added, dropped and moved words alike (2026-10-14; the
+    bench rule judged only a right form that adds a word). Per changed spot (his words -> her words, anchored on a shared
+    neighbour): erased = the version holds her form more often than the key does (where she adds or changes words) AND
+    his form less often (where he had words she changed or dropped, when the key holds his form at all). Every alternative right form ("a / b") is tried; any erased = erased.
+    None = cannot be judged from text: no right form, or his and her forms are the same words once spelling is folded."""
+    w = _slip_toks(wrong)
+    k, v = _line_views(key_line), _line_views(text)
+    judged = False
+    for alt in re.split(r"\s*/\s*", re.sub(r"\([^)]*\)", " ", right or "")):
+        r = _slip_toks(alt)
+        if not r or r == w:
+            continue
+        # a spot where she only DROPS words is testable only when an anchor word stays and the key holds his form
+        ch = [c for c in _changes(w, r) if c[1] or (c[3] and _count(c[2], k))]
+        if not ch:
+            continue
+        judged = True
+        if all((_count(ra, v) > _count(ra, k) and (not wc or _count(wa, k) == 0 or _count(wa, v) < _count(wa, k))) if rc else
+               (_count(wa, v) < _count(wa, k) and _count(ra, v) >= _count(ra, k))     # dropped: his words gone, the anchor kept
+               for wc, rc, wa, ra in ch):
+            return True
+    return False if judged else None
+
+
 def slip_results(key, texts):
-    """[(slip, hidden: True/False/None)] - None = cannot be judged from text (no right form, or it adds no word)."""
+    """[(slip, hidden: True/False/None)] - None = cannot be judged from text (no right form, or the same words)."""
     import bench_score as BS
     out = []
     if key["kind"] == "bench":
@@ -554,12 +631,28 @@ def slip_results(key, texts):
             i = str(s["i"])
             out.append((dict(s, id=i), BS.slip_hidden(s, key["text"][i], texts.get(i, ""))))
         return out
+    ids = key["ids"]
     for s in key["slips"]:
         if not s["right"] or not s["wrong"]:
             out.append((s, None))
             continue
-        out.append((s, BS.slip_hidden({"wrong": s["wrong"], "right": s["right"]}, key["text"].get(s["id"], ""), texts.get(s["id"], ""))))
+        span = slip_span(ids, s["id"])
+        out.append((s, slip_erased(s["wrong"], s["right"], " ".join(key["text"].get(i, "") for i in span),
+                                   " ".join(texts.get(i, "") for i in span))))
     return out
+
+
+SLIP_SPAN_S = 20.0
+
+
+def slip_span(ids, sid):
+    """The key lines a slip is judged on: its own line + his next line when it starts within 20 s (a sentence the
+    transcript cut in two: 10-10 17:17 'أول أكل' | 'أنا جربت'). The same ids on both sides, so the pairing holds."""
+    if sid not in ids:
+        return [sid]
+    k = ids.index(sid)
+    nxt = ids[k + 1] if k + 1 < len(ids) else None
+    return [sid, nxt] if nxt is not None and float(nxt) - float(sid) <= SLIP_SPAN_S else [sid]
 
 
 def score_version(key, texts):
@@ -619,6 +712,38 @@ Version Y:
 {y_reasons}
 {context}Answer as JSON only: {{"pick": "X" | "Y" | "neither", "heard": "<what he said>", "why": "<one sentence>"}}
 """
+
+
+JUDGE_TEMPLATE_N = """You are judging {n} written versions of ONE short clip from an online Arabic lesson. The speaker is
+Medi, an American learner of Levantine Arabic who mixes English and Arabic and makes learner mistakes. You hear the clip.
+
+Write down what HE really said, word for word, KEEPING his mistakes: never correct his Arabic to the form the tutor would
+use. If the tutor says or types a word near this moment, that is NOT evidence that he said it.
+
+{versions}
+{context}Answer as JSON only: {{"pick": {picks} | "neither", "heard": "<what he said>", "why": "<one sentence>"}}
+"""
+LETTERS = "XYZ"
+
+
+def judge_prompt_n(versions, seed=0, item="", context=""):
+    """The blind prompt for one clip with 2 or 3 versions [(text, reasons)]: shown as version X / Y / Z in a seeded
+    shuffled order, names scrubbed. Returns {prompt, order: [index of the version shown as X, Y, Z], key: {"X": i, ..}}."""
+    if not 2 <= len(versions) <= len(LETTERS):
+        raise ValueError("2 or 3 versions")
+    order = list(range(len(versions)))
+    random.Random("%s|%s|n" % (seed, item)).shuffle(order)
+    blocks = []
+    for L, i in zip(LETTERS, order):
+        text, reasons = versions[i]
+        blocks.append("Version %s:\n%s\n%s" % (L, scrub(text) or "(nothing written)", ("Reasons given with it: %s\n" % scrub(reasons)) if reasons else ""))
+    prompt = JUDGE_TEMPLATE_N.format(n=len(versions), versions="\n".join(blocks),
+                                     picks=" | ".join('"%s"' % L for L in LETTERS[:len(versions)]),
+                                     context=("\nContext (the lesson around the clip, for meaning only):\n%s\n\n" % scrub(context)) if context else "\n")
+    bad = leaks(prompt)
+    if bad:
+        raise AssertionError("engine name in the judge prompt: %s" % bad)
+    return {"prompt": prompt, "order": order, "key": {L: i for L, i in zip(LETTERS, order)}}
 
 
 def scrub(text):
@@ -688,16 +813,28 @@ def build_parser():
     j.add_argument("--seed", default="0")
     j.add_argument("--item", default="")
     j.add_argument("--json", action="store_true")
-    sub.add_parser("run", help="NOT BUILT: paid runs need Medi's yes")
+    r = sub.add_parser("run", help="PAID: run cell B, C or F on a lesson (scripts/hearing_run.py; Medi's yes 2026-10-14)")
+    r.add_argument("date", nargs="?")
+    r.add_argument("--cell", choices=["B", "C", "F", "b", "c", "f"])
+    r.add_argument("--instant", action="store_true")
     return ap
 
 
 def main(argv=None):
     ap = build_parser()
     a, unknown = ap.parse_known_args(argv)
-    if a.cmd == "run":                               # whatever flags follow: there is no paid path in this skeleton
-        print(NOT_BUILT)
-        return 2
+    if a.cmd == "run":                               # the paid path lives in scripts/hearing_run.py (Medi's yes, 2026-10-14)
+        import hearing_run as HR
+        if not a.date or not a.cell:
+            print("usage: hearing_harness.py run <date> --cell B|C|F [--instant]  (paid; cells %s; D needs forced alignment, "
+                  "not built)" % ",".join(HR.RUN_CELLS))
+            return 2
+        try:
+            HR.run(a.date, [a.cell], instant=a.instant)
+        except HR.BudgetStop as e:
+            print(e)
+            return 3
+        return 0
     if unknown:
         ap.error("unrecognized arguments: %s" % " ".join(unknown))
     if a.cmd == "dry-run":
@@ -726,7 +863,7 @@ def main(argv=None):
                                                   ("  errors %d" % info["errors"]) if info["errors"] else ""))
             for h in s["hidden_rows"]:
                 print("    erased slip at %s: he said %s, tutor's form %s, version wrote: %s" % (h["id"], h["wrong"], h["right"], h["heard"]))
-        print("FCR counts only slips with a known right form that adds a word (%d of %d key slips judged)." % (rows[0][1]["slips_judged"], rows[0][1]["slips"]))
+        print("FCR judges every key slip with a known right form that differs from his in words (%d of %d key slips judged)." % (rows[0][1]["slips_judged"], rows[0][1]["slips"]))
         for k in range(1, len(rows)):
             pr = paired(rows[0][1], rows[k][1])
             print("paired %s vs %s: both %d, only first %d, only second %d, neither %d, exact sign p=%s" % (

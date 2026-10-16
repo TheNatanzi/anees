@@ -1,337 +1,212 @@
 {
  "rule": "AM-31",
- "updated": "2026-10-16T00:18:55-07:00",
+ "updated": "2026-10-13T11:34:34-07:00",
  "about": "Grammar the tutor added on her Tutor page: her words, Claude's rewrite as a rule with a letter-number, and her answer. Only her 'Yes, add it' adds the rule (scripts/tutor_grammar.py).",
- "waiting_for_tutor": 4,
+ "waiting_for_tutor": 3,
  "items": [
   {
-   "sid": "92zgc00ct",
-   "text": "add to the grammar rule that is about collocations the updated list of all verb-prepositions collocations. you can find the list on the doc or in the flash card sets (named all ver collocations)",
+   "sid": "heard-20261010-2900",
+   "text": "كمان at the end. Don't worry about كمان.",
    "example": "",
-   "at": "2026-10-15T21:49:17.134861+00:00",
-   "state": "not_grammar",
-   "versions": [
-    {
-     "grammar": false,
-     "why": "This is an instruction to update an existing collocations rule with a list from another document, not a new grammar rule, and it has no rule content or examples to turn into a card.",
-     "v": 1,
-     "made_at": "2026-10-16T07:18:15+00:00",
-     "model": "claude-sonnet-5-5",
-     "cost_usd": 0.015584,
-     "asked": null
-    }
-   ]
-  },
-  {
-   "sid": "c404ipjzg",
-   "text": "using mufaddal. \nmufaddal (favorite) in Arabic varries. \nwe treat it as an adjective that follows its noun with definiteness and gender. \nand because pronoun-ending nouns are considered definitive, we follow such nouns with el + mufaddal/e/a \nakli el-mufaddal = my favorite food.\nmakano el-mufaddal = his favorite place.\nawaa3iha el-mufaddaleen = her favorite clothes. \n\nmufaddal + 3ind. \nsometimes, when favorite is put alone in a sentence with no noun, or the noun proceeds it, we use 3ind to support it. \n\nthis is my favorite = had/i el-mufaddal 3indi \n\nwe can also use 3ind anytime, not necessarily to support mufaddal when it's alone. \nhadi el-buza el-mufaddala 3indo = this is his favorite ice cream \nso t becomes a preference thing.",
-   "example": "",
-   "at": "2026-10-15T21:48:02.084769+00:00",
-   "state": "proposed",
-   "versions": [
-    {
-     "grammar": true,
-     "id": "A21",
-     "family": "A",
-     "name": "mufaddal + 3ind",
-     "one_line": "Mufaddal (favorite) is an adjective that follows its noun and matches it in gender and definiteness; a noun with a pronoun ending counts as definite, so it takes el-mufaddal, and 3ind + the person can support it when it stands alone or after the noun.",
-     "formula": "noun-ending + el-mufaddal/e/a/een; el-mufaddal + 3ind + person",
-     "examples": [
-      {
-       "arabizi": "akli el-mufaddal",
-       "arabic": "",
-       "english": "my favorite food",
-       "hers": true
-      },
-      {
-       "arabizi": "awaa3iha el-mufaddaleen",
-       "arabic": "",
-       "english": "her favorite clothes",
-       "hers": true
-      },
-      {
-       "arabizi": "had/i el-mufaddal 3indi",
-       "arabic": "",
-       "english": "this is my favorite",
-       "hers": true
-      },
-      {
-       "arabizi": "hadi el-buza el-mufaddala 3indo",
-       "arabic": "",
-       "english": "this is his favorite ice cream",
-       "hers": true
-      }
-     ],
-     "why": "English puts 'favorite' before the noun and never changes it, but in Arabic mufaddal comes after the noun and has to agree with it, and 3ind makes it a matter of preference.",
-     "overlaps": {
-      "id": "A7",
-      "name": "noun + adjective",
-      "why": "Mufaddal is an adjective that goes after its noun, and el- placement and gender follow the same noun + adjective pattern."
-     },
-     "v": 1,
-     "made_at": "2026-10-16T07:18:15+00:00",
-     "model": "claude-sonnet-5-5",
-     "cost_usd": 0.026916,
-     "asked": null
-    }
-   ]
-  },
-  {
-   "sid": "1txa2kjvs",
-   "text": "a8lab + nafs\nboth a8lab nafs take a el + noun to mean most and same. \nnafs = same. \nnafs + el + noun = the same...\nnafs el-tari2 = the same road. \npossessive/pronoun-ending nouns are also definitive. so nafs shanteti = same as my bag \n\nto say the same, we say nafs el-ishi. \n\na8lab = most/ most of \na8lab + el + noun = most / most of... \n \na8lab el-naas = most people \na8lab akli = most of my food. \na8lab awaa3i sitti = most of my grandmother's clothes.\n\nnafs loan juzdani = the same color as my purse/wallet",
-   "example": "",
-   "at": "2026-10-15T21:42:07.216955+00:00",
-   "state": "proposed",
-   "versions": [
-    {
-     "grammar": true,
-     "id": "A20",
-     "family": "A",
-     "name": "a8lab and nafs + definite noun",
-     "one_line": "a8lab (most of) and nafs (the same) are followed by a definite noun, meaning el- + noun or a noun with a possessive ending.",
-     "formula": "a8lab / nafs + el- + noun (or noun + possessive ending)",
-     "examples": [
-      {
-       "arabizi": "nafs el-tari2",
-       "arabic": "",
-       "english": "the same road",
-       "hers": true
-      },
-      {
-       "arabizi": "nafs shanteti",
-       "arabic": "",
-       "english": "same as my bag",
-       "hers": true
-      },
-      {
-       "arabizi": "a8lab el-naas",
-       "arabic": "",
-       "english": "most people",
-       "hers": true
-      },
-      {
-       "arabizi": "a8lab akli",
-       "arabic": "",
-       "english": "most of my food",
-       "hers": true
-      }
-     ],
-     "why": "English says 'most people' and 'the same road' with no marker on the noun, but here the noun after a8lab or nafs must be definite, and a noun with a possessive ending already counts as definite.",
-     "overlaps": {
-      "id": "A17",
-      "name": "nafs + el-: the same",
-      "why": "A17 also covers nafs + el- + noun = the same, so a learner could mix up the two cards, while a8lab follows the same pattern with a different meaning."
-     },
-     "v": 1,
-     "made_at": "2026-10-16T07:18:15+00:00",
-     "model": "claude-sonnet-5-5",
-     "cost_usd": 0.024338,
-     "asked": null
-    }
-   ]
-  },
-  {
-   "sid": "nlz18hhxs",
-   "text": "taani and 8eir \nTaani has two particularly useful functions: identifying something as second in a sequence and referring to something additional or different.\nRule 1: Taani + noun = Second / the second…\nWhen taani comes before a noun, it can identify the second item or stage in a sequence.\nStructure: taani + noun\nMeaning: Second / the second…\nRule 2: El- + noun + el-taani / el-taaniye = The second / the other…\nWhen el-taani or el-taaniye comes after the noun, it identifies a particular item as second or distinguishes it from another item.\nStructure: el- + noun + el-taani / el-taaniye\nMeaning: The second… / the other…\nRule 3: Noun + taani / taaniye = Another / a different…\nWhen taani follows the noun without el-, it can mean another or a different one, rather than specifically the second item in a sequence.\nStructure: noun + taani / taaniye\nMeaning: Another… / a different…\nRemember: The difference between second and another often depends on word order and context.\n \n4. 8eir (غير): Different / Other\n8eir is used to express difference or alternatives. Its interpretation depends on the phrase and context.\nRule 1: 8eir + noun = A different… / other…\nWhen 8eir comes before a noun, it can introduce something different or other than what was previously mentioned.\nStructure: 8eir + noun\nMeaning: A different… / other…\n8eir / mu5talef also takes the preposition (3an) when we want to say other than / different from. \n8eir can be used as an adjective as well and be put after the noun with \"el\" but it's rarely used and it's preferable to use it a function word. \nmu5talef is also different, but it's different from 8eir\n• M5talef (مختلف) = different in nature or characteristics.\n• 8eir (غير) = other than / another / something else.\nThey can overlap in meaning, but they are not interchangeable in every sentence.",
-   "example": "taani 7ada = second person / the second person yoami el-tani = my second day, 8eir bluze = another/different shirt, ishi taani = something else, huwwe 8eir 3anni = he is different than me.",
-   "at": "2026-10-15T21:37:19.771305+00:00",
+   "at": "2026-10-13T06:16:22+00:00",
    "state": "proposed",
    "versions": [
     {
      "grammar": true,
      "id": "A19",
      "family": "A",
-     "name": "taani and 8eir",
-     "one_line": "taani before a noun means second; after the noun without el- it means another; 8eir before a noun means a different or other one, and 8eir + 3an means different from.",
-     "formula": "taani + noun = second | el- + noun + el-taani = the second / the other | noun + taani = another | 8eir + noun = different / other",
+     "name": "kamaan at the end = also",
+     "one_line": "To say 'also / too', put kamaan at the very end of the sentence, after the thing it adds to.",
+     "formula": "sentence + kamaan",
      "examples": [
       {
-       "arabizi": "taani 7ada",
-       "arabic": "",
-       "english": "second person / the second person",
-       "hers": true
+       "arabizi": "",
+       "arabic": "هذي أكلة خطيبتي المفضلة كمان.",
+       "english": "This is my fiancée's favorite dish too.",
+       "hers": true,
+       "date": "2026-10-10",
+       "t": "30:23"
       },
       {
-       "arabizi": "yoami el-tani",
-       "arabic": "",
-       "english": "my second day",
-       "hers": true
+       "arabizi": "",
+       "arabic": "هذي الأكلة المفضلة عند خطيبتي كمان.",
+       "english": "This dish is my fiancée's favorite too.",
+       "hers": true,
+       "date": "2026-10-10",
+       "t": "31:26"
       },
       {
-       "arabizi": "8eir bluze",
-       "arabic": "",
-       "english": "another / different shirt",
-       "hers": true
-      },
-      {
-       "arabizi": "huwwe 8eir 3anni",
-       "arabic": "",
-       "english": "he is different than me",
-       "hers": true
+       "arabizi": "",
+       "arabic": "المفضلة كمان.",
+       "english": "The favorite too.",
+       "hers": true,
+       "date": "2026-10-10",
+       "t": "29:41"
       }
      ],
-     "why": "English uses different words for second, another and different, but Arabic uses the same words, so the meaning depends on word order and context.",
-     "overlaps": {
-      "id": "A14",
-      "name": "taani: before or after the noun",
-      "why": "A14 also covers taani before or after the noun, with and without el-."
-     },
+     "why": "English puts 'also' near the verb; she moved kamaan to the end of the sentence for 'too'.",
+     "overlaps": null,
      "v": 1,
-     "made_at": "2026-10-16T07:18:15+00:00",
+     "made_at": "2026-10-13T06:16:22+00:00",
      "model": "claude-sonnet-5-5",
-     "cost_usd": 0.026384,
-     "asked": null
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-10-10",
+     "checked": {
+      "new": true,
+      "covered_by": null,
+      "why": "No existing rule or proposal says kamaan goes at the end of the sentence to mean 'also'; P-FA-d28341e4 covers a different kamaan ('another', before the noun).",
+      "her_examples": 3,
+      "cost_usd": 0.028456
+     }
     }
-   ]
+   ],
+   "heard": {
+    "date": "2026-10-10",
+    "t": "29:00",
+    "quote": "كمان at the end. Don't worry about كمان.",
+    "line": "كمان at the end. Don't worry about كمان.",
+    "before": "كمان أكلة"
+   }
   },
   {
-   "sid": "drf1l2k5c",
-   "text": "Awal and aa5er uses \nin spoken Arabic, function words mean different things depending on where they're put in a sentence, whether they're followed by an \"el\" or not, or if an overruling grammar is present in the sentence. \nAwal can mean First / the first or the beginning of \nAwal + noun (without el) is first or the first. \nAwal + el + noun = the beginning of... \na pronoun/possessive-ending noun is also considered a definitive noun: so awal yoami = the beginning of my day. \nto work around this rule, and because idafa always surpasses/overrules other grammar rules, we use ili or the adjective form of awal: awal (M) and oola (f) \nso my first day = yoami el-awal / awal yoam ili. \nto say first yyou can also use the adjective form. el-sayyara el-oola = the first car. \n\n\naa5er is just like awal. \naa5er yoam = last day, aa5er el-yoam = the end of the day, aa5er yoam ili / yoami el-a5eer = my last day, el-yoam el-a5eer = the last day.",
+   "sid": "heard-20261008-3614",
+   "text": "Ago is قبل. So قبل ثلاث سنين.",
    "example": "",
-   "at": "2026-10-15T21:28:12.612346+00:00",
+   "at": "2026-10-13T06:14:21+00:00",
+   "state": "proposed",
+   "versions": [
+    {
+     "grammar": true,
+     "id": "E6",
+     "family": "E",
+     "name": "ago = qabel + number + noun",
+     "one_line": "To say 'ago', put قبل in front of the number and time unit: قبل ثلاث سنين means three years ago.",
+     "formula": "qabel + number + plural time unit (qabel talat sneen)",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "قبل ثلاث سنين",
+       "english": "three years ago",
+       "hers": true,
+       "date": "2026-10-08",
+       "t": "36:14"
+      },
+      {
+       "arabizi": "",
+       "arabic": "قبل كم يوم من السفرة بتحجز التذكرة؟",
+       "english": "How many days before the trip do you book the ticket?",
+       "hers": true,
+       "date": "2026-09-23",
+       "t": "42:07"
+      }
+     ],
+     "why": "English puts 'ago' after the time phrase, but Arabic puts قبل in front of the number.",
+     "overlaps": {
+      "id": "E1",
+      "name": "number + noun",
+      "why": "Both use a number with a plural noun after it; this rule adds قبل in front of the whole phrase."
+     },
+     "v": 1,
+     "made_at": "2026-10-13T06:14:21+00:00",
+     "model": "claude-haiku-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-10-08",
+     "checked": {
+      "new": true,
+      "covered_by": null,
+      "why": "No existing rule or proposal teaches 'ago' with قبل before a number and time unit; E1/E3 cover number+noun forms and the others are different uses of قبل.",
+      "her_examples": 2,
+      "cost_usd": 0.028476
+     }
+    }
+   ],
+   "heard": {
+    "date": "2026-10-08",
+    "t": "36:14",
+    "quote": "Ago is قبل. So قبل ثلاث سنين.",
+    "line": "Ago is قبل. So قبل ثلاث سنين.",
+    "before": "Um, so just..."
+   }
+  },
+  {
+   "sid": "heard-20261008-3746",
+   "text": "يعني it's feminine but it sounds masculine or it's masculine",
+   "example": "",
+   "at": "2026-10-13T06:14:21+00:00",
    "state": "proposed",
    "versions": [
     {
      "grammar": true,
      "id": "A18",
      "family": "A",
-     "name": "awal / aa5er with el-",
-     "one_line": "Awal and aa5er + a noun without el- mean first / last, but with el- or a possessive ending they mean the beginning / end of, so for 'my first day' use illi or put the adjective after the noun.",
-     "formula": "awal / aa5er + noun = first / last; awal / aa5er + el- or ending + noun = beginning / end of",
+     "name": "hidden gender: nature words",
+     "one_line": "Some nature nouns look or sound masculine but are feminine (sun, fire, earth, sky), while هواء (air) is masculine even though it sounds feminine.",
+     "formula": "shams / nar / ard / sama = feminine; hawa = masculine",
      "examples": [
       {
-       "arabizi": "awal yoami",
-       "arabic": "",
-       "english": "the beginning of my day",
-       "hers": true
+       "arabizi": "",
+       "arabic": "طب امتى الشمس بتطلع؟",
+       "english": "So when does the sun rise?",
+       "hers": true,
+       "date": "2026-10-08",
+       "t": "17:32"
       },
       {
-       "arabizi": "yoami el-awal / awal yoam ili",
-       "arabic": "",
-       "english": "my first day",
-       "hers": true
+       "arabizi": "",
+       "arabic": "النار حرقتني.",
+       "english": "The fire burned me.",
+       "hers": true,
+       "date": "2026-10-08",
+       "t": "44:14"
       },
       {
-       "arabizi": "el-sayyara el-oola",
-       "arabic": "",
-       "english": "the first car",
-       "hers": true
+       "arabizi": "",
+       "arabic": "النار بتحرق.",
+       "english": "Fire burns.",
+       "hers": true,
+       "date": "2026-10-08",
+       "t": "44:11"
       },
       {
-       "arabizi": "aa5er el-yoam",
-       "arabic": "",
-       "english": "the end of the day",
-       "hers": true
+       "arabizi": "",
+       "arabic": "أنا الشمس بتضايقني.",
+       "english": "The sun bothers me.",
+       "hers": true,
+       "date": "2026-09-26",
+       "t": "1:00:06"
       }
      ],
-     "why": "English uses 'first' and 'last' the same way everywhere, but in Arabic el- or a possessive ending on the noun turns them into 'the beginning of' and 'the end of', because idafa overrules the other rules.",
+     "why": "The gender of these nature nouns does not match their sound, so a learner cannot guess it from the word's shape.",
      "overlaps": {
-      "id": "A13",
-      "name": "awal / oola: before or after the noun",
-      "why": "A13 already covers awal + noun versus awal + el- + noun, and a learner could mix it up with this rule."
+      "id": "A8",
+      "name": "gender on adjectives",
+      "why": "A8 says a feminine noun takes a feminine adjective, but it assumes you already know which nouns are feminine; this rule supplies that for nature words."
      },
      "v": 1,
-     "made_at": "2026-10-16T07:18:15+00:00",
-     "model": "claude-sonnet-5-5",
-     "cost_usd": 0.025964,
-     "asked": null
+     "made_at": "2026-10-13T06:14:21+00:00",
+     "model": "claude-haiku-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-10-08",
+     "checked": {
+      "new": true,
+      "covered_by": null,
+      "why": "No existing rule or proposal covers hidden grammatical gender of nature nouns like sun, fire, sky; A8 and A10 only cover agreement, not which nouns are feminine.",
+      "her_examples": 4,
+      "cost_usd": 0.029372
+     }
     }
-   ]
+   ],
+   "heard": {
+    "date": "2026-10-08",
+    "t": "37:46",
+    "quote": "يعني it's feminine but it sounds masculine or it's masculine",
+    "line": "That we just, we just talked about يعني three, five, six min-mi-minutes ago. Um, it doesn't sound like it's gender. يعني it's feminine but it sounds masculine or it's masculine",
+    "before": "Okay, the nature lesson. Yeah."
+   }
   }
  ],
- "rows": [
-  {
-   "id": 38448,
-   "created_at": "2026-10-13T15:22:17.005644+00:00",
-   "kind": "grammar_change",
-   "word_key": "tgram:heard-20261010-2900:answer",
-   "payload": {
-    "v": 1,
-    "id": "A19",
-    "lid": "lmv6txlnnmqixc",
-    "what": "For kamaan  to mean also, as well, or too,it doesn’t matter where it’s put in the sentence. \nIt matters however, if  we want it to mean, one more or another (meaning more of the same thing)\nTo mean kamaan  as another of the same thing we put it before the knoun\nKamaan ishi = another / one more thing \nHeyye kamaan bet7eb el-baid / heyye bet7eb el-baid / kamaan heyye bet7eb el-baid = she also likes eggs",
-    "label": "Change it"
-   }
-  },
-  {
-   "id": 38449,
-   "created_at": "2026-10-13T15:22:32.326192+00:00",
-   "kind": "grammar_yes",
-   "word_key": "tgram:heard-20261008-3614:answer",
-   "payload": {
-    "v": 1,
-    "id": "E6",
-    "lid": "lmv6txxp5sej2o",
-    "label": "Yes, add it"
-   }
-  },
-  {
-   "id": 38450,
-   "created_at": "2026-10-13T15:25:07.734034+00:00",
-   "kind": "grammar_change",
-   "word_key": "tgram:heard-20261008-3746:answer",
-   "payload": {
-    "v": 1,
-    "id": "A18",
-    "lid": "lmv6u19j70w6hm",
-    "what": "It shouldn’t be restricted to nature nouns.\nIt could be about any noun that sounds feminine, but is masculine or vice versa\nLike hand, leg, eye, ear, girl, man, etc.",
-    "label": "Change it"
-   }
-  },
-  {
-   "id": 38577,
-   "created_at": "2026-10-15T21:28:12.612346+00:00",
-   "kind": "grammar_submit",
-   "word_key": "tgram:drf1l2k5c",
-   "payload": {
-    "lid": "lmva1vwrodrb2d",
-    "text": "Awal and aa5er uses \nin spoken Arabic, function words mean different things depending on where they're put in a sentence, whether they're followed by an \"el\" or not, or if an overruling grammar is present in the sentence. \nAwal can mean First / the first or the beginning of \nAwal + noun (without el) is first or the first. \nAwal + el + noun = the beginning of... \na pronoun/possessive-ending noun is also considered a definitive noun: so awal yoami = the beginning of my day. \nto work around this rule, and because idafa always surpasses/overrules other grammar rules, we use ili or the adjective form of awal: awal (M) and oola (f) \nso my first day = yoami el-awal / awal yoam ili. \nto say first yyou can also use the adjective form. el-sayyara el-oola = the first car. \n\n\naa5er is just like awal. \naa5er yoam = last day, aa5er el-yoam = the end of the day, aa5er yoam ili / yoami el-a5eer = my last day, el-yoam el-a5eer = the last day.",
-    "example": ""
-   }
-  },
-  {
-   "id": 38578,
-   "created_at": "2026-10-15T21:37:19.771305+00:00",
-   "kind": "grammar_submit",
-   "word_key": "tgram:nlz18hhxs",
-   "payload": {
-    "lid": "lmva27mtcck0s4",
-    "text": "taani and 8eir \nTaani has two particularly useful functions: identifying something as second in a sequence and referring to something additional or different.\nRule 1: Taani + noun = Second / the second…\nWhen taani comes before a noun, it can identify the second item or stage in a sequence.\nStructure: taani + noun\nMeaning: Second / the second…\nRule 2: El- + noun + el-taani / el-taaniye = The second / the other…\nWhen el-taani or el-taaniye comes after the noun, it identifies a particular item as second or distinguishes it from another item.\nStructure: el- + noun + el-taani / el-taaniye\nMeaning: The second… / the other…\nRule 3: Noun + taani / taaniye = Another / a different…\nWhen taani follows the noun without el-, it can mean another or a different one, rather than specifically the second item in a sequence.\nStructure: noun + taani / taaniye\nMeaning: Another… / a different…\nRemember: The difference between second and another often depends on word order and context.\n \n4. 8eir (غير): Different / Other\n8eir is used to express difference or alternatives. Its interpretation depends on the phrase and context.\nRule 1: 8eir + noun = A different… / other…\nWhen 8eir comes before a noun, it can introduce something different or other than what was previously mentioned.\nStructure: 8eir + noun\nMeaning: A different… / other…\n8eir / mu5talef also takes the preposition (3an) when we want to say other than / different from. \n8eir can be used as an adjective as well and be put after the noun with \"el\" but it's rarely used and it's preferable to use it a function word. \nmu5talef is also different, but it's different from 8eir\n• M5talef (مختلف) = different in nature or characteristics.\n• 8eir (غير) = other than / another / something else.\nThey can overlap in meaning, but they are not interchangeable in every sentence.",
-    "example": "taani 7ada = second person / the second person yoami el-tani = my second day, 8eir bluze = another/different shirt, ishi taani = something else, huwwe 8eir 3anni = he is different than me."
-   }
-  },
-  {
-   "id": 38579,
-   "created_at": "2026-10-15T21:42:07.216955+00:00",
-   "kind": "grammar_submit",
-   "word_key": "tgram:1txa2kjvs",
-   "payload": {
-    "lid": "lmva2dsph91lx8",
-    "text": "a8lab + nafs\nboth a8lab nafs take a el + noun to mean most and same. \nnafs = same. \nnafs + el + noun = the same...\nnafs el-tari2 = the same road. \npossessive/pronoun-ending nouns are also definitive. so nafs shanteti = same as my bag \n\nto say the same, we say nafs el-ishi. \n\na8lab = most/ most of \na8lab + el + noun = most / most of... \n \na8lab el-naas = most people \na8lab akli = most of my food. \na8lab awaa3i sitti = most of my grandmother's clothes.\n\nnafs loan juzdani = the same color as my purse/wallet",
-    "example": ""
-   }
-  },
-  {
-   "id": 38580,
-   "created_at": "2026-10-15T21:48:02.084769+00:00",
-   "kind": "grammar_submit",
-   "word_key": "tgram:c404ipjzg",
-   "payload": {
-    "lid": "lmva2lee8fkzq2",
-    "text": "using mufaddal. \nmufaddal (favorite) in Arabic varries. \nwe treat it as an adjective that follows its noun with definiteness and gender. \nand because pronoun-ending nouns are considered definitive, we follow such nouns with el + mufaddal/e/a \nakli el-mufaddal = my favorite food.\nmakano el-mufaddal = his favorite place.\nawaa3iha el-mufaddaleen = her favorite clothes. \n\nmufaddal + 3ind. \nsometimes, when favorite is put alone in a sentence with no noun, or the noun proceeds it, we use 3ind to support it. \n\nthis is my favorite = had/i el-mufaddal 3indi \n\nwe can also use 3ind anytime, not necessarily to support mufaddal when it's alone. \nhadi el-buza el-mufaddala 3indo = this is his favorite ice cream \nso t becomes a preference thing.",
-    "example": ""
-   }
-  },
-  {
-   "id": 38581,
-   "created_at": "2026-10-15T21:49:17.134861+00:00",
-   "kind": "grammar_submit",
-   "word_key": "tgram:92zgc00ct",
-   "payload": {
-    "lid": "lmva2n0cbt5akd",
-    "text": "add to the grammar rule that is about collocations the updated list of all verb-prepositions collocations. you can find the list on the doc or in the flash card sets (named all ver collocations)",
-    "example": ""
-   }
-  }
- ]
+ "rows": []
 }

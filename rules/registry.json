@@ -8824,6 +8824,112 @@
    "aliases": []
   },
   {
+   "id": "AM-32",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Grammar Claude HEARS the tutor teach in a lesson becomes a card on her 'Add grammar' list (AM-31). When a lesson is reviewed (scripts/review_lesson.py step 7f; the hourly `tutor_grammar.py pull` retries a failed read, 3 tries at most), ONE lean `claude -p` read of the lesson TRANSCRIPT (scripts/tutor_grammar_heard_prompt.md, tutor_grammar.lean_cmd on Sonnet 5.5 at low effort with no prompt cache, about $0.15 a lesson - measured 10-10 $0.145: the transcript alone is ~30K tokens, so the $0.05 of a short AM-31 read is not reachable - logged in data/runs and data/budget.json) finds grammar she TAUGHT or explained that fits no bucket in docs/data/grammar-buckets.json and no rule already proposed. Each finding is checked in code, never trusted: her quote must be on one of her own lines within 20 s of the time given (the line and the student's line before it are copied from the transcript); a GR-18 proposal moment within 30 s of the same lesson, or a rule / proposal / card with the same name, drops it (GR-18 keeps turning bare corrections into proposals; not duplicated); at most 5 a lesson. A kept finding is the same proposal shape with the same id assignment (next free per letter, ids_given never reused) and the same Yes, add it / Change it / Not a rule rows (tgram:heard-<yyyymmdd>-<mmss>:answer; no submit row), marked 'Claude heard this in the <date> lesson at mm:ss' with her quote and the student's line. Only her yes adds the rule (no automatic detection); past lessons are re-scored only on Medi's yes (PR-05). Lessons before TUTOR_FROM are not read (AM-28). Code never contacts her (AM-01). Amended by Medi 2026-10-13: every card then gets ONE short check read (scripts/tutor_grammar_check_prompt.md, about $0.03): is it really new (a 'covered' verdict needs a real rule or proposal id, and takes the card off her list, its id still taken) and which of HER own lines from any lesson are examples of it (each must be copied from one of her lines; it shows 'you said it <date> at mm:ss'; Claude's made-up examples are replaced). A second independent reader runs on the next 10 lessons only (the two-reader trial): per lesson it records what each read found, what only the second found and her answers on those cards (`python scripts/tutor_grammar.py trial`), then stops.",
+   "plain": "After each lesson Claude reads the transcript (about 15 cents) and, when your tutor taught a grammar rule you do not have yet, puts it on her 'Add grammar' list with her own sentences as examples, after a second check that it is really new. For the next 10 lessons a second reader also reads each lesson, to measure whether it finds more. Nothing is added until she taps Yes.",
+   "plain_for": "4f641840",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "it would be nice to have you detect new grammar and suggest it if you hear it in our convo"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-12",
+     "quote": "cant we tell from the transcript about the grammar rules?"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-13",
+     "quote": "just do 1-2 and 3 but for 3 keep track for 10 lessons and see how much improvement its actually giving"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "def hear(date, store, repo=REPO, runner=None, log=print, spend=None, now=None, force=False):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "def place_quote(turns, t, quote):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "def gr18_moments(repo=REPO):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "def heard_grammar_step(d, dry_run, repo=None, runner=None, spend=None):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/grammar-add-task.js",
+     "contains": "Claude heard this in the ${esc(pretty(h.date))} lesson at ${esc(h.t)}"
+    },
+    {
+     "type": "brief",
+     "path": "scripts/tutor_grammar_heard_prompt.md",
+     "contains": "A correction counts only when she EXPLAINS it"
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "def check_card(card, h, buckets, repo, runner=None, log=print, spend=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "TRIAL_LESSONS = 10"
+    },
+    {
+     "type": "code",
+     "path": "scripts/tutor_grammar.py",
+     "contains": "def trial_report(store, rows=None):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_grammar_heard.py",
+     "contains": "def test_am_32_a_rule_she_taught_becomes_a_card_marked_heard_with_her_quote_the_line_and_the_next_free_id"
+    },
+    {
+     "path": "tests/test_tutor_grammar_heard.py",
+     "contains": "def test_am_32_gr_18_is_reused_not_duplicated_and_a_known_name_is_not_new"
+    },
+    {
+     "path": "tests/test_tutor_grammar_heard.py",
+     "contains": "def test_am_32_one_read_per_lesson_a_failed_read_is_retried_and_lessons_before_tutor_from_are_not_read"
+    },
+    {
+     "path": "tests/test_grammar_add_task.cjs",
+     "contains": "test('AM-32 a card Claude heard in a lesson"
+    },
+    {
+     "path": "tests/test_tutor_grammar_heard.py",
+     "contains": "def test_am_32_check_examples_and_verdict"
+    },
+    {
+     "path": "tests/test_tutor_grammar_heard.py",
+     "contains": "def test_am_32_a_card_the_check_finds_already_covered_is_never_shown_and_a_made_up_rule_id_does_not_drop_it"
+    },
+    {
+     "path": "tests/test_tutor_grammar_heard.py",
+     "contains": "def test_am_32_two_reader_trial_runs_ten_lessons_and_keeps_score_of_what_the_second_read_added"
+    }
+   ],
+   "aliases": []
+  },
+  {
    "id": "TR-28",
    "kind": "data",
    "scope": "transcription",
@@ -11068,8 +11174,8 @@
     },
     {
      "type": "code",
-     "path": "scripts/hearing_harness.py",
-     "contains": "not built: paid runs need Medi's yes"
+     "path": "scripts/hearing_run.py",
+     "contains": "class BudgetStop(SystemExit)"
     }
    ],
    "example": {
@@ -11078,8 +11184,8 @@
    },
    "test": [
     {
-     "path": "tests/test_hearing_harness.py",
-     "contains": "def test_run_refuses"
+     "path": "tests/test_hearing_run.py",
+     "contains": "def test_budget_stop_sends_nothing"
     }
    ]
   },
@@ -11138,6 +11244,126 @@
    "example": {
     "date": "2026-10-09",
     "note": "hourly blocked from 10-09 18:23Z (budget.json conflict) to 10-11: 37 h, 99 blocked pushes, lesson 10-10 recorded but not published"
+   }
+  },
+  {
+   "id": "PR-25",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The two slip readers of every new lesson are Opus 5.5 (r1) and Sonnet 5.5 (r2), same READER-BRIEF, effort pinned high (scripts/review_lesson.py; the model is written in each reader file's manifest). On a lesson read by that pair, full_audit_compare.settle keeps a slip (vocab or grammar, any A/B kind, never a tier-3 vocab row) only when BOTH readers flagged a slip of the same family within 15 s (scripts/reader_agree.py gate = the scorer's own match); every other slip row is held 'one reader only' (settled.json held_one_reader), listed on AI Reports > Grades, never a mistake chip and never sent to the tutor. This holds for every settled row as measured, also a third-reader keep, a third-reader addition and a GR-24 row that only one reader flagged (held, listed, never silently dropped). Lessons read before the pair keep their chips; the retired pass 2 is not gated. Evidence 2026-10-15 (one read each on 10-08/09/10, 102 key slips): F0.5 both-agree 69.6 (precision 68.5, recall 74.5) vs Opus alone 65.0, Sonnet 61.9, either 58.4, a cross-judging debate 65.0 (not built); won on every lesson (70.7 / 68.5 / 69.8). Adopted on dev; protocol section 6: the next fully reviewed lesson read by the pair is scored automatically (scripts/review_grades.py -> experiments: both-agree vs Opus alone on its frozen key); a loss is flagged on the Grades tab and told to Medi, never rolled back silently.",
+   "plain": "Two different AI readers (Opus and Sonnet) read each new lesson, and a mistake is shown only when both of them found it; one-reader finds are kept aside on AI Reports, and the next fully reviewed lesson checks that this still beats Opus alone.",
+   "plain_for": "e1091b48",
+   "topic": "testing engines",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-15",
+     "quote": "Yes: build the Opus + Sonnet both-agree reader into the app, confirm it on the next fully reviewed lesson, and push it through the publish guard."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/reader_agree.py",
+     "contains": "def gate(rows, r1_rows, r2_rows, window=WINDOW_S):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/full_audit_compare.py",
+     "contains": "rows, held = RA.gate(rows, A[\"rows\"], B[\"rows\"])"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "model=READER_MODELS[r], effort=READER_EFFORT"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_grades.py",
+     "contains": "c = RA.confirm(r[\"date\"], work, snap[\"key\"])"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_reader_agree.py",
+     "contains": "def test_gate_keeps_a_slip_only_when_both_readers_flagged_its_family_within_15_s"
+    },
+    {
+     "path": "tests/test_reader_agree.py",
+     "contains": "def test_confirm_scores_both_agree_vs_opus_alone_and_flags_a_loss"
+    }
+   ],
+   "example": {
+    "date": "2026-10-10",
+    "note": "10-10 replay: both-agree F0.5 69.8 vs Opus alone 63.7 on its key (data/lesson-work/reader-tiers/runs/debate-results-2026-10-15.json)"
+   }
+  },
+  {
+   "id": "PR-26",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The hourly job's publish never waits on a clash it can settle itself. (1) Job-owned files (publish_guard REGENERATE_DEFAULT job_owned: data/lesson-work/review-grades/*.first.json) are written only by the hourly job: on a clash the hourly job's copy wins, and a push from any other source that changes one is blocked with the file named. (2) When replaying the local commits onto master stops, the guard aborts and joins master in ONE merge (publish_guard.merge_with_master): generated files take master's copy and are rebuilt, job-owned files keep the hourly copy, a hand-made file still stops for a person. (3) freeze_first never rewrites a first page that is already on master. (4) A stall (no hourly publish for 2+ h while work waits) shows a Windows pop-up on the PC (msg *), at most every 6 h. Cause 2026-10-14 -> 10-16: a session committed its own 2026-10-12.first.json to master; 481 hourly pushes stopped at 'a person merges' with 431 commits waiting, unseen.",
+   "plain": "The hourly job can no longer get stuck on a file only it writes, settles clashes with the live site in one step, and pops up a warning on the PC if publishing stops for 2 hours.",
+   "plain_for": "29638459",
+   "topic": "testing engines",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-16",
+     "quote": "dude fix the hourly once and for all"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "def merge_with_master("
+    },
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "'job_owned': ['data/lesson-work/review-grades/*.first.json'],"
+    },
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "def stall_popup("
+    },
+    {
+     "type": "code",
+     "path": "scripts/hourly_lessons.py",
+     "contains": "master already has a first page: written once, never again"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_real_git_a_job_owned_clash_keeps_the_hourly_copy_and_publishes"
+    },
+    {
+     "path": "tests/test_hourly_lessons.py",
+     "contains": "def test_a_first_page_already_on_master_is_never_rewritten"
+    },
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_a_session_push_that_changes_a_job_owned_file_is_blocked"
+    },
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_real_git_a_clash_that_only_replaying_hits_is_joined_in_one_merge"
+    },
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_a_stall_shows_a_windows_popup_at_most_every_6_hours"
+    }
+   ],
+   "example": {
+    "date": "2026-10-16",
+    "note": "2026-10-14 -> 10-16: 481 hourly pushes blocked on data/lesson-work/review-grades/2026-10-12.first.json, 431 commits waiting"
    }
   },
   {

@@ -14,6 +14,11 @@
    The latest row per key wins; an answer counts only for the proposal version it names (payload.v).
    The same rules as scripts/tutor_grammar.py (reduce_rows / answer_for / state); tests/test_grammar_add_task.cjs.
 
+   AM-32 (Medi 2026-10-12: "it would be nice to have you detect new grammar and suggest it if you hear it in our convo"):
+   a card can also come from a lesson - Claude read the transcript and heard her teach grammar that fits no rule
+   (scripts/tutor_grammar.py hear). It has no submit row: data.items[].heard = {date, t, quote, line, before}; it reads
+   'Claude heard this in the Oct 9 lesson at 14:15' with her words and the student's line, and takes the same answers.
+
    AneesGrammarAdd.mount(el, {token, data}, {onChange}); AneesGrammarAdd.count(items) */
 (function (root, factory) {
   const api = factory(root);
@@ -31,8 +36,9 @@
   }
   const order = r => String(r.created_at || '') + '|' + String(r.id ?? '').padStart(12, '0');
 
-  /** her rows (any order) -> {sid: {sid, text, example, at, withdrawn, answer}}; latest row per key wins (AM-17) */
-  function reduce(rows) {
+  /** her rows (any order) -> {sid: {sid, text, example, at, withdrawn, answer}}; latest row per key wins (AM-17).
+      heard {sid: {date, t, quote, line, before, at}} (AM-32): moments Claude heard her teach, with no submit row */
+  function reduce(rows, heard) {
     const subs = {}, ans = {};
     (rows || []).filter(r => r && (r.source || SOURCE) === SOURCE).slice().sort((a, b) => order(a).localeCompare(order(b))).forEach(r => {
       const k = sidOf(r.word_key); if (!k.sid) return;
@@ -41,6 +47,7 @@
       else if (r.kind === SUBMIT) subs[k.sid] = { sid: k.sid, text: String(p.text || '').trim(), example: String(p.example || '').trim(), at: r.created_at, withdrawn: false };
       else if (r.kind === UNDO && subs[k.sid]) subs[k.sid].withdrawn = true;
     });
+    Object.entries(heard || {}).forEach(([sid, h]) => { if (!subs[sid]) subs[sid] = { sid, text: String(h.quote || ''), example: '', at: h.at || null, withdrawn: false, heard: h }; });
     Object.values(subs).forEach(s => { s.answer = ans[s.sid] || null; });
     return subs;
   }
@@ -58,9 +65,9 @@
   }
   /** the cards, newest first: [{sub, versions, cur, state}] */
   function items(rows, data) {
-    const V = {};
-    ((data && data.items) || []).forEach(x => { V[x.sid] = x.versions || []; });
-    return Object.values(reduce(rows)).map(sub => { const vs = V[sub.sid] || []; return { sub, versions: vs, cur: current(vs), state: state(sub, vs) }; })
+    const V = {}, H = {};
+    ((data && data.items) || []).forEach(x => { V[x.sid] = x.versions || []; if (x.heard) H[x.sid] = Object.assign({ at: x.at }, x.heard); });
+    return Object.values(reduce(rows, H)).map(sub => { const vs = V[sub.sid] || []; return { sub, versions: vs, cur: current(vs), state: state(sub, vs) }; })
       .sort((a, b) => String(b.sub.at || '').localeCompare(String(a.sub.at || '')));
   }
   /** the tab's number: proposals waiting for her answer */
@@ -88,11 +95,16 @@
   }
 
   function exHtml(e) {
-    return `<li><b>${esc(e.arabizi || e.arabic)}</b>${e.arabizi && e.arabic ? ` <span lang="ar" dir="rtl" class="tg-ar">${esc(e.arabic)}</span>` : ''}${e.english ? ` · ${esc(e.english)}` : ''}${e.hers ? '' : ' <span class="tg-unv">example by Claude · spelling unverified</span>'}</li>`;
+    return `<li><b>${esc(e.arabizi || e.arabic)}</b>${e.arabizi && e.arabic ? ` <span lang="ar" dir="rtl" class="tg-ar">${esc(e.arabic)}</span>` : ''}${e.english ? ` · ${esc(e.english)}` : ''}${e.date ? ` <span class="tg-src">you said it ${esc(pretty(e.date))} at ${esc(e.t)}</span>` : ''}${e.hers ? '' : ' <span class="tg-unv">example by Claude · spelling unverified</span>'}</li>`;
   }
   function cardHtml(x) {
     const s = x.sub, c = x.cur, U = { answered: (t, a) => root.AneesUndo.answered(t, a) };   // AM-17: the shared Undo
-    const yours = `<p class="tg-yours"><span>Your words:</span> «${esc(s.text)}»${s.example ? ` · your example: «${esc(s.example)}»` : ''}</p>`;
+    const h = s.heard;
+    const yours = h
+      ? `<p class="tg-heard">Claude heard this in the ${esc(pretty(h.date))} lesson at ${esc(h.t)}</p>
+         <p class="tg-yours"><span>You said:</span> <span dir="auto">«${esc(h.quote)}»</span></p>
+         ${h.before ? `<p class="tg-yours"><span>Just before, the student said:</span> <span dir="auto">«${esc(h.before)}»</span></p>` : ''}`
+      : `<p class="tg-yours"><span>Your words:</span> «${esc(s.text)}»${s.example ? ` · your example: «${esc(s.example)}»` : ''}</p>`;
     const id = `data-id="tgram-${esc(s.sid)}"`;
     if (x.state === 'withdrawn') return `<article class="tg-card tg-off" ${id}>${yours}${U.answered('You took this one back', { 'data-tg-resend': s.sid })}</article>`;
     if (x.state === 'waiting') {
@@ -188,7 +200,7 @@
 #anees-bank .tg-off{opacity:.7}#anees-bank .tg-title{font-family:var(--sabz-font-serif);font-size:18px;font-weight:500;margin:0}#anees-bank .tg-id{color:var(--vp-sage,#2E6A4E);font-weight:600}
 #anees-bank .tg-one{margin:0;font-size:15px}#anees-bank .tg-formula,#anees-bank .tg-yours,#anees-bank .tg-over{margin:0;font-size:14px}#anees-bank .tg-formula span,#anees-bank .tg-yours span{color:var(--ab-muted)}
 #anees-bank .tg-ex{margin:0;padding-left:18px;display:grid;gap:3px}#anees-bank .tg-ar{font-size:15px}#anees-bank .tg-unv{font-size:12px;color:var(--ab-muted);border:1px dashed var(--ab-line);border-radius:999px;padding:0 6px}
-#anees-bank .tg-wait{margin:0;font-weight:600}#anees-bank .tg-chg{display:grid;gap:6px}#anees-bank .tg-chg[hidden]{display:none}`;
+#anees-bank .tg-wait{margin:0;font-weight:600}#anees-bank .tg-src{font-size:12px;color:var(--ab-muted)}#anees-bank .tg-heard{margin:0;font-size:13px;font-weight:600;color:var(--vp-sage,#2E6A4E)}#anees-bank .tg-chg{display:grid;gap:6px}#anees-bank .tg-chg[hidden]{display:none}`;
       document.head.appendChild(s);
     }
     draw();

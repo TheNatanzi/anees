@@ -1,0 +1,14 @@
+{
+ "about": "Opus 5.5 vs Sonnet 5.5 slip readers + cross-judging debate (Medi 2026-10-15: 'lets use both sonnet and opus and ask for them to argue each other'). One read per model per lesson, effort high, run as Claude Code subagents of the parent session (not claude -p), frozen reader-tiers transcripts. Scored with reader_tiers.match (same family, 15 s) against the frozen grade-book keys. Debate = flags both raised + one-side flags the other model judged real (blind, 'another reader').",
+ "pooled_key_slips": 102,
+ "pooled": {
+  "opus": {"matched": 84, "predicted": 136, "precision": 61.8, "recall": 82.4, "f05": 65.0},
+  "sonnet": {"matched": 82, "predicted": 140, "precision": 58.6, "recall": 80.4, "f05": 61.9},
+  "both_agree": {"matched": 76, "predicted": 111, "precision": 68.5, "recall": 74.5, "f05": 69.6},
+  "debate": {"matched": 83, "predicted": 134, "precision": 61.9, "recall": 81.4, "f05": 65.0},
+  "either": {"matched": 89, "predicted": 165, "precision": 53.9, "recall": 87.3, "f05": 58.4}
+ },
+ "f05_per_lesson": {"opus": [67.4, 63.7, 63.7], "sonnet": [59.9, 60.9, 67.1], "both_agree": [70.7, 68.5, 69.8], "debate": [67.6, 61.8, 67.1], "either": [58.4, 57.9, 59.3]},
+ "judges_vs_key": {"opus_judging_sonnet_correct": "20 of 29", "sonnet_judging_opus_correct": "12 of 25"},
+ "amal_2026_10_09_check": {"moments": "13 mistake / 31 right", "opus": "9 of 13 caught, 10 right-moments flagged", "sonnet": "8 / 11", "both_agree": "7 / 8", "debate": "9 / 10", "either": "10 / 12", "note": "15 s window: a nearby flag can count against a 'right' moment"}
+}
