@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-16T00:17:33-07:00",
+ "updated": "2026-10-16T00:36:09-07:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -3836,8 +3836,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "بعدت",
-   "said": "بعدت، uh, امبارح مع بنات أخوي.",
-   "reason": "He said ba3adet (I went away) for 'I sat / stayed'; Amal queried 'ana ...?' (engine wrote وقت, likely her echo a3adet?) and he then said 'no no أنا بعدت. أ-قعدت' - his fix came after her query, so not a self-fix; low because ba3adet/2a3adet could be a sound slip or the engine.",
+   "said": "أنا بعدت، uh, امبارح مع بنات أخوي.",
+   "reason": "Engine wrote بعدت (I went away); Amal questioned it and he switched to قعدت (I sat / spent time); may be the engine on a dropped ق (S4).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-4b036412"
   },
@@ -3856,7 +3856,7 @@
    "vocab_points": 0,
    "text": "بقول",
    "said": "So بـ، uh, بـ بقول is speak.",
-   "reason": "In the talking-verbs quiz he named بقول (say) as 'speak'; Amal: 'لا، لا، لا. Just بحكي' - wrong lexical item for the meaning, same type as agreed A33 (بطلب = go out).",
+   "reason": "He gave بقول (say) as the verb for 'speak'; Amal said لا لا لا, just بحكي.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-96a96e5e"
   },
@@ -3875,12 +3875,12 @@
    "vocab_points": 0,
    "text": "منظرة",
    "said": "أنا، أنا بحب أتطلع على منظرة--",
-   "reason": "Wrong (feminine) form of 'view'; Amal said منظر and he repeated.",
+   "reason": "He gave a made-up feminine منظرة; Amal recast منظر.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-df0be12d"
   },
   {
-   "id": "audit:FA-92e56277",
+   "id": "audit:FA-65aa9e0a",
    "word_key": "3urus",
    "entry_id": "3urus:word",
    "lesson_date": "2026-10-12",
@@ -3892,11 +3892,11 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "'arusiti",
-   "said": "fi 'arus-- 'arusiti? 'Arusi?",
-   "reason": "He used عروس (bride) for wedding; Amal gave عرس, he said 'I thought عرس was عروس'.",
+   "text": "'arusi",
+   "said": "'arusiti? 'Arusi?",
+   "reason": "He reached for 3aroosa (bride, sheet: bride | 3aroos) for 'wedding'; Amal gave عرس; he said 'I thought عرس was عروس'.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-92e56277"
+   "audit_uid": "FA-65aa9e0a"
   }
  ],
  "unplaced": [
@@ -4372,22 +4372,23 @@
    "keyed_by": "auto-part"
   },
   {
-   "uid": "FA-5443cbf0",
+   "uid": "FA-6e6088e9",
    "date": "2026-10-12",
-   "t": 1282,
-   "key": "ana bafaker",
-   "kind": "wrong",
-   "said": "عن شو bitihki",
-   "wrong": "bitihki",
-   "why": "which list word it is waits for a reader (the automatic match was part)",
-   "keyed_by": "auto-part"
+   "t": 681,
+   "key": "2udAm",
+   "kind": "asked",
+   "said": "فعل، ad adam. / شو، شو يعني قدام؟",
+   "wrong": "قدام",
+   "why": "a preposition: the Word Bank scores prepositions as grammar, not words (2026-09-21) - rule conflict, Medi to decide",
+   "keyed_by": "auto-word",
+   "grammar": true
   },
   {
    "uid": "FA-f9156fbc",
    "date": "2026-10-12",
    "t": 3532,
    "key": "ana ba6lub min",
-   "kind": "wrong",
+   "kind": "asked",
    "said": "بطلب means to go out.",
    "wrong": "بطلب = go out",
    "why": "which list word it is waits for a reader (the automatic match was part)",

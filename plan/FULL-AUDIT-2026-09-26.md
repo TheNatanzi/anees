@@ -1,4 +1,4 @@
-# Full vocab + grammar audit - 2026-10-15
+# Full vocab + grammar audit - 2026-10-16
 
 Two independent readers per lesson, a third settles disagreements, reconciled with the 2026-09-24 hand sweep. A = Amal fixed it out loud (scored; a fix she only typed in the chat is not a correction - GR-19). B = she let it pass (unscored until she rules on her review page). Tier 0 = she supplied a word he asked for. Nothing the sweep verified was dropped.
 
@@ -7,13 +7,13 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | | count |
 |---|---|
 | Grammar fixes Amal voiced (A) | **767** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 116 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 29 |
-| Vocab fixes Amal voiced (A) | **366** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 177, '0': 142, '2': 80, '3': 2} |
+| Grammar she let pass (B, to Amal) | 120 |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 28 |
+| Vocab fixes Amal voiced (A) | **365** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 175, '0': 145, '2': 80, '3': 2} |
 | Vocab she let pass (B, to Amal) | **41** by tier {'1': 32, '2': 8, '3': 1} |
-| Listening-drill misreads (kept apart) | 66 |
-| Rows the readers found that the sweep did not have | 948 |
+| Listening-drill misreads (kept apart) | 68 |
+| Rows the readers found that the sweep did not have | 952 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -44,7 +44,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-08 | 27 | 1 | 17 | 0 | 1 | 0 | 0 | 71.2 % |
 | 2026-10-09 | 38 | 2 | 7 | 5 | 1 | 0 | 0 | 71.9 % |
 | 2026-10-10 | 24 | 3 | 4 | 11 | 0 | 0 | 0 | 62.5 % |
-| 2026-10-12 | 32 | 1 | 9 | 0 | 1 | 0 | 0 | 65.4 % |
+| 2026-10-12 | 32 | 5 | 8 | 0 | 3 | 0 | 0 | 63.5 % |
 
 ## Reader passes (the loop)
 
@@ -71,33 +71,33 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-10-08**: pass 1: r1 46 r2 48 agreed 37 disputed 15 (71.2 %), r3 kept 9 dropped 6 -> 46 rows
 - **2026-10-09**: pass 1: r1 47 r2 53 agreed 41 disputed 16 (71.9 %), r3 kept 9 dropped 7 -> 50 rows
 - **2026-10-10**: pass 1: r1 30 r2 37 agreed 25 disputed 15 (62.5 %), r3 kept 10 dropped 5 -> 35 rows
-- **2026-10-12**: pass 1: r1 47 r2 42 agreed 34 disputed 18 (65.4 %), r3 kept 10 dropped 8 -> 44 rows
+- **2026-10-12**: pass 1: r1 47 r2 46 agreed 33 disputed 19 (63.5 %), r3 kept 15 dropped 4 -> 48 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
-| B18 | verb matches its subject | 71 |
-| D2 | verb + its fixed preposition | 57 |
+| B18 | verb matches its subject | 72 |
+| D2 | verb + its fixed preposition | 56 |
+| A8 | gender on adjectives | 55 |
 | B5 | past tense | 54 |
-| A8 | gender on adjectives | 54 |
-| B12 | make-X vs get-X | 51 |
-| D4 | endings on verbs | 41 |
+| B12 | make-X vs get-X | 52 |
 | A7 | noun + adjective | 40 |
+| D4 | endings on verbs | 40 |
 | A9 | plurals | 39 |
 | B1 | present with b- | 37 |
 | D1 | prepositions | 35 |
 | A2 | idafa (possession) | 30 |
 | A1 | el- (the) | 29 |
-| PROPOSE | ? | 29 |
-| A4 | possessive endings | 25 |
+| PROPOSE | ? | 28 |
+| A4 | possessive endings | 26 |
 | B2 | b-drop after modals | 20 |
 | E1 | number + noun | 19 |
 | C2 | the pointer rule | 17 |
 | D3 | endings on prepositions | 16 |
 | C7 | illi | 15 |
-| B6 | kaan = was / were | 15 |
 | C4 | saying no | 14 |
+| B6 | kaan = was / were | 14 |
 | B11 | negative commands | 13 |
 | A15 | aa5er / a5eer: before or after the noun | 13 |
 | B15 | participles | 12 |
@@ -113,21 +113,21 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A12 | pronoun matches who you mean | 7 |
 | E4 | calendar | 7 |
 | A11 | kul: all vs every | 6 |
+| C10 | preposition goes in front | 6 |
 | B16 | kan laazem | 5 |
-| C10 | preposition goes in front | 5 |
 | C9 | word order | 5 |
 | B13 | future with ra7 | 5 |
 | C1 | no word for 'to be' | 4 |
+| D5 | preposition keeps el- | 4 |
 | E3 | time units, two-of and many-of | 4 |
 | A5 | chain possession | 4 |
 | A16 | 8eir: other / different, no el- | 4 |
 | A10b | demonstrative keeps el- | 3 |
 | A9b | broken plurals are patterns | 3 |
-| D5 | preposition keeps el- | 3 |
+| B7 | kaan + verb = used to / was doing | 3 |
 | E5 | kam + singular | 3 |
 | C6 | iza / lamma | 2 |
 | A6 | professions | 2 |
-| B7 | kaan + verb = used to / was doing | 2 |
 | B9 | person on ykoon | 1 |
 | C5 | u / aw / willa / wala | 1 |
 | C12 | a doing verb says what was done | 1 |
@@ -1814,51 +1814,55 @@ _Medi's lines between 35:37 and 37:12 are missing (only Amal's side, e.g. 'No, y
 
 ### 2026-10-12
 
-_Engine garbles: 09:52 'I collect ... Shan Halloween' likely akalet shorba; 08:21 تمن = tenain; 05:12 بوجه = بوجع; 49:38 كتبتي = خطيبتي; 30:11 and 31:21-33:04 '[foreign language]' stretches unreadable (listen/hear examples). Long English meta stretches 03:18-04:33, 22:40-23:28, 1:02:38-end. 06:01 echo file shows 'الولاد ... في المدرسة' so no el- slip there. 1:02:10 Amal offered إجازة beside his عطلة - read as an alternative, not a fix. 50:44 عرسه after her fix and 51:16 'thalath meet' are repeats. / Medi's 30:11 example (باجي + preposition) is [foreign language] in the transcript; Amal said 'two other verbs are better fit' - cannot be filed. 31:07-33:04 several [foreign language] holes (اسمعيني/اسمعلي drill). Long Latin stretches 11:47, 14:48, 20:15, 50:33-53:35. Engine: 49:38 كتبتي = خطيبتي; 05:34 بعدت = قعدت (S4); 46:48 اشرحيلي يا = اشرحيلي إياه; 50:44 في عرسه = في عرسي. Echo: 'Fee.' (17:13) = في. 48:51 Amal عزمتك likely = عزومتك (not filed). 34:47 صوت بخوف = بيخوف (S4, not filed)._
+_Several Medi lines are '[foreign language]' (30:11, 31:21-31:42, 32:51-33:04) - his Arabic there is not readable; 30:11 Amal said 'two other verbs are better fit' but his words are lost. 09:52 engine garbled ('as Shan Halloween'); Amal's 'شربة شوربة ... we can do both' read as both fine, no row. 48:43 عزومتك vs her voiced عزمتك - chat 3azoome, not filed. 05:44 Amal 'أنا وقت؟' is likely engine for a question about بعدت. 55:23 Amal 'ونخطط' likely engine for بنخطط. Echo: 05:59 'um,' and 06:33 'What happened?' are real English. Names Mahdi/مهدي not flagged. Long English stretches 03:18-04:57, 12:42-13:24, 1:02:38-end. / 30:11-33:04 most of Medi's Arabic is '[foreign language]' (باجي/بسمع examples) - unreadable. 09:52 English garble 'Shan Halloween' = his breakfast answer (chat 'ana sherebet shoraba'). 49:38 'كتبتي' = خطيبتي (engine). 48:20-49:19 invite drill (أعزمهم/أعزمني/عزومتك) too garbled to judge; vowel of the command is S4. 46:08/46:50 'يا' = إياه. 25:13 'تتلعبي' = engine for repeated بتلعبي. Echo candidates: none were Arabic sound-alikes. Ruled out: 08:26 إحداش->إتناش self-fix; 14:14 اللي self-fix; 52:10 عرسني->عرسنا self-fix; 22:33/26:24/40:19 repeats or correct._
 
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
-| FA-c93a9de9 | 05:12 | grammar | A4 | حلق بوجه، أو بوجه حلق؟ | حليـ… حل… هو. | حلق -> حلقي | He said حلق with no owner; Amal prompted حلـ... and he rebuilt it as حلقي بوجع (my throat hurts). | medium | r1+r2 |
-| FA-4b036412 | 05:34 | vocab-A | tier 1 | بعدت، uh, امبارح مع بنات أخوي. | أنا وقت؟ | بعدت -> قعدت | He said ba3adet (I went away) for 'I sat / stayed'; Amal queried 'ana ...?' (engine wrote وقت, likely her echo a3adet?) and he then said 'no no أنا بعدت. أ-قعدت' - his fix came after her query, so not a self-fix; low because ba3adet/2a3adet could be a sound slip or the engine. | low | r3 |
-| FA-428a70df | 07:38 | grammar | B18 | would you say أرجـ- أرجعت على شغلك؟ | هي. | أرجعت -> رجعت | He used the I-form for 'she went back'; Amal prompted 'هي' and he said هي رجعت. | high | r1+r2 |
-| FA-8eba64fc | 07:54 | grammar | A4 | هي رجعت على شغلك. | شغل؟ Who؟ My work؟ [تضحك] | شغلك -> شغلها | Wrong owner ending (your work); Amal 'Who? My work?' and he fixed to شغلها. | high | r1+r2 |
-| FA-e9137c33 | 08:12 | vocab-A | tier 1 | اليوم يوم الثلاث. | No. | يوم الثلاث -> يوم التنين | Wrong day (Tuesday for Monday); Amal said No. | high | r1+r2 |
-| FA-c9bfc0a4 | 08:18 | vocab-A | tier 2 | No، يوم ال-- oh، يوم الثنتين. | No. تمن. | يوم الثنتين -> يوم التنين | Feminine 'two' form for the day name; Amal said No and gave tenain (engine wrote تمن), he said يوم الثنين. | medium | r1+r2 |
-| FA-efdbf051 | 09:01 | grammar | A1 | صحيت على، على سبعة ونص | الـ، على الـ سبعة ونص. | على سبعة ونص -> على السبعة ونص | Clock time needs el-; Amal prompted 'على' then 'الـ' and he repeated with el- (GR-25). | high | r1+r2 |
-| FA-6f9f6d35 | 10:35 | grammar | B6 | was going to. أنا، أنا راح... | I was well. | أنا راح -> أنا كنت راح | 'I was going to' needs كنت (was) before راح; Amal prompted 'I was...' (engine: 'I was well') and he said أنا كنت رح at 10:41. | medium | r3 |
-| FA-3294da3c | 11:47 | grammar-B | A9 | ana, ana badzakir ul kulul, uh, aglab el فعل |  | aglab el فعل -> aghlab el-af3aal | Singular فعل again for 'most of the verbs' right after Amal's أفعال; she let it pass. | low | r1+r2 |
-| FA-9b877e01 | 14:48 | grammar | B18 | Um, lama, uh, lama tisah. | This because you said بتفكري. Mm-hmm. تصحي. | tisah -> تصحي | Asking a woman, the verb must match بتفكري; Amal gave تصحي and he repeated. | high | r1+r2 |
-| FA-0b14534d | 15:19 | grammar | B18 | أول إشي أنا بتفكري في الصبح | think, I think. | بتفكري -> بفكر | He used the you(f) form for 'I think'; Amal 'I think' then بفكر after his بفكري, he said بفكر. | high | r1+r2 |
-| FA-0082562d | 15:29 | grammar | C2 | بفكر في الصباح | فيه، فيه الصبح. You need two فيهs. | بفكر في الصباح -> بفكر فيه الصبح | Fronted object أول إشي needs the pointer فيه on the verb; Amal: 'فيه you have to refer it back to أول إشي'. | high | r1+r2 |
-| FA-80a8d207 | 16:49 | grammar | A1 | أنا ما باكل الفطور | ما بأكل فطور. | الفطور -> فطور | Breakfast in general takes no el-; Amal recast ما بأكل فطور. | high | r1+r2 |
-| FA-96a96e5e | 17:45 | vocab-A | tier 1 | So بـ، uh, بـ بقول is speak. | لا، لا، لا. Just بحكي. | بقول -> بحكي | In the talking-verbs quiz he named بقول (say) as 'speak'; Amal: 'لا، لا، لا. Just بحكي' - wrong lexical item for the meaning, same type as agreed A33 (بطلب = go out). | medium | r3 |
-| FA-e56bb47e | 20:15 | grammar | C10 | shu بتِحكي an? | All of the words are right, بس the order is wrong. ... no, we put it before what. | شو بتحكي عن -> عن شو بتحكي | Preposition left dangling; Amal said order wrong, he tried شو عن بتحكي, she said put it before 'what', he said عن شو بتحكي. | high | r1+r2 |
-| FA-6c3b1d36 | 21:20 | grammar | D2 | عن شو bitihki | بس بتفكري takes what؟ | عن شو -> في شو | بفكر takes في not عن; Amal prompted and gave فيه شو بتفكري. | high | r1+r2 |
-| FA-5443cbf0 | 21:22 | vocab-A | tier 1 | عن شو bitihki | بس بتفكري takes what؟ | bitihki -> بتفكري | Asked 'what are you thinking about' he used the talk verb; Amal supplied بتفكري. | medium | r1+r2 |
-| FA-16769418 | 24:41 | grammar | B18 | So just keef badef, uh, ... badef kee-- ... It's just badef, | بتعرف. | badef -> بتعرف | Asking 'do you know' he used the I-form; Amal said بتعرف and he repeated بتعرفي. | high | r1+r2 |
-| FA-292475ce | 25:09 | grammar | B2 | بتلعبي er بتلعبي | No be. | بتلعبي -> تلعبي | Second verb after بتعرفي drops b-; Amal 'No be' twice then تلعب, he said تلعبي. | high | r1+r2 |
-| FA-47fb6067 | 31:07 | grammar | B10 | All right, it's just بسمعك؟ | It's both, but it's listen to me. It's command. ... اسمعيني. | بسمعك -> اسمعيني | Asked to say 'listen to me', he gave بسمعك (I hear you, present); Amal: 'it's listen to me. It's command' and gave اسمعيني at 31:35. | medium | r3 |
-| FA-fa7dedb1 | 34:14 | grammar | B5 | أنا بسمع. | I heard sound. | أنا بسمع -> أنا سمعت | Present for 'I heard'; Amal rephrased in English 'I heard' and he said أنا سمعت. | high | r1+r2 |
-| FA-3b31a572 | 37:04 | grammar | B10 | Would it be استنيتي? ... No. استنى، استني، استنيت؟ | This. ... ستني. | استنيتي -> استني | Past form for a command to a girl; Amal gave ستني and explained -it is past. | high | r1+r2 |
-| FA-6de2aa8a | 38:21 | vocab-A | tier 1 | Is it شوف- شوفيلي؟ ... شوفني | No. That's see me. | شوفيلي -> اتطلعي علي | شوف is see, not look at; Amal: No, that's see me. | high | r1+r2 |
-| FA-dce36023 | 38:37 | grammar | D2 | تطلعيني. | No. At me. ... At. تطلع علي. | تطلعيني -> تطلعي علي | بطلع takes على; Amal: 'No. At me' then تطلع علي, he said على. | high | r1+r2 |
-| FA-f8c40758 | 39:11 | grammar | C10 | شو بتطلعي عليّ؟ | No. What do I do in questions? ... In questions, what's the order of words؟ | شو بتطلعي عليّ -> على شو بتطلعي | Preposition goes before the question word; Amal prompted twice and he said على شو بتطلعي. | high | r1+r2 |
-| FA-cd0a1997 | 39:49 | vocab-A | tier 1 | ما تشوفي. | No. Don't look. We're using تتطلع. | ما تشوفي -> ما تتطلعي | Again see for look; Amal: No, we're using تتطلع. | high | r1+r2 |
-| FA-f48115cf | 40:40 | grammar | C4 | ما بتطلعوا. | You said ما. ... But there's no ما. Why did you put ما؟ | ما بتطلعوا -> بيطلعوا | He negated a positive sentence ('they are looking at you'); Amal: there's no ما. | high | r1+r2 |
-| FA-f1dc8ecf | 41:28 | grammar | D3 | بتطلعوا عليّ- عليّ. | هم بتطلعوا عليكي. | عليّ -> عليكي | 'At you (f)' needs عليكي; he said عليّ (and عليك at 41:12), Amal recast هم بتطلعوا عليكي. | high | r1+r2 |
-| FA-df0be12d | 44:05 | vocab-A | tier 2 | أنا، أنا بحب أتطلع على منظرة-- | منظر. | منظرة -> منظر | Wrong (feminine) form of 'view'; Amal said منظر and he repeated. | high | r1+r2 |
-| FA-6ae53695 | 44:22 | grammar | B8 | لما أنا في الـ طبيعة. | أهـم. أكون في الطبيعة. | لما أنا في الطبيعة -> لما أكون في الطبيعة | After lamma for a habitual state Amal added أكون; he asked and repeated لما أكون. | high | r1+r2 |
-| FA-aa7b1b2d | 46:08 | grammar | B10 | So the بشرحك يا... ... بشرح-- no, بش-- um, yeah. شرح، | Explain. It's command. | بشرحك -> اشرحي | For 'explain it to me' he said بشرحك (I explain to you) then شرح; Amal: 'Explain. It's command.' and he then said اشرح at 46:21. | medium | r3 |
-| FA-35827176 | 46:21 | grammar | D2 | اشرح، اشرحيني يا... | مـم. To me. ... اشرحيني is like explain me. اشرحيني. So اشرحيلي is. | اشرحيني -> اشرحيلي | شرح takes la- for the person; he put the object ending -ni (explain me); Amal: 'To me ... اشرحيني is like explain me ... So اشرحيلي'. | high | r3 |
-| FA-321a2d88 | 48:20 | grammar | D4 | uh, أعزمي على-- uh, أعزم... | Invite them. | أعزمي على -> اعزميهم على | For 'invite them to your gathering' he went from the verb straight to على with no 'them'; Amal: 'Invite them.' and he said أعزمهم at 48:27. | medium | r3 |
-| FA-1dbce862 | 49:42 | grammar | B15 | أه، بنقلقان، عشان | إم؟ ... شو يعني we worry؟ ... You are worried or you worry؟ | بنقلقان -> قلقانين | He blended بنقلق and قلقان; Amal asked 'we worry? You are worried or you worry?' and he said قلقانين. | high | r1+r2 |
-| FA-9b2db1b6 | 50:33 | grammar | E1 | Thalath mie ashkhass fi 'arus-- 'arusiti? 'Arusi? | عرس، عرس no. بس 300 is more than 10 so. ... أشخاص أو شخص. | ashkhass -> شخص | Over 10 takes a singular; Amal said 300 is more than 10 and he said شخص. | high | r1+r2 |
-| FA-92e56277 | 50:33 | vocab-A | tier 1 | fi 'arus-- 'arusiti? 'Arusi? | عرس، عرس no. | 'arusiti -> عرس | He used عروس (bride) for wedding; Amal gave عرس, he said 'I thought عرس was عروس'. | high | r1+r2 |
-| FA-fad74954 | 52:19 | grammar | D1 | عرسنا is in ... أكتر من sitt شهر | عرس no. We never say it this straightforward. ... (Medi: Is it بعد؟) Yes that is best. | عرسنا أكتر من -> عرسنا بعد أكتر من | 'Our wedding is in more than six months' needs بعد (in/after) before the time; he left it out, Amal said 'we never say it this straightforward', he asked 'Is it بعد?' and she said yes. | medium | r3 |
-| FA-a470977f | 52:37 | grammar | E1 | akthar min sitt, uh, شهر | No ستة is no-- less than 10. ... شهر is one month بس ستة is less than 10. | sitt شهر -> sitt shuhoor | 3-10 take a plural; Amal said ستة is less than 10 and he said shahur. | high | r1+r2 |
-| FA-d2cac078 | 54:43 | grammar-propose | PROPOSE | Or mishtahaz. | مش plural. | mishtahaz -> مش جاهزين | 'My fiancee and I are not ready' needs the plural adjective jaahzeen; he said a singular form (engine: mishtahaz), Amal: 'plural', he said مش جاهزين. | high | r3 |
-| FA-53a13a76 | 54:59 | grammar | B2 | بنصير اه، عروس و- | ونصير. | بنصير -> نصير | Verb after mish jaahzeen drops b-; he said بنصير at 54:59 and 56:17, Amal gave نصير at 56:18 and he repeated. | high | r1+r2 |
-| FA-e7befe69 | 55:30 | grammar | D2 | بنخطط، اه، عرس. | We plan for. | بنخطط عرس -> بنخطط لـ عرس | خطط takes la-; Amal 'We plan for' and he said بنخطط لـ عرس. | high | r1+r2 |
-| FA-e6a58cdb | 56:38 | grammar | D2 | اه، عرس. بنخطـ | لا؟ | بنخطط ... عرس -> بنخطط لـ عرس | He dropped la- after بنخطط again, about a minute after her fix at 55:33 (agreed A32); Amal prompted 'لا؟' (la-) and he said بنخطط لـ عرس. | medium | r3 |
-| FA-f9156fbc | 58:52 | vocab-A (listening) | tier 1 | بطلب means to go out. | No. That's بطلع. | بطلب = go out -> بطلب = request / ask for | He took بطلب for بطلع; Amal: No, that's بطلع. | high | r1+r2 |
-| FA-eceb456a | 1:00:54 | grammar | B10 | أنا بطلب... | No. Command. | أنا بطلب -> اطلبي | 'Request a day off' is a command; Amal said No, command, he said اطلبي عطلة. | high | r1+r2 |
+| FA-c93a9de9 | 05:12 | grammar | A4 | حلق بوجه، أو بوجه حلق؟ | حليـ… حل… هو. | حلق -> حلقي | He said 'throat hurts' with no owner; Amal prompted 'حل...' and he rebuilt it as حلقي بوجع (chat 7al2i). | medium | r1+r2 |
+| FA-60c260c6 | 05:23 | grammar-B | B18 | حلقي بوجع |  | بوجع -> بيوجع | The throat (huwwe) hurts, so the verb is بيوجع (it), not بوجع (I); only her chat shows it and the engine may have dropped the yi-. | low | r3 |
+| FA-4b036412 | 05:34 | vocab-A | tier 1 | أنا بعدت، uh, امبارح مع بنات أخوي. | أنا وقت؟ | بعدت -> قعدت | Engine wrote بعدت (I went away); Amal questioned it and he switched to قعدت (I sat / spent time); may be the engine on a dropped ق (S4). | low | r1+r2 |
+| FA-7ad77653 | 06:01 | grammar-B | D5 | عشان الـ، ولاد دايمًا في مدرسة، | دايمًا فيه. | في مدرسة -> في المدرسة | After في the place 'school' keeps el- (fi el-madrase); Amal's دايمًا فيه does not fix it, so it is let-pass. | low | r3 |
+| FA-7f5397d2 | 06:33 | vocab-A (listening) | tier 0 | What happened? ... what happened with your... | No. What's this question؟ كيف صرت؟ كيف صارت؟ ... How is she since... | كيف صارت = what happened -> كيف صارت = how has she been | Listening: he took كيف صارت خطيبتك as 'what happened'; Amal said No twice and gave 'How is she since'. | medium | r3 |
+| FA-428a70df | 07:38 | grammar | B18 | um, would you say أرجـ- أرجعت على شغلك؟ | هي. | أرجعت -> هي رجعت | He used an a- form for 'she came back'; Amal prompted 'هي' and he said هي رجعت. | high | r1+r2 |
+| FA-8eba64fc | 07:54 | grammar | A4 | هي رجعت على شغلك. | شغل؟ Who؟ My work؟ | شغلك -> شغلها | He put 'your' on her work; Amal asked 'My work?' and he fixed to شغلها (chat shu8ulha). | high | r1+r2 |
+| FA-4b5a7bfc | 08:12 | vocab-A | tier 1 | اليوم يوم الثلاث. | No. | الثلاث -> الثنين | 2026-10-12 is Monday; he said Tuesday (الثلاث) and Amal said No. | high | r1+r2 |
+| FA-08dae902 | 08:18 | vocab-A | tier 2 | No، يوم ال-- oh، يوم الثنتين. | No. تمن. | الثنتين -> الثنين | He gave 'two' (fem tintain) not the day name; Amal said No and he said يوم الثنين (chat el-tenain). | high | r1+r2 |
+| FA-efdbf051 | 09:01 | grammar | A1 | على سبعة ونص، | على. / الـ، على الـ سبعة ونص. | على سبعة ونص -> على الـ سبعة ونص | Clock time takes el-; Amal prompted 'الـ' and recast على الـ سبعة ونص. | high | r1+r2 |
+| FA-b2d02a9b | 10:29 | grammar | B7 | ma ba'dar ana ra. I was going to. ... Oh, you, you had to say ana rah kunet. | أم. No، أنا كنت راح أدرس، so... | ana rah kunet -> أنا كنت راح أدرس | For 'I was going to study' kaan comes before ra7 + bare verb; he tried ana rah kunet and Amal said No, أنا كنت راح أدرس. | medium | r1+r2 |
+| FA-6e6088e9 | 11:21 | vocab-A (listening) | tier 0 | فعل، ad adam. / شو، شو يعني قدام؟ | قدام. ... يعني قدام، من قديم. | قدام -> قدام = old (plural of قديم) | He asked what her word قدام meant; Amal explained 'from قديم' (old) - a didn't-know on a word she said. | low | r3 |
+| FA-3294da3c | 11:47 | grammar-B | A9 | ana, ana badzakir ul kulul, uh, aglab el ... فعل | مع collocations. | aglab el فعل -> أغلب الأفعال | 'Most of the verbs' needs the plural أفعال (Amal's word at 11:41); he used singular فعل and she did not fix it. | low | r3 |
+| FA-9b877e01 | 14:48 | grammar | B18 | Sihit tasah. Um, lama, uh, lama tisah. | This because you said بتفكري. Mm-hmm. تصحي. | tisah -> تصحي | He asked a woman (بتفكري) but used the masc تصحى; Amal said 'because you said بتفكري ... تصحي'. | medium | r1+r2 |
+| FA-0b14534d | 15:19 | grammar | B18 | أول إشي أنا بتفكري في الصبح | think, I think. / بفكر. | بتفكري -> بفكر | He said 'you (f) think' for 'I think'; Amal said 'I think' then بفكر, and he said بفكر. | high | r1+r2 |
+| FA-0082562d | 15:29 | grammar | C2 | بفكر في الصباح | About. ... فيه، فيه الصبح. You need two فيهs. ... بفكر فيه الصبح because فيه you have to refer it back to أول إشي. | بفكر في الصباح -> بفكر فيه الصبح | Fronted object أول إشي needs the pointer فيه on the verb; Amal: 'You need two فيهs ... refer it back to أول إشي' (15:55). | high | r3 |
+| FA-80a8d207 | 16:49 | grammar | A1 | أنا ما باكل الفطور | ما بأكل فطور. | الفطور -> فطور | He added el- to a general meal; Amal recast ما بأكل فطور without el-. | high | r1+r2 |
+| FA-96a96e5e | 17:45 | vocab-A | tier 1 | So بـ، uh, بـ بقول is speak. | لا، لا، لا. Just بحكي. | بقول -> بحكي | He gave بقول (say) as the verb for 'speak'; Amal said لا لا لا, just بحكي. | medium | r3 |
+| FA-e56bb47e | 20:15 | grammar | C10 | shu بتِحكي an? | All of the words are right, بس the order is wrong. | شو بتحكي عن -> عن شو بتحكي | Preposition goes before the question word; Amal said the order is wrong and he said عن شو بتحكي. | high | r1+r2 |
+| FA-22f51afb | 20:38 | grammar | C10 | شو عن، شو عن بتحكي؟ | no, we put it before what. About what are you talking؟ | شو عن بتحكي -> عن شو بتحكي | After her hint (A12, 20:27) he put عن after شو; Amal said no, before 'what', and he said عن شو بتحكي. | medium | r3 |
+| FA-6c3b1d36 | 21:20 | grammar | D2 | عن شو bitihki | بس بتفكري takes what؟ ... No, we don't need عن. خلص. It's بفكر فيه. ... فيه شو بتفكري؟ | عن شو -> في شو بتفكري | 'Think about' takes في, not عن; Amal asked what بتفكري takes, then said we don't need عن, في شو بتفكري. | high | r3 |
+| FA-d141ee9a | 24:50 | grammar | B18 | It's just badef, | بتعرف. | badef -> بتعرف | 'Do you know' needs the you-form; he said ba3ref (I know) and Amal recast بتعرف; he then said بتعرفي. | high | r1+r2 |
+| FA-292475ce | 25:09 | grammar | B2 | بتلعبي er بتلعبي | No be. / تلعب. | بتلعبي -> تلعبي | Second verb after بتعرفي drops b-; Amal said 'No be' twice and gave تلعب, he said تلعبي. | high | r1+r2 |
+| FA-47fb6067 | 31:07 | grammar | B10 | All right, it's just بسمعك؟ | Listen to me. ... It's both, but it's listen to me. It's command. ... اسمعيني. | بسمعك -> اسمعيني | 'Listen to me' is a command; he offered present بسمعك (I hear you) and Amal said 'It's command' then gave اسمعيني. | medium | r3 |
+| FA-c383b2e3 | 34:14 | grammar | B5 | أنا بسمع. | I heard sound. | بسمع -> سمعت | He meant 'I heard'; Amal repeated 'I heard' in English and he switched to past سمعت (PG-22 English signal). | high | r1+r2 |
+| FA-d895ae01 | 34:47 | grammar-B | B12 | أنا سمعت صوت بخوف برا. | Great. ... ممتاز. | بخوف -> بيخوّف | A scary sound is بيخوّف (it frightens, doubled middle letter); بخوف = 'I fear'. Only her chat shows it - she voiced Great/ممتاز. | low | r3 |
+| FA-3b31a572 | 37:04 | grammar | B10 | Would it be استنيتي? / استنى، استني، استنيت؟ | ستني. ... So ate is always past. بس this was like command. ستني is for a girl. | استنيتي -> استني | Command to a girl is استني; he gave the past 'you waited' and Amal explained -it is past, ستني is the command. | high | r1+r2 |
+| FA-6de2aa8a | 38:21 | vocab-A | tier 1 | Is it شوف- شوفيلي؟ / شوفني. شوفني. | No. That's see me. / شوفني is see me. Look at me. | شوفيلي -> تطلعي علي | 'Look at me' is it6alla3; he used شاف (see) and Amal said No, that's see me. | high | r1+r2 |
+| FA-dce36023 | 38:37 | grammar | D2 | تطلعيني. / تط- تطلعيلي. | No. At me. / At. تطلع علي. | تطلعيني -> تطلع علي | it6alla3 takes 3ala; he put the object on the verb then -li, Amal said 'No. At me' and gave تطلع علي. | high | r1+r2 |
+| FA-f8c40758 | 39:11 | grammar | C10 | شو بتطلعي عليّ؟ | No. What do I do in questions? / In questions, what's the order of words؟ | شو بتطلعي عليّ -> على شو بتطلعي | The preposition goes before the question word; Amal said No and asked about question order; he said على شو بتطلعي. | high | r1+r2 |
+| FA-cd0a1997 | 39:49 | vocab-A | tier 1 | ما تشوفي. | No. Don't look. We're using تتطلع. | ما تشوفي -> ما تتطلعي | Again شاف (see) for 'look'; Amal said No, we're using تتطلع; he said ما تتطلعي. | high | r1+r2 |
+| FA-f48115cf | 40:40 | grammar | C4 | ما بتطلعوا. / ما بتطلعوا عليك. | You said ما. / But there's no ما. Why did you put ما؟ | ما بتطلعوا -> بتطلعوا | 'They are looking at you' is positive; he put ما and Amal said there's no ما. | high | r1+r2 |
+| FA-f1dc8ecf | 41:28 | grammar | D3 | بتطلعوا عليّ- عليّ. | مهم. هم بتطلعوا عليكي. | عليّ -> عليكي | 'at you' (to Amal) is عليكي; he said 'at me' and Amal recast هم بتطلعوا عليكي. | high | r1+r2 |
+| FA-df0be12d | 44:05 | vocab-A | tier 2 | أنا، أنا بحب أتطلع على منظرة-- | منظر. | منظرة -> منظر | He gave a made-up feminine منظرة; Amal recast منظر. | high | r1+r2 |
+| FA-6688b6c3 | 44:22 | grammar | B8 | لما أنا في الـ طبيعة. | أهـم. أكون في الطبيعة. | لما أنا في الـ طبيعة -> لما أكون في الطبيعة | After lamma a state needs akoon; Amal recast أكون في الطبيعة and he said لما أكون. | high | r1+r2 |
+| FA-aa7b1b2d | 46:08 | grammar | B10 | So the بشرحك يا... / بشرح-- شرح، | Explain. It's command. | بشرحك -> اشرح | 'Explain it to me' is a command; he used present بشرحك/بشرح and Amal said 'It's command'; he then said اشرح. | high | r3 |
+| FA-35827176 | 46:21 | grammar | D2 | اشرح، اشرحيني يا... | مـم. To me. ... اشرحيني is like explain me. اشرحيني. So اشرحيلي is. | اشرحيني -> اشرحيلي | شرح takes la- for the person (explain TO me); Amal: اشرحيني is 'explain me', it is اشرحيلي. | high | r3 |
+| FA-1dbce862 | 49:42 | grammar | B15 | أه، بنقلقان، عشان / عشان بنقلق، Yeah. ... We worry? بنقلق؟ | You are worried or you worry؟ ... لا بن-- لا. | بنقلقان -> قلقانين | The state 'we are worried' is the participle قلقانين, not the verb بنقلق (or a mix بنقلقان); Amal asked 'worried or you worry?' and said لا; he gave قلقانين. | high | r3 |
+| FA-9b2db1b6 | 50:33 | grammar | E1 | Thalath mie ashkhass fi 'arus-- 'arusiti? 'Arusi? | عرس، عرس no. بس 300 is more than 10 so. | ashkhass -> شخص | Above 10 the noun is singular; Amal: 300 is more than 10 so شخص. | high | r1+r2 |
+| FA-65aa9e0a | 50:33 | vocab-A | tier 1 | 'arusiti? 'Arusi? | عرس، عرس no. ... I thought عرس was عروس. | 'arusi -> عرس | He reached for 3aroosa (bride, sheet: bride / 3aroos) for 'wedding'; Amal gave عرس; he said 'I thought عرس was عروس'. | high | r1+r2 |
+| FA-4c45d7d8 | 50:44 | grammar-B | A4 | في عرسه |  | في عرسه -> على عرسنا | He put 'his' (-o) on the wedding; it is their wedding (3urusna in her chat), and she voiced only the number fix. | low | r1+r2 |
+| FA-1a7e2f96 | 52:32 | grammar | D1 | uh, أكتر من ... شهر / Is it بعد؟ | عرس no. How do you say it؟ عرس no. We never say it this straightforward. / Yes that is best. | عرسنا أكتر من -> عرسنا بعد أكتر من | 'Our wedding is in X months' takes ba3ed; Amal said no and prompted until he offered بعد. | medium | r1+r2 |
+| FA-89c4aea9 | 52:37 | grammar | E1 | akthar min sitt, uh, شهر / Sitt shahar. | No ستة is no-- less than 10. / شهر is one month بس ستة is less than 10. | شهر -> شهور | 3-10 take the plural; Amal: ستة is less than 10; he said shahur. | high | r1+r2 |
+| FA-d2cac078 | 54:43 | grammar | A8 | Or mishtahaz. | مش plural. | mishtahaz -> مش جاهزين | Two people need the plural adjective jaahzeen; Amal said 'مش plural' and he said مش جاهزين. | high | r1+r2 |
+| FA-e7befe69 | 55:30 | grammar | D2 | بنخطط، اه، عرس. | We plan for. | بنخطط عرس -> بنخطط لـ عرس | 5a66at takes la- (plan FOR); Amal said 'We plan for' and he said بنخطط لـ عرس. | high | r1+r2 |
+| FA-638b68ae | 56:17 | grammar | B2 | بنصير... | ونصير. | بنصير -> نصير | After mish jaahzeen the next verb drops b-; Amal recast نصير and he said نصير (he had said بنصير at 54:59 too). | high | r1+r2 |
+| FA-f9156fbc | 58:52 | vocab-A (listening) | tier 0 | بطلب means to go out. | No. That's بطلع. | بطلب = go out -> بطلب = request / ask for | Listening: he gave بطلع's meaning for her بطلب; Amal said No, that's بطلع, and taught request / ask for. | high | r3 |
+| FA-eceb456a | 1:00:54 | grammar | B10 | أنا بطلب... | No. Command. | أنا بطلب -> اطلبي | 'Request a day off' is a command; he said أنا بطلب and Amal said No. Command; he said اطلبي عطلة. | high | r1+r2 |
