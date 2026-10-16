@@ -2,18 +2,21 @@
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-10-09T18:16:25Z",
  "last_publish_sha": "d3762fa65599e32f57006e5a3a84535abf4ae3ee",
- "last_block_reason": "tests_py: exit 1: FAILED tests/test_invariants.py::test_ai_report_cards_match_the_audit_file[gemini-backfill-2026-10-05] | FAILED tests/test_repeats_coverage.py::test_ws_35_10_08_moments - AssertionEr... | 2 failed, 931 passed, 3 xfailed in 102.46s (0:01:42); tests_node: exit 1: ✖ all reviewed targets exist and additions retain source timing (398.5009ms) | ✖ AM-26 only the short-list verbs get ...",
- "last_block_utc": "2026-10-16T08:03:32Z",
+ "last_block_reason": "step_failures: rebuild all after the PR-26 catch-up merge (open since 2026-10-16T01:15, tutor); check_pages: exit 1: pages NOT OK: 2 dead audio clip problems. First: lessons/2026-10-12.html: plays clips from data/word-bank-audit.json (2 missing, e.g. lessons/2026-10-12/clips/context-ec03476aa70369c8.mp3) but does not load js/clip-fallback.js, so they are silent",
+ "last_block_utc": "2026-10-16T08:22:17Z",
  "first_block_reason": "pull --rebase failed (a conflict with master; a person merges): conflict in a hand-made file (a person merges): data/lesson-work/review-grades/2026-10-12.first.json",
- "blocked_since_utc": "2026-10-15T03:32:31Z",
- "open_failures": [],
+ "blocked_since_utc": "2026-10-15T04:09:32Z",
+ "open_failures": [
+  "tutor: rebuild all after the PR-26 catch-up merge"
+ ],
  "pending": [
   "lesson 2026-10-14 recorded, not on the site",
-  "100 blocked push(es) since the last publish",
+  "1 open failure(s): tutor",
+  "99 blocked push(es) since the last publish",
   "925 of the student's corrections since the last publish"
  ],
- "hours_since_publish": 157.8,
+ "hours_since_publish": 158.1,
  "stalled": true,
- "generated_at": "2026-10-16T08:03:32Z",
- "plain_reason": "a test failed"
+ "generated_at": "2026-10-16T08:22:17Z",
+ "plain_reason": "step_failures: rebuild all after the PR-26 catch-up merge (open since 2026-10-16T01:15,..."
 }
