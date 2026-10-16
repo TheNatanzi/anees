@@ -27,7 +27,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-08 | 95.8 -> **95.9** | 251 -> **255** | 86.6 | 27 | 202 | 1 / 0 |
 | 2026-10-09 | 98.0 -> **97.5** | 307 -> **320** | 86.7 | 38 | 286 | 1 / 2 |
 | 2026-10-10 | 97.7 -> **97.9** | 266 -> **289** | 90.1 -> **90.8** | 25 | 252 -> **271** | 1 / 0 |
-| 2026-10-12 | None -> **96.0** | None -> **186** | None -> **85.2** | None -> **31** | None -> **210** | 0 / 0 |
+| 2026-10-12 | None -> **96.6** | None -> **192** | None -> **85.2** | None -> **31** | None -> **210** | 0 / 0 |
 
 
 ## Conflicts
@@ -136,7 +136,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-10 08:43 C1a both stand: يوم (word-bank right) vs يوم الخميس -> الخميس الجاي (readers asked) - he asked for another word: both stand
 - 2026-10-10 08:45 C1a both stand: يوم الخميس. (word-bank right) vs يوم الخميس -> الخميس الجاي (readers asked) - he asked for another word: both stand
 - 2026-10-10 21:45 C1 settled: كليًا (word-bank right) vs كليًا -> بشكل عام (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
-- 2026-10-12 58:52 C1p both stand: بطلب (word-bank right) vs بطلب = go out -> بطلب = request / ask for (readers wrong) - slip elsewhere in the phrase: the word stays right
+- 2026-10-12 58:52 C1a both stand: بطلب (word-bank right) vs بطلب = go out -> بطلب = request / ask for (readers asked) - he asked for another word: both stand
 
 ## Medi's corrections (PR-15)
 
