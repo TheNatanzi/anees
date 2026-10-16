@@ -511,6 +511,9 @@ def freeze_first(before, root=None, sha=None, now=None):
     made = []
     for d in sorted(published_dates(root, ref=sha) - set(before)):
         p = first_path(d, root)
+        rel = p.relative_to(root).as_posix()
+        if not getattr(git('cat-file', '-e', f'origin/master:{rel}'), 'returncode', 1):
+            continue                                       # PR-26: master already has a first page: written once, never again
         r = git('show', f'{sha}:docs/data/lessons/{d}.json')
         try:
             page = json.loads(getattr(r, 'stdout', '') or '')

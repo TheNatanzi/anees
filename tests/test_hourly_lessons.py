@@ -464,3 +464,27 @@ def test_the_hourly_run_writes_the_pipeline_health_and_publishes_through_the_fre
     H.main()
     assert len(job.guard) == 1                                                 # the one push still goes through the guard
     assert (job.root / 'docs' / 'data' / 'pipeline-health.json').exists()      # the stall alarm's source of truth, every run
+
+
+def test_a_first_page_already_on_master_is_never_rewritten(tmp_path, monkeypatch):
+    """PR-26 (2026-10-16): master had a 2026-10-12.first.json (written by a session) while the lesson page was not on master
+    yet; the hourly job re-froze its own copy every hour, and every push clashed. A first page on master is never rewritten."""
+    import shutil
+    if not shutil.which('git'):
+        pytest.skip('git not on PATH')
+    g = lambda cwd, *a: subprocess.run(['git', *a], cwd=cwd, capture_output=True, text=True, check=True).stdout.strip()
+    remote, work = tmp_path / 'remote.git', tmp_path / 'work'
+    g(tmp_path, 'init', '-q', '--bare', '-b', 'master', str(remote))
+    g(tmp_path, 'clone', '-q', str(remote), str(work))
+    for k, v in (('user.email', 't@example.com'), ('user.name', 'test'), ('core.hooksPath', 'no-hooks')):
+        g(work, 'config', k, v)
+    first = work / 'data' / 'lesson-work' / 'review-grades' / '2026-10-12.first.json'
+    first.parent.mkdir(parents=True)
+    first.write_text('{"page": "already"}', encoding='utf-8')
+    g(work, 'add', '-A'); g(work, 'commit', '-qm', 'first page on master'); g(work, 'push', '-q', 'origin', 'HEAD:master')
+    monkeypatch.setattr(H, 'ROOT', work)
+    (work / 'docs' / 'data' / 'lessons').mkdir(parents=True)
+    (work / 'docs' / 'data' / 'lessons' / '2026-10-12.json').write_text('{"turns": [1]}', encoding='utf-8')
+    g(work, 'add', '-A'); g(work, 'commit', '-qm', 'Lessons 2026-10-12 loaded by the hourly job')
+    assert H.freeze_first(H.published_dates(work), work) == []
+    assert json.loads(first.read_text(encoding='utf-8')) == {'page': 'already'}

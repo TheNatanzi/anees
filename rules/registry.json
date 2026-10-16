@@ -11301,6 +11301,72 @@
    }
   },
   {
+   "id": "PR-26",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The hourly job's publish never waits on a clash it can settle itself. (1) Job-owned files (publish_guard REGENERATE_DEFAULT job_owned: data/lesson-work/review-grades/*.first.json) are written only by the hourly job: on a clash the hourly job's copy wins, and a push from any other source that changes one is blocked with the file named. (2) When replaying the local commits onto master stops, the guard aborts and joins master in ONE merge (publish_guard.merge_with_master): generated files take master's copy and are rebuilt, job-owned files keep the hourly copy, a hand-made file still stops for a person. (3) freeze_first never rewrites a first page that is already on master. (4) A stall (no hourly publish for 2+ h while work waits) shows a Windows pop-up on the PC (msg *), at most every 6 h. Cause 2026-10-14 -> 10-16: a session committed its own 2026-10-12.first.json to master; 481 hourly pushes stopped at 'a person merges' with 431 commits waiting, unseen.",
+   "plain": "The hourly job can no longer get stuck on a file only it writes, settles clashes with the live site in one step, and pops up a warning on the PC if publishing stops for 2 hours.",
+   "plain_for": "29638459",
+   "topic": "testing engines",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-16",
+     "quote": "dude fix the hourly once and for all"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "def merge_with_master("
+    },
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "'job_owned': ['data/lesson-work/review-grades/*.first.json'],"
+    },
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "def stall_popup("
+    },
+    {
+     "type": "code",
+     "path": "scripts/hourly_lessons.py",
+     "contains": "master already has a first page: written once, never again"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_real_git_a_job_owned_clash_keeps_the_hourly_copy_and_publishes"
+    },
+    {
+     "path": "tests/test_hourly_lessons.py",
+     "contains": "def test_a_first_page_already_on_master_is_never_rewritten"
+    },
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_a_session_push_that_changes_a_job_owned_file_is_blocked"
+    },
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_real_git_a_clash_that_only_replaying_hits_is_joined_in_one_merge"
+    },
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_a_stall_shows_a_windows_popup_at_most_every_6_hours"
+    }
+   ],
+   "example": {
+    "date": "2026-10-16",
+    "note": "2026-10-14 -> 10-16: 481 hourly pushes blocked on data/lesson-work/review-grades/2026-10-12.first.json, 431 commits waiting"
+   }
+  },
+  {
    "id": "GR-37",
    "kind": "process",
    "scope": "grammar-scoring",
