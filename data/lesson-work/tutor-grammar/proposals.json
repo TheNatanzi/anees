@@ -155,6 +155,51 @@
     "model": "claude-sonnet-5-5",
     "cost_usd": 0.022238,
     "asked": "It shouldn’t be restricted to nature nouns.\nIt could be about any noun that sounds feminine, but is masculine or vice versa\nLike hand, leg, eye, ear, girl, man, etc."
+   },
+   {
+    "grammar": true,
+    "id": "A18",
+    "family": "A",
+    "name": "hidden gender nouns",
+    "one_line": "Some nouns have a gender that does not match how they sound: they sound masculine but are feminine, or sound feminine but are masculine. This is not only for nature words (sun, fire, earth, sky, air) but also for words like hand, leg, eye, ear, girl, man and war.",
+    "formula": "sound ≠ gender: شمس shams = feminine; نار nar = feminine; أرض ard = feminine; سما sama = feminine; حرب 7arb = feminine (sounds masculine); هواء hawa = masculine",
+    "examples": [
+     {
+      "arabizi": "",
+      "arabic": "طب امتى الشمس بتطلع؟",
+      "english": "So when does the sun rise?",
+      "hers": false
+     },
+     {
+      "arabizi": "",
+      "arabic": "النار حرقتني.",
+      "english": "The fire burned me.",
+      "hers": false
+     },
+     {
+      "arabizi": "",
+      "arabic": "النار بتحرق.",
+      "english": "Fire burns.",
+      "hers": false
+     },
+     {
+      "arabizi": "",
+      "arabic": "أنا الشمس بتضايقني.",
+      "english": "The sun bothers me.",
+      "hers": false
+     }
+    ],
+    "why": "The gender of these nouns does not match their sound, so a learner cannot guess it from the word's shape and has to learn each one.",
+    "overlaps": {
+     "id": "A8",
+     "name": "gender on adjectives",
+     "why": "A8 says a feminine noun takes a feminine adjective, but it assumes you already know which nouns are feminine; this rule covers nouns whose gender is hidden."
+    },
+    "v": 3,
+    "made_at": "2026-10-16T13:01:16+00:00",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.02117,
+    "asked": "Great \nJust add 7arb to the list \nحرب 7arb ~ war sounds masculine but is feminine.\nAlso make sure to list each word in Arabic and say what unusual gender it follows. \nKeep updating this list as we have more lessons and add new words"
    }
   ],
   "heard-20261010-2900": [
