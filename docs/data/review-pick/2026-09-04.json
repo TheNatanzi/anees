@@ -2,14 +2,14 @@
  "about": "Fast review mode (PG-50): the student's lines that hold Arabic in three tiers (1 unsure, 2 changed by the second listen, 3 confident; why listed), shown tier by tier; blind = the first 50 shown, without chips. Built by scripts/review_picker.py; display only.",
  "date": "2026-09-04",
  "all": 130,
- "unsure": 110,
- "unsure_n": 110,
+ "unsure": 108,
+ "unsure_n": 108,
  "changed_n": 12,
- "confident_n": 8,
+ "confident_n": 10,
  "tier_n": {
-  "1": 110,
+  "1": 108,
   "2": 12,
-  "3": 8
+  "3": 10
  },
  "tiers": {
   "1": "unsure: a ✗ chip, the two readers disagree, the second listen held a change or no 2 of its 3 runs agree, or one of 5 random confident lines",
@@ -19,7 +19,7 @@
  "blind_n": 50,
  "random_n": 5,
  "secs": 685.2,
- "unsure_secs": 619.1,
+ "unsure_secs": 610.2,
  "lines": [
   {
    "i": 4,
@@ -80,13 +80,12 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "second listen held a change",
-    "✗ chip on it (انتَ بتعرف)"
+    "second listen held a change"
    ],
    "propose": {
-    "k": "grammar",
-    "said": "انتَ بتعرف",
-    "right": "إنتي بتعرفي",
+    "k": "vocab",
+    "said": "Nerd بعرف، انتَ بتعرف-",
+    "right": null,
     "from": "chip"
    },
    "order": 3,
@@ -183,7 +182,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 123,
+   "order": 121,
    "blind": false
   },
   {
@@ -316,7 +315,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (جديد)"
+    "random check: one of 5 confident lines picked by the date"
    ],
    "propose": {
     "k": "grammar",
@@ -324,6 +323,7 @@
     "right": "لغة جديدة (my reading)",
     "from": "readers"
    },
+   "random": true,
    "order": 12,
    "blind": true
   },
@@ -364,8 +364,7 @@
    "unsure": true,
    "why": [
     "second listen held a change",
-    "the two readers disagreed (D1: only r1 found it)",
-    "✗ chip on it (عربي فلسطيني)"
+    "the two readers disagreed (D1: only r1 found it)"
    ],
    "propose": {
     "k": "grammar",
@@ -505,19 +504,17 @@
    "end": 273.76,
    "mmss": "04:28",
    "words": 2,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "✗ chip on it (من)"
-   ],
+   "tier": 3,
+   "unsure": false,
+   "why": [],
    "propose": {
     "k": "grammar",
     "said": "متحمس من",
     "right": "متحمس لَ / عن (my reading)",
     "from": "readers"
    },
-   "order": 20,
-   "blind": true
+   "order": 122,
+   "blind": false
   },
   {
    "i": 95,
@@ -539,7 +536,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 21,
+   "order": 20,
    "blind": true
   },
   {
@@ -562,7 +559,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 22,
+   "order": 21,
    "blind": true
   },
   {
@@ -585,7 +582,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 23,
+   "order": 22,
    "blind": true
   },
   {
@@ -606,7 +603,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 124,
+   "order": 123,
    "blind": false
   },
   {
@@ -629,7 +626,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 24,
+   "order": 23,
    "blind": true
   },
   {
@@ -652,7 +649,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 25,
+   "order": 24,
    "blind": true
   },
   {
@@ -675,7 +672,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 26,
+   "order": 25,
    "blind": true
   },
   {
@@ -698,7 +695,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 27,
+   "order": 26,
    "blind": true
   },
   {
@@ -721,7 +718,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 28,
+   "order": 27,
    "blind": true
   },
   {
@@ -747,7 +744,7 @@
     "right": "أي كلمة عندي مشكلة فيها",
     "from": "readers"
    },
-   "order": 29,
+   "order": 28,
    "blind": true
   },
   {
@@ -770,7 +767,7 @@
     "right": "قواعد",
     "from": "readers"
    },
-   "order": 30,
+   "order": 29,
    "blind": true
   },
   {
@@ -794,7 +791,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 31,
+   "order": 30,
    "blind": true
   },
   {
@@ -817,7 +814,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 32,
+   "order": 31,
    "blind": true
   },
   {
@@ -842,7 +839,7 @@
     "right": "نفس المشكلة",
     "from": "readers"
    },
-   "order": 33,
+   "order": 32,
    "blind": true
   },
   {
@@ -866,7 +863,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 34,
+   "order": 33,
    "blind": true
   },
   {
@@ -889,7 +886,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 35,
+   "order": 34,
    "blind": true
   },
   {
@@ -913,7 +910,7 @@
     "right": "لما ما يكون عنده جواب للسؤال",
     "from": "readers"
    },
-   "order": 36,
+   "order": 35,
    "blind": true
   },
   {
@@ -938,7 +935,7 @@
     "right": "لما ما يكون عنده جواب للسؤال",
     "from": "readers"
    },
-   "order": 37,
+   "order": 36,
    "blind": true
   },
   {
@@ -961,7 +958,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 38,
+   "order": 37,
    "blind": true
   },
   {
@@ -984,7 +981,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 39,
+   "order": 38,
    "blind": true
   },
   {
@@ -1007,7 +1004,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 40,
+   "order": 39,
    "blind": true
   },
   {
@@ -1024,8 +1021,7 @@
    "unsure": true,
    "why": [
     "second listen held a change",
-    "the two readers disagreed (D6: only r1 found it)",
-    "✗ chip on it (ال أول مشكلة)"
+    "the two readers disagreed (D6: only r1 found it)"
    ],
    "propose": {
     "k": "grammar",
@@ -1033,7 +1029,7 @@
     "right": "أنا عملت test (my reading)",
     "from": "readers"
    },
-   "order": 41,
+   "order": 40,
    "blind": true
   },
   {
@@ -1056,7 +1052,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 42,
+   "order": 41,
    "blind": true
   },
   {
@@ -1079,7 +1075,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 43,
+   "order": 42,
    "blind": true
   },
   {
@@ -1102,7 +1098,7 @@
     "right": "ktir sehel",
     "from": "readers"
    },
-   "order": 44,
+   "order": 43,
    "blind": true
   },
   {
@@ -1125,7 +1121,7 @@
     "right": "ktir sehel",
     "from": "readers"
    },
-   "order": 45,
+   "order": 44,
    "blind": true
   },
   {
@@ -1149,7 +1145,7 @@
     "right": "محادثة = conversation",
     "from": "readers"
    },
-   "order": 46,
+   "order": 45,
    "blind": true
   },
   {
@@ -1170,7 +1166,7 @@
     "right": "بنزعج = I get annoyed",
     "from": "readers"
    },
-   "order": 125,
+   "order": 124,
    "blind": false
   },
   {
@@ -1194,7 +1190,7 @@
     "right": "بحرج = I embarrass; بنحرج = I get embarrassed",
     "from": "readers"
    },
-   "order": 111,
+   "order": 109,
    "blind": false
   },
   {
@@ -1217,7 +1213,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 112,
+   "order": 110,
    "blind": false
   },
   {
@@ -1240,7 +1236,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 113,
+   "order": 111,
    "blind": false
   },
   {
@@ -1263,7 +1259,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 114,
+   "order": 112,
    "blind": false
   },
   {
@@ -1286,7 +1282,7 @@
     "right": "bas / la7aalo",
     "from": "readers"
    },
-   "order": 47,
+   "order": 46,
    "blind": true
   },
   {
@@ -1309,7 +1305,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 48,
+   "order": 47,
    "blind": true
   },
   {
@@ -1332,7 +1328,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 115,
+   "order": 113,
    "blind": false
   },
   {
@@ -1355,7 +1351,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 49,
+   "order": 48,
    "blind": true
   },
   {
@@ -1380,7 +1376,7 @@
     "right": "مبسوط",
     "from": "readers"
    },
-   "order": 50,
+   "order": 49,
    "blind": true
   },
   {
@@ -1403,7 +1399,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 116,
+   "order": 114,
    "blind": false
   },
   {
@@ -1426,8 +1422,8 @@
     "right": null,
     "from": "line"
    },
-   "order": 51,
-   "blind": false
+   "order": 50,
+   "blind": true
   },
   {
    "i": 766,
@@ -1449,7 +1445,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 52,
+   "order": 51,
    "blind": false
   },
   {
@@ -1474,7 +1470,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 53,
+   "order": 52,
    "blind": false
   },
   {
@@ -1498,7 +1494,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 54,
+   "order": 53,
    "blind": false
   },
   {
@@ -1521,7 +1517,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 55,
+   "order": 54,
    "blind": false
   },
   {
@@ -1544,7 +1540,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 56,
+   "order": 55,
    "blind": false
   },
   {
@@ -1567,7 +1563,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 57,
+   "order": 56,
    "blind": false
   },
   {
@@ -1591,7 +1587,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 58,
+   "order": 57,
    "blind": false
   },
   {
@@ -1615,7 +1611,7 @@
     "right": "بيبسطني - same verb, no N",
     "from": "chip"
    },
-   "order": 59,
+   "order": 58,
    "blind": false
   },
   {
@@ -1639,7 +1635,7 @@
     "right": "بيبسط",
     "from": "readers"
    },
-   "order": 60,
+   "order": 59,
    "blind": false
   },
   {
@@ -1662,7 +1658,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 61,
+   "order": 60,
    "blind": false
   },
   {
@@ -1683,7 +1679,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 126,
+   "order": 125,
    "blind": false
   },
   {
@@ -1704,7 +1700,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 127,
+   "order": 126,
    "blind": false
   },
   {
@@ -1727,7 +1723,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 62,
+   "order": 61,
    "blind": false
   },
   {
@@ -1751,7 +1747,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 63,
+   "order": 62,
    "blind": false
   },
   {
@@ -1777,7 +1773,7 @@
     "right": "احنا بنبسط",
     "from": "readers"
    },
-   "order": 64,
+   "order": 63,
    "blind": false
   },
   {
@@ -1789,19 +1785,16 @@
    "end": 2064.12,
    "mmss": "34:21",
    "words": 1,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "random check: one of 5 confident lines picked by the date"
-   ],
+   "tier": 3,
+   "unsure": false,
+   "why": [],
    "propose": {
     "k": "vocab",
     "said": "بنسبت",
     "right": null,
     "from": "line"
    },
-   "random": true,
-   "order": 65,
+   "order": 127,
    "blind": false
   },
   {
@@ -1824,7 +1817,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 66,
+   "order": 64,
    "blind": false
   },
   {
@@ -1848,7 +1841,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 67,
+   "order": 65,
    "blind": false
   },
   {
@@ -1892,7 +1885,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 68,
+   "order": 66,
    "blind": false
   },
   {
@@ -1916,7 +1909,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 69,
+   "order": 67,
    "blind": false
   },
   {
@@ -1940,7 +1933,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 70,
+   "order": 68,
    "blind": false
   },
   {
@@ -1965,7 +1958,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 71,
+   "order": 69,
    "blind": false
   },
   {
@@ -1990,7 +1983,7 @@
     "right": "بسطتك / بستك",
     "from": "readers"
    },
-   "order": 72,
+   "order": 70,
    "blind": false
   },
   {
@@ -2014,7 +2007,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 73,
+   "order": 71,
    "blind": false
   },
   {
@@ -2038,7 +2031,7 @@
     "right": "بسطته (basatto)",
     "from": "readers"
    },
-   "order": 74,
+   "order": 72,
    "blind": false
   },
   {
@@ -2061,7 +2054,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 117,
+   "order": 115,
    "blind": false
   },
   {
@@ -2084,7 +2077,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 118,
+   "order": 116,
    "blind": false
   },
   {
@@ -2108,7 +2101,7 @@
     "from": "chip"
    },
    "random": true,
-   "order": 75,
+   "order": 73,
    "blind": false
   },
   {
@@ -2132,7 +2125,7 @@
     "right": "إبست، إبستي، إبستو",
     "from": "readers"
    },
-   "order": 76,
+   "order": 74,
    "blind": false
   },
   {
@@ -2155,7 +2148,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 77,
+   "order": 75,
    "blind": false
   },
   {
@@ -2178,7 +2171,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 78,
+   "order": 76,
    "blind": false
   },
   {
@@ -2201,7 +2194,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 79,
+   "order": 77,
    "blind": false
   },
   {
@@ -2225,7 +2218,7 @@
     "from": "line"
    },
    "random": true,
-   "order": 80,
+   "order": 78,
    "blind": false
   },
   {
@@ -2248,7 +2241,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 81,
+   "order": 79,
    "blind": false
   },
   {
@@ -2272,7 +2265,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 82,
+   "order": 80,
    "blind": false
   },
   {
@@ -2295,7 +2288,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 83,
+   "order": 81,
    "blind": false
   },
   {
@@ -2318,7 +2311,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 84,
+   "order": 82,
    "blind": false
   },
   {
@@ -2341,7 +2334,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 85,
+   "order": 83,
    "blind": false
   },
   {
@@ -2364,7 +2357,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 86,
+   "order": 84,
    "blind": false
   },
   {
@@ -2387,7 +2380,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 119,
+   "order": 117,
    "blind": false
   },
   {
@@ -2410,7 +2403,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 120,
+   "order": 118,
    "blind": false
   },
   {
@@ -2433,7 +2426,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 121,
+   "order": 119,
    "blind": false
   },
   {
@@ -2456,7 +2449,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 87,
+   "order": 85,
    "blind": false
   },
   {
@@ -2504,7 +2497,7 @@
     "right": "betenbisti (بتنبسطي)",
     "from": "readers"
    },
-   "order": 88,
+   "order": 86,
    "blind": false
   },
   {
@@ -2528,7 +2521,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 122,
+   "order": 120,
    "blind": false
   },
   {
@@ -2552,7 +2545,7 @@
     "right": "3ashan ihna bnet3allam",
     "from": "readers"
    },
-   "order": 89,
+   "order": 87,
    "blind": false
   },
   {
@@ -2577,7 +2570,7 @@
     "right": "Hada el fi3l",
     "from": "readers"
    },
-   "order": 90,
+   "order": 88,
    "blind": false
   },
   {
@@ -2600,7 +2593,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 91,
+   "order": 89,
    "blind": false
   },
   {
@@ -2623,7 +2616,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 92,
+   "order": 90,
    "blind": false
   },
   {
@@ -2646,7 +2639,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 93,
+   "order": 91,
    "blind": false
   },
   {
@@ -2669,7 +2662,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 94,
+   "order": 92,
    "blind": false
   },
   {
@@ -2692,7 +2685,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 95,
+   "order": 93,
    "blind": false
   },
   {
@@ -2715,7 +2708,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 96,
+   "order": 94,
    "blind": false
   },
   {
@@ -2738,7 +2731,7 @@
     "right": "أكتر إشي",
     "from": "readers"
    },
-   "order": 97,
+   "order": 95,
    "blind": false
   },
   {
@@ -2762,7 +2755,7 @@
     "right": "أكتر إشي",
     "from": "chip"
    },
-   "order": 98,
+   "order": 96,
    "blind": false
   },
   {
@@ -2786,7 +2779,7 @@
     "right": "بيبسطني",
     "from": "readers"
    },
-   "order": 99,
+   "order": 97,
    "blind": false
   },
   {
@@ -2812,7 +2805,7 @@
     "right": "بيبسطني",
     "from": "readers"
    },
-   "order": 100,
+   "order": 98,
    "blind": false
   },
   {
@@ -2836,7 +2829,7 @@
     "from": "chip"
    },
    "random": true,
-   "order": 101,
+   "order": 99,
    "blind": false
   },
   {
@@ -2859,7 +2852,7 @@
     "right": "لما أكون",
     "from": "readers"
    },
-   "order": 102,
+   "order": 100,
    "blind": false
   },
   {
@@ -2882,7 +2875,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 103,
+   "order": 101,
    "blind": false
   },
   {
@@ -2905,7 +2898,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 104,
+   "order": 102,
    "blind": false
   },
   {
@@ -2928,7 +2921,7 @@
     "right": "ببسّط",
     "from": "readers"
    },
-   "order": 105,
+   "order": 103,
    "blind": false
   },
   {
@@ -2951,7 +2944,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 106,
+   "order": 104,
    "blind": false
   },
   {
@@ -2974,7 +2967,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 107,
+   "order": 105,
    "blind": false
   },
   {
@@ -2998,7 +2991,7 @@
     "from": "chip"
    },
    "random": true,
-   "order": 108,
+   "order": 106,
    "blind": false
   },
   {
@@ -3042,7 +3035,7 @@
     "right": "الله يعافيكي (my reading)",
     "from": "readers"
    },
-   "order": 109,
+   "order": 107,
    "blind": false
   },
   {
@@ -3065,7 +3058,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 110,
+   "order": 108,
    "blind": false
   }
  ]

@@ -60,7 +60,8 @@
 
   let TAGS = {};
   function useTags(tags) { TAGS = tags || {}; }
-  function tagsFor(verb) { return TAGS[verb] || { object: false, preps: ['ma3', 'la'] }; }
+  // AM-26: a verb with no tags yet (a new verb from the tutor's Doc, e.g. batjawaz 2026-10-16) gets no add-ons until tagged
+  function tagsFor(verb) { return TAGS[verb] || { object: false, preps: [] }; }
   // AM-26: a verb with no add-ons (plain verbs like batbu5) never comes up at level 2
   function hasAddons(verb) { const t = tagsFor(verb); return !!(t.object || (t.preps || []).some(p => PREP[p])); }
 

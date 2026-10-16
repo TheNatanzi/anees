@@ -1,8 +1,9 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 6,
+ "count": 7,
  "by_date": {
   "2026-09-26": 1,
+  "2026-10-01": 1,
   "2026-10-06": 1,
   "2026-10-12": 4
  },
@@ -27,6 +28,27 @@
    "second_judge": null,
    "listen_from": "00:47",
    "listen_to": "01:21"
+  },
+  {
+   "uid": "FA-c24ef29e",
+   "date": "2026-10-01",
+   "t": "06:15",
+   "t_amal": "06:18",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "medi_said": "Uh, uh, حافز؟ حافز؟",
+   "amal_said": "Hafiz is a motivation، بس what's about motivated؟ ... متشـ... متشجع.",
+   "wrong": "حافز",
+   "right": "متشجع",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "06:05",
+   "listen_to": "06:38"
   },
   {
    "uid": "FA-75dc1bf0",

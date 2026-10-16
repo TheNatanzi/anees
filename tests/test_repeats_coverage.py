@@ -398,9 +398,11 @@ def test_ws_35_ghair_is_other_by_meaning_and_the_bare_verb_is_her_verb():
 
 def test_ws_35_10_08_moments():
     rows = {(r["t"], r["word"]): r for r in WC.report("2026-10-08")}
-    for t, w in (("09:44", "ديرت"), ("12:09", "ديري"), ("09:48", "خطيبتي"), ("18:46", "سجر"), ("29:40", "بمطر"),
+    for t, w in (("09:44", "ديرت"), ("12:09", "ديري"), ("18:46", "سجر"), ("29:40", "بمطر"),
                  ("50:27", "حجور"), ("51:19", "إدام"), ("51:22", "الإدام"), ("03:24", "مالها")):
         assert rows[(t, w)]["state"] == "new", (t, w, rows[(t, w)])
+    # 2026-10-16: the tutor added خطيب / خطيبة to her word Doc (7feb4a9), so his خطيبتي at 09:48 is now on her list
+    assert rows[("09:48", "خطيبتي")]["state"] == "correct"
     assert rows[("31:34", "الهاوا")]["state"] == "correct" and rows[("52:50", "غير")]["state"] == "correct"
     assert rows[("15:33", "أعمله")]["state"] == "correct" and rows[("50:27", "حجار")]["state"] == "correct"
 

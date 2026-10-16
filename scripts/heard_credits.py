@@ -123,6 +123,10 @@ def build(rows=None, words=None, evidence=None, lessons=None):
             if r.get("credit") in ("independent", "helped") and r.get("word_key") == key:
                 ass, why = r["credit"], "His own ruling on this moment (%s)" % (r.get("quote") or "his correction")
             off = float(a.get("t_start") or 0) - float(a.get("local_start") or 0)     # the anchor's own track offset
+            if t0 - off < 0:
+                # the anchor's track starts after this line (10-10 01:58 / 02:15, 2026-10-16): no clip can be cut from
+                # it, so no event rather than one that plays the wrong audio
+                continue
             rid = "heard:" + str(r.get("correction") or "")
             ev = {"id": sha([BY, d, r.get("correction") or "", i, key]), "lesson_date": d, "word_key": key,
                   "local_start": round(t0 - off, 3), "local_end": round(t1 - off, 3),
