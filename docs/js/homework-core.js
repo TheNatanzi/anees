@@ -43,9 +43,17 @@
   }
 
   // ---- her uploads as card sets -------------------------------------------------------------------------------
+  // A pasted line often holds both spellings in one box: "7arb (f) | حرب" or "حرب | 7arb". Split it into its Latin and its
+  // Arabic side (Medi 2026-10-16: the card showed "7arb (f) | 7 / حربarb" - the two scripts tangled on one line).
+  function splitBox(s) {
+    const parts = String(s || '').split('|').map(x => x.trim()).filter(Boolean);
+    if (parts.length !== 2) return null;
+    const ar = parts.filter(p => AR.test(p) && !/[A-Za-z]/.test(p)), lat = parts.filter(p => !AR.test(p));
+    return ar.length === 1 && lat.length === 1 ? { arabizi: lat[0], arabic: ar[0] } : null;
+  }
   function uploadSets(rows) {
     return effective(rows).filter(r => r.kind === 'upload').map(u => {
-      const cards = (Array.isArray(u.rows) ? u.rows : []).map((c, i) => ({
+      const cards = (Array.isArray(u.rows) ? u.rows : []).map(c => (!c.arabizi && splitBox(c.arabic)) ? Object.assign({}, c, splitBox(c.arabic)) : c).map((c, i) => ({
         key: 'u:' + u.id + ':' + (i + 1), arabizi: String(c.arabizi || c.arabic || ''), arabic: c.arabizi ? String(c.arabic || '') : '',
         english: String(c.english || ''), plural: String(c.plural || ''), notes: String(c.notes || ''), topic: u.title || 'From the tutor', upload: u.id,
       })).filter(c => (c.arabizi || c.arabic) && (c.english || (c.arabizi && c.arabic)));

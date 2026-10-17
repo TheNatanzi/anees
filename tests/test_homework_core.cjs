@@ -87,3 +87,19 @@ test('PG-35 every set Amal uploads is on the Student tab: an upload with no card
   assert.deepEqual(H.unassignedUploads(undone, tasks), []);                         // an upload she took back is gone (AM-17)
   assert.equal(H.cardsDone(extra[0], [{ word_key: 'u:17b0:1', result: 'good', ts: '2026-10-07T01:00:00Z', subject: 'sel:u:17b0' }]), 1);
 });
+
+test('a pasted "Latin | Arabic" box becomes two fields (Medi 2026-10-16: 7arb (f) | حرب tangled on the card)', () => {
+  const HW = require('../docs/js/homework-core.js');
+  const up = [{ id: 'x', kind: 'upload', title: 'T', rows: [
+    { arabic: '7arb (f) | حرب', arabizi: '', english: 'War' },
+    { arabic: 'ضريبة | Dareebe', arabizi: '', english: 'tax' },
+    { arabic: 'Waade7 / waad7a | واضح/ة', arabizi: '', english: 'clear' },
+    { arabic: 'a | b', arabizi: '', english: 'two latin sides stay as they are' },
+    { arabic: 'حرب', arabizi: '7arb', english: 'already split' }] }];
+  const c = HW.uploadSets(up)[0].cards;
+  assert.deepEqual([c[0].arabizi, c[0].arabic], ['7arb (f)', 'حرب']);
+  assert.deepEqual([c[1].arabizi, c[1].arabic], ['Dareebe', 'ضريبة']);
+  assert.deepEqual([c[2].arabizi, c[2].arabic], ['Waade7 / waad7a', 'واضح/ة']);
+  assert.deepEqual([c[3].arabizi, c[3].arabic], ['a | b', '']);
+  assert.deepEqual([c[4].arabizi, c[4].arabic], ['7arb', 'حرب']);
+});
