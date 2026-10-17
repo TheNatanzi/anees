@@ -1,0 +1,223 @@
+{
+ "judge": "claude:claude-opus-5-5",
+ "variant": "win",
+ "date": "2026-10-10",
+ "errors": 0,
+ "verdicts": {
+  "C1": {
+   "verdict": "not",
+   "confidence": 85,
+   "why": "Medi fixed it himself in the same turn at 00:46 ('مع صوت عالي... بي صوت، بصوت عالي'), before Amal said anything. At 00:49 Amal only repeated the form he had already reached, so this is a self-fix and not a correction. Both claims describe this same moment."
+  },
+  "C2": {
+   "verdict": "not",
+   "confidence": 70,
+   "why": "Amal's reaction was to a hearing problem: she heard مخطط (a participle, 'planning'), probably because the engine or the fast doubled ط blurred it. No grammar correction came from her. Medi said خططت himself at 08:02 before she spoke, and her 08:04 line only agreed with what he had already fixed. That counts as a self-fix or speech-to-text issue, not a slip."
+  },
+  "C3": {
+   "verdict": "slip",
+   "confidence": 72,
+   "why": "Medi said هذا يوم الخميس for the coming Thursday and repeated it after Amal gave الخميس الجاي at 08:48. At 09:02 she rejected it ('we would say خميس الجاي'), then explained at 09:20 that جاي means coming, not next. This was a deliberate choice of words that she corrected, not a word he asked for. The three claims describe one moment and count as one slip."
+  },
+  "C4": {
+   "verdict": "not",
+   "confidence": 85,
+   "why": "Medi corrected واحد to واحدة himself in the same turn (10:09), before Amal reacted. Her واحدة at 10:11 only echoes his fix, so this is a self-fix."
+  },
+  "C5": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi said كان نفس المرة. Amal prompted 'kanat, why?' and he fixed it to كانت (12:35). She then named the rule: مرة is feminine, so the verb has to agree (B18)."
+  },
+  "C6": {
+   "verdict": "not",
+   "confidence": 85,
+   "why": "Medi did not know the word for 'I met'. He switched to English and Amal supplied it. That is a vocabulary gap, not a corrected mistake."
+  },
+  "C7": {
+   "verdict": "slip",
+   "confidence": 80,
+   "why": "Medi said التقيت خطيبتي without the preposition. Amal prompted 'What does alta'at take? There is two options' and he added مع (14:20). This is a verb with its fixed preposition (D2), corrected by a prompt."
+  },
+  "C8": {
+   "verdict": "not",
+   "confidence": 60,
+   "why": "He cut off at لأول, and he says he meant أول مرة. Amal's 'what do you mean' and 'La awal mara... I didn't hear it' ask what he meant; she is not rejecting a wrong form. This is a cut-off, not a corrected mistake."
+  },
+  "C9": {
+   "verdict": "not",
+   "confidence": 70,
+   "why": "This is the same لأول moment as C8, so it cannot count twice. It is also a cut-off phrase that Amal asked about, not something she corrected."
+  },
+  "C10": {
+   "verdict": "slip",
+   "confidence": 80,
+   "why": "He said كان before نفس المرة, which is feminine and needs كانت. Amal corrected it to 'Kanat nafs al mara', and he repeated كانت at 15:52 (B6/B18)."
+  },
+  "C11": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "He said تنتين سنين for two years. Amal said 'Mm-mm-mm', asked for the dual and kept prompting until he said سنتين at 16:43 (E3)."
+  },
+  "C12": {
+   "verdict": "not",
+   "confidence": 75,
+   "why": "At 16:55 he had only said أول أكل and the verb had not come yet. The real mistake and Amal's correction come at 17:22-17:25, which C13 covers better."
+  },
+  "C13": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "He fronted أول أكل and then said جربت with no ending pointing back to it. Amal named the rule ('You have to point back to it') and he fixed it to جربته at 17:37 (C2)."
+  },
+  "C14": {
+   "verdict": "not",
+   "confidence": 60,
+   "why": "Amal's only reaction was to echo 'Ana.', which does not ask for the ending. He added the ending himself (جربته) right after 'uh', so this is a self-fix, not a correction."
+  },
+  "C15": {
+   "verdict": "slip",
+   "confidence": 55,
+   "why": "Amal reacted to his كان في الـ عشاء by saying 'We say on dinner', which corrects the preposition toward على العشاء (D1). He then rebuilt the sentence as في آخر العشاء, so the exact target is unclear, but she did correct it."
+  },
+  "C16": {
+   "verdict": "not",
+   "confidence": 85,
+   "why": "Medi fixed حلوة to حلو فلسطيني himself at 20:09, before Amal said anything. Her حلو at 20:11 only confirms his fix."
+  },
+  "C17": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "Medi said أكل المفضل at 21:55. Amal recast it as الأكل twice (22:01), then gave الأكل المفضل عندي at 22:28 and typed it in chat. This is the A7/A23 rule: a definite noun-adjective phrase needs el- on both words."
+  },
+  "C18": {
+   "verdict": "slip",
+   "confidence": 55,
+   "why": "Medi used كليًا to mean 'in general' at 21:44. Amal rejected it: كليًا means completely. She gave بشكل عام instead and typed it in chat. Borderline, because she only corrected it after he asked whether it was right."
+  },
+  "C19": {
+   "verdict": "not",
+   "confidence": 85,
+   "why": "This is the same كليًا → بشكل عام moment as C18, so only one of them counts. C18 is the better candidate."
+  },
+  "C20": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "Medi said كل أكل فلسطيني, which means every Palestinian food, when he meant all of it. Amal flagged it with 'Every.' and he fixed it to كل الأكل الفلسطيني, which she accepted. This is the A11 kul rule."
+  },
+  "C21": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "At 25:51 Medi said أكل المفضل عندي without el- on the noun. At 25:56 Amal recast it as الأكل المفضل عندي (A23: a noun followed by el-mufaddal needs el- itself). One corrected moment, so one slip."
+  },
+  "C22": {
+   "verdict": "not",
+   "confidence": 75,
+   "why": "Medi was searching for a dish name ('shu ism el akel... green'), which is asking for words. Amal herself said أكلة الخضرا at 26:26. His 'Akle el khodra?' at 26:36 is a question that echoes her form, so it is help on the way to an answer, not a corrected mistake."
+  },
+  "C23": {
+   "verdict": "slip",
+   "confidence": 75,
+   "why": "At 28:58 Medi put كمان right before أكلة, which makes it mean 'another dish'. Amal answered at once: 'كمان at the end'. She named where it goes (A19), and her full sentence at 29:41 puts كمان last."
+  },
+  "C24": {
+   "verdict": "slip",
+   "confidence": 65,
+   "why": "'Akli il mufaddal khatibti' leaves خطيبتي with no link to the food. At 29:20 Amal replaced it with 'a cleaner version' using idafa: هذي أكلة خطيبتي المفضلة. At 30:52 she explained why. This is a soft recast; her clear 'No' at 31:39 is outside this slice."
+  },
+  "C25": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "At 30:00 Medi said المفضّل (masculine) for أكلة, which is feminine. Amal fixed it at once at 30:01: المفضلة (A8 gender agreement). He made the mistake again after she had modeled the right form, so it counts."
+  },
+  "C26": {
+   "verdict": "slip",
+   "confidence": 72,
+   "why": "Medi built 'akli il mufaddal khatibti' at 29:13 and repeated it at 31:17/31:31. When he asked if it works, Amal said 'No' and named the rule: khatibti needs a link (la / 3ind), and it has to be hadi el-akle. That is an explicit rejection of his own sentence, not just a question about a rule."
+  },
+  "C27": {
+   "verdict": "not",
+   "confidence": 78,
+   "why": "Same moment as C28. 'Try the other way' (جرب الطريقة التانية) asks for the second structure; it does not reject his first one. Her chat at 34:28 ('hadoal el-aa3i immi el-mufaddaleen') shows the noun was there, so the missing أواعي is probably a transcription drop."
+  },
+  "C28": {
+   "verdict": "slip",
+   "confidence": 75,
+   "why": "At 33:28 he switched to singular مفضلة, and Amal recast it at 33:30 as plural مفضلين to agree with hadol / awaa3i. This is the actual corrected moment in the clothes exercise, so C28 is the best of the duplicates."
+  },
+  "C29": {
+   "verdict": "not",
+   "confidence": 80,
+   "why": "This is the same moment as C30, where Amal corrects طريق التاني. C30 sits at her actual fix (36:26–36:30). The 35:31 line is Medi speaking English, so C29 is the duplicate."
+  },
+  "C30": {
+   "verdict": "slip",
+   "confidence": 88,
+   "why": "Amal rejects the phrase outright: 'No, you said طريق التاني', and gives الطريق التاني. In a definite noun + adjective phrase the noun needs el- too (A7/A14). Medi fixes it at 37:14."
+  },
+  "C31": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "Medi says هذا خايف ('this is scared') when he means 'scary'. Amal flags it ('this is scared. What's scary?') and keeps prompting until he says بخوّف at 38:19. This is the make-X vs get-X pair (B12), so the grammar claim fits best."
+  },
+  "C32": {
+   "verdict": "not",
+   "confidence": 80,
+   "why": "Duplicate of C31: the same خايف → بيخوّف moment, filed as vocab. The grammar version (C31) is the better fit."
+  },
+  "C33": {
+   "verdict": "not",
+   "confidence": 70,
+   "why": "His بخاف at 38:15 is one step in the same prompting chain that began with خايف and ended at بخوّف. Amal's 'No?' is part of that one correction, so it is already covered by C31."
+  },
+  "C34": {
+   "verdict": "slip",
+   "confidence": 65,
+   "why": "At 45:13 Medi said 'film kamaan' when he meant 'another movie'. Amal reacted right away on كمان ('كمان، شلهم'; garbled, but it sounds like 'move it'). He then moved it to 'kamaan film' at 45:16. Her chat line '5allina ne7dar kamaan filem' (46:52) confirms the right form. This is the A19 rule: kamaan meaning 'another' goes before the noun. The three claims describe the same moment, so it counts once. Confidence is reduced because her words are garbled, and 'film kamaan' can mean 'a movie too'."
+  },
+  "C35": {
+   "verdict": "not",
+   "confidence": 55,
+   "why": "Medi stopped partway ('روحي على تاني… تاني-'), so he looks like he was still looking for the noun. Amal's 'Now you can use wahid or wahida' gives him a word he hadn't found yet, not a correction of a finished wrong form. The cut-off rule says that's not a slip. This is borderline, because the chat later shows taani waa7ad."
+  },
+  "C36": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "Medi said 'عشان أحسن' as a full clause without the 'it'. Amal corrected it right away ('Ashan it is ahsan. You could say ashano… or ashan huwa ahsan') and typed 3ashaanno a7san in chat. Medi then fixed it to 'عشانه أحسن' at 53:17. All three claims are the same moment, so it counts as one slip."
+  },
+  "C37": {
+   "verdict": "slip",
+   "confidence": 78,
+   "why": "Medi said يسبط with no present-tense b- (B1). Amal prompted 'be...' and then said 'the be goes before the s' until he produced يبسط / بيبسط. That is a prompt-until-fixed correction. The swapped root letters are pronunciation, and the three claims describe the same single moment."
+  },
+  "C38": {
+   "verdict": "not",
+   "confidence": 85,
+   "why": "At 57:14-57:25 Medi asked a question about a rule ('انبسط takes في... not بيبسط, right? So it's لـ?'). Amal answered that no preposition is needed. A question about a rule is not a slip."
+  },
+  "C39": {
+   "verdict": "slip",
+   "confidence": 75,
+   "why": "At 58:03 Medi actually said بيبسوت لـ ولد, using لـ after the make-happy verb. At 58:20 Amal restated 'no preposition needed' (D2). She also recast his singular 'el walad el zahar' as plural الأولاد at 58:17, and her chat gives el-wlaad el-z8aar. Both claims are corrections of his speech, so this counts as one slip, and the preposition claim is the stronger one."
+  },
+  "C40": {
+   "verdict": "not",
+   "confidence": 55,
+   "why": "Medi asked this as a question ('Is it إشي التاني؟') and had already started fixing it himself ('الإشي...') before Amal answered. Her line 'الـ إشي الـ تاني' just confirms the fix he was making."
+  },
+  "C41": {
+   "verdict": "slip",
+   "confidence": 55,
+   "why": "In his summary of كمان (A19), Medi said that after the noun it means 'more'. Amal immediately corrected this to 'Also as well.' This is a wrong rule she corrected, though he said it in English rather than in Arabic."
+  },
+  "C42": {
+   "verdict": "slip",
+   "confidence": 88,
+   "why": "Medi said أغلب takes no ال and gave أغلب إشي. Amal said 'No, we do', and he fixed it to aghlab il ishi. This is a clear rejection followed by his fix (A22)."
+  },
+  "C43": {
+   "verdict": "slip",
+   "confidence": 65,
+   "why": "Medi said 'ishi akher / ishi il akher' for the word after the noun. Amal reacted with 'شو؟' and then asked 'What's آخر as an adjective?' He then gave أخير / أخيرة. This is a prompt-then-fix under A15/A20, and the right form is الإشي الأخير."
+  }
+ }
+}

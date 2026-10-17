@@ -1,0 +1,229 @@
+{
+ "judge": "gemini:gemini-3.1-pro-preview",
+ "variant": "plain",
+ "date": "2026-10-10",
+ "usage": {
+  "in": 33713,
+  "cached": null,
+  "out": 2536,
+  "reasoning": 5667,
+  "finish": "STOP"
+ },
+ "verdicts": {
+  "C1": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi self-corrected to 'بصوت عالي' before Amal reacted. She just echoed his correct phrase."
+  },
+  "C2": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "He struggled to form 'I didn't plan' and produced 'ما خطت', which Amal misunderstood as 'مخطط'. Eventually she helped him arrive at 'ما خططت', correcting his past tense."
+  },
+  "C3": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He used 'هذا يوم الخميس' to mean the coming Thursday, and Amal explicitly corrected him to use 'الخميس الجاي'."
+  },
+  "C4": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi self-corrected from 'واحد' to 'واحدة' before Amal reacted."
+  },
+  "C5": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He used masculine 'كان' with the feminine noun 'مرة', and Amal prompted him to change it to 'كانت'."
+  },
+  "C6": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "He mumbled a non-word ('tlat'), then switched to English to ask for the word ('I met'). Asking for a word you don't know is not counted as a slip."
+  },
+  "C7": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He missed the fixed preposition 'مع' after 'التقيت', and Amal explicitly prompted him to add it."
+  },
+  "C8": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He incorrectly used 'لأول' on its own to mean 'for the first time', and Amal recast it as 'لأول مرة'."
+  },
+  "C9": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C8."
+  },
+  "C10": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He made the same mistake again, using masculine 'كان' instead of 'كانت', and Amal recast it."
+  },
+  "C11": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He used a number plus plural ('تنتين سنين') instead of the dual form for time units ('سنتين'). Amal explicitly prompted for the correct form."
+  },
+  "C12": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C13, which describes the moment better."
+  },
+  "C13": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He fronted the object but missed the resumptive pronoun '-o' on the verb. Amal named the rule ('You have to point back to it'), leading him to fix it."
+  },
+  "C14": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He made the same fronted-object pronoun omission a second time. Amal prompted him, and he fixed it."
+  },
+  "C15": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "He incorrectly used 'في' instead of 'على' for 'at dinner'. Amal explicitly corrected it by saying 'We say on dinner'."
+  },
+  "C16": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "He self-corrected 'حلوة' to 'حلو' before Amal reacted."
+  },
+  "C17": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He dropped the 'el-' on the noun in a definite noun-adjective phrase. Amal recast it with the prefix."
+  },
+  "C18": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He incorrectly used 'كليًا' to mean 'in general'. Amal explicitly corrected him to 'بشكل عام'."
+  },
+  "C19": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C18."
+  },
+  "C20": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He missed the 'el-' on 'الأكل', changing the meaning to 'every food' instead of 'all the food'. Amal pointed it out, and he fixed it."
+  },
+  "C21": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He missed the 'el-' on the noun again, and Amal recast it again."
+  },
+  "C22": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "He struggled with the word order and gender of the noun-adjective phrase, and Amal fully recast it as 'الأكلة الخضرا'."
+  },
+  "C23": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He placed 'كمان' before the noun to mean 'also', and Amal explicitly taught him that it needs to go at the end of the sentence for this meaning."
+  },
+  "C24": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He stacked possession incorrectly without the proper linking preposition. Amal explicitly recast and later rejected his construction."
+  },
+  "C25": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He used the masculine adjective 'المفضل' for the feminine noun 'أكلة'. Amal recast it to 'المفضلة'."
+  },
+  "C26": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C24."
+  },
+  "C27": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C28, which captures the correction more thoroughly."
+  },
+  "C28": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He incorrectly used the singular adjective 'مفضلة' for the plural noun, and Amal recast it to 'مفضلين' while prompting him for the correct sentence structure."
+  },
+  "C29": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C30."
+  },
+  "C30": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He dropped the 'el-' on the noun before 'تاني', and Amal explicitly quoted his mistake and corrected it to 'الطريق التاني'."
+  },
+  "C31": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C32."
+  },
+  "C32": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He used the adjective 'خايف' (scared) instead of the causative verb form 'بيخوف' (scary). Amal explicitly corrected and prompted him to the right form."
+  },
+  "C33": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C32."
+  },
+  "C34": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He placed 'كمان' after the noun when meaning 'another', and Amal prompted him to put it before the noun."
+  },
+  "C35": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He left the adjective 'تاني' dangling without a noun, and Amal prompted him to add 'واحد'."
+  },
+  "C36": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He dropped the attached pronoun for 'it' after 'عشان', and Amal corrected him by explaining the rule and giving the form 'عشانه'."
+  },
+  "C37": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He omitted the present-tense 'b-' prefix on the verb, and Amal explicitly prompted him to add it."
+  },
+  "C38": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C39."
+  },
+  "C39": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He added the preposition 'لـ' after the verb 'بيبسط' when it takes a direct object, and Amal explicitly corrected him."
+  },
+  "C40": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He missed the 'el-' on the first word of the definite noun-adjective phrase 'الإشي التاني', and Amal recast it."
+  },
+  "C41": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "He was explaining a grammar rule in English and got the English meaning slightly wrong. Rule discussions and English phrasing are not Arabic slips."
+  },
+  "C42": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "Although in the context of summarizing rules, he actively produced the wrong Arabic phrase 'أغلب إشي' (omitting el-), and Amal explicitly corrected it to 'أغلب الإشي'."
+  },
+  "C43": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "During his rule summary, he incorrectly applied 'آخر' as an adjective after the noun, and Amal prompted him for the correct adjective form 'أخير'."
+  }
+ }
+}

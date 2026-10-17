@@ -1,0 +1,229 @@
+{
+ "judge": "gemini:gemini-3.7-flash",
+ "variant": "fewshot",
+ "date": "2026-10-10",
+ "usage": {
+  "in": 34253,
+  "cached": null,
+  "out": 2277,
+  "reasoning": 15151,
+  "finish": "STOP"
+ },
+ "verdicts": {
+  "C1": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi self-corrected to بصوت عالي before Amal spoke."
+  },
+  "C2": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "A speech-to-text or acoustic misunderstanding where Amal thought he said مخطط."
+  },
+  "C3": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi did not know the idiom الخميس الجاي and Amal introduced and explained the term."
+  },
+  "C4": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi self-corrected to واحدة وربع within his own turn before Amal reacted."
+  },
+  "C5": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used masculine كان with feminine مرة and Amal prompted him to fix it to كانت."
+  },
+  "C6": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi did not know the verb and switched to English 'I met' to ask for it."
+  },
+  "C7": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi omitted the required preposition مع after التقيت and Amal prompted him to supply it."
+  },
+  "C8": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Amal did not hear what he said and simply asked for clarification."
+  },
+  "C9": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Duplicate candidate of C8 where Amal was merely clarifying what he meant."
+  },
+  "C10": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi repeated the masculine agreement error كان with feminine مرة and Amal recast it as كانت."
+  },
+  "C11": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used number + plural تنتين سنين instead of the dual سنتين, and Amal prompted him until fixed."
+  },
+  "C12": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "An incomplete utterance duplicate of C13 before he finished the clause."
+  },
+  "C13": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi fronted the object without adding the resumptive pronoun suffix on جربت, and Amal named the pointer rule."
+  },
+  "C14": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi omitted the resumptive pronoun pointer on جربت again after a fronted object, and Amal prompted him to add it."
+  },
+  "C15": {
+   "verdict": "not",
+   "confidence": 85,
+   "why": "Medi adjusted his thought to في آخر العشاء, which Amal fully accepted as correct."
+  },
+  "C16": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi self-corrected from حلوة to حلو before Amal responded."
+  },
+  "C17": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi omitted الـ on the noun in the definite phrase أكل المفضل and Amal recast it as الأكل المفضل."
+  },
+  "C18": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi asked whether كليًا could mean 'in general', prompting Amal to introduce بشكل عام."
+  },
+  "C19": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Duplicate candidate of C18 involving asking how to say 'in general'."
+  },
+  "C20": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used كل + indefinite noun for 'all', and Amal prompted him to correct it to كل الأكل."
+  },
+  "C21": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi repeated the missing الـ error on أكل in a new sentence, and Amal recast it again."
+  },
+  "C22": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi was searching for and asking how to say 'the green dish'."
+  },
+  "C23": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi placed كمان before the noun to mean 'also', and Amal corrected its position to the end of the sentence."
+  },
+  "C24": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi produced an unlinked possessive construction which Amal recast into an idafa."
+  },
+  "C25": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used masculine المفضّل to modify feminine أكلة and Amal immediately recast it as المفضلة."
+  },
+  "C26": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi was asking a question about whether a previous structure was grammatically permissible."
+  },
+  "C27": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Inaccurate timestamp and description of an utterance that was still being formulated."
+  },
+  "C28": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used singular مفضلة for plural clothes and Amal recast it as مفضلين."
+  },
+  "C29": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Duplicate candidate of C30 referencing the audio gap before Amal's explicit correction."
+  },
+  "C30": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Amal explicitly rejected his form طريق التاني and corrected it to الطريق التاني."
+  },
+  "C31": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used participle خايف (scared) instead of causative بيخوّف (scary) and Amal prompted him until fixed."
+  },
+  "C32": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Duplicate candidate of the causative verb mistake scored under C31."
+  },
+  "C33": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "An intermediate guess during the prompting sequence already captured in C31."
+  },
+  "C34": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi placed كمان after the noun when meaning 'another', and Amal prompted him to put it in front."
+  },
+  "C35": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi trailed off mid-phrase and Amal offered a completion rather than correcting a finished error."
+  },
+  "C36": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi said عشان أحسن omitting the required subject pronoun, and Amal instructed him to say عشانه أحسن."
+  },
+  "C37": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi omitted the present-tense b- prefix on يسبط and Amal prompted him to add it."
+  },
+  "C38": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi asked a question about whether the preposition لـ is required."
+  },
+  "C39": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi added the unnecessary preposition لـ and used singular ولد, and Amal corrected both."
+  },
+  "C40": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi was asking a question while reviewing grammar rules at the end of the lesson."
+  },
+  "C41": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Discussion of a rule in English rather than a spoken Arabic mistake."
+  },
+  "C42": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "A meta-discussion quiz question about whether أغلب takes الـ rather than a speech slip."
+  },
+  "C43": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Rule recap at the end of the lesson where Medi answered Amal's question correctly."
+  }
+ }
+}

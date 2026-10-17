@@ -1,0 +1,359 @@
+{
+ "judge": "gemini:gemini-3.1-pro-preview",
+ "variant": "plain",
+ "date": "2026-10-09",
+ "usage": {
+  "in": 39094,
+  "cached": null,
+  "out": 4011,
+  "reasoning": 7053,
+  "finish": "STOP"
+ },
+ "verdicts": {
+  "C1": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He used the wrong body part word (mouth instead of stomach), Amal queried it, and he corrected himself."
+  },
+  "C2": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He used a non-Arabic pronunciation/word for mint ('nana'), and Amal recast it correctly as 'نعنع'."
+  },
+  "C3": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He missed the verb 'صارت' when expressing 'she became better', which Amal supplied and he repeated."
+  },
+  "C4": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He used the wrong preposition 'لها' for requesting from someone; Amal prompted the meaning difference and guided him to 'منها'."
+  },
+  "C5": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He attempted the word for 'less' but produced a non-word 'ألأ'; Amal corrected him to 'أقل'."
+  },
+  "C6": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He used the singular 'الكلمة' when responding to 'what words', and Amal corrected him to the plural 'كلمات'."
+  },
+  "C7": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He constructed 'nature words' as an adjective phrase ('الكلمات الطبيعات') instead of an idafa construction; Amal recast it to 'كلمات الطبيعة'."
+  },
+  "C8": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "Duplicate of the same moment and correction described in C7."
+  },
+  "C9": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He incorrectly proposed 'قمر' as a feminine word; Amal explicitly rejected it, and he immediately realized it is masculine."
+  },
+  "C10": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He incorrectly offered 'قارة' for a feminine noun that sounds masculine, and Amal supplied the correct vocab 'أرض'."
+  },
+  "C11": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He omitted 'عندي' when trying to say 'my favorite' on its own; Amal prompted him until he completed the phrase."
+  },
+  "C12": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "Duplicate of C11, describing intermediate guesses in the same correction moment."
+  },
+  "C13": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He omitted the definite articles on a phrase meaning 'my favorite ice cream'; Amal recast it as definite 'البوظة الحلوة'."
+  },
+  "C14": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "He generated an incorrect plural form 'مسلسلين' (dual/regular) for series; Amal corrected him to 'مسلسلات'."
+  },
+  "C15": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "Duplicate of the exact moment evaluated in C14."
+  },
+  "C16": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He placed the adjective 'مفضل' before the noun; Amal explicitly rejected it until he placed it after the noun."
+  },
+  "C17": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He added a possessive suffix to mountains instead of using the target phrase structure; Amal told him 'no' and explained."
+  },
+  "C18": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He was about to use singular agreement for plural mountains; Amal interrupted to point out the plural, prompting his fix."
+  },
+  "C19": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "When asked for the singular 'one mountain', he gave the plural 'جبال'; Amal corrected him to 'جبل'."
+  },
+  "C20": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "Duplicate of C19, describing the same slip."
+  },
+  "C21": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He used the MSA word 'الشاطئ'; Amal prompted him to produce the Levantine 'شط'."
+  },
+  "C22": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He proposed the passive participle 'مبسوط' instead of the active verb for 'enjoyable'; Amal guided him to the right form."
+  },
+  "C23": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He formed 'another lake' without definite articles and with masculine agreement; Amal prompted him to fix it to 'البحيرة التانية'."
+  },
+  "C24": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "Continuation of the same correction moment described in C23."
+  },
+  "C25": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "He struggled with pronunciation and self-fixed to 'بتبسط' before Amal intervened; she only prompted for the next word."
+  },
+  "C26": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He used the feminine demonstrative for the masculine noun 'شاطئ/شط'; Amal immediately recast to 'هذا'."
+  },
+  "C27": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He misheard or mispronounced 'غابة' as 'غادة', and Amal explicitly corrected the pronunciation."
+  },
+  "C28": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He used the masculine 'واحد' referring to the feminine 'غابة'; Amal prompted for gender agreement."
+  },
+  "C29": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He incorrectly attempted to add 'اللي' after an indefinite phrase; Amal explicitly stopped him."
+  },
+  "C30": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He attached the pronoun directly to the verb 'بروحها'; Amal corrected it to the prepositional phrase 'بروح عليها'."
+  },
+  "C31": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "He guessed a non-existent word form ('بختر') and Amal corrected him to the right Arabic root 'فضل'."
+  },
+  "C32": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He used the feminine demonstrative for the masculine noun 'منظر', Amal caught it and prompted him to fix."
+  },
+  "C33": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He omitted the relative pronoun 'اللي' after a definite noun, and Amal prompted him to add it."
+  },
+  "C34": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He invented regular plural forms ('منظرات') for 'منظر'; Amal corrected him to the broken plural 'مناظر'."
+  },
+  "C35": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "Duplicate of C34 describing the same incorrect plural formation."
+  },
+  "C36": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He attached the object pronoun directly to 'جاب' ('جبتك'); Amal corrected him to use the preposition 'لـ' ('جبت لك')."
+  },
+  "C37": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He placed the definite article 'الـ' immediately after 'غير', which Amal corrected."
+  },
+  "C38": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He used the plural 'أنواع' following 'غير' instead of the singular 'نوع' for 'a different type'; Amal prompted him to fix."
+  },
+  "C39": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "Duplicate of the same mistake in C38."
+  },
+  "C40": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He placed the adjective 'مختلف' before the noun; Amal explicitly rejected it and corrected the order."
+  },
+  "C41": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He said 'اليوم' instead of adding the possessive suffix for 'my day'; Amal prompted him to fix it to 'يومي'."
+  },
+  "C42": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He omitted the definite article on 'أكل' following 'من' in a generic sense; Amal supplied 'الأكل'."
+  },
+  "C43": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He omitted the preposition 'من' between types and food; Amal corrected by inserting it."
+  },
+  "C44": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He omitted 'من' again after an interruption; Amal explicitly asked where it was."
+  },
+  "C45": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He failed to pluralize the noun after the number 3; Amal instructed him to add the plural."
+  },
+  "C46": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He incorrectly added 'الـ' after 'غير', and Amal explicitly corrected him, naming the rule."
+  },
+  "C47": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "Duplicate of C46 covering the same correction."
+  },
+  "C48": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He placed 'كمان' incorrectly for 'another paper'; Amal prompted him and confirmed the correct word order."
+  },
+  "C49": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He used 'عندهم' (they have) instead of 'فيهم' (in them) to express houses containing grass; Amal corrected him."
+  },
+  "C50": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "Duplicate of C49."
+  },
+  "C51": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He invented an incorrect plural 'حشاشيش' for grass; Amal rejected it."
+  },
+  "C52": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "He did not make a mistake but asked a question about a grammar rule ('Is this من?'), which Amal answered."
+  },
+  "C53": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He used a Persian word for clear; Amal supplied the Arabic 'واضح'."
+  },
+  "C54": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "He realized his omission of 'كان' and self-fixed just as Amal started to react."
+  },
+  "C55": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He used 'آخر سؤالي' incorrectly for 'my last question'; Amal explained what it actually meant and gave the right form."
+  },
+  "C56": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He attempted another incorrect construction for 'my last question' ('سؤالي آخر إلي'); Amal rejected it."
+  },
+  "C57": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He missed the feminine -t suffix before the possessive pronoun on 'لعبة'; Amal corrected it to 'لعبتي'."
+  },
+  "C58": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He attempted 'هذه اللعبة' as a translation for 'this is my first game'; Amal rejected it with 'Mm-mm' and he fixed it."
+  },
+  "C59": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "He omitted the 'el-' for clock time, but Amal let it pass with 'very good', merely pointing out what he said without correcting it to a standard."
+  },
+  "C60": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He omitted the definite articles to say 'the other game'; Amal corrected it to 'اللعبة التانية'."
+  },
+  "C61": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He placed 'أكتر' before the verb 'بتبسط'; Amal recast the sentence with the correct order."
+  },
+  "C62": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "He used 'أحسن' which is perfectly valid Arabic grammar; Amal was merely prompting for the target vocabulary word."
+  },
+  "C63": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "Duplicate of the word order slip identified in C61."
+  },
+  "C64": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He formed a regular plural 'لُعبات' instead of the broken plural; Amal supplied 'ألعاب'."
+  },
+  "C65": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "Continuation of the struggle in C64 with the same plural."
+  },
+  "C66": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He constructed 'آخر لعبتي' which Amal corrected, explaining it means 'the end of my games' rather than 'my last game'."
+  },
+  "C67": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He repeated the incorrect 'end of the game' construction for 'last game', and Amal explicitly rejected it."
+  },
+  "C68": {
+   "verdict": "slip",
+   "confidence": 100,
+   "why": "He conjugated the verb with a feminine subject when the grammatical subject was the masculine 'آخر'; Amal corrected the agreement."
+  },
+  "C69": {
+   "verdict": "not",
+   "confidence": 100,
+   "why": "Continuation of the exact same agreement correction from C68."
+  }
+ }
+}

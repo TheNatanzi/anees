@@ -1,0 +1,223 @@
+{
+ "judge": "gemini:gemini-3.7-flash",
+ "variant": "win",
+ "date": "2026-10-10",
+ "errors": 0,
+ "verdicts": {
+  "C1": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi self-corrected from 'مع صوت عالي' to 'بصوت عالي' within his own turn before Amal reacted; Amal merely echoed/confirmed his self-repair."
+  },
+  "C2": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Amal misheard Medi as saying the participle مخطط and thought he was using an advanced word ('That's a new word'), rather than correcting a mistake. The confusion stemmed from mishearing/acoustic overlap rather than a corrected slip."
+  },
+  "C3": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi said 'هذا يوم الخميس' to mean the upcoming Thursday, which Amal rejected ('يعني رحت وخلصت') and corrected to 'الخميس الجاي', explaining that 'جاي' means 'coming'."
+  },
+  "C4": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi self-corrected from واحد to واحدة وربع before Amal reacted."
+  },
+  "C5": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used masculine كان with feminine مرة, and Amal corrected him to كانت."
+  },
+  "C6": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi abandoned his attempt ('لا، I met') and switched to English to request the word, which does not count as a slip."
+  },
+  "C7": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi omitted the required preposition after التقيت, and Amal prompted him until he added مع."
+  },
+  "C8": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "This was meta-talk where Medi was explaining in English what words he intended to include; Amal was clarifying what he meant rather than correcting a spoken Arabic utterance."
+  },
+  "C9": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Same moment as C8; Medi was explaining what he meant during an English check-in, not making a corrected Arabic slip in an utterance."
+  },
+  "C10": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used masculine كان with the feminine phrase نفس المرة, and Amal recast it as 'Kanat nafs al mara'."
+  },
+  "C11": {
+   "verdict": "slip",
+   "confidence": 98,
+   "why": "Medi said تنتين سنين instead of the dual form for two years; Amal rejected it and prompted him until he produced سنتين."
+  },
+  "C12": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "This was an incomplete clause where Amal told him to keep going; the actual error and correction occurred at 17:17 (C13)."
+  },
+  "C13": {
+   "verdict": "slip",
+   "confidence": 98,
+   "why": "Medi fronted the object أول أكل but omitted the resumptive pronoun suffix on the verb (جربت); Amal named the rule ('You have to point back to it') and he corrected it to جربته."
+  },
+  "C14": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi again omitted the resumptive object pronoun after fronting تاني أكل; Amal prompted him and he corrected it to جربته."
+  },
+  "C15": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi used the preposition في with العشاء for 'at dinner', and Amal corrected him by noting 'We say on dinner' (على العشاء)."
+  },
+  "C16": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi self-corrected from 'حلوة' to 'حلو فلسطيني' at 20:09 before Amal spoke at 20:11."
+  },
+  "C17": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi settled on 'أكل المفضل' without the definite article on the noun, and Amal immediately corrected him by recasting 'الأكل. مم. الأكل.'"
+  },
+  "C18": {
+   "verdict": "not",
+   "confidence": 92,
+   "why": "Amal did not react to كليًا when Medi uttered it at 21:44. Medi later switched to English to ask if the word fit and explicitly asked how to say 'in general', which falls under asking for a word he did not know yet."
+  },
+  "C19": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "At 22:13 Medi switched to English to ask if kolyan means 'in general' and asked how to say it; an inquiry in English about a word he did not know is not a slip, and this duplicates C18."
+  },
+  "C20": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi said 'كل أكل فلسطيني' to mean all Palestinian food; Amal prompted him with 'Every.' (pointing out the A11 rule: kul + bare noun = every), prompting Medi to correct to 'كل الأكل الفلسطيني'."
+  },
+  "C21": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi said 'أكل المفضل عندي' missing the required definite article on 'أكل' before the definite adjective, and Amal recast it as 'الأكل المفضل عندي'."
+  },
+  "C22": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi was asking how to say / what the name of the dish was ('shu ism el akel...'), searching for vocabulary rather than making a corrected grammar slip."
+  },
+  "C23": {
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "Medi misplaced 'كمان' before the noun ('كمان أكلة'), and Amal explicitly corrected the word order: 'كمان at the end. Don't worry about كمان.'"
+  },
+  "C24": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi produced an ungrammatical construction ('Akli il mufaddal khatibti') leaving the possessor unlinked, and Amal recast it into the proper idafa 'هذي أكلة خطيبتي المفضلة'."
+  },
+  "C25": {
+   "verdict": "slip",
+   "confidence": 98,
+   "why": "Medi used the masculine adjective 'المفضّل' describing the feminine noun 'أكلة', and Amal immediately recast it to the feminine form 'المفضلة'."
+  },
+  "C26": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi proposed an unlinked construction ('hadi akli il mufaddale khatibti') and Amal explicitly rejected it with 'No', explaining that 'khatibti' must be linked with a preposition like '3ind' or 'la'."
+  },
+  "C27": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C28 with an inaccurate timestamp (at 32:45 Medi is still working out the vocabulary). C28 captures the actual utterance at 33:19 and Amal's correction."
+  },
+  "C28": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi incorrectly switched from plural to singular 'مفضلة' for plural clothes (awaa3i), and Amal immediately recast it with the correct plural 'مفضلين'."
+  },
+  "C29": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C30 for the same corrected moment; 35:31 is before the Arabic utterance, whereas 36:26 marks Amal's correction."
+  },
+  "C30": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Amal explicitly rejected 'طريق التاني' and recast it as 'الطريق التاني', requiring el- on both the noun and the adjective."
+  },
+  "C31": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi said 'خايف' (scared) instead of the causative make-X form 'بيخوّف' (scary/scares), which Amal explicitly rejected and prompted him to fix (B12)."
+  },
+  "C32": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C31 for the exact same corrected moment at 37:54."
+  },
+  "C33": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "This was an intermediate guess while Amal was prompting Medi to fix the slip at 37:54 (C31), not an independent slip."
+  },
+  "C34": {
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "To mean 'one more / another movie', kamaan must precede the noun (rule A19). When Medi said 'film kamaan', Amal prompted him on 'kamaan', leading him to correct to 'kamaan film', which she later confirmed in chat."
+  },
+  "C35": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi paused and cut off mid-thought ('تاني-'), hesitating on how to complete the phrase, rather than offering a finished incorrect utterance. Amal prompted him with the missing noun ('wahid or wahida'), so this is an incomplete phrase/assistance rather than a corrected slip."
+  },
+  "C36": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi said 'عشان أحسن' to mean 'because it is better'. Amal explicitly corrected him, explaining that Arabic requires the pronoun ('ashano' or 'ashan huwa ahsan'), and Medi adopted the correction ('عشانه أحسن')."
+  },
+  "C37": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi scrambled the root consonants (producing y-s-b-t instead of b-s-t), and Amal's correction ('say it right', 'the be goes before the s') was addressing consonant order/pronunciation (letter B before S), not the present-tense b- prefix."
+  },
+  "C38": {
+   "verdict": "not",
+   "confidence": 98,
+   "why": "Medi was asking a question about grammar rules ('Right? So it's la, la?'), which Amal answered. Asking about a rule does not count as a slip."
+  },
+  "C39": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "When attempting the sentence, Medi inserted the preposition 'la-' after 'byebset' ('byebsut la...'), and Amal explicitly corrected him that no preposition is needed."
+  },
+  "C40": {
+   "verdict": "not",
+   "confidence": 92,
+   "why": "Medi is asking a question ('Is it...?') rather than asserting an utterance, and he self-corrects to 'الإشي...' immediately before Amal speaks."
+  },
+  "C41": {
+   "verdict": "not",
+   "confidence": 98,
+   "why": "The mistake was made entirely in English while discussing the meaning of كمان; a slip must be a mistake made in Arabic."
+  },
+  "C42": {
+   "verdict": "slip",
+   "confidence": 88,
+   "why": "Medi produces the incorrect indefinite form 'أغلب إشي' (omitting الـ), and Amal explicitly rejects it ('No, we do'), prompting him to fix it to 'aghlab il ishi'."
+  },
+  "C43": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Amal does not correct or reject his phrasing; she asks 'شو؟' for clarification, confirms his explanation ('صح'), and prompts for the adjective form, which Medi answers correctly."
+  }
+ }
+}

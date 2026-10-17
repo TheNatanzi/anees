@@ -1,0 +1,353 @@
+{
+ "judge": "claude:claude-opus-5-5",
+ "variant": "win",
+ "date": "2026-10-09",
+ "errors": 0,
+ "verdicts": {
+  "C1": {
+   "verdict": "not",
+   "confidence": 72,
+   "why": "He said فمي, then بوجع بطني at 03:50 and 'Ah', all before Amal reacted at 03:53. That is a self-fix. Her 'Your mouth hurts?' came after he had already said the right word."
+  },
+  "C2": {
+   "verdict": "slip",
+   "confidence": 55,
+   "why": "Amal had just said نعنع. He produced نانا twice, and she recast it as نعنع طازة; he later said نعنع himself. This is one moment, so the three claims count once. Doubt: نانا may be the speech-to-text engine mishearing na3na3 with a weak ع."
+  },
+  "C3": {
+   "verdict": "slip",
+   "confidence": 60,
+   "why": "He gave a bare أحسن for 'got better'. Amal recast it as صارت أحسن؟ and he took it up ('Became better, yeah... صارت أحسن'). Doubt: 'خطيبتي أحسن' is a valid sentence with no 'to be' (C1), and the 'um' pause suggests he was searching for the word."
+  },
+  "C4": {
+   "verdict": "slip",
+   "confidence": 72,
+   "why": "He said أطلب إلها / لها. Amal asked 'ask of her or order for her?' (a prompt), he fixed it to أطلب منها and she said ممتاز. Prompt-then-fix of the verb's fixed preposition (D2)."
+  },
+  "C5": {
+   "verdict": "not",
+   "confidence": 70,
+   "why": "He asked in English 'Less was it um, ألأ?'. This is a word he did not know (and possibly a speech-to-text spelling of a2al). Amal just supplied أقل, which is a word request, not a correction."
+  },
+  "C6": {
+   "verdict": "slip",
+   "confidence": 60,
+   "why": "He answered 'what words' with singular الكلمة الطبيعة. Amal corrected it to the plural كلمات. This is a separate corrected moment from her later idafa recast."
+  },
+  "C7": {
+   "verdict": "slip",
+   "confidence": 75,
+   "why": "الكلمات الطبيعات was recast by Amal as كلمات الطبيعة: idafa, so the first word takes no el- and the owner noun stays singular. It is the best description of this corrected moment."
+  },
+  "C8": {
+   "verdict": "not",
+   "confidence": 70,
+   "why": "Same utterance and same recast as C7 (one slip per corrected moment). Her 'no plural' remark answered his question 'Doesn't take plural?'"
+  },
+  "C9": {
+   "verdict": "slip",
+   "confidence": 58,
+   "why": "Asked for feminine nouns that sound masculine, he offered قمر. Amal said 'No' and he acknowledged it is masculine. She explicitly rejected his answer on hidden gender (A18)."
+  },
+  "C10": {
+   "verdict": "not",
+   "confidence": 55,
+   "why": "قارة was a wrong quiz guess, not an Arabic error. Amal just gave the expected answer أرض, with no 'no' and no recast of anything he said."
+  },
+  "C11": {
+   "verdict": "slip",
+   "confidence": 65,
+   "why": "Asked how to say 'my favorite' on its own, he answered المفضل without عندي. Amal pushed him with شو كمان؟ / شو بزيد؟, said No to his next guess, and then gave المفضل عندي. That counts as prompting until fixed (A23). This is the best candidate for the 12:15-12:51 moment."
+  },
+  "C12": {
+   "verdict": "not",
+   "confidence": 75,
+   "why": "This is the same corrected moment as C11. إشي was only a guess while she was prompting him, and the real error was leaving عندي off المفضل. Only one slip counts per moment, and C11 is it."
+  },
+  "C13": {
+   "verdict": "slip",
+   "confidence": 68,
+   "why": "He said بوظة حلوة ... المفضل عندي. Amal recast it at 13:29 as البوظة الحلوة, and her chat line at 14:15 gives el-buza el-mufaddala 3indi, which fixes both the missing el- and the feminine ending. Her 15:39 answer about gender is muddled, but the recast and the chat fix are clear."
+  },
+  "C14": {
+   "verdict": "not",
+   "confidence": 70,
+   "why": "'Is it مسلسلين؟' is a question asking for a plural he didn't know yet. Amal just gave him مسلسلات. That is asking for a word, not a mistake she corrected."
+  },
+  "C15": {
+   "verdict": "not",
+   "confidence": 80,
+   "why": "Medi asked 'Is it مسلسلين؟' as a question, and Amal answered it. Also, مسلسلين (the dual, 'two shows') fits her 'two shows' prompt, so it was a form question, not a wrong answer."
+  },
+  "C16": {
+   "verdict": "slip",
+   "confidence": 82,
+   "why": "Medi settled on 'الـ مفضل الـ', putting 'favorite' before the noun. Amal said 'No. No.' and he fixed it to بوظتي المفضلة. That is a rejected A23 mistake ('favorite' goes after its noun)."
+  },
+  "C17": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "Medi said جبالي ('my mountains') for 'mountains are my favorite'. Amal said 'No' and named the rule: use the new way with عندي. He accepted it ('you're right')."
+  },
+  "C18": {
+   "verdict": "slip",
+   "confidence": 55,
+   "why": "Medi started with المفضل (singular) for the plural جبال. Amal pointed out that جبال is plural, and he fixed it to المفضلين عندي. It was partly a gender question, so confidence is lower."
+  },
+  "C19": {
+   "verdict": "not",
+   "confidence": 70,
+   "why": "Same moment as C20 (جبال → جبل at 19:28). Only one slip per corrected moment, and C20's vocab framing fits better because Amal typed 'jabal = mountain'."
+  },
+  "C20": {
+   "verdict": "slip",
+   "confidence": 65,
+   "why": "Amal asked for 'one mountain'. Medi gave the plural جبال, and Amal corrected it to جبل and typed 'jabal = mountain'. That is a corrected singular/plural vocab mistake."
+  },
+  "C21": {
+   "verdict": "slip",
+   "confidence": 55,
+   "why": "Medi said the MSA word بالشاطئ. Amal praised him, then prompted 'So beach is', he gave شط, and her chat recast the sentence as 'biel-shatt'. That reads as a fix to the Levantine word, though it may only be her vocab review (she asks 'and sea' next)."
+  },
+  "C22": {
+   "verdict": "not",
+   "confidence": 65,
+   "why": "'One would be مبسوط؟' is Medi asking which word fits, not a claim he made. Amal explains the meaning, which is answering a question about word choice."
+  },
+  "C23": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "Medi said بحيرة تاني for 'the other lake'. Amal stressed 'The other lake' and 'We corrected this', then recast it as البحيرة الثانية. This is the clear corrected moment (A14/A21)."
+  },
+  "C24": {
+   "verdict": "not",
+   "confidence": 75,
+   "why": "بحيرة التانية is his middle attempt at the same 'other lake' construction already counted in C23. One slip per corrected moment."
+  },
+  "C25": {
+   "verdict": "not",
+   "confidence": 80,
+   "why": "Medi fixed it himself: he said 'No، بتبس-' at 24:06, before Amal reacted, and then worked his way to بتبسط. Amal's 'It's... more' only prompts the next word (أكتر)."
+  },
+  "C26": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi started هذه الـ شاطـ... and Amal at once recast it as هذا. He repeated هذا الشاطئ, so the masculine demonstrative was corrected (A10)."
+  },
+  "C27": {
+   "verdict": "not",
+   "confidence": 80,
+   "why": "Medi had just asked for the word forest. غادة is him mishearing a brand-new word Amal had only just given him, not a grammar or known-vocabulary mistake."
+  },
+  "C28": {
+   "verdict": "slip",
+   "confidence": 88,
+   "why": "Medi said أول واحد for feminine غابة. Amal asked 'غابة is what?' and gave 'واحد أو واحدة', and he fixed it to واحدة (gender agreement)."
+  },
+  "C29": {
+   "verdict": "slip",
+   "confidence": 60,
+   "why": "Medi tried to add اللي after أول واحدة. Amal rejected it: 'No, you said أول غابة. So you don't need اللي' (A20). It is borderline because he was half thinking out loud."
+  },
+  "C30": {
+   "verdict": "slip",
+   "confidence": 62,
+   "why": "Medi offered بروحها, and repeated it after Amal's hint. Amal supplied بروح عليها and he took it (D2, a verb that needs its preposition). It is borderline because he offered it as a question."
+  },
+  "C31": {
+   "verdict": "not",
+   "confidence": 75,
+   "why": "Medi was trying to recall a word ('Does it have to do with بختر or no?'). That is a question about a word he couldn't remember, not a production mistake Amal corrected."
+  },
+  "C32": {
+   "verdict": "slip",
+   "confidence": 62,
+   "why": "At 31:33 Medi started with a demonstrative that the engine wrote as عادي. Amal's prompt 'هذي or هادا؟' shows she heard the feminine form (هادي) used for the masculine noun منظر, and he corrected it to هذا نفس المنظر. This is a prompt-then-fix under A10. The ش--/اللي claim inside this candidate belongs to the 31:50 moment and is not counted here."
+  },
+  "C33": {
+   "verdict": "not",
+   "confidence": 68,
+   "why": "At 31:50 Medi was speaking English ('I saw in Madrid') and his Arabic ش-- was cut off. He produced no wrong Arabic form. Amal's English 'That I saw' was help mid-sentence, not a correction of a mistake."
+  },
+  "C34": {
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "Medi offered منظرات as the plural of منظر. Amal said 'No', pointed to the M pattern group, and gave مناظر. This is a clear rejection under A9b (broken plurals are patterns). The best candidate for this moment."
+  },
+  "C35": {
+   "verdict": "not",
+   "confidence": 85,
+   "why": "Same moment as C34 (منظرات rejected, مناظر given), filed again as vocabulary. Only one slip per corrected moment, and C34's grammar framing (A9b) fits better."
+  },
+  "C36": {
+   "verdict": "slip",
+   "confidence": 82,
+   "why": "Medi said جبتك. Amal prompted with 'I brought to you', so he gave أنا جبت لك and she confirmed جبت لك. That is prompt-then-fix (D2/D3)."
+  },
+  "C37": {
+   "verdict": "not",
+   "confidence": 60,
+   "why": "He cut off at 'هذا غير الـ...' before finishing. Amal gave him the next word (غير نوع) while he was still searching, so this is a cut-off, not a finished wrong form."
+  },
+  "C38": {
+   "verdict": "slip",
+   "confidence": 65,
+   "why": "He said غير أنواع. Amal answered 'شجر. That's types', and he switched to نوع. Her reply flagged the plural as wrong for one type, and he fixed it. This is the best of the claims about this moment."
+  },
+  "C39": {
+   "verdict": "not",
+   "confidence": 80,
+   "why": "Same moment as C38 (أنواع → نوع at 38:30), already counted there. It is also filed as vocab when it is really a singular/plural choice."
+  },
+  "C40": {
+   "verdict": "not",
+   "confidence": 55,
+   "why": "He said مختلف had not been taught and that he was guessing, then asked 'Mukhtalif nuwa?' as a question. Amal said لا, نوع مختلف and explained the rule. This is close to asking about a rule, but adjective-after-noun (A7) was already taught, so it could be graded a slip."
+  },
+  "C41": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "Amal asked for 'since the beginning of my day', but at 41:57 Medi said من أول اليوم ('from the beginning of the day'). At 42:00 she prompted 'My day.' At 42:16 he fixed it to من أول يومي, and she confirmed with mm-hmm. A tutor prompt followed by his fix counts as a correction. The mistake is a missing possessive ending (bucket A4). All three claims describe this same moment, so it counts as one slip."
+  },
+  "C42": {
+   "verdict": "slip",
+   "confidence": 60,
+   "why": "At 45:25 he was mostly asking a question ('no plural for أكل, right?'), so that line alone is weak. But at 47:16 he said من أكل without el-, Amal recast it as من الأكل (47:20) and he repeated it. That is a real corrected error, and no other candidate covers this missing el-."
+  },
+  "C43": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "He said أنواع مختلف الأكل (no من), and Amal recast it right away as مختلف من الأكل (45:48). Her chat confirms the full form: mu5talefeen min el-akel."
+  },
+  "C44": {
+   "verdict": "slip",
+   "confidence": 75,
+   "why": "After the break he repeated أنواع مختلفين الأكل, still without من, and Amal prompted him: 'Where's the من؟' (47:15). This is a separate corrected moment from the 45:48 recast, not the same one."
+  },
+  "C45": {
+   "verdict": "slip",
+   "confidence": 80,
+   "why": "He said ثلاث ورقة with a singular noun (numbers 3-10 need a plural). Amal's spoken fix came out garbled ('تلاتة add'), he said 'Oh, okay', and her chat gives the correct form: a3tani talat wara2aat."
+  },
+  "C46": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "He said غير الـ ورقة, and Amal named the rule: 'ال never غير' (no el- after 8eir). He fixed it to غير ورقة. Both claims describe this one moment, so it counts once."
+  },
+  "C47": {
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "Medi said غير الـ ورقة; Amal named the rule (ال never with غير) and he fixed it to غير ورقة."
+  },
+  "C48": {
+   "verdict": "slip",
+   "confidence": 75,
+   "why": "Medi said ورقة كمان; Amal pushed with 'Come on, what else?' until he said كمان ورقة, then confirmed that كمان meaning 'another' goes before the noun (A19)."
+  },
+  "C49": {
+   "verdict": "not",
+   "confidence": 85,
+   "why": "Same moment as C50 (عندهم → فيهم). C50 has the right timestamp (52:16), so this one is a duplicate."
+  },
+  "C50": {
+   "verdict": "slip",
+   "confidence": 88,
+   "why": "Medi said أغلب البيوت في أمريكا عندهم; Amal answered 'In them.' and he fixed it to فيهم; her chat has fihom."
+  },
+  "C51": {
+   "verdict": "not",
+   "confidence": 65,
+   "why": "He asked 'Is it حشاشيش? I forgot the plural', which is a question about a word he didn't know, not a form he used. Amal answered the question."
+  },
+  "C52": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "'Is this من؟' was a question about a rule; Amal's 'No' answered it. He made no wrong form."
+  },
+  "C53": {
+   "verdict": "not",
+   "confidence": 60,
+   "why": "Amal asked if he remembered the word for 'clear'. He said he half-remembered it as a Persian word and guessed the Persian form vazeh, so this was a forgotten word. She simply supplied واضح, which is the 'word he did not know yet' case, not a grammar or usage mistake."
+  },
+  "C54": {
+   "verdict": "not",
+   "confidence": 65,
+   "why": "He said مش and then 'Oh, كان' at 57:37, before Amal said 'Was.' at 57:38. Her word overlaps with or confirms his own fix. This is a self-fix before she reacted."
+  },
+  "C55": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "He said آخر سؤالي for 'my last question'. Amal prompted him with 'What would it mean?' and he worked out that it means 'the end of my question'. His next try was also wrong, she said 'No', and she gave سؤالي الأخير or آخر سؤال إلي. This is a corrected A20 error (awal / aa5er with el-). C55 is the best record of this moment."
+  },
+  "C56": {
+   "verdict": "not",
+   "confidence": 65,
+   "why": "This was his second try, سؤالي آخر إلي, in the same corrected moment as C55. Her 'No' and the correct forms close that one moment. It counts once, under C55."
+  },
+  "C57": {
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "Medi said هذا لعبي الأول and Amal recast it as لعبتي twice. He then produced هذه لعبتي الأولى. Clear recast of the feminine -t before the owner ending."
+  },
+  "C58": {
+   "verdict": "not",
+   "confidence": 60,
+   "why": "هذه اللعبة was a cut-off start, not a finished sentence. Amal's 'Mm-mm. Mm. Mm. Yes.' is mixed and ends in yes. Medi redirected himself ('Oh no') to أول لعبة إلي, so it reads as a self-fix during a search, not a corrected error."
+  },
+  "C59": {
+   "verdict": "slip",
+   "confidence": 55,
+   "why": "Amal remarked on his form ('قلت انتين، بس very good'). She then typed the right form in chat: awal lu3be 3ala el-tentain, which has the el- he left out. The rule counts a fix typed in chat. Her spoken reaction was mild, so confidence is moderate."
+  },
+  "C60": {
+   "verdict": "slip",
+   "confidence": 93,
+   "why": "Medi said لعبة تانية for 'the other game'. Amal said Mm-mm and recast it as اللعبة التانية, then explained another vs the other. He accepted it ('this is the shirt thing'). All three claims describe this one moment, so it counts as one slip."
+  },
+  "C61": {
+   "verdict": "slip",
+   "confidence": 60,
+   "why": "He put أكتر before the verb. Amal recast it as بتبسط أكتر with صح, and he said the rule back to her ('أكتر always goes after'). Weak because he was also hunting for the word بتبسط."
+  },
+  "C62": {
+   "verdict": "not",
+   "confidence": 70,
+   "why": "أحسن is valid Arabic. Amal only repeated the target meaning in English ('more fun'), and he didn't know بتبسط yet. That is a vocab gap, not a corrected mistake."
+  },
+  "C63": {
+   "verdict": "not",
+   "confidence": 85,
+   "why": "Same moment as C61, the أكتر/بتبسط word order. C61 counts it."
+  },
+  "C64": {
+   "verdict": "slip",
+   "confidence": 65,
+   "why": "He tried a regular plural (لُعبات) for لعبة. Amal supplied the broken plural ألعاب twice, and he then used it (broken plurals, bucket A9b)."
+  },
+  "C65": {
+   "verdict": "not",
+   "confidence": 75,
+   "why": "His اللعب came seconds later in the same plural correction that C64 covers, and Amal was still insisting on ألعاب. أكلب is pronunciation or engine noise."
+  },
+  "C66": {
+   "verdict": "slip",
+   "confidence": 80,
+   "why": "He offered آخر لعبتي for 'my last game'. Amal named the rule ('means the end of my games') and he accepted it with 'you're right' (bucket A20)."
+  },
+  "C67": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "He said هادي آخر اللعبة إلي for 'my last game'. Amal said 'No, آخر اللعبة means end of', and he fixed it to آخر لعبة إلي."
+  },
+  "C68": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "He used feminine كانت بتزهق. Amal recast it as masculine كان بيزهق and explained that آخر is the subject (verb agreement, bucket B18)."
+  },
+  "C69": {
+   "verdict": "not",
+   "confidence": 80,
+   "why": "His repeat at 1:09:21 is still the same agreement correction that C68 covers."
+  }
+ }
+}

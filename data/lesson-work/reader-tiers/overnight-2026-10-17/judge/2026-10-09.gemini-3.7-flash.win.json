@@ -1,0 +1,353 @@
+{
+ "judge": "gemini:gemini-3.7-flash",
+ "variant": "win",
+ "date": "2026-10-09",
+ "errors": 0,
+ "verdicts": {
+  "C1": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "Medi confused 'فمي' (my mouth) with 'بطني' (my stomach) when describing his symptoms. Amal questioned the error ('Your mouth hurts?'), prompting him to clarify and confirm 'بطني'."
+  },
+  "C2": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi used 'نانا' instead of the Arabic word for mint ('نعنع'), and Amal recasted the correct Levantine form with 'نعنع طازة'."
+  },
+  "C3": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "'خطيبتي أحسن' (my fiancée is better) is completely grammatical Levantine Arabic. Amal's response 'صارت أحسن؟' was a conversational question ('she got better?'), not a correction of a grammar error."
+  },
+  "C4": {
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "Medi used the wrong preposition with طلب (إلها instead of منها for requesting something from her); Amal questioned the meaning ('ask of her or order for her?') and prompted him until he corrected to أطلب منها."
+  },
+  "C5": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi was trying to recall a forgotten word and explicitly asked in English ('Hold on. Less was it um, ألأ?'), then explained in English before Amal supplied أقل; asking for or trying to recall an unknown word is not a slip."
+  },
+  "C6": {
+   "verdict": "not",
+   "confidence": 88,
+   "why": "This is part of the ongoing repair sequence leading up to 08:39; Amal prompted with 'كلمات' and Medi immediately attempted 'الكلمات الطبيعات', which is judged under C7 (one slip per corrected moment)."
+  },
+  "C7": {
+   "verdict": "slip",
+   "confidence": 93,
+   "why": "Medi incorrectly formed 'nature words' as an adjective phrase with double definite markers and an invented feminine plural ('الكلمات الطبيعات'), and Amal recast the correct idafa construction 'كلمات الطبيعة'."
+  },
+  "C8": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Duplicate of the same utterance at 08:39 already covered by C7; C7 better captures the full idafa recast 'كلمات الطبيعة'."
+  },
+  "C9": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Amal was quizzing Medi on which nouns are feminine despite sounding masculine; guessing 'قمر؟' was an incorrect factual recall in a quiz, not a grammar slip in language production."
+  },
+  "C10": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi could not recall the third item from yesterday's list and guessed 'قارة', so Amal supplied the missing word 'أرض'; failing to recall a vocabulary item in a memory drill is not a slip."
+  },
+  "C11": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Amal quizzed him on how to say 'my favorite' on its own. Medi asked 'Just المفضل؟' rather than making a mistake in an Arabic utterance; asking for or guessing an unknown phrase does not count as a slip."
+  },
+  "C12": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi was guessing words ('إشي؟', 'هو؟') in response to Amal prompting him for a phrase he did not know. Guessing unknown vocabulary during elicitation is not a slip."
+  },
+  "C13": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "When prompted to make a sentence, Medi produced 'بوظة حلوة المفضل عندي' with missing definite articles (and masculine agreement for feminine بوظة), which Amal directly recast as 'البوظة الحلوة' and later in chat as 'el-buza el-mufaddala 3indi'."
+  },
+  "C14": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi switched to English to ask for the correct word form ('Is it مسلسلين؟'). Asking for an unknown word or form is explicitly excluded from being a slip."
+  },
+  "C15": {
+   "verdict": "not",
+   "confidence": 92,
+   "why": "Medi is asking a question ('Is it مسلسلين؟') rather than asserting a mistake; asking for a word or form does not count as a slip."
+  },
+  "C16": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi placed the adjective before the noun ('الـ مفضل الـ'), which Amal explicitly rejected with 'No. No. No.', prompting him to correct it to 'بوظتي المفضلة'."
+  },
+  "C17": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi attached the possessive suffix directly to the noun ('جبالي') to express 'mountains are my favorite', which Amal explicitly rejected ('No... جبال means my mountains') to direct him to the new عندي construction."
+  },
+  "C18": {
+   "verdict": "not",
+   "confidence": 88,
+   "why": "Medi stopped mid-sentence to ask a grammar question about gender ('جبال is masculine, right?'); hesitations and rule questions before finishing an utterance are not slips."
+  },
+  "C19": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Duplicate of C20 for the same moment at 19:28; this was a vocabulary prompt for the word 'mountain' rather than a grammar rule violation."
+  },
+  "C20": {
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "Prompted for the singular 'one mountain', Medi mistakenly gave the plural form 'جبال', and Amal recasted with 'جبل' and provided the vocabulary gloss in chat."
+  },
+  "C21": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Amal praises Medi ('Wow, you remember many words') and prompts him to review related landscape terms (beach, sea, lake), rather than rejecting or correcting an error."
+  },
+  "C22": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi is asking a question ('One would be مبسوط؟') about word choice, not asserting a mistaken form."
+  },
+  "C23": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi says 'بحيرة تاني' for 'the other lake', which Amal rejects and prompts ('The other lake... We corrected this fact') until recasting the full definite feminine phrase."
+  },
+  "C24": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "This is an intermediate attempt during the ongoing correction of the same moment already counted under C23."
+  },
+  "C25": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi catches himself and begins self-correcting ('No, بتبس-') before Amal intervenes."
+  },
+  "C26": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used the feminine demonstrative هذه before the masculine noun شاطئ/شط, and Amal immediately recast it to هذا."
+  },
+  "C27": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi had just asked how to say forest ('شو الكلمة لـ forest؟') and misheard/clarified Amal's response; repeating a newly supplied word with question intonation is not a slip."
+  },
+  "C28": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used masculine واحد referring to the feminine noun غابة, and Amal prompted him on the noun's gender until he corrected it to واحدة."
+  },
+  "C29": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi attempted to use the relative pronoun اللي after the indefinite construction أول واحدة, and Amal explicitly stopped him ('No, you said أول غابة. So you don't need اللي')."
+  },
+  "C30": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi attached the direct object suffix to the verb (بروحها) instead of using the required preposition and pronoun (بروح عليها), which Amal corrected."
+  },
+  "C31": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Amal asked if he remembered the word for 'prefer', and Medi asked in English whether it was related to بختر; asking about an unknown or forgotten vocabulary word is not a slip."
+  },
+  "C32": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used the feminine demonstrative (transcribed as عادي for هادي) for the masculine noun منظر; Amal prompted 'هذي or هادا؟' and Medi corrected to هذا."
+  },
+  "C33": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi cut off mid-thought with 'I saw in Madrid. ش-- اه،', and Amal offered English scaffolding ('That I saw') rather than correcting an uttered mistake."
+  },
+  "C34": {
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "Medi incorrectly formed a regular sound plural منظرات for منظر, which Amal explicitly rejected with 'No' before supplying the broken plural pattern مناظر (bucket A9/A9b)."
+  },
+  "C35": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C34 describing the exact same moment; plural formation belongs to grammar (A9/A9b) rather than vocab."
+  },
+  "C36": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi attached the pronoun directly to the verb ('جبتك') instead of using the prepositional phrase ('جبت لك'); Amal prompted the fix with 'I brought to you' and confirmed 'جبت لك'."
+  },
+  "C37": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi stopped and cut off after 'الـ...' mid-utterance, and Amal finished the phrase for him; an unfinished cut-off or hesitation is not a slip."
+  },
+  "C38": {
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "Medi used the plural 'أنواع' instead of singular 'نوع' after غير; Amal prompted him with 'That's types' and he corrected to 'نوع'."
+  },
+  "C39": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C38 for the same moment ('أنواع' vs 'نوع'); singular vs plural is a grammar issue (A9), so C38 is the primary slip."
+  },
+  "C40": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Prompted on where to place مختلف, Medi guessed placing it before the noun ('Mukhtalif nuwa?'); Amal explicitly rejected it with 'لا', recast it as 'نوع مختلف', and named the rule that it is an adjective."
+  },
+  "C41": {
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "Amal prompted 'My day' to reject Medi's 'أول اليوم', prompting him to fix it to 'من أول يومي'."
+  },
+  "C42": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi is explicitly asking whether there is a plural for أكل in English/Arabic; asking a question about vocabulary or grammar is not a slip."
+  },
+  "C43": {
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "Medi produced 'أنواع مختلف الأكل' omitting the preposition من, which Amal immediately recast as 'مختلف من الأكل'."
+  },
+  "C44": {
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "After returning from the brief break, Medi repeated the error ('أنواع مختلفين الأكل') and Amal explicitly prompted him for the missing preposition ('من؟ Where's the من؟')."
+  },
+  "C45": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used the singular noun with three ('ثلاث ورقة' instead of plural 'ورقات' for numbers 3-10), prompting Amal to instruct him to add the plural ending and write 'talat wara2aat' in chat."
+  },
+  "C46": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi attached the definite article after غير ('غير الـ ورقة'), which Amal explicitly rejected by stating the rule, prompting him to self-correct to 'غير ورقة'."
+  },
+  "C47": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi said 'غير الـ ورقة', adding el- after 8eir. Amal corrected by stating the rule, and Medi fixed it."
+  },
+  "C48": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi placed 'كمان' after the noun ('ورقة كمان') when meaning 'another'. Amal prompted him ('Come on, what else?'), and he corrected it to 'كمان ورقة'."
+  },
+  "C49": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C50 for the same corrected moment; C50 has the precise timestamp (52:16) and signal."
+  },
+  "C50": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi said 'عندهم' for houses having grass; Amal prompted with 'In them', and Medi fixed it to 'فيهم'."
+  },
+  "C51": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi asked a question about a word he did not know ('Is it حشاشيش? I forgot the plural'); asking for a word or rule does not count as a slip."
+  },
+  "C52": {
+   "verdict": "not",
+   "confidence": 98,
+   "why": "Medi asked a question in English about a rule ('Is this من?'); questions about rules do not count as slips."
+  },
+  "C53": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Medi is asking in English ('Was it vazeh?') to check a vocabulary word he couldn't recall, which falls under asking for a word / switching to English."
+  },
+  "C54": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi self-corrects by saying 'Oh, كان' at 57:37 before/as Amal says 'Was', making it a self-fix rather than a tutor correction."
+  },
+  "C55": {
+   "verdict": "not",
+   "confidence": 92,
+   "why": "Medi immediately questions his own phrasing ('آخر سؤالي would mean?') and explains himself that it means the end of the question, catching the issue before any tutor correction."
+  },
+  "C56": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi produces an ungrammatical phrase ('سؤالي آخر إلي') when trying to say 'my last question', and Amal explicitly rejects it with 'No?' and recasts with the two correct structures."
+  },
+  "C57": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi said 'هذا لعبي الأول' instead of using the feminine possessive form, and Amal immediately intervened and recast 'لعبتي' twice until he corrected it to 'هذه لعبتي الأولى'."
+  },
+  "C58": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi made an abandoned start ('هذه اللعبة... هاد') while searching for the alternative construction and self-corrected ('Oh no, هذه أول لعبة إلي'); it was not a completed grammatical utterance corrected by Amal."
+  },
+  "C59": {
+   "verdict": "not",
+   "confidence": 92,
+   "why": "Amal did not correct or reject his grammar; she accepted it with 'very good' and 'ممتاز'. Chat notes typed minutes later as reference phrases do not constitute a correction of a slip."
+  },
+  "C60": {
+   "verdict": "slip",
+   "confidence": 98,
+   "why": "Medi used the indefinite 'لعبة تانية' for 'the other game', which Amal explicitly rejected with 'Mm-mm' and recast as 'اللعبة التانية', followed by a discussion on the definite article rule."
+  },
+  "C61": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C63 with an inaccurate timestamp; Medi's utterance 'أكتر ... بتبسط' concluded at 1:05:21."
+  },
+  "C62": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Saying 'أحسن' (better) was grammatically valid Arabic; Amal simply clarified the English prompt ('it's more fun')."
+  },
+  "C63": {
+   "verdict": "slip",
+   "confidence": 90,
+   "why": "Medi placed 'أكتر' before the verb ('أكتر ... بتبسط'), which Amal recast into the correct word order 'بتبسط أكتر'."
+  },
+  "C64": {
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "Medi attempted a regular feminine plural ('لُعبات'), and Amal corrected him to the broken plural 'ألعاب' (bucket A9/A9b)."
+  },
+  "C65": {
+   "verdict": "not",
+   "confidence": 92,
+   "why": "Duplicate of the plural formation moment in C64, which is a grammar slip rather than an independent vocab slip."
+  },
+  "C66": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used 'آخر لعبتي' to mean 'my last game', which Amal corrected by explaining that 'آخر' plus possessive means 'the end of my games' (bucket A20/A15)."
+  },
+  "C67": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi said 'آخر اللعبة إلي' intending 'my last game', and Amal explicitly rejected it ('No, آخر اللعبة means end of') prompting his fix to 'آخر لعبة إلي'."
+  },
+  "C68": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used feminine agreement 'كانت بتزهق' for 'the end of the game was boring'; Amal corrected the agreement to masculine 'كان بيزهق' because the head noun is 'آخر' (bucket B18/A2)."
+  },
+  "C69": {
+   "verdict": "not",
+   "confidence": 95,
+   "why": "Duplicate of C68; Medi's 'كان بتزهق' was part of the ongoing explanation and discussion of the same agreement mistake."
+  }
+ }
+}
