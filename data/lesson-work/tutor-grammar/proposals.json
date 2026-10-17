@@ -586,6 +586,39 @@
     "readers": [
      "b"
     ]
+   },
+   {
+    "grammar": true,
+    "id": "E7",
+    "family": "E",
+    "name": "hundreds add -t before noun",
+    "one_line": "Miyya is feminine, so it adds a -t when a noun comes after it; the number in front of it stays as it is (talatmiyya stays talatmiyya), and the noun after it is singular.",
+    "formula": "number + miyya (+ -t) + singular noun",
+    "examples": [
+     {
+      "arabizi": "",
+      "arabic": "300 شخص",
+      "english": "300 people",
+      "hers": true
+     },
+     {
+      "arabizi": "",
+      "arabic": "we say 300 because مية is feminine so 300 شخص",
+      "english": "we say 300 because مية is feminine, so 300 شخص (300 people)",
+      "hers": true
+     }
+    ],
+    "why": "Miyya is a feminine word, so it takes the feminine -t when a noun follows; the number before it does not change.",
+    "overlaps": {
+     "id": "E1",
+     "name": "number + noun",
+     "why": "E1 covers the singular noun after 11+, and this hundreds rule belongs with it as an added note about the -t on miyya."
+    },
+    "v": 2,
+    "made_at": "2026-10-17T11:31:16+00:00",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.020814,
+    "asked": "The actual rule is that we add t to a houndred number because miyya/e is feminine. \nThe number before miyya stay as is so talatmiyya stay talatmiyya. What changes is the addition of a t when we add noun after it. \nYou can just add this to the grammar rule about numbers. Don’t create a whole rule just for that"
    }
   ]
  },

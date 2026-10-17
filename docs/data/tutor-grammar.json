@@ -1,8 +1,8 @@
 {
  "rule": "AM-31",
- "updated": "2026-10-17T04:18:15-07:00",
+ "updated": "2026-10-17T04:31:28-07:00",
  "about": "Grammar the tutor added on her Tutor page: her words, Claude's rewrite as a rule with a letter-number, and her answer. Only her 'Yes, add it' adds the rule (scripts/tutor_grammar.py).",
- "waiting_for_tutor": 4,
+ "waiting_for_tutor": 1,
  "items": [
   {
    "sid": "heard-20261012-5102",
@@ -58,6 +58,39 @@
      "readers": [
       "b"
      ]
+    },
+    {
+     "grammar": true,
+     "id": "E7",
+     "family": "E",
+     "name": "hundreds add -t before noun",
+     "one_line": "Miyya is feminine, so it adds a -t when a noun comes after it; the number in front of it stays as it is (talatmiyya stays talatmiyya), and the noun after it is singular.",
+     "formula": "number + miyya (+ -t) + singular noun",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "300 شخص",
+       "english": "300 people",
+       "hers": true
+      },
+      {
+       "arabizi": "",
+       "arabic": "we say 300 because مية is feminine so 300 شخص",
+       "english": "we say 300 because مية is feminine, so 300 شخص (300 people)",
+       "hers": true
+      }
+     ],
+     "why": "Miyya is a feminine word, so it takes the feminine -t when a noun follows; the number before it does not change.",
+     "overlaps": {
+      "id": "E1",
+      "name": "number + noun",
+      "why": "E1 covers the singular noun after 11+, and this hundreds rule belongs with it as an added note about the -t on miyya."
+     },
+     "v": 2,
+     "made_at": "2026-10-17T11:31:16+00:00",
+     "model": "claude-sonnet-5-5",
+     "cost_usd": 0.020814,
+     "asked": "The actual rule is that we add t to a houndred number because miyya/e is feminine. \nThe number before miyya stay as is so talatmiyya stay talatmiyya. What changes is the addition of a t when we add noun after it. \nYou can just add this to the grammar rule about numbers. Don’t create a whole rule just for that"
     }
    ],
    "heard": {
@@ -199,7 +232,7 @@
    "text": "taani and 8eir \nTaani has two particularly useful functions: identifying something as second in a sequence and referring to something additional or different.\nRule 1: Taani + noun = Second / the second…\nWhen taani comes before a noun, it can identify the second item or stage in a sequence.\nStructure: taani + noun\nMeaning: Second / the second…\nRule 2: El- + noun + el-taani / el-taaniye = The second / the other…\nWhen el-taani or el-taaniye comes after the noun, it identifies a particular item as second or distinguishes it from another item.\nStructure: el- + noun + el-taani / el-taaniye\nMeaning: The second… / the other…\nRule 3: Noun + taani / taaniye = Another / a different…\nWhen taani follows the noun without el-, it can mean another or a different one, rather than specifically the second item in a sequence.\nStructure: noun + taani / taaniye\nMeaning: Another… / a different…\nRemember: The difference between second and another often depends on word order and context.\n \n4. 8eir (غير): Different / Other\n8eir is used to express difference or alternatives. Its interpretation depends on the phrase and context.\nRule 1: 8eir + noun = A different… / other…\nWhen 8eir comes before a noun, it can introduce something different or other than what was previously mentioned.\nStructure: 8eir + noun\nMeaning: A different… / other…\n8eir / mu5talef also takes the preposition (3an) when we want to say other than / different from. \n8eir can be used as an adjective as well and be put after the noun with \"el\" but it's rarely used and it's preferable to use it a function word. \nmu5talef is also different, but it's different from 8eir\n• M5talef (مختلف) = different in nature or characteristics.\n• 8eir (غير) = other than / another / something else.\nThey can overlap in meaning, but they are not interchangeable in every sentence.",
    "example": "taani 7ada = second person / the second person yoami el-tani = my second day, 8eir bluze = another/different shirt, ishi taani = something else, huwwe 8eir 3anni = he is different than me.",
    "at": "2026-10-15T21:37:19.771305+00:00",
-   "state": "proposed",
+   "state": "added",
    "versions": [
     {
      "grammar": true,
@@ -253,7 +286,7 @@
    "text": "Awal and aa5er uses \nin spoken Arabic, function words mean different things depending on where they're put in a sentence, whether they're followed by an \"el\" or not, or if an overruling grammar is present in the sentence. \nAwal can mean First / the first or the beginning of \nAwal + noun (without el) is first or the first. \nAwal + el + noun = the beginning of... \na pronoun/possessive-ending noun is also considered a definitive noun: so awal yoami = the beginning of my day. \nto work around this rule, and because idafa always surpasses/overrules other grammar rules, we use ili or the adjective form of awal: awal (M) and oola (f) \nso my first day = yoami el-awal / awal yoam ili. \nto say first yyou can also use the adjective form. el-sayyara el-oola = the first car. \n\n\naa5er is just like awal. \naa5er yoam = last day, aa5er el-yoam = the end of the day, aa5er yoam ili / yoami el-a5eer = my last day, el-yoam el-a5eer = the last day.",
    "example": "",
    "at": "2026-10-15T21:28:12.612346+00:00",
-   "state": "proposed",
+   "state": "added",
    "versions": [
     {
      "grammar": true,
@@ -519,7 +552,7 @@
    "text": "يعني it's feminine but it sounds masculine or it's masculine",
    "example": "",
    "at": "2026-10-13T06:14:21+00:00",
-   "state": "proposed",
+   "state": "added",
    "versions": [
     {
      "grammar": true,
@@ -859,6 +892,55 @@
     "lid": "lmvcawov55iuwv",
     "label": "Undo",
     "undoes": "grammar_yes"
+   }
+  },
+  {
+   "id": 38599,
+   "created_at": "2026-10-17T11:20:39.423762+00:00",
+   "kind": "grammar_change",
+   "word_key": "tgram:heard-20261012-5102:answer",
+   "payload": {
+    "v": 1,
+    "id": "E7",
+    "lid": "lmvcb2a12ow4jq",
+    "what": "The actual rule is that we add t to a houndred number because miyya/e is feminine. \nThe number before miyya stay as is so talatmiyya stay talatmiyya. What changes is the addition of a t when we add noun after it. \nYou can just add this to the grammar rule about numbers. Don’t create a whole rule just for that",
+    "label": "Change it"
+   }
+  },
+  {
+   "id": 38600,
+   "created_at": "2026-10-17T11:22:41.845334+00:00",
+   "kind": "grammar_yes",
+   "word_key": "tgram:nlz18hhxs:answer",
+   "payload": {
+    "v": 1,
+    "id": "A21",
+    "lid": "lmvcb4wi2iio1o",
+    "label": "Yes, add it"
+   }
+  },
+  {
+   "id": 38601,
+   "created_at": "2026-10-17T11:23:15.590027+00:00",
+   "kind": "grammar_yes",
+   "word_key": "tgram:drf1l2k5c:answer",
+   "payload": {
+    "v": 2,
+    "id": "A20",
+    "lid": "lmvcb5mifkkdvj",
+    "label": "Yes, add it"
+   }
+  },
+  {
+   "id": 38602,
+   "created_at": "2026-10-17T11:24:16.046083+00:00",
+   "kind": "grammar_yes",
+   "word_key": "tgram:heard-20261008-3746:answer",
+   "payload": {
+    "v": 3,
+    "id": "A18",
+    "lid": "lmvcb6xfx8imew",
+    "label": "Yes, add it"
    }
   }
  ]
