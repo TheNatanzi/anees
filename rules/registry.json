@@ -8663,6 +8663,42 @@
    "aliases": []
   },
   {
+   "id": "AM-33",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The tutor rules on the moments where the student's answer key and the AI readers disagree, on her Tutor page (scripts/build_tutor_dispute_check.py -> docs/data/amal-check-key-check-disputes.json, the AM-29 card: the student's clip, his line, her line before and after). 14 moments of 10-08/09/10 from the overnight reader test (2026-10-17): 9 strong disagreements and the key slips no reader flagged. BLIND to which side said what; every answer has a box asking why. Her taps (amal_rules source listen-check, kind dispute_check, word_key disputecheck:<id>) change nothing; Medi reads them before any key change.",
+   "plain": "Your tutor gets 14 short moments where your answer key and the AI disagree, taps what is true and says why; nothing changes until you read her answers.",
+   "plain_for": "42c829e6",
+   "topic": "testing engines",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-17",
+     "quote": "Did you put the 9 questions in the tutor hub? Can you ask for clarification for these 6 from Amal and see if there's an explanation that might help"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_dispute_check.py",
+     "contains": "KIND, PREFIX = \"dispute_check\", \"disputecheck\""
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_dispute_check.py",
+     "contains": "def test_am_33_list_is_blind_has_a_why_box_on_every_answer_and_its_own_prefix"
+    }
+   ],
+   "example": {
+    "date": "2026-10-17",
+    "note": "14 moments, about 10 minutes"
+   },
+   "aliases": []
+  },
+  {
    "id": "AM-30",
    "kind": "process",
    "scope": "amal-data",
