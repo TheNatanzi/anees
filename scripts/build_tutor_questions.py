@@ -49,7 +49,8 @@ def build(path):
     name = S["name"]
     items = [card(q) for q in S["questions"]]
     mins = max(1, round(len(items) * SECS_EACH / 60))
-    D = {"set": "tutor-questions", "list": "q-" + name, "kind": "tutor_question", "prefix": "tutorq-" + name,
+    # the hub fetches data/amal-check-<list>.json (docs/js/hub/check-task.js), so the list name is the file name's tail
+    D = {"set": "tutor-questions", "list": "key-check-q-" + name, "kind": "tutor_question", "prefix": "tutorq-" + name,
          "date": S.get("source", {}).get("date", ""), "title": "%d quick questions about %s (about %d minutes)" % (len(items), name, mins),
          "unit": "questions", "mins": mins, "intro": S["intro"], "what": S["intro"], "questions": [QUESTION], "n": len(items),
          "items": items, "rule": "AM-34"}

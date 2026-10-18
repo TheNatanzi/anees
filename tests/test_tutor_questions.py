@@ -14,3 +14,13 @@ def test_am_34_pleasantries_questions_one_card_each_with_a_box_for_her_words():
     assert [o['v'] for o in opts] == ['yes', 'no', 'depends'] and all(o.get('box') for o in opts)
     q3 = [x for x in D['items'] if x['id'] == 'q3'][0]
     assert q3['clips'] and '2026-10-10/audio/lesson.mp3' in q3['clips'][0]['src']
+
+
+def test_am_34_every_hub_list_file_is_named_after_its_list():
+    """2026-10-18: the hub showed 'The list could not load' - it fetches data/amal-check-<list>.json (check-task.js) and the
+    file was named amal-check-key-check-q-pleasantries.json while its list said 'q-pleasantries'."""
+    import glob
+    for p in glob.glob(os.path.join(REPO, 'docs', 'data', 'amal-check-*.json')):
+        D = json.load(open(p, encoding='utf-8'))
+        if isinstance(D, dict) and D.get('list') and D.get('items') is not None:
+            assert os.path.basename(p) == 'amal-check-%s.json' % D['list'], p
