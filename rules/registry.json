@@ -8699,6 +8699,42 @@
    "aliases": []
   },
   {
+   "id": "AM-34",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Plain questions for the tutor go on her Tutor page, never by code message (AM-01): data/lesson-work/tutor-questions/<name>.json -> scripts/build_tutor_questions.py -> docs/data/amal-check-key-check-q-<name>.json (the AM-29 check-list card: its own question, an optional note and lesson clip; buttons Yes / No / It depends, No and It depends open a box for her words). Her taps (amal_rules source listen-check, kind tutor_question) change nothing; Medi reads them before a rule is built. First list: 5 questions on crediting pleasantries (her 2026-10-18 message: she wrote 'be credited' where she meant 'take credit for').",
+   "plain": "Questions for your tutor go on her Tutor page as quick cards (Yes / No / It depends, with a box for her words); nothing changes until you read her answers.",
+   "plain_for": "664865d8",
+   "topic": "tutor",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-18",
+     "quote": "Put in the tutor hub for her to answer"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_questions.py",
+     "contains": "\"kind\": \"tutor_question\", \"prefix\": \"tutorq-\" + name"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_questions.py",
+     "contains": "def test_am_34_pleasantries_questions_one_card_each_with_a_box_for_her_words"
+    }
+   ],
+   "example": {
+    "date": "2026-10-18",
+    "note": "5 questions about pleasantries (sa7tain -> 3ala albak ...)"
+   },
+   "aliases": []
+  },
+  {
    "id": "AM-30",
    "kind": "process",
    "scope": "amal-data",
