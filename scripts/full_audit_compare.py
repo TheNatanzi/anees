@@ -302,6 +302,9 @@ def settle(date, pas=1):
     if pas == 1 and RA.active(date, WORK):
         A, B = load(date, "r1", pas), load(date, "r2", pas)
         rows, held = RA.gate(rows, A["rows"], B["rows"])
+    if pas == 1:
+        rows, held_sig = RA.signal_gate(rows)             # PR-27: asked-for-a-word / no-reaction rows are never a chip
+        held += held_sig
     for i, r in enumerate(rows, 1):
         r["fid"] = f"{date[5:7]}{date[8:10]}-{i:03d}"
     out = {"date": date, "pass": pas,
@@ -309,7 +312,8 @@ def settle(date, pas=1):
                       "r3_added": len(R.get("added", [])), "r3_challenged": len(challenges), "final": len(rows),
                       **({"held_one_reader": len(held)} if held else {})},
            "coverage": C["coverage"], "r3_note": R.get("note"), "rows": rows,
-           **({"both_agree": "PR-25", "held_one_reader": held} if RA.active(date, WORK) and pas == 1 else {})}
+           **({"both_agree": "PR-25"} if RA.active(date, WORK) and pas == 1 else {}),
+           **({"held_one_reader": held} if held else {})}
     json.dump(out, open(os.path.join(WORK, f"{date}{tag}.settled.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(date, "pass", pas, "settled", out["counts"])
     return out

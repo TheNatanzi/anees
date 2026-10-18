@@ -11403,6 +11403,47 @@
    }
   },
   {
+   "id": "PR-27",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A slip row where the student only ASKED for a word (signal 'asked') or a voiced (A-kind) slip row with NO tutor reaction (signal 'none') is never a mistake chip: full_audit_compare.settle (pass 1) moves it to the held list (reader_agree.signal_gate, held 'asked for a word or no reaction from the tutor (PR-27)'), listed on AI Reports > Grades. The grade book never scores these (asked = half credit). Let-pass (B-kind) rows keep going to the tutor's review as before. Evidence 2026-10-17 overnight test: flags on 'asked' were real slips 18% of the time and on 'none' 26%; dropping them added 5-10 held-out F0.5 to every reader.",
+   "plain": "A moment where you only asked for a word, or where the tutor did not react, is never marked as your mistake.",
+   "plain_for": "16ce2fae",
+   "topic": "testing engines",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-18",
+     "quote": "Ship the rule and fix"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/reader_agree.py",
+     "contains": "def signal_gate(rows):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/full_audit_compare.py",
+     "contains": "rows, held_sig = RA.signal_gate(rows)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_reader_agree.py",
+     "contains": "def test_pr_27_asked_and_no_reaction_rows_are_held_never_a_chip"
+    }
+   ],
+   "example": {
+    "date": "2026-10-17",
+    "note": "overnight reader test: Opus alone 65.0 -> 72.5, Opus + Sonnet 69.6 -> 78.8 held-out"
+   },
+   "aliases": []
+  },
+  {
    "id": "GR-37",
    "kind": "process",
    "scope": "grammar-scoring",

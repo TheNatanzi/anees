@@ -89,6 +89,29 @@ def gate(rows, r1_rows, r2_rows, window=WINDOW_S):
     return kept, held
 
 
+# PR-27 (Medi 2026-10-17 "Ship the rule and fix"; overnight test: flags on these signals were real slips only 18% / 26% of
+# the time, and dropping them added 5-10 F0.5 to every reader): the grade book never scores a moment where he only ASKED
+# for a word (asked = half credit) and never a voiced (A-kind) slip with NO reaction from the tutor. Such a row is held,
+# listed, never a chip. Let-pass (B-kind) rows keep going to the tutor's review as before: only her yes makes them a slip.
+HELD_SIGNAL = "held: asked for a word or no reaction from the tutor (PR-27)"
+
+
+def signal_of(r):
+    return (str(r.get("signal") or "none").split() or ["none"])[0].strip(",;").lower()
+
+
+def signal_gate(rows):
+    """(kept, held): an 'asked' row, or an A-kind slip row with no tutor reaction, is held - never a chip."""
+    kept, held = [], []
+    for r in rows:
+        f, k, s = family(r.get("kind"), r.get("tier")), str(r.get("kind") or ""), signal_of(r)
+        if f and (s == "asked" or (s == "none" and not k.endswith("-B"))):
+            held.append(dict(r, held=HELD_SIGNAL))
+        else:
+            kept.append(r)
+    return kept, held
+
+
 def pair_of(date, work):
     """{'r1': model, 'r2': model} from the reader files' manifests (None for a file written before PR-25)."""
     out = {}

@@ -10,7 +10,7 @@ import reader_agree as RA  # noqa: E402
 
 
 def row(t, kind="grammar", **k):
-    return dict(t=t, kind=kind, **k)
+    return dict({"signal": "recast"}, t=t, kind=kind, **k)        # PR-27: a row with no tutor signal is held, so fixtures carry one
 
 
 def test_gate_keeps_a_slip_only_when_both_readers_flagged_its_family_within_15_s():
@@ -125,3 +125,15 @@ def test_union_rows_still_builds_with_a_pass_2_file_on_a_pair_lesson(tmp_path, m
     _write(os.path.join(w, d + ".settled.json"), {"rows": [row("01:00", wrong="a")], "counts": {}})
     _write(os.path.join(w, d + ".p2.settled.json"), {"rows": [], "counts": {}})
     assert [r["wrong"] for r in FAC.union_rows(d)["rows"]] == ["a"]
+
+
+def test_pr_27_asked_and_no_reaction_rows_are_held_never_a_chip():
+    import reader_agree as RA
+    rows = [{"t": "01:00", "kind": "vocab-A", "signal": "asked", "wrong": "x"},
+            {"t": "02:00", "kind": "grammar", "signal": "none"},
+            {"t": "03:00", "kind": "grammar-B", "signal": "none"},          # let pass: still goes to the tutor's review
+            {"t": "04:00", "kind": "grammar", "signal": "recast"},
+            {"t": "05:00", "kind": "vocab-A", "signal": "explicit-no"}]
+    kept, held = RA.signal_gate(rows)
+    assert [r["t"] for r in kept] == ["03:00", "04:00", "05:00"]
+    assert [r["t"] for r in held] == ["01:00", "02:00"] and all("PR-27" in r["held"] for r in held)
