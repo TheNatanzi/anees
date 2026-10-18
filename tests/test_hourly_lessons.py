@@ -5,7 +5,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import hourly_lessons as H
 import load_lesson as L
 
-DONE = [{'code': 'joining_call'}, {'code': 'done'}]
+DONE = [{'code': 'joining_call'}, {'code': 'in_call_recording'}, {'code': 'done'}]
 
 
 def bot(i, date=None, join='2026-09-21T20:35:16Z', status=DONE):
@@ -488,3 +488,12 @@ def test_a_first_page_already_on_master_is_never_rewritten(tmp_path, monkeypatch
     g(work, 'add', '-A'); g(work, 'commit', '-qm', 'Lessons 2026-10-12 loaded by the hourly job')
     assert H.freeze_first(H.published_dates(work), work) == []
     assert json.loads(first.read_text(encoding='utf-8')) == {'page': 'already'}
+
+
+def test_ls_17_a_bot_that_never_recorded_is_skipped_and_the_one_that_did_loads(tmp_path):
+    """LS-17 - 2026-10-14: bot f4a29aaf sat in the waiting room and left (no recording); its empty tracks.json made the lesson
+    fail every hour for 4 days while bot 42933a6f had recorded the whole lesson."""
+    empty = bot('empty', '2026-10-14', status=[{'code': 'joining_call'}, {'code': 'in_waiting_room'}, {'code': 'call_ended'}, {'code': 'done'}])
+    real = bot('real', '2026-10-14', status=[{'code': 'in_call_recording'}, {'code': 'call_ended'}, {'code': 'done'}])
+    _, todo = H.plan([], [empty, real], [], loaded_dates=set(), raw=tmp_path)
+    assert [(t['kind'], t.get('bot_id')) for t in todo] == [('tracks', 'real')]

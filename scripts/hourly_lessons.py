@@ -114,6 +114,9 @@ def plan(ledger, bots, recordings, loaded_dates, raw, decided=(), half_done=(), 
         codes = [s.get('code') for s in (b or {}).get('status_changes', [])]
         if b is not None and (codes[-1:] or [None])[0] != 'done':
             continue                              # still in the call / processing on Recall's side
+        if b is not None and 'in_call_recording' not in codes:
+            continue                              # LS-17: a bot that never recorded (left the waiting room, wrong meeting:
+                                                  # 2026-10-14 bot f4a29aaf) has no tracks - another bot or the Meet file is used
         todo.append({'kind': 'tracks', 'date': d, 'bot_id': e['bot_id']})
     for path, code, d, hhmm in recordings:
         if d < AUTO_START or d in loaded_dates or d in track_dates or path.name in decided:

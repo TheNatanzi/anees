@@ -8301,6 +8301,42 @@
    "aliases": []
   },
   {
+   "id": "LS-17",
+   "kind": "not-error",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The hourly planner skips a Recall bot that never reached 'in_call_recording' (it left the waiting room or joined the wrong meeting): it has no tracks, so another bot of the same lesson or the Meet recording is used. 2026-10-14: bot f4a29aaf (no recording) made the lesson fail every hour for 4 days while bot 42933a6f had recorded it.",
+   "plain": "If a recording bot never actually recorded, the app uses the other bot or the Meet recording instead of getting stuck.",
+   "plain_for": "26b0761d",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-18",
+     "quote": "Did you upload the missing lessons and do the old lessons"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/hourly_lessons.py",
+     "contains": "if b is not None and 'in_call_recording' not in codes:"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_hourly_lessons.py",
+     "contains": "def test_ls_17_a_bot_that_never_recorded_is_skipped_and_the_one_that_did_loads"
+    }
+   ],
+   "example": {
+    "date": "2026-10-14",
+    "note": "bot f4a29aaf empty, bot 42933a6f recorded the lesson"
+   },
+   "aliases": []
+  },
+  {
    "id": "TR-27",
    "kind": "data",
    "scope": "transcription",
