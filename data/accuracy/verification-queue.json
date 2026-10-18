@@ -1,10 +1,10 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 6,
+ "count": 7,
  "by_date": {
   "2026-09-26": 1,
   "2026-10-06": 1,
-  "2026-10-12": 4
+  "2026-10-12": 5
  },
  "rows": [
   {
@@ -70,6 +70,27 @@
    "second_judge": null,
    "listen_from": "05:02",
    "listen_to": "05:37"
+  },
+  {
+   "uid": "FA-7ad77653",
+   "date": "2026-10-12",
+   "t": "06:01",
+   "t_amal": null,
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "D5",
+   "medi_said": "عشان الـ، ولاد دايمًا في مدرسة،",
+   "amal_said": "دايمًا فيه.",
+   "wrong": "في مدرسة",
+   "right": "في المدرسة",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "05:51",
+   "listen_to": "06:21"
   },
   {
    "uid": "FA-0082562d",

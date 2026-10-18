@@ -1,5 +1,5 @@
 {
- "built": "2026-10-16T06:01:28-07:00",
+ "built": "2026-10-18T05:18:13-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -19161,6 +19161,34 @@
     "bucket": "A4",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-7ad77653",
+    "date": "2026-10-12",
+    "t": "06:01",
+    "t_amal": null,
+    "medi_said": "عشان الـ، ولاد دايمًا في مدرسة،",
+    "amal_said": "دايمًا فيه.",
+    "chat": null,
+    "wrong": "في مدرسة",
+    "right": "في المدرسة",
+    "confidence": "high",
+    "confidence_why": "Plausible D5 let-pass; Amal voiced nothing about el-, and the engine may have dropped it - low.",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-7ad77653",
+    "sweep_id": null,
+    "mistake": "After في the place 'school' keeps el- (fi el-madrase); Amal's دايمًا فيه does not fix it, so it is let-pass.",
+    "bucket": "D5",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-10-18T12:16:17.220324+00:00",
+     "pattern": "p-el-dropped-after-fi-place",
+     "rule_id": 38603
+    }
    },
    {
     "id": "FA-428a70df",
@@ -82139,13 +82167,13 @@
    "chat": null,
    "wrong": "في مدرسة",
    "right": "في المدرسة",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "D5",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "After في the place 'school' keeps el- (fi el-madrase); Amal's دايمًا فيه does not fix it, so it is let-pass.",
    "english": "because the kids are always in school",
    "ids": [
@@ -82162,7 +82190,18 @@
    "machine_had": false,
    "bucket_name": "preposition keeps el-",
    "uid": "FA-7ad77653",
-   "n": 1395
+   "n": 1395,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-el-dropped-after-fi-place",
+    "at": "2026-10-18T12:16:17.220324+00:00",
+    "rule_id": 38603,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "1012-r3-3",
@@ -83661,7 +83700,7 @@
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-16T13:01:29.543084+00:00",
+   "at": "2026-10-18T12:18:14.908445+00:00",
    "rules": [
     1928,
     1929,
@@ -83720,6 +83759,7 @@
     38077,
     38090,
     38106,
+    38603,
     2026,
     2027,
     2028,
