@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-18T06:03:42-07:00",
+ "updated": "2026-10-18T06:17:47-07:00",
  "result": "pass",
- "source": "amal trigger",
- "checked_commit": "c0f0422abdd0",
- "secs": 132.6,
+ "source": "hourly: tutor refresh",
+ "checked_commit": "208a6ef72e29",
+ "secs": 132.5,
  "checks": [
   {
    "id": "step_failures",
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 1.7,
+   "secs": 1.9,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.6,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,17 +129,17 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 97.9,
+   "secs": 97.3,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": ".............................. [ 99%] | ..                                                                       [100%] | 935 passed, 3 xfailed in 93.99s (0:01:33)"
+   "detail": ".............................. [ 99%] | ..                                                                       [100%] | 935 passed, 3 xfailed in 93.47s (0:01:33)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 6.3,
+   "secs": 6.1,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6203.0937"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6023.7025"
   },
   {
    "id": "rehear_rows",
@@ -161,7 +161,7 @@
    "id": "data_freshness",
    "required": false,
    "ok": true,
-   "secs": 0.0,
+   "secs": 0.5,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
    "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
   },
