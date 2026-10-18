@@ -102,7 +102,7 @@ def run_one(judge, variant, d):
         return out, 'cached'
     system, user = prompt(d, variant)
     try:
-        text, usage = {'openai': V.call_openai, 'gemini': V.call_gemini, 'claude': V.call_claude}[vendor](model, system, user)
+        text, usage = {'openai': V.call_openai, 'gemini': V.call_gemini, 'claude': V.call_claude, 'codex': V.call_codex}[vendor](model, system, user)
         j = V.parse(text)
         json.dump({'judge': judge, 'variant': variant, 'date': d, 'usage': usage, 'verdicts': j.get('verdicts', j)},
                   open(out, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
@@ -239,7 +239,7 @@ def run_window(judge, d):
     out = os.path.join(JD, f'{d}.{model}.win.json')
     if os.path.exists(out):
         return 'cached'
-    call = {'openai': V.call_openai, 'gemini': V.call_gemini, 'claude': V.call_claude}[vendor]
+    call = {'openai': V.call_openai, 'gemini': V.call_gemini, 'claude': V.call_claude, 'codex': V.call_codex}[vendor]
     verdicts, errs = {}, 0
 
     def one(sp):
@@ -294,7 +294,7 @@ def council(d, advisor='gemini:gemini-3.7-flash', chair='claude:claude-opus-5-5'
     tr = V.read(REPO, f'data/lesson-work/reader-tiers/{d}.txt')
     cands = json.dumps([{k: v for k, v in c.items() if not k.startswith('_') and k != 'readers'} for c in U], ensure_ascii=False)
     av, am = advisor.split(':', 1)
-    call = {'openai': V.call_openai, 'gemini': V.call_gemini, 'claude': V.call_claude}
+    call = {'openai': V.call_openai, 'gemini': V.call_gemini, 'claude': V.call_claude, 'codex': V.call_codex}
 
     def adv(lens):
         system = (f"You are one advisor on a council judging candidate mistakes in an Arabic lesson. Your lens: {LENSES[lens]}\n\n"

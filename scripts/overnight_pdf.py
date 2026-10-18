@@ -25,6 +25,7 @@ ar = lambda s: get_display(arabic_reshaper.reshape(str(s)))
 
 # (method, plain meaning, held-out F0.5, caught/102, % of flags real, group)
 M = [
+    ("Codex's best: learned mix (best of 13 tries)", 'judges + reader support + repeat runs, weights learned per type', 82.1, 68, 87.2, 'codex'),
     ('Judge panel: Opus + Gemini Flash', 'every model\'s flags pooled, two judges rule on each', 80.6, 68, 85.0, 'best'),
     ('Judge panel, all judges combined (learned)', 'judges + reader votes + tutor signal, weights learned', 79.6, 64, 85.3, 'judge'),
     ('Learned weights over 8 readers', 'learns which models and clues to trust', 79.4, 67, 83.8, 'vote'),
@@ -36,13 +37,15 @@ M = [
     ('Judges on 5-minute slices', 'judge sees only the nearby part of the lesson', 75.1, 67, 77.9, 'judge'),
     ('Council: 5 advisors + chairman', 'grammar teacher, native speaker, tutor rules, noise skeptic, learner expert', 73.9, 73, 74.5, 'debate'),
     ('Defense-lawyer judges', 'judges told to clear him unless clearly corrected', 73.9, 63, 77.8, 'debate'),
+    ('GPT-6-astra as a judge (your plan)', 'Astra rules on every flag alone', 76.0, 66, 79.5, 'judge'),
     ('Gemini 3.7 Flash alone', 'best single model', 73.6, 58, 79.5, 'single'),
     ('Opus alone (same input as all)', 'fair re-run', 72.7, 73, 73.0, 'single'),
     ('GPT-5.5 alone', '', 72.4, 75, 72.1, 'single'),
+    ('GPT-6-astra alone (your plan)', "OpenAI's top model as a reader", 66.6, 61, 68.5, 'single'),
     ('Sonnet alone (same input as all)', 'fair re-run', 68.0, 65, 69.1, 'single'),
     ('Gemini 4 Argon alone', "Google's top model: flags too much", 60.7, 74, 58.3, 'single'),
 ]
-COL = {'best': TEAL, 'judge': '#3f8f96', 'vote': '#6c9aa0', 'repeat': '#8aa6ab', 'debate': GOLD, 'single': '#a9b6be'}
+COL = {'codex': '#7a5cc4', 'best': TEAL, 'judge': '#3f8f96', 'vote': '#6c9aa0', 'repeat': '#8aa6ab', 'debate': GOLD, 'single': '#a9b6be'}
 
 
 def chart():
@@ -73,7 +76,11 @@ def bullets(items):
     return [Paragraph('• ' + i, B) for i in items]
 
 
+CELL = ParagraphStyle('cell', fontName='Arial', fontSize=8.5, leading=11, textColor=colors.HexColor(INK))
+
+
 def table(rows, widths, head=True):
+    rows = [[Paragraph(c, CELL) if isinstance(c, str) and (i or not head) and len(c) > 18 else c for c in r] for i, r in enumerate(rows)]
     t = Table(rows, colWidths=widths, repeatRows=1 if head else 0)
     st = [('FONT', (0, 0), (-1, -1), 'Arial', 8.5), ('VALIGN', (0, 0), (-1, -1), 'TOP'),
           ('LINEBELOW', (0, 0), (-1, -1), 0.3, colors.HexColor('#d9e0e6')), ('TOPPADDING', (0, 0), (-1, -1), 3), ('BOTTOMPADDING', (0, 0), (-1, -1), 3)]
@@ -88,7 +95,7 @@ def build():
                             title='Overnight mistake-reader test', author='Claude for Medi')
     s = []
     s += [Paragraph('Overnight test: can the AI reach 90?', H1),
-          Paragraph('No. The best honest score is <b>80.6</b>. Your answer key itself is about 90% reliable, so 90 is roughly the ceiling.', BIG),
+          Paragraph('No. The best honest score is <b>80.6</b> (Codex reached 82.1 after 13 tries, inside the noise). Your answer key itself is about 90% reliable, so 90 is roughly the ceiling.', BIG),
           Image(chart(), width=7.1 * inch, height=5.05 * inch),
           Paragraph('Score = F0.5: how many of your 102 marked mistakes it caught, plus how many of its flags were real (fake flags count double). '
                     'Every score here is on a lesson the method did NOT learn from (tune on 2 lessons, test on the 3rd, rotate).', SM),
@@ -126,7 +133,18 @@ def build():
         rows.append([('AI (key says no)' if kind.startswith('AI') else 'Key (AI says no)'), d[5:], t, Paragraph(ar(w)[:60], SM), Paragraph(ar(r)[:60], SM)])
     s += [table(rows, [1.4 * inch, 0.6 * inch, 0.6 * inch, 2.2 * inch, 2.2 * inch]), PageBreak()]
 
-    s += [Paragraph('Recommendation', H2),
+    s += [Paragraph('Final decisions (Oct 18)', H2),
+          table([['Question', 'Decision', 'Status'],
+                 ['Listening method', 'Keep A (ElevenLabs + Gemini re-listens 3x)', 'Final, live'],
+                 ['Rule fix: asked / no-reaction moments', 'Never a mistake (PR-27)', 'Shipped, live'],
+                 ['Mistake reader', 'Keep Opus + Sonnet (both agree) - free on your plan', 'Live; no switch'],
+                 ['Challenger', 'Judge panel Opus + Gemini Flash (80.6) / Codex mix (82.1)', 'Re-test on next graded lesson'],
+                 ['Dropped', 'Council, debate, defence judges, slices, Fable, Haiku, Gemini 4 Argon, GPT-6-astra, small models', 'Not worth it'],
+                 ['Paid API', 'Plans first (claude -p, Codex); paid keys only with your yes', 'Rule in every CLAUDE.md']], [1.7 * inch, 3.6 * inch, 1.7 * inch]),
+          Spacer(1, 8),
+          Paragraph('Why not switch to the challenger now: it is only 1.8-3.3 points ahead (noise is about 4), and it needs 8 readers including paid Gemini/OpenAI calls, while Opus + Sonnet runs free on your plan.', B),
+          PageBreak(),
+          Paragraph('Recommendation', H2),
           table([['Do', 'Why'],
                  ['1. Ship the rule fix now: never mark "asked for a word" or "no reaction" moments', 'Biggest, cheapest gain (+5 to +10), matches your grade book'],
                  ['2. Keep Opus + Sonnet live for now', 'The judge panel is +1.8 better, inside the 4-point noise'],
@@ -137,7 +155,7 @@ def build():
           *bullets(['16 methods were tried on the same 3 lessons. The best of many tries is a little lucky, so expect the real 80.6 to be about 78-80.',
                     'The "asked" rule fix was found by looking at all 3 lessons\' errors. It matches your grade book\'s written rule, but it was not blind.',
                     'OpenAI\'s credit ran out at the start of the night, so GPT-6-astra, GPT-5.4 and the OpenAI judge did not run.',
-                    'Codex is logged out (my mistake earlier). It needs <b>codex login</b> before it can join a test.',
+                    'Codex was logged out by my earlier mistake; you signed it back in on Oct 18.',
                     'Claude runs used your monthly plan (no extra money). Gemini cost was small; see Google AI Studio billing for the exact amount.',
                     'Nothing live was changed. All files are on the branch claude/reader-90-overnight.']),
           Spacer(1, 8), Paragraph('Your one action: check the 9 disputed moments on page 3, then say "ship the rule fix".', ACT)]

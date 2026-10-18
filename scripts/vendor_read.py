@@ -102,6 +102,19 @@ def call_claude(model, system, user):
                                    'out': u.get('output_tokens'), 'cost_usd_plan': d.get('total_cost_usd')}
 
 
+def call_codex(model, system, user):
+    """OpenAI models through the Codex CLI on Medi's ChatGPT plan (no API credit): read-only sandbox, prompt on stdin."""
+    import subprocess, tempfile
+    out = tempfile.NamedTemporaryFile('w', suffix='.txt', delete=False); out.close()
+    r = subprocess.run(['codex.cmd', 'exec', '--skip-git-repo-check', '-s', 'read-only', '-m', model, '--output-last-message', out.name, '-'],
+                       input=system + chr(10) * 2 + user, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=5400,
+                       cwd=os.environ.get('TEMP', '.'))
+    text = open(out.name, encoding='utf-8', errors='replace').read()
+    if not text.strip():
+        raise RuntimeError('codex: no answer ' + (r.stderr or r.stdout)[-300:])
+    return text, {'via': 'codex-plan'}
+
+
 def parse(text):
     t = text.strip()
     t = re.sub(r'^```(?:json)?\s*|\s*```$', '', t)
@@ -123,7 +136,7 @@ def one(repo, vendor, model, date):
     t0 = time.time()
     rec = {'vendor': vendor, 'model': model, 'date': date, 'at': time.strftime('%Y-%m-%dT%H:%M:%S')}
     try:
-        text, usage = {'openai': call_openai, 'gemini': call_gemini, 'claude': call_claude}[vendor](model, system, user)
+        text, usage = {'openai': call_openai, 'gemini': call_gemini, 'claude': call_claude, 'codex': call_codex}[vendor](model, system, user)
         rec.update(usage=usage, secs=round(time.time() - t0, 1))
         d = parse(text)
         if not isinstance(d.get('rows'), list):
