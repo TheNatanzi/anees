@@ -1,5 +1,5 @@
 {
- "about": "Frozen exam for the grade book (PG-46, scripts/review_grades.py). before = the pipeline's page at e85f39f64152f0363180d8d1ba1659f3402eae12 (from the first publish, 2026-10-10.first.json); key = the page after Medi's review at fa188ca (the hourly checkout C:/dev/anees-hourly, 2026-10-14 18:52Z, a local commit not yet on origin). Re-freeze only on purpose.",
+ "about": "Frozen exam for the grade book (PG-46, scripts/review_grades.py). before = the pipeline's page at e85f39f64152f0363180d8d1ba1659f3402eae12 (from the first publish, 2026-10-10.first.json); key = the page after Medi's review at fa188ca (the hourly checkout C:/dev/anees-hourly, 2026-10-14 18:52Z, a local commit not yet on origin). Re-freeze only on purpose. Key v2 (2026-10-18): the tutor's AM-33 rulings applied by hand - see key_versions.",
  "date": "2026-10-10",
  "before_commit": "e85f39f64152f0363180d8d1ba1659f3402eae12",
  "key_commit": "fa188ca",
@@ -8576,6 +8576,71 @@
   },
   "slips": [
    {
+    "i": "16.64",
+    "t": "00:16",
+    "k": "grammar",
+    "rule": "B6",
+    "said": "والـ مطعم صوت عالي كتير",
+    "ar": "",
+    "right": "والمطعم كان صوته عالي كتير"
+   },
+   {
+    "i": "403.44",
+    "t": "06:43",
+    "k": "grammar",
+    "rule": "D1",
+    "said": "متحمّس بكرا",
+    "ar": "",
+    "right": "متحمّس لبكرا"
+   },
+   {
+    "i": "721.71",
+    "t": "12:01",
+    "k": "grammar",
+    "rule": "B6",
+    "said": "kaan",
+    "ar": "",
+    "right": "kaanat",
+    "by": "tutor AM-33 2026-10-18: \"Should be kaanat not kaan\""
+   },
+   {
+    "i": "841.15",
+    "t": "14:01",
+    "k": "grammar",
+    "rule": "D2",
+    "said": "التقت",
+    "ar": "",
+    "right": "التقيت مع",
+    "by": "tutor AM-33 2026-10-18: \"verb plus preposition collocation mistake. It should've been Elta2ait ma3/fi\""
+   },
+   {
+    "i": "872.09",
+    "t": "14:32",
+    "k": "grammar",
+    "rule": "D1",
+    "said": "أول مرة",
+    "ar": "",
+    "right": "لأول مرة"
+   },
+   {
+    "i": "945.03",
+    "t": "15:45",
+    "k": "grammar",
+    "rule": "B6",
+    "said": "نفس المرة",
+    "ar": "",
+    "right": "كانت نفس المرة"
+   },
+   {
+    "i": "975.68",
+    "t": "16:15",
+    "k": "grammar",
+    "rule": "E3",
+    "said": "10 سن",
+    "ar": "",
+    "right": "سنتين"
+   },
+   {
     "i": "1037.20",
     "t": "17:17",
     "k": "grammar",
@@ -8639,15 +8704,6 @@
     "right": "الأكلة الخضرا"
    },
    {
-    "i": "16.64",
-    "t": "00:16",
-    "k": "grammar",
-    "rule": "B6",
-    "said": "والـ مطعم صوت عالي كتير",
-    "ar": "",
-    "right": "والمطعم كان صوته عالي كتير"
-   },
-   {
     "i": "1730.69",
     "t": "28:50",
     "k": "grammar",
@@ -8691,15 +8747,6 @@
     "said": "Mufaddale",
     "ar": "",
     "right": "مفضلين"
-   },
-   {
-    "i": "2137.26",
-    "t": "35:37",
-    "k": "grammar",
-    "rule": "A7",
-    "said": "طريق التاني",
-    "ar": "",
-    "right": "الطريق التاني"
    },
    {
     "i": "2273.94",
@@ -8763,43 +8810,49 @@
     "said": "ishi akher or ishi il akher",
     "ar": "",
     "right": "el-ishi el-a5eer"
-   },
-   {
-    "i": "403.44",
-    "t": "06:43",
-    "k": "grammar",
-    "rule": "D1",
-    "said": "متحمّس بكرا",
-    "ar": "",
-    "right": "متحمّس لبكرا"
-   },
-   {
-    "i": "872.09",
-    "t": "14:32",
-    "k": "grammar",
-    "rule": "D1",
-    "said": "أول مرة",
-    "ar": "",
-    "right": "لأول مرة"
-   },
-   {
-    "i": "945.03",
-    "t": "15:45",
-    "k": "grammar",
-    "rule": "B6",
-    "said": "نفس المرة",
-    "ar": "",
-    "right": "كانت نفس المرة"
-   },
-   {
-    "i": "975.68",
-    "t": "16:15",
-    "k": "grammar",
-    "rule": "E3",
-    "said": "10 سن",
-    "ar": "",
-    "right": "سنتين"
    }
   ]
- }
+ },
+ "key_versions": [
+  {
+   "version": 2,
+   "date": "2026-10-18",
+   "why": "the tutor's blind AM-33 rulings, applied on Medi's word 'Apply'",
+   "removed": [
+    {
+     "i": "2137.26",
+     "t": "35:37",
+     "k": "grammar",
+     "rule": "A7",
+     "said": "طريق التاني",
+     "ar": "",
+     "right": "الطريق التاني"
+    }
+   ],
+   "added": [
+    {
+     "i": "721.71",
+     "t": "12:01",
+     "k": "grammar",
+     "rule": "B6",
+     "said": "kaan",
+     "ar": "",
+     "right": "kaanat",
+     "by": "tutor AM-33 2026-10-18: \"Should be kaanat not kaan\""
+    },
+    {
+     "i": "841.15",
+     "t": "14:01",
+     "k": "grammar",
+     "rule": "D2",
+     "said": "التقت",
+     "ar": "",
+     "right": "التقيت مع",
+     "by": "tutor AM-33 2026-10-18: \"verb plus preposition collocation mistake. It should've been Elta2ait ma3/fi\""
+    }
+   ],
+   "slips_before": 25,
+   "slips_after": 26
+  }
+ ]
 }

@@ -28,12 +28,37 @@ def _ruling(r):
     return r.get("source") == "after" and bool((r.get("payload") or {}).get("audit_uid")) and r.get("kind") in ("right", "wrong", "not_medi")
 
 
+DISPUTE_MAP = os.path.join(REPO, "data", "lesson-work", "tutor-dispute-check", "apply.json")
+
+
+def dispute_rulings(rows, mapping=None):
+    """AM-33 (Medi 2026-10-18 "Apply"): the tutor's blind dispute-check answers rule on single audit rows, through the
+    after-lesson path (one tap = one row): 'right' -> drop the row, 'mistake' -> confirm it (a PROPOSE row becomes a scored
+    grammar row in the mapped bucket). Rows of moments with no mapped audit row change nothing. Undo works as for her
+    other taps (the undo row's word_key is the same item)."""
+    M = (mapping if mapping is not None else (json.load(open(DISPUTE_MAP, encoding="utf-8")) if os.path.exists(DISPUTE_MAP) else {})).get("items") or {}
+    out = []
+    for r in rows or []:
+        item = str(r.get("word_key") or "").split(":", 1)[-1]
+        m, p = M.get(item), r.get("payload") or {}
+        if r.get("kind") == "undo":
+            out.append(dict(r, source="after"))
+            continue
+        if not m or p.get("answer") not in ("right", "mistake"):
+            continue
+        out.append(dict(r, source="after", kind={"right": "right", "mistake": "wrong"}[p["answer"]],
+                        payload=dict(p, audit_uid=m["uid"], bucket=m.get("bucket"),
+                                     label="tutor dispute check (AM-33): " + (p.get("typed") or p["answer"]))))
+    return out
+
+
 def load_all():
     """-> (rulings that count, [(undone tap, its undo row)]). AM-17: the raw history is read (undo rows included) and the
     latest action per item wins (scripts/amal_undo.py), so a confirmed-then-undone slip stops counting."""
     import db, amal_undo
     raw = [dict(r, source=r.get("source") or "review") for r in db.select("amal_rules", {"select": "*", "source": "eq.review", "order": "created_at.asc"}, undo=False)]
     raw += [dict(r, source=r.get("source") or "after") for r in db.select("amal_rules", {"select": "*", "source": "eq.after", "order": "created_at.asc"}, undo=False)]
+    raw += dispute_rulings(db.select("amal_rules", {"select": "*", "source": "eq.listen-check", "kind": "eq.dispute_check", "order": "created_at.asc"}, undo=False))
     res = amal_undo.resolve(raw)
     kept = [r for r in res.kept if r.get("kind") != amal_undo.UNDO and _ruling(r)]
     undone = [(r, res.undone[r.get("id")]) for r in raw if r.get("kind") != amal_undo.UNDO and r.get("id") in res.undone and _ruling(r)]
@@ -238,6 +263,8 @@ def apply(dry=False):
                 b = _before(r)
                 if ru["kind"] == "wrong":
                     r["confidence"] = "high"
+                    if r.get("kind") == "grammar-propose" and p.get("bucket"):      # AM-33: her 'mistake' on a PROPOSE row scores it
+                        r["kind"], r["bucket"] = "grammar", p["bucket"]
                     r["signal"] = r.get("signal") or "amal-ruling"
                     r["amal_ruling"] = {"kind": "confirm", "at": ru.get("created_at"), "rule_id": ru.get("id"), "label": p.get("label"), "alias": p.get("alias"), "before": b}
                     flipped += 1

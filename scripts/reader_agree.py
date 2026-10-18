@@ -100,16 +100,31 @@ def signal_of(r):
     return (str(r.get("signal") or "none").split() or ["none"])[0].strip(",;").lower()
 
 
-def signal_gate(rows):
-    """(kept, held): an 'asked' row, or an A-kind slip row with no tutor reaction, is held - never a chip."""
+def signal_gate(rows, keep=()):
+    """(kept, held): an 'asked' row, or an A-kind slip row with no tutor reaction, is held - never a chip. A row the
+    tutor confirmed (keep: {(t, wrong)}) is never held - her ruling wins (2026-10-18: 09-26 10:13 مساعد, 10-01 07:04 حساب)."""
     kept, held = [], []
+    keep = set(keep)
     for r in rows:
         f, k, s = family(r.get("kind"), r.get("tier")), str(r.get("kind") or ""), signal_of(r)
+        if (str(r.get("t")), str(r.get("wrong"))) in keep:
+            kept.append(r)
+            continue
         if f and (s == "asked" or (s == "none" and not k.endswith("-B"))):
             held.append(dict(r, held=HELD_SIGNAL))
         else:
             kept.append(r)
     return kept, held
+
+
+def confirmed_keep(date, repo):
+    """{(t, wrong)} of the rows the tutor confirmed on this lesson: the audit file's confirmed rows + pr27-keep.json."""
+    out = set()
+    for p, key in ((os.path.join(repo, "data", "full-audit-2026-09-26.json"), "rows"), (os.path.join(repo, "data", "lesson-work", "full-audit", "pr27-keep.json"), "rows")):
+        for r in (_J(p) or {}).get(key) or []:
+            if r.get("date") == date and (key == "rows" and ("uid" in r and "why" in r or (r.get("amal_ruling") or {}).get("kind") == "confirm" or r.get("signal") == "amal-ruling")):
+                out.add((str(r.get("t")), str(r.get("wrong"))))
+    return out
 
 
 def pair_of(date, work):

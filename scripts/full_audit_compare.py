@@ -303,7 +303,7 @@ def settle(date, pas=1):
         A, B = load(date, "r1", pas), load(date, "r2", pas)
         rows, held = RA.gate(rows, A["rows"], B["rows"])
     if pas == 1:
-        rows, held_sig = RA.signal_gate(rows)             # PR-27: asked-for-a-word / no-reaction rows are never a chip
+        rows, held_sig = RA.signal_gate(rows, RA.confirmed_keep(date, REPO))   # PR-27; her confirmations win
         held += held_sig
     for i, r in enumerate(rows, 1):
         r["fid"] = f"{date[5:7]}{date[8:10]}-{i:03d}"

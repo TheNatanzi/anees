@@ -428,7 +428,7 @@ _What the tutor decides: her Doc, her pages, her rulings, and the words she prom
   <br><sub>Medi, 2026-10-11: “Put it in the tutor panel I will have amal work on it as well” · Medi, 2026-10-11: “mix 30-20”</sub>
 - Before a lesson you reviewed is graded, your tutor gets one card for each note you wrote on it: the moment to play, the line, the lines around it and your own words. She taps right, partly right, wrong or not sure. Her answers change nothing by themselves, but the lesson is not frozen or graded until she has answered every note. `AM-30` _Automatic_
   <br><sub>Medi, 2026-10-12: “wait I want amal to look at my notes on 10-9 before grading and clearing it” · Medi, 2026-10-12: “go”</sub>
-- Your tutor gets 14 short moments where your answer key and the AI disagree, taps what is true and says why; nothing changes until you read her answers. `AM-33` _Automatic_
+- Your tutor gets short moments where your answer key and the AI disagree, taps what is true and says why; her answers are applied to the lessons and to your answer key. `AM-33` _Automatic_
   <br><sub>Medi, 2026-10-17: “Did you put the 9 questions in the tutor hub? Can you ask for clarification for these 6 from Amal and see if there's an explanation that might help”</sub>
 - Your tutor's page only asks about lessons from Oct 8 on. Open questions about older lessons are paused, not deleted, and come back when the pause is lifted; anything she already answered stays in her history, and no new questions are made for older lessons. `AM-28` _Automatic_
   <br><sub>Medi, 2026-10-10: “set an agent to make sure that Amal's tutor portal with all the questions is up to date now. For now, I know we've only done 10, 8, and 10-9. Let's put a pause on everything before that until we can get the process honed down a little bit, and then we'll go back and clean everything up.”</sub>
@@ -691,7 +691,7 @@ _Rules for the AI helpers that build Anees._
   <br><sub>Medi, 2026-10-15: “Yes: build the Opus + Sonnet both-agree reader into the app, confirm it on the next fully reviewed lesson, and push it through the publish guard.”</sub>
 - The hourly job can no longer get stuck on a file only it writes, settles clashes with the live site in one step, and pops up a warning on the PC if publishing stops for 2 hours. `PR-26` _Automatic_
   <br><sub>Medi, 2026-10-16: “dude fix the hourly once and for all”</sub>
-- A moment where you only asked for a word, or where the tutor did not react, is never marked as your mistake. `PR-27` _Automatic_
+- A moment where you only asked for a word, or where the tutor did not react, is never marked as your mistake - unless your tutor confirmed it. `PR-27` _Automatic_
   <br><sub>Medi, 2026-10-18: “Ship the rule and fix”</sub>
 - Your corrections on the transcript are saved, can be undone, and change every page. Amal still decides whether your Arabic was right. `PR-15` _Automatic_
   <br><sub>Medi, 2026-10-02: “i am going to make some corrections to the transcript. try and make rule and patterns with my corrections.”</sub>

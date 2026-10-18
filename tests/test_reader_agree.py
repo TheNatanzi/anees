@@ -99,6 +99,16 @@ def test_confirm_scores_both_agree_vs_opus_alone_and_flags_a_loss(tmp_path):
     assert RA.confirm("2026-01-08", w, key, settled={"rows": []}, r1={"rows": []}) is None   # not a pair lesson
 
 
+def _key_v1(RT, d):
+    """The key as frozen on 2026-10-15 (before the tutor's AM-33 rulings made key v2 on 2026-10-18): the evidence was
+    measured on v1, so it replays on v1."""
+    g = RT.key_of(d)
+    slips = list(g["slips"])
+    for v in json.load(open(os.path.join(ROOT, "data", "lesson-work", "review-grades", d + ".json"), encoding="utf-8")).get("key_versions") or []:
+        slips = [x for x in slips if x not in v.get("added", [])] + list(v.get("removed", []))
+    return [(x["k"], float(x["i"])) for x in slips]
+
+
 def test_the_2026_10_15_evidence_replays_exactly():
     import reader_tiers as RT
     tot = [0, 0, 0]
@@ -106,7 +116,7 @@ def test_the_2026_10_15_evidence_replays_exactly():
     for d in RT.LESSONS:
         o, s = RT.load_run(d, "opus", 1)["rows"], RT.load_run(d, "sonnet", 1)["rows"]
         kept, _ = RA.gate(o, o, s)
-        p, k = RA.flags(kept), RT.key_slips(d)
+        p, k = RA.flags(kept), _key_v1(RT, d)
         m = RT.match(p, k)
         per.append(RT.prf(m, len(p), len(k))["f05"])
         tot = [tot[0] + m, tot[1] + len(p), tot[2] + len(k)]
@@ -137,3 +147,12 @@ def test_pr_27_asked_and_no_reaction_rows_are_held_never_a_chip():
     kept, held = RA.signal_gate(rows)
     assert [r["t"] for r in kept] == ["03:00", "04:00", "05:00"]
     assert [r["t"] for r in held] == ["01:00", "02:00"] and all("PR-27" in r["held"] for r in held)
+
+
+def test_pr_27_never_holds_a_row_the_tutor_confirmed():
+    """2026-10-18: re-settling every lesson with PR-27 dropped two slips she had confirmed (09-26 10:13 مساعد, 10-01 07:04
+    حساب, both signal 'asked'): her ruling wins."""
+    import reader_agree as RA
+    rows = [{"t": "10:13", "kind": "vocab-A", "signal": "asked", "wrong": "مساعد"}, {"t": "11:00", "kind": "vocab-A", "signal": "asked", "wrong": "x"}]
+    kept, held = RA.signal_gate(rows, keep={("10:13", "مساعد")})
+    assert [r["t"] for r in kept] == ["10:13"] and [r["t"] for r in held] == ["11:00"]
