@@ -1,5 +1,5 @@
 {
- "built": "2026-10-18T05:18:13-07:00",
+ "built": "2026-10-18T05:31:17-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -29884,6 +29884,37 @@
     "amal_gave_arabizi": null
    },
    {
+    "id": "FA-e7274741",
+    "date": "2026-10-10",
+    "t": "16:30",
+    "t_amal": null,
+    "medi_said": "ثلاث سنان؟",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "سنان",
+    "right": "سنين",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-e7274741",
+    "sweep_id": null,
+    "correction": "41bfaafe-26bf-4767-8591-68a70750ad13",
+    "amal_gave": "سنين",
+    "english": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-18T12:25:26.807469+00:00",
+     "pattern": "single-FA-e7274741",
+     "rule_id": 38612
+    }
+   },
+   {
     "id": "FA-cd1f68d7",
     "date": "2026-10-10",
     "t": "18:21",
@@ -29907,6 +29938,37 @@
     "kind": "didn't-know",
     "tier": 0,
     "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-e1a4d8a0",
+    "date": "2026-10-10",
+    "t": "21:17",
+    "t_amal": null,
+    "medi_said": "uh، احنا اندنا مطعم اسمه mata manakish.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "mata-* he said mat3am esem",
+    "right": "esmo",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-e1a4d8a0",
+    "sweep_id": null,
+    "correction": "944830ec-e4c9-4b1c-8897-bf6042d94dd2",
+    "amal_gave": "esmo",
+    "english": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-18T12:25:14.149266+00:00",
+     "pattern": "single-FA-e1a4d8a0",
+     "rule_id": 38611
+    }
    },
    {
     "id": "FA-f84e91fa",
@@ -29934,6 +29996,37 @@
     "amal_gave_arabizi": null
    },
    {
+    "id": "FA-aee5d3e5",
+    "date": "2026-10-10",
+    "t": "33:04",
+    "t_amal": null,
+    "medi_said": "Il... No. 'Cause how do I make this plural? Uh, her possessive. It would be, uh, hawaii il imi. No. Uh, it's just hawaii",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "awaa3i*",
+    "right": "emmi. awaa3i emmi",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-aee5d3e5",
+    "sweep_id": null,
+    "correction": "4cd4e8a2-8890-4398-a77b-dd6e86dad3cf",
+    "amal_gave": "emmi. awaa3i emmi",
+    "english": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-18T12:21:00.084713+00:00",
+     "pattern": "single-FA-aee5d3e5",
+     "rule_id": 38608
+    }
+   },
+   {
     "id": "FA-24ab42fe",
     "date": "2026-10-10",
     "t": "48:04",
@@ -29957,6 +30050,99 @@
     "kind": "didn't-know",
     "tier": 0,
     "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-2070837e",
+    "date": "2026-10-10",
+    "t": "56:37",
+    "t_amal": null,
+    "medi_said": "el-Halloween,",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "byesbe6",
+    "right": "byebse6",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-2070837e",
+    "sweep_id": null,
+    "correction": "3eda9efd-227f-4f47-8d66-6c9b77f5c03b",
+    "amal_gave": "byebse6",
+    "english": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-18T12:19:46.845314+00:00",
+     "pattern": "single-FA-2070837e",
+     "rule_id": 38605
+    }
+   },
+   {
+    "id": "FA-2a51920e",
+    "date": "2026-10-10",
+    "t": "56:53",
+    "t_amal": null,
+    "medi_said": "Uh,",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "he says bysbu6*",
+    "right": "byebse6",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-2a51920e",
+    "sweep_id": null,
+    "correction": "0a43e632-da72-42d3-ba3f-495e387cf502",
+    "amal_gave": "byebse6",
+    "english": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-18T12:19:59.651635+00:00",
+     "pattern": "single-FA-2a51920e",
+     "rule_id": 38606
+    }
+   },
+   {
+    "id": "FA-50a03cac",
+    "date": "2026-10-10",
+    "t": "1:02:16",
+    "t_amal": null,
+    "medi_said": "No, it's, uh... Shoot. Okay, aghlab il ishi.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "aghlab",
+    "right": "aa5er",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-50a03cac",
+    "sweep_id": null,
+    "correction": "3c6cce0c-4965-4d73-a481-7d0eac61bb53",
+    "amal_gave": "aa5er",
+    "english": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null,
+    "amal_confirmed": {
+     "at": "2026-10-18T12:20:44.696458+00:00",
+     "pattern": "single-FA-50a03cac",
+     "rule_id": 38607
+    }
    },
    {
     "id": "FA-4b036412",
@@ -80378,7 +80564,7 @@
    "amal_said": null,
    "wrong": "ma3",
    "right": "bi-soat",
-   "kind": "vocab-B",
+   "kind": "dropped-by-amal",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
@@ -80390,7 +80576,19 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-08913bf7",
-   "n": 1339
+   "n": 1339,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "single-FA-08913bf7",
+    "reason": "Wrong error. He said 3aroos instead of 3urus. He didn’t say 3urso",
+    "at": "2026-10-18T12:18:32.240303+00:00",
+    "rule_id": 38604,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A2",
@@ -80852,19 +81050,30 @@
    "amal_said": null,
    "wrong": "سنان",
    "right": "سنين",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
    "correction": "41bfaafe-26bf-4767-8591-68a70750ad13",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-e7274741",
-   "n": 1353
+   "n": 1353,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "single-FA-e7274741",
+    "at": "2026-10-18T12:25:26.807469+00:00",
+    "rule_id": 38612,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A8",
@@ -81010,19 +81219,30 @@
    "amal_said": null,
    "wrong": "mata-* he said mat3am esem",
    "right": "esmo",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
    "correction": "944830ec-e4c9-4b1c-8897-bf6042d94dd2",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-e1a4d8a0",
-   "n": 1358
+   "n": 1358,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "single-FA-e1a4d8a0",
+    "at": "2026-10-18T12:25:14.149266+00:00",
+    "rule_id": 38611,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A9",
@@ -81275,7 +81495,7 @@
    "amal_said": null,
    "wrong": "3ala albek/2albek* sa7tain response",
    "right": "credited for knowing pleasantries responses like sa7tain, ya3tik el-3aafie, aasef, etc",
-   "kind": "vocab-B",
+   "kind": "dropped-by-amal",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
@@ -81287,7 +81507,19 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-c87d3c79",
-   "n": 1366
+   "n": 1366,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "single-FA-c87d3c79",
+    "reason": "He got it right",
+    "at": "2026-10-18T12:24:03.703107+00:00",
+    "rule_id": 38610,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A14",
@@ -81461,19 +81693,30 @@
    "amal_said": null,
    "wrong": "awaa3i*",
    "right": "emmi. awaa3i emmi",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
    "correction": "4cd4e8a2-8890-4398-a77b-dd6e86dad3cf",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-aee5d3e5",
-   "n": 1372
+   "n": 1372,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "single-FA-aee5d3e5",
+    "at": "2026-10-18T12:21:00.084713+00:00",
+    "rule_id": 38608,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "bucket2": null,
@@ -81667,7 +81910,7 @@
    "amal_said": null,
    "wrong": "I'm on",
    "right": "on the/my way",
-   "kind": "vocab-B",
+   "kind": "dropped-by-amal",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
@@ -81679,7 +81922,19 @@
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-b2d2dd42",
-   "n": 1379
+   "n": 1379,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "single-FA-b2d2dd42",
+    "reason": "Both i’m on the road or on my way are correct",
+    "at": "2026-10-18T12:23:02.502257+00:00",
+    "rule_id": 38609,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "bucket2": null,
@@ -81792,19 +82047,30 @@
    "amal_said": null,
    "wrong": "byesbe6",
    "right": "byebse6",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
    "correction": "3eda9efd-227f-4f47-8d66-6c9b77f5c03b",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-2070837e",
-   "n": 1383
+   "n": 1383,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "single-FA-2070837e",
+    "at": "2026-10-18T12:19:46.845314+00:00",
+    "rule_id": 38605,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A21",
@@ -81849,19 +82115,30 @@
    "amal_said": null,
    "wrong": "he says bysbu6*",
    "right": "byebse6",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
    "correction": "0a43e632-da72-42d3-ba3f-495e387cf502",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-2a51920e",
-   "n": 1385
+   "n": 1385,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "single-FA-2a51920e",
+    "at": "2026-10-18T12:19:59.651635+00:00",
+    "rule_id": 38606,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A22",
@@ -82007,19 +82284,30 @@
    "amal_said": null,
    "wrong": "aghlab",
    "right": "aa5er",
-   "kind": "vocab-B",
+   "kind": "vocab-A",
    "bucket": null,
    "tier": 1,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
    "correction": "3c6cce0c-4965-4d73-a481-7d0eac61bb53",
    "agreed_by": "medi-correction",
    "why": "Medi 2026-10-14 marked it a mistake (Amal did not voice a fix: on her review page, tier B)",
    "uid": "FA-50a03cac",
-   "n": 1390
+   "n": 1390,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "single-FA-50a03cac",
+    "at": "2026-10-18T12:20:44.696458+00:00",
+    "rule_id": 38607,
+    "before": {
+     "kind": "vocab-B",
+     "signal": "medi-correction",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A25",
@@ -83433,7 +83721,7 @@
    "chat": "...3ala 3urusna",
    "wrong": "في عرسه",
    "right": "على عرسنا",
-   "kind": "grammar-B",
+   "kind": "dropped-by-amal",
    "tier": null,
    "bucket": "A4",
    "bucket2": "D2",
@@ -83457,7 +83745,19 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-4c45d7d8",
-   "n": 1432
+   "n": 1432,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "p-owner-ending-wrong-person",
+    "reason": "He said 3aroosi instead of 3ursi \nHe didn’t say 3urso",
+    "at": "2026-10-18T12:28:54.86912+00:00",
+    "rule_id": 38618,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A29",
@@ -83700,7 +84000,7 @@
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-18T12:18:14.908445+00:00",
+   "at": "2026-10-18T12:31:18.485188+00:00",
    "rules": [
     1928,
     1929,
@@ -83760,6 +84060,16 @@
     38090,
     38106,
     38603,
+    38604,
+    38605,
+    38606,
+    38607,
+    38608,
+    38609,
+    38610,
+    38611,
+    38612,
+    38618,
     2026,
     2027,
     2028,
