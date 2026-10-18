@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-18T11:47:17-07:00",
+ "updated": "2026-10-18T12:22:25-07:00",
  "result": "pass",
- "source": "manual: GR-40 collocation sets in D2",
- "checked_commit": "484fdfffb26f",
- "secs": 146.9,
+ "source": "hourly: 5 local commit(s)",
+ "checked_commit": "7bd62b88ce11",
+ "secs": 132.0,
  "checks": [
   {
    "id": "step_failures",
@@ -17,7 +17,7 @@
    "id": "clean_tree",
    "required": true,
    "ok": true,
-   "secs": 0.0,
+   "secs": 0.1,
    "what": "what is checked is exactly what gets published",
    "detail": "nothing uncommitted under docs, data/full-audit-2026-09-26.json, data/accuracy, RULE-BOOK.md, data/lesson-work/ledger, data/lesson-work/ledger-amal.json"
   },
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.5,
+   "secs": 1.3,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "157 JSON files parse"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 4.0,
+   "secs": 3.8,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.3,
+   "secs": 1.2,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,15 +89,15 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 2.5,
+   "secs": 2.4,
    "what": "every number shown on every page is recomputed from raw and matches",
-   "detail": "numbers: OK 945 checks"
+   "detail": "numbers: OK 947 checks"
   },
   {
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 4.5,
+   "secs": 4.1,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...9 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 6.5,
+   "secs": 6.0,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 75 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 1.8,
+   "secs": 1.7,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 107.9,
+   "secs": 96.8,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 99%] | .....                                                                    [100%] | 938 passed, 3 xfailed in 102.57s (0:01:42)"
+   "detail": ".............................. [ 99%] | .....                                                                    [100%] | 938 passed, 3 xfailed in 93.00s (0:01:32)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 7.1,
+   "secs": 6.3,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 7078.6796"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6248.8551"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 7.3,
+   "secs": 6.1,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -153,7 +153,7 @@
    "id": "review_freshness",
    "required": false,
    "ok": false,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "the two readers read the transcript the pages show now",
    "detail": "2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it; 2026-10-10: transcript changed after the readers read it; 2026-10-12: transcript changed after the readers read it"
   },
@@ -168,33 +168,34 @@
   {
    "id": "medi_corrections",
    "required": false,
-   "ok": true,
+   "ok": false,
    "secs": 0.1,
    "what": "Medi's transcript corrections: none orphaned, held or quarantined, no rule paused by probation (PR-15; a warning only, never blocks)",
-   "detail": "corrections: none orphaned, none held, no paused rule"
+   "detail": "exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)"
   },
   {
    "id": "foreign_script",
    "required": false,
    "ok": false,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)",
    "detail": "exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
   }
  ],
  "warnings": [
   "review_freshness: 2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it; 2026-10-10: transcript changed after the readers read it; 2026-10-12: transcript changed after the readers read it",
+  "medi_corrections: exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-18T11:44:22-07:00",
-  "source": "manual: GR-40 collocation sets in D2",
+  "at": "2026-10-18T12:19:54-07:00",
+  "source": "hourly: tutor refresh",
   "outcome": "blocked",
-  "sha": "1d7b2ee2e4cb73aef21bf799e67616221627af4a",
-  "reason": "rule_registry: exit 1: rule_registry: FAIL 1 problem(s) - GR-40: new rule - its test (or BLOCK check) must mention GR-40 so it is provably this rule's test | - GR-40: new rule - its test (or BLOCK check) must mention GR-40 so it is provably this rule's test; tests_py: exit 1: FAILED tests/test_tutor_page_english.py::test_no_name_in_her_page_data - Asse... | 1 failed, 937 passed, 3 xfailed in 123.88s (0:02:03)",
-  "secs": 166.0,
-  "commits_waiting": "1"
+  "sha": "58cbaead0421280ef0860a7a0293027de34d6ea6",
+  "reason": "step_failures: 3 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/lessons.json, docs/data/tutor-notes.json, docs/data/word-bank-audit-slips.json: rebuild pending (open since 2026-10-18T12:17, tutor)",
+  "secs": 132.3,
+  "commits_waiting": "3"
  },
- "blocks_before_this_pass": 1,
+ "blocks_before_this_pass": 2,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
