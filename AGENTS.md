@@ -13,6 +13,12 @@
    with `python scripts/rule_registry.py plain <ID> "<plain words, same meaning>" --topic <topic>`.
 5. Tell Medi one line: "Added GR-14 (code + test); changed 3 past moments." Never recap rules to him.
 6. Amal is never asked anything by code or by an agent; Medi sends her links.
+7. **Plans before paid API credit (Medi 2026-10-18: "you drained my paid credits for openai for no reason").** For any
+   test, benchmark, judge or one-off AI run, use Medi's monthly plans first: Claude through `claude -p` (his Claude plan),
+   OpenAI models through `codex.cmd exec -m <model>` (his ChatGPT plan; gpt-6-astra and gpt-5.6-terra/-sol work there,
+   gpt-6-sol and gpt-5.5 do not). Check the plan route with a one-line call before anything else. The paid OpenAI API key
+   (`OPENAI_API_KEY`) and the Gemini API key are used only when no plan route exists for that model AND Medi has said yes
+   to that exact spend with a dollar cap. Never change a login (Codex, Claude) to reach a model.
 
 ## Agent-process rules (registry ids; Codex cannot read Claude's memory notes, so they live here)
 
