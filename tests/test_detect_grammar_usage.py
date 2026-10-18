@@ -1,7 +1,7 @@
 
 
 def test_gr_40_d2_reads_the_tutors_uploaded_collocation_sets(tmp_path):
-    """The tutor 2026-10-18: 'update the verb plus preposition collocation list to include all the verbs' (her upload
+    """GR-40 - the tutor 2026-10-18: 'update the verb plus preposition collocation list to include all the verbs' (her upload
     'All verb Collocations'): a card of a set whose title names collocations adds its verb + preposition to D2."""
     import json as _j
     import detect_grammar_usage as D
