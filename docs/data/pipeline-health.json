@@ -2,17 +2,20 @@
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-10-18T18:20:33Z",
  "last_publish_sha": "2c327ffa3710c41d4ea5a68c2eb01d0ba215cbfa",
- "last_block_reason": "rule_registry: exit 1: rule_registry: FAIL 1 problem(s) - GR-40: new rule - its test (or BLOCK check) must mention GR-40 so it is provably this rule's test | - GR-40: new rule - its test (or BLOCK check) must mention GR-40 so it is provably this rule's test; tests_py: exit 1: FAILED tests/test_tutor_page_english.py::test_no_name_in_her_page_data - Asse... | 1 failed, 937 passed, 3 xfailed in 12...",
- "last_block_utc": "2026-10-18T18:44:22Z",
- "first_block_reason": "rule_registry: exit 1: rule_registry: FAIL 1 problem(s) - GR-40: new rule - its test (or BLOCK check) must mention GR-40 so it is provably this rule's test | - GR-40: new rule - its test (or BLOCK check) must mention GR-40 so it is provably this rule's test; tests_py: exit 1: FAILED tests/test_tutor_page_english.py::test_no_name_in_her_page_data - Asse... | 1 failed, 937 passed, 3 xfailed in 12...",
- "blocked_since_utc": "2026-10-18T18:44:22Z",
- "open_failures": [],
+ "last_block_reason": "step_failures: 3 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/lessons.json, docs/data/tutor-notes.json, docs/data/word-bank-audit-slips.json: rebuild pending (open since 2026-10-18T12:17, tutor)",
+ "last_block_utc": "2026-10-18T19:19:54Z",
+ "first_block_reason": "lesson_ledger: exit 1: ...s older than its inputs (docs/data/grammar-usage.json, docs/data/grammar-buckets.json): rebuild (build_lessons_page_data.py) | 2026-10-12: ledger is older than its inputs (docs/data/grammar-usage.json, docs/data/grammar-buckets.json): rebuild (build_lessons_page_data.py) | ledger: FAIL 24 problem(s); tests_py: exit 1: FAILED tests/test_lesson_ledger.py::test_LS_11_comm...",
+ "blocked_since_utc": "2026-10-18T18:49:30Z",
+ "open_failures": [
+  "tutor: 3 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/lessons.json, docs/data/tutor-notes.json, docs/data/word-bank-audi"
+ ],
  "pending": [
   "lesson 2026-10-14 recorded, not on the site",
-  "1 blocked push(es) since the last publish"
+  "1 open failure(s): tutor",
+  "2 blocked push(es) since the last publish"
  ],
- "hours_since_publish": 0.4,
+ "hours_since_publish": 1.0,
  "stalled": false,
- "generated_at": "2026-10-18T18:47:17Z",
- "plain_reason": "a test failed"
+ "generated_at": "2026-10-18T19:19:54Z",
+ "plain_reason": "step_failures: 3 generated file(s) took master's copy after a rebase (rebuilt, never me..."
 }
