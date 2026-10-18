@@ -19,6 +19,9 @@
    gpt-6-sol and gpt-5.5 do not). Check the plan route with a one-line call before anything else. The paid OpenAI API key
    (`OPENAI_API_KEY`) and the Gemini API key are used only when no plan route exists for that model AND Medi has said yes
    to that exact spend with a dollar cap. Never change a login (Codex, Claude) to reach a model.
+8. **PR-28 the accuracy method:** lessons are transcribed and graded ONLY by `plan/ACCURACY-METHOD.md` (Medi 2026-10-18). A step
+   changes only by its change rule (held-out test on fully graded lessons, beat the noise, win again on the next graded
+   lesson); when a step improves, every old lesson is re-run with it.
 
 ## Agent-process rules (registry ids; Codex cannot read Claude's memory notes, so they live here)
 
