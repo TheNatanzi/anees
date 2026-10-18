@@ -2,16 +2,20 @@
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-10-18T16:20:29Z",
  "last_publish_sha": "cee2fc6c3adda4328a0bd217f72b7d452b792288",
- "last_block_reason": null,
- "last_block_utc": null,
- "first_block_reason": null,
- "blocked_since_utc": null,
- "open_failures": [],
+ "last_block_reason": "step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/tutor-notes.json: rebuild pending (open since 2026-10-18T09:50, tutor)",
+ "last_block_utc": "2026-10-18T16:53:07Z",
+ "first_block_reason": "step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/tutor-notes.json: rebuild pending (open since 2026-10-18T09:50, tutor)",
+ "blocked_since_utc": "2026-10-18T16:53:07Z",
+ "open_failures": [
+  "tutor: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/tutor-notes.json: rebuild pending"
+ ],
  "pending": [
-  "lesson 2026-10-14 recorded, not on the site"
+  "lesson 2026-10-14 recorded, not on the site",
+  "1 open failure(s): tutor",
+  "1 blocked push(es) since the last publish"
  ],
  "hours_since_publish": 0.5,
  "stalled": false,
- "generated_at": "2026-10-18T16:49:29Z",
- "plain_reason": "waiting: lesson 2026-10-14 recorded, not on the site"
+ "generated_at": "2026-10-18T16:53:07Z",
+ "plain_reason": "step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never me..."
 }
