@@ -8735,6 +8735,42 @@
    "aliases": []
   },
   {
+   "id": "GR-40",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "D2 (verb + its fixed preposition) also takes every verb + preposition card of the tutor's uploaded flashcard sets whose title names collocations (docs/data/uploads.json, e.g. 'All verb Collocations', 67 cards on 2026-10-12): detect_grammar_usage.verb_preps reads the card's Latin side for the preposition(s) (min, 3ala, 3an, ma3, fi, bi, la) and its Arabic side for the verb. Cards with no preposition ('Ana ba3ti (X)') add nothing. D2 went from 49 to 63 verbs.",
+   "plain": "Every verb + preposition on your tutor's uploaded 'collocations' flashcard sets now counts in the verb + preposition grammar rule (D2).",
+   "plain_for": "b4ec2006",
+   "topic": "grammar",
+   "source": [
+    {
+     "by": "amal",
+     "date": "2026-10-18",
+     "quote": "I wanted to update the verb plus preposition collocation list to include all the verbs."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "if \"colloc\" not in str(st_.get(\"title\") or \"\").lower():"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_detect_grammar_usage.py",
+     "contains": "def test_gr_40_d2_reads_the_tutors_uploaded_collocation_sets"
+    }
+   ],
+   "example": {
+    "date": "2026-10-18",
+    "note": "All verb Collocations: 58 cards with a preposition, all now in D2"
+   },
+   "aliases": []
+  },
+  {
    "id": "AM-30",
    "kind": "process",
    "scope": "amal-data",

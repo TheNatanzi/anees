@@ -446,6 +446,24 @@ def verb_preps(repo=None):
         ps = {a or b for a, b in m}
         if ps & _PREP_LAT:
             put(x.get("arabic"), ps)
+    # GR-40 (the tutor 2026-10-18: "I wanted to update the verb plus preposition collocation list to include all the verbs" -
+    # her list is the flashcard set she uploaded, 'All verb Collocations'): every card of an upload whose title names
+    # collocations adds its verb + preposition(s). A card holds 'Ana ba7ki ma3' / 'أنا بحكي مع I speak / talk to' in either field.
+    try:
+        for st_ in (json.load(open(os.path.join(root, "docs", "data", "uploads.json"), encoding="utf-8")) or {}).get("sets") or []:
+            if "colloc" not in str(st_.get("title") or "").lower():
+                continue
+            for c in st_.get("cards") or []:
+                fields = [str(c.get(k) or "") for k in ("arabizi", "arabic", "english")]
+                lat = " ".join(f for f in fields if f and not AR_WORD.search(f))
+                ar = next((f for f in fields if AR_WORD.search(f)), "")
+                toks = [t.strip("()/,.").lower() for t in lat.replace("/", " ").split()]
+                ps = {t.rstrip("-") for t in toks if t.rstrip("-") in _PREP_LAT}
+                ar_verb = " ".join(AR_WORD.findall(ar)[:2])          # 'أنا بحكي' (the pronoun is skipped by _vstem)
+                if ps and ar_verb:
+                    put(ar_verb, ps)
+    except (OSError, ValueError):
+        pass
     if _vstem("أنا بنبسط") in out:
         out[_vstem("أنا بنبسط")].add("bi")               # Medi 2026-10-11: "Banbese6 always takes bi"
     return dict(out)
