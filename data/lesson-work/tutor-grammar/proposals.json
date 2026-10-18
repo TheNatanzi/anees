@@ -619,6 +619,45 @@
     "model": "claude-sonnet-5-5",
     "cost_usd": 0.020814,
     "asked": "The actual rule is that we add t to a houndred number because miyya/e is feminine. \nThe number before miyya stay as is so talatmiyya stay talatmiyya. What changes is the addition of a t when we add noun after it. \nYou can just add this to the grammar rule about numbers. Don’t create a whole rule just for that"
+   },
+   {
+    "grammar": true,
+    "id": "E7",
+    "family": "E",
+    "name": "hundreds: miyya becomes meet",
+    "one_line": "Miyya (or miye) turns into meet after a number in front of it (talatmeet, tamanmeet), and the noun after it is singular.",
+    "formula": "number + meet + singular noun",
+    "examples": [
+     {
+      "arabizi": "",
+      "arabic": "300 شخص",
+      "english": "300 people",
+      "hers": true
+     },
+     {
+      "arabizi": "talatmeet sha5s",
+      "arabic": "ثلاثمية شخص",
+      "english": "300 people",
+      "hers": false
+     },
+     {
+      "arabizi": "tamanmeet kursi",
+      "arabic": "تمانمية كرسي",
+      "english": "800 chairs",
+      "hers": false
+     }
+    ],
+    "why": "Miyya is a feminine word, so it changes to meet when a number comes before it, and English speakers wrongly put a plural noun after it.",
+    "overlaps": {
+     "id": "E1",
+     "name": "number + noun",
+     "why": "Add this to E1 as a note instead of a new rule: E1 already says 11+ takes a singular noun, and this adds that miyya turns into meet."
+    },
+    "v": 3,
+    "made_at": "2026-10-18T16:46:17+00:00",
+    "model": "claude-sonnet-5-5",
+    "cost_usd": 0.022322,
+    "asked": "So talatmeet sha5s\nOr tamanmeet kursi \nAdd that miyya/e  turns into meet\nAlso add it to E1 instead of adding a whole new rule"
    }
   ]
  },

@@ -1,6 +1,6 @@
 {
  "rule": "AM-31",
- "updated": "2026-10-18T09:15:10-07:00",
+ "updated": "2026-10-18T09:46:29-07:00",
  "about": "Grammar the tutor added on her Tutor page: her words, Claude's rewrite as a rule with a letter-number, and her answer. Only her 'Yes, add it' adds the rule (scripts/tutor_grammar.py).",
  "waiting_for_tutor": 1,
  "items": [
@@ -91,6 +91,45 @@
      "model": "claude-sonnet-5-5",
      "cost_usd": 0.020814,
      "asked": "The actual rule is that we add t to a houndred number because miyya/e is feminine. \nThe number before miyya stay as is so talatmiyya stay talatmiyya. What changes is the addition of a t when we add noun after it. \nYou can just add this to the grammar rule about numbers. Don’t create a whole rule just for that"
+    },
+    {
+     "grammar": true,
+     "id": "E7",
+     "family": "E",
+     "name": "hundreds: miyya becomes meet",
+     "one_line": "Miyya (or miye) turns into meet after a number in front of it (talatmeet, tamanmeet), and the noun after it is singular.",
+     "formula": "number + meet + singular noun",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "300 شخص",
+       "english": "300 people",
+       "hers": true
+      },
+      {
+       "arabizi": "talatmeet sha5s",
+       "arabic": "ثلاثمية شخص",
+       "english": "300 people",
+       "hers": false
+      },
+      {
+       "arabizi": "tamanmeet kursi",
+       "arabic": "تمانمية كرسي",
+       "english": "800 chairs",
+       "hers": false
+      }
+     ],
+     "why": "Miyya is a feminine word, so it changes to meet when a number comes before it, and English speakers wrongly put a plural noun after it.",
+     "overlaps": {
+      "id": "E1",
+      "name": "number + noun",
+      "why": "Add this to E1 as a note instead of a new rule: E1 already says 11+ takes a singular noun, and this adds that miyya turns into meet."
+     },
+     "v": 3,
+     "made_at": "2026-10-18T16:46:17+00:00",
+     "model": "claude-sonnet-5-5",
+     "cost_usd": 0.022322,
+     "asked": "So talatmeet sha5s\nOr tamanmeet kursi \nAdd that miyya/e  turns into meet\nAlso add it to E1 instead of adding a whole new rule"
     }
    ],
    "heard": {
@@ -106,7 +145,7 @@
    "text": "add to the grammar rule that is about collocations the updated list of all verb-prepositions collocations. you can find the list on the doc or in the flash card sets (named all ver collocations)",
    "example": "",
    "at": "2026-10-15T21:49:17.134861+00:00",
-   "state": "not_grammar",
+   "state": "not_rule",
    "versions": [
     {
      "grammar": false,
@@ -941,6 +980,31 @@
     "id": "A18",
     "lid": "lmvcb6xfx8imew",
     "label": "Yes, add it"
+   }
+  },
+  {
+   "id": 38675,
+   "created_at": "2026-10-18T16:31:15.221878+00:00",
+   "kind": "grammar_change",
+   "word_key": "tgram:heard-20261012-5102:answer",
+   "payload": {
+    "v": 2,
+    "id": "E7",
+    "lid": "lmve1lkehhg86s",
+    "what": "So talatmeet sha5s\nOr tamanmeet kursi \nAdd that miyya/e  turns into meet\nAlso add it to E1 instead of adding a whole new rule",
+    "label": "Change it"
+   }
+  },
+  {
+   "id": 38676,
+   "created_at": "2026-10-18T16:31:42.68015+00:00",
+   "kind": "grammar_no",
+   "word_key": "tgram:92zgc00ct:answer",
+   "payload": {
+    "v": 1,
+    "id": null,
+    "lid": "lmve1m5qe6ilwx",
+    "label": "Not a rule"
    }
   }
  ]
