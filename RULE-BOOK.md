@@ -691,7 +691,7 @@ _Rules for the AI helpers that build Anees._
   <br><sub>Medi, 2026-10-15: “Yes: build the Opus + Sonnet both-agree reader into the app, confirm it on the next fully reviewed lesson, and push it through the publish guard.”</sub>
 - The hourly job can no longer get stuck on a file only it writes, settles clashes with the live site in one step, and pops up a warning on the PC if publishing stops for 2 hours. `PR-26` _Automatic_
   <br><sub>Medi, 2026-10-16: “dude fix the hourly once and for all”</sub>
-- A moment where you only asked for a word, or where the tutor did not react, is never marked as your mistake - unless your tutor confirmed it. `PR-27` _Automatic_
+- A moment where the tutor did not react is never marked as your mistake (unless she confirmed it); a moment where you only asked for a word stays a grey half-credit chip, never a mistake. `PR-27` _Automatic_
   <br><sub>Medi, 2026-10-18: “Ship the rule and fix”</sub>
 - Your corrections on the transcript are saved, can be undone, and change every page. Amal still decides whether your Arabic was right. `PR-15` _Automatic_
   <br><sub>Medi, 2026-10-02: “i am going to make some corrections to the transcript. try and make rule and patterns with my corrections.”</sub>

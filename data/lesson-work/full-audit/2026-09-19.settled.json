@@ -12,8 +12,7 @@
   "r3_unruled": 0,
   "r3_added": 0,
   "r3_challenged": 0,
-  "final": 33,
-  "held_one_reader": 3
+  "final": 36
  },
  "coverage": {
   "r1": "Opening 00:00-06:26 is English chat about a song (Amal's Arabic shows as '[foreign language]'); speaking practice 06:28-10:40 (date, time, weather, clothes); 10:40-1:00:35 is a listening/translation drill of make-X vs get-X verbs (Amal says Arabic, Medi translates), so most rows are mode=listening. Not rows: 08:54/09:04 ابل امبارح (qaf->hamza, S4); 09:56-10:01 بياض/أبيض -> بيضة self-fixed before Amal's بيضة; 10:08 رسمي -> قميص رسمي self-fix; 34:46 'are you scared--were you scared' self-fix; 57:50 'you guys enjoyed with him' is right (chat enbas6tu ma3o). Engine: 14:17 'back su-- back sir' likely kasar; 47:22 'too much fucked' = engine noise; 20:04 بيساع = his echo of بيزعل. Echo candidate 'Oh, the smell.' at 09:40 is real English, not an echo.",
@@ -21,6 +20,31 @@
  },
  "r3_note": "Song stretch 02:00-04:00: Amal's Arabic is mostly [foreign language] holes, so lyric words there cannot be verified (D5, D7 dropped; D6 kept low). Agreed rows A1-A27 checked against the transcript; none challenged. A14 (33:34 'You guys...' -> بينبسطوا) is thin - he stalled and she gave the verb - but he then said 'they', so left in.",
  "rows": [
+  {
+   "id": "0919-r3-6",
+   "t": "03:44",
+   "t_amal": "03:47",
+   "medi_said": "Does it come from, like, Sakit? No? صح؟",
+   "amal_said": "No, it's from [ساحة]. [ساحة] is a yard, house yard.",
+   "chat": null,
+   "wrong": "Sakit",
+   "right": "ساحة (ساحة البيت)",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "listening",
+   "signal": "asked",
+   "confidence": "low",
+   "why": "Listening didn't-know from the song lyric: he guessed the root as Sakit and Amal said No, it's 'a yard, house yard' (sheet: house yard | Sa7et el-bait | ساحة البيت); her Arabic word is [foreign language] in the transcript, filled from her English gloss and the sheet.",
+   "english": "house yard",
+   "ids": [
+    "0919-2"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "He made a wrong guess and she voiced 'No' plus the meaning; real listening didn't-know, tier 0. Low confidence because her Arabic word is a transcript hole.",
+   "fid": "0919-001"
+  },
   {
    "id": "0919-r3-1",
    "t": "06:37",
@@ -45,7 +69,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Real slip, recast by Amal's '19.'; he knows تسعطاش (said it right after), so it is a wrong form of a known number, tier 2 not tier 1.",
-   "fid": "0919-001"
+   "fid": "0919-002"
   },
   {
    "id": "A1",
@@ -70,7 +94,7 @@
     "0919-5"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-002"
+   "fid": "0919-003"
   },
   {
    "id": "A2",
@@ -95,7 +119,32 @@
     "0919-6"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-003"
+   "fid": "0919-004"
+  },
+  {
+   "id": "0919-r3-8",
+   "t": "09:36",
+   "t_amal": "09:37",
+   "medi_said": "شو يعني ريحته؟",
+   "amal_said": "ريحة. ريحت.",
+   "chat": null,
+   "wrong": "ريحته",
+   "right": "ريحة",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "listening",
+   "signal": "asked",
+   "confidence": "medium",
+   "why": "Listening didn't-know: he first misheard ريحته as 'خمارة?' (09:15), then asked what ريحته means; Amal said ريحة and he said 'Oh, the smell' (sheet: smell | ree7a | ريحة).",
+   "english": "its smell",
+   "ids": [
+    "0919-7"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "He asked the meaning and Amal supplied the word; a listening didn't-know, tier 0.",
+   "fid": "0919-005"
   },
   {
    "id": "0919-r3-2",
@@ -121,7 +170,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "كمي is not a real attempt at a different word - he was reaching and she gave the word; it is a didn't-know/supplied word (tier 0), not a tier-1 wrong word.",
-   "fid": "0919-004"
+   "fid": "0919-006"
   },
   {
    "id": "A3",
@@ -146,7 +195,7 @@
     "0919-9"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-005"
+   "fid": "0919-007"
   },
   {
    "id": "A4",
@@ -171,7 +220,7 @@
     "0919-10"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-006"
+   "fid": "0919-008"
   },
   {
    "id": "A5",
@@ -196,7 +245,7 @@
     "0919-11"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-007"
+   "fid": "0919-009"
   },
   {
    "id": "A6",
@@ -221,7 +270,7 @@
     "0919-12"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-008"
+   "fid": "0919-010"
   },
   {
    "id": "A7",
@@ -246,7 +295,7 @@
     "0919-13"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-009"
+   "fid": "0919-011"
   },
   {
    "id": "A8",
@@ -271,7 +320,7 @@
     "0919-14"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-010"
+   "fid": "0919-012"
   },
   {
    "id": "A9",
@@ -296,7 +345,32 @@
     "0919-15"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-011"
+   "fid": "0919-013"
+  },
+  {
+   "id": "0919-r3-9",
+   "t": "22:58",
+   "t_amal": "23:03",
+   "medi_said": "he will not be bored of you. Is that...",
+   "amal_said": "ما راح يكون زهقان منك. He will not be bored of you.",
+   "chat": null,
+   "wrong": "he will not be bored of you",
+   "right": "ما راح يكون زهقان منك",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "asked",
+   "confidence": "low",
+   "why": "Didn't-know: after the أزهقك/يزهقك drill he asked how to say 'he will not be bored of you' and Amal supplied ما راح يكون زهقان منك (sheet: bored | Zahqaan | زهقان).",
+   "english": "he will not be bored of you",
+   "ids": [
+    "0919-16"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "An answered 'how do you say X?' - didn't-know, tier 0, as the brief prescribes; not a slip.",
+   "fid": "0919-014"
   },
   {
    "id": "A10",
@@ -321,7 +395,7 @@
     "0919-17"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-012"
+   "fid": "0919-015"
   },
   {
    "id": "A11",
@@ -346,7 +420,7 @@
     "0919-18"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-013"
+   "fid": "0919-016"
   },
   {
    "id": "A12",
@@ -371,7 +445,7 @@
     "0919-19"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-014"
+   "fid": "0919-017"
   },
   {
    "id": "0919-r3-3",
@@ -397,7 +471,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Her prompt was about ضايق vs the 'to be upset' form, i.e. make-X vs get-X (B12); the transcript supports grammar B12 over a plain vocab swap.",
-   "fid": "0919-015"
+   "fid": "0919-018"
   },
   {
    "id": "A13",
@@ -422,7 +496,7 @@
     "0919-21"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-016"
+   "fid": "0919-019"
   },
   {
    "id": "A14",
@@ -447,7 +521,7 @@
     "0919-22"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-017"
+   "fid": "0919-020"
   },
   {
    "id": "A15",
@@ -472,7 +546,7 @@
     "0919-23"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-018"
+   "fid": "0919-021"
   },
   {
    "id": "A16",
@@ -497,7 +571,7 @@
     "0919-24"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-019"
+   "fid": "0919-022"
   },
   {
    "id": "A17",
@@ -522,7 +596,7 @@
     "0919-25"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-020"
+   "fid": "0919-023"
   },
   {
    "id": "A18",
@@ -547,7 +621,7 @@
     "0919-27"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-021"
+   "fid": "0919-024"
   },
   {
    "id": "A19",
@@ -572,7 +646,7 @@
     "0919-26"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-022"
+   "fid": "0919-025"
   },
   {
    "id": "A20",
@@ -597,7 +671,7 @@
     "0919-28"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-023"
+   "fid": "0919-026"
   },
   {
    "id": "0919-r3-10",
@@ -622,7 +696,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Real misread with her prompt (re-saying متعب, then 'What's tired?'); متعب vs تعبان are forms of the same root he knows, so tier 2 rather than tier 1.",
-   "fid": "0919-024"
+   "fid": "0919-027"
   },
   {
    "id": "A21",
@@ -647,7 +721,7 @@
     "0919-30"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-025"
+   "fid": "0919-028"
   },
   {
    "id": "0919-r3-11",
@@ -672,7 +746,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Her repeat after his wrong gloss is a prompt and he fixed it after her; a different lexical meaning (angry vs apologize) -> tier 1, listening.",
-   "fid": "0919-026"
+   "fid": "0919-029"
   },
   {
    "id": "A22",
@@ -697,7 +771,7 @@
     "0919-32"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-027"
+   "fid": "0919-030"
   },
   {
    "id": "0919-r3-4",
@@ -723,7 +797,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Her 'No' and 'For, for him' target the preposition له that goes with انبسط, so D2 (verb + fixed preposition), consistent with agreed A27; 'She was happy' alone was not what she corrected (انبسطت is both I and she).",
-   "fid": "0919-028"
+   "fid": "0919-031"
   },
   {
    "id": "A23",
@@ -748,7 +822,7 @@
     "0919-34"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-029"
+   "fid": "0919-032"
   },
   {
    "id": "A24",
@@ -773,7 +847,7 @@
     "0919-35"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-030"
+   "fid": "0919-033"
   },
   {
    "id": "A25",
@@ -798,7 +872,7 @@
     "0919-36"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-031"
+   "fid": "0919-034"
   },
   {
    "id": "A26",
@@ -823,7 +897,7 @@
     "0919-37"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-032"
+   "fid": "0919-035"
   },
   {
    "id": "A27",
@@ -848,84 +922,7 @@
     "0919-38"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0919-033"
-  }
- ],
- "held_one_reader": [
-  {
-   "id": "0919-r3-6",
-   "t": "03:44",
-   "t_amal": "03:47",
-   "medi_said": "Does it come from, like, Sakit? No? صح؟",
-   "amal_said": "No, it's from [ساحة]. [ساحة] is a yard, house yard.",
-   "chat": null,
-   "wrong": "Sakit",
-   "right": "ساحة (ساحة البيت)",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "bucket2": null,
-   "mode": "listening",
-   "signal": "asked",
-   "confidence": "low",
-   "why": "Listening didn't-know from the song lyric: he guessed the root as Sakit and Amal said No, it's 'a yard, house yard' (sheet: house yard | Sa7et el-bait | ساحة البيت); her Arabic word is [foreign language] in the transcript, filled from her English gloss and the sheet.",
-   "english": "house yard",
-   "ids": [
-    "0919-2"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "He made a wrong guess and she voiced 'No' plus the meaning; real listening didn't-know, tier 0. Low confidence because her Arabic word is a transcript hole.",
-   "held": "held: asked for a word or no reaction from the tutor (PR-27)"
-  },
-  {
-   "id": "0919-r3-8",
-   "t": "09:36",
-   "t_amal": "09:37",
-   "medi_said": "شو يعني ريحته؟",
-   "amal_said": "ريحة. ريحت.",
-   "chat": null,
-   "wrong": "ريحته",
-   "right": "ريحة",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "bucket2": null,
-   "mode": "listening",
-   "signal": "asked",
-   "confidence": "medium",
-   "why": "Listening didn't-know: he first misheard ريحته as 'خمارة?' (09:15), then asked what ريحته means; Amal said ريحة and he said 'Oh, the smell' (sheet: smell | ree7a | ريحة).",
-   "english": "its smell",
-   "ids": [
-    "0919-7"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "He asked the meaning and Amal supplied the word; a listening didn't-know, tier 0.",
-   "held": "held: asked for a word or no reaction from the tutor (PR-27)"
-  },
-  {
-   "id": "0919-r3-9",
-   "t": "22:58",
-   "t_amal": "23:03",
-   "medi_said": "he will not be bored of you. Is that...",
-   "amal_said": "ما راح يكون زهقان منك. He will not be bored of you.",
-   "chat": null,
-   "wrong": "he will not be bored of you",
-   "right": "ما راح يكون زهقان منك",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "asked",
-   "confidence": "low",
-   "why": "Didn't-know: after the أزهقك/يزهقك drill he asked how to say 'he will not be bored of you' and Amal supplied ما راح يكون زهقان منك (sheet: bored | Zahqaan | زهقان).",
-   "english": "he will not be bored of you",
-   "ids": [
-    "0919-16"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "An answered 'how do you say X?' - didn't-know, tier 0, as the brief prescribes; not a slip.",
-   "held": "held: asked for a word or no reaction from the tutor (PR-27)"
+   "fid": "0919-036"
   }
  ]
 }

@@ -110,7 +110,9 @@ def signal_gate(rows, keep=()):
         if (str(r.get("t")), str(r.get("wrong"))) in keep:
             kept.append(r)
             continue
-        if f and (s == "asked" or (s == "none" and not k.endswith("-B"))):
+        # 2026-10-18: an 'asked' row is NOT held - the page already shows it as a grey 'asked' chip (half credit, PG-44),
+        # never a ✗; holding it removed 103 of those chips. Only an A-kind row with no tutor reaction is held.
+        if f and s == "none" and not k.endswith("-B"):
             held.append(dict(r, held=HELD_SIGNAL))
         else:
             kept.append(r)

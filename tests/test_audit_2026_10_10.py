@@ -94,7 +94,7 @@ def test_10_08_moments_from_his_notes():
     assert T[2988.22]["text"].startswith("أرض")                                       # 'not w-Rudd, ardd'
     assert T[1269.28]["text"] == "شو جمع طيارة؟"                                       # 'shu jam3a tayara*'
     w = lambda t, s: [c for c in chips_at(d, t)[1] if c.get("k") == "vocab" and c.get("s") == s]
-    assert w(973.57, "wrong")                                                          # 16:13 عصافير for sky
+    assert not w(973.57, "wrong")                                                      # 16:13 عصافير: his note said wrong, the tutor ruled right (AM-33, 2026-10-18)
     assert w(2162.66, "wrong")                                                         # 36:02 الماضي for قبل
     assert w(2424.45, "wrong")                                                         # 40:24 أجو for قوي
     assert w(1205.24, "correct")                                                       # 20:05 his غيوم counts

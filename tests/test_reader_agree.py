@@ -145,14 +145,14 @@ def test_pr_27_asked_and_no_reaction_rows_are_held_never_a_chip():
             {"t": "04:00", "kind": "grammar", "signal": "recast"},
             {"t": "05:00", "kind": "vocab-A", "signal": "explicit-no"}]
     kept, held = RA.signal_gate(rows)
-    assert [r["t"] for r in kept] == ["03:00", "04:00", "05:00"]
-    assert [r["t"] for r in held] == ["01:00", "02:00"] and all("PR-27" in r["held"] for r in held)
+    assert [r["t"] for r in kept] == ["01:00", "03:00", "04:00", "05:00"]     # an 'asked' row stays: it is a grey chip, not a ✗
+    assert [r["t"] for r in held] == ["02:00"] and all("PR-27" in r["held"] for r in held)
 
 
 def test_pr_27_never_holds_a_row_the_tutor_confirmed():
     """2026-10-18: re-settling every lesson with PR-27 dropped two slips she had confirmed (09-26 10:13 مساعد, 10-01 07:04
     حساب, both signal 'asked'): her ruling wins."""
     import reader_agree as RA
-    rows = [{"t": "10:13", "kind": "vocab-A", "signal": "asked", "wrong": "مساعد"}, {"t": "11:00", "kind": "vocab-A", "signal": "asked", "wrong": "x"}]
+    rows = [{"t": "10:13", "kind": "vocab-A", "signal": "none", "wrong": "مساعد"}, {"t": "11:00", "kind": "vocab-A", "signal": "none", "wrong": "x"}]
     kept, held = RA.signal_gate(rows, keep={("10:13", "مساعد")})
     assert [r["t"] for r in kept] == ["10:13"] and [r["t"] for r in held] == ["11:00"]
