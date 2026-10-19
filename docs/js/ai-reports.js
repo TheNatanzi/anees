@@ -22,7 +22,9 @@
     const latest = reps.map(p => p.date).sort().pop() || '—';
     $('#ab-metrics').innerHTML = [['Reports', reps.length, 'Research write-ups'], ['By Claude', by.Claude || 0, 'Audits'], ['By Codex', by.Codex || 0, 'Tests and bake-offs'], ['Latest', latest, 'Newest report'], ['Engine we use', 'ElevenLabs', 'Scribe v2 · the teal bars'], ['Frozen clips', '20', 'Same audio for every engine test']]
       .map(([l, v, n]) => `<div class="ab-metric"><div class="ab-metric-label">${esc(l)}</div><div class="ab-number">${esc(v)}</div><div class="ab-tiny">${esc(n)}</div></div>`).join('');
-    $('#ar-list').innerHTML = reps.map(card).join('') || '<div class="vp-notice">No reports yet.</div>';
+    const papers = reps.filter(p => p.featured);   // Medi 2026-10-19: a Research section for experiments and results, like a research paper
+    if (papers.length && $('#ar-papers')) { $('#ar-papers-list').innerHTML = papers.map(card).join(''); $('#ar-papers').hidden = false; }
+    $('#ar-list').innerHTML = reps.filter(p => !p.featured).map(card).join('') || '<div class="vp-notice">No reports yet.</div>';
     $('#ar-foot').textContent = `Updated ${r.updated}. Engine numbers (Sept 4–5) are counts on 20 frozen clips, not accuracy; the process audit counts hand-audited rows.`;
   }
 

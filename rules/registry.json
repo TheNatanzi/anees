@@ -11953,6 +11953,42 @@
     "note": "30 moments, about 22 minutes"
    },
    "aliases": []
+  },
+  {
+   "id": "PG-53",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "AI Reports > Research & audits opens with a 'Research papers' section (docs/ai-reports.html #ar-papers, filled by docs/js/ai-reports.js from docs/data/ai_reports.json entries with featured: true). The first paper is the case study of all transcription and grading tests (Sept 3 - Oct 18), published as its PUBLIC version: names replaced by roles, lesson excerpts withheld until the tutor's publication consent is recorded (plan/ANEES-CASE-STUDY-2026-10-19.md -> docs/reports/anees-case-study-2026-10-19.html by scripts/build_ai_reports.py, plus its PDF). The private master record stays off the public repository.",
+   "plain": "AI Reports has a Research papers section at the top of its research tab; the first paper is the case study of every test we ran, with names and lesson excerpts left out.",
+   "plain_for": "7f9cf3e1",
+   "topic": "pages",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-19",
+     "quote": "For ai reports we need to start building out a section for our experiments and results like a research paper"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/ai-reports.js",
+     "contains": "const papers = reps.filter(p => p.featured);"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_pg_53_research_papers_section_shows_the_public_case_study"
+    }
+   ],
+   "example": {
+    "date": "2026-10-19",
+    "note": "1 paper"
+   },
+   "aliases": []
   }
  ]
 }

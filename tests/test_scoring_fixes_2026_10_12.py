@@ -283,3 +283,18 @@ def test_gr_39_10_09_his_marks_are_counted_slips():
     a = J("data", "full-audit-2026-09-26.json")
     mine = [r for r in a["sweep_compat"]["rows"] if r.get("date") == "2026-10-09" and str(r.get("correction") or "").startswith("chat-20261012-")]
     assert {r.get("bucket") for r in mine} >= {"A15", "A10", "D1"}
+
+
+def test_pg_53_research_papers_section_shows_the_public_case_study():
+    """PG-53 (Medi 2026-10-19): 'For ai reports we need to start building out a section for our experiments and results like a
+    research paper'. The featured paper is the PUBLIC version: roles, no lesson excerpts (the tutor's consent is pending)."""
+    import io, json, os, re
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    d = json.load(io.open(os.path.join(root, 'docs', 'data', 'ai_reports.json'), encoding='utf-8'))
+    papers = [r for r in d['reports'] if r.get('featured')]
+    assert papers and all(os.path.exists(os.path.join(root, 'docs', l['url'])) for p in papers for l in p['links'])
+    html = io.open(os.path.join(root, 'docs', 'ai-reports.html'), encoding='utf-8').read()
+    assert 'id="ar-papers"' in html and 'Research papers' in html
+    md = io.open(os.path.join(root, 'plan', 'ANEES-CASE-STUDY-2026-10-19.md'), encoding='utf-8').read()
+    assert not re.search(r'\b(Medi|Amal)\b', md)
+    assert not re.search(r'[؀-ۿ]{3,}', md)                       # no Arabic lesson words
