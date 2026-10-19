@@ -11989,6 +11989,42 @@
     "note": "1 paper"
    },
    "aliases": []
+  },
+  {
+   "id": "PG-54",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The colour-theme slider (docs/js/theme.js) never renders as bare buttons: before it links css/theme-switch.css it injects a minimal inline style (data-sabz-theme-fallback) that keeps the three icons in one small row and hides the Light / Dark / Phone labels, so a failed or stale stylesheet cannot show three big grey boxes.",
+   "plain": "The Light / Dark / Phone switch always stays a small row of icons, even if its stylesheet fails to load.",
+   "plain_for": "da7f9490",
+   "topic": "pages",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-19",
+     "quote": "fix (screenshot: three big grey Light / Dark / Phone boxes under System Settings)"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/theme.js",
+     "contains": "fb.setAttribute('data-sabz-theme-fallback', '')"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_pg_54_theme_switch_keeps_its_shape_when_its_stylesheet_fails"
+    }
+   ],
+   "example": {
+    "date": "2026-10-19",
+    "note": "settings.html with the sheet removed: 130 x 32 px instead of 130 x 131"
+   },
+   "aliases": []
   }
  ]
 }

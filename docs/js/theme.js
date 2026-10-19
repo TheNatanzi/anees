@@ -32,6 +32,16 @@
   }
   function sheet() {
     if (document.querySelector('link[data-sabz-theme-css]')) return;
+    // PG-54 (Medi 2026-10-19, screenshot: three big grey "Light / Dark / Phone" boxes): when css/theme-switch.css does not
+    // load (stale cache, blocked fetch) the bare buttons showed. This minimal inline copy keeps the slider shape; the full
+    // sheet below still loads on top of it.
+    const fb = document.createElement('style');
+    fb.setAttribute('data-sabz-theme-fallback', '');
+    fb.textContent = '.sabz-theme{display:inline-grid;grid-template-columns:repeat(3,1fr);width:100%;max-width:132px;margin:14px 0 0;padding:3px;border-radius:999px;position:relative}'
+      + '.sabz-theme-knob{display:none}.sabz-theme button{height:26px;min-width:0;padding:0;border:0;border-radius:999px;background:transparent;color:inherit;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}'
+      + '.sabz-theme button[aria-pressed=true]{background:rgba(127,127,127,.25)}.sabz-theme button svg{width:15px;height:15px}'
+      + '.sabz-theme-name{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}';
+    (document.head || document.documentElement).appendChild(fb);
     const base = HERE.replace(/js\/theme\.js.*$/, '');
     const link = document.createElement('link');
     link.rel = 'stylesheet'; link.href = base + 'css/theme-switch.css'; link.setAttribute('data-sabz-theme-css', '');

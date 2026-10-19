@@ -298,3 +298,14 @@ def test_pg_53_research_papers_section_shows_the_public_case_study():
     md = io.open(os.path.join(root, 'plan', 'ANEES-CASE-STUDY-2026-10-19.md'), encoding='utf-8').read()
     assert not re.search(r'\b(Medi|Amal)\b', md)
     assert not re.search(r'[؀-ۿ]{3,}', md)                       # no Arabic lesson words
+
+
+def test_pg_54_theme_switch_keeps_its_shape_when_its_stylesheet_fails():
+    """PG-54 (Medi 2026-10-19, screenshot of three big grey Light / Dark / Phone boxes): theme.js injects a minimal inline
+    style before css/theme-switch.css, so the slider never renders as bare buttons with their labels showing."""
+    import io, os
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    js = io.open(os.path.join(root, 'docs', 'js', 'theme.js'), encoding='utf-8').read()
+    assert "fb.setAttribute('data-sabz-theme-fallback', '')" in js
+    assert '.sabz-theme-name{position:absolute;width:1px;height:1px;overflow:hidden' in js           # labels stay hidden
+    assert js.index('data-sabz-theme-fallback') < js.index("link.href = base + 'css/theme-switch.css'")
