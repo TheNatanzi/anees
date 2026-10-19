@@ -29,6 +29,13 @@ QUESTION = {"field": "answer", "ask": "Listen to the student. Which is true? Ple
                         {"v": "words", "label": "The words are not what the student said", "box": "What did the student really say?"},
                         {"v": "cant_tell", "label": "Can't tell / it depends", "box": "What does it depend on? (optional)"}]}
 
+# AM-35 (2026-10-19 8th-grader loop): the same answers, worded so "a mistake" and "the words are wrong" can't be mixed up
+JUDGE_QUESTION = {"field": "answer", "ask": "Listen to the student. Which is true? Writing why is optional, but your reason helps us most.", "type": "options",
+                  "options": [{"v": "right", "label": "He said it right - no mistake here", "box": "Why is it right? (optional)"},
+                              {"v": "mistake", "label": "He made a mistake here", "box": "What was wrong, and how should he say it? (optional)"},
+                              {"v": "words", "label": "The written words are wrong - he said something else", "box": "What did he really say? (optional)"},
+                              {"v": "cant_tell", "label": "Can't tell / it depends", "box": "What does it depend on? (optional)"}]}
+
 
 def secs(mm):
     p = [int(x) for x in str(mm).split(":")]
@@ -58,7 +65,7 @@ def chosen_for(date, moments, page):
     return uniq
 
 
-def build(moments=MOMENTS, out=OUT, lst="key-check-disputes", date="2026-10-17", intro=None, what=None, rule="AM-33"):
+def build(moments=MOMENTS, out=OUT, lst="key-check-disputes", date="2026-10-17", intro=None, what=None, rule="AM-33", question=QUESTION):
     M = BK.J(moments)
     items = []
     for d in sorted({m["date"] for m in M["moments"]}):
@@ -70,8 +77,8 @@ def build(moments=MOMENTS, out=OUT, lst="key-check-disputes", date="2026-10-17",
         ms = [m for m in M["moments"] if m["date"] == x["date"] and m.get("said_en")]
         if ms:
             m = min(ms, key=lambda m: abs((float(m["at"][0]) if m.get("at") else secs(m["time"])) - float(x["t"])))
-            x["rows"] = [{"label": "The student said", "ar": m["said"], "en": m["said_en"]},
-                         {"label": "Maybe it should be", "ar": m.get("fix_ar") or "", "en": m.get("fix_en") or ""}] + list(x.get("rows") or [])
+            x["rows"] = [{"label": "The possible mistake (a computer's guess)", "ar": m["said"], "en": m["said_en"]},
+                         {"label": "Maybe it should be (a computer's guess - it may be wrong)", "ar": m.get("fix_ar") or "", "en": m.get("fix_en") or ""}] + list(x.get("rows") or [])
             if m.get("at"):     # the pinned window can span lines: play all of it, not a one-line clip
                 x["clips"][0]["src"] = x["clips"][0]["fallback"]
     n = len(items); mins = max(1, round(n * SECS_EACH / 60))
@@ -80,7 +87,7 @@ def build(moments=MOMENTS, out=OUT, lst="key-check-disputes", date="2026-10-17",
          "intro": intro or "Short clips of the student from the Oct 8, 9 and 10 lessons. These are moments where we are not sure whether he "
                   "made a mistake. Listen, tap what is true, and if you can, write why - your reason helps us most.",
          "what": (what or "Short clips from Oct 8-10 where we are unsure if the student made a mistake. Tap what is true and say why. About %d minutes.") % mins,
-         "questions": [QUESTION], "n": n, "items": items, "rule": rule}
+         "questions": [question], "n": n, "items": items, "rule": rule}
     old = BK.J(out) or {}
     for k in ("tutor_from", "paused"):
         if old.get(k):
@@ -99,9 +106,12 @@ JUDGE_OUT = os.path.join(REPO, "docs", "data", "amal-check-key-check-judges.json
 def build_judges():
     return build(JUDGE_MOMENTS, JUDGE_OUT, "key-check-judges", "2026-10-18",
                  intro="More short clips from the Oct 8, 9 and 10 lessons. A computer check thinks the student may have made a "
-                       "mistake in each one, but you have not checked it yet. Listen, tap what is true, and if you can, write why.",
+                       "mistake in each one, but you have not checked it yet. Each card shows the student's words, the possible mistake and a "
+                       "possible fix (both are a computer's guess and may be wrong), and your own words just before and after. "
+                       "Listen, tap what is true. Writing why is optional but helps most. Saved as you tap - stop any time and "
+                       "come back from your Tutor page. The time on each card is how far into the lesson it was.",
                  what="More clips from Oct 8-10: did the student make a mistake? Tap what is true and say why. About %d minutes.",
-                 rule="AM-35")
+                 rule="AM-35", question=JUDGE_QUESTION)
 
 
 if __name__ == "__main__":

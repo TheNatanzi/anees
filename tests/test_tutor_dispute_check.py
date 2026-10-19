@@ -50,6 +50,6 @@ def test_am_35_every_card_shows_the_line_that_holds_the_flagged_words_and_argons
     D = json.load(open(DC.JUDGE_OUT, encoding='utf-8'))
     for x in D['items']:
         said = [w for w in norm(x['rows'][0]['ar']).split() if len(w) >= 2 and w not in ('is', 'it', 'um', 'this', 'the')]
-        assert x['rows'][0]['label'] == 'The student said' and any(w in norm(x['line']['ar']) for w in said), (x['id'], said)
+        assert x['rows'][0]['label'].startswith('The possible mistake') and any(w in norm(x['line']['ar']) for w in said), (x['id'], said)
     M = json.load(open(DC.JUDGE_MOMENTS, encoding='utf-8'))['moments']
     assert sum(m.get('set') == 'argon-key-v3' for m in M) == 19 and any(m.get('also') for m in M)
