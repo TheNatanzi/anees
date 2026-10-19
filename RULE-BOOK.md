@@ -567,7 +567,7 @@ _What each page shows, the audio clips, and keeping numbers up to date._
   <br><sub>Medi, 2026-10-19: “For ai reports we need to start building out a section for our experiments and results like a research paper”</sub>
 - The Light / Dark / Phone switch always stays a small row of icons, even if its stylesheet fails to load. `PG-54` _Automatic_
   <br><sub>Medi, 2026-10-19: “fix (screenshot: three big grey Light / Dark / Phone boxes under System Settings)”</sub>
-- A featured research paper on AI Reports opens with the study told in app-styled infographics (plan/<paper>.story.html, built by scripts/build_case_study_story.py; colours from the app's CSS variables, so both themes work), each chapter linking to where it lives in the app and to its section of the paper; the full paper follows under a chapter menu. Its card on AI Reports shows the app's own bar chart and chapter chips into the study. `PG-55` _Automatic_
+- Research papers open with pictures in the app's own style, link into the app, and keep the full paper below a chapter menu. `PG-55` _Automatic_
   <br><sub>Medi, 2026-10-19: “Can you match the infographics to the studies. Also can you plewse redo the studies portion so it flows naturally into the app. It feels clunky and separated.”</sub>
 - One audio player everywhere: play, pause, stop (back to the start), progress bar, volume and a ⋯ menu, opened next to the button you tapped. `AU-03` _Written down_
   <br><sub>Medi, 2026-10-01: “unify the Play bar for EVERYTHING. PLAY, PAUSE, STOP, BAR FOR PROGRESS, VOLUME, THREE DOT MENU”</sub>
