@@ -16,7 +16,7 @@
 #anees-bank .ar-kpi .ab-tiny{margin-top:2px}
 #anees-bank .ar-bars{margin:8px 0 10px}
 #anees-bank .ar-bars .vp-eyebrow{display:block;margin-bottom:6px;letter-spacing:.12em}
-#anees-bank .ar-brow{display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,2fr) 34px;gap:8px;align-items:center;font-size:12px;margin:3px 0}
+#anees-bank .ar-brow{display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,2fr) minmax(34px,auto);gap:8px;align-items:center;font-size:12px;margin:3px 0}
 #anees-bank .ar-track{height:8px;border-radius:999px;background:var(--ab-raised);overflow:hidden}
 #anees-bank .ar-fill{height:100%;border-radius:999px;background:var(--vp-sage)}
 #anees-bank .ar-fill.grey{background:var(--ab-muted);opacity:.55}
@@ -48,7 +48,7 @@
 #anees-bank .ar-doc img{max-width:100%;border-radius:8px}
 #anees-bank .ar-doc strong{font-weight:600}
 @media(max-width:680px){#anees-bank .ar-brow{grid-template-columns:1fr;gap:3px}#anees-bank .ar-bv{text-align:left}#anees-bank .ar-doc{font-size:14px}}
-#anees-bank .ar-doc > h1:first-child{display:none}
+#anees-bank .ar-doc > h1:first-of-type{display:none}
 
 /* Tracked series (2026-09-26): hourly lesson numbers above the one-time reports. */
 #anees-bank .ar-h2{font-family:var(--sabz-font-serif);font-size:22px;font-weight:500;margin:2px 0 12px;line-height:1.2}
@@ -87,3 +87,47 @@
 #anees-bank .rg-note{margin:6px 0 12px}
 @media(max-width:680px){#anees-bank .rg-tbl{font-size:12px}#anees-bank .rg-type{overflow-x:auto}}
 #anees-bank .ar-papers{margin:0 0 22px}#anees-bank .ar-papers .ar-rep{border-left:4px solid var(--ab-accent,#0f5c4d)}
+
+/* PG-55 (Medi 2026-10-19: "match the infographics to the studies ... flow naturally into the app"): a study told in pictures
+   first, in the app's own cards and colours (accent = what the app uses, orange = mistakes / warnings, muted = the rest). */
+#anees-bank .rs-story{display:grid;gap:14px;margin:0 0 30px;max-width:1100px}
+#anees-bank .rs-intro{display:grid;gap:8px}
+#anees-bank .rs-lede{font-size:16px;line-height:1.5;margin:0;max-width:70ch;border-left:3px solid var(--vp-sage);padding-left:12px}
+#anees-bank .rs-intro .ar-jump{margin:4px 0 2px}
+#anees-bank .rs-ch{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr);gap:24px;align-items:center;border:1px solid var(--ab-line);background:var(--ab-panel);border-radius:12px;padding:20px 22px;scroll-margin-top:12px}
+#anees-bank .rs-text{display:grid;gap:8px;min-width:0}
+#anees-bank .rs-h{font-family:var(--sabz-font-serif);font-size:21px;font-weight:500;line-height:1.25;margin:0;text-wrap:balance}
+#anees-bank .rs-pts{margin:0;padding-left:18px;display:grid;gap:5px;font-size:14px;line-height:1.5}
+#anees-bank .rs-links{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+#anees-bank .rs-chip{font-size:12px;text-decoration:none;color:var(--ab-text);border:1px solid var(--ab-line);background:var(--ab-bg);border-radius:999px;padding:4px 11px}
+#anees-bank .rs-chip:hover{border-color:var(--vp-sage)}
+#anees-bank .rs-app{background:var(--sabz-state-calm-fill);border-color:transparent;font-weight:600}
+#anees-bank .rs-fig{margin:0;min-width:0}
+#anees-bank .rs-svg{width:100%;height:auto;display:block;font-family:var(--sabz-font-sans)}
+#anees-bank .rs-svg .a{fill:var(--ab-accent)}
+#anees-bank .rs-svg .o{fill:var(--ab-orange)}
+#anees-bank .rs-svg .m{fill:var(--ab-muted);fill-opacity:.45}
+#anees-bank .rs-svg .k{fill:var(--vp-khaki)}
+#anees-bank .rs-svg .card{fill:var(--ab-raised)}
+#anees-bank .rs-svg .track{fill:var(--ab-raised)}
+#anees-bank .rs-svg .axis{stroke:var(--ab-line);stroke-width:2}
+#anees-bank .rs-svg .ln{stroke:var(--ab-text);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#anees-bank .rs-svg .fl{fill:var(--ab-text)}
+#anees-bank .rs-svg .ic .ln{stroke:var(--ab-panel)}
+#anees-bank .rs-svg .ic .fl{fill:var(--ab-panel)}
+#anees-bank .rs-svg text{fill:var(--ab-text)}
+#anees-bank .rs-svg .t{font-size:17px}
+#anees-bank .rs-svg .v{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
+#anees-bank .rs-svg .h{font-size:18px;font-weight:700}
+#anees-bank .rs-svg .s{font-size:15px;fill:var(--ab-muted)}
+#anees-bank .rs-svg .big{font-family:var(--sabz-font-serif);font-size:32px;font-weight:600}
+#anees-bank .rs-svg .inv{fill:var(--ab-panel)}
+#anees-bank .rs-svg .s.inv{fill:var(--ab-panel);opacity:.85}
+#anees-bank .rs-svg .o-t{fill:var(--ab-orange)}
+#anees-bank .rs-svg .a-t{fill:var(--ab-accent)}
+#anees-bank .rs-fo{font-size:15px;line-height:1.35;text-align:center;color:var(--ab-text)}
+#anees-bank .rs-paper-h{font-family:var(--sabz-font-serif);font-size:24px;font-weight:500;margin:8px 0 4px;padding-top:18px;border-top:1px solid var(--ab-line)}
+#anees-bank .rs-toc{margin:6px 0 20px}
+#anees-bank .rs-toc a{font-size:12px}
+@media(max-width:900px){#anees-bank .rs-ch{grid-template-columns:1fr;padding:16px}}
+#anees-bank .ar-chapters{margin:2px 0 10px}#anees-bank .ar-chapters a{font-size:12px;padding:4px 11px}

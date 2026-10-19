@@ -16,15 +16,24 @@ NAV = ('<a class="ab-nav" href="../progress.html">Progress &amp; Stats</a><a cla
        '<a class="ab-nav" href="../settings.html">System Settings</a>')
 
 
-def page(title, body_html, source, author='', date=''):
+def paper_nav(body):
+    """PG-55: chapter chips for a long paper (its h2 ids from the toc extension)."""
+    import re
+    hs = re.findall(r'<h2 id="([^"]+)">(.*?)</h2>', body)
+    chips = ''.join('<a href="#%s">%s</a>' % (i, re.sub(r'<[^>]+>', '', t)) for i, t in hs)
+    return ('<h2 id="paper" class="rs-paper-h">The full paper</h2><p class="ab-sub">Every number, method and source, written up like a research '
+            'paper. Jump to a chapter:</p><nav class="ar-jump rs-toc" aria-label="Paper chapters">%s</nav>' % chips)
+
+
+def page(title, body_html, source, author='', date='', story=''):
     """Word Bank skin (Medi 2026-09-26): sidebar + ab-header; the document body is styled by css/ai-reports.css."""
     eyebrow = ' · '.join(x for x in ('AI report', author, date) if x)
-    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>{html.escape(title)} · AI Reports · Anees</title><script src="../js/theme.js"></script><link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/word-bank.css?v=menu1"><link rel="stylesheet" href="../css/vocabulary-progress.css"><link rel="stylesheet" href="../css/ai-reports.css?v=20260926-v1"></head>
+    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>{html.escape(title)} · AI Reports · Anees</title><script src="../js/theme.js"></script><link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/word-bank.css?v=menu1"><link rel="stylesheet" href="../css/vocabulary-progress.css"><link rel="stylesheet" href="../css/ai-reports.css?v=20261019-pg55"></head>
 <body><div id="anees-bank" class="vp-sabz" aria-label="Anees AI report"><div class="ab-shell">
 <aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation">{NAV}</nav></aside>
 <main>
 <header class="ab-header"><div><div class="vp-eyebrow">{html.escape(eyebrow)}</div><h1>{html.escape(title)}</h1><div class="ab-sub">Built from {html.escape(source)}</div></div><a class="ab-preview" href="../ai-reports.html">‹ All AI reports</a></header>
-<article class="ar-doc">
+{story}<article class="ar-doc">
 {body_html}
 </article>
 </main></div></div><script>if(location.hash){{const e=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(e)setTimeout(()=>e.scrollIntoView({{block:"start"}}),50);}}</script><script src="../js/build.js"></script><script src="../js/stale.js?v=fresh1"></script></body></html>
@@ -48,8 +57,14 @@ def build(data_path=DATA, out_dir=OUT, log=print):
         md = io.open(p, encoding='utf-8').read()
         body = markdown.markdown(md, extensions=['tables', 'fenced_code', 'toc'])
         body = body.replace('<table>', '<div class="tbl"><table>').replace('</table>', '</table></div>')
+        story = ''
+        if r.get('story_html'):     # PG-55 (Medi 2026-10-19): the study told in app-styled pictures first, the paper below
+            sp = ROOT / r['story_html']
+            story = '<div class="rs-story">' + io.open(sp, encoding='utf-8').read() + '</div>' if sp.exists() else ''
+            if story:
+                body = paper_nav(body) + body
         out = out_dir / f"{r['slug']}.html"
-        out.write_text(page(r['title'], body, p.name, r.get('author', ''), r.get('date', '')), encoding='utf-8')
+        out.write_text(page(r['title'], body, p.name, r.get('author', ''), r.get('date', ''), story), encoding='utf-8')
         built.append(out.name); log('built', out.name, f'{out.stat().st_size // 1024} KB')
     return built
 

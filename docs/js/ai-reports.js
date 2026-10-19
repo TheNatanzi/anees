@@ -14,7 +14,8 @@
     const kpis = (p.numbers || []).map(n => `<div class="ar-kpi"><div class="ab-number">${esc(n.value)}</div><div class="ab-metric-label">${esc(n.label)}</div>${n.note ? `<div class="ab-tiny">${esc(n.note)}</div>` : ''}</div>`).join('');
     const bars = (p.bars && p.bars.length) ? `<div class="ar-bars"><span class="vp-eyebrow">${esc(p.bars_title || '')}</span>${p.bars.map(b => `<div class="ar-brow"><span>${esc(b.label)}</span><div class="ar-track"><div class="ar-fill${b.tone ? ' ' + esc(b.tone) : ''}" style="width:${Math.max(2, Math.round(100 * b.value / (b.max || 1)))}%"></div></div><span class="ar-bv">${esc(b.text ?? b.value)}</span></div>`).join('')}</div>` : '';
     const links = (p.links || []).map(l => `<a class="ar-btn" href="${esc(l.url)}">${esc(l.label)}</a>`).join('');
-    return `<article class="ar-rep"><div class="ar-top">${badge(p.author)}<span class="ar-date">${esc(p.date)}</span></div><h2 class="ar-title">${title}</h2><p class="ar-q">${esc(p.question)}</p><p class="ar-verdict">${esc(p.verdict)}</p>${kpis ? `<div class="ar-kpis">${kpis}</div>` : ''}${bars}<div class="ar-links">${links}</div></article>`;
+    const chapters = (p.chapters || []).length ? `<nav class="ar-jump ar-chapters" aria-label="Jump into the study">${p.chapters.map(c => `<a href="${esc(c.url)}">${esc(c.label)}</a>`).join('')}</nav>` : '';   // PG-55
+    return `<article class="ar-rep"><div class="ar-top">${badge(p.author)}<span class="ar-date">${esc(p.date)}</span></div><h2 class="ar-title">${title}</h2><p class="ar-q">${esc(p.question)}</p><p class="ar-verdict">${esc(p.verdict)}</p>${kpis ? `<div class="ar-kpis">${kpis}</div>` : ''}${bars}${chapters}<div class="ar-links">${links}</div></article>`;
   }
   function reports(r) {
     const reps = (r.reports || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));

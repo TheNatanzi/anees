@@ -309,3 +309,21 @@ def test_pg_54_theme_switch_keeps_its_shape_when_its_stylesheet_fails():
     assert "fb.setAttribute('data-sabz-theme-fallback', '')" in js
     assert '.sabz-theme-name{position:absolute;width:1px;height:1px;overflow:hidden' in js           # labels stay hidden
     assert js.index('data-sabz-theme-fallback') < js.index("link.href = base + 'css/theme-switch.css'")
+
+
+def test_pg_55_research_paper_opens_with_app_styled_pictures():
+    """PG-55 (Medi 2026-10-19: 'match the infographics to the studies ... flows naturally into the app'): the case study opens with
+    picture chapters in the app's own colours (CSS variables, no fixed hex in the story), each linking into the app and the
+    paper; every in-page link lands; the public story names no one and holds no Arabic lesson words."""
+    import io, json, os, re
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    story = io.open(os.path.join(root, 'plan', 'ANEES-CASE-STUDY-2026-10-19.story.html'), encoding='utf-8').read()
+    assert not re.search(r'\b(Medi|Amal)\b', story) and not re.search(r'[؀-ۿ]{3,}', story)
+    assert not re.search(r'#[0-9A-Fa-f]{6}', story)                               # colours come from the app's theme
+    page = io.open(os.path.join(root, 'docs', 'reports', 'anees-case-study-2026-10-19.html'), encoding='utf-8').read()
+    assert page.count('class="rs-ch"') >= 10 and 'id="paper"' in page and 'In the app:' in page
+    ids = set(re.findall(r'id="([^"]+)"', page))
+    assert all(a in ids for a in re.findall(r'href="#([^"]+)"', page))
+    d = json.load(io.open(os.path.join(root, 'docs', 'data', 'ai_reports.json'), encoding='utf-8'))
+    paper = [r for r in d['reports'] if r.get('featured')][0]
+    assert paper['story_html'] and paper['bars'] and all(c['url'].split('#')[1] in ids for c in paper['chapters'])

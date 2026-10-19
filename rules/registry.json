@@ -12025,6 +12025,41 @@
     "note": "settings.html with the sheet removed: 130 x 32 px instead of 130 x 131"
    },
    "aliases": []
+  },
+  {
+   "id": "PG-55",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A featured research paper on AI Reports opens with the study told in app-styled infographics (plan/<paper>.story.html, built by scripts/build_case_study_story.py; colours from the app's CSS variables, so both themes work), each chapter linking to where it lives in the app and to its section of the paper; the full paper follows under a chapter menu. Its card on AI Reports shows the app's own bar chart and chapter chips into the study.",
+   "plain": "Research papers open with pictures in the app's own style, link into the app, and keep the full paper below a chapter menu.",
+   "topic": "pages",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-19",
+     "quote": "Can you match the infographics to the studies. Also can you plewse redo the studies portion so it flows naturally into the app. It feels clunky and separated."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_ai_reports.py",
+     "contains": "def paper_nav(body):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_pg_55_research_paper_opens_with_app_styled_pictures"
+    }
+   ],
+   "example": {
+    "date": "2026-10-19",
+    "note": "anees-case-study-2026-10-19.html: 11 picture chapters, then 'The full paper' with chapter chips"
+   },
+   "aliases": []
   }
  ]
 }
