@@ -33,9 +33,23 @@ def test_am_35_judge_list_is_blind_and_leaves_out_moments_she_already_ruled_on()
     """Medi 2026-10-18 'Yes, build them and give to amal': every AI-judge slip not in key v3, same blind card."""
     D = json.load(open(DC.JUDGE_OUT, encoding='utf-8'))
     assert D['list'] == 'key-check-judges' and D['rule'] == 'AM-35' and D['kind'] == 'dispute_check'
-    assert D['n'] == len(D['items']) == 30 and all(o.get('box') for o in D['questions'][0]['options'])
+    assert D['n'] == len(D['items']) == 49 and all(o.get('box') for o in D['questions'][0]['options'])
     blob = json.dumps(D['items'], ensure_ascii=False).lower()
     for leak in ('opus', 'sonnet', 'astra', 'gemini', 'argon', 'gpt', 'flagged_by', 'ai says', 'key says'):
         assert leak not in blob, leak
     old = {x['id'] for x in json.load(open(DC.OUT, encoding='utf-8'))['items']}
     assert not old & {x['id'] for x in D['items']}                            # never asks her the same moment twice
+
+
+def test_am_35_every_card_shows_the_line_that_holds_the_flagged_words_and_argons_key_additions_ride_blind():
+    """2026-10-19 (Medi: 'make sure everything is clear for her'): 7 cards showed a nearby line, not the one with the words
+    the card says he said; 'at' pins them. Argon's 20 key-v3 additions ride in the same blind list (one shares the 10-10
+    21:44 card) so she confirms them before key v4."""
+    import re
+    norm = lambda s: re.sub(r'[ً-ْٰـ?؟,،.()…-]', ' ', s).replace('أ', 'ا').replace('إ', 'ا').replace('ٱ', 'ا').lower()
+    D = json.load(open(DC.JUDGE_OUT, encoding='utf-8'))
+    for x in D['items']:
+        said = [w for w in norm(x['rows'][0]['ar']).split() if len(w) >= 2 and w not in ('is', 'it', 'um', 'this', 'the')]
+        assert x['rows'][0]['label'] == 'The student said' and any(w in norm(x['line']['ar']) for w in said), (x['id'], said)
+    M = json.load(open(DC.JUDGE_MOMENTS, encoding='utf-8'))['moments']
+    assert sum(m.get('set') == 'argon-key-v3' for m in M) == 19 and any(m.get('also') for m in M)

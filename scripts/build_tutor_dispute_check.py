@@ -40,6 +40,8 @@ def chosen_for(date, moments, page):
     turns = page.get("turns") or []
     out = []
     for m in moments:
+        if m.get("at"):     # pinned to the line that holds the flagged words (AM-35 fix 2026-10-19)
+            out.append({"t": float(m["at"][0]), "end": float(m["at"][1])}); continue
         t, said = m["time"], str(m.get("said") or "").split()
         s = secs(t)
         his = [u for u in turns if u.get("who") == "Medi" and abs(float(u.get("t") or 0) - s) <= 15]
@@ -67,9 +69,11 @@ def build(moments=MOMENTS, out=OUT, lst="key-check-disputes", date="2026-10-17",
     for x in items:     # AM-35 (Medi: "the same format I asked for in the PDF"): what he said and the possible fix, each with English
         ms = [m for m in M["moments"] if m["date"] == x["date"] and m.get("said_en")]
         if ms:
-            m = min(ms, key=lambda m: abs(secs(m["time"]) - float(x["t"])))
+            m = min(ms, key=lambda m: abs((float(m["at"][0]) if m.get("at") else secs(m["time"])) - float(x["t"])))
             x["rows"] = [{"label": "The student said", "ar": m["said"], "en": m["said_en"]},
                          {"label": "Maybe it should be", "ar": m.get("fix_ar") or "", "en": m.get("fix_en") or ""}] + list(x.get("rows") or [])
+            if m.get("at"):     # the pinned window can span lines: play all of it, not a one-line clip
+                x["clips"][0]["src"] = x["clips"][0]["fallback"]
     n = len(items); mins = max(1, round(n * SECS_EACH / 60))
     D = {"set": "tutor-dispute-check", "list": lst, "kind": KIND, "prefix": PREFIX, "date": date,
          "title": "%d moments we are unsure about (about %d minutes)" % (n, mins), "unit": "moments", "mins": mins,
@@ -95,7 +99,7 @@ JUDGE_OUT = os.path.join(REPO, "docs", "data", "amal-check-key-check-judges.json
 def build_judges():
     return build(JUDGE_MOMENTS, JUDGE_OUT, "key-check-judges", "2026-10-18",
                  intro="More short clips from the Oct 8, 9 and 10 lessons. A computer check thinks the student may have made a "
-                       "mistake in each one, but nobody has confirmed it. Listen, tap what is true, and if you can, write why.",
+                       "mistake in each one, but you have not checked it yet. Listen, tap what is true, and if you can, write why.",
                  what="More clips from Oct 8-10: did the student make a mistake? Tap what is true and say why. About %d minutes.",
                  rule="AM-35")
 
