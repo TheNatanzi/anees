@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-19T05:17:56-07:00",
+ "updated": "2026-10-19T05:20:32-07:00",
  "result": "pass",
- "source": "hourly: tutor refresh",
- "checked_commit": "758b91a0eb11",
- "secs": 140.3,
+ "source": "hourly: 1 local commit(s)",
+ "checked_commit": "f6ce01c11d15",
+ "secs": 135.1,
  "checks": [
   {
    "id": "step_failures",
@@ -33,7 +33,7 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
    "detail": "rule_registry: OK - 271 rules: enforced 179 (code 170, brief 9), written 72, moment-only 12, needs Medi 0, superseded 8"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.3,
+   "secs": 1.2,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 2.5,
+   "secs": 2.3,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 947 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 4.7,
+   "secs": 4.3,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...9 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 6.3,
+   "secs": 6.1,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 75 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.6,
+   "secs": 0.5,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,9 +129,9 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 102.8,
+   "secs": 99.1,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": ".............................. [ 99%] | .........                                                                [100%] | 942 passed, 3 xfailed in 97.95s (0:01:37)"
+   "detail": ".............................. [ 99%] | .........                                                                [100%] | 942 passed, 3 xfailed in 94.71s (0:01:34)"
   },
   {
    "id": "tests_node",
@@ -139,13 +139,13 @@
    "ok": true,
    "secs": 6.4,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6358.2612"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6369.6131"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 6.1,
+   "secs": 6.5,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -161,7 +161,7 @@
    "id": "data_freshness",
    "required": false,
    "ok": true,
-   "secs": 0.7,
+   "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
    "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
   },
