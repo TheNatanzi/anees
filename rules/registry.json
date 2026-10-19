@@ -11917,6 +11917,42 @@
     "t": "58:37",
     "note": "سؤالي آخر إلي؟ -> سؤالي الأخير: A15 ✗ from his note"
    }
+  },
+  {
+   "id": "AM-35",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The tutor rules, blind, on every moment an AI judge called a slip that is not in answer key v3 (the reader-90 judge test, 2026-10-18: Opus, Sonnet, GPT-6 Astra, Gemini 3.8 Flash, GPT-OSS 120B, Gemini 4 Argon over the plan pool). Same AM-33 card and question (scripts/build_tutor_dispute_check.py build_judges -> docs/data/amal-check-key-check-judges.json, list key-check-judges), from data/lesson-work/tutor-judge-check/moments.json; moments she already ruled on in AM-33 are left out and which AI flagged a moment is never shown. Her taps change nothing; Medi reads them before any key change, so the answer key is checked the same way for every judge, not only for Argon.",
+   "plain": "Your tutor gets the moments any AI called a mistake that are not in your answer key yet, without knowing which AI said so, and taps whether you really made a mistake.",
+   "plain_for": "fe712439",
+   "topic": "testing engines",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-18",
+     "quote": "Yes, build them and give to amal."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_dispute_check.py",
+     "contains": "def build_judges():"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_dispute_check.py",
+     "contains": "def test_am_35_judge_list_is_blind_and_leaves_out_moments_she_already_ruled_on"
+    }
+   ],
+   "example": {
+    "date": "2026-10-18",
+    "note": "30 moments, about 22 minutes"
+   },
+   "aliases": []
   }
  ]
 }

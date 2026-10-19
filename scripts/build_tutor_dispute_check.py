@@ -56,30 +56,52 @@ def chosen_for(date, moments, page):
     return uniq
 
 
-def build():
-    M = BK.J(MOMENTS)
+def build(moments=MOMENTS, out=OUT, lst="key-check-disputes", date="2026-10-17", intro=None, what=None, rule="AM-33"):
+    M = BK.J(moments)
     items = []
-    for date in sorted({m["date"] for m in M["moments"]}):
-        page = BK.J(os.path.join(REPO, "docs", "data", "lessons", date + ".json")) or {}
-        ch = chosen_for(date, [m for m in M["moments"] if m["date"] == date], page)
-        items += BK.cards(date, ch, page)
+    for d in sorted({m["date"] for m in M["moments"]}):
+        page = BK.J(os.path.join(REPO, "docs", "data", "lessons", d + ".json")) or {}
+        ch = chosen_for(d, [m for m in M["moments"] if m["date"] == d], page)
+        items += BK.cards(d, ch, page)
     items.sort(key=lambda x: (x["date"], x["t"]))
+    for x in items:     # AM-35 (Medi: "the same format I asked for in the PDF"): what he said and the possible fix, each with English
+        ms = [m for m in M["moments"] if m["date"] == x["date"] and m.get("said_en")]
+        if ms:
+            m = min(ms, key=lambda m: abs(secs(m["time"]) - float(x["t"])))
+            x["rows"] = [{"label": "The student said", "ar": m["said"], "en": m["said_en"]},
+                         {"label": "Maybe it should be", "ar": m.get("fix_ar") or "", "en": m.get("fix_en") or ""}] + list(x.get("rows") or [])
     n = len(items); mins = max(1, round(n * SECS_EACH / 60))
-    D = {"set": "tutor-dispute-check", "list": "key-check-disputes", "kind": KIND, "prefix": PREFIX, "date": "2026-10-17",
+    D = {"set": "tutor-dispute-check", "list": lst, "kind": KIND, "prefix": PREFIX, "date": date,
          "title": "%d moments we are unsure about (about %d minutes)" % (n, mins), "unit": "moments", "mins": mins,
-         "intro": "Short clips of the student from the Oct 8, 9 and 10 lessons. These are moments where we are not sure whether he "
+         "intro": intro or "Short clips of the student from the Oct 8, 9 and 10 lessons. These are moments where we are not sure whether he "
                   "made a mistake. Listen, tap what is true, and if you can, write why - your reason helps us most.",
-         "what": "Short clips from Oct 8-10 where we are unsure if the student made a mistake. Tap what is true and say why. About %d minutes." % mins,
-         "questions": [QUESTION], "n": n, "items": items, "rule": "AM-33"}
-    old = BK.J(OUT) or {}
+         "what": (what or "Short clips from Oct 8-10 where we are unsure if the student made a mistake. Tap what is true and say why. About %d minutes.") % mins,
+         "questions": [QUESTION], "n": n, "items": items, "rule": rule}
+    old = BK.J(out) or {}
     for k in ("tutor_from", "paused"):
         if old.get(k):
             D[k] = old[k]
-    BK.W(OUT, D)
-    print("tutor dispute check: %d moments, about %d min -> %s" % (n, mins, OUT))
+    BK.W(out, D)
+    print("tutor dispute check %s: %d moments, about %d min -> %s" % (lst, n, mins, out))
     return D
+
+
+# AM-35 (Medi 2026-10-18: "Yes, build them and give to amal"): the same blind card for every moment an AI judge called a
+# mistake that is not in answer key v3 (data/lesson-work/tutor-judge-check/moments.json, from the reader-90 judge test).
+JUDGE_MOMENTS = os.path.join(REPO, "data", "lesson-work", "tutor-judge-check", "moments.json")
+JUDGE_OUT = os.path.join(REPO, "docs", "data", "amal-check-key-check-judges.json")
+
+
+def build_judges():
+    return build(JUDGE_MOMENTS, JUDGE_OUT, "key-check-judges", "2026-10-18",
+                 intro="More short clips from the Oct 8, 9 and 10 lessons. A computer check thinks the student may have made a "
+                       "mistake in each one, but nobody has confirmed it. Listen, tap what is true, and if you can, write why.",
+                 what="More clips from Oct 8-10: did the student make a mistake? Tap what is true and say why. About %d minutes.",
+                 rule="AM-35")
 
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     build()
+    if os.path.exists(JUDGE_MOMENTS):
+        build_judges()
