@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-19T11:22:17-07:00",
+ "updated": "2026-10-19T11:29:23-07:00",
  "result": "pass",
- "source": "hourly: 1 local commit(s)",
- "checked_commit": "1c5aa9a8b15c",
- "secs": 175.2,
+ "source": "AM-35 card fix + Argon key-v3 blind check",
+ "checked_commit": "29a146b24ab6",
+ "secs": 157.1,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.7,
+   "secs": 1.4,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "158 JSON files parse"
   },
@@ -41,7 +41,7 @@
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.6,
+   "secs": 0.7,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 24 lessons reach every page"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 4.6,
+   "secs": 4.1,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.5,
+   "secs": 1.6,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 2.9,
+   "secs": 2.7,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 947 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 5.3,
+   "secs": 5.2,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...9 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 8.5,
+   "secs": 6.7,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 76 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 2.2,
+   "secs": 1.9,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.6,
+   "secs": 0.7,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 127.7,
+   "secs": 117.2,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 98%] | ...........                                                              [100%] | 944 passed, 3 xfailed in 125.20s (0:02:05)"
+   "detail": "............................. [ 98%] | ............                                                             [100%] | 945 passed, 3 xfailed in 114.52s (0:01:54)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 9.6,
+   "secs": 6.9,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 9494.6663"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6789.8898"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 8.6,
+   "secs": 6.8,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -188,14 +188,14 @@
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-18T13:18:30-07:00",
-  "source": "hourly: tutor refresh",
+  "at": "2026-10-19T11:26:31-07:00",
+  "source": "AM-35 card fix + Argon key-v3 blind check",
   "outcome": "blocked",
-  "sha": "e8615d26c0069470c06df6ae352f291627e89f6f",
-  "reason": "step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/tutor-notes.json: rebuild pending (open since 2026-10-18T13:15, tutor)",
-  "secs": 166.3,
-  "commits_waiting": "2"
+  "sha": "29a146b24ab6176d622c039440ee27549c991378",
+  "reason": "step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/publish-guard.json: rebuild pending (open since 2026-10-19T11:24, tutor); clean_tree: 3 uncommitted change(s) in what would be published, e.g. docs/data/build.json, docs/data/tutor-notes.json, docs/js/build.js; json_data: docs/data/pipeline-health.json does not parse (JSONDecodeError: Expecting property name enclosed in double quotes: line 4 column 1 (char 245)); docs/data/tutor-notes.json does not parse (JSONDecodeError: Expecting property name enclosed in double quotes: line 3 column 1 (char 263)); check_pages: exit 1: pages NOT OK: 2 missing or unreadable data files. First: data/pipeline-health.json: does not parse as JSON (Expecting property name enclosed in double quotes: line 4 column 1 (char 245))",
+  "secs": 146.3,
+  "commits_waiting": "1"
  },
- "blocks_before_this_pass": 0,
+ "blocks_before_this_pass": 3,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }

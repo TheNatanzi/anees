@@ -1,17 +1,18 @@
 {
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-10-19T18:22:17Z",
- "last_publish_sha": "1c5aa9a8b15c2d06b3fb668c5c4a89331a1ebdee",
- "last_block_reason": null,
- "last_block_utc": null,
- "first_block_reason": null,
- "blocked_since_utc": null,
+ "last_publish_sha": "aac44f52a2febadb40f0b3c33cd4b04a150b0d96",
+ "last_block_reason": "step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/publish-guard.json: rebuild pending (open since 2026-10-19T11:24, tutor); clean_tree: 3 uncommitted change(s) in what would be published, e.g. docs/data/build.json, docs/data/tutor-notes.json, docs/js/build.js; json_data: docs/data/pipeline-health.json does not parse (JSONDecodeError: Ex...",
+ "last_block_utc": "2026-10-19T18:26:31Z",
+ "first_block_reason": "git push failed: hint: counterpart. If you want to integrate the remote changes, use 'git pull' | hint: before pushing again. | hint: See the 'Note about fast-forwards' in 'git push --help' for details.",
+ "blocked_since_utc": "2026-10-19T18:23:53Z",
  "open_failures": [],
  "pending": [
-  "lesson 2026-10-14 recorded, not on the site"
+  "lesson 2026-10-14 recorded, not on the site",
+  "2 blocked push(es) since the last publish"
  ],
- "hours_since_publish": 0.0,
+ "hours_since_publish": 0.1,
  "stalled": false,
- "generated_at": "2026-10-19T18:22:17Z",
- "plain_reason": "waiting: lesson 2026-10-14 recorded, not on the site"
+ "generated_at": "2026-10-19T18:29:23Z",
+ "plain_reason": "it had unsaved files"
 }
