@@ -115,6 +115,8 @@ def fetch(bot_id, date=None, session=requests, wait_minutes=30, sleep=time.sleep
                     pending.replace(path)
                 saved.append({'participant': p.get('name'), 'is_host': p.get('is_host'), 'platform': p.get('platform'), 'start': part.get('start_timestamp'),
                               'duration_s': part.get('duration'), 'file': str(path), 'bytes': path.stat().st_size})
+    if not saved:   # 2026-10-20: a bot that recorded nothing (wrong link, never admitted) must not leave an empty manifest that
+        raise RuntimeError(f'bot {bot_id} has no recorded audio for {date}')   # blocks another bot's real recording of the same lesson
     io.open(out / 'tracks.json', 'w', encoding='utf-8').write(json.dumps({'bot_id': bot_id, 'date': date, 'tracks': saved}, ensure_ascii=False, indent=1))
     return saved
 

@@ -62,3 +62,34 @@ def test_drive_scan_does_not_overwrite_track_lesson(tmp_path, monkeypatch):
     assert lp.new_recordings({}) == []
     summary.write_text(json.dumps({"speaker_split": "model labels"}), encoding="utf-8")
     assert lp.new_recordings({})[0][1:] == ("2026-09-12", "1427")
+
+
+def test_empty_bot_never_blocks_the_bot_that_recorded(tmp_path, monkeypatch):
+    """2026-10-20: on 10-14 a first bot (wrong Meet link, never admitted) wrote an empty manifest, so the second bot's
+    73-minute recording was never fetched and the lesson failed every hour for 6 days."""
+    import pytest
+    import recall_bot
+    monkeypatch.setattr(recall_bot, "LESSONS", tmp_path / "data" / "lessons")
+    monkeypatch.setattr(recall_bot, "status", lambda *_a, **_k: ({"recordings": []}, "done"))
+    with pytest.raises(RuntimeError, match="no recorded audio"):
+        recall_bot.fetch("bot-empty", date="2026-10-14", wait_minutes=0)
+    assert not (tmp_path / "data" / "lessons" / "2026-10-14" / "tracks" / "tracks.json").exists()
+
+    monkeypatch.setattr(queue, "LESSONS", tmp_path / "data" / "lessons")
+    monkeypatch.setattr(queue, "DOCS", tmp_path / "docs" / "lessons")
+    manifest = queue.LESSONS / "2026-10-14" / "tracks" / "tracks.json"
+    manifest.parent.mkdir(parents=True, exist_ok=True)
+    manifest.write_text('{"bot_id": "bot-empty", "tracks": []}', encoding="utf-8")
+    fetched = []
+
+    def fetch(bot_id, date, wait_minutes):
+        fetched.append(bot_id)
+        manifest.write_text('{"tracks": [{"participant": "Medi"}]}', encoding="utf-8")
+
+    def run(command, **kwargs):
+        raise SystemExit("ingest reached")
+
+    with pytest.raises(SystemExit, match="ingest reached"):
+        queue.process_entry({"date": "2026-10-14", "bot_id": "bot-real-2", "t": "2026-10-14T14:19:25"},
+                            status_fn=lambda _id: ({}, "done"), fetch_fn=fetch, run_fn=run)
+    assert fetched == ["bot-real-2"] and (manifest.parent / "tracks.empty-bot-real.json").exists()

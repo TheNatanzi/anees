@@ -73,6 +73,10 @@ def process_entry(entry: dict, *, dry_run: bool = False, status_fn=None,
     fetch_fn = fetch_fn or recall_bot.fetch
     run_fn = run_fn or subprocess.run
     manifest = LESSONS / date / "tracks" / "tracks.json"
+    if manifest.exists() and not (json.loads(manifest.read_text(encoding="utf-8-sig")).get("tracks") or []):
+        # 2026-10-20 (10-14 lesson lost for 6 days): an empty manifest from a bot that recorded nothing is set aside, so this
+        # bot - possibly the one that did record - is fetched instead of ingesting nothing every hour
+        manifest.replace(manifest.with_name("tracks.empty-%s.json" % bot_id[:8]))
     if not manifest.exists():
         _bot, code = status_fn(bot_id)
         if code != "done":
