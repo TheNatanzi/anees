@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-19T22:17:49-07:00",
+ "updated": "2026-10-19T22:20:19-07:00",
  "result": "pass",
- "source": "hourly: tutor refresh",
- "checked_commit": "5e13421c3efa",
- "secs": 131.5,
+ "source": "hourly: 1 local commit(s)",
+ "checked_commit": "1bcb6113f27f",
+ "secs": 129.7,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.4,
+   "secs": 1.3,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "158 JSON files parse"
   },
@@ -33,7 +33,7 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
    "detail": "rule_registry: OK - 274 rules: enforced 182 (code 173, brief 9), written 72, moment-only 12, needs Medi 0, superseded 8"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 3.6,
+   "secs": 3.5,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 6.1,
+   "secs": 6.0,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 76 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 96.7,
+   "secs": 95.8,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": ".............................. [ 98%] | .............                                                            [100%] | 946 passed, 3 xfailed in 91.92s (0:01:31)"
+   "detail": ".............................. [ 98%] | .............                                                            [100%] | 946 passed, 3 xfailed in 91.37s (0:01:31)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 5.9,
+   "secs": 6.0,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5834.2809"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5897.2786"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.9,
+   "secs": 6.0,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -161,7 +161,7 @@
    "id": "data_freshness",
    "required": false,
    "ok": true,
-   "secs": 0.6,
+   "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
    "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
   },
