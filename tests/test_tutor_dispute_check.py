@@ -58,6 +58,7 @@ def test_am_35_every_card_shows_the_line_that_holds_the_flagged_words_and_argons
 def test_am_36_too_short_cards_go_back_to_her_and_wait():
     """AM-36 (Medi 2026-10-20: 'when she's asking for more info like adding more recording send it back to her before
     grading'): a 'clip too short' answer sends the card back with more audio, and grading waits for her second answer."""
+    import re
     import build_tutor_more_check as MC
     assert MC.needs_more({"answer": "cant_tell", "typed": "The clip is too short to decide"})
     assert MC.needs_more({"answer": "right", "typed": "Clip is not sufficient to decide."})
@@ -67,6 +68,16 @@ def test_am_36_too_short_cards_go_back_to_her_and_wait():
     assert MC.needs_more({"answer": "mistake", "typed": "Should be 3indi, although I'm not sure he says it after"})
     assert MC.needs_more({"answer": "right", "typed": "Is he asking here?"})
     assert not MC.needs_more({"answer": "mistake", "typed": "Should be kaanat not kaan"})
+    assert not MC.needs_more({"answer": "mistake", "typed": "maybe half a point because he said it wrong first, but then figured it out"})
+    assert MC.needs_more({"answer": "right", "typed": "from the transcript it seems that he said it right. clip is still short."})
+    assert MC.needs_more({"answer": "mistake", "typed": "my note is still the same. although from what I remember he said awal marra"})
+    ans2 = {"disputecheck:D": {"answer": "cant_tell"}, "disputecheck:D-more": {"answer": "right", "typed": "clip is still short"},
+            "disputecheck:D-more2": {"answer": "right", "typed": "he said it right"}}
+    assert MC.final_answer("D", ans2)["typed"] == "he said it right"             # round 2 settles it
+    page = {"turns": [{"who": "Amal", "t": 100.0, "end": 103.0, "text": "task"}, {"who": "Medi", "t": 105.0, "end": 108.0, "text": "a"},
+                      {"who": "Medi", "t": 140.0, "end": 142.0, "text": "target"}, {"who": "Amal", "t": 143.0, "end": 144.0, "text": "yes"}]}
+    a, b = MC.exchange(page, 140.0, 142.0)
+    assert 138.5 <= a <= 139.5 and b >= 144.0                                      # the 32 s silence before it ends the exchange
     ans = {"disputecheck:A": {"answer": "right", "typed": "too short"}, "disputecheck:B": {"answer": "mistake"},
            "disputecheck:C": {"answer": "cant_tell", "typed": "Clip too short"}, "disputecheck:C-more": {"answer": "mistake"}}
     assert MC.final_answer("A", ans) is None                      # asked for more, not answered again: pending
@@ -78,6 +89,17 @@ def test_am_36_too_short_cards_go_back_to_her_and_wait():
     D = json.load(open(MC.OUT, encoding='utf-8'))
     assert D['list'] == 'key-check-more' and D['rule'] == 'AM-36' and D['n'] == len(D['items']) >= 1
     for x in D['items']:
-        assert x['id'].endswith('-more') and x['rows'][0]['label'] == 'Your note last time'
+        assert re.search(r'-more\d?$', x['id']) and x['rows'][0]['label'] == 'Your note last time'
         a, b = [float(v) for v in x['clips'][0]['src'].split('#t=')[1].split(',')]
         assert b - a >= 30                                          # about 40 s of the lesson, not the short clip again
+
+
+def test_am_36_her_whole_line_fix_wins_over_the_second_listen():
+    """2026-10-21: on her re-ask card she wrote 'he said fun, not one' (10-09 22:49); the second listen's whole-line row
+    owned that line first, so her row never showed. A row marked 'wins' now owns its line."""
+    import transcript_fixes as TF
+    turns = [{"t": 10.0, "who": "Medi", "text": "One would be X."}]
+    gem = {"date": "D", "t": 10.0, "who": "Medi", "line": "One would be X.", "heard_line": "One would be Y?", "spans": [], "by": "gemini-rehear"}
+    her = dict(gem, heard_line="Fun would be Y?", by="tutor-listen", wins=True)
+    assert TF.apply("D", turns, [gem, her])[0]["text"] == "Fun would be Y?"
+    assert TF.apply("D", turns, [gem])[0]["text"] == "One would be Y?"

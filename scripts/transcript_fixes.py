@@ -72,7 +72,7 @@ def whole_owners(whole, turns):
     turns it names start within 11 ms of the same distance (two identical lines at one moment) it belongs to none, and a
     turn takes one row only."""
     own = {}
-    for r in whole:
+    for r in sorted(whole, key=lambda r: not r.get("wins")):   # 2026-10-21: the tutor's whole-line row ('wins') owns its line before the second listen's
         c = sorted((abs(float(r["t"]) - float(u["t"])), k) for k, u in enumerate(turns) if _whole(r, u))
         if c and (len(c) == 1 or c[1][0] - c[0][0] > 0.011) and c[0][1] not in own:
             own[c[0][1]] = r
