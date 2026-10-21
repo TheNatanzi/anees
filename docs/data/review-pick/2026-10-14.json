@@ -2,14 +2,14 @@
  "about": "Fast review mode (PG-50): the student's lines that hold Arabic in three tiers (1 unsure, 2 changed by the second listen, 3 confident; why listed), shown tier by tier; blind = the first 50 shown, without chips. Built by scripts/review_picker.py; display only.",
  "date": "2026-10-14",
  "all": 137,
- "unsure": 41,
- "unsure_n": 41,
+ "unsure": 56,
+ "unsure_n": 56,
  "changed_n": 0,
- "confident_n": 96,
+ "confident_n": 81,
  "tier_n": {
-  "1": 41,
+  "1": 56,
   "2": 0,
-  "3": 96
+  "3": 81
  },
  "tiers": {
   "1": "unsure: a ✗ chip, the two readers disagree, the second listen held a change or no 2 of its 3 runs agree, or one of 5 random confident lines",
@@ -19,7 +19,7 @@
  "blind_n": 50,
  "random_n": 5,
  "secs": 1094.2,
- "unsure_secs": 396.7,
+ "unsure_secs": 532.8,
  "lines": [
   {
    "i": 0,
@@ -30,16 +30,18 @@
    "end": 3.15,
    "mmss": "00:02",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "مرحبا",
     "right": null,
     "from": "line"
    },
-   "order": 42,
+   "order": 1,
    "blind": true
   },
   {
@@ -60,8 +62,8 @@
     "right": null,
     "from": "chip"
    },
-   "order": 43,
-   "blind": true
+   "order": 57,
+   "blind": false
   },
   {
    "i": 7,
@@ -73,16 +75,18 @@
    "end": 198.09,
    "mmss": "03:13",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "grammar",
     "said": "المهاجرة",
     "right": null,
     "from": "chip"
    },
-   "order": 44,
+   "order": 2,
    "blind": true
   },
   {
@@ -96,16 +100,18 @@
    "end": 209.19,
    "mmss": "03:19",
    "words": 3,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "بزاح، بزاح، صح؟",
     "right": null,
     "from": "chip"
    },
-   "order": 45,
+   "order": 3,
    "blind": true
   },
   {
@@ -126,8 +132,8 @@
     "right": null,
     "from": "chip"
    },
-   "order": 46,
-   "blind": true
+   "order": 58,
+   "blind": false
   },
   {
    "i": 184,
@@ -151,7 +157,7 @@
     "right": "ضرايب",
     "from": "readers"
    },
-   "order": 1,
+   "order": 4,
    "blind": true
   },
   {
@@ -173,8 +179,8 @@
     "right": null,
     "from": "line"
    },
-   "order": 47,
-   "blind": true
+   "order": 59,
+   "blind": false
   },
   {
    "i": 195,
@@ -185,16 +191,18 @@
    "end": 1132.79,
    "mmss": "18:49",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "ماليات",
     "right": null,
     "from": "line"
    },
-   "order": 48,
+   "order": 5,
    "blind": true
   },
   {
@@ -217,7 +225,7 @@
     "right": "آخر يوم لـ الضرايب",
     "from": "readers"
    },
-   "order": 2,
+   "order": 6,
    "blind": true
   },
   {
@@ -238,8 +246,8 @@
     "right": null,
     "from": "chip"
    },
-   "order": 49,
-   "blind": true
+   "order": 60,
+   "blind": false
   },
   {
    "i": 201,
@@ -262,7 +270,7 @@
     "right": "آخر يوم لـ الضرايب",
     "from": "readers"
    },
-   "order": 3,
+   "order": 7,
    "blind": true
   },
   {
@@ -288,8 +296,8 @@
     "right": null,
     "from": "chip"
    },
-   "order": 50,
-   "blind": true
+   "order": 61,
+   "blind": false
   },
   {
    "i": 211,
@@ -314,7 +322,7 @@
     "right": "يوم الأربعة (el-arbi3a)",
     "from": "readers"
    },
-   "order": 4,
+   "order": 8,
    "blind": true
   },
   {
@@ -338,7 +346,7 @@
     "from": "line"
    },
    "random": true,
-   "order": 5,
+   "order": 9,
    "blind": true
   },
   {
@@ -360,7 +368,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 51,
+   "order": 62,
    "blind": false
   },
   {
@@ -382,7 +390,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 52,
+   "order": 63,
    "blind": false
   },
   {
@@ -403,7 +411,7 @@
     "right": "أنا عندي حافز / أنا متشجع",
     "from": "readers"
    },
-   "order": 53,
+   "order": 64,
    "blind": false
   },
   {
@@ -427,7 +435,7 @@
     "right": "مكتب",
     "from": "readers"
    },
-   "order": 6,
+   "order": 10,
    "blind": true
   },
   {
@@ -448,7 +456,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 54,
+   "order": 65,
    "blind": false
   },
   {
@@ -470,7 +478,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 55,
+   "order": 66,
    "blind": false
   },
   {
@@ -493,7 +501,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 56,
+   "order": 67,
    "blind": false
   },
   {
@@ -506,17 +514,19 @@
    "end": 1327.53,
    "mmss": "22:03",
    "words": 4,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "Uh, عشان الـ",
     "right": null,
     "from": "chip"
    },
-   "order": 57,
-   "blind": false
+   "order": 11,
+   "blind": true
   },
   {
    "i": 258,
@@ -538,7 +548,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 58,
+   "order": 68,
    "blind": false
   },
   {
@@ -560,7 +570,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 59,
+   "order": 69,
    "blind": false
   },
   {
@@ -581,7 +591,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 60,
+   "order": 70,
    "blind": false
   },
   {
@@ -611,7 +621,7 @@
     "from": "chip"
    },
    "random": true,
-   "order": 7,
+   "order": 12,
    "blind": true
   },
   {
@@ -640,7 +650,7 @@
     "right": "سنة ماضية",
     "from": "readers"
    },
-   "order": 8,
+   "order": 13,
    "blind": true
   },
   {
@@ -664,7 +674,7 @@
     "right": "السنة كانت منيحة معي (my year was good / this year was good for me)",
     "from": "readers"
    },
-   "order": 61,
+   "order": 71,
    "blind": false
   },
   {
@@ -685,7 +695,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 62,
+   "order": 72,
    "blind": false
   },
   {
@@ -710,7 +720,7 @@
     "right": "صحابي",
     "from": "readers"
    },
-   "order": 9,
+   "order": 14,
    "blind": true
   },
   {
@@ -731,7 +741,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 63,
+   "order": 73,
    "blind": false
   },
   {
@@ -752,7 +762,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 64,
+   "order": 74,
    "blind": false
   },
   {
@@ -767,17 +777,19 @@
    "end": 2221.97,
    "mmss": "36:48",
    "words": 3,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "Oh yeah, well it work out. It's close to true, yeah. Uh, لا، uh,",
     "right": null,
     "from": "chip"
    },
-   "order": 65,
-   "blind": false
+   "order": 15,
+   "blind": true
   },
   {
    "i": 502,
@@ -797,7 +809,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 66,
+   "order": 75,
    "blind": false
   },
   {
@@ -818,7 +830,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 67,
+   "order": 76,
    "blind": false
   },
   {
@@ -842,7 +854,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 68,
+   "order": 77,
    "blind": false
   },
   {
@@ -863,7 +875,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 69,
+   "order": 78,
    "blind": false
   },
   {
@@ -887,7 +899,7 @@
     "right": "السنة الجاي",
     "from": "readers"
    },
-   "order": 10,
+   "order": 16,
    "blind": true
   },
   {
@@ -908,7 +920,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 70,
+   "order": 79,
    "blind": false
   },
   {
@@ -940,7 +952,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 71,
+   "order": 80,
    "blind": false
   },
   {
@@ -962,7 +974,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 72,
+   "order": 81,
    "blind": false
   },
   {
@@ -977,6 +989,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "second listen: no 2 of 3 runs agree",
     "✗ chip on it (مشاريع)"
    ],
    "propose": {
@@ -985,7 +998,7 @@
     "right": "مشاريع",
     "from": "readers"
    },
-   "order": 11,
+   "order": 17,
    "blind": true
   },
   {
@@ -1008,7 +1021,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 73,
+   "order": 82,
    "blind": false
   },
   {
@@ -1031,7 +1044,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 74,
+   "order": 83,
    "blind": false
   },
   {
@@ -1062,7 +1075,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 75,
+   "order": 84,
    "blind": false
   },
   {
@@ -1085,7 +1098,7 @@
     "right": "جوز",
     "from": "readers"
    },
-   "order": 12,
+   "order": 18,
    "blind": true
   },
   {
@@ -1109,7 +1122,7 @@
     "right": "شهر العسل",
     "from": "readers"
    },
-   "order": 13,
+   "order": 19,
    "blind": true
   },
   {
@@ -1133,7 +1146,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 14,
+   "order": 20,
    "blind": true
   },
   {
@@ -1162,7 +1175,7 @@
     "right": "ممكن نتجوز",
     "from": "readers"
    },
-   "order": 15,
+   "order": 21,
    "blind": true
   },
   {
@@ -1184,7 +1197,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 76,
+   "order": 85,
    "blind": false
   },
   {
@@ -1199,17 +1212,19 @@
    "end": 2752.46,
    "mmss": "45:38",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "ما، ما، با-- uh,",
     "right": null,
     "from": "chip"
    },
-   "order": 77,
-   "blind": false
+   "order": 22,
+   "blind": true
   },
   {
    "i": 657,
@@ -1233,7 +1248,7 @@
     "right": "إذا بنروح",
     "from": "readers"
    },
-   "order": 16,
+   "order": 23,
    "blind": true
   },
   {
@@ -1255,7 +1270,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 78,
+   "order": 86,
    "blind": false
   },
   {
@@ -1281,7 +1296,7 @@
     "right": "راح يكون عندي",
     "from": "readers"
    },
-   "order": 17,
+   "order": 24,
    "blind": true
   },
   {
@@ -1302,7 +1317,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 79,
+   "order": 87,
    "blind": false
   },
   {
@@ -1326,7 +1341,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 80,
+   "order": 88,
    "blind": false
   },
   {
@@ -1358,7 +1373,7 @@
     "right": "حرب",
     "from": "readers"
    },
-   "order": 18,
+   "order": 25,
    "blind": true
   },
   {
@@ -1380,7 +1395,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 81,
+   "order": 89,
    "blind": false
   },
   {
@@ -1402,7 +1417,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 82,
+   "order": 90,
    "blind": false
   },
   {
@@ -1424,7 +1439,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 83,
+   "order": 91,
    "blind": false
   },
   {
@@ -1437,17 +1452,19 @@
    "end": 2887.96,
    "mmss": "47:55",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "I, I think, I think to this, if you can send me the, a card set for all of the, ",
     "right": null,
     "from": "chip"
    },
-   "order": 84,
-   "blind": false
+   "order": 26,
+   "blind": true
   },
   {
    "i": 706,
@@ -1468,7 +1485,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 85,
+   "order": 92,
    "blind": false
   },
   {
@@ -1495,7 +1512,7 @@
     "right": "كلمات الـ wedding",
     "from": "readers"
    },
-   "order": 19,
+   "order": 27,
    "blind": true
   },
   {
@@ -1512,6 +1529,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "second listen: no 2 of 3 runs agree",
     "✗ chip on it (بتجوز)"
    ],
    "propose": {
@@ -1520,7 +1538,7 @@
     "right": "بتجوز",
     "from": "readers"
    },
-   "order": 20,
+   "order": 28,
    "blind": true
   },
   {
@@ -1536,17 +1554,19 @@
    "end": 2951.45,
    "mmss": "48:55",
    "words": 7,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "بتجوز",
     "right": null,
     "from": "chip"
    },
-   "order": 86,
-   "blind": false
+   "order": 29,
+   "blind": true
   },
   {
    "i": 727,
@@ -1558,17 +1578,19 @@
    "end": 2964.41,
    "mmss": "49:12",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "حتيم",
     "right": "خاتم",
     "from": "readers"
    },
-   "order": 87,
-   "blind": false
+   "order": 30,
+   "blind": true
   },
   {
    "i": 730,
@@ -1588,7 +1610,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 88,
+   "order": 93,
    "blind": false
   },
   {
@@ -1617,7 +1639,7 @@
     "right": "فرجتك / بفرجي",
     "from": "readers"
    },
-   "order": 21,
+   "order": 31,
    "blind": true
   },
   {
@@ -1639,7 +1661,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 89,
+   "order": 94,
    "blind": false
   },
   {
@@ -1662,7 +1684,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 90,
+   "order": 95,
    "blind": false
   },
   {
@@ -1684,7 +1706,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 91,
+   "order": 96,
    "blind": false
   },
   {
@@ -1709,7 +1731,7 @@
     "from": "line"
    },
    "random": true,
-   "order": 22,
+   "order": 32,
    "blind": true
   },
   {
@@ -1732,7 +1754,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 92,
+   "order": 97,
    "blind": false
   },
   {
@@ -1748,17 +1770,20 @@
    "end": 3091.61,
    "mmss": "51:11",
    "words": 4,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "random check: one of 5 confident lines picked by the date"
+   ],
    "propose": {
     "k": "vocab",
     "said": "Okay. أو كمان أنا حطيت،",
     "right": null,
     "from": "chip"
    },
-   "order": 93,
-   "blind": false
+   "random": true,
+   "order": 33,
+   "blind": true
   },
   {
    "i": 775,
@@ -1778,7 +1803,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 94,
+   "order": 98,
    "blind": false
   },
   {
@@ -1802,7 +1827,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 95,
+   "order": 99,
    "blind": false
   },
   {
@@ -1827,7 +1852,7 @@
     "right": "جواه",
     "from": "readers"
    },
-   "order": 23,
+   "order": 34,
    "blind": true
   },
   {
@@ -1848,7 +1873,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 96,
+   "order": 100,
    "blind": false
   },
   {
@@ -1874,7 +1899,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 97,
+   "order": 101,
    "blind": false
   },
   {
@@ -1886,17 +1911,19 @@
    "end": 3175.17,
    "mmss": "52:54",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "مخاطب",
     "right": null,
     "from": "line"
    },
-   "order": 98,
-   "blind": false
+   "order": 35,
+   "blind": true
   },
   {
    "i": 807,
@@ -1917,7 +1944,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 99,
+   "order": 102,
    "blind": false
   },
   {
@@ -1938,7 +1965,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 100,
+   "order": 103,
    "blind": false
   },
   {
@@ -1964,7 +1991,7 @@
     "from": "chip"
    },
    "random": true,
-   "order": 24,
+   "order": 36,
    "blind": true
   },
   {
@@ -1990,7 +2017,7 @@
     "right": "العروس بتلبس",
     "from": "readers"
    },
-   "order": 25,
+   "order": 37,
    "blind": true
   },
   {
@@ -2012,7 +2039,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 101,
+   "order": 104,
    "blind": false
   },
   {
@@ -2034,7 +2061,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 102,
+   "order": 105,
    "blind": false
   },
   {
@@ -2055,7 +2082,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 103,
+   "order": 106,
    "blind": false
   },
   {
@@ -2076,7 +2103,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 104,
+   "order": 107,
    "blind": false
   },
   {
@@ -2100,7 +2127,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 105,
+   "order": 108,
    "blind": false
   },
   {
@@ -2126,7 +2153,7 @@
     "right": "el-fustaan el-abyad",
     "from": "readers"
    },
-   "order": 26,
+   "order": 38,
    "blind": true
   },
   {
@@ -2141,7 +2168,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "random check: one of 5 confident lines picked by the date"
+    "second listen: no 2 of 3 runs agree"
    ],
    "propose": {
     "k": "vocab",
@@ -2149,8 +2176,7 @@
     "right": null,
     "from": "chip"
    },
-   "random": true,
-   "order": 27,
+   "order": 39,
    "blind": true
   },
   {
@@ -2175,7 +2201,7 @@
     "right": "الناس البيض",
     "from": "readers"
    },
-   "order": 28,
+   "order": 40,
    "blind": true
   },
   {
@@ -2198,7 +2224,7 @@
     "right": "الناس البيض",
     "from": "readers"
    },
-   "order": 29,
+   "order": 41,
    "blind": true
   },
   {
@@ -2219,7 +2245,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 106,
+   "order": 109,
    "blind": false
   },
   {
@@ -2240,7 +2266,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 107,
+   "order": 110,
    "blind": false
   },
   {
@@ -2263,7 +2289,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 108,
+   "order": 111,
    "blind": false
   },
   {
@@ -2284,7 +2310,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 109,
+   "order": 112,
    "blind": false
   },
   {
@@ -2305,7 +2331,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 110,
+   "order": 113,
    "blind": false
   },
   {
@@ -2320,6 +2346,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "second listen: no 2 of 3 runs agree",
     "✗ chip on it (أنتِ الصغير؟ الصغار؟)"
    ],
    "propose": {
@@ -2328,7 +2355,7 @@
     "right": "أصغر إشي",
     "from": "readers"
    },
-   "order": 30,
+   "order": 42,
    "blind": true
   },
   {
@@ -2349,7 +2376,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 111,
+   "order": 114,
    "blind": false
   },
   {
@@ -2370,7 +2397,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 112,
+   "order": 115,
    "blind": false
   },
   {
@@ -2391,7 +2418,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 113,
+   "order": 116,
    "blind": false
   },
   {
@@ -2403,17 +2430,19 @@
    "end": 3712.19,
    "mmss": "1:01:42",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "I hope so. I don't need any more difficult rules. [يضحك] ما أقول.",
     "right": null,
     "from": "chip"
    },
-   "order": 114,
-   "blind": false
+   "order": 43,
+   "blind": true
   },
   {
    "i": 943,
@@ -2436,7 +2465,7 @@
     "right": "أسماء",
     "from": "readers"
    },
-   "order": 31,
+   "order": 44,
    "blind": true
   },
   {
@@ -2457,7 +2486,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 115,
+   "order": 117,
    "blind": false
   },
   {
@@ -2478,7 +2507,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 116,
+   "order": 118,
    "blind": false
   },
   {
@@ -2502,7 +2531,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 117,
+   "order": 119,
    "blind": false
   },
   {
@@ -2523,7 +2552,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 118,
+   "order": 120,
    "blind": false
   },
   {
@@ -2537,17 +2566,19 @@
    "end": 3770.19,
    "mmss": "1:02:41",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "ولبنات،",
     "right": null,
     "from": "chip"
    },
-   "order": 119,
-   "blind": false
+   "order": 45,
+   "blind": true
   },
   {
    "i": 962,
@@ -2569,7 +2600,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 120,
+   "order": 121,
    "blind": false
   },
   {
@@ -2591,7 +2622,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 121,
+   "order": 122,
    "blind": false
   },
   {
@@ -2612,7 +2643,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 122,
+   "order": 123,
    "blind": false
   },
   {
@@ -2625,17 +2656,19 @@
    "end": 3825.65,
    "mmss": "1:03:37",
    "words": 3,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "grammar",
     "said": "المنى",
     "right": null,
     "from": "chip"
    },
-   "order": 123,
-   "blind": false
+   "order": 46,
+   "blind": true
   },
   {
    "i": 987,
@@ -2680,7 +2713,7 @@
     "right": "كل الأسماء",
     "from": "readers"
    },
-   "order": 32,
+   "order": 47,
    "blind": true
   },
   {
@@ -2747,7 +2780,7 @@
     "right": "في الإنجليزي",
     "from": "readers"
    },
-   "order": 33,
+   "order": 48,
    "blind": true
   },
   {
@@ -2770,7 +2803,7 @@
     "right": "في الإنجليزي",
     "from": "readers"
    },
-   "order": 34,
+   "order": 49,
    "blind": true
   },
   {
@@ -2792,6 +2825,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "second listen: no 2 of 3 runs agree",
     "the two readers disagreed (D16: only r1 found it)",
     "the two readers disagreed (D29: only r2 found it)"
    ],
@@ -2801,7 +2835,7 @@
     "right": "إنه بيضحّك",
     "from": "readers"
    },
-   "order": 35,
+   "order": 50,
    "blind": true
   },
   {
@@ -2846,8 +2880,8 @@
     "right": "مضحك",
     "from": "readers"
    },
-   "order": 36,
-   "blind": true
+   "order": 51,
+   "blind": false
   },
   {
    "i": 1041,
@@ -2873,8 +2907,8 @@
     "right": "اسم الوسط",
     "from": "readers"
    },
-   "order": 37,
-   "blind": true
+   "order": 52,
+   "blind": false
   },
   {
    "i": 1069,
@@ -2899,8 +2933,8 @@
     "right": "اسمه (esmo)",
     "from": "readers"
    },
-   "order": 38,
-   "blind": true
+   "order": 53,
+   "blind": false
   },
   {
    "i": 1075,
@@ -2924,8 +2958,8 @@
     "right": "نفس اسم سيده",
     "from": "readers"
    },
-   "order": 39,
-   "blind": true
+   "order": 54,
+   "blind": false
   },
   {
    "i": 1085,
@@ -3019,8 +3053,8 @@
     "right": "بس",
     "from": "readers"
    },
-   "order": 40,
-   "blind": true
+   "order": 55,
+   "blind": false
   },
   {
    "i": 1121,
@@ -3130,8 +3164,8 @@
     "right": "عيلة خطيبتي (3eilet 5atibti)",
     "from": "readers"
    },
-   "order": 41,
-   "blind": true
+   "order": 56,
+   "blind": false
   },
   {
    "i": 1141,
