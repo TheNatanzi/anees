@@ -149,8 +149,11 @@ def verify(date, rows, others=None):
     eng = {u["_id"]: u for u in builder_turns(date)}
     his = lambda r: any(o.get("by") == "medi" and not o.get("heard_line") and TF._lands(o, u) for o in others for u in eng.values()
                         if u["who"] == r["who"] and abs(float(r["t"]) - float(u["t"])) <= 1.0 and u.get("text") == r["line"])
+    # 2026-10-21 (AM-36): the tutor's own whole-line row ('wins') owns its line; the re-hear row for it lands nowhere by design
+    hers = lambda r: any(o.get("wins") and o.get("heard_line") is not None and o.get("who") == r["who"] and abs(float(o["t"]) - float(r["t"])) <= 1.0
+                         and o.get("line") == r["line"] for o in others)
     for n, r in enumerate(rows):
-        if hit.get(n, 0) != 1 and not (hit.get(n, 0) == 0 and his(r)):
+        if hit.get(n, 0) != 1 and not (hit.get(n, 0) == 0 and (his(r) or hers(r))):
             bad.append({"t": r["t"], "why": "the row lands on %d lines" % hit.get(n, 0), "line": r["line"]})
         if spans(r["line"], r["heard_line"]) != (r["heard_line"], r["spans"]) or (r.get("engine_wrote"), r.get("heard")) != (r["line"], r["heard_line"]):
             bad.append({"t": r["t"], "why": "the row's spans / aliases are not the ones its two lines give", "line": r["line"]})

@@ -104,8 +104,9 @@ def _key_v1(RT, d):
     measured on v1, so it replays on v1."""
     g = RT.key_of(d)
     slips = list(g["slips"])
-    for v in json.load(open(os.path.join(ROOT, "data", "lesson-work", "review-grades", d + ".json"), encoding="utf-8")).get("key_versions") or []:
-        slips = [x for x in slips if x not in v.get("added", [])] + list(v.get("removed", []))
+    for v in reversed(json.load(open(os.path.join(ROOT, "data", "lesson-work", "review-grades", d + ".json"), encoding="utf-8")).get("key_versions") or []):   # newest first
+        added = {(x.get("k"), str(x.get("i"))) for x in v.get("added", [])}   # by moment: key v4 also edits a kept slip's right form
+        slips = [x for x in slips if (x.get("k"), str(x.get("i"))) not in added] + list(v.get("removed", []))
     return [(x["k"], float(x["i"])) for x in slips]
 
 

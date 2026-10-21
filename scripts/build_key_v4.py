@@ -80,6 +80,8 @@ def build(v3_dir=V3_DIR, out_dir=OUT_DIR, answers=None, log=print):
         answers = MC.latest(rows)
     files = {d: J(os.path.join(v3_dir, d + ".json")) for d in DATES}
     slips = {d: [dict(s) for s in files[d]["key"]["slips"]] for d in DATES}
+    gone = {d: [] for d in DATES}
+    new_slips = {d: [] for d in DATES}
     changes = {d: {"removed": [], "added": [], "kept_fixed": [], "weighted": [], "unchanged_cant_tell": [], "pending": [], "duplicate": []} for d in DATES}
     for name, list_path, mom_path in LISTS:
         cards = (J(list_path).get("items") or [])
@@ -108,7 +110,7 @@ def build(v3_dir=V3_DIR, out_dir=OUT_DIR, answers=None, log=print):
                 changes[d]["unchanged_cant_tell"].append(base); continue
             if ans == "right":
                 for s in near:
-                    slips[d].remove(s)
+                    slips[d].remove(s); gone[d].append(dict(s))
                     changes[d]["removed"].append(dict(base, slip={"t": s["t"], "said": s.get("said"), "ar": s.get("ar")}))
                 continue
             if ans != "mistake":
@@ -139,7 +141,7 @@ def build(v3_dir=V3_DIR, out_dir=OUT_DIR, answers=None, log=print):
                 new["tutor_says"] = note
             if HALF_RE.search(note):
                 new["weight"] = 0.5; changes[d]["weighted"].append(dict(base, slip=new["t"]))
-            slips[d].append(new); slips[d].sort(key=lambda s: float(s["i"]))
+            slips[d].append(new); slips[d].sort(key=lambda s: float(s["i"])); new_slips[d].append(new)
             changes[d]["added"].append(dict(base, slip={"t": new["t"], "said": new["said"], "ar": new["ar"]}))
     total = 0
     for d in DATES:
@@ -151,7 +153,10 @@ def build(v3_dir=V3_DIR, out_dir=OUT_DIR, answers=None, log=print):
         F["key_versions"].append({"version": 4, "date": "2026-10-21",
                                   "why": "the tutor's final answers on her blind cards (AM-33, AM-35), read through AM-36 (re-asked cards use her "
                                          "answer to the re-ask; pending ones leave v3 as it was); Medi 2026-10-21: 'Make v4 and follow amals directions'",
-                                  "slips_before": before, "slips_after": len(slips[d]), **c})
+                                  "slips_before": before, "slips_after": len(slips[d]),
+                                  # 'added' / 'removed' hold the slips themselves (as in v2 / v3: older keys are replayed by undoing
+                                  # them); the record of each of her answers is in 'changes'
+                                  "added": new_slips[d], "removed": gone[d], "changes": c})
         os.makedirs(out_dir, exist_ok=True)
         json.dump(F, open(os.path.join(out_dir, d + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         log("%s: v3 %d -> v4 %d  (removed %d, added %d, right form from her note %d, half weight %d, duplicates %d, can't tell %d, pending %d)" % (
