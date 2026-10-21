@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T23:00:01-07:00",
+ "updated": "2026-10-20T23:10:25-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -9668,18 +9668,18 @@
     ]
    },
    "words": {
-    "unique": 119,
-    "right": 242,
+    "unique": 118,
+    "right": 240,
     "wrong": 13,
     "partial": 13,
     "pct": 92.7,
-    "scored": 268,
+    "scored": 266,
     "audit_wrong": 13,
     "audit_partial": 5,
     "not_on_sheet": 3,
     "rehear_word_conflicts": 2,
     "unique_rows": 110,
-    "eligible": 266,
+    "eligible": 264,
     "excluded": 2,
     "pending": 2,
     "eligible_pct": 93.0,
@@ -9689,7 +9689,7 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 171,
+    "uses": 170,
     "mistakes": 15,
     "pct": 91.8,
     "estimate": false,
@@ -9704,7 +9704,7 @@
       "3 slips are in rules the counter found 0 uses of in this lesson",
       "3 rules have more slips than counted uses (A15, A18, B8)"
      ],
-     "uses": 158,
+     "uses": 157,
      "slips": 15,
      "slips_latin": 0,
      "slips_in_zero_use_rules": 3,
@@ -9755,7 +9755,7 @@
       2
      ]
     ],
-    "in_turns": 285,
+    "in_turns": 283,
     "comparable": true
    },
    "latency": {
@@ -9959,13 +9959,13 @@
     "since": "2026-10-21",
     "label": "Second listen: applied",
     "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
-    "note": "223 of your lines changed (121 with a different word, 102 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 18 lines wait: 1 held for a check, 15 where the 3 runs did not agree. 2 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word)."
+    "note": "221 of your lines changed (119 with a different word, 102 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 19 lines wait: 1 held for a check, 15 where the 3 runs did not agree. 3 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word)."
    },
    "counts": {
     "turns": 1142,
     "chat_lines": 45,
     "vocab_errors": 21,
-    "vocab_correct": 250,
+    "vocab_correct": 248,
     "grammar_errors": 15,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -9976,8 +9976,8 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-14.json",
-    "marks": 515,
-    "conflicts": 2,
+    "marks": 512,
+    "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
     "mode": "on",
