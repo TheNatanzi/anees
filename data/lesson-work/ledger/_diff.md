@@ -28,7 +28,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-09 | 97.8 | 320 | 87.0 -> **87.1** | 37 | 285 -> **287** | 1 / 1 |
 | 2026-10-10 | 96.6 | 290 | 90.4 | 26 | 272 | 1 / 0 |
 | 2026-10-12 | 96.6 | 194 | 85.5 -> **85.7** | 32 | 220 -> **224** | 0 / 0 |
-| 2026-10-14 | None -> **94.5** | None -> **201** | None -> **90.2** | None -> **15** | None -> **153** | 0 / 0 |
+| 2026-10-14 | None -> **92.7** | None -> **268** | None -> **90.8** | None -> **15** | None -> **152** | 1 / 0 |
 
 
 ## Conflicts
@@ -138,6 +138,8 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-10 08:45 C1a both stand: يوم الخميس. (word-bank right) vs يوم الخميس -> الخميس الجاي (readers asked) - he asked for another word: both stand
 - 2026-10-10 21:45 C1 settled: كليًا (word-bank right) vs كليًا -> بشكل عام (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-10-12 58:52 C1a both stand: بطلب (word-bank right) vs بطلب = go out -> بطلب = request / ask for (readers asked) - he asked for another word: both stand
+- 2026-10-14 35:39 C1p both stand: إشي (word-bank right) vs إشي زي إشي -> إشي زي هيك / هيك إشي (readers wrong) - slip elsewhere in the phrase: the word stays right
+- 2026-10-14 1:05:53 C5 settled: أنا ظنيت، (word-bank right) vs ظنيت -> فكرت (readers wrong) - one word counted right and wrong at once: counted once, as the slip
 
 ## Medi's corrections (PR-15)
 
