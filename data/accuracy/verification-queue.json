@@ -1,10 +1,11 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 7,
+ "count": 15,
  "by_date": {
   "2026-09-26": 1,
   "2026-10-06": 1,
-  "2026-10-12": 5
+  "2026-10-12": 5,
+  "2026-10-14": 8
  },
  "rows": [
   {
@@ -154,6 +155,176 @@
    "second_judge": null,
    "listen_from": "21:10",
    "listen_to": "21:44"
+  },
+  {
+   "uid": "FA-aa7fb649",
+   "date": "2026-10-14",
+   "t": "18:31",
+   "t_amal": "18:48",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "medi_said": "لا الـ tax. الـ مال، دي كذا ماليات؟ ... Do you guys say ماليات؟",
+   "amal_said": "Oh، so ضرايب.",
+   "wrong": "ماليات",
+   "right": "ضرايب",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "18:21",
+   "listen_to": "19:08"
+  },
+  {
+   "uid": "FA-71f48717",
+   "date": "2026-10-14",
+   "t": "19:19",
+   "t_amal": "19:22",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A15",
+   "medi_said": "It's آخر اليوم الضرايب.",
+   "amal_said": "آخر يوم لـ الضرايب. لـ الضرايب.",
+   "wrong": "آخر اليوم الضرايب",
+   "right": "آخر يوم لـ الضرايب",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "19:09",
+   "listen_to": "19:42"
+  },
+  {
+   "uid": "FA-a80c8f45",
+   "date": "2026-10-14",
+   "t": "23:36",
+   "t_amal": "23:44",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A8",
+   "medi_said": "كان عندي سنة ماضي و متحمس",
+   "amal_said": "What do you mean كان عندي سنة ماضية؟",
+   "wrong": "سنة ماضي",
+   "right": "سنة ماضية",
+   "why_check": [
+    "both readers found it but the third reader challenged it"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "23:26",
+   "listen_to": "24:04"
+  },
+  {
+   "uid": "FA-6241a9c6",
+   "date": "2026-10-14",
+   "t": "30:25",
+   "t_amal": "30:28",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "medi_said": "appointment is ma-ma'idu? Ma'idu? Ma'id?",
+   "amal_said": "موعد. موعد. مواعيد.",
+   "wrong": "ma'id",
+   "right": "موعد",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "30:15",
+   "listen_to": "30:48"
+  },
+  {
+   "uid": "FA-a570cbd1",
+   "date": "2026-10-14",
+   "t": "34:51",
+   "t_amal": "35:04",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "D4",
+   "medi_said": "So, uh, [غير مسموع] (context: the app will remind me to do it - the homework)",
+   "amal_said": "أم، no، أعمله، because it's واجب.",
+   "wrong": "[inaudible ending on a3mal-]",
+   "right": "أعمله",
+   "why_check": [
+    "reader confidence low",
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "34:41",
+   "listen_to": "35:24"
+  },
+  {
+   "uid": "FA-4f74c690",
+   "date": "2026-10-14",
+   "t": "38:09",
+   "t_amal": "38:30",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A7",
+   "medi_said": "سنة الجاي. ... سنة الجاي أنا بدي",
+   "amal_said": "السنة الجاي.",
+   "wrong": "سنة الجاي",
+   "right": "السنة الجاي",
+   "why_check": [
+    "reader confidence low",
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "37:59",
+   "listen_to": "38:50"
+  },
+  {
+   "uid": "FA-67bd6c44",
+   "date": "2026-10-14",
+   "t": "41:14",
+   "t_amal": "41:00",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "medi_said": "This is badass. [laughs] That'd be too easy.",
+   "amal_said": "How about a new verb? To get married. ... So متزوج or متجوز.",
+   "wrong": "None",
+   "right": "بتجوز / بتزوج",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "41:04",
+   "listen_to": "41:20"
+  },
+  {
+   "uid": "FA-af5996f5",
+   "date": "2026-10-14",
+   "t": "1:08:06",
+   "t_amal": "1:08:12",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A4",
+   "medi_said": "uh, ism, uh, ... do I say zai? Ism, ismo.",
+   "amal_said": "His name.",
+   "wrong": "ism",
+   "right": "اسمه (esmo)",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "1:07:56",
+   "listen_to": "1:08:32"
   }
  ]
 }

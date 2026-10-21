@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-20T21:34:16-07:00",
+ "updated": "2026-10-20T21:47:16-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -9555,7 +9555,7 @@
    "review_mode": null,
    "type_why": "17:08-1:13:45 (~57 of 71 min) is free conversation - taxes day, what motivates him, next year's plans, the wedding, honeymoon, kids and names - with words given as they come up (28:06 'ما راح ندرس الـ sets. راح نحكي يعني اليوم', 49:33 'It's a messy lesson today'); 02:46-17:08 is English talk about the transcript app and Medi's walk, and his audio is missing 57:44-1:00:13 (her side only). Mixed in: a new verb to get married (41:00 'How about a new verb? To get married', typed batjawwaz / batzawwaj 42:29-42:46) and a short wedding-word review (48:17-50:59).",
    "type_source": "claude-read",
-   "type_read_by": "claude -p (review_lesson.py)",
+   "type_read_by": "claude -p (review_lesson.py); LS-09 fix by hand (Claude agent)",
    "summary": {
     "headline": "Free talk about taxes, plans and the wedding, with new words and the verb to get married",
     "rules": [
@@ -9776,6 +9776,12 @@
    "taught_words": [
     {
      "latin": null,
+     "arabic": "كلام",
+     "english": "speech / talk (he named the app Kalam; she explained 'كلام is like speech')",
+     "t": "14:10"
+    },
+    {
+     "latin": null,
      "arabic": "ضرايب / ضريبة",
      "english": "taxes / one tax (he said ماليات; she gave الضرايب, then the singular at 22:35)",
      "t": "18:48"
@@ -9847,6 +9853,12 @@
      "t": "49:25"
     },
     {
+     "latin": "muttalat",
+     "arabic": "مثلث",
+     "english": "triangle (he asked 'Is triangle مثلث?'; she confirmed, typed 'muttalat a7mar' at 53:34)",
+     "t": "51:34"
+    },
+    {
      "latin": null,
      "arabic": "جواه",
      "english": "inside it (he said جوا; she corrected to جواه)",
@@ -9871,6 +9883,12 @@
      "t": "55:32"
     },
     {
+     "latin": "thob",
+     "arabic": "ثوب",
+     "english": "traditional (embroidered) dress (typed 'heyye ra7 telbess thob')",
+     "t": "56:32"
+    },
+    {
      "latin": null,
      "arabic": "الناس البيض / بيض",
      "english": "white people (he tried el abyad)",
@@ -9881,6 +9899,12 @@
      "arabic": "بدك تجيب أولاد؟",
      "english": "do you want to have kids? (literally bring kids; she let him guess)",
      "t": "58:44"
+    },
+    {
+     "latin": "maleke",
+     "arabic": "ملكة",
+     "english": "queen (typed 'el-maleke el-ingliziyye badat el-fasateen el-beed')",
+     "t": "59:56"
     },
     {
      "latin": null,
@@ -9924,10 +9948,11 @@
    "page": "lessons/2026-10-14.html",
    "detail": "data/lessons/2026-10-14.json",
    "rehear": {
-    "status": "pending",
+    "status": "submitted",
     "since": "2026-10-21",
-    "label": "Second listen: pending",
-    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+    "label": "Second listen: sent, waiting",
+    "tip": "A second AI listen of your microphone (Gemini) was sent for this lesson and its answers are not back yet. The transcript is still ElevenLabs only.",
+    "note": "Sent to Gemini (Batch) on 2026-10-21; not all of its answers are back yet."
    },
    "counts": {
     "turns": 1142,
