@@ -238,6 +238,8 @@ STEPS = [
     ("build_sentence_ladder", [sys.executable, "scripts/build_sentence_ladder.py"]),
     # new words Amal used that are not on her Doc + her add / later / forget taps (Medi 2026-10-02)
     ("amal_new_words", [sys.executable, "scripts/amal_new_words.py"]),
+    # AM-36: cards she said were too short go back to her with more of the recording, before any grading uses them
+    ("tutor_more_check", [sys.executable, "scripts/build_tutor_more_check.py"]),
     ("build_tutor_data", [sys.executable, "scripts/build_tutor_data.py"]),
     # AM-29: her key-check taps mirrored read-only into data/, then the grade book's tutor-vs-student agreement
     ("tutor_key_check_pull", [sys.executable, "scripts/build_tutor_key_check.py", "pull"]),
@@ -257,7 +259,7 @@ STEPS = [
 # chips, ledger and review picker from the corrected line (build_lessons_page_data)
 AUDIT_CHAIN = ["full_audit_build", "apply_amal_audit_rulings", "amal_grammar_notes", "detect_grammar_usage", "build_grammar_console", "build_amal_docs",
                "build_amal_grammar_rules", "build_amal_review", "build_lessons_page_data", "codex_list", "accuracy_annotate", "build_sentence_ladder", "amal_new_words",
-               "build_tutor_data", "build_tutor_weak"]
+               "tutor_more_check", "build_tutor_data", "build_tutor_weak"]
 
 SOURCES = [
     {"id": "tutor_verify", "label": "Tutor page: check these moments", "fetch": fetch_tutor_verify, "steps": AUDIT_CHAIN},
@@ -265,7 +267,7 @@ SOURCES = [
     {"id": "after_links", "label": "After-lesson questions", "fetch": fetch_after, "steps": AUDIT_CHAIN},
     {"id": "plan_links", "label": "Before-lesson planner", "fetch": fetch_plan, "steps": ["build_tutor_data"]},
     {"id": "listen_check", "label": "Listening check: which version is right", "fetch": fetch_listen_check,
-     "steps": ["build_tutor_data", "tutor_key_check_pull", "tutor_note_check_pull", "review_grades"],
+     "steps": ["tutor_more_check", "build_tutor_data", "tutor_key_check_pull", "tutor_note_check_pull", "review_grades"],
      "note": "her taps are read by scripts/amal_listen_results.py; nothing is re-scored, only her hub list is refreshed "
              "(AM-29: her key-check taps feed only the grade book's tutor-vs-student agreement)"},
     {"id": "tutor_notes", "label": "Notes she writes on her Tutor screens (AM-27)", "fetch": fetch_notes, "steps": ["build_tutor_data", "build_student_data"]},

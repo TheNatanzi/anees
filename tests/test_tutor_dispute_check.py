@@ -53,3 +53,27 @@ def test_am_35_every_card_shows_the_line_that_holds_the_flagged_words_and_argons
         assert x['rows'][0]['label'].startswith('The possible mistake') and any(w in norm(x['line']['ar']) for w in said), (x['id'], said)
     M = json.load(open(DC.JUDGE_MOMENTS, encoding='utf-8'))['moments']
     assert sum(m.get('set') == 'argon-key-v3' for m in M) == 19 and any(m.get('also') for m in M)
+
+
+def test_am_36_too_short_cards_go_back_to_her_and_wait():
+    """AM-36 (Medi 2026-10-20: 'when she's asking for more info like adding more recording send it back to her before
+    grading'): a 'clip too short' answer sends the card back with more audio, and grading waits for her second answer."""
+    import build_tutor_more_check as MC
+    assert MC.needs_more({"answer": "cant_tell", "typed": "The clip is too short to decide"})
+    assert MC.needs_more({"answer": "right", "typed": "Clip is not sufficient to decide."})
+    assert not MC.needs_more({"answer": "right", "typed": "He's not answering in the clip, I am helping him."})
+    assert not MC.needs_more({"answer": "mistake"})
+    ans = {"disputecheck:A": {"answer": "right", "typed": "too short"}, "disputecheck:B": {"answer": "mistake"},
+           "disputecheck:C": {"answer": "cant_tell", "typed": "Clip too short"}, "disputecheck:C-more": {"answer": "mistake"}}
+    assert MC.final_answer("A", ans) is None                      # asked for more, not answered again: pending
+    assert MC.final_answer("B", ans)["answer"] == "mistake"
+    assert MC.final_answer("C", ans)["answer"] == "mistake"       # her second answer, with more audio, is the one used
+    rows = [{"id": 1, "kind": "dispute_check", "word_key": "disputecheck:A", "payload": {"answer": "right", "typed": "x"}},
+            {"id": 2, "kind": "undo", "word_key": "disputecheck:A"}]
+    assert MC.latest(rows) == {}
+    D = json.load(open(MC.OUT, encoding='utf-8'))
+    assert D['list'] == 'key-check-more' and D['rule'] == 'AM-36' and D['n'] == len(D['items']) >= 1
+    for x in D['items']:
+        assert x['id'].endswith('-more') and x['rows'][0]['label'] == 'Your note last time'
+        a, b = [float(v) for v in x['clips'][0]['src'].split('#t=')[1].split(',')]
+        assert b - a >= 30                                          # about 40 s of the lesson, not the short clip again

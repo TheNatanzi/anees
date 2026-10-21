@@ -11955,6 +11955,42 @@
    "aliases": []
   },
   {
+   "id": "AM-36",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "When the tutor's answer on a blind checking card says the clip was too short or not enough (scripts/build_tutor_more_check.py MORE_RE), the card goes back to her in the list 'key-check-more' with the lesson audio from 25 s before to 15 s after the line, every line said in that window and her own note; until she answers it again (word_key '<prefix>:<card id>-more'), her first answer on that card is pending and is used by no key, score or grade (final_answer).",
+   "plain": "When Amal says a clip is too short, the card goes back to her with more of the recording, and her answer counts only after she answers it again.",
+   "plain_for": "224111f3",
+   "topic": "tutor",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-20",
+     "quote": "make a rule when she's asking for more info like adding more recording send it back to her before grading"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_more_check.py",
+     "contains": "def final_answer(card_id, answers"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_dispute_check.py",
+     "contains": "def test_am_36_too_short_cards_go_back_to_her_and_wait"
+    }
+   ],
+   "example": {
+    "date": "2026-10-20",
+    "note": "8 of her 63 dispute / judge answers said the clip was too short; they went back with about 40 s each"
+   },
+   "aliases": []
+  },
+  {
    "id": "PG-53",
    "kind": "display",
    "scope": "pages",
