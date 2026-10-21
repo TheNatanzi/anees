@@ -224,7 +224,7 @@ def test_scribe_budget_stop_and_failure_are_logged(runs, tmp_path, monkeypatch):
     import pipeline_ext as px
     monkeypatch.setattr(px, "LEDGER", tmp_path / "budget.json")
     mp3 = tmp_path / "a.mp3"; mp3.write_bytes(b"x")
-    px.spend("elevenlabs", 8.9, "earlier")
+    px.spend("elevenlabs", 0.89 * px.CAPS["elevenlabs"], "earlier")   # just under the 90 % line of whatever the cap is
     with pytest.raises(px.BudgetStop):
         px.transcribe_with_retry(lambda *a, **k: R(200), mp3, "k", minutes=60)
     monkeypatch.setattr(px, "LEDGER", tmp_path / "budget2.json")

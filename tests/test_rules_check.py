@@ -166,7 +166,7 @@ def test_mail_only_to_medi(tmp_path):
 def test_budget_at_90_percent_fails(tmp_path):
     w(tmp_path / "data" / "budget.json", {"elevenlabs": 3.39, "openai": 2.21})
     assert cr.check_budget(tmp_path, None)["status"] == "pass"
-    w(tmp_path / "data" / "budget.json", {"elevenlabs": 9.0, "openai": 2.21})
+    w(tmp_path / "data" / "budget.json", {"elevenlabs": 0.9 * cr.CAPS["elevenlabs"], "openai": 2.21})
     assert cr.check_budget(tmp_path, None)["status"] == "fail"
 
 
