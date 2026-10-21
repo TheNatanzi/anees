@@ -6,9 +6,9 @@ Every row in data/accuracy/verification-queue.json (a scored row the Claude read
      listen_from..listen_to, plus the mixed lesson recording (mixed-only lessons: that is the only audio)
   2. an independent, non-Claude transcription of every clip: local faster-whisper large-v3 AND the Levantine dialect
      whisper (C:\\dev\\anees\\models\\dialect-ct2), language ar, NO prompt (a prompt would bias it toward the right form)
-  3. Codex (gpt-5.5, `codex exec -m gpt-5.5`, never a Claude model) reads the Claude readers' row, the transcript lines
+  3. Codex (gpt-6-astra on the ChatGPT plan, `codex exec -m gpt-6-astra`, never a Claude model) reads the Claude readers' row, the transcript lines
      around it, and both independent transcriptions, and rules: confirmed / changed / rejected / unsure + reason
-  4. one append-only record per row in data/accuracy/verifications.json (reviewer "codex gpt-5.5", role second-judge,
+  4. one append-only record per row in data/accuracy/verifications.json (reviewer "codex <model>", role second-judge,
      method audio, evidence = window, clip hashes, the independent transcription, the quote Codex relied on)
 
 scripts/accuracy_gates.py then treats: Codex confirmed/changed = the row stands (eligible); Codex rejected/unsure =
@@ -37,7 +37,7 @@ ASR_P = os.path.join(REPO, "data", "accuracy", "asr-evidence.json")
 CLIPS = os.path.join(REPO, "data", "accuracy", "clips")              # *.mp3 is git-ignored; hashes go in the ledger
 AMAL_LIST_P = os.path.join(REPO, "docs", "data", "amal-verify.json")
 DIALECT = os.environ.get("ANEES_DIALECT_CT2", r"C:\dev\anees\models\dialect-ct2")
-CODEX_MODEL = "gpt-5.5"
+CODEX_MODEL = "gpt-6-astra"     # 2026-10-21: gpt-5.5 is not on the ChatGPT plan (400 "not supported when using Codex with a ChatGPT account"), so every double-check failed
 REVIEWER = f"codex {CODEX_MODEL}"
 BATCH = 6
 VERDICTS = ("confirmed", "changed", "rejected", "unsure")
@@ -251,7 +251,7 @@ def codex(prompt, workdir):
 
 # ------------------------------------------------------------------------------------------------ ledger
 def codex_done(ledger):
-    return {r["uid"] for r in ledger.get("records", []) if r.get("reviewer") == REVIEWER}
+    return {r["uid"] for r in ledger.get("records", []) if str(r.get("reviewer") or "").startswith("codex ")}   # a row Codex judged with an earlier model stays judged
 
 
 def record(q, ev, ruling, run_id):

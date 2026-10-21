@@ -76,7 +76,7 @@ def test_codex_record_shape_passes_the_ledger_rules():
                      "asr": {"large-v3": [{"t": "04:55", "text": "أنا بروح"}]}}]}
     r = C.record(q, ev, {"verdict": "confirmed", "confidence": "high", "reason": "she recasts", "quote": "بروح"}, "run1")
     assert G.ledger_problems({"records": [r]}) == []
-    assert r["reviewer"] == "codex gpt-5.5" and r["role"] == "second-judge" and r["evidence"]["t_start"] == 290.0
+    assert r["reviewer"] == "codex " + C.CODEX_MODEL and r["role"] == "second-judge" and r["evidence"]["t_start"] == 290.0
 
 
 def test_amal_list_holds_only_open_disagreements(tmp_path):
