@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18T12:52:26-07:00",
+ "updated": "2026-10-20T21:34:16-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -77,9 +77,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 212,
+    "uses": 213,
     "mistakes": 33,
-    "pct": 85.8,
+    "pct": 85.9,
     "estimate": false,
     "scored_mistakes": 30,
     "unscored_mistakes": 3,
@@ -95,7 +95,7 @@
       "9 slips are in rules the counter found 0 uses of in this lesson",
       "5 rules have more slips than counted uses (A12, A7, B16, B18, C12)"
      ],
-     "uses": 185,
+     "uses": 186,
      "slips": 33,
      "slips_latin": 5,
      "slips_in_zero_use_rules": 9,
@@ -211,7 +211,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-08-25.json",
-    "marks": 546,
+    "marks": 547,
     "conflicts": 5,
     "resolved": 3,
     "needs_medi": 1,
@@ -614,9 +614,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 151,
+    "uses": 154,
     "mistakes": 37,
-    "pct": 76.2,
+    "pct": 76.6,
     "estimate": false,
     "scored_mistakes": 36,
     "unscored_mistakes": 1,
@@ -630,9 +630,9 @@
      "valid": false,
      "reasons": [
       "9 slips are in rules the counter found 0 uses of in this lesson",
-      "8 rules have more slips than counted uses (A3, B18, B5, B6, C4, C9, D2, F3)"
+      "7 rules have more slips than counted uses (A3, B18, B5, B6, C4, C9, F3)"
      ],
-     "uses": 120,
+     "uses": 123,
      "slips": 37,
      "slips_latin": 17,
      "slips_in_zero_use_rules": 9,
@@ -643,7 +643,6 @@
       "B6",
       "C4",
       "C9",
-      "D2",
       "F3"
      ]
     },
@@ -749,7 +748,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-05.json",
-    "marks": 360,
+    "marks": 363,
     "conflicts": 8,
     "resolved": 1,
     "needs_medi": 1,
@@ -877,7 +876,7 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 220,
+    "uses": 221,
     "mistakes": 43,
     "pct": 80.5,
     "estimate": false,
@@ -892,20 +891,19 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "15 slips are in rules the counter found 0 uses of in this lesson",
-      "7 rules have more slips than counted uses (A13, A7, B18, B2, C7, D2, E1)"
+      "14 slips are in rules the counter found 0 uses of in this lesson",
+      "6 rules have more slips than counted uses (A13, A7, B18, B2, C7, E1)"
      ],
-     "uses": 186,
+     "uses": 189,
      "slips": 43,
      "slips_latin": 2,
-     "slips_in_zero_use_rules": 15,
+     "slips_in_zero_use_rules": 14,
      "rules_slips_over_uses": [
       "A13",
       "A7",
       "B18",
       "B2",
       "C7",
-      "D2",
       "E1"
      ]
     },
@@ -984,7 +982,7 @@
     "2 question(s) of the new read sit at a moment Amal already ruled on (07:32, 08:30): they wait for Medi, not for her (owner-review.json).",
     "6 slip(s) here come from the first read only (5 grammar, 1 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
     "2 slips may be counted twice (same slip written in Arabic and in English letters).",
-    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 29:46 Word Bank said right, Amal said no to that word: her no counts.",
+    "one ledger (LS-11): 2 moment(s) where two judges disagreed were settled by the existing rules: 15:52 one turn was both a use and a slip of the same rule: one attempt, wrong; 29:46 Word Bank said right, Amal said no to that word: her no counts.",
     "2 moment(s) wait for Medi (counted as before until he picks): 07:08; 34:14."
    ],
    "page": "lessons/2026-09-10.html",
@@ -1029,9 +1027,9 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-10.json",
-    "marks": 530,
-    "conflicts": 6,
-    "resolved": 1,
+    "marks": 532,
+    "conflicts": 7,
+    "resolved": 2,
     "needs_medi": 2,
     "mode": "on",
     "items": [
@@ -1563,9 +1561,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 207,
+    "uses": 210,
     "mistakes": 44,
-    "pct": 78.7,
+    "pct": 79.0,
     "estimate": false,
     "scored_mistakes": 44,
     "unscored_mistakes": 0,
@@ -1580,7 +1578,7 @@
       "7 slips are in rules the counter found 0 uses of in this lesson",
       "7 rules have more slips than counted uses (B12, B18, B2, B5, B7, C7, E1)"
      ],
-     "uses": 166,
+     "uses": 169,
      "slips": 44,
      "slips_latin": 8,
      "slips_in_zero_use_rules": 7,
@@ -1697,7 +1695,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-14.json",
-    "marks": 504,
+    "marks": 507,
     "conflicts": 5,
     "resolved": 1,
     "needs_medi": 1,
@@ -2119,9 +2117,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 234,
+    "uses": 238,
     "mistakes": 35,
-    "pct": 85.5,
+    "pct": 85.7,
     "estimate": false,
     "scored_mistakes": 34,
     "unscored_mistakes": 1,
@@ -2137,7 +2135,7 @@
       "10 slips are in rules the counter found 0 uses of in this lesson",
       "8 rules have more slips than counted uses (A12, B12, B13, B16, B18, C10, C9, D4)"
      ],
-     "uses": 200,
+     "uses": 204,
      "slips": 35,
      "slips_latin": 11,
      "slips_in_zero_use_rules": 10,
@@ -2363,7 +2361,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-16.json",
-    "marks": 467,
+    "marks": 471,
     "conflicts": 3,
     "resolved": 1,
     "needs_medi": 0,
@@ -3185,7 +3183,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-18.json",
-    "marks": 228,
+    "marks": 229,
     "conflicts": 4,
     "resolved": 1,
     "needs_medi": 1,
@@ -3603,7 +3601,7 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 384,
+    "uses": 385,
     "mistakes": 64,
     "pct": 83.9,
     "estimate": false,
@@ -3621,7 +3619,7 @@
       "9 slips are in rules the counter found 0 uses of in this lesson",
       "7 rules have more slips than counted uses (A12, B10, B16, B18, C11, C2, E1)"
      ],
-     "uses": 326,
+     "uses": 327,
      "slips": 64,
      "slips_latin": 17,
      "slips_in_zero_use_rules": 9,
@@ -3759,7 +3757,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-21.json",
-    "marks": 1012,
+    "marks": 1013,
     "conflicts": 10,
     "resolved": 3,
     "needs_medi": 0,
@@ -8198,9 +8196,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 285,
+    "uses": 287,
     "mistakes": 37,
-    "pct": 87.0,
+    "pct": 87.1,
     "estimate": false,
     "scored_mistakes": 37,
     "unscored_mistakes": 0,
@@ -8213,7 +8211,7 @@
       "3 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (A15, A16, A9b, C7)"
      ],
-     "uses": 251,
+     "uses": 253,
      "slips": 37,
      "slips_latin": 1,
      "slips_in_zero_use_rules": 3,
@@ -8444,7 +8442,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-09.json",
-    "marks": 758,
+    "marks": 759,
     "conflicts": 4,
     "resolved": 1,
     "needs_medi": 1,
@@ -9253,9 +9251,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 220,
+    "uses": 224,
     "mistakes": 32,
-    "pct": 85.5,
+    "pct": 85.7,
     "estimate": false,
     "scored_mistakes": 32,
     "unscored_mistakes": 0,
@@ -9268,7 +9266,7 @@
       "12 slips are in rules the counter found 0 uses of in this lesson",
       "6 rules have more slips than counted uses (B18, B7, B8, C10, C2, E1)"
      ],
-     "uses": 188,
+     "uses": 192,
      "slips": 32,
      "slips_latin": 5,
      "slips_in_zero_use_rules": 12,
@@ -9445,7 +9443,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-12.json",
-    "marks": 513,
+    "marks": 517,
     "conflicts": 1,
     "resolved": 0,
     "needs_medi": 0,
@@ -9541,6 +9539,545 @@
      "missing_s": 233.7,
      "hole_s": 0,
      "covered_pct": 95.3
+    }
+   }
+  },
+  {
+   "date": "2026-10-14",
+   "start_local": "2026-10-14T14:19:40-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 73.8,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "17:08-1:13:45 (~57 of 71 min) is free conversation - taxes day, what motivates him, next year's plans, the wedding, honeymoon, kids and names - with words given as they come up (28:06 'ما راح ندرس الـ sets. راح نحكي يعني اليوم', 49:33 'It's a messy lesson today'); 02:46-17:08 is English talk about the transcript app and Medi's walk, and his audio is missing 57:44-1:00:13 (her side only). Mixed in: a new verb to get married (41:00 'How about a new verb? To get married', typed batjawwaz / batzawwaj 42:29-42:46) and a short wedding-word review (48:17-50:59).",
+   "type_source": "claude-read",
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Free talk about taxes, plans and the wedding, with new words and the verb to get married",
+    "rules": [
+     {
+      "title": "batjawwaz / batzawwaj = I get married; bajawwez = I marry (a couple)",
+      "pattern": "bat- + jawwaz / zawwaj",
+      "bullets": [
+       "Both forms are used: batjawwaz or batzawwaj",
+       "Without the t (بجوّز) it means to marry a couple, like a priest",
+       "mumken never takes b-: mumken netjawwaz"
+      ],
+      "examples": [
+       {
+        "t": "42:29",
+        "line": "batjawwaz / batzawwaj - to get married"
+       },
+       {
+        "t": "43:18",
+        "line": "بجوز - I marry you guys"
+       },
+       {
+        "t": "44:52",
+        "line": "ممكن نتجوز - we might get married (not بنتجوز)"
+       }
+      ]
+     },
+     {
+      "title": "mumken and ba3ed ma drop the b-: mumken netjawwaz, ba3ed ma telbes",
+      "bullets": [
+       "After ممكن the verb has no b-",
+       "After بعد ما the verb has no b- either"
+      ],
+      "examples": [
+       {
+        "t": "44:52",
+        "line": "ممكن never takes be. So نتجوز"
+       },
+       {
+        "t": "54:38",
+        "line": "بعد ما تلبس الفستان - after she wears the dress"
+       }
+      ]
+     },
+     {
+      "title": "kul + singular = every; kul el- + plural = all the",
+      "pattern": "kul esem / kul el-asmaa2",
+      "bullets": [
+       "كل اسم = every name",
+       "كل الأسماء = all the names",
+       "الكل = everyone"
+      ],
+      "examples": [
+       {
+        "t": "1:04:29",
+        "line": "كل اسم - every name"
+       },
+       {
+        "t": "1:07:10",
+        "line": "kul el-asmaa2 sehleen fi el-injleezi - all the names are easy in English"
+       },
+       {
+        "t": "1:12:11",
+        "line": "el-kul bye3mal heik - everyone does this"
+       }
+      ]
+     },
+     {
+      "title": "Broken plurals like shubbaak - shababeek: mashroo3 - mashaaree3",
+      "pattern": "singular -> plural with -aa- and -ee-",
+      "bullets": [
+       "mashroo3 - mashaaree3 = project(s)",
+       "maw3ed - mawa3eed = appointment(s)",
+       "fus6aan - fasa6een = dress(es)",
+       "3enwaan - 3anaween = address(es)"
+      ],
+      "examples": [
+       {
+        "t": "28:28",
+        "line": "مشروع - plural مشاريع"
+       },
+       {
+        "t": "30:28",
+        "line": "موعد، مواعيد - appointment"
+       },
+       {
+        "t": "31:43",
+        "line": "shubbaak - shababeek + maw3ed - mawa3eed = fus6aan - fasa6een + 3enwaan - 3anaween"
+       }
+      ]
+     },
+     {
+      "title": "I will have = ra7 ykoon 3indi",
+      "bullets": [
+       "Future of 'I have' uses يكون, not كان"
+      ],
+      "examples": [
+       {
+        "t": "46:29",
+        "line": "راح يكون عندي شهر العسل في أوروبا - I will have the honeymoon in Europe"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "English talk 02:46-17:08 about the transcript app and grading; Medi starts his walk",
+     "Warm-up 17:08-25:41: today is the last day for taxes, the date and time",
+     "Short wedding-word review 48:17-50:59: عرس, عروس, عريس, شهر العسل",
+     "Talk 58:44-1:13:45 on kids, her seven sisters, baby names, naming after the grandfather, Abu + eldest child",
+     "His audio is missing 57:44-1:00:13 (her side only)"
+    ]
+   },
+   "words": {
+    "unique": 100,
+    "right": 184,
+    "wrong": 5,
+    "partial": 12,
+    "pct": 94.5,
+    "scored": 201,
+    "audit_wrong": 5,
+    "audit_partial": 8,
+    "not_on_sheet": 2,
+    "rehear_word_conflicts": 0,
+    "unique_rows": 93,
+    "eligible": 201,
+    "excluded": 0,
+    "pending": 3,
+    "eligible_pct": 94.5,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 153,
+    "mistakes": 15,
+    "pct": 90.2,
+    "estimate": false,
+    "scored_mistakes": 15,
+    "unscored_mistakes": 0,
+    "eligible": 14,
+    "excluded": 1,
+    "pending": 5,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "2 slips are in rules the counter found 0 uses of in this lesson",
+      "2 rules have more slips than counted uses (B8, C3)"
+     ],
+     "uses": 138,
+     "slips": 15,
+     "slips_latin": 2,
+     "slips_in_zero_use_rules": 2,
+     "rules_slips_over_uses": [
+      "B8",
+      "C3"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1451.7,
+    "amal_s": 924.7,
+    "speak_pct": 61.1,
+    "listen_pct": 38.9,
+    "window": [
+     0.0,
+     4427.3
+    ]
+   },
+   "fillers": {
+    "count": 281,
+    "per_min": 11.61,
+    "top": [
+     [
+      "uh",
+      196
+     ],
+     [
+      "um",
+      47
+     ],
+     [
+      "آآ",
+      29
+     ],
+     [
+      "hmm",
+      3
+     ],
+     [
+      "امم",
+      2
+     ],
+     [
+      "ممم",
+      2
+     ]
+    ],
+    "in_turns": 281,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.07,
+    "p75_s": 2.03,
+    "n": 253
+   },
+   "flow": {
+    "wpm": 63.9,
+    "n_turns": 131,
+    "arabic_words": 387
+   },
+   "new_words": [],
+   "taught": [
+    {
+     "latin": "batjawwaz / batzawwaj",
+     "arabic": "بتجوّز / بتزوّج",
+     "review": false
+    }
+   ],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "ضرايب / ضريبة",
+     "english": "taxes / one tax (he said ماليات; she gave الضرايب, then the singular at 22:35)",
+     "t": "18:48"
+    },
+    {
+     "latin": "7aafez",
+     "arabic": "حافز",
+     "english": "motivation (typed 'ana 3indi 7aafez / ana mitshajje3' when he reached for 'motivated')",
+     "t": "21:41"
+    },
+    {
+     "latin": "mitshajje3",
+     "arabic": "متشجع",
+     "english": "motivated (he tried مع شجرة; she corrected and typed it)",
+     "t": "21:41"
+    },
+    {
+     "latin": null,
+     "arabic": "صحابي",
+     "english": "my friends (واحدة من صحابي = one of my friends; صاحب = one friend)",
+     "t": "27:08"
+    },
+    {
+     "latin": "mashroo3 / mashaaree3",
+     "arabic": "مشروع / مشاريع",
+     "english": "project / projects (he asked 'another word I should learn is project')",
+     "t": "29:03"
+    },
+    {
+     "latin": "maw3ed - mawa3eed",
+     "arabic": "موعد / مواعيد",
+     "english": "appointment / appointments (he tried ma'id)",
+     "t": "30:28"
+    },
+    {
+     "latin": "3enwaan - 3anaween",
+     "arabic": "عنوان / عناوين",
+     "english": "address (location) / addresses (he did not know it)",
+     "t": "30:58"
+    },
+    {
+     "latin": "fus6aan - fasa6een",
+     "arabic": "فستان / فساتين",
+     "english": "dress / dresses (plural pattern like shubbaak - shababeek)",
+     "t": "31:43"
+    },
+    {
+     "latin": "ma zebe6",
+     "arabic": "ما زبط",
+     "english": "it didn't work out (from زبط, typed 'u ma zebe6?' / 'la zebe6')",
+     "t": "36:33"
+    },
+    {
+     "latin": null,
+     "arabic": "شهر العسل",
+     "english": "honeymoon (she asked بتعرف وين راح تروحوا بشهر العسل؟)",
+     "t": "43:55"
+    },
+    {
+     "latin": null,
+     "arabic": "حرب",
+     "english": "war (feminine; he used English 'war')",
+     "t": "47:15"
+    },
+    {
+     "latin": "5aatem",
+     "arabic": "خاتم",
+     "english": "ring (he forgot it: 'حتيم؟'; she gave خاتم, typed '5aatem = ring')",
+     "t": "49:25"
+    },
+    {
+     "latin": null,
+     "arabic": "جواه",
+     "english": "inside it (he said جوا; she corrected to جواه)",
+     "t": "52:11"
+    },
+    {
+     "latin": "5utbe",
+     "arabic": "خطبة",
+     "english": "engagement party (he did not know engagement; typed '5utbe = engagement party')",
+     "t": "52:56"
+    },
+    {
+     "latin": null,
+     "arabic": "بدلة العروس",
+     "english": "the bride's (big) dress - also called بدلة",
+     "t": "53:51"
+    },
+    {
+     "latin": null,
+     "arabic": "إذا لازم أختار",
+     "english": "if I have to choose (Arabic has no should / could / would)",
+     "t": "55:32"
+    },
+    {
+     "latin": null,
+     "arabic": "الناس البيض / بيض",
+     "english": "white people (he tried el abyad)",
+     "t": "56:44"
+    },
+    {
+     "latin": "biddak tjeeb wlaad?",
+     "arabic": "بدك تجيب أولاد؟",
+     "english": "do you want to have kids? (literally bring kids; she let him guess)",
+     "t": "58:44"
+    },
+    {
+     "latin": null,
+     "arabic": "أصغر",
+     "english": "youngest / smallest (أنا أصغر إشي = I'm the youngest)",
+     "t": "1:01:30"
+    },
+    {
+     "latin": "asmaa2",
+     "arabic": "أسماء",
+     "english": "names (plural of اسم; he tried أسائم; typed 'asmaa2 = names')",
+     "t": "1:02:08"
+    },
+    {
+     "latin": null,
+     "arabic": "كل اسم",
+     "english": "every name (كل + singular; كل الأسماء = all the names)",
+     "t": "1:04:29"
+    },
+    {
+     "latin": null,
+     "arabic": "اسمه على سيده",
+     "english": "he is named after his grandfather",
+     "t": "1:09:13"
+    },
+    {
+     "latin": null,
+     "arabic": "الكل",
+     "english": "everyone (he tried il kul; she gave الكل and typed 'el-kul bye3mal heik')",
+     "t": "1:09:38"
+    },
+    {
+     "latin": null,
+     "arabic": "أبو + eldest child's name",
+     "english": "nickname for a father after his eldest child, e.g. Abu Dastan, Abu Tala",
+     "t": "1:12:38"
+    }
+   ],
+   "coverage": "Medi's lines lost: 17:57-18:02 ('speaking foreign language'), 26:27-27:36 (one-of-my-friends drill), 30:48-36:34 mostly [غير مسموع] (project/notification/remind drill; 33:37-33:47 Amal suggested 'send' for an unseen try), and 57:31-1:00:18 (Amal-only turns: 58:01 'بدت. You said it right the first time', 59:00-59:49 kids drill). 55:04-1:13:43 is largely Latin-transliterated. 00:00-17:07 and 24:24-26:08 English talk (26:00 a side conversation with someone else). Echo: 'مع شجرة' and Amal's 'متأكدة' (21:00-21:03) = متشجع; 'office' (21:07/21:17) = حافز; 'il safe' (45:17) = الصيف; 'Kevin Motta?' (25:23) and 'كوين مادا' (21:24) = kaman marra. Skipped as S4: دايب for ضرايب (22:06), Mashroob/Mashri (28:33, 30:10), عاطم for خاتم, مواظفة for موظفة (38:53, chat muwazzafa), Sahabi vs صحابي (27:55). Self-fixes skipped: جديد->جديدة 23:08, مشريعة->مشاريع 40:15, الـ إشي الـ مهم->الإشي المهم 40:46, ما بنعف->ما بنعرف 45:50, بعد بتلبس->بعد ما تلبس 54:38, أسماء 1:02:57, hadi->haik 1:09:44. Questions not scored: بأخلص or أخلص (39:10), بفشك/بفشلك (50:00), ظنيت vs فكرت (1:06:07), bas wahid (1:10:25), nafs + il (1:08:33). No echo-candidates file for 10-14. medi_turns = 252 Arabic-script turns + ~28 Latin-Arabic turns. / No echo-candidates file for this date. Medi lines 17:57-18:02, 26:12, 29:20-30:06, 32:00-35:48, 36:30 are tagged [speaking foreign language]/[غير مسموع], so wrong forms there are inferred from Amal's fixes. No Medi lines are transcribed 57:31-1:00:17 (Amal asks بدك تجيب أولاد؟; 58:01 'You said it right the first time. بدت' cannot be tied to a Medi line). 25:41-26:08 is a phone call, 40:57 الـ أوروس = 3urus (wedding), 38:53 مواظفة = muwazzafa (S4), 47:58 مشاجرة = mitshajje3 and حافظ = 7aafez (listing words, not errors), 1:00:18 tanin/اثنين and 1:00:54 akthar are S4. Chat-only differences (20:50 'talaat illa tult' vs خمس) skipped per GR-19. Self-fixes skipped: 22:56 جديد، جديدة, 50:39 حطيت, 40:15 مشريعة، مشاريع. Questions about the rule skipped: 39:10 بأخلص or أخلص, 54:31 does بعد remove بي, 51:08 kamaan placement, 1:08:33 nafs + il, 1:09:44 hadi/haik. Pre-ruled tier-3 let-pass: 21:12 office.",
+   "notes": [],
+   "page": "lessons/2026-10-14.html",
+   "detail": "data/lessons/2026-10-14.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-21",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 1142,
+    "chat_lines": 45,
+    "vocab_errors": 15,
+    "vocab_correct": 188,
+    "grammar_errors": 15,
+    "grammar_not_counted": 0,
+    "vocab_errors_split": {
+     "wrong": 5,
+     "half": 8,
+     "off_list": 2
+    }
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-10-14.json",
+    "marks": 388,
+    "conflicts": 0,
+    "resolved": 0,
+    "needs_medi": 0,
+    "mode": "on",
+    "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 44.6 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: Medi not transcribed 57:32-1:00:18 while the other person talks",
+     "coverage: 10 stretches of Medi's speech written as '[speaking ...]' markers (00:42 in all)",
+     "coverage: Medi talks 17:11-18:13 (23 s of speech on their own track) with no transcript line",
+     "coverage: Medi talks 32:51-33:54 (21 s of speech on their own track) with no transcript line",
+     "coverage: Medi talks 57:34-1:00:12 (54 s of speech on their own track) with no transcript line",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4428 s) compared with a second model",
+     "checks: 8 scored rows need an audio or human check (3 words, 5 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 45,
+       "r2": 45,
+       "agreed": 25,
+       "disputed": 31,
+       "agreement_pct": 44.6
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4428.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 4428.0,
+     "first_t": 2.38,
+     "last_t": 4423.09,
+     "missing": [
+      [
+       3452.02,
+       3618.2,
+       "no transcript for Medi while the other person talks"
+      ],
+      [
+       1031.3,
+       1093.3,
+       "Medi talks 17:11-18:13 (23 s of speech on their own track) with no transcript line"
+      ],
+      [
+       1971.4,
+       2033.6,
+       "Medi talks 32:51-33:54 (21 s of speech on their own track) with no transcript line"
+      ],
+      [
+       3454.1,
+       3612.4,
+       "Medi talks 57:34-1:00:12 (54 s of speech on their own track) with no transcript line"
+      ]
+     ],
+     "holes": [
+      [
+       1077.28,
+       1081.83,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1082.04,
+       1083.04,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1095.34,
+       1103.13,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1606.28,
+       1607.61,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1631.3,
+       1641.01,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1648.08,
+       1649.08,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1678.34,
+       1679.34,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1759.88,
+       1760.88,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1777.08,
+       1780.43,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1781.74,
+       1792.69,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 290.4,
+     "hole_s": 41.7,
+     "covered_pct": 93.4
+    },
+    "Amal": {
+     "_lesson_s": 4428.0,
+     "first_t": 165.96,
+     "last_t": 4425.31,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
     }
    }
   }

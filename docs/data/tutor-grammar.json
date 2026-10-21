@@ -1,9 +1,143 @@
 {
  "rule": "AM-31",
- "updated": "2026-10-20T20:52:38-07:00",
+ "updated": "2026-10-20T21:43:33-07:00",
  "about": "Grammar the tutor added on her Tutor page: her words, Claude's rewrite as a rule with a letter-number, and her answer. Only her 'Yes, add it' adds the rule (scripts/tutor_grammar.py).",
- "waiting_for_tutor": 0,
+ "waiting_for_tutor": 2,
  "items": [
+  {
+   "sid": "heard-20261014-2722",
+   "text": "لا، لا، وحدة because she's feminine. وحدة. Cuz she's someone feminine.",
+   "example": "",
+   "at": "2026-10-21T04:42:51+00:00",
+   "state": "proposed",
+   "versions": [
+    {
+     "grammar": true,
+     "id": "A24",
+     "family": "A",
+     "name": "wa7de min + plural",
+     "one_line": "To say 'one of my friends', use wa7ad or wa7de followed by min and the plural noun. wa7de is for a girl or woman; the plural noun stays general.",
+     "formula": "wa7ad / wa7de + min + plural noun (+ my)",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "واحدة من صحابي",
+       "english": "one of my friends (a girl)",
+       "hers": true,
+       "date": "2026-10-14",
+       "t": "27:08"
+      },
+      {
+       "arabizi": "",
+       "arabic": "هي واحدة من الكلمات",
+       "english": "it is one of the words",
+       "hers": true,
+       "date": "2026-10-05",
+       "t": "14:43"
+      }
+     ],
+     "why": "She explained that wa7de is feminine because the friend is a woman, while s7aabi (friends) stays general and does not limit the group to women.",
+     "overlaps": null,
+     "checked": {
+      "new": true,
+      "covered_by": null,
+      "why": "No existing rule or proposal teaches 'one of (my) X' as wa7ad/wa7de + min + plural; the nearby P-FA-89701583 is about waa7ad after ordinals, which is a different choice.",
+      "her_examples": 2,
+      "cost_usd": 0.019674
+     },
+     "v": 1,
+     "made_at": "2026-10-21T04:42:51+00:00",
+     "model": "claude-sonnet-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-10-14",
+     "readers": [
+      "a",
+      "b"
+     ]
+    }
+   ],
+   "heard": {
+    "date": "2026-10-14",
+    "t": "27:22",
+    "quote": "لا، لا، وحدة because she's feminine. وحدة. Cuz she's someone feminine.",
+    "line": "لا، لا، وحدة because she's feminine. وحدة. Cuz she's someone feminine.",
+    "before": "Okay. So one [foreign language] Sahibi. So I don't have to... I already said she's feminine because of the waqta, right? Oh, no, the waqta is 'cause I'm counting."
+   }
+  },
+  {
+   "sid": "heard-20261014-5532",
+   "text": "إذا لازم، إذا لازم أختار. There's no all of these should, could, would. We don't have them.",
+   "example": "",
+   "at": "2026-10-21T04:42:51+00:00",
+   "state": "proposed",
+   "versions": [
+    {
+     "grammar": true,
+     "id": "B19",
+     "family": "B",
+     "name": "no should/could: laazem, mumkin",
+     "one_line": "Arabic has no separate should, could or would. Say 'if I have to choose' with iza laazem, and use mumkin for 'could'.",
+     "formula": "iza laazem + verb / mumkin + verb",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "إذا لازم أختار",
+       "english": "If I have to choose",
+       "hers": true,
+       "date": "2026-10-14",
+       "t": "55:32"
+      },
+      {
+       "arabizi": "",
+       "arabic": "لازم تشرب قهوة",
+       "english": "You should drink coffee",
+       "hers": true,
+       "date": "2026-09-23",
+       "t": "04:21"
+      },
+      {
+       "arabizi": "",
+       "arabic": "لازم تشرب نعناع",
+       "english": "You should drink mint tea",
+       "hers": true,
+       "date": "2026-09-23",
+       "t": "09:18"
+      }
+     ],
+     "why": "English speakers reach for should, could and would, but she said Arabic does not have them and uses laazem or mumkin instead.",
+     "overlaps": {
+      "id": "B2",
+      "name": "b-drop after modals",
+      "why": "B2 covers dropping the b- after want, must and can words, but not using laazem or mumkin in place of should, could and would."
+     },
+     "checked": {
+      "new": true,
+      "covered_by": null,
+      "why": "B16 covers kaan laazem and B2 covers verbs after modals, but none says Arabic has no should/could/would, or teaches iza laazem for 'if I have to' and mumkin for 'could'.",
+      "her_examples": 3,
+      "cost_usd": 0.021912
+     },
+     "v": 1,
+     "made_at": "2026-10-21T04:42:51+00:00",
+     "model": "claude-sonnet-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-10-14",
+     "readers": [
+      "a",
+      "b"
+     ]
+    }
+   ],
+   "heard": {
+    "date": "2026-10-14",
+    "t": "55:32",
+    "quote": "إذا لازم، إذا لازم أختار. There's no all of these should, could, would. We don't have them.",
+    "line": "إذا لازم، إذا لازم أختار. There's no all of these should, could, would. We don't have them.",
+    "before": "If I could ch-- Uh, how would I say if I could? Do I know how to say... [laughs] It's just lazim?"
+   }
+  },
   {
    "sid": "heard-20261012-5102",
    "text": "we say 300 because مية is feminine so 300 شخص",
