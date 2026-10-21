@@ -11960,15 +11960,20 @@
    "scope": "amal-data",
    "status": "enforced",
    "change": "new",
-   "statement": "When the tutor's answer on a blind checking card says the clip was too short or not enough (scripts/build_tutor_more_check.py MORE_RE), the card goes back to her in the list 'key-check-more' with the lesson audio from 25 s before to 15 s after the line, every line said in that window and her own note; until she answers it again (word_key '<prefix>:<card id>-more'), her first answer on that card is pending and is used by no key, score or grade (final_answer).",
-   "plain": "When Amal says a clip is too short, the card goes back to her with more of the recording, and her answer counts only after she answers it again.",
-   "plain_for": "224111f3",
+   "statement": "When the tutor's answer on a blind checking card needs clarification - she tapped \"can't tell\", or her note says the clip was not enough or shows any doubt or question (scripts/build_tutor_more_check.py MORE_RE) - the card goes back to her in the list 'key-check-more' with the lesson audio from 25 s before to 15 s after the line, every line said in that window and her own note; until she answers it again (word_key '<prefix>:<card id>-more'), her first answer on that card is pending and is used by no key, score or grade (final_answer).",
+   "plain": "When Amal is not sure, asks something, or says a clip is too short, the card goes back to her with more of the recording, and her answer counts only after she answers it again.",
+   "plain_for": "a2788106",
    "topic": "tutor",
    "source": [
     {
      "by": "medi",
      "date": "2026-10-20",
      "quote": "make a rule when she's asking for more info like adding more recording send it back to her before grading"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-20",
+     "quote": "Not just too short. Anything that needs clarification"
     }
    ],
    "enforcement": [
@@ -11986,7 +11991,7 @@
    ],
    "example": {
     "date": "2026-10-20",
-    "note": "8 of her 63 dispute / judge answers said the clip was too short; they went back with about 40 s each"
+    "note": "9 of her 63 dispute / judge answers needed clarification; they went back with about 40 s each"
    },
    "aliases": []
   },

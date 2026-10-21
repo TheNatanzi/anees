@@ -440,8 +440,8 @@ _What the tutor decides: her Doc, her pages, her rulings, and the words she prom
   <br><sub>Medi, 2026-10-12: “it would be nice to have you detect new grammar and suggest it if you hear it in our convo” · Medi, 2026-10-12: “cant we tell from the transcript about the grammar rules?” · Medi, 2026-10-13: “just do 1-2 and 3 but for 3 keep track for 10 lessons and see how much improvement its actually giving”</sub>
 - Questions for your tutor go on her Tutor page as quick cards (Yes / No / It depends, with a box for her words); nothing changes until you read her answers. `AM-34` _Automatic_
   <br><sub>Medi, 2026-10-18: “Put in the tutor hub for her to answer”</sub>
-- When Amal says a clip is too short, the card goes back to her with more of the recording, and her answer counts only after she answers it again. `AM-36` _Automatic_
-  <br><sub>Medi, 2026-10-20: “make a rule when she's asking for more info like adding more recording send it back to her before grading”</sub>
+- When Amal is not sure, asks something, or says a clip is too short, the card goes back to her with more of the recording, and her answer counts only after she answers it again. `AM-36` _Automatic_
+  <br><sub>Medi, 2026-10-20: “make a rule when she's asking for more info like adding more recording send it back to her before grading” · Medi, 2026-10-20: “Not just too short. Anything that needs clarification”</sub>
 
 <details><summary>Old rules (replaced)</summary>
 

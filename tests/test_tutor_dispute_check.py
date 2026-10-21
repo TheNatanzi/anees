@@ -63,6 +63,10 @@ def test_am_36_too_short_cards_go_back_to_her_and_wait():
     assert MC.needs_more({"answer": "right", "typed": "Clip is not sufficient to decide."})
     assert not MC.needs_more({"answer": "right", "typed": "He's not answering in the clip, I am helping him."})
     assert not MC.needs_more({"answer": "mistake"})
+    assert MC.needs_more({"answer": "cant_tell"})                                        # 'Anything that needs clarification'
+    assert MC.needs_more({"answer": "mistake", "typed": "Should be 3indi, although I'm not sure he says it after"})
+    assert MC.needs_more({"answer": "right", "typed": "Is he asking here?"})
+    assert not MC.needs_more({"answer": "mistake", "typed": "Should be kaanat not kaan"})
     ans = {"disputecheck:A": {"answer": "right", "typed": "too short"}, "disputecheck:B": {"answer": "mistake"},
            "disputecheck:C": {"answer": "cant_tell", "typed": "Clip too short"}, "disputecheck:C-more": {"answer": "mistake"}}
     assert MC.final_answer("A", ans) is None                      # asked for more, not answered again: pending
