@@ -7,13 +7,13 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | | count |
 |---|---|
 | Grammar fixes Amal voiced (A) | **782** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 121 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 30 |
-| Vocab fixes Amal voiced (A) | **379** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 177, '0': 154, '2': 84, '3': 2} |
+| Grammar she let pass (B, to Amal) | 123 |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 29 |
+| Vocab fixes Amal voiced (A) | **385** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 181, '0': 151, '2': 87, '3': 4} |
 | Vocab she let pass (B, to Amal) | **41** by tier {'1': 32, '2': 8, '3': 1} |
 | Listening-drill misreads (kept apart) | 69 |
-| Rows the readers found that the sweep did not have | 985 |
+| Rows the readers found that the sweep did not have | 992 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -45,7 +45,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-09 | 38 | 2 | 7 | 5 | 1 | 0 | 0 | 71.9 % |
 | 2026-10-10 | 24 | 3 | 4 | 11 | 0 | 0 | 0 | 62.5 % |
 | 2026-10-12 | 32 | 5 | 8 | 0 | 3 | 0 | 0 | 63.5 % |
-| 2026-10-14 | 15 | 1 | 14 | 0 | 1 | 0 | 0 | 44.6 % |
+| 2026-10-14 | 15 | 3 | 20 | 0 | 1 | 0 | 0 | 58.9 % |
 
 ## Reader passes (the loop)
 
@@ -73,43 +73,43 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-10-09**: pass 1: r1 47 r2 53 agreed 41 disputed 16 (71.9 %), r3 kept 9 dropped 7 -> 50 rows
 - **2026-10-10**: pass 1: r1 30 r2 37 agreed 25 disputed 15 (62.5 %), r3 kept 10 dropped 5 -> 35 rows
 - **2026-10-12**: pass 1: r1 47 r2 46 agreed 33 disputed 19 (63.5 %), r3 kept 15 dropped 4 -> 48 rows
-- **2026-10-14**: pass 1: r1 45 r2 45 agreed 25 disputed 31 (44.6 %), r3 kept 26 dropped 5 -> 33 rows
+- **2026-10-14**: pass 1: r1 49 r2 47 agreed 33 disputed 23 (58.9 %), r3 kept 17 dropped 6 -> 40 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
 | B18 | verb matches its subject | 72 |
-| A8 | gender on adjectives | 56 |
+| A8 | gender on adjectives | 57 |
 | D2 | verb + its fixed preposition | 56 |
 | B5 | past tense | 54 |
-| B12 | make-X vs get-X | 52 |
+| B12 | make-X vs get-X | 53 |
 | A7 | noun + adjective | 42 |
-| D4 | endings on verbs | 41 |
+| D4 | endings on verbs | 42 |
 | A9 | plurals | 39 |
 | B1 | present with b- | 37 |
 | D1 | prepositions | 36 |
 | A2 | idafa (possession) | 31 |
-| PROPOSE | ? | 30 |
 | A1 | el- (the) | 29 |
+| PROPOSE | ? | 29 |
 | A4 | possessive endings | 27 |
 | B2 | b-drop after modals | 21 |
 | E1 | number + noun | 19 |
 | D3 | endings on prepositions | 17 |
 | C2 | the pointer rule | 17 |
 | C7 | illi | 15 |
-| A15 | aa5er / a5eer: before or after the noun | 15 |
 | C4 | saying no | 14 |
 | B6 | kaan = was / were | 14 |
+| A15 | aa5er / a5eer: before or after the noun | 14 |
 | B11 | negative commands | 13 |
 | B15 | participles | 12 |
 | E2 | clock time | 11 |
 | B10 | commands | 11 |
 | A10 | hada / hadi | 11 |
 | B3 | b-drop after time words | 9 |
-| C3 | comparatives | 9 |
 | B8 | bakoon / ykoon | 9 |
 | A3 | feminine -t in idafa | 9 |
+| C3 | comparatives | 8 |
 | A13 | awal / oola: before or after the noun | 8 |
 | A14 | taani: before or after the noun | 8 |
 | A11 | kul: all vs every | 7 |
@@ -139,6 +139,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | C11 | noun, not verb, after a preposition | 1 |
 | C4b | words that drag a ma along | 1 |
 | A17 | nafs + el-: the same | 1 |
+| A18 | hidden gender nouns | 1 |
 
 ## Sweep rows the readers did not list (kept, not dropped)
 
@@ -1871,40 +1872,47 @@ _Several Medi lines are '[foreign language]' (30:11, 31:21-31:42, 32:51-33:04) -
 
 ### 2026-10-14
 
-_Medi's lines lost: 17:57-18:02 ('speaking foreign language'), 26:27-27:36 (one-of-my-friends drill), 30:48-36:34 mostly [غير مسموع] (project/notification/remind drill; 33:37-33:47 Amal suggested 'send' for an unseen try), and 57:31-1:00:18 (Amal-only turns: 58:01 'بدت. You said it right the first time', 59:00-59:49 kids drill). 55:04-1:13:43 is largely Latin-transliterated. 00:00-17:07 and 24:24-26:08 English talk (26:00 a side conversation with someone else). Echo: 'مع شجرة' and Amal's 'متأكدة' (21:00-21:03) = متشجع; 'office' (21:07/21:17) = حافز; 'il safe' (45:17) = الصيف; 'Kevin Motta?' (25:23) and 'كوين مادا' (21:24) = kaman marra. Skipped as S4: دايب for ضرايب (22:06), Mashroob/Mashri (28:33, 30:10), عاطم for خاتم, مواظفة for موظفة (38:53, chat muwazzafa), Sahabi vs صحابي (27:55). Self-fixes skipped: جديد->جديدة 23:08, مشريعة->مشاريع 40:15, الـ إشي الـ مهم->الإشي المهم 40:46, ما بنعف->ما بنعرف 45:50, بعد بتلبس->بعد ما تلبس 54:38, أسماء 1:02:57, hadi->haik 1:09:44. Questions not scored: بأخلص or أخلص (39:10), بفشك/بفشلك (50:00), ظنيت vs فكرت (1:06:07), bas wahid (1:10:25), nafs + il (1:08:33). No echo-candidates file for 10-14. medi_turns = 252 Arabic-script turns + ~28 Latin-Arabic turns. / No echo-candidates file for this date. Medi lines 17:57-18:02, 26:12, 29:20-30:06, 32:00-35:48, 36:30 are tagged [speaking foreign language]/[غير مسموع], so wrong forms there are inferred from Amal's fixes. No Medi lines are transcribed 57:31-1:00:17 (Amal asks بدك تجيب أولاد؟; 58:01 'You said it right the first time. بدت' cannot be tied to a Medi line). 25:41-26:08 is a phone call, 40:57 الـ أوروس = 3urus (wedding), 38:53 مواظفة = muwazzafa (S4), 47:58 مشاجرة = mitshajje3 and حافظ = 7aafez (listing words, not errors), 1:00:18 tanin/اثنين and 1:00:54 akthar are S4. Chat-only differences (20:50 'talaat illa tult' vs خمس) skipped per GR-19. Self-fixes skipped: 22:56 جديد، جديدة, 50:39 حطيت, 40:15 مشريعة، مشاريع. Questions about the rule skipped: 39:10 بأخلص or أخلص, 54:31 does بعد remove بي, 51:08 kamaan placement, 1:08:33 nafs + il, 1:09:44 hadi/haik. Pre-ruled tier-3 let-pass: 21:12 office._
+_Hole 57:44-1:00:17: no Medi lines (queen / badat, 'biddak tjeeb wlaad' answer, tnein) - Amal's 58:01 'You said it right the first time' and 59:21/59:31 'No. بدك إنت تجيب' fixes cannot be quoted, not rowed. Many [speaking foreign language] / [غير مسموع] lines at 17:57-18:02, 26:46, 29:20-29:42, 33:04-33:57 (send/notification sentence lost), 35:24. 03:16 'الـ مهاجرة ... بزاح' unclear, skipped. 00:02-17:07 and 24:49-26:08 mostly English meta talk. Not rowed: 22:06 دايب for ضرايب (S4, new word), 45:02 Europa -> أوروبا (pronunciation), 49:56 بفرشي/بفشك (question about form; 'i show | bafarji' is on sheet, likely ج/ش sound), 37:40 همي self-fixed to قصدي before her joke, 54:31 بعد بتلبس self-fixed to بعد ما تلبس via his own question, 39:10 / 1:10:25 / 1:08:33 rule questions, 1:02:42 ولبنات (unclear). Echo: 'Tanin' (1:00:18) = تنين (accepted by Amal); 'Mashrooha?' = مشروعة (28:23, repeat attempt of the new word). Sheet rows for ضريبة / مشروع / حرب / خطبة exist but were taught as new in this lesson, so filed tier 0. / Large English stretches (3:00-17:00 tech talk about the app, 25:41-26:04 phone call, 1:07-1:13 names). Medi turns 58:44-1:00:13 are missing from the transcript (Amal's تجيب / بدك تجيب أولاد teaching has no Medi line, so no row). Engine hid his line at 17:57 (آخر اليوم per 18:25 and 19:13), 27:11, 35:24 (inaudible; سيء taken from Amal's echo). 1:08:17-1:09:01 نفس الـ سيده vs نفس اسم سيده not filed: Amal said both are fine (نفس اسم سيده better). 38:29 هادي السنة, 37:40 همي (self-fixed to قصدي), 54:31 does بعد remove b? (question, self-fixed), 39:10 بأخلص or أخلص (question), 22:03 دايب (pronunciation of ضرايب) not filed. Echo candidates file read: engine readings there differ from this transcript, nothing added. Names (Mehdi, Lebanon, Palestine, Iran, Egyptian, Palestinian) not flagged._
 
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
-| FA-90e47fd7 | 18:02 | grammar | A15 | [speaking foreign language] (engine lost it; Amal 19:13: 'cuz I heard آخر اليوم') | No. يمكن آخر يوم أو اليوم الأخير. | آخر اليوم -> آخر يوم / اليوم الأخير | aa5er + el- means 'the end of'; he meant 'the last day', Amal said No and gave aa5er yoam / el-yoam el-a5eer (engine lost his Arabic; her 19:13 'I heard آخر اليوم' shows what he said). | high | r1+r2 |
-| FA-aa7fb649 | 18:31 | vocab-A | tier 0 | لا الـ tax. الـ مال، دي كذا ماليات؟ ... Do you guys say ماليات؟ | Oh، so ضرايب. | ماليات -> ضرايب | He did not have the word for tax: he asked 'Do you know tax?' and 'Do you guys say ماليات?' (Farsi maliyat) and Amal supplied ضرايب; at 22:24 she says 'We're not learning this word. Do you wanna learn الضرايب?' so it was new (the sheet row tax / Dareebe was added after) - didn't-know, tier 0. | high | r3 |
-| FA-2f2a6d1e | 18:59 | grammar | D1 | الضرايب. Okay. Uh, آخر يوم الضرايب. | آخر يوم لـ الضرايب. | آخر يوم الضرايب -> آخر يوم لـ الضرايب | Amal recast inserting لـ (for) between 'last day' and 'the taxes'; he then repeats her la- at 19:08. | high | r1+r2 |
-| FA-71f48717 | 19:19 | grammar | A15 | It's آخر اليوم الضرايب. | آخر يوم لـ الضرايب. لـ الضرايب. | آخر اليوم الضرايب -> آخر يوم لـ الضرايب | After her 18:07 and 19:06 fixes he went back to aa5er + el- (= 'the end of the day') and she recast again; he then said 'Oh, because it's the last day of taxes... you're right' - own slip per GR-32 (wrong form again after a fix). | medium | r3 |
-| FA-36dec370 | 21:00 | vocab-A | tier 2 | So أنا عندي مع شجرة... (engine for متشجع) | لا، لا، متأكدة is motivated (engine for متشجع) | أنا عندي متشجع -> أنا عندي حافز / أنا متشجع | Amal had just said the noun 'motivation' exists (20:56); he put the adjective mitshajje3 after 3indi, she said no, mitshajje3 is 'motivated', and he switched to 7aafez (engine 'office') at 21:07, which she accepted; engine wrote مع شجرة / متأكدة for mitshajje3. | medium | r1+r2 |
-| FA-a80c8f45 | 23:36 | grammar | A8 | كان عندي سنة ماضي و متحمس | What do you mean كان عندي سنة ماضية؟ | سنة ماضي -> سنة ماضية | سنة is feminine; Amal echoed his phrase with ماضية and he used ماضية at 23:59. | medium | r1+r2 |
-| FA-12b5945c | 23:51 | grammar-propose | PROPOSE | أنا كان عندي سنة، س-سنة ماضية مني. I had a good last year. | No. That doesn't work like this. You could say my year was good. This year was good for me. | أنا كان عندي سنة ماضية منيحة -> السنة كانت منيحة معي (my year was good / this year was good for me) | Amal said No, Arabic doesn't 'have' a year; the period is the subject that 'was good'. No bucket covers this structure. | medium | r1+r2 |
-| FA-281fe8ba | 28:13 | vocab-A | tier 0 | Another word I should learn is project. | project أو مشروع. |  -> مشروع | He asked for 'project'; didn't-know. | high | r1+r2 |
-| FA-6241a9c6 | 30:25 | vocab-A | tier 0 | appointment is ma-ma'idu? Ma'idu? Ma'id? | موعد. موعد. مواعيد. | ma'id -> موعد | Amal quizzed 'What's appointment?' and he groped (ma'idu? ma'id?) and she supplied موعد (sheet: appointment (time) / Maw3ed) - a quiz recall fail like the agreed عنوان row (A7), filed as didn't-know. | medium | r3 |
-| FA-7a64f5a9 | 30:38 | vocab-A | tier 0 | I don't know (the word for address location) | عنوان. |  -> عنوان | He said he didn't know address; she supplied عنوان. | high | r1+r2 |
-| FA-a570cbd1 | 34:51 | grammar | D4 | So, uh, [غير مسموع] (context: the app will remind me to do it - the homework) | أم، no، أعمله، because it's واجب. | [inaudible ending on a3mal-] -> أعمله | Amal said no and gave a3malo 'because it's waajeb' - her reason is the object (waajeb, masculine), so his object ending on the verb was wrong; his exact form is inaudible, so low. | low | r3 |
-| FA-d368eead | 35:24 | vocab-A | tier 1 | [غير مسموع] (said the project is سيء); 37:20 'say it's easy, right?' | سيء؟ ليش؟ ... ليش بتحكي إنه مشروع سيء؟ ... سيء is bad. | سيء -> سهل | He meant easy and said سيء (bad); Amal questioned it and said سيء is bad; he fixed to مشروع سهل at 37:33. | high | r1+r2 |
-| FA-4f74c690 | 38:09 | grammar | A7 | سنة الجاي. ... سنة الجاي أنا بدي | السنة الجاي. | سنة الجاي -> السنة الجاي | Noun + adjective phrase needs el- on both; she said السنة الجاي twice at 38:04, he said سنة الجاي at 38:09, she said السنة الجاي again at 38:30 and he still said سنة الجاي at 38:34 / 38:41 (one row); low because her 38:30 line also answers his odd 'عادي السنة'. | low | r3 |
-| FA-252da812 | 39:26 | vocab-A | tier 2 | أخلص مشاعير AI | مشاريع | مشاعير -> مشاريع | Invented plural pattern for مشروع; Amal gave مشاريع and he repeated it (she had taught مشاريع at 28:28). | high | r1+r2 |
-| FA-67bd6c44 | 41:14 | vocab-A | tier 0 | This is badass. [laughs] That'd be too easy. | How about a new verb? To get married. ... So متزوج or متجوز. | None -> بتجوز / بتزوج | Amal taught the new verb 'to get married' (sheet: i get married / Ana batjawwaz) for the wedding sentence he had just made; he had not attempted it - didn't-know. | medium | r3 |
-| FA-844360ee | 41:23 | vocab-A | tier 1 | Aris? | No, like husband. ... جوز. | Aris (عريس) -> جوز | Quiz 'what's husband?': he said عريس (groom); Amal said No, like husband, and gave جوز. Sheet: husband / Joaz / جوز. | high | r1+r2 |
-| FA-5c5b326b | 44:11 | vocab-A (listening) | tier 0 | شهر العسل. The month of honey? | Yeah, which is? What do you think it means? | None -> شهر العسل = honeymoon | He did not know شهر العسل in her question (echoed بي شهر, then 'The month of honey?') and worked it out with her - listening didn't-know. | medium | r3 |
-| FA-a7e4f16f | 44:49 | grammar | B2 | احنا، uh, ممكن، uh, بنتجوز. | ممكن never takes be. So نتجوز. | ممكن بنتجوز -> ممكن نتجوز | Amal named the rule: mumken drops the b- on the next verb. | high | r1+r2 |
-| FA-557f2f73 | 46:04 | grammar | C6 | بس، uh, إذا نروح-- | بنروح. | إذا نروح -> إذا بنروح | iza keeps the b-; Amal recast بنروح and he repeated it. | high | r1+r2 |
-| FA-fd05f5f0 | 46:19 | grammar | B8 | uh, راح عندي شهر، ... Yeah, راح كان عندي? | راح I will have صح؟ ... راح يكون عندي. | راح عندي / راح كان عندي -> راح يكون عندي | Future of 3indi needs ykoon: ra7 ykoon 3indi; Amal prompted then gave it. | high | r1+r2 |
-| FA-5562f6e9 | 48:51 | vocab-A | tier 2 | مجاhe-- متجوز | بتجوز. | متجوز -> بتجوز | He listed 'to get married' and said متجوز (married, participle) instead of the verb; Amal recast بتجوز and he repeated it. | medium | r1+r2 |
-| FA-8e0561ce | 49:19 | vocab-A | tier 0 | I don't remember it. حت- حتيم؟ حتيم؟ | خاتم. | حتيم -> خاتم | He said he did not remember 'ring'; Amal supplied خاتم. | high | r1+r2 |
-| FA-59b40c0c | 51:59 | grammar | D3 | أحمر، uh, جوا. | جواه. ... In it? Inside it ولا just inside. ... So جواه. | جوا -> جواه | He meant inside the ring (it); Amal recast جواه (ending on the preposition) and confirmed after he explained. | high | r1+r2 |
-| FA-5a142cb6 | 52:44 | vocab-A | tier 0 | I don't even know engagement. ... م-مخاطب. | It comes from خطيبتي. ... خطبة. |  -> خطبة | He said he did not know 'engagement'; Amal hinted and gave خطبة. | high | r1+r2 |
-| FA-bf83ab45 | 55:58 | grammar | A7 | ana ma bahebb el fustan abyad. | الفستان. | el fustan abyad -> el-fustaan el-abyad | Noun + adjective phrase needs el- on the adjective too; Amal prompted الفستان and he built el fustan el abyad by 56:15. | medium | r1+r2 |
-| FA-e414b235 | 57:24 | vocab-A | tier 0 | ma bashuf, uh, it is, uh, hadahu, no. How do I say? | هو هيك. | hadahu -> هو هيك | He asked how to say 'it is (like that)' after trying fus7a hadahu; Amal gave هو هيك. | medium | r1+r2 |
-| FA-5adf13c5 | 1:01:09 | grammar | C3 | آآ، أنتِ الصغير؟ الصغار؟ | Don't do this. ما تعملها. أنا أصغر إشي meaning I'm the youngest. | أنتِ الصغير؟ الصغار؟ -> أصغر إشي | Superlative built with el- + adjective (also masculine for her); Amal said don't do this and taught أصغر إشي (no el-). | high | r1+r2 |
-| FA-08e672d8 | 1:02:04 | vocab-A | tier 2 | آآآ، اسم is أسائم. | باء. ... أسماء. | أسائم -> أسماء | Invented plural of اسم; Amal hinted باء and gave أسماء, he repeated أسماء. | high | r1+r2 |
-| FA-e97f2e08 | 1:04:06 | grammar | A11 | آآ، كل اس-- آآ، كل أسماء، | كل all names. ... كل. ... مم، الأسماء. | كل أسماء -> كل الأسماء | kul + el- = all; Amal prompted 'all names', he said كل الأسماء and she confirmed الأسماء. | high | r1+r2 |
-| FA-2a2d94b7 | 1:05:01 | grammar-B | D5 | آآ، سهل-- سهلين ... في إنجليزي. | Mm-hmm. ... مزبوط. | في إنجليزي -> في الإنجليزي | After fi the language keeps el- (her chat fi el-injleezi); her voice said مزبوط with no fix, so let-pass (GR-19: chat alone is not a correction). | low | r3 |
-| FA-1685ef3d | 1:06:43 | grammar | A2 | اسم وسط، آآ، do you guys say اسم وسط? Middle name? | Ah، we don't have it. اسم الوسط. | اسم وسط -> اسم الوسط | Idafa owner takes el-: Amal said اسم الوسط (chat esem el-wasat); medium because he framed it as a question. | medium | r1+r2 |
-| FA-f95fee93 | 1:07:59 | grammar-propose | PROPOSE | akha khatibti, | أخوه. | akha khatibti -> a5u 5atibti | Amal corrected the form of 'brother' before an owner and he said akhu khatibti; no bucket covers the a5u/abu idafa form. | high | r1+r2 |
-| FA-af5996f5 | 1:08:06 | grammar | A4 | uh, ism, uh, ... do I say zai? Ism, ismo. | His name. | ism -> اسمه (esmo) | He said bare ism for 'his name'; Amal prompted 'His name' and he then added the ending (ismo). | medium | r3 |
+| FA-90e47fd7 | 18:02 | grammar | A15 | Uh, uh-uh. What did I do? [speaking foreign language] The last day, right? / [speaking foreign language] (he said آخر اليوم) | No. يمكن آخر يوم أو اليوم الأخير. | آخر اليوم -> آخر يوم / اليوم الأخير | Engine wrote [speaking foreign language]; Amal said No and gave aa5er yoam / el-yoam el-a5eer, and at 19:13 said 'cuz I heard آخر اليوم' - aa5er + el- means 'the end of the day', not 'the last day'. | high | r1+r2 |
+| FA-8ce77cd3 | 18:31 | vocab-A | tier 0 | لا الـ tax. المالي، do you guys say ماليات؟ | Oh، so ضرايب. | tax / ماليات -> ضرايب | He did not know 'taxes', dropped English 'tax' and asked if ماليات is used; Amal supplied ضرايب (22:24 'We're not learning this word') - a didn't-know. | high | r1+r2 |
+| FA-2f2a6d1e | 18:59 | grammar | D1 | الضرايب. Okay. Uh, آخر يوم الضرايب. | آخر يوم لـ الضرايب. | آخر يوم الضرايب -> آخر يوم لـ الضرايب | Amal recast adding la- ('for' taxes) twice (19:06, 19:22); he accepted at 19:28 'Yeah, you're right' and said آخر يوم لـ الضرايب at 19:39. | high | r1+r2 |
+| FA-cddf2d00 | 20:05 | vocab-A | tier 2 | أربعتين | أربعة. | أربعتين -> أربعتاش | Wrong form of the number 14 (echo file has أربعين); Amal prompted with أربعة and he produced أربعتاش at 20:09. | medium | r1+r2 |
+| FA-cf94177a | 21:37 | vocab-A (listening) | tier 1 | ليش؟ | لشو؟ | ليش -> لشو | He repeated her لشو (for what) as ليش (why); she repeated لشو - he misheard her word. | low | r1+r2 |
+| FA-a80c8f45 | 23:36 | grammar | A8 | كان عندي / سنة ماضي / و متحمس، | What do you mean كان عندي سنة ماضية؟ | سنة ماضي -> سنة ماضية | sane is feminine; Amal echoed his line with ماضية and he said ماضية from then on (23:59). | medium | r3 |
+| FA-4d5b273f | 23:51 | grammar | A4 | أنا كان عندي سنة، سـ سنة ماضية منيح / I had a good year last year. | No. That doesn't work like this. You could say my year was good. This year was good for me. | أنا كان عندي سنة -> سنتي كانت منيحة (my year was good) | English calque 'I had a good year' with kaan 3indi; Amal said no and gave 'my year was good' - the owner goes on the noun (sneti) instead of 3indi. | medium | r3 |
+| FA-aeebd206 | 23:59 | grammar-B | A8 | سـ سنة ماضية منيح |  | سنة ماضية منيح -> سنة ماضية منيحة | Feminine سنة with masculine منيح; Amal said nothing about it (she only queried the whole sentence). | medium | r1+r2 |
+| FA-f3882ac8 | 26:54 | vocab-A | tier 2 | صاحب. And would it be - Feminine would be Sahiba? | Just say واحدة من صحابي. | صاحب -> صحابي | He gave singular صاحب for 'friends'; Amal supplied the plural صحابي (sheet has صاحب only as singular); at 27:48 she says صاحب is one friend. | medium | r1+r2 |
+| FA-007f7198 | 28:13 | vocab-A | tier 0 | Another word I should learn is project. | project أو مشروع. ... And the plural is مشاريع. | project -> مشروع / مشاريع | He asked for the word; Amal supplied مشروع and plural مشاريع - didn't-know. | high | r1+r2 |
+| FA-cf9f51cd | 30:10 | vocab-A | tier 2 | What was it? Ma- معاريف. مشروع. | مشروع. مشاريع. | معاريف -> مشاريع | He tried a wrong plural pattern for مشروع; Amal gave مشاريع. | medium | r1+r2 |
+| FA-a22b7051 | 30:25 | vocab-A | tier 0 | مـ موعد؟ موعد؟ موعد؟ | موعد. موعد. مواعيد. | (plural not attempted) -> مواعيد | In the plural-pattern drill she asked 'What's appointment?'; he gave the singular موعد right and she supplied the plural مواعيد he had not given - didn't-know, tier 0 (same treatment as agreed A8 مشاريع). | low | r3 |
+| FA-8dd94936 | 31:09 | vocab-A | tier 1 | Okay, uh, الموضوع. Why do I am saying موضوع؟ | المشروع. | الموضوع -> المشروع | Said موضوع (topic, Farsi-like) for مشروع (project); he noticed something was off but did not supply the right word - Amal said المشروع. | medium | r1+r2 |
+| FA-7154f9af | 33:00 | vocab-A | tier 3 | أنا رح أعمله هو reminder و notification. | And how about and remind me to do that-- to do it؟ ... No. What's to remind؟ | reminder -> يذكرني (yzakkerni) | English 'reminder' dropped into the Arabic sentence; sheet row 'i remind / Bazakker / بذكر'; Amal pushed him to the verb ('What's to remind?') and he produced يذكّر at 34:51. 'notification' she let pass (and typed herself) - not counted. | medium | r3 |
+| FA-c4c20b29 | 34:51 | grammar | D4 | So, uh, يذكّر | ذكرني. | يذكّر -> يذكرني | 'Reminds me' needs the object -ni on the verb; he gave the bare verb, Amal supplied ذكرني and he said يزكرني at 34:56. | medium | r3 |
+| FA-a83e1460 | 34:59 | grammar | D4 | أعملهم لا أعملهم | أم، no، أعمله، because it's واجب. | أعملهم -> أعمله | Object ending must be singular -o for the one homework (waajeb); Amal said no and gave أعمله, naming the reason. | high | r1+r2 |
+| FA-d368eead | 35:24 | vocab-A | tier 1 | [غير مسموع] (he called the project سيء) | سيء؟ ... (37:10) بس ليش بتحكي إنه مشروع سيء؟ (37:25) سيء is bad. | سيء -> سهل | He said sayyi2 (bad) meaning sahel (easy); Amal echoed سيء؟ and later asked why he called it bad, he answered 'say it's easy' and 'مشروع سهل' (sheet: bad / Sayyi2; easy / Sahel). | high | r1+r2 |
+| FA-7c52ef1d | 35:39 | vocab-A | tier 1 | Uh, أنا عملت إشي زي إشي, uh... | إشي زي هيك you mean something like this؟ أو هيك إشي؟ | إشي زي إشي -> إشي زي هيك / هيك إشي | For 'something like this' he said zayy ishi (like a thing); Amal recast with هيك. | high | r1+r2 |
+| FA-6a67173e | 36:11 | grammar-propose | PROPOSE | Uh, إشي هيك | هيك إشي أو إشي زي هيك. | إشي هيك -> هيك إشي | Right after her fix he said ishi heik; Amal fixed it again: heik goes before the noun (heik ishi) or use ishi zayy heik. Wrong again after her fix = its own slip. | medium | r1+r2 |
+| FA-4f74c690 | 38:09 | grammar | A7 | سنة الجاي. | السنة الجاي. | سنة الجاي -> السنة الجاي | Noun + definite adjective needs el- on both; Amal said السنة الجاي at 38:04 and again at 38:30; he kept saying سنة الجاي (38:34, 38:41) - one row, the first. | medium | r3 |
+| FA-252da812 | 39:26 | vocab-A | tier 2 | مشاعير، uh, فأخلص مشاعير AI، | مشاريع | مشاعير -> مشاريع | Wrong form of the plural just taught (sounds like مشاعر 'feelings'); Amal supplied مشاريع and he repeated it. | high | r1+r2 |
+| FA-25a28f70 | 40:15 | vocab-A | tier 2 | أنا راح أخلص، مش، مشريعة، مش، مشاريعة AI كتير | مشاريع. | مشاريعة -> مشاريع | He added a -a ending to the plural; Amal said مشاريع. | high | r1+r2 |
+| FA-256203b0 | 41:23 | vocab-A | tier 1 | عريس؟ | No, like husband. | عريس -> جوز | Asked for 'husband' he said 3arees (groom; sheet: groom / 3arees); Amal said no, he then said جوز (sheet: husband / Joaz). | high | r1+r2 |
+| FA-a7e4f16f | 44:49 | grammar | B2 | ممكن، uh, بنتجوز. | ممكن never takes be. So نتجوز. | ممكن بنتجوز -> ممكن نتجوز | Amal named the rule: after mumken the verb drops b-. | high | r1+r2 |
+| FA-557f2f73 | 46:04 | grammar | C6 | إذا نروح-- | بنروح. | إذا نروح -> إذا بنروح | iza keeps the b-; Amal supplied بنروح and he repeated it. | high | r1+r2 |
+| FA-2ffdee90 | 46:16 | grammar | B8 | راح عندي شهر، / Yeah, راح كان عندي? | راح I will have صح؟ / راح يكون عندي. | راح عندي -> راح يكون عندي | 3indi in the future needs ykoon; Amal prompted ('raa7 I will have?'), he tried راح كان عندي, she gave راح يكون عندي, he said 'that's right'. | high | r1+r2 |
+| FA-1f4f12d3 | 47:05 | vocab-A | tier 3 | um, إذا الـ war, | War is حرب. حرب is feminine. | war -> حرب | English 'war' dropped into an Arabic sentence; sheet row 'war / 7arb / حرب / 7arb'; Amal supplied حرب and he said إذا الحرب at 47:18. | high | r3 |
+| FA-62a53545 | 47:11 | grammar | A18 | بخلّص | War is حرب. حرب is feminine. | بخلّص -> بتخلص | 7arb is a hidden-feminine noun so the verb takes t-; Amal named it ('حرب is feminine') and he said إذا الحرب بتخلص. | high | r1+r2 |
+| FA-5562f6e9 | 48:51 | vocab-A | tier 2 | بجا- متجوز | بتجوز. | متجوز -> بتجوز | Listing 'to get married' he gave the participle mitjawwez (married) for the verb batjawwaz; Amal recast بتجوز (sheet: i get married / Ana batjawwaz). | medium | r1+r2 |
+| FA-fb9db800 | 49:19 | vocab-A | tier 0 | خت- ختيم؟ حتيم؟ | خاتم. | ختيم -> خاتم | He said he does not remember the word for ring; Amal supplied خاتم. | high | r1+r2 |
+| FA-159e885a | 51:53 | grammar | D3 | أحمر، uh, جوا. | جواه. ... So جواه. | جوا -> جواه | 'Inside it' (the ring) needs the ending on the preposition; Amal recast جواه twice, he said 'inside the ring' and accepted. | high | r1+r2 |
+| FA-c87650d1 | 52:54 | vocab-A | tier 0 | م-مخاطب. | خطبة. | مخاطب -> خطبة | He said 'I don't even know engagement' and tried مخاطب; Amal supplied خطبة - didn't-know. | high | r1+r2 |
+| FA-998089c2 | 56:04 | grammar | A7 | أنا ما بحب الـ فستان أبيض / Ach-- Uh, fustan فستان الأبيض. | الفستان. | الـ فستان أبيض -> الفستان الأبيض | Noun + adjective needs el- on both; Amal prompted الفستان, he tried فستان الأبيض, then said الفستان الأبيض at 56:15. | medium | r1+r2 |
+| FA-e414b235 | 57:24 | vocab-A | tier 0 | Uh, ma bashuf, uh, it is, uh, hadahu, no. How do I say? | هو هيك. | hadahu -> هو هيك | He asked how to say 'that's how it is'; Amal supplied هو هيك - didn't-know. | medium | r1+r2 |
+| FA-08e672d8 | 1:02:04 | vocab-A | tier 2 | Is it أسائم. | باء. | أسائم -> أسماء | Invented plural of اسم; Amal prompted and he said أسماء, she confirmed. | medium | r1+r2 |
+| FA-e97f2e08 | 1:04:06 | grammar | A11 | آآ، كل اس-- آآ، كل أسماء، | كل all names. ... (1:04:24) مم، الأسماء. | كل أسماء -> كل الأسماء | 'All the names' needs kul + el-; Amal prompted and confirmed الأسماء, then taught kul ism = every name. | high | r1+r2 |
+| FA-2a2d94b7 | 1:05:01 | grammar-B | D5 | في إنجليزي. |  | في إنجليزي -> في الإنجليزي | Her chat has fi el-injleezi; she said only Mm-hmm, so let pass (best reading). | low | r1+r2 |
+| FA-f5603c2c | 1:05:52 | vocab-A | tier 1 | فكرت or أنا ظنيت، ظنيت، إنه بضحك. | مم، ظنيت as I assumed. So what, what fits better do you think? ... ممكن فكرت | ظنيت -> فكرت | He chose ظنيت (I assumed) for 'I thought it's funny'; Amal explained ظنيت = assumed and steered him to فكرت (sheet: i think / bafakker). | medium | r1+r2 |
+| FA-164d1d18 | 1:06:02 | grammar-B | B12 | بضحك. I thought it's funny. |  | بضحك -> بيضحّك | 'It's funny' is beyda77ek (it makes laugh; sheet: funny / Beyda77ek), he said بضحك (I laugh); Amal only addressed ظنيت and typed beyda77ek. | low | r1+r2 |
+| FA-1685ef3d | 1:06:43 | grammar | A2 | اسم / وسط، / Uh, do you say اسم وسط? Middle name? | Ah، we don't have it. اسم الوسط. | اسم وسط -> اسم الوسط | Idafa: the owner word takes el-; Amal recast اسم الوسط (chat esem el-wasat). | medium | r1+r2 |
