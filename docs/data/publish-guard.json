@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-22T00:41:32-07:00",
+ "updated": "2026-10-22T01:03:44-07:00",
  "result": "pass",
- "source": "hourly: manual after the stall fix",
- "checked_commit": "f93f4deb5b78",
- "secs": 141.9,
+ "source": "PG-56 flowchart tab",
+ "checked_commit": "c3ad71685020",
+ "secs": 128.7,
  "checks": [
   {
    "id": "step_failures",
@@ -17,7 +17,7 @@
    "id": "clean_tree",
    "required": true,
    "ok": true,
-   "secs": 0.1,
+   "secs": 0.0,
    "what": "what is checked is exactly what gets published",
    "detail": "nothing uncommitted under docs, data/full-audit-2026-09-26.json, data/accuracy, RULE-BOOK.md, data/lesson-work/ledger, data/lesson-work/ledger-amal.json"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 3.9,
+   "secs": 3.5,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 6.1,
+   "secs": 6.0,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 79 pages, every link, data file and clip resolves (5 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 1.8,
+   "secs": 1.7,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 104.2,
+   "secs": 94.0,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": ".............................. [ 98%] | ...................                                                      [100%] | 952 passed, 3 xfailed in 99.38s (0:01:39)"
+   "detail": ".............................. [ 97%] | ....................                                                     [100%] | 953 passed, 3 xfailed in 91.93s (0:01:31)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 6.9,
+   "secs": 5.8,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6839.1883"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5772.1252"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 7.6,
+   "secs": 6.3,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -153,7 +153,7 @@
    "id": "review_freshness",
    "required": false,
    "ok": false,
-   "secs": 0.4,
+   "secs": 0.2,
    "what": "the two readers read the transcript the pages show now",
    "detail": "2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it; 2026-10-10: transcript changed after the readers read it; 2026-10-12: transcript changed after the readers read it; 2026-10-14: transcript changed after the readers read it"
   },
@@ -169,7 +169,7 @@
    "id": "medi_corrections",
    "required": false,
    "ok": false,
-   "secs": 0.2,
+   "secs": 0.1,
    "what": "Medi's transcript corrections: none orphaned, held or quarantined, no rule paused by probation (PR-15; a warning only, never blocks)",
    "detail": "exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)"
   },
@@ -177,7 +177,7 @@
    "id": "foreign_script",
    "required": false,
    "ok": false,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)",
    "detail": "exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
   }
@@ -188,14 +188,14 @@
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-22T00:38:52-07:00",
-  "source": "hourly: manual after the stall fix",
+  "at": "2026-10-22T01:01:29-07:00",
+  "source": "PG-56 flowchart tab",
   "outcome": "blocked",
-  "sha": "e426e8c9820255b625dadec6176dff8702da6416",
-  "reason": "clean_tree: 7 uncommitted change(s) in what would be published, e.g. data/accuracy/verification-queue.json, docs/data/accuracy-release.json, docs/data/amal-trigger.json, docs/data/build.json; json_data: docs/data/pipeline-health.json does not parse (JSONDecodeError: Expecting property name enclosed in double quotes: line 5 column 1 (char 310)); check_pages: exit 1: pages NOT OK: 1 missing or unreadable data file. First: data/pipeline-health.json: does not parse as JSON (Expecting property name enclosed in double quotes: line 5 column 1 (char 310))",
-  "secs": 143.0,
-  "commits_waiting": "10"
+  "sha": "c3ad7168502043bb54f64b27830b567aeef60ee9",
+  "reason": "clean_tree: 1 uncommitted change(s) in what would be published, e.g. docs/data/tutor-notes.json",
+  "secs": 128.5,
+  "commits_waiting": "2"
  },
- "blocks_before_this_pass": 11,
+ "blocks_before_this_pass": 2,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
