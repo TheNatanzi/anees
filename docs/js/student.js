@@ -145,9 +145,9 @@
     const set = pretty(t.created_at), les = pretty(t.lesson_date);
     // round 11: only the warning (late) and "new" show; the dates and kind stay in the text for a screen reader (same numbers)
     const chips = t.upload ? `<span class="dw-chip">new</span><span class="dp-sr">set · ${esc(set)} · ${t.keep === 'permanent' ? 'permanent' : 'next lessons'} · </span>`
-      : `${past ? '<span class="dw-chip warn" title="the lesson date has passed">late</span>' : ''}<span class="dp-sr">lesson ${esc(les)}${set && set !== les ? ` · set ${esc(set)}` : ''} · </span>`;
-    return `<a class="st-task st-cards" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" aria-label="${esc(t.set_title)}: open on Flashcards"><div class="st-cmain"><p class="dw-row st-chips2">${chips}</p>
-      <p class="st-prompt">${esc(t.set_title)}</p><p class="st-of" aria-label="${done} of ${n} cards done"><b class="st-n">${n}</b> <b class="st-d">${done}</b><span>${done >= n && n ? 'all done' : 'cards done'}</span></p><div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></div><span class="st-go2" aria-hidden="true">›</span></a>`;
+      : `${past ? '<span class="dw-chip warn" title="the lesson date has passed"><svg class="st-clock" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>late</span>' : ''}<span class="dp-sr">lesson ${esc(les)}${set && set !== les ? ` · set ${esc(set)}` : ''} · </span>`;
+    return `<a class="st-task st-cards${past ? ' st-late' : ''}" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" aria-label="${esc(t.set_title)}: open on Flashcards"><div class="st-cmain"><p class="dw-row st-chips2">${chips}</p>
+      <p class="st-prompt">${esc(t.set_title)}</p>${done ? `<p class="st-of" aria-label="${done} of ${n} cards done"><b class="st-n">${n}</b> <b class="st-d">${done}</b><span>${done >= n && n ? 'all done' : 'cards done'}</span></p><div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div>` : `<p class="st-of st-zero-of"><b class="st-n0">${n}</b><span>cards</span></p>`}</div><span class="st-go2" aria-hidden="true">›</span></a>`;
   }
   // Medi 2026-10-06: the questions he sent from a flashcard (the attention button) and her replies
   function attn() { return (window.AneesAttentionTask || { view: () => ({ all: [], open: [], answered: [] }) }).view(D.attention || []); }

@@ -336,3 +336,11 @@ html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big span { position:
 #anees-bank .st-now .st-tot .dw-split { flex: 1; height: 10px; margin: 0; }
 #anees-bank .st-now .st-tot em { font-style: normal; font-size: 12px; color: var(--dw-muted); white-space: nowrap; }
 #anees-bank .st-now > b { grid-row: span 3; }
+/* student round 14: a set with nothing done shows only its size; a late set gets an amber edge and a clock */
+#anees-bank .st-zero-of { margin: 0; }
+#anees-bank .st-zero-of b { font: 700 16px/1 var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+#anees-bank a.st-task.st-cards.st-late { border-left: 6px solid var(--dw-warn); }
+#anees-bank .st-late .dw-chip.warn::before { display: none; }
+#anees-bank .st-clock { width: 13px; height: 13px; }
+html[data-look] #anees-bank a.st-task.st-cards.st-late { box-shadow: inset 6px 0 0 var(--dw-warn); }
+html[data-look="flat"] #anees-bank a.st-task.st-cards.st-late { border-left: 1px solid var(--ab-line); }
