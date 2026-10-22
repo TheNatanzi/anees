@@ -583,3 +583,15 @@ html[data-look="kurz"] #anees-bank details.st-browse > summary { border: 0; back
 #anees-bank #st-guard .dw-chip, #anees-bank #st-amal .dw-chip { font-size: 13px; }
 #anees-bank #st-guard .dw-chip::before, #anees-bank #st-amal .dw-chip::before { content: "\2713"; width: 18px; height: 18px; display: inline-grid; place-items: center; color: var(--sabz-bg, #fff);
   background: var(--dw-ok); font-size: 11px; box-shadow: none; }
+.dw-gate .dw-lock { width: 132px; height: 88px; }
+@media (max-width: 680px) { .dw-gate .dw-lock { width: 108px; height: 72px; } }
+.dw-paste input::placeholder { color: var(--ab-muted, var(--dw-muted)); opacity: 1; }
+html[data-look="kurz"] .dw-paste input { background: var(--kz-raised); border-color: var(--kz-line); color: var(--kz-ink); }
+#anees-bank .bp-pipe[hidden] { display: none; }
+#anees-bank .bp-first { flex-wrap: wrap; }
+#anees-bank .bp-first .bp-funnel { width: 160px; height: 70px; flex: none; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+#anees-bank .bp-funnel .bp-f0 { stroke: var(--dw-muted); } #anees-bank .bp-funnel .bp-f1 { stroke: var(--dw-a4); fill: color-mix(in srgb, var(--dw-a4) 25%, transparent); }
+#anees-bank .bp-funnel .bp-f2 { stroke: var(--dw-a2); fill: color-mix(in srgb, var(--dw-a2) 25%, transparent); } #anees-bank .bp-funnel .bp-f3 { stroke: var(--dw-a1); }
+html[data-look="kurz"] #anees-bank .bp-funnel .bp-f1 { stroke: var(--kz-yellow); fill: color-mix(in srgb, var(--kz-yellow) 30%, transparent); }
+html[data-look="kurz"] #anees-bank .bp-funnel .bp-f2 { stroke: var(--kz-orange); fill: color-mix(in srgb, var(--kz-orange) 30%, transparent); }
+html[data-look="kurz"] #anees-bank .bp-funnel .bp-f3 { stroke: var(--kz-teal); }
