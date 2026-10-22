@@ -57,7 +57,8 @@ def letters(g):
 
 def collect(base):
     pages = {}
-    for st in sorted(base.glob('*/status.json')):
+    final = base / 'final' / 'status.json'
+    for st in ([final] if final.exists() else sorted(base.glob('*/status.json'))):
         try:
             s = json.loads(st.read_text(encoding='utf-8'))
         except Exception as e:
@@ -78,8 +79,8 @@ def grade_cell(look):
         cls = 'a' if g and set(g) == {'A'} else ('fail' if not g or '?' in g else 'b')
         out.append(f'<span class="g {cls}" title="{label}: add · crucial · pictures · modes · look">'
                    f'<i>{label}</i><b>{html.escape(g or "—")}</b></span>')
-    done = '<span class="chip ok">done</span>' if look.get('done') else '<span class="chip warn">not done</span>'
-    rnd = f'<span class="rnd">round {look.get("round", "?")}</span>'
+    done = '<span class="chip ok">all A</span>' if look.get('done') else '<span class="chip warn">not all A</span>'
+    rnd = f'<span class="rnd">{"final" if look.get("round") == "final" else "round " + str(look.get("round", "?"))}</span>'
     return done + rnd + ''.join(out)
 
 

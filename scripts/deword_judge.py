@@ -69,6 +69,15 @@ def parse(out):
             return {'grades': g, 'fix': j.get('fix', '')}
         except Exception:
             continue
+    m = re.search(r'"grades"\s*:\s*(\{[^{}]*\})', out or '')  # the fix text broke the outer JSON: keep the grades
+    if m:
+        try:
+            g = json.loads(m.group(1))
+            f = re.search(r'"fix"\s*:\s*"(.*)', out[m.end():], re.S)
+            return {'grades': {k: str(g.get(k, '?')).strip().upper()[:2] for k in LINES},
+                    'fix': (f.group(1)[:400] if f else '')}
+        except Exception:
+            pass
     return None
 
 
