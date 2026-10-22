@@ -38,6 +38,21 @@ function guardLine(g) {
 
 if (typeof module !== 'undefined' && module.exports) { module.exports = { guardLine: guardLine, when: when }; return; }
 
+
+  // de-word: warnings gather in one 'Needs attention' card above the two robots (created by whichever script runs first);
+  // each row = what is wrong (big) + the next step (one line), the raw detail behind an i that opens in place
+  function attnRow(big, small, detail, first) {
+    var host = document.getElementById('st-guard'); if (!host) return;
+    var card = document.getElementById('st-attn');
+    if (!card) { card = document.createElement('section'); card.id = 'st-attn'; card.className = 'st-attn';
+      card.innerHTML = '<h2 class="st-attn-h">Needs attention</h2>'; host.parentNode.insertBefore(card, host); }
+    var row = document.createElement('div'); row.className = 'st-attn-row';
+    row.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg><div><b></b><small></small></div>';
+    row.querySelector('b').textContent = big; row.querySelector('small').textContent = small;
+    if (detail) { var d = document.createElement('details'), su = document.createElement('summary'), dv = document.createElement('div');
+      d.className = 'dw-info'; su.textContent = 'i'; su.title = 'Details'; dv.textContent = detail; d.appendChild(su); d.appendChild(dv); row.querySelector('b').appendChild(d); }
+    if (first) card.insertBefore(row, card.children[1] || null); else card.appendChild(row);
+  }
 function render(g) {
   var box = document.getElementById('st-guard');
   if (!box) return;
@@ -50,8 +65,9 @@ function render(g) {
   p.textContent = line.state === 'pass' ? 'Publish guard · ' + ok + '/' + req.length + ' checks · ' + when(g.updated) : 'Publish guard · no pass yet';
   box.appendChild(p);
   if (line.alert) {           // a block Medi could not see at the time is shown, not folded away
-    var al = document.createElement('span'); al.className = 'dw-chip warn st-guard-alert';
-    al.textContent = 'Last block · ' + when(g.last_block.at) + (g.last_block.source ? ' · ' + g.last_block.source : ''); box.appendChild(al);
+    attnRow('Publishing blocked',
+      /^clean_tree/.test(g.last_block.reason || '') ? 'Next: commit the changed files, then publish again.' : 'Next: fix the failed check, then publish again.',
+      when(g.last_block.at) + ' · ' + (g.last_block.reason || 'no reason recorded') + (g.last_block.source ? ' (' + g.last_block.source + ')' : ''), true);
   }
   if (line.details.length || (line.checks || []).length) {
     var det = document.createElement('details'), sum = document.createElement('summary');

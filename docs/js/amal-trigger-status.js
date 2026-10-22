@@ -22,6 +22,21 @@ function lines(d) {
   return out;
 }
 if (typeof module !== 'undefined' && module.exports) { module.exports = { lines: lines }; return; }
+
+  // de-word: warnings gather in one 'Needs attention' card above the two robots (created by whichever script runs first);
+  // each row = what is wrong (big) + the next step (one line), the raw detail behind an i that opens in place
+  function attnRow(big, small, detail, first) {
+    var host = document.getElementById('st-guard'); if (!host) return;
+    var card = document.getElementById('st-attn');
+    if (!card) { card = document.createElement('section'); card.id = 'st-attn'; card.className = 'st-attn';
+      card.innerHTML = '<h2 class="st-attn-h">Needs attention</h2>'; host.parentNode.insertBefore(card, host); }
+    var row = document.createElement('div'); row.className = 'st-attn-row';
+    row.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg><div><b></b><small></small></div>';
+    row.querySelector('b').textContent = big; row.querySelector('small').textContent = small;
+    if (detail) { var d = document.createElement('details'), su = document.createElement('summary'), dv = document.createElement('div');
+      d.className = 'dw-info'; su.textContent = 'i'; su.title = 'Details'; dv.textContent = detail; d.appendChild(su); d.appendChild(dv); row.querySelector('b').appendChild(d); }
+    if (first) card.insertBefore(row, card.children[1] || null); else card.appendChild(row);
+  }
 function render(d) {
   var host = document.getElementById('st-guard'); if (!host) return;
   var box = document.createElement('div'); box.className = 'ab-sub st-amal'; box.id = 'st-amal';
@@ -30,7 +45,9 @@ function render(d) {
   var p = document.createElement('span'); p.className = 'dw-chip' + (d && d.sources ? '' : ' muted');
   p.textContent = d && d.sources ? 'Tutor trigger · ' + d.sources.length + ' sources · ' + String(d.checked || '').slice(0, 16).replace('T', ' ') : 'Tutor trigger · not run yet';
   box.appendChild(p);
-  if (unread) { var w = document.createElement('span'); w.className = 'dw-chip warn'; w.textContent = unread + ' not readable'; box.appendChild(w); }
+  if (unread) attnRow(unread + ' tutor source' + (unread === 1 ? '' : 's') + ' not readable',
+    'Next: fix access to ' + d.sources.filter(function (s) { return !s.readable; }).map(function (s) { return s.label; }).join(', ') + '.',
+    d.sources.filter(function (s) { return !s.readable; }).map(function (s) { return s.label + ': ' + s.why; }).join(' · '));
   var det = document.createElement('details'), sum = document.createElement('summary');
   det.className = 'dw-info'; sum.textContent = 'i'; sum.title = 'Her sources and the last recalculations'; det.appendChild(sum);
   var ul = document.createElement('ul');

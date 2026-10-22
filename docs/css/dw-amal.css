@@ -551,3 +551,32 @@ body.dw-doc .dw-status > .dw-sbar { order: 1; } body.dw-doc .dw-status > .dw-cap
 body.dw-doc .dw-fam { position: relative; padding-right: 32px; }
 body.dw-doc .dw-famn::after { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
 @media (max-width: 680px) { body.dw-doc .dw-famn::after { top: 14px; transform: none; } }
+
+/* settings: one 'Needs attention' card; the robots' OK lines stay small; the rule browser folds */
+#anees-bank .st-attn { margin: 8px 0; padding: 12px 14px; border-radius: 14px; background: var(--dw-warn-fill); border-left: 6px solid var(--dw-warn); display: grid; gap: 10px; }
+#anees-bank .st-attn-h { margin: 0; font: 700 12px/1.2 var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-warn); }
+#anees-bank .st-attn-row { display: flex; align-items: center; gap: 12px; }
+#anees-bank .st-attn-row svg { width: 30px; height: 30px; flex: none; fill: none; stroke: var(--dw-warn); stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
+#anees-bank .st-attn-row b { display: block; font-size: 17px; color: var(--ab-text); }
+#anees-bank .st-attn-row small { display: block; font-size: 14px; font-weight: 600; color: var(--ab-text); margin-top: 2px; overflow-wrap: anywhere; }
+#anees-bank .st-attn-row b details.dw-info { margin-left: 8px; font-weight: 400; }
+#anees-bank .st-attn-row b details.dw-info[open] > div { font-size: 12px; overflow-wrap: anywhere; }
+#anees-bank #st-guard, #anees-bank #st-amal { background: none; border: 0; box-shadow: none !important; padding: 0; display: inline-flex; margin: 2px 10px 2px 0; }
+#anees-bank #st-metrics.ab-metrics { grid-template-columns: 1fr !important; }
+#anees-bank .st-dw-k.st-dw-partly, #anees-bank .st-dw-k.st-dw-planned { padding: 1px 8px; border-radius: 999px; }
+#anees-bank .st-dw-k.st-dw-partly { background: var(--dw-warn-fill); } #anees-bank .st-dw-k.st-dw-planned { background: color-mix(in srgb, var(--dw-a4) 18%, transparent); }
+#anees-bank details.st-browse { margin: 12px 0 0; }
+#anees-bank details.st-browse > summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px;
+  border: 1px solid var(--dw-line); background: var(--dw-card); font-weight: 600; font-size: 14px; }
+#anees-bank details.st-browse > summary::-webkit-details-marker { display: none; }
+#anees-bank details.st-browse > summary::after { content: "\25BE"; color: var(--dw-muted); }
+#anees-bank details.st-browse[open] > summary { margin-bottom: 12px; }
+#anees-bank details.st-browse[open] > summary::after { content: "\25B4"; }
+@media (max-width: 680px) {
+  #anees-bank .st-tabs { flex-wrap: wrap !important; overflow: visible; }
+  #anees-bank .st-tabnote { height: 0; margin: 0; }
+  #anees-bank .st-tabnote > details.dw-info { position: absolute; right: 0; top: -30px; }
+}
+html[data-look="kurz"] #anees-bank .st-attn { background: color-mix(in srgb, var(--kz-yellow) 16%, var(--kz-panel)); border-left-color: var(--kz-yellow); border-radius: 20px; }
+html[data-look="kurz"] #anees-bank .st-attn-row svg { stroke: var(--kz-yellow); fill: color-mix(in srgb, var(--kz-yellow) 20%, transparent); }
+html[data-look="kurz"] #anees-bank details.st-browse > summary { border: 0; background: var(--kz-raised); }
