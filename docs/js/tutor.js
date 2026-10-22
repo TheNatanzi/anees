@@ -138,10 +138,18 @@
   function setTab(tab) { document.querySelectorAll('.hb-tab').forEach(a => a.setAttribute('aria-selected', String(a.dataset.tab === tab))); }
   function todo(openId) {
     setTab('todo');
-    const open = tasks.filter(t => !t.finished);
+    // r2: the quiet Student results row (nothing to answer) comes after the lists she answers; their order is unchanged
+    const open = tasks.filter(t => !t.finished).filter(t => t.kind !== 'results').concat(tasks.filter(t => !t.finished && t.kind === 'results'));
     if (!open.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing to check right now. Shukran!</p>'; return; }
     listPanel('todo', open.map((t, i, A) => ({ id: t.id, next: t === (A.find(x => x.kind !== 'results') || A[0]),   // r2: Up next = the first list with something to answer (the quiet results row keeps its place)
        icon: kindIcon(t), title: short(t.title), sep: /\d$/.test(short(t.title)) && !/\d$/.test(t.title), subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p), { autoPhone: !location.hash.slice(1) });
+    // r2 (Medi 10-22 'you cut out too much data'): every card-set try stays on screen under the lists, without a tap
+    const rt = open.find(t => t.kind === 'results'), cur = (location.hash.split('/')[1] || '');
+    if (rt && cur !== 'results' && window.AneesResultsTask && RS) {
+      const sec = document.createElement('section'); sec.className = 'hb-panel tu-results'; sec.setAttribute('aria-label', 'Student results');
+      sec.innerHTML = `<h2 class="hb-ptitle">Student results</h2><p class="hb-pnote">${esc(rt.subText || '')}</p><div></div>`;
+      $('#hb-view').appendChild(sec); AneesResultsTask.mount(sec.lastChild, RS);
+    }
   }
   // every kind of item opens here, with the same module as its old address (no link to another page)
   // AM-27 (Medi 2026-10-07 "lets add a place for notes for amal always"): a note box under every card and one per list.

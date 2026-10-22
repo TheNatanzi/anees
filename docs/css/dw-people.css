@@ -529,3 +529,8 @@ html[data-look="flat"] #anees-bank a.st-task.st-cards.st-late .hb-bar i { backgr
   #anees-bank #st-score .st-big:not(.st-now) b { font-size: 26px; }
   #anees-bank .hb-list .hb-panel > .hb-ptitle, #anees-bank .hb-list .hb-panel > .hb-pnote { display: none !important; }
 }
+/* r2 round 9: homework: the number key says what it is; phone steps are one slim row. Tutor: Student results under the lists */
+.hw-kcap { margin: 6px 0 2px; font: 600 11px/1.3 var(--sabz-font-sans, system-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--dw-muted); }
+.hw-keys li i { font-style: normal; color: var(--dw-muted); font-size: 18px; }
+@media (max-width: 680px) { .hw-flow > li { flex-direction: row !important; font-size: 12px !important; padding: 6px 6px !important; gap: 4px; } .hw-flow > li svg { width: 16px; height: 16px; } .hw-keys li b, .hw-keys li span { font-size: 20px; } .hw-keys li { gap: 3px; } }
+#anees-bank .hb-panel.tu-results { margin-top: 16px; }
