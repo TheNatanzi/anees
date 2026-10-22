@@ -38,6 +38,7 @@ def dword(frag):
                                      ('<span class="chip money">$</span>', 'chip money')) if k in body)
         sumry = '<span class="fl-sum">%s</span>' % who   # who acts and what costs money; the step count opens with the row
         head = head.replace('</h2>', '</h2>' + sumry, 1)
+        head = '<span class="fl-ico" aria-hidden="true">%s</span>' % ICONS.get(code, '') + head
         return ('<details class="phase" id="fl-%s" style="--pc:%s"><summary><header><span class="pcode">%s</span>%s</header></summary>%s</details>'
                 % (code, color, code, head, body))
     frag = re.sub(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>(.*?)</header>(.*?)</section>',
@@ -62,7 +63,7 @@ def dword(frag):
         strip = ('<ol class="fl-path" aria-label="The 8 stops from the call to the grade">' +
                  ''.join('<li style="--pc:%s"><a href="#fl-%s"><span class="fl-dot">%s</span><b>%s</b></a></li>'
                          % (c, k, ICONS.get(k, k), WORD.get(k, k)) for k, c in stops) + '</ol>')
-        frag = frag.replace('<div class="key">', strip + '\n  <div class="key">', 1)
+        pass   # judges, round 10: the strip repeated the rows below, so each row carries its icon instead (strip kept unused)
     # "who decides" is the rule behind the whole path: it closes the page, under Done
     w = re.search(r'\s*<div class="warn">.*?</div>', frag, re.S)
     if w and '<div class="done">' in frag:
