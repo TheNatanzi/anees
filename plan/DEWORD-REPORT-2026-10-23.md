@@ -1,53 +1,44 @@
-# De-word overnight: morning report
+# De-word: report (updated 2026-10-22 12:30)
 
-**Gallery (before / A / B, grades, words):** https://claude.ai/artifact/J4sqEaN5Dd9SEB4rCugY2e · also `docs/deword-gallery.html` on branch `claude/deword-overnight`
+**Gallery (Before vs Look A, grades, words):** https://claude.ai/artifact/J4sqEaN5Dd9SEB4rCugY2e · also `docs/deword-gallery.html` on branch `claude/deword-overnight`
 
-52,186 → 13,416 visible words (−74%). Every number still on its page (Playwright check). Nothing live.
-0 of 20 pages all-A from both judges. Homework is the only one close (A/A). Grades = add · crucial · pictures · modes · look.
+Medi picked **Look A** for every page and said the first pass "cut out too much data". Round 2 put the data back on screen.
+Nothing live. Every number still on its page. Before = the pre-de-word pages shot today with the same live data.
 
-| Page | Words | Look A (Claude / Codex) | Look B (Claude / Codex) |
-|---|---|---|---|
-| Progress & Stats | 10,435 → 1,153 | BBBBA / CCCBB | BCBAA / CBCBB |
-| AI Reports | 8,537 → 598 | BBBAA / BBBAB | ABAAA / BBBAA |
-| How Anees works | 1,051 → 122 | AABAA / BBCBA | AABAB / BBCAB |
-| Lessons & Audio | 764 → 110 | ABBAA / BBABA | AABAA / BBBAB |
-| One lesson (10-14) | 9,959 → 7,704 | BBBAA / CCBBA | BBBAB / CCBBA |
-| Word Bank | 3,841 → 260 | BBBAA / CBBBA | BBBAA / BBCBB |
-| Grammar Rules | 2,306 → 227 | BBBBA / BBBBA | BBBAA / BBBBB |
-| Flashcards | 217 → 135 | ABBAA / BBCBA | ABBAA / BBBAA |
-| Student | 692 → 396 | ABBAA / BBAAA | AABAA / BBBAA |
-| Homework | 49 → 11 | AAAAA / AAAAA | ABAAA / AAAAA |
-| Tutor | 8,052 → 2,512 | BBBAA / CBCBA | BBBAA / CCCBB |
-| Tutor · grammar rules | 11,858 → 131 (folded, opens in place) | BBAAA / BBBAA | AABBA / BBAAA |
-| Tutor · materials | 2,372 → 52 | AABAA / BBCAA | AABAA / BBBAA |
-| Tutor answer pages (5) | ~190 → ~140 | AABAA / ABBAA (typical) | AABAA / ABAAA (typical) |
-| Big Picture | 80 → 76 | AABAA / BBBBA | AABAA / BBBAA |
-| System Settings | 311 → 171 | BBBAA / CCBCB | BBBBA / CCCBB |
+| Page | Words before → now | Claude | GPT-6 Astra | Note |
+|---|---|---|---|---|
+| Progress & Stats | 9,580 → 5,966 | AAAAA | BABBA | all 25 rows, cards, 8 charts back; takeaway tiles on top |
+| AI Reports | 8,597 → 7,818 | BABAA | CCBBB | blind spots, research list, grades back |
+| How Anees works | 1,063 → 1,091 | BABAA | CACBB | |
+| Lessons & Audio | 776 → 806 | BAAAA | BAABA | all 25 rows |
+| One lesson (10-14) | 9,971 → 9,958 | AABAA | BABAA | every line; "Start Arabic practice" button |
+| Word Bank | 3,856 → 2,260 | BABAA | BBBBA | row data back |
+| Grammar Rules | 2,318 → 4,365 | BAAAA | BABBA | **more than before:** rule rows now open |
+| Flashcards | 269 → 252 | BABAA | BABBA | |
+| Student | 732 → 543 | AABAA | BAABA | |
+| Homework | 163 → 114 | AAABA | BAAAA | |
+| Tutor | 5,818 → 14,177 | BABAA | BABBA | **more than before:** lists that were folded are open |
+| Tutor · grammar rules | 11,858 → 10,565 | BABAA | BABBA | every rule + example back; "why" behind ⓘ |
+| Tutor · materials | 2,372 → 2,410 | BABAA | DAFBB | Codex wants a drawing per preposition |
+| Big Picture | 577 → 559 | BABAA | CACBB | |
+| System Settings | 323 → 227 | AABAA | BCABA | |
 
-Done = both looks built + graded on every page. Not done = all-A (stopped at time).
+Grades = add · crucial · pictures · modes · look. **Crucial** (data kept) = A on 14 of 15 pages from both judges.
+Dropped: the 5 old tutor addresses (amal/after, plan, review, verb-check, word-review) — same code lives in the Tutor hub.
 
 ## Rule X forces this line: drop the rule?
-- **PG-01/PG-15:** the full-width "hourly robot has not published" banner on every page (judges want a small chip).
-- **PG-17:** the Tutor To-do list shows every row; Codex wants one "Up next" card on phone.
-- **PG-29/PG-05:** the Student Homework "—" tile stays as its own tile.
-- **Tutor's answer buttons:** the sub-lines inside them stay ("counts as a mistake…").
-- **PG-31:** the phone bottom bar. It was painted over rows in full-page stills; the stills now hide it.
-- **Tests force lines:**
-  - `test_m5_cards`: Sets tiles + card settings visible.
-  - `test_tutor_grammar`: exact "Add grammar" tab text.
-  - `test_build_tutor_weak`: exact "Completed" tab text.
-  - `test_build_lesson_page`: "lines … typed in chat".
-- **Lesson transcript:** both judges want it folded. Kept, because the lines are the lesson data.
-- **Look switch on the tutor's pages:** judges ask to hide it. Drop it there once one look is picked.
+- PG-01/PG-15: the full-width "hourly robot has not published" banner on every page.
+- The tutor's answer buttons stay where they are (judges want them side by side).
+- PG-56 test keeps the 8-step picture off the very top of How Anees works.
+- `test_m5_cards`: Sets tiles + card settings visible on Flashcards.
 
 ## Judge routes
-- **Gemini 3.8 Flash (agy):** weekly quota ran out at about 02:05 ("resets in 167 h"). Graded only the early rounds; the final grades come from 2 judges.
-- **Claude + Codex (gpt-6-astra):** worked all night. $0, plans only.
-- **Usage limit:** the Claude session limit stopped all 5 page workers at about 03:30 (reset 05:50). Their unchecked half-edits were rolled back to the last checked commit.
+- Gemini 3.8 Flash: weekly quota out since 10-22 02:05 (resets ~10-29). All final grades: Claude + GPT-6 Astra, $0 on plans.
+- Claude usage limit stopped the night workers 03:30–05:50; their half-edits were rolled back.
 
-## Before merging (known)
-- `test_lesson_ledger` LS-11: the 10-14 lesson page changed, so its ledger needs a rebuild (the hourly job rebuilds it). Check the lesson counts after that.
-- A pre-commit hook adds `build.json` / `build.js` to commits. The last commit puts them back to master's version.
-- 8 tests already fail on master (same 8 here). New failures: only the LS-11 above.
+## Known
+- Tests: the same 8 that fail on master fail here; nothing new (homework dark-mode contrast fixed).
+- Flashcards: one of four shots showed different counts (152/24 vs 54/16) — looks like a data-load race; not fixed.
+- Look B CSS is still in the branch (unused); drop it when merging.
 
-**Pick a look: open the gallery and approve A (flat) or B (bright). Then merge `claude/deword-overnight` one page at a time, starting with Homework, AI Reports and Lessons.**
+**Next: say which pages to merge first. I suggest Progress, Lessons and Homework; Tutor and Grammar first need your OK on showing more than before.**

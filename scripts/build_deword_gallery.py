@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 from deword_capture import PAGES  # noqa: E402
 
 OUT = ROOT / 'docs' / 'deword'
-STATES = [('before', 'Before'), ('flat', 'Look A · flat'), ('kurz', 'Look B · bright')]
+STATES = [('before', 'Before'), ('flat', 'Look A · flat')]  # Medi 2026-10-22: Look A for every page; B retired
 MODES = [(t, d) for t in ('light', 'dark') for d in ('desktop', 'phone')]
 JUDGES = [('claude', 'Claude'), ('codex', 'GPT-6 Astra'), ('gemini', 'Gemini 3.8 Flash')]
 NAMES = {'progress': 'Progress & Stats', 'ai-reports': 'AI Reports', 'flow': 'How Anees works', 'lessons': 'Lessons & Audio',
@@ -113,7 +113,7 @@ def build(base, artifact=None):
         rows.append(f'''<section class="row" id="{page}">
 <header><h2>{html.escape(NAMES.get(page, page))}</h2>
 <div class="words"><b>{wb or "—"}</b><span>→</span><b class="after">{wa or "—"}</b><small>words · {cut}</small></div></header>
-<div class="grades"><div><span class="lk">A</span>{grade_cell(info.get('flat'))}</div><div><span class="lk b">B</span>{grade_cell(info.get('kurz'))}</div></div>
+<div class="grades"><div><span class="lk">A</span>{grade_cell(info.get('flat'))}</div></div>
 <div class="shots">{''.join(cols)}</div></section>''')
     summary = (f'<div class="total"><b>{totals[0]:,}</b><span>→</span><b class="after">{totals[1]:,}</b>'
                f'<small>words on the {len(PAGES)} pages</small></div>') if totals[0] else ''
@@ -163,8 +163,8 @@ h1{font:600 34px/1.1 var(--serif);margin:0 0 4px;text-wrap:balance}
 .g.none{color:var(--muted)}
 .chip{padding:2px 9px;border-radius:999px;font:700 12px var(--sans)}.chip.ok{background:var(--okf);color:var(--ok)}.chip.warn{background:var(--warnf);color:var(--warn)}
 .rnd{font-size:12px;color:var(--muted)}
-.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.phone .shots{grid-template-columns:repeat(3,minmax(0,200px))}
+.shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.phone .shots{grid-template-columns:repeat(2,minmax(0,260px))}
 figure{margin:0;min-width:0}figcaption{font:700 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 figure img{display:block;width:100%;height:auto;max-height:620px;object-fit:cover;object-position:top;border:1px solid var(--line);border-radius:8px;background:var(--card);cursor:zoom-in}
 .miss{display:grid;place-items:center;height:160px;border:1px dashed var(--line);border-radius:8px;color:var(--muted)}
@@ -179,12 +179,12 @@ figure img{display:block;width:100%;height:auto;max-height:620px;object-fit:cove
 .lb-scroll img{display:inline-block;max-width:100%;height:auto;border-radius:6px;background:#fff}
 .lb-scroll.full img{max-width:none}
 .lb-hint{font-size:12px;opacity:.75}
-@media (max-width:700px){.shots,.phone .shots{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}h1{font-size:28px}}
+@media (max-width:700px){.shots,.phone .shots{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}h1{font-size:28px}}
 @media (prefers-reduced-motion:no-preference){figure img{transition:opacity .15s}}
 </style>
 <div class="wrap">
 <h1>De-word gallery</h1>
-<p class="sub">Preview branch <b>claude/deword-overnight</b> · nothing is live. Grades: add · crucial · pictures · modes · look.</p>
+<p class="sub">Preview branch <b>claude/deword-overnight</b> · nothing is live. Look A picked for every page (Medi 2026-10-22). Data back on screen. Grades (Claude · GPT-6 Astra): add · crucial · pictures · modes · look.</p>
 %SUMMARY%
 <div class="bar" role="toolbar" aria-label="Screenshot view">
 <div class="seg" data-k="theme"><button id="sw-light" data-v="light" aria-pressed="true">Light</button><button id="sw-dark" data-v="dark" aria-pressed="false">Dark</button></div>
@@ -194,7 +194,7 @@ figure img{display:block;width:100%;height:auto;max-height:620px;object-fit:cove
 </div>
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-labelledby="lb-title">
 <div class="lb-bar"><b id="lb-title"></b>
-<div class="seg" id="lb-state"><button id="lb-before" data-v="before">Before</button><button id="lb-flat" data-v="flat">Look A</button><button id="lb-kurz" data-v="kurz">Look B</button></div>
+<div class="seg" id="lb-state"><button id="lb-before" data-v="before">Before</button><button id="lb-flat" data-v="flat">Look A</button></div>
 <span class="lb-hint">tap picture = full size · ← → switch</span><button class="lb-close" id="lb-close">Close</button></div>
 <div class="lb-scroll" id="lb-scroll"><img id="lb-img" alt=""></div></div>
 <script>
@@ -214,7 +214,7 @@ document.getElementById('lb-state').addEventListener('click',function(e){var b=e
 document.getElementById('lb-close').addEventListener('click',function(){lb.hidden=true;});
 li.addEventListener('click',function(){ls.classList.toggle('full');});
 document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')lb.hidden=true;
-var o=['before','flat','kurz'],k=o.indexOf(cur.state);if(e.key==='ArrowRight'){cur.state=o[(k+1)%3];show();}if(e.key==='ArrowLeft'){cur.state=o[(k+2)%3];show();}});
+var o=['before','flat'],k=o.indexOf(cur.state);if(e.key==='ArrowRight'||e.key==='ArrowLeft'){cur.state=o[1-k];show();}});
 })();
 </script>
 '''
