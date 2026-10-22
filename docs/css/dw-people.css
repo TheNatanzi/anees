@@ -330,3 +330,9 @@ html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big span { position:
   #anees-bank .hb-list .hb-panel .dp-prog { margin: 2px 0 6px; }
 }
 @media (max-width: 680px) { #anees-bank .hb-card .tv-ar { font-size: 15px; } #anees-bank .hb-card .hb-moment { padding: 8px 10px; } }
+/* student round 13: all the open sets as one bar on the Start card; no "Learner" eyebrow */
+#anees-bank[aria-label="Anees student"] .vp-eyebrow { display: none; }
+#anees-bank .st-now .st-tot { display: flex !important; align-items: center; gap: 8px; margin: 6px 0 0; text-transform: none; letter-spacing: 0; font-weight: 600; max-width: 420px; }
+#anees-bank .st-now .st-tot .dw-split { flex: 1; height: 10px; margin: 0; }
+#anees-bank .st-now .st-tot em { font-style: normal; font-size: 12px; color: var(--dw-muted); white-space: nowrap; }
+#anees-bank .st-now > b { grid-row: span 3; }
