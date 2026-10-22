@@ -110,7 +110,7 @@ function render(){
  const fmtA=n=>n===null?'—':(ax?'≈':'')+n.toFixed(1)+'%';
  // de-word 2026-10-22: one big number + a 2-3 word label each; the old sub-label moves to the hover title
  const metrics=[['Accuracy',fmtA(m.accuracy),m.accuracy===null?'No practice yet':'Spoken vocabulary'],['Words known',m.known,'Good + Mastered'],['30-day memory',fmtA(m.memory),m.memory===null?'No practice yet':'Recent vocabulary'],['30-day words',m.recent,'Unique entries'],['Cards this week',m.week,'Unique entries'],['Card accuracy',fmt(m.cards),m.cards===null?'No practice yet':'Independent score']];
- const tile=([label,value,note])=>{const a=typeof value==='string'&&value.startsWith('≈');return `<div class="dw-big"><b class="${a?'rel-approx':''}"${a?` tabindex="0" title="${esc(why)}" data-why="${esc(why)}"`:''}>${value}</b> <span>${label}</span> <small>${note}</small></div>`;};
+ const tile=([label,value,note])=>{const a=typeof value==='string'&&value.startsWith('≈');const pv=typeof value==='string'&&/%$/.test(value)?parseFloat(value.replace('≈','')):null;return `<div class="dw-big${pv===null?'':' dw-ring'}"${pv===null?'':` style="--p:${pv}"`}><b class="${a?'rel-approx':''}"${a?` tabindex="0" title="${esc(why)}" data-why="${esc(why)}"`:''}>${value}</b> <span>${label}</span> <small>${note}</small></div>`;};
  // round 2 (Medi: too much cut): all six numbers show, none behind a fold
  $('#ab-metrics').innerHTML=metrics.map(tile).join('');
  if(LM)LM.wireTaps(document);
