@@ -142,13 +142,18 @@ _tiles = "".join('<button type="button" class="dw-big dw-filt s-%s" data-s="%s" 
                  'fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">%s</svg>'
                  '<b>%d</b><span>%s</span></button>' % (k, k, _ico[k], _cnt[k], k) for k in ("Mastered", "Good", "Shaky", "Wrong"))
 _rest = " &middot; ".join("%d %s" % (_cnt[k], lab.lower()) for k, lab in _order[4:] if _cnt[k])
+_none = sum(_cnt[k] for k, _ in _order[4:])
+_tiles += ('<button type="button" class="dw-big dw-filt s-None" data-s="None" aria-pressed="false"><svg class="dw-ico" viewBox="0 0 24 24" fill="none" '
+           'stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="3 3" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>'
+           '<b>%d</b><span>No score yet</span><small>%s</small></button>' % (_none, _rest)) if _none else ""
+
 s = re.sub(re.escape(DW_S) + ".*?" + re.escape(DW_E), "", s, flags=re.S).replace(DW_J, "")
 _toc_end = s.index("</nav>", s.index('<nav class="toc">'))
 s = s[:_toc_end + 6] + DW_J + s[_toc_end + 6:]
 s = s.replace('<nav class="toc">', DW_S + '<div class="dw-status"><div class="dw-sbar">%s</div><div class="dw-bigs dw-tiles">%s</div>'
               '<p class="dw-cap"><span class="dw-dots dw-leg"><i class="s-Mastered"></i>mastered <i class="s-Good"></i>good <i class="s-Shaky"></i>shaky '
-              '<i class="s-Wrong"></i>wrong <i class="s-Untested"></i>no score yet</span> %s &middot; tap a box to see only those rules</p></div>'
-              '<details class="dw-fold dw-jump"><summary>Jump to a rule</summary><div>' % (_bar, _tiles, _rest) + DW_E + '<nav class="toc">', 1)
+              '<i class="s-Wrong"></i>wrong <i class="s-Untested"></i>no score yet</span></p></div>'
+              '<details class="dw-fold dw-jump"><summary>Jump to a rule</summary><div>' % (_bar, _tiles) + DW_E + '<nav class="toc">', 1)
 DW_JS = ('<script data-dw-filter>document.addEventListener("click",function(e){var b=e.target.closest(".dw-filt");if(!b)return;'
          'var on=b.getAttribute("aria-pressed")!=="true";document.querySelectorAll(".dw-filt").forEach(function(x){x.setAttribute("aria-pressed","false")});'
          'if(on){b.setAttribute("aria-pressed","true");document.body.setAttribute("data-dw-filter",b.dataset.s)}else document.body.removeAttribute("data-dw-filter")});</script>')
