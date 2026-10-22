@@ -278,3 +278,60 @@ html[data-look="kurz"] #anees-bank .fc-grid > .stile[data-t="shaky"] { border-to
 #anees-bank .stile[data-t="shaky"] .vp-num { font-size: 56px; }
 #anees-bank .dw-gclevels { margin: 4px 0 6px; }
 @media (max-width: 680px) { #gc-rows .gc-rowhead > div:nth-child(6) .gc-pill { display: inline-block; width: auto; padding: 2px 14px; } #gc-rows .gc-rowhead > div:nth-child(6) { justify-self: start; } }
+
+/* round 9: a closed Word Bank row = word, meaning, one level, last said; the rest opens in place with the row arrow */
+#anees-bank .ab-tablehead, #ab-rows .ab-rowhead { grid-template-columns: minmax(130px, 1.3fr) minmax(110px, 1.3fr) minmax(120px, 1.2fr) 130px; }
+#anees-bank .ab-tablehead > div:nth-child(4) { display: none; }
+#ab-rows .ab-rowhead > .ab-practice { grid-column: 1 / -1; order: 9; justify-content: start; max-width: 240px; }
+#ab-rows .dw-closed :is(.ab-badge, .ab-practice, .ab-topiclabel, .ab-type, .ab-badges > .ab-tiny) { display: none; }
+#ab-rows .dw-closed .ab-seencell details.dw-info { display: none; }
+#ab-rows .ab-row:not(.dw-closed) .dw-level { display: none; }
+#ab-rows .dw-closed .ab-badges { display: block; }
+#ab-rows .dw-level { display: inline-block; padding: 2px 12px; border-radius: 999px; font: 700 12px/1.6 var(--sabz-font-sans, system-ui); }
+#ab-rows .dw-level.dw-lv-Mastered { background: var(--dw-ok-fill); color: var(--dw-ok); }
+#ab-rows .dw-level.dw-lv-Good { background: color-mix(in srgb, var(--dw-a3) 25%, transparent); color: var(--dw-ink); }
+#ab-rows .dw-level.dw-lv-Shaky { background: var(--dw-warn-fill); color: var(--dw-warn); }
+#ab-rows .dw-level.dw-lv-Wrong { background: var(--dw-bad-fill); color: var(--dw-bad); }
+#ab-rows .dw-level.dw-lv-Untested { border: 1px dashed var(--dw-line); color: var(--dw-muted); }
+#ab-rows .dw-closed .ab-rowhead { padding-top: 10px; padding-bottom: 10px; }
+html[data-look="kurz"] #ab-rows .dw-level.dw-lv-Mastered { background: var(--kz-teal); color: #0E1A3A; }
+html[data-look="kurz"] #ab-rows .dw-level.dw-lv-Good { background: var(--kz-blue); color: #fff; }
+html[data-look="kurz"] #ab-rows .dw-level.dw-lv-Shaky { background: var(--kz-yellow); color: #0E1A3A; }
+html[data-look="kurz"] #ab-rows .dw-level.dw-lv-Wrong { background: var(--kz-pink); color: #fff; }
+@media (max-width: 680px) {
+  #ab-rows .ab-rowhead { grid-template-columns: 1fr 1fr; }
+  #ab-rows .dw-closed .ab-badges { grid-column: auto; grid-row: auto; }
+  #ab-rows .dw-closed .ab-seencell { justify-content: flex-end; }
+}
+
+/* round 9: a closed Grammar rule = name, score, status (+ a listening-gap flag); uses, slips, hear it and last used open in place */
+#anees-bank #gc-tablehead { display: flex !important; flex-wrap: wrap; gap: 6px; padding: 8px; border-radius: 6px; margin-bottom: 8px; }
+#anees-bank #gc-tablehead::before { content: "Sort"; align-self: center; margin-right: 2px; }
+#anees-bank #gc-tablehead .gc-sortbtn { border: 1px solid var(--ab-line); background: var(--ab-panel); min-height: 30px; padding: 4px 9px; }
+#anees-bank #gc-tablehead > div { text-align: left; }
+#gc-rows .gc-rowhead[aria-expanded="false"] { grid-template-columns: minmax(0, 1fr) auto 170px 110px !important; }
+#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(1) { grid-column: 1; }
+#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4) { grid-column: 2; }
+#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(5) { grid-column: 3; }
+#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(6) { grid-column: 4; }
+#gc-rows .gc-rowhead[aria-expanded="false"] > :is(div:nth-child(2), div:nth-child(3), div:nth-child(7)),
+#gc-rows .gc-rowhead[aria-expanded="false"] .gc-oneline { display: none !important; }
+#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4):not(:has(.gc-flag)) { display: none !important; }
+#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4):has(.gc-flag) > :not(.gc-flag) { display: none; }
+#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4)::before { display: none !important; }
+#gc-rows .gc-rowhead[aria-expanded="true"] > div:nth-child(n+2):nth-child(-n+5)::before, #gc-rows .gc-rowhead[aria-expanded="true"] > div:nth-child(7)::before {
+  display: block; font: 700 10px/1.4 var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-muted); }
+#gc-rows .gc-rowhead > div:nth-child(2)::before { content: "Uses"; }
+#gc-rows .gc-rowhead > div:nth-child(3)::before { content: "Slips"; }
+#gc-rows .gc-rowhead > div:nth-child(4)::before { content: "Hear it"; }
+#gc-rows .gc-rowhead > div:nth-child(5)::before { content: "Score"; }
+#gc-rows .gc-rowhead > div:nth-child(7)::before { content: "Last used"; }
+#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(5)::before { display: none !important; }
+@media (max-width: 680px) {
+  #gc-rows .gc-rowhead[aria-expanded="false"] { grid-template-columns: minmax(0, 1fr) auto !important; }
+  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(1) { grid-column: 1 / -1 !important; }
+  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4) { grid-column: 1 / -1 !important; }
+  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(5) { grid-column: 1 !important; }
+  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(6) { grid-column: 2 !important; align-self: center; }
+}
+#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4):has(.gc-flag) { font-size: 0; } #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4) .gc-flag { font-size: 11px; }
