@@ -107,6 +107,10 @@ def capture(out, names, look, shots):
                     ctx = b.new_context(viewport={'width': w, 'height': h}, color_scheme=theme,
                                         is_mobile=(dev == 'phone'), has_touch=(dev == 'phone'), device_scale_factor=1)
                     p = open_page(ctx, url, look, theme)
+                    if dev == 'phone':
+                        # A full-page shot paints position:fixed bars in the middle of the page (over rows that a
+                        # real phone scrolls past). Hide the phone menu bar for the still; the judges are told.
+                        p.add_style_tag(content='.pn-bar{display:none!important}')
                     full = p.evaluate('document.documentElement.scrollHeight')
                     p.screenshot(path=str(out / f'{name}-{theme}-{dev}.png'), full_page=True,
                                  clip={'x': 0, 'y': 0, 'width': w, 'height': min(full, 2400)})

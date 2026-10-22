@@ -44,6 +44,7 @@ Grade each line A-F (A = excellent, no real fix left):
 - look: the look matches its brief and feels like one app
 
 Screenshots (top of the page; open and look at every one): {shots}
+In the phone shots the app's fixed bottom menu bar is hidden on purpose (a full-page still would paint it over the middle of the page); in real use it sits at the screen bottom and the page scrolls above it. Do not grade it.
 The visible page text (all tabs) follows after the line ---.
 
 Reply with ONLY this JSON, nothing else:
