@@ -118,7 +118,12 @@ function dwBigs(){
   const n=document.createElement('span');n.className='dw-sumbig'+(warn?' dw-warnbig':'');
   n.innerHTML=`<b>${b}</b><small>${s}</small>${p===null?'':`<i class="dw-split dw-bigbar ${fill||'dw-good'}" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
  const VT=(txt('air-unknowns-vocab').match(/of the student’s ([\d,]+) word events/)||[])[1];
- put('#ar-unk-listen',L,'labels correct · higher is better');put('#ar-unk-vocab',VT?`${V}/${VT}`:V,'events need review',1,'dw-need');put('#ar-unk-grammar',`${G2}/${G1}`,'slips caught · the rest missed',1,'dw-caught');if(N)put('#ar-unk-names',N,'names need a label',1);
+ // each row leads with the problem count (what is still wrong or open); the bar is that share, in the warning colour
+ const num=x=>+String(x).replace(/,/g,''),fmt=x=>x.toLocaleString('en-US'),LM=String(L).match(/^(\d+)\/(\d+)$/);
+ put('#ar-unk-listen',LM?`${num(LM[2])-num(LM[1])}/${LM[2]}`:L,`labels wrong · ${L} right`,1,'dw-need');
+ put('#ar-unk-vocab',VT?`${V}/${VT}`:V,'events to review',1,'dw-need');
+ put('#ar-unk-grammar',`${fmt(num(G1)-num(G2))}/${G1}`,`slips missed · ${G2} caught`,1,'dw-need');
+ if(N)put('#ar-unk-names',N,'names to label',1);
  const nav=T.querySelector('.ar-jump');if(nav)nav.after(box);if(nav)nav.hidden=true;
 }
 let dwT=0;

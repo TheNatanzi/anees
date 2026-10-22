@@ -357,3 +357,10 @@ html[data-look="kurz"] #anees-bank .fl details.phase > summary .fl-ico { border-
 #anees-bank .dw-bigbar.dw-need { background: var(--dw-line); } #anees-bank .dw-bigbar.dw-need > i { background: var(--dw-bad) !important; }
 #anees-bank .ab-tablehead > div:nth-child(5) { visibility: hidden; }
 @media (max-width: 600px) { #anees-bank .fl details.phase > summary .when { display: block; grid-column: 2 / 4 !important; font-size: 12px; } }
+/* round 14 */
+#anees-bank .fl .fl-rule { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; background: transparent; padding: 6px 0; }
+#anees-bank .fl .fl-rule > i { font-style: normal; color: var(--ab-muted); font-weight: 700; }
+#anees-bank .fl .fl-rule details.dw-info[open] { flex-basis: 100%; }
+/* the page-top robot banner (js/stale.js) reads as one slim status line on these pages */
+body:has(#anees-bank) > #stall-bar { padding: 4px 12px !important; font: 600 12.5px/1.4 system-ui !important; }
+html[data-look="kurz"] body > #stall-bar { background: var(--kz-orange) !important; color: #14204A !important; }

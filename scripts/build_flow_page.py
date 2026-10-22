@@ -68,10 +68,13 @@ def dword(frag):
     for code, band in (('A', '🎙️ The call'), ('B', '🤖 The robot · automatic'), ('F', '✍️ The tutor'), ('G', '📚 The student')):
         frag = frag.replace('<details class="phase" id="fl-%s"' % code, '<div class="fl-band">%s</div><details class="phase" id="fl-%s"' % (band, code), 1)
     # "who decides" is the rule behind the whole path: it closes the page, under Done
-    w = re.search(r'\s*<div class="warn">.*?</div>', frag, re.S)
+    w = re.search(r'\s*<div class="warn">(.*?)</div>', frag, re.S)
     if w and '<div class="done">' in frag:
         frag = frag[:w.start()] + frag[w.end():]
-        frag = frag.replace('<p class="loop">', w.group(0).strip() + '\n  <p class="loop">', 1)
+        rule = ('<div class="warn fl-rule"><span class="chip auto">🤖 AIs propose</span><i>→</i><span class="chip amal">Tutor rules</span>'
+                '<i>→</i><span class="chip medi">Student wins on his lines</span> <details class="dw-info"><summary aria-label="Who decides">ⓘ</summary>'
+                '<div>%s</div></details></div>' % w.group(1).strip())
+        frag = frag.replace('<p class="loop">', rule + '\n  <p class="loop">', 1)
     return frag
 
 
