@@ -1,0 +1,116 @@
+/* De-word overnight (plan/OVERNIGHT-DEWORD-2026-10-22.md): the tutor's pages (docs/amal/*), Big Picture, Settings.
+   Same markup in both looks; html[data-look="kurz"] carries Look B. Light/Dark follow css/sabz-tokens.css.
+   body.dw-doc = the two reading pages (amal/grammar-rules.html, amal/materials.html) that keep their own small palette:
+   it is re-pointed at the shared tokens here so the theme switch and both looks work on them. */
+
+/* ---------- reading pages: palette -> shared tokens ---------- */
+body.dw-doc {
+  --bg: var(--sabz-bg, #F5F6F2); --panel: var(--dw-card, #fff); --ink: var(--dw-ink, #1D2521); --muted: var(--dw-muted, #66716B);
+  --line: var(--dw-line, #DCE1DA); --green: var(--dw-a1, #2E6A4E); --greenbg: var(--dw-ok-fill, #E3EFE7); --red: var(--dw-bad, #B0413E);
+  --m: var(--dw-ok, #2E6A4E); --g: var(--dw-a3, #3C6FA8); --s: var(--dw-warn, #B26A1F); --w: var(--dw-bad, #B0413E); --u: var(--dw-muted, #8B938E);
+  background: var(--bg); color: var(--ink); font-family: var(--sabz-font-sans, system-ui, sans-serif);
+}
+html[data-look="kurz"] body.dw-doc { --g: var(--dw-a1); --green: var(--kz-teal, #2EE6B6); }
+body.dw-doc h1, body.dw-doc h2 { font-family: var(--sabz-font-serif, Georgia, serif); }
+body.dw-doc main { padding-top: 22px; }
+body.dw-doc h1 { font-size: 28px; }
+body.dw-doc .lede { margin-bottom: 12px; }
+body.dw-doc .sabz-theme-float, body.dw-doc .anees-look-float { z-index: 60; }
+
+/* the ask: three numbered steps */
+body.dw-doc .ask { max-width: none; padding: 12px 14px; }
+body.dw-doc .ask .dw-flow { margin: 8px 0 4px; }
+body.dw-doc .ask .dw-flow > li { flex: 1 1 140px; font-weight: 600; color: var(--ink); }
+body.dw-doc .ask ol:not(.dw-flow) { margin: 0; padding-left: 18px; }
+
+/* one tap to open, in place (PG-17) */
+details.dw-fold { margin: 0; }
+details.dw-fold > summary { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; list-style: none; padding: 4px 11px;
+  border-radius: 999px; border: 1px solid var(--dw-line, var(--line)); background: var(--dw-card, var(--panel)); font-size: 13px; font-weight: 600;
+  color: var(--dw-ink, var(--ink)); user-select: none; }
+details.dw-fold > summary::-webkit-details-marker { display: none; }
+details.dw-fold > summary::after { content: "\25BE"; font-size: 11px; color: var(--dw-muted, var(--muted)); }
+details.dw-fold[open] > summary::after { content: "\25B4"; }
+details.dw-fold > summary b { font-size: 15px; color: var(--dw-a1, var(--green)); }
+details.dw-fold > div { margin: 8px 0 4px; padding: 10px 12px; border-radius: 8px; background: var(--bg, transparent); border: 1px solid var(--dw-line, var(--line)); }
+.dw-i { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid currentColor;
+  font: 700 10px/1 Georgia, serif; font-style: italic; color: var(--dw-muted, var(--muted)); }
+
+/* the status picture: one split bar + key */
+.dw-status { margin: 4px 0 12px; }
+.dw-sbar { display: flex; height: 16px; border-radius: 999px; overflow: hidden; background: var(--line); }
+.dw-sbar > i { display: block; height: 100%; background: currentColor; }
+.dw-keys { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 6px; font-size: 12px; }
+.dw-k { display: inline-flex; align-items: baseline; gap: 4px; }
+.dw-k::before { content: ""; width: 9px; height: 9px; border-radius: 3px; background: currentColor; align-self: center; }
+.dw-k b { font-size: 15px; }
+.dw-sbar > .s-Unscored, .dw-sbar > .s-NotTaught, .dw-sbar > .s-Untested { opacity: .55; }
+/* rule chips take their status colour */
+body.dw-doc .toc a[class^="s-"] { border-color: currentColor; background: transparent; font-style: normal; }
+body.dw-doc .toc a.s-Untested, body.dw-doc .toc a.s-Unscored, body.dw-doc .toc a.s-NotTaught { border-style: dashed; }
+body.dw-doc .toc a.s-Mastered { background: var(--dw-ok-fill); }
+body.dw-doc .toc a.s-Wrong { background: var(--dw-bad-fill); }
+body.dw-doc .toc a.s-Shaky { background: var(--dw-warn-fill); }
+
+/* a rule card: header, the rule line, examples, two taps */
+body.dw-doc article { padding: 14px 16px; }
+body.dw-doc .one { margin: 8px 0 8px; font-size: 15px; }
+body.dw-doc .grid.dw-g { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+body.dw-doc .dw-ex .ext { margin: 0; }
+.dw-acts { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 0; }
+.dw-acts > details { width: 100%; }
+.dw-none, .dw-none .none { font-size: 12px; color: var(--muted); margin: 0; }
+body.dw-doc .an-doc { font-size: 13px; margin-top: 10px; }
+body.dw-doc footer { line-height: 1.6; }
+body.dw-doc footer details { display: inline-block; vertical-align: middle; margin-left: 6px; }
+@media (max-width: 680px) {
+  body.dw-doc .grid.dw-g { grid-template-columns: 1fr; }
+  body.dw-doc main { padding-inline: 14px; }
+  body.dw-doc .pill { margin-left: 0; }
+}
+
+/* ---------- Look B on the reading pages ---------- */
+html[data-look="kurz"] body.dw-doc article { border: 0; border-radius: 20px; }
+html[data-look="kurz"] body.dw-doc .ask { border-radius: 20px; background: var(--kz-raised, var(--greenbg)); }
+html[data-look="kurz"] body.dw-doc .ask b { color: var(--kz-ink); }
+html[data-look="kurz"] body.dw-doc .id { background: var(--kz-yellow); color: #14204A; font-weight: 700; }
+html[data-look="kurz"] body.dw-doc .fl { background: var(--kz-orange); color: #14204A; border: 0; border-radius: 999px; font-weight: 700; padding: 2px 9px; }
+html[data-look="kurz"] body.dw-doc h1 { font-weight: 900; letter-spacing: -.01em; }
+html[data-look="kurz"] details.dw-fold > summary { border: 0; background: var(--kz-raised); }
+html[data-look="kurz"] .dw-sbar { height: 20px; }
+html[data-look="kurz"] body.dw-doc .ext td { border-bottom-color: var(--kz-line); }
+
+/* switches top right (theme.js mounts into [data-theme-slot]; look.js sits next to it) */
+body.dw-doc .dw-top { float: right; display: flex; flex-direction: column; align-items: flex-end; gap: 0; width: 132px; margin: 0 0 6px 12px; }
+body.dw-doc .dw-top .sabz-theme { margin-top: 0; }
+body.dw-doc .dw-top .anees-look { margin-top: 6px; }
+body.dw-doc .ask ol.dw-flow { padding-left: 0; }
+body.dw-doc .an-fold { padding: 6px 12px; }
+@media (max-width: 680px) {
+  body.dw-doc .dw-top { width: 104px; }
+  .dw-acts { flex-direction: row; flex-wrap: wrap; }
+  .dw-acts > details { width: auto; }
+  .dw-acts > details[open] { width: 100%; }
+}
+
+/* status tiles: tap one to see only those rules */
+.dw-tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 10px 0 4px; }
+button.dw-big { text-align: left; cursor: pointer; font: inherit; color: inherit; }
+body.dw-doc .dw-big.dw-filt b { color: currentColor; }
+body.dw-doc .dw-big.dw-filt span { color: var(--dw-muted); }
+body.dw-doc .dw-big.dw-filt { border-left-color: currentColor; }
+.dw-filt[aria-pressed="true"] { outline: 3px solid currentColor; outline-offset: -3px; }
+.dw-k { border: 0 !important; }
+body[data-dw-filter] main section:not(:has(article)) { display: none; }
+body[data-dw-filter="Mastered"] article:not(:has(header .pill.s-Mastered)),
+body[data-dw-filter="Good"] article:not(:has(header .pill.s-Good)),
+body[data-dw-filter="Shaky"] article:not(:has(header .pill.s-Shaky)),
+body[data-dw-filter="Wrong"] article:not(:has(header .pill.s-Wrong)) { display: none; }
+details.dw-jump { margin: 2px 0 6px; }
+details.dw-jump > div { background: transparent; border: 0; padding: 6px 0 0; }
+details.dw-jump .toc { margin: 0; }
+html[data-look="kurz"] body.dw-doc .dw-big.dw-filt { background: var(--kz-panel); }
+@media (max-width: 680px) { .dw-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+body.dw-doc .dw-filt.s-Mastered { color: var(--m); } body.dw-doc .dw-filt.s-Good { color: var(--g); }
+body.dw-doc .dw-filt.s-Shaky { color: var(--s); } body.dw-doc .dw-filt.s-Wrong { color: var(--w); }
+html[data-look] body.dw-doc .dw-big.dw-filt { border-left: 5px solid currentColor; }
