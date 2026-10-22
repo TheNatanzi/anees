@@ -666,3 +666,9 @@ html[data-sabz-theme="dark"] #anees-bank[aria-label="Anees tutor"], html[data-sa
 #anees-bank article.tv-card > .tv-btns, #anees-bank article.tv-card > .an-answered { order: 3; }
 #anees-bank article.tv-card > :is(.an-note, details.an-note, [data-note]) { order: 4; }
 #anees-bank article.tv-card > .tv-reason { order: 3; }
+/* r2 round 26: AI verdict chips on the moment cards */
+#anees-bank p.dp-verdict { display: block; margin: 4px 0; }
+#anees-bank p.dp-verdict .dp-v { margin-right: 6px; font-size: 12.5px; }
+#anees-bank p.dp-verdict .dp-v.ok { background: var(--dw-ok-fill, rgba(60,120,80,.14)); color: var(--dw-ink); }
+#anees-bank details.dp-vmore { display: inline; } #anees-bank details.dp-vmore > summary { display: inline; cursor: pointer; color: var(--dw-a1); font-weight: 600; font-size: 13px; margin-left: 4px; }
+#anees-bank details.dp-vmore[open] > span { display: inline; }

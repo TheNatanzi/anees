@@ -229,11 +229,25 @@
       p.insertAdjacentHTML('beforeend', `<span class="dp-abar dw-split" aria-hidden="true"><i style="width:${(100 * a / n).toFixed(1)}%"></i></span>`);
     });
   }
+  // r2 round 26: each AI note = a verdict chip + its first sentence on screen; the rest of the note opens in place
+  function aiVerdicts(root) {
+    root.querySelectorAll('article.tv-card p.tu-meta').forEach(p => {
+      if (p.dataset.dv) return;
+      const t = txt(p), m = /^(Reader AI|Listening AI) says:\s*(.*)$/.exec(t); if (!m) return;
+      p.dataset.dv = '1';
+      const body = m[2], cut = body.search(/[.;](\s|$)/), first = cut > 0 ? body.slice(0, cut + 1) : body, rest = cut > 0 ? body.slice(cut + 1).trim() : '';
+      const doubt = /^(no |not |none|nothing|unclear|cannot|can't|there is no)/i.test(body);
+      const chip = m[1] === 'Reader AI' ? '<span class="dw-chip bad dp-v">Reader AI: counted a mistake</span>'
+        : `<span class="dw-chip ${doubt ? 'dp-v ok' : 'muted dp-v'}">Listening AI${doubt ? ': doubts it' : ''}</span>`;
+      p.classList.add('dp-verdict');
+      p.innerHTML = chip + ' <span class="dp-vt">' + escH(first) + '</span>' + (rest ? '<details class="dp-vmore"><summary>more</summary><span>' + escH(rest) + '</span></details>' : '');
+    });
+  }
   let busy = false;
   function run() {
     if (busy) return; busy = true;
     // round 2 (Medi 10-22 'you cut out too much data'): no list, card, decided or phone filter folds
-    try { intros(view); cards(view); grammar(view); progress(view); answerTint(view);   // r2 round 25: the two AI notes stay on screen (evidence, not prose)
+    try { intros(view); cards(view); grammar(view); progress(view); aiVerdicts(view); answerTint(view);   // r2 round 25: the two AI notes stay on screen (evidence, not prose)
       counters(view); answeredBars(view); } finally { busy = false; }
   }
   let t = 0;
