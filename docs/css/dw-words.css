@@ -1,0 +1,82 @@
+/* De-word 2026-10-22, group "words": Word Bank, Grammar Console, Flashcards & Review.
+   Same markup in both looks; Look B specifics under html[data-look="kurz"]. Uses the picture-kit vars from look.css. */
+.dw-sr { display: none !important; } /* repeated sub-labels: kept in the DOM (same page text), not shown */
+#anees-bank h1 details.dw-info { font-size: 13px; font-weight: 400; vertical-align: middle; }
+#anees-bank h1 details.dw-info > div { position: absolute; z-index: 5; max-width: min(64ch, 86vw); }
+#anees-bank details.dw-info > div { white-space: normal; text-align: left; }
+
+/* Word Bank: promised words */
+#ab-promised .dw-late { margin: 0 0 6px; }
+#ab-promised .ab-promised > summary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; cursor: pointer; }
+#ab-promised .dw-promised-bar { display: inline-flex; width: 140px; margin: 0; }
+#ab-promised .dw-promised-bar > i:nth-child(2) { background: var(--dw-warn); }
+/* Word Bank: level share bar over the status chips */
+#ab-statuses { flex-wrap: wrap; }
+#ab-statuses .dw-levels { flex: 1 0 100%; height: 12px; margin: 0 0 4px; }
+.dw-levels > .dw-lv-Wrong { background: var(--dw-bad) !important; }
+.dw-levels > .dw-lv-Shaky { background: var(--dw-warn) !important; }
+.dw-levels > .dw-lv-Good { background: var(--dw-a3) !important; }
+.dw-levels > .dw-lv-Mastered { background: var(--dw-a1) !important; }
+.dw-levels > .dw-lv-Untested { background: transparent !important; }
+#anees-bank .dw-wb-bigs { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+#anees-bank .dw-wb-bigs .rel-approx { cursor: help; }
+#anees-bank .ab-viewnote.dw-row { justify-content: flex-start; }
+#ab-rows .ab-seencell details.dw-info > div { position: absolute; right: 8px; z-index: 5; width: min(300px, 80vw); }
+#ab-rows .ab-seencell { position: relative; }
+@media (max-width: 680px) {
+  #anees-bank .dw-wb-bigs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #anees-bank .dw-wb-bigs .dw-big b { font-size: 30px; }
+}
+
+/* ---------- Look B ---------- */
+html[data-look="kurz"] #ab-promised .ab-promised > summary { padding: 10px 14px; border-radius: var(--dw-radius); background: var(--dw-card); }
+
+/* round 2 */
+#anees-bank .dw-wb-bigs .dw-big b { font-size: clamp(28px, 3.2vw, 40px); white-space: nowrap; }
+#ab-statuses .dw-levels { width: 100%; max-width: none; }
+#ab-rows .ab-seencell { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 4px 8px; }
+#ab-rows .ab-seencell .ab-seen { display: flex; flex-direction: column; }
+@media (max-width: 680px) {
+  #ab-rows .ab-seencell { grid-column: 1 / -1; align-items: center; }
+  #ab-rows .ab-seencell .ab-seen { flex-direction: row; gap: 8px; align-items: baseline; }
+}
+#ab-statuses { flex: 1 1 100%; }
+
+/* Grammar Console */
+#gc-rows .gc-oneline { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+#anees-bank .gc-chart-foot details.dw-info > div { position: absolute; z-index: 5; width: min(320px, 80vw); }
+#anees-bank .gc-chart { position: relative; }
+#gc-source.dw-chip { align-self: flex-start; }
+@media (max-width: 680px) { #gc-rows .gc-oneline { white-space: normal; } }
+
+/* phone: the menu bar sits at the TOP of the page in the flow (sticky), so it never covers rows or cards */
+@media (max-width: 680px) {
+  body { display: flex; flex-direction: column; }
+  body > * { min-width: 0; }
+  body > .pn-bar { order: -1; position: sticky !important; top: 0; bottom: auto !important; border-top: 0 !important; border-bottom: 1px solid var(--ab-line, #33423c); padding-bottom: 6px !important; }
+  #anees-bank main { padding-bottom: 18px !important; }
+}
+
+/* Grammar Console: phone rule cards with labelled numbers */
+@media (max-width: 680px) {
+  #anees-bank #gc-rows .gc-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  #gc-rows .gc-rowhead > div:nth-child(1) { grid-column: 1 / -1; }
+  #gc-rows .gc-rowhead > div:nth-child(6), #gc-rows .gc-rowhead > div:nth-child(7) { grid-column: span 2; }
+  #gc-rows .gc-rowhead > div:nth-child(n+2):nth-child(-n+5) { text-align: left; }
+  #gc-rows .gc-rowhead > div:nth-child(n+2):nth-child(-n+5)::before { display: block; font: 700 10px/1.4 var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-muted); }
+  #gc-rows .gc-rowhead > div:nth-child(2)::before { content: "Uses"; }
+  #gc-rows .gc-rowhead > div:nth-child(3)::before { content: "Slips"; }
+  #gc-rows .gc-rowhead > div:nth-child(4)::before { content: "Hear it"; }
+  #gc-rows .gc-rowhead > div:nth-child(5)::before { content: "Score"; }
+  #gc-rows .gc-rowhead .gc-last { display: flex; gap: 6px; align-items: baseline; }
+}
+#gc-rows.dw-clip > .gc-row:nth-child(n+16) { display: none; }
+#gc-showall { display: block; margin: 10px auto; }
+
+/* Flashcards & Review */
+.fc.dw-fc > div { position: relative; overflow: hidden; padding-top: 30px; }
+.fc.dw-fc .dw-fcbar { position: absolute; left: 0; right: 0; bottom: 0; background: var(--dw-a1); opacity: .22; min-height: 3px; display: block; }
+.fc.dw-fc b, .fc.dw-fc span { position: relative; }
+h2 details.dw-info { font-size: 13px; font-weight: 400; }
+#sync:not(:empty) { display: table; margin: 14px auto; padding: 3px 12px; border-radius: 999px; background: var(--dw-warn-fill); color: var(--dw-warn); font-weight: 600; }
+#ab-rows.dw-clip > article:nth-child(n+21) { display: none; }

@@ -16,13 +16,17 @@
   // (nothing is sent to Amal by the app, ai_rules A1 - Medi decides whether to remind her)
   function note(P) {
     const late = (P || []).filter(p => p.state === 'waiting' && p.still_waiting);
-    return late.length ? `<p class="ab-sub" data-still-waiting>${late.length} word${late.length > 1 ? 's' : ''} the tutor said she'd add still not in the Doc after 7 days: ${late.map(p => esc(p.arabizi || p.arabic)).join(', ')}.</p>` : '';
+    if (!late.length) return '';
+    const names = late.map(p => esc(p.arabizi || p.arabic)).join(', ');
+    // de-word 2026-10-22: the warning is a chip; the full sentence opens in place (ⓘ)
+    return `<div class="dw-row dw-late" data-still-waiting><span class="dw-chip warn">${late.length} late · ${names}</span><details class="dw-info"><summary aria-label="More">ⓘ</summary><div>${late.length} word${late.length > 1 ? 's' : ''} the tutor said she'd add still not in the Doc after 7 days: ${names}.</div></details></div>`;
   }
   function html(data) {
     const P = (data && data.promised) || [];
     if (!P.length) return '';
-    const waiting = P.filter(p => p.state !== 'in_doc').length;
-    return note(P) + `<details class="ab-promised" data-promised ${waiting ? 'open' : ''}><summary class="ab-sub"><b>The tutor said she will add (${P.length})</b> · ${waiting} waiting · words from our lessons, not on her Doc yet</summary>
+    const waiting = P.filter(p => p.state !== 'in_doc').length, inDoc = P.length - waiting;
+    const w = n => (100 * n / P.length).toFixed(1) + '%';
+    return note(P) + `<details class="ab-promised" data-promised><summary class="ab-sub"><b>The tutor said she will add (${P.length})</b> <span class="dw-split dw-promised-bar" aria-hidden="true"><i style="width:${w(inDoc)}"></i><i style="width:${w(waiting)}"></i></span> <span class="dw-chip">${inDoc} in the Doc</span> <span class="dw-chip${waiting ? ' warn' : ' muted'}">${waiting} waiting</span></summary>
       <ul>${P.map(p => `<li data-state="${esc(p.state)}"><b>${esc(p.arabizi || p.arabic)}</b>${p.arabizi && p.arabic ? ` <span lang="ar">${esc(p.arabic)}</span>` : ''} <span>· ${esc(p.english || '')} · ${esc(pretty(p.date))} lesson · ${esc(label(p))}</span></li>`).join('')}</ul></details>`;
   }
   async function mount(el) {
