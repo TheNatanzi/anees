@@ -1060,7 +1060,13 @@ function renderMedi() {
   box.textContent = '';
   box.hidden = !items.length && !amal;
   if (!items.length) {
-    if (amal) box.appendChild(el('p', 'ab-mini', 'Waiting for the tutor · ' + amal + (amal === 1 ? ' moment' : ' moments') + ' where two judges disagree about a word are on her Tutor hub. Counted as before until she answers.'));
+    if (amal) {   // de-word: one bold number; the why opens in place
+      var wp = el('p', 'ab-mini dw-wait'); wp.appendChild(el('b', 'dw-waitn', String(amal)));
+      wp.appendChild(document.createTextNode(' ' + (amal === 1 ? 'word waits' : 'words wait') + ' for the tutor '));
+      var wd = el('details', 'dw-info'), ws = el('summary', '', 'ⓘ'); ws.setAttribute('aria-label', 'Why they wait'); wd.appendChild(ws);
+      wd.appendChild(el('div', '', 'Waiting for the tutor · ' + amal + (amal === 1 ? ' moment' : ' moments') + ' where two judges disagree about a word are on her Tutor hub. Counted as before until she answers.'));
+      wp.appendChild(wd); box.appendChild(wp);
+    }
     return;
   }
   if (amal) box.appendChild(el('p', 'ab-mini', 'Also waiting for the tutor: ' + amal + ' word ' + (amal === 1 ? 'moment' : 'moments') + ' on her Tutor hub.'));
@@ -1197,5 +1203,14 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     btn.addEventListener('click', function () { dwAll = !dwAll; btn.remove(); dwRows(); });
     box.appendChild(btn);
   }
-  new MutationObserver(function () { dwAlerts(); dwRows(); }).observe(document.querySelector('main') || document.body, { childList: true, subtree: true });
+  // the method-change note: one warning chip, the full note behind (i)
+  function dwMethod() {
+    [].slice.call(document.querySelectorAll('#anees-bank p.method-change:not([data-dw])')).forEach(function (p) {
+      p.dataset.dw = '1'; p.removeAttribute('style');
+      var w = el('div', 'dw-method'), c = el('span', 'dw-chip warn', 'Counting changed ' + (p.dataset.methodChange || '') + ' · older numbers not comparable');
+      var d = el('details', 'dw-info'), s = el('summary', '', 'ⓘ'); s.setAttribute('aria-label', 'What changed'); d.appendChild(s);
+      var inner = el('div', ''); d.appendChild(inner); p.before(w); w.appendChild(c); w.appendChild(document.createTextNode(' ')); w.appendChild(d); inner.appendChild(p);
+    });
+  }
+  new MutationObserver(function () { dwAlerts(); dwRows(); dwMethod(); }).observe(document.querySelector('main') || document.body, { childList: true, subtree: true });
 })();

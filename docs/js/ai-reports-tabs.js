@@ -113,8 +113,12 @@ function dwBigs(){
  const part=t=>{const m=String(t).replace(/,/g,'').match(/^(\d+)\/(\d+)$/);return m&&+m[2]?Math.round(100*m[1]/m[2]):null;};   // a ratio gets its share as one bar
  const big=(href,b,s,warn)=>{const p=part(b);return `<a class="dw-big${warn?' dw-warnbig':''}" href="${href}"><b>${b}</b><span>${s}</span>${p===null?'':`<i class="dw-split dw-bigbar" aria-hidden="true"><i style="width:${p}%"></i></i>`}</a>`;};
  const box=document.createElement('div');box.id='dw-unk-bigs';box.className='dw-bigs';
- box.innerHTML=big('#ar-unk-listen',L,'labels right')+big('#ar-unk-vocab',V,'words to settle',1)+big('#ar-unk-grammar',`${G2}/${G1}`,'slips caught',1)+(N?big('#ar-unk-names',N,'maybe a name'):'');
- const nav=T.querySelector('.ar-jump');(nav||T.firstElementChild).after(box);if(nav)nav.hidden=true;
+ // each number sits on its own section row (one card per blind spot: number, meaning, tap to open)
+ const put=(sec,b,s,warn)=>{const h=document.querySelector(sec+' details.ar-unk-d > summary .ar-unk-h');if(!h)return;const p=part(b);
+  const n=document.createElement('span');n.className='dw-sumbig'+(warn?' dw-warnbig':'');
+  n.innerHTML=`<b>${b}</b><small>${s}${warn?' · needs work':''}</small>${p===null?'':`<i class="dw-split dw-bigbar" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
+ put('#ar-unk-listen',L,'labels right');put('#ar-unk-vocab',V,'words to settle',1);put('#ar-unk-grammar',`${G2}/${G1}`,'slips caught',1);if(N)put('#ar-unk-names',N,'maybe a name',1);
+ const nav=T.querySelector('.ar-jump');if(nav)nav.after(box);if(nav)nav.hidden=true;
 }
 let dwT=0;
 const dwTry=(f,...a)=>{try{f(...a);}catch(e){window.dwErr=(window.dwErr||[]).concat(f.name+': '+e);}};

@@ -256,3 +256,18 @@ html[data-look="kurz"].lsn-page .bar { border-radius: 0; box-shadow: none; outli
   #anees-bank .ls-gcell::before { content: "Grammar"; }
   #anees-bank .ls-tcell::before { content: "You speak · you listen"; }
 }
+/* Look B round 3 (same markup both looks) */
+#anees-bank #dw-unk-bigs:empty { display: none; }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig { display: grid; grid-template-columns: auto; min-width: 118px; margin-right: 6px; font-family: var(--sabz-font-sans, system-ui); }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig b { font: 600 30px/1 var(--sabz-font-serif, Georgia, serif); color: var(--dw-ink); }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig.dw-warnbig b { color: var(--dw-warn); }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig small { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--dw-muted); margin-top: 3px; }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig .dw-bigbar { margin-top: 5px; height: 6px; }
+html[data-look="kurz"] #ar-tab-unknowns .ar-unk-h .dw-sumbig b { font-weight: 900; color: var(--kz-blue); }
+html[data-look="kurz"] #ar-tab-unknowns .ar-unk-h .dw-sumbig.dw-warnbig b { color: var(--kz-orange); }
+@media (max-width: 600px) { #ar-tab-unknowns .ar-unk-h { flex-wrap: wrap; } #ar-tab-unknowns .ar-unk-h .dw-sumbig { flex-basis: 100%; } #anees-bank .fl .fl-road { display: none; } }
+#anees-bank .dw-wait { font-size: 15px !important; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+#anees-bank .dw-wait .dw-waitn { font: 700 26px/1 var(--sabz-font-serif, Georgia, serif); color: var(--dw-warn); }
+#anees-bank .dw-method { margin: 10px 0; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+#anees-bank .dw-method details.dw-info[open] { flex-basis: 100%; }
+#anees-bank .dw-method details.dw-info p.method-change { margin: 0; border: 0; padding: 0; }
