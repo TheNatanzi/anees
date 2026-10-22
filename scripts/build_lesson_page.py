@@ -106,11 +106,52 @@ def render(date, merged, *, minutes, words, note, audio=None):
     player = (f'<div class="bar"><audio id="lesson-audio" controls preload="none" src="{html.escape(audio)}"></audio>'
               '<small>Tap a time to hear that line.</small></div>') if audio else ''
     typed = sum(x['kind'] == 'chat' for x in merged)
-    return ('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+    return dword('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             f'<title>Anees lesson {date}</title><style>{STYLE}</style><main><p style="border:0;padding:16px 0 0"><a href="../index.html#lessons">← Lessons</a></p>'
             f'<h1>Lesson · {date}</h1>{player}<div class="note">{html.escape(note)}</div>'
             f'<p>{minutes} minutes · {words:,} transcribed words · {typed} lines Amal typed in chat</p>'
             + ''.join(lines) + '</main>' + (SCRIPT if audio else '') + REVIEW + '</html>')
+
+
+# De-word (plan/OVERNIGHT-DEWORD-2026-10-22.md): only the chrome around the transcript changes; every transcript line stays.
+# The 3 counts become big numbers, the note becomes one warning chip with the full text behind a small (i) that opens in
+# place, and the page gets the app's theme + look switch (js/theme.js) and css/dw-reports.css. Works on a fresh render and
+# on an already published page (python scripts/build_lesson_page.py --dword <date>|--dword-all); running it twice is a no-op.
+DW_HEAD = ('<meta name="color-scheme" content="light dark"><script src="../js/theme.js"></script>'
+           '<link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/dw-reports.css?v=1">')
+DW_STATS = re.compile(r'<div class="note">(.*?)</div><p>([\d.]+) minutes · ([\d,]+) transcribed words · (\d+) lines Amal typed in chat</p>', re.S)
+
+
+def dword(page):
+    if 'lsn-page' in page:
+        return page
+    page = page.replace('<html lang="en">', '<html lang="en" class="lsn-page">', 1)
+    page = page.replace('<style>', DW_HEAD + '<style>', 1)
+    page = page.replace('<main><p style="border:0;padding:16px 0 0"><a href="../index.html#lessons">← Lessons</a></p>',
+                        '<main><div class="lsn-top"><a href="../index.html#lessons">← Lessons</a><div class="lsn-switch" data-theme-slot></div></div>', 1)
+    page = page.replace('<small>Tap a time to hear that line.</small>', '', 1)
+
+    def stats(m):
+        note, mins, words, typed = m.groups()
+        return ('<div class="dw-bigs lsn-bigs"><div class="dw-big"><b>%s</b><span>minutes</span></div>'
+                '<div class="dw-big"><b>%s</b><span>words heard</span></div><div class="dw-big"><b>%s</b><span>typed in chat</span></div></div>'
+                '<div class="lsn-note"><span class="dw-chip warn">Not checked by a person</span> <details class="dw-info">'
+                '<summary aria-label="About this transcript">ⓘ</summary><div>%s '
+                '(%s minutes · %s transcribed words · %s lines Amal typed in chat)</div></details></div>'
+                % (mins, words, typed, note + ('' if 'Tap a time' in note else ' Tap a time to hear that line.'), mins, words, typed))
+    return DW_STATS.sub(stats, page, count=1)
+
+
+def dword_dates(dates):
+    out = []
+    for d in dates:
+        f = DOCS / f'{d}.html'
+        old = f.read_text(encoding='utf-8')
+        new = dword(old)
+        if new != old:
+            f.write_text(new, encoding='utf-8')
+            out.append(d)
+    return out
 
 
 def mix_tracks(tracks, out, bitrate='32k'):
@@ -160,6 +201,9 @@ def write_page(date, data, *, chat=(), chat_offset=0.0, note, audio_rel=None, mi
 
 if __name__ == '__main__':
     import sys
+    if sys.argv[1:2] == ['--dword']:      # de-word the chrome of published pages: --dword 2026-10-14 [more dates]
+        print(json.dumps({'deworded': dword_dates(sys.argv[2:])}))
+        raise SystemExit(0)
     if sys.argv[1:] == ['--restyle-all']:
         print(json.dumps({'restyled': restyle_all()}))
         raise SystemExit(0)

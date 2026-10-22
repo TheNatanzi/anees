@@ -85,3 +85,28 @@ html[data-look="kurz"] #anees-bank .fl .num { box-shadow: 0 0 0 4px var(--kz-bg)
   #anees-bank .fl .ico { width: 48px; }
   #anees-bank .fl .top { flex-direction: column; }
 }
+
+/* ---------- A lesson page (docs/lessons/<date>.html, scripts/build_lesson_page.py): chrome only, every line stays ---------- */
+html.lsn-page body { background: var(--sabz-bg); color: var(--sabz-text); }
+html.lsn-page .bar { background: var(--sabz-bg); }
+html.lsn-page p { border-color: var(--dw-line); }
+html.lsn-page a, html.lsn-page button.t { color: var(--dw-a1); }
+html.lsn-page small { color: var(--dw-muted); }
+html.lsn-page .az-legend { display: none; }
+html.lsn-page .lsn-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0 0; flex-wrap: wrap; }
+html.lsn-page .lsn-top > a { font-size: 15px; font-weight: 600; text-decoration: none; }
+html.lsn-page .lsn-switch { display: flex; gap: 8px; align-items: center; }
+html.lsn-page .lsn-switch .sabz-theme, html.lsn-page .lsn-switch .anees-look { margin: 0; width: 120px; }
+html.lsn-page h1 { margin: 10px 0 6px; font-family: var(--sabz-font-serif, Georgia, serif); font-weight: 500; }
+html.lsn-page .lsn-bigs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+html.lsn-page .lsn-bigs b { font-size: clamp(26px, 6vw, 40px); }
+html.lsn-page .lsn-note { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 4px 0 10px; }
+html.lsn-page .lsn-note details.dw-info[open] { flex-basis: 100%; }
+html.lsn-page .lsn-note details.dw-info > div { font-size: 14px; }
+html.lsn-page details.rehear > summary { opacity: 1 !important; }
+html.lsn-page p.on { background: var(--dw-ok-fill); }
+html.lsn-page p.chat { background: var(--dw-card); border-left-color: var(--dw-a3); }
+html.lsn-page p.chat b, html.lsn-page p.chat b::after { color: var(--dw-a3); }
+html.lsn-page .note { background: var(--dw-warn-fill); }
+@media (max-width: 600px) { html.lsn-page body { font-size: 16px; } html.lsn-page .lsn-bigs { gap: 6px; } html.lsn-page .lsn-bigs .dw-big { padding: 8px 10px; } }
+html.lsn-page .context-listen { background: var(--dw-card); color: var(--dw-ink); border: 1px solid var(--dw-line); border-radius: 999px; padding: 2px 12px; font-size: 14px; cursor: pointer; }
