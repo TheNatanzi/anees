@@ -145,6 +145,44 @@
     n.before(d); d.lastChild.append(n);
   }
 
+  // 10. one "data notes" chip under the title holds the page's status chips (robot log, saved data, method
+  //     change, ≈ not verified): one warning to see, every note one tap away
+  function dataNotes() {
+    const main = document.querySelector('#anees-bank main');
+    const head = main && main.querySelector(':scope > .vp-header');
+    if (!head) return;
+    let box = main.querySelector(':scope > details.dw-notes');
+    if (!box) {
+      box = info('', true); box.classList.add('dw-notes');
+      head.after(box);
+    }
+    const body = box.lastChild;
+    const put = (key, el) => {
+      if (!el || el.parentElement === body) return;
+      const old = body.querySelector(`:scope > [data-dwkey="${key}"]`);
+      if (old && old !== el) old.remove();
+      el.dataset.dwkey = key; body.append(el);
+    };
+    const alerts = document.getElementById('lesson-alerts');
+    if (alerts && alerts.querySelector('details.dw-alllog')) put('alerts', alerts);
+    put('notice', main.querySelector(':scope > details.dw-notice'));
+    put('method', document.querySelector('#ov2 details.dw-method'));
+    put('nv-b', document.querySelector('#ov2 section[aria-labelledby="ov2-h-b"] details.dw-pwarn:not(.dw-method)'));
+    put('nv-t', document.querySelector('#vp-tab-overview > details.dw-pwarn:not(.dw-method)'));
+    put('source', document.querySelector('#ov2 > details.dw-p:last-child:not(.dw-pwarn)'));
+    const foot = document.getElementById('vp-footer');
+    put('status', foot && foot.closest('details.dw-p'));
+    const keys = [...body.children].map(c => c.dataset.dwkey);
+    const m = body.querySelector('[data-dwkey="method"] p.method-change');
+    const parts = [];
+    if (keys.some(k => /^nv-/.test(k))) parts.push('≈ not verified');
+    if (m) parts.push('method change ' + (m.dataset.methodChange || '').slice(5));
+    if (keys.includes('alerts')) parts.push('robot log');
+    if (keys.includes('notice')) parts.push('saved data');
+    box.querySelector('.dw-chip').dataset.chip = parts.join(' · ') || 'data notes';
+    box.hidden = !keys.length;
+  }
+
   // 6. a tile that repeats a top card (Lessons tracked = Lessons + Lesson hours) steps aside
   function dups(root) {
     for (const m of root.querySelectorAll('#ov-metrics .ab-metric:not(.dw-dup):not(.dw-tmore)')) {
@@ -220,7 +258,7 @@
     busy = true;
     try {
       const head = document.querySelector('.vp-header');
-      method(root); subs(root); notes(root); tables(root); dups(root); alerts(); notice(); charts();
+      method(root); subs(root); notes(root); tables(root); dups(root); alerts(); notice(); charts(); dataNotes();
       if (head) subs(head);
     } finally { busy = false; }
   }
