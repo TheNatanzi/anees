@@ -344,3 +344,9 @@ html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big span { position:
 #anees-bank .st-clock { width: 13px; height: 13px; }
 html[data-look] #anees-bank a.st-task.st-cards.st-late { box-shadow: inset 6px 0 0 var(--dw-warn); }
 html[data-look="flat"] #anees-bank a.st-task.st-cards.st-late { border-left: 1px solid var(--ab-line); }
+#anees-bank .st-now .st-stack { width: 150px; height: 64px; }
+@media (max-width: 680px) { #anees-bank .st-now .st-stack { display: block; position: static; transform: none; width: 110px; height: 46px; grid-column: 2; } #anees-bank .st-now { padding-right: 14px; } }
+@media (max-width: 680px) { #anees-bank .st-now .st-stack { position: absolute; top: 10px; right: 10px; width: 84px; height: 36px; } }
+@media (max-width: 680px) { #anees-bank .st-now .st-stack { display: none; } }
+/* the late cards in the picture read amber in Look A too */
+html[data-look="flat"] #anees-bank .st-stack rect[fill="var(--dw-warn)"] { fill: #D9962B; }
