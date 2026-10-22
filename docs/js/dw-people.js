@@ -56,9 +56,9 @@
     if (W.length > 1 && pair && !pair.nextElementSibling?.matches('.dp-pairs')) {
       const g = document.createElement('div'); g.className = 'dp-pairs'; g.setAttribute('aria-hidden', 'true');
       g.innerHTML = W.map((x, i) => `<span class="dp-w" lang="ar">${mark(x, R[i], 'dp-del')}</span><span class="dp-r" lang="ar">${mark(R[i], x, 'dp-ins')}</span>`).join('');
-      pair.after(g); pair.classList.add('dp-sr');
+      g.removeAttribute('aria-hidden'); pair.after(g); pair.classList.add('dp-hide');   // the slash line stays in the page text, not on screen
       const az = g.parentElement.querySelector(':scope > .hb-en');   // an Arabizi line that covers only one of the pieces would mislead
-      if (az && !/\//.test(txt(az))) az.classList.add('dp-sr');
+      if (az && !/\//.test(txt(az))) az.classList.add('dp-hide');
     }
   }
   // 2. a mistake card: the why line and the e.g. line -> one i on the "N times in ..." line, which becomes a chip
