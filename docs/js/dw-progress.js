@@ -189,6 +189,26 @@
     }
   }
 
+  // 3d. Arabic words inside an English line (the "آآ" filler) get an Arabic font, so they never read as stray Latin marks
+  function arabic(root) {
+    for (const el of root.querySelectorAll('#ov-metrics .ab-tiny, #ov2 .ab-sub, #ov2 .ov2-big small')) {
+      const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      const hits = [];
+      for (let n = walk.nextNode(); n; n = walk.nextNode()) if (/[؀-ۿ]/.test(n.nodeValue) && !n.parentElement.closest('.dw-ar')) hits.push(n);
+      if (!hits.length) continue;
+      busy = true;
+      for (const n of hits) {
+        const f = document.createDocumentFragment();
+        for (const part of n.nodeValue.split(/([؀-ۿ]+)/)) {
+          if (!part) continue;
+          if (/[؀-ۿ]/.test(part)) { const sp = document.createElement('span'); sp.className = 'dw-ar'; sp.lang = 'ar'; sp.dir = 'rtl'; sp.textContent = part; f.append(sp); }
+          else f.append(part);
+        }
+        n.replaceWith(f);
+      }
+    }
+  }
+
   // 4. the lesson table: each cell knows its column name, so a phone can show every row as a small card
   function labels(root) {
     for (const tb of root.querySelectorAll('.ov-tbl > table')) {
@@ -358,7 +378,7 @@
     busy = true;
     try {
       const head = document.querySelector('.vp-header');
-      unwrap(root); method(root); subs(root); notes(root); trim(root); whySplit(root); labels(root); alerts(); notice(); dataNotes(); flashEmpty();   // round 2: no table clip, no folds
+      unwrap(root); method(root); subs(root); notes(root); trim(root); whySplit(root); arabic(root); labels(root); alerts(); notice(); dataNotes(); flashEmpty();   // round 2: no table clip, no folds
       if (head) subs(head);
     } finally { busy = false; }
   }
