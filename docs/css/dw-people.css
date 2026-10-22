@@ -358,3 +358,8 @@ html[data-look="flat"] #anees-bank .st-stack rect[fill="var(--dw-warn)"] { fill:
 #anees-bank details.dp-cards > summary::after { content: '▾'; } #anees-bank details.dp-cards[open] > summary::after { content: '▴'; }
 #anees-bank details.dp-cards[open] > summary { margin-bottom: 12px; }
 html[data-look="kurz"] #anees-bank details.dp-cards > summary { border-radius: 18px; border-color: var(--dw-a1); color: var(--dw-a1); }
+/* round 21: dots + "in 3 lessons"; wrong / right in the kit's bright colours; dark text on Look B's bright buttons */
+#anees-bank .dp-tin { font-size: 12.5px; color: var(--dw-muted); font-weight: 600; }
+#anees-bank .hb-card .tv-ar.tv-wrong { color: var(--dw-bad); }
+#anees-bank .hb-card .tv-ar.tv-right { color: var(--dw-ok); }
+html[data-look="kurz"] #anees-bank .hb-ans.primary, html[data-look="kurz"] #anees-bank .hb-ans.primary small { color: light-dark(#FFFFFF, #0B1638); }

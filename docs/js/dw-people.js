@@ -40,6 +40,7 @@
   function cards(root) {
     root.querySelectorAll('.hb-card').forEach(c => {
       if (c.dataset.dp) return; c.dataset.dp = '1';
+      c.querySelectorAll('.tv-pair ~ .hb-en').forEach(e => { if (/^\s*→|→\s*$/.test(txt(e))) e.classList.add('dp-sr'); });   // a half Arabizi pair (one side missing) is noise
       const head = c.querySelector(':scope > .hb-prog');   // a small glyph per card kind: grammar slip, word slip, new word
       if (head) { const k = /new word/i.test(txt(head)) ? 'new' : /grammar/i.test(txt(head)) ? 'gram' : 'word'; head.insertAdjacentHTML('afterbegin', GLYPH[k]); }
       const why = c.querySelector(':scope > .hb-why'), eg = [...c.querySelectorAll(':scope > p.hb-sub')].find(p => /^e\.g\./.test(txt(p)));
@@ -47,7 +48,8 @@
       if (times) {   // "3 times in 3 lessons" -> one dot per time (up to 8) + the same words as a chip
         times.classList.add('dp-times');
         const n = Math.min(8, parseInt(txt(times).replace(/^Came up /, ''), 10) || 0);
-        times.innerHTML = `<span class="dp-dots" aria-hidden="true">${'<i></i>'.repeat(n)}</span><span class="dw-chip muted">${times.innerHTML}</span>`;
+        const m2 = /^(\d[\d,]*) times? (in .*)$/.exec(txt(times));   // the dots say "3 times"; the words stay for a screen reader
+        times.innerHTML = `<span class="dp-dots" aria-hidden="true">${'<i></i>'.repeat(n)}</span>` + (m2 ? `<span class="dp-tin"><span class="dp-sr">${m2[1]} time${m2[1] === '1' ? '' : 's'} </span>${m2[2]}</span>` : `<span class="dw-chip muted">${times.innerHTML}</span>`);
       }
       const long = [...c.querySelectorAll(':scope > .hb-en')].filter(x => txt(x).length > 60);   // a long note in place of a meaning line
       const move = [why, eg, ...long].filter(x => x && txt(x));
