@@ -64,10 +64,21 @@
     const fix = x ? meter('retry of mistakes', x.got, x.n, x.pct, '') : '<span class="rt-m"><span class="rt-l">retry of mistakes</span><span class="dw-chip muted">' + (f.got < f.n ? 'mistakes not retried' : 'nothing to fix') + '</span></span>';
     return '<li class="rt-try"><b class="rt-h">' + head + '</b>' + first + fix + '</li>';
   }
+  // r2: one roll-up line per set: tries, best and last first-pass %, and a small line of the first-pass % try by try
+  function trend(s) {
+    const P = s.tries.map(t => t.first.pct).filter(p => p != null);
+    if (!P.length) return '';
+    const W = 120, Hh = 28, step = P.length > 1 ? W / (P.length - 1) : 0;
+    const pts = P.map((p, i) => (P.length > 1 ? i * step : W / 2).toFixed(1) + ',' + (Hh - 2 - (Hh - 4) * p / 100).toFixed(1)).join(' ');
+    const line = '<svg class="rt-spark" viewBox="-3 0 ' + (W + 6) + ' ' + Hh + '" aria-hidden="true"><line x1="0" x2="' + W + '" y1="' + (Hh - 2 - (Hh - 4) * 0.8).toFixed(1) + '" y2="' + (Hh - 2 - (Hh - 4) * 0.8).toFixed(1) + '" stroke="var(--dw-line)" stroke-dasharray="3 3"/>'
+      + (P.length > 1 ? '<polyline points="' + pts + '" fill="none" stroke="var(--dw-a1)" stroke-width="2" stroke-linejoin="round"/>' : '')
+      + pts.split(' ').map(q => '<circle cx="' + q.split(',')[0] + '" cy="' + q.split(',')[1] + '" r="2.6" fill="var(--dw-a1)"/>').join('') + '</svg>';
+    return '<p class="rt-sum">' + line + '<span><b>' + s.tries.length + '</b> ' + (s.tries.length === 1 ? 'try' : 'tries') + '</span><span>best <b>' + Math.max(...P) + '%</b></span><span>last <b>' + P[P.length - 1] + '%</b></span><span class="rt-k">first pass, try by try (dashes = 80%)</span></p>';
+  }
   function mount(el, ctx) {
     const v = (ctx && ctx.view) || [];
     el.innerHTML = '<p class="hb-sub">What the student did on the card sets, by himself on Flashcards. One line per try: the first pass through the set, then how the retry of his mistakes went; a later try says how long after the one before.</p>'
-      + (v.length ? v.map(s => '<p class="hb-prog" style="margin-top:14px">' + esc(s.title) + ' · ' + s.n + ' cards</p><ul class="hb-done">' + s.tries.map((t, i) => tryHtml(t, i, s.n)).join('') + '</ul>').join('') : '<p class="hb-empty">No card set done yet.</p>');
+      + (v.length ? v.map(s => '<p class="hb-prog" style="margin-top:14px">' + esc(s.title) + ' · ' + s.n + ' cards</p>' + trend(s) + '<ul class="hb-done">' + s.tries.map((t, i) => tryHtml(t, i, s.n)).join('') + '</ul>').join('') : '<p class="hb-empty">No card set done yet.</p>');
   }
   root.AneesResultsTask = { view, count, mount, gap };
 })(typeof self !== 'undefined' ? self : this);
