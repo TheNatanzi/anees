@@ -458,9 +458,10 @@ function capFull(cap,back){ document.onkeydown=null; window.scrollTo(0,0);
     <div class="row" style="margin-top:18px"><button id="home" class="primary study">Back to Flashcards</button></div>`;
   document.getElementById('back').onclick=back; document.getElementById('home').onclick=home; }
 // Options for one tile, then the same swipe cards; answers write the same card_results row.
+// The All button shows how many cards it opens today (Medi 2026-10-22: "when clicking all can you show how many words it is").
 function opts(t,back){ document.onkeydown=null; window.scrollTo(0,0); const n=t.words.length, open=capRound(t.words).cards.length, k=pref.n?Math.min(pref.n,open):open;   // Medi 2026-09-30: never a Start button that leads nowhere
   root.innerHTML=`<button class="fc-back" id="back">‹ Back</button><h1>${esc(t.title||t.label)}</h1><p class="mute">${fmt(n)} card${n===1?'':'s'}${t.words.some(w=>SEL.isQuizletOnly(w.key))?' · Quizlet-only cards count on cards, never in lesson scores':''}</p>${capNote(t.words)}
-    <h2>Cards</h2><div class="toggle"><button id="n20" class="${pref.n===20?'sel':''}">20</button><button id="n10" class="${pref.n===10?'sel':''}">10</button><button id="nall" class="${!pref.n?'sel':''}">All</button><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button></div>
+    <h2>Cards</h2><div class="toggle"><button id="n20" class="${pref.n===20?'sel':''}">20</button><button id="n10" class="${pref.n===10?'sel':''}">10</button><button id="nall" class="${!pref.n?'sel':''}">All ${fmt(open)}</button><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button></div>
     <h2>Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
     <div class="row" style="margin-top:18px">${k?`<button id="start" class="primary study">Start ${fmt(k)} card${k===1?'':'s'}</button>`:`<button id="start" class="study" disabled>Nothing opens today · today's ${NEWDAY()} new untested words are started</button>`}</div>`;
   const set=(key,v)=>()=>{pref[key]=v; savePref(); opts(t,back);};
@@ -532,7 +533,7 @@ function picker(){ document.onkeydown=null;
     <h2>Choose a set</h2><p class="mute">Score sets use Flashcards only. “Last 3 lessons” selects vocabulary, not a score.</p><div class="chips">${S.buckets.map(chip).join('')}</div>
     <h2>Grammar sets</h2><div class="chips">${S.grammar.map(chip).join('')}</div>
     <h2>Topics from the tutor's Doc</h2><div class="chips">${S.topics.map(chip).join('')}</div>
-    <h2>Options</h2><div class="toggle"><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button><button id="n20" class="${pref.n===20?'sel':''}">20 cards</button><button id="n10" class="${pref.n===10?'sel':''}">10 cards</button><button id="nall" class="${!pref.n?'sel':''}">All</button></div>
+    <h2>Options</h2><div class="toggle"><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button><button id="n20" class="${pref.n===20?'sel':''}">20 cards</button><button id="n10" class="${pref.n===10?'sel':''}">10 cards</button><button id="nall" class="${!pref.n?'sel':''}">All ${fmt(capRound(C.pool(words,stats,pref.subject)).cards.length)}</button></div>
     <div class="row" style="margin-top:14px"><button id="start" class="primary study">Start</button></div>`;
   root.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{pref.subject=b.dataset.s; savePref(); picker();});
   document.getElementById('home').onclick=home;
