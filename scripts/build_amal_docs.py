@@ -203,7 +203,9 @@ def materials(meta):
     joined = re.sub(r'(<section id="s\d+"><h2>)(.*?</h2>)', icon, joined)
     # round 2 (Medi 2026-10-22: "you cut out too much data"): every section shows open, with the list of topics on top
     joined = joined.replace('<section id="s', '<section class="dw-open" id="s')
-    tiles = '<nav class="toc dw-mtoc">%s</nav>' % "".join(toc)
+    _np = {sid: len(re.findall(r"<h3>", b)) for sid, b in re.findall(r'<section class="dw-open" id="(s\d+)">(.*?)</section>', joined, re.S)}
+    tiles = '<nav class="toc dw-mtoc">%s</nav>' % "".join(
+        re.sub(r'<a href="#(s\d+)">(.*?)</a>', lambda m: '<a href="#%s">%s%s</a>' % (m.group(1), m.group(2), ' <b>%d</b>' % _np[m.group(1)] if _np.get(m.group(1)) else ""), t) for t in toc)
     # round 3: each example as a two-part row (her Arabic | the English), her labels as small bold tags; every word kept
     joined = re.sub(r"<li>((?:(?!</li>).)*?) \| ((?:(?!</li>).)*?)</li>", lambda m: '<li class="dw-exr"><span class="dw-az">%s</span><span class="dw-en">%s</span></li>' % (m.group(1), m.group(2)), joined)
     joined = re.sub(r"<p>(Core [Ff]unctions?|English [Ee]quivalents?|Examples?|Use|Rule|Note)\s*:\s*", lambda m: '<p class="dw-lab"><b>%s</b> ' % m.group(1), joined)

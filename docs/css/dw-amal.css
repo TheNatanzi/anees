@@ -680,3 +680,7 @@ body.dw-mat .dw-mtoc a { border-width: 2px; font-weight: 600; }
 /* big picture: the stage menu wears its stage colour */
 #anees-bank .bp-sec-idea select { border-color: var(--dw-a2); } #anees-bank .bp-sec-picked select { border-color: var(--dw-ok); }
 #anees-bank .bp-sec-building select { border-color: var(--dw-warn); } #anees-bank .bp-meta select { border-width: 2px; font-weight: 600; }
+/* round 6: part count on each materials chip; shaky / wrong tiles washed in their colour */
+body.dw-mat .dw-mtoc a b { display: inline-grid; place-items: center; min-width: 18px; height: 18px; margin-left: 4px; border-radius: 9px; font-size: 11px; background: currentColor; }
+body.dw-mat .dw-mtoc a b { color: var(--panel, #fff); background: var(--dw-muted); }
+body.dw-doc .dw-big.dw-filt.s-Shaky { background: var(--dw-warn-fill); } body.dw-doc .dw-big.dw-filt.s-Wrong { background: var(--dw-bad-fill); }

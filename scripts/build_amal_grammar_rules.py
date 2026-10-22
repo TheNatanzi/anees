@@ -158,7 +158,7 @@ ASK = ('<details class="ask dw-askbox" open><summary><b>Check three things</b></
        '<li>Is each rule right the way you teach it?</li><li>Are the example spellings yours? Please correct any that aren&#39;t.</li>'
        '<li>Is a rule missing that you want us to track?</li></ol></div></details></details>')
 s = re.sub(r'<div class="ask">.*?</details></div>', "", s, count=1, flags=re.S)
-_work = ('<button type="button" class="dw-filt dw-work" data-s="Work" aria-pressed="false" title="Shaky + wrong rules">Review the <b>%d</b> to work on &rarr;</button>'
+_work = ('<button type="button" class="dw-filt dw-work" data-s="Work" aria-pressed="false" title="Shaky + wrong rules">Review the <b>%d</b> shaky + wrong &rarr;</button>'
          % (_cnt["Shaky"] + _cnt["Wrong"])) if _cnt["Shaky"] + _cnt["Wrong"] else ""
 _toc_end = s.index("</nav>", s.index('<nav class="toc">'))
 s = s[:_toc_end + 6] + DW_J + s[_toc_end + 6:]

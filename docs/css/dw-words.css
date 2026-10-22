@@ -370,3 +370,8 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
 @media (max-width: 680px) { #anees-bank .fc-mixn { grid-template-columns: repeat(3, auto) !important; justify-content: start; gap: 2px 14px; } }
 @media (max-width: 680px) { #anees-bank #ab-rows .ab-seencell { display: flex; flex-direction: column; align-items: flex-start !important; gap: 4px; text-align: left; }
   #anees-bank #ab-rows .ab-seencell .vp-memory-detail { width: 100%; } }
+/* round 6 cards: the 7-day strip is a bar chart you can see */
+.fc.dw-fc .dw-fcbar { opacity: .55 !important; }
+@media (max-width: 680px) { #anees-bank .fc-sec .fc-grid:has(.stile[data-t="cat:sets"]) { grid-template-columns: 1fr !important; } }
+/* round 6 grammar phone: mistakes + self-correction side by side, the other two full width */
+@media (max-width: 680px) { #anees-bank #gc-c3, #anees-bank #gc-c4 { grid-column: 1 / -1; } }
