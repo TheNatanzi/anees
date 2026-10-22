@@ -553,3 +553,13 @@ body:has(#stall-bar) #anees-bank #lesson-alerts { display: none; }   /* the same
 html.lsn-page .az-arabic { line-height: 1.8 !important; padding-bottom: 2px; }
 #anees-bank .fl .fl-mini { margin: 4px 0 8px; font-size: 13px; }
 html.lsn-page .lsn-map { padding-top: 0; }
+html.lsn-page .lsn-map { position: relative; padding-top: 22px; }
+html.lsn-page .lsn-flag { position: absolute; top: 0; transform: translateX(-50%); font-size: 12px; font-weight: 700; color: var(--dw-a2) !important; text-decoration: none; white-space: nowrap; }
+html.lsn-page .lsn-flag::after { content: ""; position: absolute; left: 50%; top: 17px; width: 3px; height: 26px; margin-left: -1px; background: var(--dw-a2); border-radius: 2px; }
+@media (max-width: 600px) { #ar-tab-unknowns #dw-top-bigs { grid-template-columns: 1fr; } }
+#anees-bank .fl ol.fl-mini { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; list-style: none; padding: 0; counter-reset: none; }
+#anees-bank .fl ol.fl-mini > li { display: inline-flex; min-height: 0; padding: 4px 12px; border-radius: 999px; background: var(--dw-card); border: 1px solid var(--dw-line); font-weight: 700; }
+#anees-bank .fl ol.fl-mini > li::before { content: none; }
+#anees-bank .fl ol.fl-mini > li + li::after { content: none; }
+#anees-bank .fl ol.fl-mini > li:not(:last-child)::after { content: "→"; margin-left: 10px; color: var(--dw-muted); position: static; }
+#anees-bank .ab-chips button, #anees-bank .ls-tabs button { font-size: 13.5px; }

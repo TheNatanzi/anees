@@ -12,7 +12,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
-import re
+import collections, re
 import subprocess
 from pathlib import Path
 
@@ -188,8 +188,10 @@ def mark_turns(page):
         if b > 0:
             page = page[:b] + '<p class="lsn-start">▶ The Arabic practice starts · %s </p>' % clock(float(rows[start][1])) + page[b:]
         # the talk map gets a marker where the practice starts (a tap jumps there)
-        end = max(float(r[1]) for r in rows) or 1.0
         # round 2: the start is one big button under the strip (the bubble on the strip was a repeat)
+        end = max(float(r[1]) for r in rows) or 1.0
+        flag = '<a class="lsn-flag" href="#arabic-start" style="left:%.1f%%" aria-label="Arabic practice starts">Arabic</a>' % (100 * float(rows[start][1]) / end)
+        page = page.replace('</svg><figcaption>', '</svg>' + flag + '<figcaption>', 1)
         jump = '<a class="lsn-jump" href="#arabic-start">▶ Start Arabic practice · %s</a>' % clock(float(rows[start][1]))
         page = page.replace('</figcaption></figure>', '</figcaption></figure>' + jump, 1)
     return page
@@ -207,12 +209,15 @@ def talk_map(page, bins=60):
         k = 'chat' if kind == 'chat' else ('you' if who.strip().lower() in LEARNER else 'tutor')
         b = min(bins - 1, int(float(t) / end * bins))
         tally[b][k] = tally[b].get(k, 0) + 1
+    n_all = collections.Counter('chat' if kind == 'chat' else ('you' if who.strip().lower() in LEARNER else 'tutor') for kind, _, who in rows)
+    share = lambda k: '%d%% of lines' % round(100.0 * n_all[k] / max(1, sum(n_all.values())))   # each colour's share, on its legend entry
     w = 100.0 / bins
     rects = ''.join('<rect x="%.2f" y="0" width="%.2f" height="10" class="tm-%s"/>' % (i * w, w + .05, max(c, key=c.get))
                     for i, c in enumerate(tally) if c)
     return ('<figure class="lsn-map"><svg class="dw-pic" viewBox="0 0 100 10" preserveAspectRatio="none" role="img" '
             'aria-label="Who spoke when, start to end">' + rects + '</svg><figcaption><i class="tm-you"></i>you '
-            '<i class="tm-tutor"></i>tutor <i class="tm-chat"></i>chat <b class="lsn-playkey">▶ Play = his line</b><span>00:00 → %s</span></figcaption></figure>' % clock(end))
+            '<i class="tm-tutor"></i>tutor <i class="tm-chat"></i>chat <b class="lsn-playkey">▶ Play = his line</b><span>00:00 → %s</span></figcaption></figure>' % clock(end)
+            ).replace('>you <', '>you %s <' % share('you'), 1).replace('>tutor <', '>tutor %s <' % share('tutor'), 1).replace('>chat <', '>chat %s <' % share('chat'), 1)
 
 
 def dword_dates(dates):
