@@ -122,13 +122,16 @@ DW_HEAD = ('<meta name="color-scheme" content="light dark"><script src="../js/th
 DW_STATS = re.compile(r'<div class="note">(.*?)</div><p>([\d.]+) minutes · ([\d,]+) transcribed words · (\d+) lines Amal typed in chat</p>', re.S)
 
 
+MIC = '<svg class="dw-pic dw-scene dw-mic" viewBox="0 0 120 80" aria-hidden="true" focusable="false"><circle cx="100" cy="16" r="10" fill="var(--dw-a4)" opacity=".35"/><rect x="10" y="10" width="44" height="26" rx="13" fill="var(--dw-a1)"/><path d="M22 36l-6 10 14-10z" fill="var(--dw-a1)"/><circle cx="24" cy="23" r="3" fill="var(--dw-card)"/><circle cx="32" cy="23" r="3" fill="var(--dw-card)"/><circle cx="40" cy="23" r="3" fill="var(--dw-card)"/><rect x="66" y="30" width="44" height="24" rx="12" fill="var(--dw-a2)"/><path d="M98 54l6 10-14-10z" fill="var(--dw-a2)"/><path d="M76 42h24" stroke="var(--dw-card)" stroke-width="4" stroke-linecap="round"/><rect x="50" y="44" width="16" height="26" rx="8" fill="var(--dw-a3)"/><path d="M45 60a13 13 0 0 0 26 0" fill="none" stroke="var(--dw-ink)" stroke-width="3" stroke-linecap="round"/><line x1="58" y1="73" x2="58" y2="79" stroke="var(--dw-ink)" stroke-width="3"/></svg>'   # a small drawn scene (two speech bubbles + a mic); quiet in Look A, bright in Look B
+
+
 def dword(page):
     if 'lsn-page' in page:
         return page
     page = page.replace('<html lang="en">', '<html lang="en" class="lsn-page">', 1)
     page = page.replace('<style>', DW_HEAD + '<style>', 1)
     page = page.replace('<main><p style="border:0;padding:16px 0 0"><a href="../index.html#lessons">← Lessons</a></p>',
-                        '<main><div class="lsn-top"><a href="../index.html#lessons">← Lessons</a><div class="lsn-switch" data-theme-slot></div></div>', 1)
+                        '<main><div class="lsn-top"><a href="../index.html#lessons">← Lessons</a><div class="lsn-switch" data-theme-slot></div></div>' + MIC, 1)
     page = page.replace('<small>Tap a time to hear that line.</small>', '', 1)
 
     def stats(m):

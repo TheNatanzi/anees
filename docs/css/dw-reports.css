@@ -201,3 +201,46 @@ html[data-look="kurz"] #anees-bank .fl .pcode { border-radius: 50%; }
   #anees-bank #ls-metrics .ab-number { font-size: 22px !important; margin: 2px 0 0 !important; }
   #anees-bank #ls-metrics .ab-metric-label { font-size: 10.5px !important; }
 }
+/* round 6: research history folds; flow icon column fixed; lesson rows show the two big numbers + bars */
+#anees-bank details.ar-past > summary { list-style: none; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; padding: 8px 16px; border-radius: 999px;
+  border: 1px solid var(--dw-line); background: var(--dw-card); font-weight: 600; font-size: 14px; margin: 6px 0 12px; }
+#anees-bank details.ar-past > summary::-webkit-details-marker { display: none; }
+#anees-bank details.ar-past > summary::before { content: "+"; font-weight: 700; }
+#anees-bank details.ar-past[open] > summary::before { content: "−"; }
+#anees-bank .fl .fl-ico { display: inline-grid; place-items: center; width: 26px; flex: none; }
+#anees-bank .ls-row .ls-rowhead .ls-cell .ls-small { display: none; }
+#anees-bank .ls-row .ls-rowhead[aria-expanded="true"] .ls-cell .ls-small { display: block; }
+#anees-bank .ls-row .ls-rowhead .ls-cell .ls-wsplit { margin-top: 6px; }
+
+/* ---------- scenes (same markup both looks) ---------- */
+#anees-bank .ab-header h1 { position: relative; }
+#anees-bank .dw-scene.dw-mic { display: inline-block; width: 54px; vertical-align: middle; margin-left: 10px; opacity: .55; }
+html.lsn-page .dw-scene.dw-mic { width: 64px; float: right; margin: 14px 0 0 10px; opacity: .55; }
+#anees-bank .fl .fl-road { margin: 4px 0 6px; max-height: 90px; }
+#anees-bank .fl .fl-road a { cursor: pointer; }
+
+/* ---------- Look B "kurz": bright scenes, rounded cards, navy/blue panels ---------- */
+html[data-look="kurz"] .dw-scene.dw-mic { opacity: 1; width: 80px; }
+html[data-look="kurz"] html.lsn-page .dw-scene.dw-mic { width: 90px; }
+html[data-look="kurz"] #anees-bank #lesson-alerts, html[data-look="kurz"] #anees-bank #ls-notice:not(:empty) { background: var(--dw-bad-fill) !important; border-radius: 18px !important; border: 0 !important; }
+html[data-look="kurz"] #anees-bank .lg-medi, html[data-look="kurz"] #anees-bank .ls-notice { border-radius: 18px; }
+html[data-look="kurz"] #anees-bank #ls-rows { display: grid; gap: 10px; }
+html[data-look="kurz"] #anees-bank .ls-row { border-radius: 20px; overflow: hidden; background: var(--kz-panel); }
+html[data-look="kurz"] #anees-bank .ab-tablehead { border-radius: 999px; }
+html[data-look="kurz"] #anees-bank .ls-big { font-weight: 900; }
+html[data-look="kurz"] #anees-bank .ls-wsplit { height: 9px; }
+html[data-look="kurz"] #anees-bank .ar-rep, html[data-look="kurz"] #anees-bank .vp-panel { border: 0; }
+html[data-look="kurz"] #ar-tab-unknowns details.ar-unk-d > summary .ar-unk-h { border: 0; border-radius: 22px; background: var(--kz-panel); }
+html[data-look="kurz"] #anees-bank .fl .fl-n { background: var(--kz-raised); }
+html[data-look="kurz"] #anees-bank .fl details.phase { border: 0; background: var(--kz-panel); }
+html[data-look="kurz"] #anees-bank .fl .fl-road path:first-child { stroke: var(--kz-raised); }
+html[data-look="kurz"] #anees-bank .fl .warn { border-radius: 20px; }
+html[data-look="kurz"] #anees-bank .fl > .done { border-radius: 22px; border-color: var(--kz-teal); }
+/* lesson page in Look B: rounded transcript lines on the navy / pale-blue ground */
+html[data-look="kurz"].lsn-page main > p.turn, html[data-look="kurz"].lsn-page main > p.chat { border: 0; border-radius: 16px; margin: 6px 0; background: var(--kz-panel); }
+html[data-look="kurz"].lsn-page main > p.chat { box-shadow: inset 5px 0 0 var(--kz-teal); }
+html[data-look="kurz"].lsn-page h1 { font-family: var(--sabz-font-serif); font-weight: 900; }
+html[data-look="kurz"].lsn-page button.t { border-radius: 999px; border-color: var(--kz-line); }
+html[data-look="kurz"].lsn-page .bar { border-radius: 0 0 18px 18px; }
+html[data-look="kurz"].lsn-page .dw-scene.dw-mic { opacity: 1; width: 90px; }
+@media (max-width: 600px) { #anees-bank .dw-scene.dw-mic { width: 40px; } html[data-look="kurz"] #anees-bank .dw-scene.dw-mic { width: 54px; } html.lsn-page .dw-scene.dw-mic { width: 48px; } }

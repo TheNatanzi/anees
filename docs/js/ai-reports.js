@@ -28,7 +28,8 @@
       .map(([l, v, n]) => `<div class="ab-metric"><div class="ab-metric-label">${esc(l)}</div><div class="ab-number">${esc(v)}</div><div class="ab-tiny">${esc(n)}</div></div>`).join('');
     const papers = reps.filter(p => p.featured);   // Medi 2026-10-19: a Research section for experiments and results, like a research paper
     if (papers.length && $('#ar-papers')) { $('#ar-papers-list').innerHTML = papers.map(card).join(''); $('#ar-papers').hidden = false; }
-    $('#ar-list').innerHTML = reps.filter(p => !p.featured).map(card).join('') || '<div class="vp-notice">No reports yet.</div>';
+    const past = reps.filter(p => !p.featured);   // de-word 2026-10-22: older reports fold into one tap
+    $('#ar-list').innerHTML = past.length ? `<details class="ar-past"><summary>Past reports <span class="ab-count">${past.length}</span></summary><div class="ar-list">${past.map(card).join('')}</div></details>` : '<div class="vp-notice">No reports yet.</div>';
     $('#ar-foot').innerHTML = `Updated ${esc(r.updated)} <details class="dw-info"><summary aria-label="About these numbers">ⓘ</summary><div>Engine numbers (Sept 4–5) are counts on 20 frozen clips, not accuracy; the process audit counts hand-audited rows.</div></details>`;
   }
 
