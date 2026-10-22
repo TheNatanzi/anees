@@ -217,7 +217,9 @@ def talk_map(page, bins=60):
     return ('<figure class="lsn-map"><svg class="dw-pic" viewBox="0 0 100 10" preserveAspectRatio="none" role="img" '
             'aria-label="Who spoke when, start to end">' + rects + '</svg><figcaption><i class="tm-you"></i>you '
             '<i class="tm-tutor"></i>tutor <i class="tm-chat"></i>chat <b class="lsn-playkey">▶ Play = his line</b><span>00:00 → %s</span></figcaption></figure>' % clock(end)
-            ).replace('>you <', '>you %s <' % share('you'), 1).replace('>tutor <', '>tutor %s <' % share('tutor'), 1).replace('>chat <', '>chat %s <' % share('chat'), 1)
+            ).replace('<i class="tm-you"></i>you ', '<span class="lk-i"><i class="tm-you"></i>you %s</span> ' % share('you'), 1
+            ).replace('<i class="tm-tutor"></i>tutor ', '<span class="lk-i"><i class="tm-tutor"></i>tutor %s</span> ' % share('tutor'), 1
+            ).replace('<i class="tm-chat"></i>chat ', '<span class="lk-i"><i class="tm-chat"></i>chat %s</span> ' % share('chat'), 1)
 
 
 def dword_dates(dates):

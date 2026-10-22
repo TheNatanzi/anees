@@ -58,7 +58,7 @@ def dword(frag):
     acc = ('<div class="dw-bars fl-acc" role="img" aria-label="Words right: 61–69% from ElevenLabs alone, 94–95% after the second listen">'
            '<div><span>ElevenLabs alone</span><div class="dw-track"><i style="width:65%"></i></div><b>61–69%</b></div>'
            '<div><span>+ 3 listens, 2 agree</span><div class="dw-track"><i style="width:94.5%"></i></div><b>94–95%</b></div></div>'
-           + '<ol class="dw-flow fl-mini"><li>3 listens</li><li>2 agree</li><li>94–95% right</li></ol>')
+           + '<div class="fl-mini"><span>🎧 3 listens</span><i>→</i><span>✓ 2 agree</span><i>→</i><span><b>94–95%</b> right</span></div>')
     frag = re.sub(r'(method A: 94–95%</b> right\.(?:(?!<div class="chips">).)*?)(<div class="chips">)', lambda m: m.group(1) + acc + m.group(2), frag, count=1, flags=re.S)
     # one picture of the path on top: 8 coloured stops, icon + one word each, A to H; a tap jumps to that phase
     stops = re.findall(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>', frag)
