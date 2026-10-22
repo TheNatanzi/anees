@@ -163,7 +163,36 @@
         kids[cut].before(d);
         for (const k of kids.slice(cut)) d.append(k);
       });
+      fold(pane, panels);
     }
+  }
+
+  // 8. a tab shows its first two panels (and any you answer in); the rest wait behind one "more views" button.
+  //    Hidden by a class, not moved, so the page text keeps its order.
+  function fold(pane, panels) {
+    const extra = panels.filter((p, i) => i >= 2 && !p.matches('.fl-swipe-panel'));
+    if (extra.length < 2) return;
+    extra.forEach(p => p.classList.add('dw-extra'));
+    // a block of the tab (a section heading + its panels) that holds only extra panels folds with them
+    for (const c of pane.children) {
+      if (c.matches('.dw-morebtn, details.dw-p')) continue;
+      const ps = c.matches('.vp-panel') ? [c] : [...c.querySelectorAll('.vp-panel')];
+      if (ps.length && ps.every(p => p.classList.contains('dw-extra'))) c.classList.add('dw-extra');
+      else if (!ps.length && c.previousElementSibling && c.previousElementSibling.classList.contains('dw-extra')) c.classList.add('dw-extra');
+    }
+    let b = pane.querySelector(':scope > .dw-morebtn');
+    if (!b) {
+      b = document.createElement('button');
+      b.type = 'button'; b.className = 'dw-morebtn'; b.dataset.dw = '1';
+      b.addEventListener('click', () => { const open = pane.classList.toggle('dw-open'); b.dataset.open = open ? '1' : ''; b.setAttribute('aria-expanded', String(open)); });
+      b.setAttribute('aria-expanded', 'false');
+      // right after the block that holds the second panel
+      let at = panels[1]; while (at.parentElement !== pane) at = at.parentElement;
+      at.after(b);
+    }
+    b.dataset.n = String(extra.length);
+    b.setAttribute('aria-label', extra.length + ' more views');
+    pane.classList.add('dw-folded');
   }
 
   function run() {
