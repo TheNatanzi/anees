@@ -33,8 +33,8 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = { lines:
     var row = document.createElement('div'); row.className = 'st-attn-row';
     row.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M4 20L20 4"/></svg><div><b></b><small></small></div>';
     row.querySelector('b').textContent = big; row.querySelector('small').textContent = small;
-    if (detail) { var d = document.createElement('details'), su = document.createElement('summary'), dv = document.createElement('div');
-      d.className = 'dw-info'; su.textContent = 'i'; su.title = 'Details'; dv.textContent = detail; d.appendChild(su); d.appendChild(dv); row.querySelector('b').appendChild(d); }
+    // round 2 (Medi: too much cut): the raw detail is a visible small line, not behind an i
+    if (detail) { var dv = document.createElement('small'); dv.className = 'st-attn-det'; dv.textContent = detail; row.querySelector('div').appendChild(dv); }
     if (first) card.insertBefore(row, card.children[1] || null); else card.appendChild(row);
   }
 function render(d) {
@@ -45,13 +45,14 @@ function render(d) {
   var p = document.createElement('span'); p.className = 'dw-chip' + (d && d.sources ? '' : ' muted');
   p.textContent = d && d.sources ? 'Tutor trigger ' + (unread ? 'running' : 'OK') : 'Tutor trigger · not run yet';
   box.appendChild(p);
+  var tx = document.createElement('span'); tx.className = 'st-line'; tx.textContent = ' ' + L.head; box.appendChild(tx);
   if (unread) attnRow(unread + ' tutor source' + (unread === 1 ? '' : 's') + ' not readable',
     'Next: fix access to ' + d.sources.filter(function (s) { return !s.readable; }).map(function (s) { return s.label; }).join(', ') + '.',
     d.sources.filter(function (s) { return !s.readable; }).map(function (s) { return s.label + ': ' + s.why; }).join(' · '));
   var det = document.createElement('details'), sum = document.createElement('summary');
   det.className = 'dw-info'; sum.textContent = 'i'; sum.title = 'Her sources and the last recalculations'; det.appendChild(sum);
   var ul = document.createElement('ul');
-  [L.head].concat(L.sources).concat(L.firings.length ? L.firings : ['No firing yet: nothing of hers has changed since the trigger started.']).forEach(function (t) {
+  L.sources.concat(L.firings.length ? L.firings : ['No firing yet: nothing of hers has changed since the trigger started.']).forEach(function (t) {
     var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
   var wrap = document.createElement('div'); wrap.appendChild(ul); det.appendChild(wrap); box.appendChild(det); host.insertAdjacentElement('afterend', box);
 }

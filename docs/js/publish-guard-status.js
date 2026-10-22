@@ -49,8 +49,8 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = { guardL
     var row = document.createElement('div'); row.className = 'st-attn-row';
     row.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/></svg><div><b></b><small></small></div>';
     row.querySelector('b').textContent = big; row.querySelector('small').textContent = small;
-    if (detail) { var d = document.createElement('details'), su = document.createElement('summary'), dv = document.createElement('div');
-      d.className = 'dw-info'; su.textContent = 'i'; su.title = 'Details'; dv.textContent = detail; d.appendChild(su); d.appendChild(dv); row.querySelector('b').appendChild(d); }
+    // round 2 (Medi: too much cut): the raw detail is a visible small line, not behind an i
+    if (detail) { var dv = document.createElement('small'); dv.className = 'st-attn-det'; dv.textContent = detail; row.querySelector('div').appendChild(dv); }
     if (first) card.insertBefore(row, card.children[1] || null); else card.appendChild(row);
   }
 function render(g) {
@@ -64,6 +64,7 @@ function render(g) {
   var p = document.createElement('span'); p.className = 'dw-chip' + (line.state === 'pass' ? '' : ' muted');
   p.textContent = line.state === 'pass' ? 'Publish guard OK' : 'Publish guard · no pass yet'; p.title = ok + '/' + req.length + ' checks';
   box.appendChild(p);
+  var tx = document.createElement('span'); tx.className = 'st-line'; tx.textContent = ' ' + line.text; box.appendChild(tx);
   if (line.alert) {           // a block Medi could not see at the time is shown, not folded away
     attnRow('Publishing blocked',
       /^clean_tree/.test(g.last_block.reason || '') ? 'Next: commit the changed files, then publish again.' : 'Next: fix the failed check, then publish again.',
@@ -73,7 +74,7 @@ function render(g) {
     var det = document.createElement('details'), sum = document.createElement('summary');
     det.className = 'dw-info'; sum.textContent = 'i'; sum.title = 'What it checks'; det.appendChild(sum);
     var ul = document.createElement('ul');
-    [line.text].concat(line.details).concat(line.checks || []).forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+    line.details.filter(function (t) { return t !== line.alert; }).concat(line.checks || []).forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
     ul = (function (u) { var d = document.createElement('div'); d.appendChild(u); return d; })(ul);
     det.appendChild(ul); box.appendChild(det);
   }

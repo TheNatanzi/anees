@@ -324,7 +324,9 @@ function renderCharts() {
     var row = el('div');
     var sw = el('span', 'gc-swatch'); sw.style.background = s.color;
     row.appendChild(sw);
-    row.appendChild(el('span', null, s.value + ' ' + s.label));
+    // round 2: the count as a big coloured number beside its label
+    var t = el('span', null, ''); var nb = el('b', 'dw-lgn', String(s.value)); nb.style.color = s.color; t.appendChild(nb); t.appendChild(document.createTextNode(' ' + s.label));
+    row.appendChild(t);
     legend.appendChild(row);
   });
   body.appendChild(legend);

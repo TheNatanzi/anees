@@ -228,7 +228,7 @@ html[data-look="kurz"] body.dw-doc .dw-big.dw-filt::after { display: none; }
   body.dw-doc .dw-big.dw-filt { padding: 8px 4px 8px 7px !important; border-left-width: 3px !important; }
   body.dw-doc .dw-big.dw-filt b { font-size: 24px; }
   body.dw-doc .dw-big.dw-filt span { font-size: 9px; letter-spacing: .02em; }
-  body.dw-doc .dw-big.dw-filt svg.dw-ico, body.dw-doc .dw-big.dw-filt small { display: none; }
+  body.dw-doc .dw-big.dw-filt svg.dw-ico { display: none; }
 }
 
 /* ---------- Arabic Materials: 8 topic tiles, each section folds to its title + parts ---------- */
@@ -402,7 +402,6 @@ html[data-look="kurz"] #anees-bank .bp-st:not(:last-child)::after, html[data-loo
 #anees-bank .st-dw-k b { font-size: 18px; background: none !important; }
 #anees-bank .st-dw-k.st-dw-enforced b { color: var(--dw-ok); } #anees-bank .st-dw-k.st-dw-partly b { color: var(--dw-warn); }
 #anees-bank .st-dw-k.st-dw-planned b { color: var(--dw-a4); }
-#anees-bank .st-dw-k small { display: none; }
 #anees-bank .st-dw-big small { font-size: 11px; }
 #anees-bank #st-guard, #anees-bank #st-amal { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 6px 0; padding: 0; background: none; border: 0; }
 #anees-bank #st-guard details.dw-info ul, #anees-bank #st-amal details.dw-info ul { margin: 0; padding-left: 16px; }
@@ -625,3 +624,12 @@ html[data-look="kurz"][data-sabz-theme="light"] body.dw-doc .fl, html[data-look=
 /* round 2 (Medi 2026-10-22: data back on screen): an open card needs no "N examples" bar above its examples */
 body.dw-doc article.dw-on > .dw-peek { display: none !important; }
 body.dw-doc .dw-detail h4 { margin-top: 8px; }
+/* round 2 settings: every number and line visible */
+#anees-bank .st-dw-k small { display: block; font-size: 11px; color: var(--dw-muted); font-weight: 400; }
+#anees-bank .st-dw-more { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--dw-line); }
+#anees-bank .st-attn-det { display: block; font-size: 12px; color: var(--dw-muted); margin-top: 2px; }
+#anees-bank .st-line { font-size: 13px; color: var(--dw-muted); }
+#anees-bank .st-browse { margin-top: 14px; }
+body.dw-doc .dw-big.dw-filt small { display: block; font-size: 11px; color: var(--dw-muted); }
+body.dw-mat .dw-mtoc { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; }
+body.dw-mat .dw-mtoc a { padding: 3px 10px; border: 1px solid var(--dw-line, var(--line)); border-radius: 999px; font-size: 13px; text-decoration: none; }

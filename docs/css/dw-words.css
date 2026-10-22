@@ -102,7 +102,6 @@ h2 details.dw-info { font-size: 13px; font-weight: 400; }
 #anees-bank .stile:not(.empty)::after { content: "→"; position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%;
   display: grid; place-items: center; font: 700 14px/1 var(--sabz-font-sans, system-ui); background: var(--dw-a1); color: var(--sabz-bg, #F5F2EA); }
 #anees-bank .stile:not(.empty) .vp-card-label { padding-right: 32px; }
-#anees-bank .fc-mixn .zero { display: none; }
 #anees-bank .fc-mixn span::after { font: 400 11px var(--sabz-font-sans, system-ui); color: var(--dw-muted); margin-left: 3px; }
 #anees-bank .fc-mixn .mx-mastered::after { content: "mastered"; } #anees-bank .fc-mixn .mx-good::after { content: "good"; }
 #anees-bank .fc-mixn .mx-shaky::after { content: "shaky"; } #anees-bank .fc-mixn .mx-wrong::after { content: "wrong"; }
@@ -123,7 +122,6 @@ h2 details.dw-info { font-size: 13px; font-weight: 400; }
 }
 
 /* round 5 */
-#anees-bank .fc.dw-allzero { display: none; }
 #anees-bank details.dw-more { margin-top: 18px; }
 #anees-bank details.dw-more > summary { cursor: pointer; display: inline-block; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--dw-line);
   font: 600 14px var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
@@ -176,7 +174,6 @@ html[data-look="kurz"] .fc.dw-fc .dw-fcbar { background: var(--kz-yellow); opaci
 /* Look B round 2 */
 #anees-bank .ab-header h1 { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
 #anees-bank button.stile.wide.empty { min-height: 0; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 4px 14px; padding: 12px 16px; }
-#anees-bank button.stile.wide.empty .vp-card-value { display: none; }
 html[data-look="kurz"] .pn-bar { background: var(--kz-panel) !important; border-color: var(--kz-line) !important; }
 html[data-look="kurz"] .pn-tab { color: var(--kz-muted) !important; }
 html[data-look="kurz"] .pn-tab[aria-current="page"] { color: #14204A !important; background: #FFC93C !important; }
@@ -213,14 +210,11 @@ html[data-look="kurz"] #anees-bank .fc-grid > .stile[data-t="shaky"] { border-to
 #anees-bank details.dw-morestats > summary { cursor: pointer; display: inline-block; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line); font: 600 13px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
 #anees-bank details.dw-morestats > .dw-bigs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 #anees-bank details.dw-morestats .dw-big b { font-size: 22px !important; }
-#anees-bank .dw-allzero-h { display: none; }
-#anees-bank .fc-mixbar:has(> i.mx-untested:only-child) { display: none; }
 /* round 5 */
 #anees-bank .dw-morecharts > summary { cursor: pointer; display: inline-block; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line); font: 600 13px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
 #anees-bank .dw-charts3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 10px; margin-top: 10px; }
 #anees-bank #gc-c1 .gc-chart-body svg { max-height: 120px; }
 @media (max-width: 680px) { #anees-bank .dw-charts3 { grid-template-columns: 1fr 1fr !important; } }
-#anees-bank .fc-mix:has(.fc-mixbar > i.mx-untested:only-child) { display: none; }
 #anees-bank .stile:not(.empty)::after { content: "Start →"; width: auto; padding: 0 10px; border-radius: 999px; height: 24px; font-size: 12px; }
 #anees-bank .stile:not(.empty) .vp-card-label { padding-right: 70px; }
 #anees-bank .stile[data-t^="cat:"]:not(.empty)::after { content: "Open →"; }
@@ -328,3 +322,14 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
   #ab-promised .dw-ptable td { border: 0; padding: 1px 4px; } #ab-promised .dw-ptable td:nth-child(3), #ab-promised .dw-ptable td:nth-child(5) { font-size: 11px; color: var(--dw-muted); } }
 /* grammar: the one-line meaning wraps instead of being cut with an ellipsis */
 #gc-rows .gc-oneline { white-space: normal !important; overflow: visible; text-overflow: clip; }
+/* round 2: memory timeline (green = fresh, then fading / at risk / high risk), dot = days since the last good recall */
+#ab-rows .dw-mtl { position: relative; display: flex; height: 6px; border-radius: 3px; overflow: visible; margin: 6px 0 2px; max-width: 160px; }
+#ab-rows .dw-mtl i { display: block; height: 100%; } #ab-rows .dw-mtl .z0 { background: var(--dw-ok); border-radius: 3px 0 0 3px; }
+#ab-rows .dw-mtl .z1 { background: var(--dw-a3); } #ab-rows .dw-mtl .z2 { background: var(--dw-warn); } #ab-rows .dw-mtl .z3 { background: var(--dw-bad); border-radius: 0 3px 3px 0; }
+#ab-rows .dw-mtl b { position: absolute; top: -3px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--dw-ink); border: 2px solid var(--dw-card); }
+#ab-rows .dw-mtk { position: relative; height: 12px; max-width: 160px; font-size: 10px; color: var(--dw-muted); }
+#ab-rows .dw-mtk span { position: absolute; transform: translateX(-50%); }
+/* round 2 grammar: donut counts big, small captions readable */
+#gc-c4 .gc-legend { font-size: 14px; gap: 2px; } #gc-c4 .gc-legend .dw-lgn { font: 700 20px/1.1 var(--sabz-font-serif, Georgia, serif); }
+#anees-bank .gc-chart-foot, #anees-bank .gc-chart-note { font-size: 13px; }
+#gc-rows .gc-num small, #gc-rows .gc-hear small, #gc-rows small { font-size: 12px; }

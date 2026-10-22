@@ -201,7 +201,9 @@ def materials(meta):
         return ('%s<svg class="dw-tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
                 'stroke-linejoin="round" aria-hidden="true">%s</svg>%s' % (m.group(1), d, m.group(2)))
     joined = re.sub(r'(<section id="s\d+"><h2>)(.*?</h2>)', icon, joined)
-    tiles = ""  # the section list itself is the menu (numbered by css), so no second list of the same names
+    # round 2 (Medi 2026-10-22: "you cut out too much data"): every section shows open, with the list of topics on top
+    joined = joined.replace('<section id="s', '<section class="dw-open" id="s')
+    tiles = '<nav class="toc dw-mtoc">%s</nav>' % "".join(toc)
     _unused = "".join('<a class="dw-topic" href="#%s"><b>%d</b><span>%s</span></a>' % (sid, i + 1, name)
                     for i, (sid, name) in enumerate(re.findall(r'<a href="#(s\d+)">(.*?)</a>', "".join(toc))))
     page = ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'

@@ -246,8 +246,10 @@ def _unfold_detail(m):
 
 s = re.sub(r'<details class="dw-fold dw-more"><summary><span class="dw-i">i</span>Why[^<]*</summary><div>(<p class="why">(?:(?!</details>).)*?</p>)'
            r'(<h4>The detail</h4><ul class="more">(?:(?!</details>).)*?</ul>)</div></details>', _unfold_detail, s, flags=re.S)
-s = re.sub(r'<article id="([^"]+)">', lambda m: '<article id="%s" class="dw-on">' % m.group(1), s)
-s = re.sub(r"<section( id=\"[^\"]*\")?>", lambda m: "<section%s class=\"dw-open\">" % (m.group(1) or ""), s)
+# the markup stays plain (scripts/build_amal_docs.py and others read <article id="..."> as is): a tiny script opens every card
+if "data-dw-allopen>" not in s:
+    s = s.replace("</body>", '<script data-dw-allopen>document.querySelectorAll("main article").forEach(function(a){a.classList.add("dw-on")});'
+                  'document.querySelectorAll("main section").forEach(function(x){x.classList.add("dw-open")});</script></body>', 1)
 s = s.replace('<details class="dw-fold dw-les">', '<details class="dw-fold dw-les" open>')
 s = s.replace('<details class="dw-fold dw-jump">', '<details class="dw-fold dw-jump" open>')
 
