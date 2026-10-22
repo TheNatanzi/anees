@@ -314,3 +314,8 @@ body > .anees-look:not(.anees-look-float) { position: fixed; left: 12px; bottom:
 /* round 17: the list head is the bar alone ("39 of 67 done"); "28 left to decide" stays in the text, the chip and the row say 28 */
 #anees-bank .dp-prog { font-size: 0 !important; margin: 4px 0 10px; }
 #anees-bank .dp-prog .dp-pbar { font-size: 13px; }
+/* round 18: Look B's round blob stays in the tile's right corner, never under a caption */
+html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big { padding-right: 48px; }
+html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big::after { width: 38px; height: 38px; right: -12px; bottom: -12px; }
+html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big span { position: relative; z-index: 1; }
+@media (max-width: 680px) { html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big { padding-right: 30px; } html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big::after { width: 26px; height: 26px; } }
