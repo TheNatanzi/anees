@@ -585,3 +585,12 @@ html[data-sabz-theme="dark"] #anees-bank .tu-meta, html[data-sabz-theme="dark"] 
 #anees-bank .dp-abar { display: block; height: 6px; margin-top: 4px; max-width: 260px; }
 #anees-bank .dp-abar > i { background: var(--dw-ok); }
 .hw-dots i:not(.ok):not(.ai) { background: var(--dw-line); }
+/* r2 round 16: contrast: captions and the right-hand Arabic read darker in light mode; answered moment cards sit quieter (still shown) */
+html:not([data-sabz-theme="dark"]) #anees-bank .tv-card .tu-meta, html:not([data-sabz-theme="dark"]) #anees-bank .tv-card .hb-en { color: #3E4A43; }
+html:not([data-sabz-theme="dark"]) #anees-bank .tv-right { color: #1F5A3C !important; }
+html:not([data-sabz-theme="dark"]) #anees-bank .tv-wrong { color: #A3201A !important; }
+@media (prefers-color-scheme: dark) { html:not([data-sabz-theme="light"]) #anees-bank .tv-card .tu-meta, html:not([data-sabz-theme="light"]) #anees-bank .tv-card .hb-en { color: #C9D3CC; } html:not([data-sabz-theme="light"]) #anees-bank .tv-right { color: #8FE0A8 !important; } html:not([data-sabz-theme="light"]) #anees-bank .tv-wrong { color: #FF8A7A !important; } }
+html[data-sabz-theme="dark"] #anees-bank .tu-strip a.on, html[data-sabz-theme="dark"] #anees-bank .tu-strip a.on b { color: #10241A; }
+#anees-bank .tv-card.tv-done { padding-top: 8px; padding-bottom: 8px; opacity: .8; }
+#sub { font-size: 15px; } .hw-key { font-size: 14px; } .hw-key i { width: 11px; height: 11px; }
+@media (max-width: 680px) { #anees-bank .dw-chip, .card .dw-chip { font-size: 12.5px; } }
