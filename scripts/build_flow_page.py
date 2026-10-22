@@ -109,7 +109,7 @@ def build():
     html = BR.page(TITLE, "", "ANEES-FLOW.fragment.html", "Claude", "2026-10-21", story=screen_roles(frag))
     html = html.replace('<link rel="stylesheet" href="../css/ai-reports.css?v=20261022-study">',
                         '<link rel="stylesheet" href="../css/ai-reports.css?v=20261022-study"><link rel="stylesheet" href="../css/dw-reports.css?v=1">')
-    html = html.replace('<article class="ar-doc">\n\n</article>', "").replace('<div class="ab-sub">Built from ANEES-FLOW.fragment.html</div>', "")
+    html = html.replace('<article class="ar-doc">\n\n</article>', "").replace('<div class="ab-sub">Built from ANEES-FLOW.fragment.html</div>', "").replace('‹ All AI reports</a>', '‹ Reports</a>')
     io.open(OUT, "w", encoding="utf-8").write(html)
     print("built", os.path.relpath(OUT, REPO), "%d KB" % (len(html) // 1024))
     fill_tab(frag)
