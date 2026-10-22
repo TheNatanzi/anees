@@ -12,12 +12,17 @@
   }
   function run(o) {
     const app = new URLSearchParams(location.search).get('from') === 'app';
+    // de-word (plan/OVERNIGHT-DEWORD-2026-10-22.md): the line for her becomes numbered steps; the old sentence opens in place (ⓘ)
+    const steps = o.steps && o.steps.length
+      ? `<ol class="dw-flow dw-steps">${o.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>${o.who ? `<details class="dw-fold dw-why"><summary><span class="dw-i">i</span>More</summary><div>${esc(o.who)}</div></details>` : ''}`
+      : `<p class="ab-sub">${esc(o.who || '')}</p>`;
     document.body.insertAdjacentHTML('afterbegin', `<div id="anees-bank" class="vp-sabz hb-solo"><main>
       ${app ? '<p class="hb-solo-back"><a href="../tutor.html">‹ Back to Tutor</a> <span>Preview · any tap here saves as the tutor’s answer</span></p>' : ''}
-      <header class="ab-header vp-header"><div><div class="vp-eyebrow">For the tutor · from the student's app</div><h1>${esc(o.title)}</h1><p class="ab-sub">${esc(o.who || '')}</p></div></header>
+      <header class="ab-header vp-header dw-solo-head"><div><h1>${esc(o.title)}</h1>${steps}</div><div class="dw-top" data-theme-slot></div></header>
       <section class="hb-panel" id="hb-body"></section></main></div>`);
     const t = token(), el = document.getElementById('hb-body');
-    if (!t && !o.noToken) { el.innerHTML = '<p class="hb-sub">This page needs the private link the student sent you.</p>'; return; }
+    if (!t && !o.noToken) { document.querySelectorAll('.dw-steps, .dw-why').forEach(x => x.remove());   // nothing to do yet but open the link
+      el.innerHTML = '<div class="dw-gate"><svg class="dw-pic dw-lock" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="var(--dw-a1)" stroke-width="6" stroke-linecap="round"><path d="M27 37a10 10 0 0 0 14 0l9-9a10 10 0 0 0-14-14l-3 3"/><path d="M37 27a10 10 0 0 0-14 0l-9 9a10 10 0 0 0 14 14l3-3"/></svg><p class="hb-sub"><b>Open the student&#39;s link</b><small>The private link the student sent you.</small></p></div>'; return; }
     o.mount(el, { token: t, base: '../' });
     if (root.AneesNote) root.AneesNote.attach(el, { token: t, list: (location.pathname.split('/').pop() || 'page').replace('.html', '') + (new URLSearchParams(location.search).get('list') ? ':' + new URLSearchParams(location.search).get('list') : ''), title: o.title });   // AM-27
   }

@@ -294,3 +294,94 @@ body.dw-doc .dw-lede { display: flex; flex-wrap: wrap; align-items: center; gap:
 body.dw-doc a.dw-btn { display: inline-block; padding: 3px 12px; border-radius: 999px; background: var(--green); color: var(--bg); text-decoration: none; font-weight: 600; font-size: 13px; }
 html[data-look="kurz"] body.dw-doc a.dw-btn { background: var(--kz-yellow); color: #14204A; }
 body.dw-mat section.dw-open > .dw-noparts { display: none !important; }
+
+/* ---------- the tutor's answer pages (amal/after, plan, review, verb-check, word-review; js/hub/solo.js) ---------- */
+#anees-bank.hb-solo .dw-solo-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+#anees-bank.hb-solo .dw-solo-head > div:first-child { min-width: 0; flex: 1 1 auto; }
+#anees-bank.hb-solo .dw-solo-head h1 { margin: 4px 0 8px; }
+#anees-bank.hb-solo .dw-top { flex: none; width: 132px; display: flex; flex-direction: column; align-items: flex-end; }
+#anees-bank.hb-solo .dw-top .sabz-theme { margin-top: 0; }
+#anees-bank.hb-solo .dw-steps { margin: 4px 0 6px; }
+#anees-bank.hb-solo .dw-steps > li { font-weight: 600; color: var(--ab-text, var(--dw-ink)); }
+#anees-bank.hb-solo .dw-why > div { color: var(--ab-muted); font-size: 13px; }
+.dw-gate { display: flex; align-items: center; gap: 16px; }
+.dw-gate .dw-lock { width: 56px; height: 56px; flex: none; }
+.dw-gate p { margin: 0; font-size: 16px; }
+@media (max-width: 680px) {
+  #anees-bank.hb-solo .dw-top { width: 100px; }
+  #anees-bank.hb-solo .dw-solo-head { flex-direction: row !important; flex-wrap: nowrap !important; }
+  #anees-bank.hb-solo .dw-steps { flex-wrap: nowrap; gap: 4px; }
+  #anees-bank.hb-solo .dw-steps > li { flex: 1 1 0; min-width: 0; flex-direction: column; align-items: flex-start; gap: 4px; padding: 7px 8px; font-size: 12px; line-height: 1.25; }
+  #anees-bank.hb-solo .dw-solo-head h1 { font-size: 26px; }
+  #anees-bank.hb-solo .dw-top { width: 92px; }
+}
+html[data-look="kurz"] #anees-bank.hb-solo .hb-panel { border: 0; border-radius: 22px; }
+html[data-look="kurz"] .dw-gate .dw-lock rect, html[data-look="kurz"] .dw-gate .dw-lock path:first-of-type { }
+#anees-bank.hb-solo .dw-solo-head { display: block !important; position: relative; }
+#anees-bank.hb-solo .dw-solo-head .dw-top { position: absolute; top: 0; right: 0; }
+#anees-bank.hb-solo .dw-solo-head h1 { padding-right: 144px; }
+@media (max-width: 680px) { #anees-bank.hb-solo .dw-solo-head h1 { padding-right: 100px; } }
+#anees-bank.hb-solo .dw-solo-head h1 { min-height: 70px; margin-bottom: 4px; }
+#anees-bank.hb-solo .dw-solo-head .anees-look { margin-top: 5px; }
+#anees-bank.hb-solo .hb-panel:has(.dw-gate) { padding: 28px 24px; }
+.dw-gate .dw-lock { width: 72px; height: 72px; }
+.dw-gate p { font-size: 18px; }
+
+/* ---------- Big Picture: the five stages as one pipeline ---------- */
+#anees-bank .bp-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+#anees-bank .bp-add { padding: 12px 14px; }
+#anees-bank .bp-add textarea { min-height: 64px; }
+#anees-bank .bp-row { margin-top: 8px; }
+#anees-bank .bp-pipe { list-style: none; margin: 0 0 18px; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
+#anees-bank .bp-st { position: relative; display: grid; justify-items: center; gap: 2px; padding: 12px 6px 10px; background: var(--ab-panel);
+  border: 1px solid var(--ab-line); border-right: 0; text-align: center; }
+#anees-bank .bp-st:first-child { border-radius: 14px 0 0 14px; }
+#anees-bank .bp-st:last-child { border-radius: 0 14px 14px 0; border-right: 1px solid var(--ab-line); }
+#anees-bank .bp-st:not(:last-child)::after { content: ""; position: absolute; right: -9px; top: 50%; z-index: 1; width: 16px; height: 16px; transform: translateY(-50%) rotate(45deg);
+  background: var(--ab-panel); border-top: 1px solid var(--ab-line); border-right: 1px solid var(--ab-line); }
+#anees-bank .bp-st:nth-child(4)::after { opacity: .0; }
+#anees-bank .bp-st svg { width: 26px; height: 26px; fill: none; stroke: var(--dw-a1); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#anees-bank .bp-st-picked svg { stroke: var(--dw-a3); } #anees-bank .bp-st-building svg { stroke: var(--dw-a2); }
+#anees-bank .bp-st-done svg { stroke: var(--dw-ok); } #anees-bank .bp-st-dropped svg { stroke: var(--dw-muted); }
+#anees-bank .bp-st b { font: 600 34px/1.05 var(--sabz-font-serif, Georgia, serif); color: var(--ab-text); }
+#anees-bank .bp-st span { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ab-muted); }
+#anees-bank .bp-st.bp-zero b { color: var(--ab-muted); }
+#anees-bank .bp-st-dropped { background: transparent; }
+#anees-bank .bp-empty { font-size: 14px; }
+@media (max-width: 680px) {
+  #anees-bank .bp-st { padding: 10px 2px 8px; }
+  #anees-bank .bp-st b { font-size: 24px; }
+  #anees-bank .bp-st span { font-size: 9px; letter-spacing: .02em; }
+  #anees-bank .bp-st svg { width: 20px; height: 20px; }
+}
+html[data-look="kurz"] #anees-bank .bp-st { border: 0; background: var(--kz-panel); }
+html[data-look="kurz"] #anees-bank .bp-st:not(:last-child)::after { border: 0; background: var(--kz-panel); }
+html[data-look="kurz"] #anees-bank .bp-st:nth-child(odd) { background: var(--kz-raised); }
+html[data-look="kurz"] #anees-bank .bp-st:nth-child(odd):not(:last-child)::after { background: var(--kz-raised); }
+html[data-look="kurz"] #anees-bank .bp-st svg { stroke: var(--kz-yellow); stroke-width: 2.4; }
+html[data-look="kurz"] #anees-bank .bp-st-picked svg { stroke: var(--kz-teal); } html[data-look="kurz"] #anees-bank .bp-st-building svg { stroke: var(--kz-orange); }
+html[data-look="kurz"] #anees-bank .bp-st-done svg { stroke: var(--kz-blue); } html[data-look="kurz"] #anees-bank .bp-st-dropped svg { stroke: var(--kz-pink); }
+html[data-look="kurz"] #anees-bank .bp-st b { font-weight: 900; }
+.dw-gate p b { display: block; font-size: 22px; color: var(--ab-text, var(--dw-ink)); }
+.dw-gate p small { display: block; font-size: 13px; color: var(--ab-muted, var(--dw-muted)); margin-top: 2px; }
+#anees-bank .bp-st.bp-zero { opacity: .5; }
+#anees-bank .bp-first { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1.5px dashed var(--ab-line); border-radius: 14px; font-size: 15px; color: var(--ab-muted); }
+#anees-bank .bp-first b { color: var(--ab-text); }
+#anees-bank .bp-first svg { width: 34px; height: 34px; flex: none; fill: none; stroke: var(--dw-a2); stroke-width: 2; stroke-linecap: round; }
+html[data-look="kurz"] #anees-bank .bp-first { border-color: var(--kz-line); }
+html[data-look="kurz"] #anees-bank .bp-first svg { stroke: var(--kz-yellow); }
+/* each stage its own soft colour block; full contrast even at 0 */
+#anees-bank .bp-st.bp-zero { opacity: 1; }
+#anees-bank .bp-st.bp-zero b { color: var(--ab-text); }
+#anees-bank .bp-st { --c: var(--dw-a1); background: color-mix(in srgb, var(--c) 16%, var(--ab-panel)); }
+#anees-bank .bp-st:not(:last-child)::after { background: color-mix(in srgb, var(--c) 16%, var(--ab-panel)); }
+#anees-bank .bp-st-idea { --c: var(--dw-a4); } #anees-bank .bp-st-picked { --c: var(--dw-a3); } #anees-bank .bp-st-building { --c: var(--dw-a2); }
+#anees-bank .bp-st-done { --c: var(--dw-a1); } #anees-bank .bp-st-dropped { --c: var(--dw-muted); }
+#anees-bank .bp-st svg { stroke: var(--c) !important; stroke-width: 2.4; }
+#anees-bank .bp-st span { color: var(--ab-text); }
+html[data-look="kurz"] #anees-bank .bp-st-idea { --c: var(--kz-yellow); } html[data-look="kurz"] #anees-bank .bp-st-picked { --c: var(--kz-teal); }
+html[data-look="kurz"] #anees-bank .bp-st-building { --c: var(--kz-orange); } html[data-look="kurz"] #anees-bank .bp-st-done { --c: var(--kz-blue); }
+html[data-look="kurz"] #anees-bank .bp-st-dropped { --c: var(--kz-pink); }
+html[data-look="kurz"] #anees-bank .bp-st, html[data-look="kurz"] #anees-bank .bp-st:nth-child(odd) { background: color-mix(in srgb, var(--c) 22%, var(--kz-panel)); }
+html[data-look="kurz"] #anees-bank .bp-st:not(:last-child)::after, html[data-look="kurz"] #anees-bank .bp-st:nth-child(odd):not(:last-child)::after { background: color-mix(in srgb, var(--c) 22%, var(--kz-panel)); }
+#anees-bank .bp-pipe[hidden] { display: none; }
