@@ -199,9 +199,8 @@
       if (p.dataset.dp || p.closest('details') || !/^Reader AI says:/.test(txt(p))) return;
       p.dataset.dp = '1';
       const nx = p.nextElementSibling, move = [p].concat(nx && nx.matches('p.tu-meta') && /^Listening AI says:/.test(txt(nx)) ? [nx] : []);
-      const row = document.createElement('p'); row.className = 'dp-ai'; p.before(row);
-      row.appendChild(info(move, 'What the two AI readers said'));
-      row.insertAdjacentHTML('beforeend', '<span>AI notes</span>');
+      const d = document.createElement('details'); d.className = 'dp-ai'; d.innerHTML = '<summary>AI notes</summary><div></div>';
+      p.before(d); move.forEach(n => d.lastChild.appendChild(n));
     });
   }
   // r2: her two answers read by colour as well as words (same buttons, same order): a mistake in red, fine in green

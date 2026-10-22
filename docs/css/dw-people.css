@@ -626,3 +626,16 @@ html[data-sabz-theme="dark"] .hw-key, html[data-sabz-theme="dark"] #sub { opacit
 #anees-bank .hb-row.tu-row .tu-min { font-size: 13px; }
 #anees-bank .tv-card .hb-en, #anees-bank .hb-card .hb-en { font-size: 13.5px; }
 #anees-bank .tu-strip .tu-sn { font-size: 13.5px !important; }
+/* r2 round 20: "AI notes" is a small button that opens in place; phone: the four homework numbers in one row */
+#anees-bank details.dp-ai { margin: 6px 0; }
+#anees-bank details.dp-ai > summary { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 4px 12px; border: 1px solid var(--dw-line); border-radius: 999px; font: 600 12.5px var(--sabz-font-sans, system-ui); color: var(--dw-ink); cursor: pointer; list-style: none; }
+#anees-bank details.dp-ai > summary::-webkit-details-marker { display: none; }
+#anees-bank details.dp-ai > summary::before { content: "▸"; color: var(--dw-muted); } #anees-bank details.dp-ai[open] > summary::before { content: "▾"; }
+@media (max-width: 680px) {
+  #anees-bank #st-score.dw-bigs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  #anees-bank #st-score .st-now { grid-column: 1 / -1; }
+  #anees-bank #st-score .st-big:not(.st-now) { padding: 6px 6px; }
+  #anees-bank #st-score .st-big:not(.st-now) b { font-size: 22px; }
+  #anees-bank #st-score .st-big:not(.st-now) > span { font-size: 9.5px; letter-spacing: .02em; }
+  #anees-bank #st-score .st-big:not(.st-now) small { font-size: 10px; line-height: 1.2; }
+}
