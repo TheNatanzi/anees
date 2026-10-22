@@ -87,6 +87,11 @@ const panel=(key,title,sub,body,{wide=false,head='',why='',src=''}={})=>{
 const CHART_OPEN=(typeof matchMedia==='function'&&matchMedia('(max-width: 680px)').matches)?'':'ab';   // a phone opens none: the number first, the chart on tap
 const loadingTurns=()=>turnFail?empty('The turn files could not load. Refresh to retry.'):empty('Loading the turn files…');
 
+
+// de-word mini pictures (no text inside, so the page text is unchanged): a gauge with the target band, and one dot per week
+const gauge=(v,[a,b],max)=>{const X=t=>(8+Math.min(max,Math.max(0,t))/max*284).toFixed(1);return `<svg class="dw-mini" viewBox="0 0 300 26" role="img" aria-label="${f1(v)} a week against the ${a} to ${b} target"><rect x="8" y="9" width="284" height="8" rx="4" class="dw-mini-track"/><rect x="${X(a)}" y="5" width="${(X(b)-X(a)).toFixed(1)}" height="16" rx="4" class="dw-mini-band"/><circle cx="${X(v)}" cy="13" r="8" class="dw-mini-dot ${v>=a&&v<=b?'dw-in':'dw-out'}"/></svg>`;};
+const dots=flags=>`<svg class="dw-mini" viewBox="0 0 ${flags.length*26+4} 26" role="img" aria-label="${flags.filter(Boolean).length} of ${flags.length} weeks above the baseline">${flags.map((f,i)=>`<circle cx="${i*26+15}" cy="13" r="9" class="${f?'dw-mini-on':'dw-mini-off'}"/>`).join('')}</svg>`;
+
 /* ---------- A: lessons per week ---------- */
 function panelA(ls){
  const title='Showing up: lessons per week',sub='One square per lesson day, one bar per week. Band = the 3 to 4 lessons a week you and the tutor agreed on.';
@@ -110,7 +115,7 @@ function panelA(ls){
  });
  s+=tx(bx,h-4,'lessons that week');
  const why=`${inBand} of ${plural(full.length,'full week')} landed in the band. Most in one week: ${top.n} (week of ${dm(top.key)}).${gap.d?` Longest break: ${gap.d} days (${dm(gap.a)} to ${dm(gap.b)}).`:''}${weeks.length>show.length?` Showing the last ${show.length} of ${weeks.length} weeks.`:''}${weeks[weeks.length-1].open?' The current week is still running and is left out of the average.':''}`;
- return panel('a',title,sub,frame(s,'Lessons per week calendar',h),{head:big(f1(avg),`lessons a week on average over ${plural(base.length,full.length?'full week':'week')} · target ${TARGET[0]} to ${TARGET[1]}`),why,src:'lessons.json dates'});
+ return panel('a',title,sub,frame(s,'Lessons per week calendar',h),{head:big(f1(avg),`lessons a week on average over ${plural(base.length,full.length?'full week':'week')} · target ${TARGET[0]} to ${TARGET[1]}`)+gauge(avg,TARGET,7),why,src:'lessons.json dates'});
 }
 
 /* ---------- B: weekly pooled words vs baseline ---------- */
@@ -135,7 +140,7 @@ function panelB(ls){
  const small=wl.slice().sort((a,b)=>a.words.scored-b.words.scored)[0];
  const AX=(window.AneesLessonMath&&window.AneesLessonMath.approx(ls))?'≈':'';   // Medi's decision 4 (2026-09-29): unverified lessons -> "≈"
  const why=`${AX?'Every number here is "≈": it comes from lessons that are not verified yet (hover a lesson score on the table above for why). ':''}Pooled over every scored use: ${AX}${f1(allP)}%. A plain mean of the lesson percentages, ${f1(mean)}%, would weight every lesson the same${small&&mean!==null&&allP!==null&&mean<allP&&small.words.pct<mean?`, so a small lesson (${dm(small.date)}: ${small.words.scored} uses, ${f1(small.words.pct)}%) pulls it down`:''}.${called?' Progress called: the last three weeks all sit above the band.':''}`;
- return panel('b',title,sub,frame(s,'Weekly pooled words right with baseline',H),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`),why,src:'words.right, partial, scored by ISO week'});
+ return panel('b',title,sub,frame(s,'Weekly pooled words right with baseline',H),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`)+dots(after.map(w=>w.pct>base+2)),why,src:'words.right, partial, scored by ISO week'});
 }
 
 /* ---------- C: time of day ---------- */

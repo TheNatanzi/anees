@@ -185,3 +185,23 @@ html[data-look="kurz"] #anees-bank .dw-morebtn { border: 0; border-radius: 22px;
 #anees-bank .vp-card .vp-trend.vp-trend-down::before { content: "▼"; }
 #anees-bank .vp-card .vp-trend.vp-trend-flat { background: transparent; border: 1px solid var(--dw-line); color: var(--dw-muted); }
 #anees-bank .vp-card .vp-trend.vp-trend-flat::before { content: ""; width: 14px; height: 2px; border-radius: 2px; background: currentColor; }
+
+/* mini pictures under the Overview's A and B numbers */
+#anees-bank svg.dw-mini { display: block; height: 26px; width: auto; max-width: 100%; margin: -4px 0 10px; }
+#anees-bank .dw-mini-track { fill: var(--ab-raised, #E3E0D3); }
+#anees-bank .dw-mini-band { fill: var(--dw-ok-fill); stroke: var(--dw-ok); stroke-width: 1.5; }
+#anees-bank .dw-mini-dot.dw-in { fill: var(--dw-ok); } #anees-bank .dw-mini-dot.dw-out { fill: var(--dw-a2); }
+#anees-bank .dw-mini-on { fill: var(--dw-ok); } #anees-bank .dw-mini-off { fill: none; stroke: var(--dw-muted); stroke-width: 2; }
+html[data-look="kurz"] #anees-bank .dw-mini-on, html[data-look="kurz"] #anees-bank .dw-mini-dot.dw-in { fill: var(--kz-teal); }
+html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-yellow); stroke-width: 2.5; }
+
+/* Overview: the two takeaways come before the lifetime totals (visual order only; the page text keeps its order) */
+#anees-bank #vp-content:not([hidden]) { display: flex; flex-direction: column; }
+#anees-bank #vp-content > * { order: 4; min-width: 0; }
+#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > .vp-tabs { order: 1; }
+#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-tab-overview { order: 2; }
+#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-top { order: 3; margin-top: 18px; }
+/* a card's ⓘ sits up by its icon, clear of the trend chip */
+#anees-bank .vp-card > details.dw-p:not([open]) { top: 13px; right: 38px; bottom: auto; }
+@media (max-width: 680px) { #anees-bank #vp-top .vp-card, #anees-bank #vp-vocab .vp-card { padding-bottom: 14px; } }
+#anees-bank .ov2 > details.dw-p:last-child:not([open]) { display: block; text-align: right; margin-top: -4px; }
