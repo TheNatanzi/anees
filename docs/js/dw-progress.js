@@ -136,6 +136,16 @@
     }
   }
 
+  // 4. the lesson table: each cell knows its column name, so a phone can show every row as a small card
+  function labels(root) {
+    for (const tb of root.querySelectorAll('.ov-tbl > table')) {
+      const heads = [...tb.querySelectorAll('thead th')].map(th => (th.textContent || '').trim());
+      for (const tr of tb.querySelectorAll('tbody tr')) {
+        [...tr.cells].forEach((td, i) => { if (heads[i] && td.dataset.label !== heads[i]) td.dataset.label = heads[i]; });
+      }
+    }
+  }
+
   // 5. the robot alert banner: one line ("… since 10-21 19:20"), the log behind ⓘ
   function alerts() {
     const box = document.getElementById('lesson-alerts');
@@ -295,7 +305,7 @@
     busy = true;
     try {
       const head = document.querySelector('.vp-header');
-      unwrap(root); method(root); subs(root); notes(root); alerts(); notice(); dataNotes(); flashEmpty();   // round 2: no table clip, no folds
+      unwrap(root); method(root); subs(root); notes(root); labels(root); alerts(); notice(); dataNotes(); flashEmpty();   // round 2: no table clip, no folds
       if (head) subs(head);
     } finally { busy = false; }
   }

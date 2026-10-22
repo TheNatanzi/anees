@@ -274,3 +274,23 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
    panel "why" lines are data, so they read as small text right under their number. */
 #anees-bank .vp-card-sub, #anees-bank .ov2-why { font-size: 13px; color: var(--dw-muted); }
 #anees-bank #ov-metrics.ab-metrics { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+
+/* phone: the lesson table becomes one small card per lesson, every column shown with its name (no sideways scroll) */
+@media (max-width: 680px) {
+  #anees-bank .ov-tbl { overflow: visible; border: 0; background: none; }
+  #anees-bank .ov-tbl table, #anees-bank .ov-tbl tbody { display: block; width: 100%; font-size: 13px; }
+  #anees-bank .ov-tbl thead { display: none; }
+  #anees-bank .ov-tbl tbody tr { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px 10px; padding: 10px 12px; margin: 0 0 8px;
+    border: 1px solid var(--ab-line); border-radius: var(--dw-radius, 10px); background: var(--ab-panel); }
+  #anees-bank .ov-tbl tbody td { display: block; padding: 0 !important; border: 0 !important; font-size: 14px; font-weight: 600; white-space: nowrap; }
+  #anees-bank .ov-tbl tbody td::before { content: attr(data-label); display: block; font: 600 10px/1.3 var(--sabz-font-sans, system-ui);
+    letter-spacing: .04em; text-transform: uppercase; color: var(--dw-muted); white-space: normal; }
+  #anees-bank .ov-tbl tbody td:nth-child(1) { grid-column: 1 / 3; font-size: 15px; }
+  #anees-bank .ov-tbl tbody td:nth-child(2) { display: block !important; grid-column: 3 / 5; font-weight: 400; }
+  #anees-bank .ov-tbl tbody td:nth-child(1)::before, #anees-bank .ov-tbl tbody td:nth-child(2)::before { display: none; }
+  /* the Overview charts keep readable labels: they scroll sideways inside their card instead of shrinking */
+  #anees-bank #ov2 .vp-panel { overflow-x: auto; }
+  #anees-bank #ov2 svg.vp-chart { min-width: 600px; }
+}
+/* a note's ⓘ alone at the foot of a card: small, at the right, so it does not read as data */
+#anees-bank .vp-panel > details.dw-p:not(.dw-pwarn):not([open]) { text-align: right; opacity: .6; margin-top: 2px; }
