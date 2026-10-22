@@ -2,19 +2,16 @@
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-10-22T07:41:32Z",
  "last_publish_sha": "b44098535d3bf3756944baf2e8a4ae5bd9b06ec2",
- "last_block_reason": "step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/publish-guard.json: rebuild pending (open since 2026-10-22T01:19, tutor); lesson_ledger: exit 1: 2026-10-14: Word Bank audit has 242 Correct, the ledger 241 | ledger: FAIL 1 problem(s); accuracy_gates: exit 1: PROBLEM 2026-10-14: Lessons words.right=241 but the Word Bank audit has 242 Co...",
- "last_block_utc": "2026-10-22T09:25:52Z",
+ "last_block_reason": "lesson_ledger: exit 1: 2026-10-14: Word Bank audit has 242 Correct, the ledger 241 | ledger: FAIL 1 problem(s); accuracy_gates: exit 1: PROBLEM 2026-10-14: Lessons words.right=241 but the Word Bank audit has 242 Correct | accuracy check: 1 problem(s) - do not publish. First: 2026-10-14: Lessons words.right=241 but the Word Bank audit has 242 Correct; check_numbers: exit 1: numbers: FAIL 2026-10...",
+ "last_block_utc": "2026-10-22T09:30:27Z",
  "first_block_reason": "git push failed: hint: counterpart. If you want to integrate the remote changes, use 'git pull' | hint: before pushing again. | hint: See the 'Note about fast-forwards' in 'git push --help' for details.",
  "blocked_since_utc": "2026-10-22T08:19:10Z",
- "open_failures": [
-  "tutor: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/publish-guard.json: rebuild pending"
- ],
+ "open_failures": [],
  "pending": [
-  "1 open failure(s): tutor",
-  "3 blocked push(es) since the last publish"
+  "4 blocked push(es) since the last publish"
  ],
- "hours_since_publish": 1.7,
+ "hours_since_publish": 1.8,
  "stalled": false,
- "generated_at": "2026-10-22T09:25:52Z",
+ "generated_at": "2026-10-22T09:30:27Z",
  "plain_reason": "the lesson ledger check failed"
 }
