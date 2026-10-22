@@ -64,6 +64,9 @@ def dword(frag):
                  ''.join('<li style="--pc:%s"><a href="#fl-%s"><span class="fl-dot">%s</span><b>%s</b></a></li>'
                          % (c, k, ICONS.get(k, k), WORD.get(k, k)) for k, c in stops) + '</ol>')
         pass   # judges, round 10: the strip repeated the rows below, so each row carries its icon instead (strip kept unused)
+    # three bands, so the 5-second read is the call -> the robot -> the tutor -> the student
+    for code, band in (('A', '🎙️ The call'), ('B', '🤖 The robot · automatic'), ('F', '✍️ The tutor'), ('G', '📚 The student')):
+        frag = frag.replace('<details class="phase" id="fl-%s"' % code, '<div class="fl-band">%s</div><details class="phase" id="fl-%s"' % (band, code), 1)
     # "who decides" is the rule behind the whole path: it closes the page, under Done
     w = re.search(r'\s*<div class="warn">.*?</div>', frag, re.S)
     if w and '<div class="done">' in frag:

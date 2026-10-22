@@ -116,9 +116,9 @@ function dwBigs(){
  // each number sits on its own section row (one card per blind spot: number, meaning, tap to open)
  const put=(sec,b,s,warn)=>{const h=document.querySelector(sec+' details.ar-unk-d > summary .ar-unk-h');if(!h)return;const p=part(b);
   const n=document.createElement('span');n.className='dw-sumbig'+(warn?' dw-warnbig':'');
-  n.innerHTML=`<b>${b}</b><small>${s}</small>${p===null?'':`<i class="dw-split dw-bigbar" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
+  n.innerHTML=`<b>${b}</b><small>${s}</small>${p===null?'':`<i class="dw-split dw-bigbar${warn?' dw-bad':''}" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
  const VT=(txt('air-unknowns-vocab').match(/of the student’s ([\d,]+) word events/)||[])[1];
- put('#ar-unk-listen',L,'labels correct · higher is better');put('#ar-unk-vocab',V,(VT?`of ${VT} `:'')+'events need review',1);put('#ar-unk-grammar',`${G2}/${G1}`,'slips detected · higher is better',1);if(N)put('#ar-unk-names',N,'names need a label',1);
+ put('#ar-unk-listen',L,'labels correct · higher is better');put('#ar-unk-vocab',VT?`${V}/${VT}`:V,'events need review',1);put('#ar-unk-grammar',`${G2}/${G1}`,'slips caught · the rest missed',1);if(N)put('#ar-unk-names',N,'names need a label',1);
  const nav=T.querySelector('.ar-jump');if(nav)nav.after(box);if(nav)nav.hidden=true;
 }
 let dwT=0;
@@ -126,7 +126,12 @@ const dwTry=(f,...a)=>{try{f(...a);}catch(e){window.dwErr=(window.dwErr||[]).con
 // Grades: the KPIs and the per-lesson bars stay; the full table opens from one tap
 function dwTable(){const H=$('air-grades');if(!H)return;H.querySelectorAll('table').forEach(t=>{if(t.closest('details.dw-fold'))return;const box=t.closest('.ar-tbl')||t;
  const n=t.tBodies[0]?t.tBodies[0].rows.length:0;const d=document.createElement('details');d.className='dw-fold';d.innerHTML=`<summary>Full table · every lesson and version (${n} rows)</summary>`;box.before(d);d.append(box);});}
-function dwPass(){dwTry(dwBigs);dwTry(dwTable);dwTry(dwGroups);document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwTry(dwInfo,el);});dwTry(dwFold,t);});}
+// Grades + Research: a long note under a number opens in place (its first words stay)
+function dwTiny(){document.querySelectorAll('#ar-tab-grades .ar-kpi .ab-tiny:not([data-dw])').forEach(t=>{t.dataset.dw='1';const w=t.textContent.trim().split(/\s+/);if(w.length<=7)return;
+ const head=t.textContent.split(/[;:(]/)[0].split(/\s+/).slice(0,6).join(' ');const d=document.createElement('details');d.className='dw-info';d.innerHTML='<summary aria-label="More about this number">ⓘ</summary><div></div>';
+ d.lastChild.textContent=t.textContent;t.textContent=head+' ';t.append(d);});
+ const M=$('ab-metrics');if(M&&!M.closest('details')&&M.children.length){const d=document.createElement('details');d.className='dw-fold ar-counts';d.innerHTML='<summary>Report counts</summary>';M.before(d);d.append(M);}}
+function dwPass(){dwTry(dwBigs);dwTry(dwTable);dwTry(dwTiny);dwTry(dwGroups);document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwTry(dwInfo,el);});dwTry(dwFold,t);});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 new MutationObserver(()=>{clearTimeout(dwT);dwT=setTimeout(dwPass,60);}).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
 // a tap on a big number (or a #ar-unk-… link) opens that section in place
