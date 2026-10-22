@@ -154,7 +154,7 @@ def dword(page):
 
 
 ARABIC = re.compile(r'[؀-ۿ]')
-TURN = re.compile(r'<p dir="auto" class="turn">(?:<i class="lk"[^>]*></i>)?(<button class="t" data-t="([\d.]+)"[^>]*>.*?</button>)<b>([^<]+)</b>: <span class="words">(.*?)</span></p>')
+TURN = re.compile(r'<p dir="auto" class="turn">(<button class="t" data-t="([\d.]+)"[^>]*>.*?</button>)<b>([^<]+)</b>: <span class="words">(.*?)</span></p>')
 
 
 def mark_turns(page):
@@ -175,8 +175,10 @@ def mark_turns(page):
         i, text = k['i'], m.group(4)
         kind = ' data-k="ar"' if has[i] else (' data-k="lite"' if len(text.split()) <= 4 else '')   # <p class="turn"> stays exact (JS hooks, tests)
         rid = ' id="arabic-start"' if i == start else ''
-        mark = '<i class="lk"%s%s></i>' % (kind, rid) if (kind or rid) else ''   # an empty marker: <p class="turn">, <b> and the words stay exact
-        return '<p dir="auto" class="turn">%s%s<b>%s</b>: <span class="words">%s</span></p>' % (mark, m.group(1), m.group(3), text)
+        mark = '<i class="lk"%s%s></i>' % (kind, rid) if (kind or rid) else ''   # an empty marker INSIDE the time button: the row
+        # format build_lessons_page_data.page_turns reads (<p class="turn"><button ...>...</button><b>Who</b>: <span class="words">) stays exact
+        btn = m.group(1)[:-len('</button>')] + mark + '</button>' if mark else m.group(1)
+        return '<p dir="auto" class="turn">%s<b>%s</b>: <span class="words">%s</span></p>' % (btn, m.group(3), text)
     page = TURN.sub(sub, page)
     if start is not None and start > 0:
         # the talk before the Arabic practice (set-up, small talk) folds into one row that opens in place: every line is still here
