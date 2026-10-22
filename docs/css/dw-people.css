@@ -262,3 +262,13 @@ html[data-look="kurz"] #anees-bank details.tu-more > summary { border-radius: 18
   #anees-bank[aria-label="Anees tutor"] .hb-tab { flex: none; }
   #anees-bank[aria-label="Anees tutor"] .hb-tools { padding-bottom: 8px; }
 }
+/* round 13 */
+@media (max-width: 680px) {
+  #anees-bank[aria-label="Anees tutor"] #hb-hello { flex: 1 1 auto; min-width: 0; }
+  #anees-bank #hb-hello .tu-bigs { justify-content: flex-end; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big { flex: 0 1 auto; }
+  #anees-bank .hb-card .tv-pair { flex-direction: column; align-items: stretch; gap: 4px; }
+  #anees-bank .hb-card .tv-pair .tv-arrow { display: none; }
+  #anees-bank .hb-card .tv-pair .tv-wrong { border-right: 4px solid var(--dw-bad); padding-right: 8px; }
+  #anees-bank .hb-card .tv-pair .tv-right { border-right: 4px solid var(--dw-ok); padding-right: 8px; }
+}
