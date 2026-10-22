@@ -110,7 +110,8 @@ function dwBigs(){
  const g=txt('air-unknowns-grammar'),G1=(g.match(/Of the ([\d,]+) slips found by hand/)||[])[1],G2=(g.match(/slip finder caught ([\d,]+)/)||[])[1];
  const N=document.querySelectorAll('#air-possible-names details').length;
  if(!L||!V||!G1||!G2)return;
- const big=(href,b,s,warn)=>`<a class="dw-big${warn?' dw-warnbig':''}" href="${href}"><b>${b}</b><span>${s}</span></a>`;
+ const part=t=>{const m=String(t).replace(/,/g,'').match(/^(\d+)\/(\d+)$/);return m&&+m[2]?Math.round(100*m[1]/m[2]):null;};   // a ratio gets its share as one bar
+ const big=(href,b,s,warn)=>{const p=part(b);return `<a class="dw-big${warn?' dw-warnbig':''}" href="${href}"><b>${b}</b><span>${s}</span>${p===null?'':`<i class="dw-split dw-bigbar" aria-hidden="true"><i style="width:${p}%"></i></i>`}</a>`;};
  const box=document.createElement('div');box.id='dw-unk-bigs';box.className='dw-bigs';
  box.innerHTML=big('#ar-unk-listen',L,'labels right')+big('#ar-unk-vocab',V,'words to settle',1)+big('#ar-unk-grammar',`${G2}/${G1}`,'slips caught',1)+(N?big('#ar-unk-names',N,'maybe a name'):'');
  const nav=T.querySelector('.ar-jump');(nav||T.firstElementChild).after(box);if(nav)nav.hidden=true;

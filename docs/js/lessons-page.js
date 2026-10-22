@@ -326,7 +326,7 @@ function approxInto(node, text, L, estimate, provisional) {
   if (title) { node.classList.add('rel-approx'); node.title = title; node.setAttribute('data-why', title); node.tabIndex = 0; }
 }
 function wordsCell(L) {
-  var c = el('div', 'ls-cell');
+  var c = el('div', 'ls-cell ls-wcell');
   var w = L.words || {};
   var top = el('div', 'ls-big');
   if (num(w.pct)) { approxInto(top, Math.round(w.pct) + '%', L); top.classList.add(band(w.pct)); } else top.appendChild(dash(L, ['words']));
@@ -343,7 +343,7 @@ function wordsCell(L) {
   return c;
 }
 function grammarCell(L) {
-  var c = el('div', 'ls-cell');
+  var c = el('div', 'ls-cell ls-gcell');
   var g = L.grammar || {};
   var top = el('div', 'ls-big');
   if (num(g.pct)) { approxInto(top, Math.round(g.pct) + '%', L, g.estimate, g.provisional); top.classList.add(band(g.pct)); } else top.appendChild(dash(L, ['grammar']));
@@ -355,7 +355,7 @@ function grammarCell(L) {
   return c;
 }
 function talkCell(L) {
-  var c = el('div', 'ls-cell');
+  var c = el('div', 'ls-cell ls-tcell');
   var t = L.talk;
   if (!t || !num(t.speak_pct)) {
     c.appendChild(dash(L, ['talk', 'timing']));
@@ -1183,5 +1183,19 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     });
     box.dataset.dw = box.textContent.length + '';
   }
-  new MutationObserver(dwAlerts).observe(document.querySelector('main') || document.body, { childList: true, subtree: true });
+  // the newest 5 lessons show; "Show all" opens the rest in place (kept for later re-renders on this visit)
+  var dwAll = false;
+  function dwRows() {
+    var box = $('ls-rows'); if (!box) return;
+    var rows = [].slice.call(box.querySelectorAll(':scope > .ls-row'));
+    var btn = box.querySelector(':scope > .dw-more');
+    if (rows.length <= 5 || (btn && btn.dataset.n === String(rows.length) && btn.dataset.all === String(dwAll))) return;
+    if (btn) btn.remove();
+    rows.forEach(function (r, i) { r.classList.toggle('dw-fold-hid', !dwAll && i >= 5); });
+    btn = el('button', 'dw-more', dwAll ? 'Show fewer' : 'Show all ' + rows.length); btn.type = 'button';
+    btn.dataset.n = String(rows.length); btn.dataset.all = String(dwAll);
+    btn.addEventListener('click', function () { dwAll = !dwAll; btn.remove(); dwRows(); });
+    box.appendChild(btn);
+  }
+  new MutationObserver(function () { dwAlerts(); dwRows(); }).observe(document.querySelector('main') || document.body, { childList: true, subtree: true });
 })();

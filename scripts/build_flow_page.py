@@ -64,13 +64,14 @@ def dword(frag):
         xs = [20 + i * (560 / max(1, n - 1)) for i in range(n)]
         ys = [40 + (14 if i % 2 else -14) for i in range(n)]
         path = 'M' + ' '.join('%.0f %.0f' % (x, y) for x, y in zip(xs, ys))
-        dots = ''.join('<a href="#fl-%s"><circle cx="%.0f" cy="%.0f" r="13" fill="%s"/><text x="%.0f" y="%.0f" text-anchor="middle" '
-                       'font-size="13" font-weight="700" fill="#fff">%s</text></a>' % (k, x, y, c, x, y + 4.5, k)
+        dots = ''.join('<a href="#fl-%s"><circle cx="%.0f" cy="%.0f" r="15" fill="%s"/><text x="%.0f" y="%.0f" text-anchor="middle" '
+                       'font-size="15">%s</text><text x="%.0f" y="%.0f" text-anchor="middle" font-size="11" font-weight="700" '
+                       'fill="var(--dw-muted)">%s</text></a>' % (k, x, y, c, x, y + 5, ICONS.get(k, k), x, y + (30 if ys[0] != y else -21), k)
                        for (k, c), x, y in zip(stops, xs, ys))
-        road = ('<svg class="dw-pic dw-scene fl-road" viewBox="0 0 600 80" role="img" aria-label="The road from the call to the grade">'
+        road = ('<svg class="dw-pic dw-scene fl-road" viewBox="0 -8 600 96" role="img" aria-label="The road from the call to the grade">'
                 '<path d="%s" fill="none" stroke="var(--dw-line)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>'
                 '<path d="%s" fill="none" stroke="var(--dw-muted)" stroke-width="2" stroke-dasharray="6 8"/>%s'
-                '<text x="590" y="76" text-anchor="end" font-size="12" fill="var(--dw-muted)">✓ graded</text></svg>' % (path, path, dots))
+                '</svg>' % (path, path, dots))
         frag = frag.replace('<div class="key">', road + '\n  <div class="key">', 1)
     return frag
 

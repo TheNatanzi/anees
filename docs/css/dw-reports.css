@@ -216,7 +216,7 @@ html[data-look="kurz"] #anees-bank .fl .pcode { border-radius: 50%; }
 #anees-bank .ab-header h1 { position: relative; }
 #anees-bank .dw-scene.dw-mic { display: inline-block; width: 54px; vertical-align: middle; margin-left: 10px; opacity: .55; }
 html.lsn-page .dw-scene.dw-mic { width: 64px; float: right; margin: 14px 0 0 10px; opacity: .55; }
-#anees-bank .fl .fl-road { margin: 4px 0 6px; max-height: 90px; }
+#anees-bank .fl .fl-road { margin: 4px 0 6px; max-height: 120px; }
 #anees-bank .fl .fl-road a { cursor: pointer; }
 
 /* ---------- Look B "kurz": bright scenes, rounded cards, navy/blue panels ---------- */
@@ -244,3 +244,15 @@ html[data-look="kurz"].lsn-page button.t { border-radius: 999px; border-color: v
 html[data-look="kurz"].lsn-page .bar { border-radius: 0 0 18px 18px; }
 html[data-look="kurz"].lsn-page .dw-scene.dw-mic { opacity: 1; width: 90px; }
 @media (max-width: 600px) { #anees-bank .dw-scene.dw-mic { width: 40px; } html[data-look="kurz"] #anees-bank .dw-scene.dw-mic { width: 54px; } html.lsn-page .dw-scene.dw-mic { width: 48px; } }
+/* Look B round 2 (same markup both looks) */
+#anees-bank .dw-big .dw-bigbar { display: flex; height: 8px; margin: 8px 0 0; }
+#anees-bank .dw-warnbig .dw-bigbar > i { background: var(--dw-warn); }
+html.lsn-page .bar { border-bottom: 0; }
+html[data-look="kurz"].lsn-page .bar { border-radius: 0; box-shadow: none; outline: 0; }
+#anees-bank .ls-row .ls-mode { display: none; }
+@media (max-width: 680px) {
+  #anees-bank .ls-wcell::before, #anees-bank .ls-gcell::before, #anees-bank .ls-tcell::before { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--dw-muted); margin-bottom: 2px; }
+  #anees-bank .ls-wcell::before { content: "Words"; }
+  #anees-bank .ls-gcell::before { content: "Grammar"; }
+  #anees-bank .ls-tcell::before { content: "You speak · you listen"; }
+}
