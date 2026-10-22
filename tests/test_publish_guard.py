@@ -676,3 +676,28 @@ def test_a_stall_shows_a_windows_popup_at_most_every_6_hours(tmp_path):
     assert not G.stall_popup(tmp_path, h, now=now + dt.timedelta(hours=2), **kw)        # not again within 6 h
     assert G.stall_popup(tmp_path, h, now=now + dt.timedelta(hours=7), **kw)
     assert not G.stall_popup(tmp_path, h, now=now, log=lambda *p: None, popen=lambda c: None, system='linux')
+
+
+def test_reannotate_after_joining_master_commits_only_a_change(tmp_path):
+    """Medi 2026-10-22 ("why do i keep getting this"): after a pull, master's lessons.json / verification queue could be
+    stale against this checkout's ledger, so the accuracy gate blocked every hourly push for 5 h. The guard now re-runs
+    accuracy_gates.py annotate after every pull and commits the recount only when it changed something."""
+    (tmp_path / 'scripts').mkdir()
+    (tmp_path / 'scripts' / 'accuracy_gates.py').write_text('', encoding='utf-8')
+
+    class Run:
+        def __init__(self, staged):
+            self.staged, self.calls = staged, []
+
+        def __call__(self, cmd, *a, **k):
+            cmd = [str(c) for c in cmd]
+            self.calls.append(cmd)
+            rc = 1 if (cmd[:2] == ['git', 'diff'] and self.staged) else 0
+            return subprocess.CompletedProcess(cmd, rc, '', '')
+
+    changed = Run(staged=True)
+    assert G.reannotate(tmp_path, run=changed, log=lambda *a: None)
+    assert any(c[-1] == 'annotate' for c in changed.calls) and any(c[:2] == ['git', 'commit'] for c in changed.calls)
+    same = Run(staged=False)
+    assert not G.reannotate(tmp_path, run=same, log=lambda *a: None)
+    assert not any(c[:2] == ['git', 'commit'] for c in same.calls)

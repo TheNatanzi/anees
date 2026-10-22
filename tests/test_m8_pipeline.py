@@ -59,11 +59,11 @@ def test_other_4xx_does_not_retry(tmp_path, ledger):
 
 
 def test_budget_guard_stops_at_90_percent(tmp_path, ledger):
-    px.spend('elevenlabs', 8.9, 'earlier lessons')
+    px.spend('elevenlabs', px.CAPS['elevenlabs'] * 0.89, 'earlier lessons')   # follows the cap (10 -> 15 on 2026-10-20)
     mp3 = tmp_path / 'a.mp3'; mp3.write_bytes(b'x')
     with pytest.raises(px.BudgetStop):
         px.transcribe_with_retry(lambda *a, **k: R(200, body={'words': []}), mp3, 'k', minutes=60)
-    assert px.budget_ok('openai', 0.15) and not px.budget_ok('openai', 9.5)
+    assert px.budget_ok('openai', 0.15) and not px.budget_ok('openai', px.CAPS['openai'] * 0.95)
 
 
 def test_failure_email_is_rich_and_medi_only(tmp_path, monkeypatch):

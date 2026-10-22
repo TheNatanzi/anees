@@ -608,6 +608,32 @@ def job_owned_changes(root, run=subprocess.run, config=None, remote='origin', br
     return [l.strip() for l in out.splitlines() if l.strip() and is_job_owned(l.strip(), rules)]
 
 
+ANNOTATE_FILES = ('docs/data/lessons.json', 'docs/data/accuracy-release.json', 'data/accuracy/verification-queue.json')
+
+
+def reannotate(root, run=subprocess.run, log=_log):
+    """Medi 2026-10-22 (5 h stall pop-up): after joining master, lessons.json / the verification queue can be master's copy
+    while the ledger is this checkout's, so the accuracy gate called them stale on every run and nothing published.
+    Annotate is a cheap, deterministic recount: redo it after every pull so the push carries copies that match the ledger;
+    commit only when something changed. Never raises."""
+    try:
+        if not (Path(root) / 'scripts/accuracy_gates.py').exists():
+            return False
+        a = run([sys.executable, 'scripts/accuracy_gates.py', 'annotate'], cwd=str(root), capture_output=True, text=True)
+        if getattr(a, 'returncode', 0):
+            log('publish guard: accuracy annotate after joining master failed:', _short(getattr(a, 'stderr', ''), 160))
+            return False
+        _git(run, root, 'add', '--', *[p for p in ANNOTATE_FILES if (Path(root) / p).exists()])
+        if not getattr(_git(run, root, 'diff', '--cached', '--quiet'), 'returncode', 0):
+            return False
+        _git(run, root, 'commit', '-q', '-m', 'Accuracy layer re-annotated after joining master (publish guard)\n\n'
+                                              'Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>')
+        return True
+    except Exception as e:
+        log('publish guard: accuracy annotate not run:', type(e).__name__, str(e)[:120])
+        return False
+
+
 def after_generated_rebase(root, resolved, run=subprocess.run, config=None, log=_log):
     """Master's copies were kept: re-stamp the build, and queue a rebuild of every other generated file (open failures
     the hourly job retries: 'tutor' rebuilds the audit pages + Tutor page, 'refresh:<date>' re-feeds a lesson that is now
@@ -634,6 +660,7 @@ def after_generated_rebase(root, resolved, run=subprocess.run, config=None, log=
         _git(run, root, 'add', '--', *[p for p in stamps if (Path(root) / p).exists()])
         _git(run, root, 'commit', '-q', '-m', 'Build stamp re-written after rebasing onto master (publish guard)\n\n'
                                               'Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>')
+    reannotate(root, run=run, log=log)
     queued = []
     if rebuild:
         why = (f"{len(rebuild)} generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. "
@@ -727,6 +754,8 @@ def guarded_push(root=ROOT, source='?', step_failures=(), run=subprocess.run, lo
                     after_generated_rebase(root, minfo.get('resolved') or [], run=run, config=cfg, log=log)
                 elif minfo.get('files'):
                     info = minfo
+        else:
+            reannotate(root, run=run, log=log)
         if getattr(r, 'returncode', 0) and not fixed:
             _git(run, root, 'rebase', '--abort')
             why = info.get('reason') if info.get('files') else None
