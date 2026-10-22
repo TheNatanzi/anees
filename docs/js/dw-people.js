@@ -51,6 +51,13 @@
     };
     w.innerHTML = W.map((x, i) => mark(x, R[i], 'dp-del')).join(' / ');
     r.innerHTML = R.map((x, i) => mark(x, W[i], 'dp-ins')).join(' / ');
+    // several pieces: one aligned row per piece (wrong | right) instead of one long slash line; the slash line stays for readers
+    const pair = w.closest('.tv-pair');
+    if (W.length > 1 && pair && !pair.nextElementSibling?.matches('.dp-pairs')) {
+      const g = document.createElement('div'); g.className = 'dp-pairs'; g.setAttribute('aria-hidden', 'true');
+      g.innerHTML = W.map((x, i) => `<span class="dp-w" lang="ar">${mark(x, R[i], 'dp-del')}</span><span class="dp-r" lang="ar">${mark(R[i], x, 'dp-ins')}</span>`).join('');
+      pair.after(g); pair.classList.add('dp-sr');
+    }
   }
   // 2. a mistake card: the why line and the e.g. line -> one i on the "N times in ..." line, which becomes a chip
   function cards(root) {
@@ -58,6 +65,8 @@
       if (c.dataset.dp) return; c.dataset.dp = '1';
       c.querySelectorAll('.tv-pair ~ .hb-en').forEach(e => { if (/^\s*→|→\s*$/.test(txt(e))) e.classList.add('dp-sr'); });   // a half Arabizi pair (one side missing) is noise
       diffMark(c);
+      const foot = c.closest('.hb-task') && c.closest('.hb-task').querySelector(':scope > .hb-foot');   // provenance line -> the i
+      if (foot && !foot.dataset.dp && txt(foot).length > 60) { foot.dataset.dp = '1'; const row = document.createElement('p'); row.className = 'dp-footi'; foot.before(row); row.appendChild(info([foot], 'Where this list comes from')); }
       const head = c.querySelector(':scope > .hb-prog');   // a small glyph per card kind: grammar slip, word slip, new word
       if (head) { const k = /new word/i.test(txt(head)) ? 'new' : /grammar/i.test(txt(head)) ? 'gram' : 'word'; head.insertAdjacentHTML('afterbegin', GLYPH[k]); }
       const why = c.querySelector(':scope > .hb-why'), eg = [...c.querySelectorAll(':scope > p.hb-sub')].find(p => /^e\.g\./.test(txt(p)));
