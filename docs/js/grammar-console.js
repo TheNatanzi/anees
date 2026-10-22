@@ -320,12 +320,12 @@ function renderCharts() {
   var d = donut(slices);
   if (d) body.appendChild(d);
   var legend = el('div', 'gc-legend');
-  slices.forEach(function (s) {
+  slices.forEach(function (s, i) {
     var row = el('div');
     var sw = el('span', 'gc-swatch'); sw.style.background = s.color;
     row.appendChild(sw);
     // round 2: the count as a big coloured number beside its label
-    var t = el('span', null, ''); var nb = el('b', 'dw-lgn', String(s.value)); nb.style.color = s.color; t.appendChild(nb); t.appendChild(document.createTextNode(' ' + s.label));
+    var t = el('span', null, ''); var nb = el('b', 'dw-lgn', String(s.value)); if (STATUSES[i] !== 'NotTaught' && STATUSES[i] !== 'Untested') nb.style.color = s.color; t.appendChild(nb); t.appendChild(document.createTextNode(' ' + s.label));
     row.appendChild(t);
     legend.appendChild(row);
   });

@@ -204,6 +204,9 @@ def materials(meta):
     # round 2 (Medi 2026-10-22: "you cut out too much data"): every section shows open, with the list of topics on top
     joined = joined.replace('<section id="s', '<section class="dw-open" id="s')
     tiles = '<nav class="toc dw-mtoc">%s</nav>' % "".join(toc)
+    # round 3: each example as a two-part row (her Arabic | the English), her labels as small bold tags; every word kept
+    joined = re.sub(r"<li>((?:(?!</li>).)*?) \| ((?:(?!</li>).)*?)</li>", lambda m: '<li class="dw-exr"><span class="dw-az">%s</span><span class="dw-en">%s</span></li>' % (m.group(1), m.group(2)), joined)
+    joined = re.sub(r"<p>(Core [Ff]unctions?|English [Ee]quivalents?|Examples?|Use|Rule|Note)\s*:\s*", lambda m: '<p class="dw-lab"><b>%s</b> ' % m.group(1), joined)
     _unused = "".join('<a class="dw-topic" href="#%s"><b>%d</b><span>%s</span></a>' % (sid, i + 1, name)
                     for i, (sid, name) in enumerate(re.findall(r'<a href="#(s\d+)">(.*?)</a>', "".join(toc))))
     page = ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'

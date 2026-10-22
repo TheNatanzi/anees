@@ -34,7 +34,9 @@
   }
   async function mount(el) {
     if (!el) return;
-    try { const D = await (await fetch('data/amal-new-words.json', { cache: 'no-store' })).json(); el.innerHTML = html(D); } catch (e) { el.innerHTML = ''; }
+    try { const D = await (await fetch('data/amal-new-words.json', { cache: 'no-store' })).json(); const late = typeof document !== 'undefined' && document.getElementById('ab-late');
+      // round 2: the late warning stays at the top; the full promised table sits under the word list
+      if (late) { late.innerHTML = note((D && D.promised) || []); el.innerHTML = html(D).replace(note((D && D.promised) || []), ''); } else el.innerHTML = html(D); } catch (e) { el.innerHTML = ''; }
   }
   root.AneesPromised = { html, label, mount, note };
   if (typeof document !== 'undefined') document.addEventListener('DOMContentLoaded', () => mount(document.getElementById('ab-promised')));

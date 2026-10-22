@@ -153,7 +153,7 @@ _tiles += ('<button type="button" class="dw-big dw-filt s-None" data-s="None" ar
 
 s = re.sub(re.escape(DW_S) + ".*?" + re.escape(DW_E), "", s, flags=re.S).replace(DW_J, "")
 # her three checks: one folded box under the score tiles (the review button and the tiles come first); rebuilt every run
-ASK = ('<details class="ask dw-askbox"><summary><b>Check three things</b></summary><ol class="dw-flow"><li>Rule right?</li><li>Spelling yours?</li>'
+ASK = ('<details class="ask dw-askbox" open><summary><b>Check three things</b></summary><ol class="dw-flow"><li>Rule right?</li><li>Spelling yours?</li>'
        '<li>Rule missing?</li></ol><details class="dw-fold dw-askmore"><summary><span class="dw-i">i</span>What to check</summary><div><ol>'
        '<li>Is each rule right the way you teach it?</li><li>Are the example spellings yours? Please correct any that aren&#39;t.</li>'
        '<li>Is a rule missing that you want us to track?</li></ol></div></details></details>')

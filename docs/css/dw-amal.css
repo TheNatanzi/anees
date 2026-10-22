@@ -633,3 +633,19 @@ body.dw-doc .dw-detail h4 { margin-top: 8px; }
 body.dw-doc .dw-big.dw-filt small { display: block; font-size: 11px; color: var(--dw-muted); }
 body.dw-mat .dw-mtoc { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; }
 body.dw-mat .dw-mtoc a { padding: 3px 10px; border: 1px solid var(--dw-line, var(--line)); border-radius: 999px; font-size: 13px; text-decoration: none; }
+#anees-bank .st-attn-row small.st-attn-det { font-size: 12px; font-weight: 400; color: var(--dw-muted); }
+/* round 3 big-picture: empty stages are quiet, the full one leads */
+#anees-bank .bp-st.bp-zero { opacity: .55; background: transparent; }
+#anees-bank .bp-sec-idea .bp-idea { border-left: 5px solid var(--dw-a2); }
+#anees-bank .bp-sec-picked .bp-idea { border-left: 5px solid var(--dw-ok); }
+#anees-bank .bp-sec-building .bp-idea { border-left: 5px solid var(--dw-warn); }
+#anees-bank :is(.bp-sec-done, .bp-sec-dropped) .bp-idea { border-left: 5px solid var(--dw-muted); }
+/* round 3 materials: examples as two-part rows, her labels as small tags, the sound heads as chips */
+body.dw-mat li.dw-exr { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 4px 14px; padding: 4px 0; border-bottom: 1px solid var(--dw-line, var(--line)); list-style: none; }
+body.dw-mat ul:has(> li.dw-exr) { padding-left: 0; gap: 0; }
+body.dw-mat .dw-az { font-weight: 600; color: var(--ink); }
+body.dw-mat .dw-en { color: var(--muted); }
+body.dw-mat p.dw-lab b { display: inline-block; margin-right: 6px; padding: 0 8px; border-radius: 999px; font-size: 11px; letter-spacing: .04em; text-transform: uppercase;
+  background: var(--greenbg, var(--dw-ok-fill)); color: var(--green, var(--dw-ok)); vertical-align: 1px; }
+body.dw-mat section h3 { display: inline-block; padding: 2px 12px; border-radius: 8px; background: var(--greenbg, var(--dw-ok-fill)); }
+@media (max-width: 680px) { body.dw-mat li.dw-exr { grid-template-columns: 1fr; gap: 0; } }

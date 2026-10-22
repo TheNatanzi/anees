@@ -110,7 +110,7 @@
     for (const s of notes.sections || []) for (const id of s.rules) {
       const a = art(id); if (!a) continue;
       const also = s.rules.filter(x => x !== id);
-      a.insertAdjacentHTML('beforeend', `<details class="an-doc an-fold"><summary>Your Doc notes${also.length ? ' (also on ' + also.map(esc).join(', ') + ')' : ''} · ${esc(notes.source && notes.source.edited ? day(notes.source.edited + 'T12:00') : '')}</summary><div>${s.html}</div></details>`);
+      a.insertAdjacentHTML('beforeend', `<details class="an-doc an-fold"${SCOPE === document ? ' open' : ''}><summary>Your Doc notes${also.length ? ' (also on ' + also.map(esc).join(', ') + ')' : ''} · ${esc(notes.source && notes.source.edited ? day(notes.source.edited + 'T12:00') : '')}</summary><div>${s.html}</div></details>`);
     }
     // the ask box: where to write, and the materials page
     const ask = SCOPE.querySelector('.ask');

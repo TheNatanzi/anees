@@ -333,3 +333,16 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
 #gc-c4 .gc-legend { font-size: 14px; gap: 2px; } #gc-c4 .gc-legend .dw-lgn { font: 700 20px/1.1 var(--sabz-font-serif, Georgia, serif); }
 #anees-bank .gc-chart-foot, #anees-bank .gc-chart-note { font-size: 13px; }
 #gc-rows .gc-num small, #gc-rows .gc-hear small, #gc-rows small { font-size: 12px; }
+/* round 2 cards: every mix count shows (zeros too); each count + label stays on one line */
+#anees-bank .fc-mixn { display: flex !important; flex-wrap: wrap; gap: 2px 10px; }
+#anees-bank .fc-mixn span { white-space: nowrap; flex: none; width: auto !important; }
+#ab-promised { margin-top: 22px; }
+/* round 3 grammar: the donut legend wraps and every count is readable */
+#gc-c4 .gc-legend .dw-lgn[style*="E6E1D6"], #gc-c4 .gc-legend .dw-lgn[style*="CFC9BC"] { color: var(--dw-ink) !important; }
+#gc-c4 .gc-legend > div { white-space: normal; }
+@media (max-width: 680px) { #anees-bank #gc-c4 { grid-column: 1 / -1; } #gc-c4 .gc-pie-body { flex-wrap: wrap; } #gc-c4 .gc-legend { display: grid; grid-template-columns: 1fr 1fr; } }
+/* round 3 cards: the five mix counts as a 5-column grid, label under its number */
+#anees-bank .fc-mixn { display: grid !important; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+#anees-bank .fc-mixn span { display: flex; flex-direction: column; align-items: flex-start; white-space: normal; }
+#anees-bank .fc-mixn span::after { margin-left: 0 !important; font-size: 10px !important; line-height: 1.2; white-space: nowrap; }
+#anees-bank .fc-mixn .mx-mastered::after { content: "mast."; } #anees-bank .fc-mixn .mx-untested::after { content: "new"; }
