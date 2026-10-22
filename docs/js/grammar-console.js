@@ -294,6 +294,12 @@ function renderCharts() {
   fill('c2', scPct == null ? '—' : scPct + '%',
     L.length ? sparkline(sc, { bars: true, max: 100, label: 'Self-correction rate by lesson' }) : null,
     L.length ? foot(caught + ' asked or caught by you · ' + missed + ' corrected by the tutor') : null);
+  // round 6: who caught it, as one labelled split bar (you vs the tutor) above the per-lesson bars
+  if (L.length && caught + missed) {
+    var sb = el('div', 'dw-c2split'), yp = Math.round(100 * caught / (caught + missed));
+    sb.innerHTML = '<div class="dw-split"><i style="width:' + yp + '%"></i><i style="width:' + (100 - yp) + '%"></i></div><div class="dw-c2lab"><span><b>' + caught + '</b> you</span><span><b>' + missed + '</b> tutor</span></div>';
+    var c2b = $('gc-c2-body'); c2b.insertBefore(sb, c2b.firstChild);
+  }
 
   // 3 - unique rules per lesson, averaged over the range
   var uq = L.map(function (x) { return x.unique_rules; });

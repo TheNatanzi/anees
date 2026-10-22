@@ -34,7 +34,12 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = { lines:
     row.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M4 20L20 4"/></svg><div><b></b><small></small></div>';
     row.querySelector('b').textContent = big; row.querySelector('small').textContent = small;
     // round 2 (Medi: too much cut): the raw detail is a visible small line, not behind an i
-    if (detail) { var dv = document.createElement('small'); dv.className = 'st-attn-det'; dv.textContent = detail; row.querySelector('div').appendChild(dv); }
+    // round 7: a short time stays on view; the technical rest opens in place (i)
+    if (detail) { var cut = detail.indexOf(' · '), head = cut > 0 && cut < 25 ? detail.slice(0, cut) : '', rest = head ? detail.slice(cut + 3) : detail;
+      var dv = document.createElement('small'); dv.className = 'st-attn-det'; dv.textContent = head;
+      var d = document.createElement('details'), su = document.createElement('summary'), dd = document.createElement('div');
+      d.className = 'dw-info'; su.textContent = 'i'; su.title = 'Details'; dd.textContent = rest; d.appendChild(su); d.appendChild(dd); dv.appendChild(d);
+      row.querySelector('div').appendChild(dv); }
     if (first) card.insertBefore(row, card.children[1] || null); else card.appendChild(row);
   }
 function render(d) {

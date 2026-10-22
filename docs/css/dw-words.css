@@ -375,3 +375,10 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
 @media (max-width: 680px) { #anees-bank .fc-sec .fc-grid:has(.stile[data-t="cat:sets"]) { grid-template-columns: 1fr !important; } }
 /* round 6 grammar phone: mistakes + self-correction side by side, the other two full width */
 @media (max-width: 680px) { #anees-bank #gc-c3, #anees-bank #gc-c4 { grid-column: 1 / -1; } }
+/* round 7 grammar: you vs tutor split bar on the self-correction card */
+#anees-bank .dw-c2split { margin: 4px 0 8px; }
+#anees-bank .dw-c2split .dw-split { height: 12px; }
+#anees-bank .dw-c2split .dw-split > i:first-child { background: var(--dw-a1) !important; } #anees-bank .dw-c2split .dw-split > i:last-child { background: var(--dw-bad) !important; opacity: .75; }
+#anees-bank .dw-c2lab { display: flex; justify-content: space-between; font-size: 13px; margin-top: 3px; } #anees-bank .dw-c2lab b { font-size: 16px; }
+/* round 7 cards: the five mix counts stay on one row on phone too */
+@media (max-width: 680px) { #anees-bank .fc-mixn { grid-template-columns: repeat(5, auto) !important; justify-content: space-between; gap: 2px 4px; font-size: 11px; } }
