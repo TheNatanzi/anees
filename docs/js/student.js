@@ -89,7 +89,7 @@
   function scoreHtml() {
     const sc = H.score(D.tasks, D.replies, D.verdicts);
     // de-word 2026-10-22: one big number + a 2-3 word label each; how it counts sits behind the i (PG-29 keeps the dash's reason)
-    const tile = (l, v, sub, ico, inf) => `<div class="dw-big st-big">${ico || ''}<b>${v}</b><span>${l}${inf || ''}</span>${sub ? `<small>${sub}</small>` : ''}</div>`;
+    const tile = (l, v, sub, ico, inf) => `<div class="dw-big st-big${v === 0 || v === '—' ? ' st-nil' : ' st-has'}"><b>${v}</b><span>${l}${inf || ''}</span>${sub ? `<small>${sub}</small>` : ''}</div>`;
     const info = ` <details class="dw-info"><summary aria-label="How homework counts">i</summary><div>Only your teacher's verdict counts: right 1, close ½, wrong 0. The AI check never counts.</div></details>`;
     // round 6: what to do now leads (card sets + Start); the teacher's numbers follow, three zeros fold into one small line
     const C = openCards().sort((a, b) => String(a.lesson_date || '9999').localeCompare(String(b.lesson_date || '9999')) || String(a.created_at).localeCompare(String(b.created_at)));

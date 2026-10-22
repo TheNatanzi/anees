@@ -618,3 +618,11 @@ html[data-sabz-theme="dark"] #anees-bank .tu-strip a.on, html[data-sabz-theme="d
 @media (prefers-color-scheme: dark) { html:not([data-sabz-theme="light"]) .hw-key, html:not([data-sabz-theme="light"]) #sub { opacity: 1; } }
 html[data-sabz-theme="dark"] .hw-key, html[data-sabz-theme="dark"] #sub { opacity: 1; }
 .card .dw-chip { font-size: 12.5px; }
+/* r2 round 19: student tiles: a zero (or no score yet) is grey, a real count is amber; tutor counts and captions larger */
+#anees-bank .st-big.st-nil > b { color: var(--dw-muted); }
+#anees-bank #st-score .st-big.st-has:not(.st-now) > b { color: var(--dw-warn); }
+#anees-bank .hb-row.tu-row .tu-left { font-size: 20px; }
+#anees-bank .hb-row.tu-row .hb-row-s .tu-unit { font-size: 12px !important; color: var(--dw-ink) !important; opacity: .8; }
+#anees-bank .hb-row.tu-row .tu-min { font-size: 13px; }
+#anees-bank .tv-card .hb-en, #anees-bank .hb-card .hb-en { font-size: 13.5px; }
+#anees-bank .tu-strip .tu-sn { font-size: 13.5px !important; }
