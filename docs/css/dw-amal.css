@@ -580,3 +580,6 @@ body.dw-doc .dw-famn::after { position: absolute; right: 12px; top: 50%; transfo
 html[data-look="kurz"] #anees-bank .st-attn { background: color-mix(in srgb, var(--kz-yellow) 16%, var(--kz-panel)); border-left-color: var(--kz-yellow); border-radius: 20px; }
 html[data-look="kurz"] #anees-bank .st-attn-row svg { stroke: var(--kz-yellow); fill: color-mix(in srgb, var(--kz-yellow) 20%, transparent); }
 html[data-look="kurz"] #anees-bank details.st-browse > summary { border: 0; background: var(--kz-raised); }
+#anees-bank #st-guard .dw-chip, #anees-bank #st-amal .dw-chip { font-size: 13px; }
+#anees-bank #st-guard .dw-chip::before, #anees-bank #st-amal .dw-chip::before { content: "\2713"; width: 18px; height: 18px; display: inline-grid; place-items: center; color: var(--sabz-bg, #fff);
+  background: var(--dw-ok); font-size: 11px; box-shadow: none; }

@@ -47,7 +47,7 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = { guardL
     if (!card) { card = document.createElement('section'); card.id = 'st-attn'; card.className = 'st-attn';
       card.innerHTML = '<h2 class="st-attn-h">Needs attention</h2>'; host.parentNode.insertBefore(card, host); }
     var row = document.createElement('div'); row.className = 'st-attn-row';
-    row.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg><div><b></b><small></small></div>';
+    row.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/></svg><div><b></b><small></small></div>';
     row.querySelector('b').textContent = big; row.querySelector('small').textContent = small;
     if (detail) { var d = document.createElement('details'), su = document.createElement('summary'), dv = document.createElement('div');
       d.className = 'dw-info'; su.textContent = 'i'; su.title = 'Details'; dv.textContent = detail; d.appendChild(su); d.appendChild(dv); row.querySelector('b').appendChild(d); }
@@ -62,7 +62,7 @@ function render(g) {
   // de-word (plan/OVERNIGHT-DEWORD-2026-10-22.md): one status chip; the sentence and the checks open in place
   var req = ((g && g.checks) || []).filter(function (c) { return c.required; }), ok = req.filter(function (c) { return c.ok; }).length;
   var p = document.createElement('span'); p.className = 'dw-chip' + (line.state === 'pass' ? '' : ' muted');
-  p.textContent = line.state === 'pass' ? 'Publish guard · ' + ok + '/' + req.length + ' checks · ' + when(g.updated) : 'Publish guard · no pass yet';
+  p.textContent = line.state === 'pass' ? 'Publish guard OK' : 'Publish guard · no pass yet'; p.title = ok + '/' + req.length + ' checks';
   box.appendChild(p);
   if (line.alert) {           // a block Medi could not see at the time is shown, not folded away
     attnRow('Publishing blocked',
