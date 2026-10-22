@@ -411,3 +411,5 @@ html.lsn-page details.lsn-lite > summary { cursor: pointer; list-style: none; pa
 html.lsn-page details.lsn-lite > summary::-webkit-details-marker { display: none; }
 html.lsn-page details.lsn-lite > summary::before { content: "··· " attr(data-n); }
 html.lsn-page details.lsn-lite[open] > summary::before { content: "− " attr(data-n); }
+html.lsn-page details.rehear[data-rehear="applied"] { display: none; }   /* only a second listen that did NOT apply is news */
+html[data-look="kurz"].lsn-page .lsn-bigs .dw-big::after { display: none; }
