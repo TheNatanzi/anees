@@ -863,12 +863,17 @@ function buildStatusChips() {
   var box = $('gc-statuses');
   var counts = {};
   DATA.rules.forEach(function (r) { counts[r.status] = (counts[r.status] || 0) + 1; });
+  // de-word 2026-10-22: one stacked bar of the statuses above the chips
+  var bar = el('div', 'dw-split dw-gclevels'); bar.setAttribute('aria-hidden', 'true');
+  STATUSES.forEach(function (s) { if (!counts[s]) return; var i = el('i', 'dw-lv-' + s); i.style.width = (100 * counts[s] / DATA.rules.length).toFixed(2) + '%'; bar.appendChild(i); });
+  var anchor = box.closest('details.dw-filters') || box; anchor.parentNode.insertBefore(bar, anchor);
   STATUSES.forEach(function (s) {
     var b = el('button', 'ab-chip', statusLabel(s) + ' ' + (counts[s] || 0));
     b.type = 'button';
     b.setAttribute('aria-pressed', 'false');
     b.addEventListener('click', function () {
       STATUS_ON[s] = !STATUS_ON[s];
+      var fold = b.closest('details.dw-filters'); if (fold && STATUS_ON[s]) fold.open = true;
       b.setAttribute('aria-pressed', STATUS_ON[s] ? 'true' : 'false');
       render();
     });
