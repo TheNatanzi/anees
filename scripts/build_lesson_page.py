@@ -143,7 +143,39 @@ def dword(page):
                 '(%s minutes · %s transcribed words · %s lines Amal typed in chat)</div></details></div>'
                 % (mins, words, typed, note + ('' if 'Tap a time' in note else ' Tap a time to hear that line.'), mins, words, typed))
     page = DW_STATS.sub(stats, page, count=1)
-    return page.replace('<div class="lsn-note">', talk_map(page) + '<div class="lsn-note">', 1)
+    page = page.replace('<div class="lsn-note">', talk_map(page) + '<div class="lsn-note">', 1)
+    return mark_turns(page)
+
+
+ARABIC = re.compile(r'[؀-ۿ]')
+TURN = re.compile(r'<p dir="auto" class="turn">(?:<i class="lk"[^>]*></i>)?(<button class="t" data-t="([\d.]+)"[^>]*>.*?</button>)<b>([^<]+)</b>: <span class="words">(.*?)</span></p>')
+
+
+def mark_turns(page):
+    """Every line stays. A line with Arabic gets a colour band ("ar"); a short line with no Arabic (um, mm-hmm, ok) is drawn
+    small and faint ("lite"). A button on top jumps to where the Arabic practice starts: the first line from which most of
+    the next 10 lines hold Arabic."""
+    rows = TURN.findall(page)
+    if not rows:
+        return page
+    aw = [sum(1 for w in r[3].split() if ARABIC.search(w)) for r in rows]   # Arabic words on the line
+    has = [n >= 2 for n in aw]
+    rich = [n >= 3 for n in aw]
+    start = next((i for i in range(len(rows)) if rich[i] and sum(rich[i:i + 10]) >= 6), None)
+    k = {'i': -1}
+
+    def sub(m):
+        k['i'] += 1
+        i, text = k['i'], m.group(4)
+        kind = ' data-k="ar"' if has[i] else (' data-k="lite"' if len(text.split()) <= 4 else '')   # <p class="turn"> stays exact (JS hooks, tests)
+        rid = ' id="arabic-start"' if i == start else ''
+        mark = '<i class="lk"%s%s></i>' % (kind, rid) if (kind or rid) else ''   # an empty marker: <p class="turn">, <b> and the words stay exact
+        return '<p dir="auto" class="turn">%s%s<b>%s</b>: <span class="words">%s</span></p>' % (mark, m.group(1), m.group(3), text)
+    page = TURN.sub(sub, page)
+    if start is not None:
+        jump = ('<a class="lsn-jump" href="#arabic-start">▶ Jump to the Arabic practice · %s</a>' % clock(float(rows[start][1])))
+        page = page.replace('<div class="lsn-note">', jump + '<div class="lsn-note">', 1)
+    return page
 
 
 def talk_map(page, bins=60):
