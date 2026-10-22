@@ -72,8 +72,41 @@ function dwInfo(el){
  if(h){h.append(' ',d);el.remove();}
  else{d.classList.add('dw-info-line');el.replaceWith(d);}
 }
+// a long run of rows shows its first 3 (a run of dates: the newest 3); "Show all N" opens the rest in place
+function dwFold(root){
+ const parents=new Set([...root.querySelectorAll('details:not(.dw-info)')].map(d=>d.parentElement));
+ parents.forEach(par=>{
+  if(par.closest('details.dw-info'))return;
+  let run=[];const runs=[];
+  [...par.children].forEach(c=>{if(c.tagName==='DETAILS'&&!c.classList.contains('dw-info'))run.push(c);else{if(run.length)runs.push(run);run=[];}});
+  if(run.length)runs.push(run);
+  runs.filter(r=>r.length>5&&!r[0].dataset.dwRun).forEach(r=>{
+   r.forEach(d=>d.dataset.dwRun='1');
+   const dated=/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d/.test((r[0].querySelector('summary')||r[0]).textContent.trim());
+   const hide=dated?r.slice(0,-3):r.slice(3);
+   hide.forEach(d=>d.classList.add('dw-fold-hid'));
+   const b=document.createElement('button');b.type='button';b.className='dw-more';b.textContent=`Show all ${r.length}`;
+   b.onclick=()=>{const open=b.dataset.open!=='1';hide.forEach(d=>d.classList.toggle('dw-fold-hid',!open));b.dataset.open=open?'1':'0';b.textContent=open?'Show fewer':`Show all ${r.length}`;};
+   (dated?r[0]:r[r.length-1])[dated?'before':'after'](b);
+  });
+ });
+}
+// the tab's point in 5 seconds: one big number per blind spot, each a tap to its section
+function dwBigs(){
+ const T=$('ar-tab-unknowns');if(!T||$('dw-unk-bigs'))return;
+ const txt=id=>($(id)||{}).textContent||'';
+ const L=(document.querySelector('#air-unknowns-listen .fl-tile b')||{}).textContent;
+ const V=(txt('air-unknowns-vocab').match(/could not settle ([\d,]+)/)||txt('air-unknowns-vocab').match(/UNRESOLVED[^·]*·\s*([\d,]+)/i)||[])[1];
+ const g=txt('air-unknowns-grammar'),G1=(g.match(/Of the ([\d,]+) slips found by hand/)||[])[1],G2=(g.match(/slip finder caught ([\d,]+)/)||[])[1];
+ const N=document.querySelectorAll('#air-possible-names details').length;
+ if(!L||!V||!G1||!G2)return;
+ const big=(href,b,s,warn)=>`<a class="dw-big${warn?' dw-warnbig':''}" href="${href}"><b>${b}</b><span>${s}</span></a>`;
+ const box=document.createElement('div');box.id='dw-unk-bigs';box.className='dw-bigs';
+ box.innerHTML=big('#ar-unk-listen',L,'labels right')+big('#ar-unk-vocab',V,'words to settle',1)+big('#ar-unk-grammar',`${G2}/${G1}`,'slips caught',1)+(N?big('#ar-unk-names',N,'maybe a name'):'');
+ const nav=T.querySelector('.ar-jump');(nav||T.firstElementChild).after(box);if(nav)nav.hidden=true;
+}
 let dwT=0;
-function dwPass(){document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwInfo(el);}));}
+function dwPass(){document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwInfo(el);});dwFold(t);});dwBigs();}
 new MutationObserver(()=>{clearTimeout(dwT);dwT=setTimeout(dwPass,60);}).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');

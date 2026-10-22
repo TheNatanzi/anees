@@ -50,3 +50,38 @@ html[data-look="kurz"] #anees-bank .fl .num { box-shadow: 0 0 0 4px var(--kz-bg)
 #anees-bank .fl .key { align-items: center; }
 #anees-bank .fl .key details.fl-kit[open] { flex-basis: 100%; }
 #anees-bank .fl .key details.fl-kit > div.kit { max-width: none; padding: 0; border: 0; background: none; margin: 8px 0 0; }
+
+/* ---------- Lessons & Audio ---------- */
+#anees-bank .ls-rehear-applied { display: none; }       /* only a second listen that did NOT apply stays in view */
+#anees-bank .ls-wsplit { height: 7px; margin: 4px 0 3px; max-width: 150px; }
+#anees-bank :is(.ls-wsplit, .ls-key) .ls-wok { background: var(--dw-ok); }
+#anees-bank :is(.ls-wsplit, .ls-key) .ls-wbad { background: var(--dw-bad); }
+#anees-bank :is(.ls-wsplit, .ls-key) .ls-wpart { background: var(--dw-warn); }
+#anees-bank .ls-key { display: inline-flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+#anees-bank .ls-key > i { display: inline-block; width: 12px; height: 7px; border-radius: 4px; margin-left: 6px; }
+#anees-bank #ls-metrics .ab-metric-label details.dw-info > div { position: absolute; z-index: 5; max-width: 240px; text-transform: none; letter-spacing: 0; }
+
+/* ---------- AI Reports round 2 ---------- */
+#ar-tab-unknowns .vu-split { height: 14px; font-size: 0; }               /* labels sit in the legend underneath */
+#anees-bank .dw-fold-hid { display: none !important; }
+#anees-bank .dw-more { display: block; margin: 6px 0 4px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line);
+  background: var(--dw-card); color: var(--dw-ink); font: 600 12.5px/1.5 var(--sabz-font-sans, system-ui); cursor: pointer; }
+#anees-bank #dw-unk-bigs { margin: 4px 0 18px; }
+#anees-bank #dw-unk-bigs a.dw-big { text-decoration: none; color: inherit; }
+#anees-bank #dw-unk-bigs a.dw-big:hover { border-color: var(--dw-a1); }
+#anees-bank #dw-unk-bigs .dw-warnbig b { color: var(--dw-warn); }
+/* flow: studies in one pill per step; automatic-only steps read quieter */
+#anees-bank .fl details.fl-studies { display: inline-block; margin: 8px 6px 0 0; vertical-align: middle; }
+#anees-bank .fl details.fl-studies[open] { display: block; }
+#anees-bank .fl details.fl-studies > summary { list-style: none; cursor: pointer; display: inline-flex; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--ab-line); background: var(--ab-bg); }
+#anees-bank .fl details.fl-studies > summary::-webkit-details-marker { display: none; }
+#anees-bank .fl details.fl-studies > summary::before { content: "📄"; margin-right: 6px; font-size: 12px; }
+#anees-bank .fl details.fl-studies[open] details.study { display: block; margin: 6px 0 0; }
+#anees-bank .fl .node.fl-quiet .box { padding: 8px 12px; background: transparent; }
+#anees-bank .fl .node.fl-quiet .box h3 { font-size: 14.5px; font-weight: 500; }
+#anees-bank .fl .node.fl-quiet .num { transform: scale(.8); }
+@media (max-width: 600px) {
+  #anees-bank .fl .icons { flex-wrap: wrap; max-width: 100%; }
+  #anees-bank .fl .ico { width: 48px; }
+  #anees-bank .fl .top { flex-direction: column; }
+}

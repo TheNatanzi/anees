@@ -31,6 +31,15 @@ def dword(frag):
     strip = ('<ol class="dw-flow fl-phases" aria-label="The 8 phases">' +
              ''.join('<li style="--pc:%s"><a href="#fl-%s">%s</a></li>' % (c, k, t) for c, k, t in phases) + '</ol>')
     frag = frag.replace('<div class="key">', strip + '\n  <div class="key">', 1)
+    # a step's studies fold into one pill ("3 studies") that opens in place
+    def fold(m):
+        n = m.group(0).count('<details class="study">')
+        return (' <details class="fl-studies"><summary> <span class="stag">%d %s</span></summary>%s</details>'
+                % (n, 'study' if n == 1 else 'studies', m.group(0)))
+    frag = re.sub(r'(?:<details class="study">(?:(?!</details>).)*</details>)+', fold, frag, flags=re.S)
+    # a step that is only automatic (no person, no cost) reads quieter: it is part of the path, not a job for anyone
+    frag = re.sub(r'<li class="node">((?:(?!</li>).)*?<div class="chips"><span class="chip auto">Automatic</span></div>)',
+                  r'<li class="node fl-quiet">\1', frag, flags=re.S)
     # the 5 building blocks (Meet, hourly job, tutor trigger, guard, plans) join the colour key behind one (i)
     m = re.search(r'\s*</div>\s*<div class="kit">(.*?)</div>\s*(?=<div class="warn">)', frag, re.S)
     if m:

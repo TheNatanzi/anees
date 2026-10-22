@@ -260,11 +260,13 @@ function renderMetrics() {
   box.textContent = '';
   cards.forEach(function (c) {
     var m = el('div', 'ab-metric');
-    m.appendChild(el('div', 'ab-metric-label', c[0]));
+    var lab = el('div', 'ab-metric-label', c[0]);
+    m.appendChild(lab);
     var v = el('div', 'ab-number', typeof c[1] === 'string' ? c[1] : c[1].text);
     if (typeof c[1] !== 'string' && c[1].approx) { v.classList.add('rel-approx'); v.title = c[1].title; v.setAttribute('data-why', c[1].title); v.tabIndex = 0; }
     m.appendChild(v);
-    m.appendChild(el('div', 'ab-tiny', c[2]));
+    // De-word (2026-10-22): the how-it-was-counted note opens in place behind a small (i) on the label
+    if (/\d/.test(c[2])) { var d = el('details', 'dw-info'); var s = el('summary', '', 'ⓘ'); s.setAttribute('aria-label', 'How this is counted'); d.appendChild(s); d.appendChild(el('div', '', c[2])); lab.appendChild(document.createTextNode(' ')); lab.appendChild(d); }
     box.appendChild(m);
   });
 }
@@ -330,6 +332,11 @@ function wordsCell(L) {
   if (num(w.pct)) { approxInto(top, Math.round(w.pct) + '%', L); top.classList.add(band(w.pct)); } else top.appendChild(dash(L, ['words']));
   c.appendChild(top);
   c.appendChild(el('div', 'ls-small', (num(w.unique) ? w.unique : '—') + ' words'));
+  // De-word: right / wrong / partial as one split bar (the counts stay underneath)
+  var tot = (w.right || 0) + (w.wrong || 0) + (w.partial || 0);
+  if (tot) { var bar = el('div', 'dw-split ls-wsplit'); bar.setAttribute('aria-hidden', 'true');
+    [[w.right, 'ok'], [w.wrong, 'bad'], [w.partial, 'part']].forEach(function (x) { if (x[0]) { var i = el('i', 'ls-w' + x[1]); i.style.width = (100 * x[0] / tot).toFixed(1) + '%'; bar.appendChild(i); } });
+    c.appendChild(bar); }
   var rw = el('div', 'ls-small');
   rw.innerHTML = '<span class="ls-ok">' + (w.right || 0) + ' right</span> · <span class="ls-bad">' + (w.wrong || 0) + ' wrong</span>' + (w.partial ? ' · <span class="ls-part">' + w.partial + ' partial</span>' : '');
   c.appendChild(rw);
