@@ -25,13 +25,18 @@ if (typeof module !== 'undefined' && module.exports) { module.exports = { lines:
 function render(d) {
   var host = document.getElementById('st-guard'); if (!host) return;
   var box = document.createElement('div'); box.className = 'ab-sub st-amal'; box.id = 'st-amal';
-  var L = lines(d), p = document.createElement('span'); p.textContent = L.head; box.appendChild(p);
+  // de-word: chips (count, a warning when a source cannot be read, last check); the sentence and her sources open in place
+  var L = lines(d), unread = d && d.sources ? d.sources.filter(function (s) { return !s.readable; }).length : 0;
+  var p = document.createElement('span'); p.className = 'dw-chip' + (d && d.sources ? '' : ' muted');
+  p.textContent = d && d.sources ? 'Tutor trigger · ' + d.sources.length + ' sources · ' + String(d.checked || '').slice(0, 16).replace('T', ' ') : 'Tutor trigger · not run yet';
+  box.appendChild(p);
+  if (unread) { var w = document.createElement('span'); w.className = 'dw-chip warn'; w.textContent = unread + ' not readable'; box.appendChild(w); }
   var det = document.createElement('details'), sum = document.createElement('summary');
-  sum.textContent = 'Her sources and the last recalculations'; det.appendChild(sum);
+  det.className = 'dw-info'; sum.textContent = 'i'; sum.title = 'Her sources and the last recalculations'; det.appendChild(sum);
   var ul = document.createElement('ul');
-  L.sources.concat(L.firings.length ? L.firings : ['No firing yet: nothing of hers has changed since the trigger started.']).forEach(function (t) {
+  [L.head].concat(L.sources).concat(L.firings.length ? L.firings : ['No firing yet: nothing of hers has changed since the trigger started.']).forEach(function (t) {
     var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
-  det.appendChild(ul); box.appendChild(det); host.insertAdjacentElement('afterend', box);
+  var wrap = document.createElement('div'); wrap.appendChild(ul); det.appendChild(wrap); box.appendChild(det); host.insertAdjacentElement('afterend', box);
 }
 var build = window.ANEES_SETTINGS_BUILD || String(Date.now());
 fetch('data/amal-trigger.json?build=' + encodeURIComponent(build), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(render, function () { render(null); });

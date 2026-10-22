@@ -385,3 +385,53 @@ html[data-look="kurz"] #anees-bank .bp-st-dropped { --c: var(--kz-pink); }
 html[data-look="kurz"] #anees-bank .bp-st, html[data-look="kurz"] #anees-bank .bp-st:nth-child(odd) { background: color-mix(in srgb, var(--c) 22%, var(--kz-panel)); }
 html[data-look="kurz"] #anees-bank .bp-st:not(:last-child)::after, html[data-look="kurz"] #anees-bank .bp-st:nth-child(odd):not(:last-child)::after { background: color-mix(in srgb, var(--c) 22%, var(--kz-panel)); }
 #anees-bank .bp-pipe[hidden] { display: none; }
+
+/* ---------- System Settings ---------- */
+#anees-bank #st-metrics.ab-metrics { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 10px; margin: 12px 0 16px; }
+#anees-bank .st-dw-rules { padding: 14px 16px; border-radius: var(--dw-radius); background: var(--dw-card); border: 1px solid var(--dw-line); min-width: 0; }
+#anees-bank .st-dw-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+#anees-bank .st-dw-head .dw-num { display: inline; font-size: var(--dw-big); }
+#anees-bank .st-dw-head span { font-weight: 700; font-size: 15px; }
+#anees-bank .st-dw-head small { font-size: 12px; color: var(--dw-muted); }
+#anees-bank .st-dw-split { height: 16px; margin: 10px 0 8px; }
+#anees-bank .st-dw-split > .st-dw-enforced, #anees-bank .st-dw-k.st-dw-enforced b { background: var(--dw-ok); }
+#anees-bank .st-dw-split > .st-dw-partly { background: var(--dw-warn); }
+#anees-bank .st-dw-split > .st-dw-planned { background: var(--dw-a4); }
+#anees-bank .st-dw-keys { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; }
+#anees-bank .st-dw-k { display: inline-flex; align-items: baseline; gap: 5px; }
+#anees-bank .st-dw-k b { font-size: 18px; background: none !important; }
+#anees-bank .st-dw-k.st-dw-enforced b { color: var(--dw-ok); } #anees-bank .st-dw-k.st-dw-partly b { color: var(--dw-warn); }
+#anees-bank .st-dw-k.st-dw-planned b { color: var(--dw-a4); }
+#anees-bank .st-dw-k small { display: none; }
+#anees-bank .st-dw-big small { font-size: 11px; }
+#anees-bank #st-guard, #anees-bank #st-amal { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 6px 0; padding: 0; background: none; border: 0; }
+#anees-bank #st-guard details.dw-info ul, #anees-bank #st-amal details.dw-info ul { margin: 0; padding-left: 16px; }
+#anees-bank #st-guard details.dw-info[open], #anees-bank #st-amal details.dw-info[open] { flex-basis: 100%; }
+#anees-bank .st-bookline { display: flex; align-items: center; gap: 8px; margin: 6px 0 4px; }
+#anees-bank .st-tabnote { margin: 4px 0; }
+#anees-bank .ab-viewnote details.dw-info, #anees-bank #st-coverage details.dw-info { display: inline; }
+@media (max-width: 680px) {
+  #anees-bank #st-metrics.ab-metrics { grid-template-columns: 1fr 1fr; }
+  #anees-bank .st-dw-rules { grid-column: 1 / -1; }
+}
+html[data-look="kurz"] #anees-bank .st-dw-rules { border: 0; }
+html[data-look="kurz"] #anees-bank .st-dw-head .dw-num { color: var(--kz-yellow); }
+#anees-bank .st-dw-head small { order: 3; } #anees-bank .st-dw-head span { order: 2; }
+/* the tab's own note opens from a small ⓘ at the end of the tab row */
+#anees-bank .st-tabnote { position: relative; height: 0; margin: 0; }
+#anees-bank .st-tabnote > details.dw-info { position: absolute; right: 0; top: -34px; z-index: 2; }
+#anees-bank .st-tabnote > details.dw-info[open] > div { position: absolute; right: 0; width: min(420px, 86vw); }
+#anees-bank .st-bookline { margin-bottom: 8px; }
+/* one compact status strip */
+#anees-bank #st-metrics.ab-metrics { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; }
+#anees-bank .st-dw-rules { padding: 10px 14px; }
+#anees-bank .st-dw-head .dw-num { font-size: 30px; }
+#anees-bank .st-dw-split { height: 12px; margin: 6px 0; }
+#anees-bank .dw-big.st-dw-big { padding: 10px 14px; display: flex; flex-direction: column; justify-content: center; }
+#anees-bank .dw-big.st-dw-big b { font-size: 30px; }
+#anees-bank .dw-big.st-dw-big small { display: none; }
+@media (max-width: 680px) { #anees-bank #st-metrics.ab-metrics { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 680px) {
+  #anees-bank .st-tabs { flex-wrap: nowrap !important; overflow-x: auto; scrollbar-width: none; }
+  #anees-bank .st-tabs .ab-tab { flex: none; white-space: nowrap; }
+}

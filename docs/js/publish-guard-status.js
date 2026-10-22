@@ -44,15 +44,21 @@ function render(g) {
   var line = guardLine(g);
   box.textContent = '';
   box.className = 'ab-sub st-guard st-guard-' + line.state;
-  var p = document.createElement('span'); p.textContent = line.text; box.appendChild(p);
+  // de-word (plan/OVERNIGHT-DEWORD-2026-10-22.md): one status chip; the sentence and the checks open in place
+  var req = ((g && g.checks) || []).filter(function (c) { return c.required; }), ok = req.filter(function (c) { return c.ok; }).length;
+  var p = document.createElement('span'); p.className = 'dw-chip' + (line.state === 'pass' ? '' : ' muted');
+  p.textContent = line.state === 'pass' ? 'Publish guard · ' + ok + '/' + req.length + ' checks · ' + when(g.updated) : 'Publish guard · no pass yet';
+  box.appendChild(p);
   if (line.alert) {           // a block Medi could not see at the time is shown, not folded away
-    var al = document.createElement('div'); al.className = 'st-guard-alert'; al.textContent = line.alert; box.appendChild(al);
+    var al = document.createElement('span'); al.className = 'dw-chip warn st-guard-alert';
+    al.textContent = 'Last block · ' + when(g.last_block.at) + (g.last_block.source ? ' · ' + g.last_block.source : ''); box.appendChild(al);
   }
   if (line.details.length || (line.checks || []).length) {
     var det = document.createElement('details'), sum = document.createElement('summary');
-    sum.textContent = 'What it checks'; det.appendChild(sum);
+    det.className = 'dw-info'; sum.textContent = 'i'; sum.title = 'What it checks'; det.appendChild(sum);
     var ul = document.createElement('ul');
-    line.details.filter(function (t) { return t !== line.alert; }).concat(line.checks || []).forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+    [line.text].concat(line.details).concat(line.checks || []).forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+    ul = (function (u) { var d = document.createElement('div'); d.appendChild(u); return d; })(ul);
     det.appendChild(ul); box.appendChild(det);
   }
 }

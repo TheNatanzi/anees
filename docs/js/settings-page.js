@@ -113,15 +113,14 @@ function renderMetrics() {
     ['AI reports', String(((REPORTS && REPORTS.reports) || []).length), 'Research behind the rules'],
     ['Standing rules', String(((STANDING && STANDING.rules) || []).length), 'From RULES.md, change only on the student’s word']
   ];
+  // de-word (plan/OVERNIGHT-DEWORD-2026-10-22.md): the rule count as one bar split by status, then two big numbers
   var box = $('st-metrics');
-  box.textContent = '';
-  cards.forEach(function (c) {
-    var m = el('div', 'ab-metric');
-    m.appendChild(el('div', 'ab-metric-label', c[0]));
-    m.appendChild(el('div', 'ab-number', c[1]));
-    m.appendChild(el('div', 'ab-tiny', c[2]));
-    box.appendChild(m);
-  });
+  box.innerHTML = '';
+  var tot = all.length || 1, parts = [['enforced', n('enforced')], ['partly', n('partly')], ['planned', n('planned')]];
+  box.innerHTML = '<div class="st-dw-rules"><div class="st-dw-head"><b class="dw-num">' + esc(cards[0][1]) + '</b><small>' + esc(cards[0][2]) + '</small><span>rules</span></div>'
+    + '<div class="dw-split st-dw-split">' + parts.map(function (x) { return '<i class="st-dw-' + x[0] + '" style="width:' + (100 * x[1] / tot).toFixed(1) + '%" title="' + esc(leg[x[0]] || '') + '"></i>'; }).join('') + '</div>'
+    + '<div class="st-dw-keys">' + parts.map(function (x, k) { return '<span class="st-dw-k st-dw-' + x[0] + '"><b>' + x[1] + '</b> ' + esc(cards[k + 1][0]) + '<small>' + esc(cards[k + 1][2]) + '</small></span>'; }).join('') + '</div></div>'
+    + cards.slice(4).map(function (c) { return '<div class="dw-big st-dw-big"><b>' + esc(c[1]) + '</b><span>' + esc(c[0]) + '</span><small>' + esc(c[2]) + '</small></div>'; }).join('');
 }
 function renderTabs() {
   var box = $('st-tabs');
@@ -136,12 +135,9 @@ function renderTabs() {
     box.appendChild(b);
   });
   var note = $('st-tabnote');
-  note.textContent = '';
-  if (TAB === 'standing') note.textContent = (STANDING && STANDING.intro_md || '').replace(/\s+/g, ' ');
-  else if (TAB === 'system') note.textContent = SYS_NOTE;
-  else if (TAB === 'words') note.textContent = WORD_NOTE;
-  else if (TAB === 'reports') note.textContent = REPORT_NOTE;
-  else note.textContent = 'Ideas agreed for later, in order.';
+  var txt = TAB === 'standing' ? (STANDING && STANDING.intro_md || '').replace(/\s+/g, ' ') : TAB === 'system' ? SYS_NOTE : TAB === 'words' ? WORD_NOTE
+    : TAB === 'reports' ? REPORT_NOTE : 'Ideas agreed for later, in order.';
+  note.innerHTML = '<details class="dw-info"><summary title="About this tab">i</summary><div>' + esc(txt) + '</div></details>';
 }
 function renderChips() {
   var box = $('st-chips');
@@ -271,12 +267,15 @@ function render() {
   list.forEach(function (it) { rows.appendChild(row(it)); });
   $('st-results').textContent = list.length + ' of ' + all.length + ' shown';
   var leg = (RULES && RULES.legend) || {};
-  $('st-legend').textContent = hasStatus(TAB) ? 'Enforced = ' + (leg.enforced || '') + ' · Partly = ' + (leg.partly || '') + ' · Planned = ' + (leg.planned || '') : 'Tap a row to open it';
+  $('st-legend').innerHTML = hasStatus(TAB) ? '<details class="dw-info"><summary title="What the statuses mean">i</summary><div>' + esc('Enforced = ' + (leg.enforced || '') + ' · Partly = ' + (leg.partly || '') + ' · Planned = ' + (leg.planned || '')) + '</div></details>' : '';
   var cov = $('st-coverage');
+  cov.innerHTML = '';
   if (TAB === 'standing') cov.textContent = 'Updated ' + ((STANDING && STANDING.updated) || '—') + '. Source: RULES.md (a rule changes only when the student says so, in writing, there). Rebuilt by scripts/build_standing_rules.py.';
   else if (hasStatus(TAB)) cov.textContent = 'Updated ' + ((RULES && RULES.updated) || '—') + '. Source: docs/data/ai_rules.json (edit there, the page follows).';
   else if (TAB === 'reports') cov.textContent = 'Updated ' + ((REPORTS && REPORTS.updated) || '—') + '. Numbers are counts on frozen clips, not accuracy; no word-perfect transcript exists yet.';
   else cov.textContent = '';
+  if (cov.textContent) { var ct = cov.textContent, m = /^(Updated [^.]*\.)\s*(.*)$/.exec(ct);
+    cov.innerHTML = m ? esc(m[1]) + ' <details class="dw-info"><summary title="Source">i</summary><div>' + esc(m[2]) + '</div></details>' : esc(ct); }
   $('st-reset').hidden = !(QUERY || STATUSES.some(function (s) { return STATUS_ON[s[0]]; }));
 }
 function wire() {
