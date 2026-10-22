@@ -497,3 +497,9 @@ html[data-look="kurz"] #anees-bank .hb-row .tu-kind { width: 22px; height: 22px;
 #anees-bank .st-now .st-stack.st-cols { width: 150px; height: 64px; }
 @media (max-width: 680px) { #anees-bank .st-now .st-stack.st-cols { display: block !important; position: static; transform: none; grid-column: 1 / -1; width: 100%; height: 40px; margin-top: 8px; } }
 @media (max-width: 680px) { #anees-bank .st-now .st-stack.st-cols { order: 9; width: 140px; justify-self: start; } }
+/* r2 round 4: a row without a count (Student results) puts its line under the title; the glyph sits inline with the title */
+#anees-bank .hb-row.tu-row .hb-row-t { display: flex; flex-wrap: wrap; align-items: center; }
+#anees-bank .hb-row.tu-row .hb-row-t::before { flex-basis: 100%; }
+#anees-bank .hb-row.tu-row .hb-row-s.tu-row-s:not(:has(.tu-left)):not(:has(.dw-chip)) { grid-column: 1 / -1; white-space: normal; justify-items: start; font-size: 13px; color: var(--dw-muted); }
+#anees-bank .st-now .st-stack.st-cols { height: 74px; width: 170px; }
+@media (max-width: 680px) { #anees-bank .st-now .st-stack.st-cols { height: 56px; width: 160px; } }
