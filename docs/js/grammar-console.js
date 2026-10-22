@@ -260,12 +260,14 @@ function renderCharts() {
     if (foot) f.appendChild(foot);
   }
   function foot(text, delta) {
-    var w = el('span', null, text);
+    // de-word 2026-10-22: the counts behind each chart open in place (ⓘ)
+    var d = el('details', 'dw-info'), sm = el('summary', 'dw-i'), w = el('div', null, text);
+    sm.setAttribute('aria-label', 'The counts behind this chart'); d.appendChild(sm); d.appendChild(w);
     if (delta) {
-      var d = el('span', delta.good ? 'gc-delta-good' : 'gc-delta-bad', ' ' + delta.text);
-      w.appendChild(d);
+      var dd = el('span', delta.good ? 'gc-delta-good' : 'gc-delta-bad', ' ' + delta.text);
+      w.appendChild(dd);
     }
-    return w;
+    return d;
   }
 
   function sum(key) {
@@ -329,7 +331,7 @@ function renderCharts() {
   // eng audit 2026-09-29: the cut-offs the statuses use (scripts/build_grammar_console.py status()) were not written
   // anywhere on the page; scripts/check_numbers.py checks every rule against exactly these.
   // de-word 2026-10-22: the cut-offs open in place (ⓘ) instead of a paragraph under the donut
-  $('gc-c4-foot').innerHTML = '<details class="dw-info"><summary aria-label="How a rule gets its level">ⓘ</summary><div>Score = (uses − mistakes) ÷ uses, rounded. Mastered = 95%+ on 10+ uses · Good = 85%+ · Shaky = 65%+ · Wrong = under 65%. Unscored = no counter for his right uses. Status never moves on its own — it needs a recorded use.</div></details>';
+  $('gc-c4-foot').innerHTML = '<details class="dw-info"><summary aria-label="How a rule gets its level">ⓘ</summary><div>All 60 buckets. Score = (uses − mistakes) ÷ uses, rounded. Mastered = 95%+ on 10+ uses · Good = 85%+ · Shaky = 65%+ · Wrong = under 65%. Unscored = no counter for his right uses. Status never moves on its own — it needs a recorded use.</div></details>';
 }
 
 /* ---------- rule rows ---------- */

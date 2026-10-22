@@ -181,3 +181,42 @@ html[data-look="kurz"] #ab-rows .ab-badge strong.ab-status-Wrong { background: v
 html[data-look="kurz"] #ab-rows .ab-badge strong.ab-status-Good { background: var(--kz-blue); color: #fff; }
 html[data-look="kurz"] .fc.dw-fc .dw-fcbar { background: var(--kz-yellow); opacity: .45; }
 @media (max-width: 680px) { html[data-look="kurz"] #anees-bank h1::after { width: 64px; height: 32px; } }
+#anees-bank .stile.wide.empty { min-height: 0; flex-direction: row; align-items: center; gap: 14px; }
+#anees-bank .stile.wide.empty .vp-card-value { order: -1; }
+#anees-bank .stile.wide.empty .vp-card-sub { color: var(--dw-ok); font-weight: 700; }
+#anees-bank .stile.wide.empty .vp-card-sub::before { content: "✓ "; }
+/* Look B round 2 */
+#anees-bank .ab-header h1 { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+#anees-bank button.stile.wide.empty { min-height: 0; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 4px 14px; padding: 12px 16px; }
+#anees-bank button.stile.wide.empty .vp-card-value { display: none; }
+html[data-look="kurz"] .pn-bar { background: var(--kz-panel) !important; border-color: var(--kz-line) !important; }
+html[data-look="kurz"] .pn-tab { color: var(--kz-muted) !important; }
+html[data-look="kurz"] .pn-tab[aria-current="page"] { color: #14204A !important; background: #FFC93C !important; }
+html[data-look="kurz"] #anees-bank .stile[data-t="shaky"], html[data-look="kurz"] #anees-bank .dw-need-Shaky, html[data-look="kurz"] #dw-practice-cta { background: #FFC93C; color: #14204A; }
+html[data-look="kurz"] #anees-bank .dw-need-Wrong { background: #FF5C8A; color: #14204A; }
+/* Look B round 3 (same markup both looks) */
+#anees-bank .gc-chart-foot details.dw-info { display: inline-block; margin-top: 4px; }
+#anees-bank .dw-wb-bigs { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+#anees-bank .dw-wb-bigs .dw-big:nth-child(-n+2) { grid-column: span 2; }
+#anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) { padding: 10px; }
+#anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) b { font-size: 22px; }
+#anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) span { font-size: 10px; letter-spacing: .03em; }
+#anees-bank .dw-wb-bigs .dw-big:nth-child(-n+2) b { font-size: clamp(32px, 3.6vw, 46px); }
+@media (max-width: 680px) {
+  #anees-bank .dw-wb-bigs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  #anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) { padding: 8px 6px; }
+  #anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) b { font-size: 18px; }
+  #anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) span { font-size: 9px; }
+  #anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) small { display: none; }
+}
+/* card tiles: a small glyph per randomized drill */
+#anees-bank .stile[data-t^="drill:"] .vp-card-value::after, #anees-bank .stile[data-t="never"] .vp-card-value::after { content: ""; width: 30px; height: 30px; margin-left: auto; background: var(--dw-a2);
+  -webkit-mask: var(--g) center / contain no-repeat; mask: var(--g) center / contain no-repeat; }
+#anees-bank .stile .vp-card-value { display: flex; align-items: baseline; gap: 6px; width: 100%; }
+#anees-bank .stile[data-t="drill:random"] { --g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm3 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm8 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-4-4a2 2 0 1 0 0 4 2 2 0 0 0 0-4z'/%3E%3C/svg%3E"); }
+#anees-bank .stile[data-t="drill:full"] { --g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 3h5v5H3zM9.5 3h5v5h-5zM16 3h5v5h-5zM3 9.5h5v5H3zM9.5 9.5h5v5h-5zM16 9.5h5v5h-5zM3 16h5v5H3zM9.5 16h5v5h-5zM16 16h5v5h-5z'/%3E%3C/svg%3E"); }
+#anees-bank .stile[data-t="never"] { --g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 3h11l3 3v15H5zM8 8h8v2H8zm0 4h8v2H8zm0 4h5v2H8z'/%3E%3C/svg%3E"); }
+#anees-bank .stile[data-t="drill:full"] .vp-card-value::after { background: var(--dw-a3); }
+#anees-bank .stile[data-t="never"] .vp-card-value::after { background: var(--dw-a4); }
+details.dw-info > summary.dw-i::before { content: "ⓘ"; }
+html[data-look="kurz"] #anees-bank .fc-grid > .stile[data-t="shaky"] { border-top: 0 !important; }
