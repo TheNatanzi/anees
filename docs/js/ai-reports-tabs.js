@@ -78,7 +78,8 @@ function dwV1(){const V=$('air-unknowns-vocab');if(!V||$('dw-v1-bigs'))return;co
  const pick=t=>{const m=t.match(/^(.*?)·\s*([\d,]+)\s*·/);return m?[m[2],m[1].replace(/:.*$/,'').trim()]:null;};
  const g=subs.map(x=>pick(x.textContent.trim())).filter(Boolean);if(g.length<2)return;
  const cls=['dw-warnbig','',''];const box=document.createElement('div');box.id='dw-v1-bigs';box.className='dw-bigs';
- box.innerHTML=g.map((x,i)=>`<div class="dw-big ${cls[i]||''}"><b>${x[0]}</b><span>${x[1].toLowerCase()}</span></div>`).join('');
+ const VT=+((V.textContent.match(/of the student’s ([\d,]+) word events/)||[])[1]||'0').replace(/,/g,'');
+ box.innerHTML=g.map((x,i)=>{const n=+x[0].replace(/,/g,''),p=VT?Math.max(n?1:0,Math.round(100*n/VT)):null;return `<div class="dw-big ${cls[i]||''}"><b>${x[0]}</b><span>${x[1].toLowerCase()}</span>${p===null?'':`<small>${p<1?'<1':p}% of ${VT.toLocaleString('en-US')} events</small><i class="dw-split dw-bigbar" aria-hidden="true"><i style="width:${Math.max(1,100*n/VT)}%"></i></i>`}</div>`;}).join('');
  const bar=V.querySelector('.vu-split');(bar||subs[0]).before(box);}
 // under each split bar: its slices' labels on one line, so a thin slice never loses its number
 function dwPcts(){document.querySelectorAll('#ar-tab-unknowns .vu-split').forEach(b=>{if(b.nextElementSibling&&b.nextElementSibling.classList.contains('dw-pcts'))return;

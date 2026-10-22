@@ -59,6 +59,16 @@ def dword(frag):
            '<div><span>ElevenLabs alone</span><div class="dw-track"><i style="width:65%"></i></div><b>61–69%</b></div>'
            '<div><span>+ 3 listens, 2 agree</span><div class="dw-track"><i style="width:94.5%"></i></div><b>94–95%</b></div></div>')
     frag = re.sub(r'(method A: 94–95%</b> right\.(?:(?!<div class="chips">).)*?)(<div class="chips">)', lambda m: m.group(1) + acc + m.group(2), frag, count=1, flags=re.S)
+    # one picture of the path on top: 8 coloured stops, icon + one word each, A to H; a tap jumps to that phase
+    stops = re.findall(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>', frag)
+    if stops:
+        frag = re.sub(r'<section class="phase" style="--pc:[^"]+"><header><span class="pcode">(\w)</span>',
+                      lambda m: m.group(0).replace('<section class="phase"', '<section class="phase" id="fl-%s"' % m.group(1), 1), frag)
+        strip = ('<ol class="fl-path" aria-label="The %d stops from the call to the grade">' % len(stops) +
+                 ''.join('<li style="--pc:%s"><a href="#fl-%s"><span class="fl-dot">%s</span><b>%s</b></a></li>'
+                         % (c, k, SVG_ICONS.get(k, k), WORD.get(k, k)) for c, k in stops) + '</ol>')
+        i = frag.find('<section class="phase"')
+        frag = frag[:i] + strip + '\n  ' + frag[i:]
     frag = frag.replace("<div class=\"done\"><b>✓ Done</b>", "<div class=\"done\">" + DONE_ICON + "<b>Done</b>", 1)
     return frag
 

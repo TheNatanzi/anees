@@ -376,6 +376,7 @@ function talkCell(L) {
   var lab = el('div', 'ls-small ls-barlab');
   lab.innerHTML = '<span><i class="ls-dot ls-bar-you"></i>You ' + Math.round(t.speak_pct) + '%</span><span><i class="ls-dot ls-bar-amal"></i>Tutor ' + Math.round(t.listen_pct) + '%</span>';
   c.appendChild(lab);
+  if (L.fillers && num(L.fillers.per_min)) c.appendChild(el('div', 'ls-small dw-fpm', ' ' + (Math.round(L.fillers.per_min * 10) / 10) + ' filled pauses / min'));   // de-word r2: the sort's metric shows on its row
   return c;
 }
 function row(L) {
