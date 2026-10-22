@@ -50,14 +50,15 @@ function render(d) {
   var p = document.createElement('span'); p.className = 'dw-chip' + (d && d.sources ? '' : ' muted');
   p.textContent = d && d.sources ? 'Tutor trigger ' + (unread ? 'running' : 'OK') : 'Tutor trigger · not run yet';
   box.appendChild(p);
-  var tx = document.createElement('span'); tx.className = 'st-line'; tx.textContent = ' ' + L.head; box.appendChild(tx);
+  var tx = document.createElement('span'); tx.className = 'st-line';
+  tx.textContent = d && d.sources ? ' ' + d.sources.length + ' sources · ' + unread + ' unreadable · last check ' + String(d.checked || '').slice(0, 16).replace('T', ' ') : ' ' + L.head; box.appendChild(tx);
   if (unread) attnRow(unread + ' tutor source' + (unread === 1 ? '' : 's') + ' not readable',
     'Next: fix access to ' + d.sources.filter(function (s) { return !s.readable; }).map(function (s) { return s.label; }).join(', ') + '.',
     d.sources.filter(function (s) { return !s.readable; }).map(function (s) { return s.label + ': ' + s.why; }).join(' · '));
   var det = document.createElement('details'), sum = document.createElement('summary');
   det.className = 'dw-info'; sum.textContent = 'i'; sum.title = 'Her sources and the last recalculations'; det.appendChild(sum);
   var ul = document.createElement('ul');
-  L.sources.concat(L.firings.length ? L.firings : ['No firing yet: nothing of hers has changed since the trigger started.']).forEach(function (t) {
+  [L.head].concat(L.sources).concat(L.firings.length ? L.firings : ['No firing yet: nothing of hers has changed since the trigger started.']).forEach(function (t) {
     var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
   var wrap = document.createElement('div'); wrap.appendChild(ul); det.appendChild(wrap); box.appendChild(det); host.insertAdjacentElement('afterend', box);
 }

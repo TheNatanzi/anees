@@ -382,3 +382,7 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
 #anees-bank .dw-c2lab { display: flex; justify-content: space-between; font-size: 13px; margin-top: 3px; } #anees-bank .dw-c2lab b { font-size: 16px; }
 /* round 7 cards: the five mix counts stay on one row on phone too */
 @media (max-width: 680px) { #anees-bank .fc-mixn { grid-template-columns: repeat(5, auto) !important; justify-content: space-between; gap: 2px 4px; font-size: 11px; } }
+/* round 8 grammar phone: the self-correction card full width, its chart inside the card */
+@media (max-width: 680px) { #anees-bank #gc-c2 { grid-column: 1 / -1; } }
+#anees-bank .gc-chart-body svg { max-width: 100%; } #anees-bank .gc-chart { overflow: hidden; }
+#anees-bank .dw-c2lab { gap: 12px; }

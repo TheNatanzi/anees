@@ -69,7 +69,9 @@ function render(g) {
   var p = document.createElement('span'); p.className = 'dw-chip' + (line.state === 'pass' ? '' : ' muted');
   p.textContent = line.state === 'pass' ? 'Publish guard OK' : 'Publish guard · no pass yet'; p.title = ok + '/' + req.length + ' checks';
   box.appendChild(p);
-  var tx = document.createElement('span'); tx.className = 'st-line'; tx.textContent = ' ' + line.text; box.appendChild(tx);
+  // round 8: the key numbers on view (checks passed, when); the full sentence is the first line behind the i
+  var tx = document.createElement('span'); tx.className = 'st-line';
+  tx.textContent = line.state === 'pass' ? ' ' + ok + '/' + req.length + ' checks passed · ' + when(g.updated) : ' ' + line.text; box.appendChild(tx);
   if (line.alert) {           // a block Medi could not see at the time is shown, not folded away
     attnRow('Publishing blocked',
       /^clean_tree/.test(g.last_block.reason || '') ? 'Next: commit the changed files, then publish again.' : 'Next: fix the failed check, then publish again.',
@@ -79,7 +81,7 @@ function render(g) {
     var det = document.createElement('details'), sum = document.createElement('summary');
     det.className = 'dw-info'; sum.textContent = 'i'; sum.title = 'What it checks'; det.appendChild(sum);
     var ul = document.createElement('ul');
-    line.details.filter(function (t) { return t !== line.alert; }).concat(line.checks || []).forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+    [line.text].concat(line.details.filter(function (t) { return t !== line.alert; })).concat(line.checks || []).forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
     ul = (function (u) { var d = document.createElement('div'); d.appendChild(u); return d; })(ul);
     det.appendChild(ul); box.appendChild(det);
   }

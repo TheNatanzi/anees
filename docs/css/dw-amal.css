@@ -688,3 +688,5 @@ body.dw-doc .dw-big.dw-filt.s-Shaky { background: var(--dw-warn-fill); } body.dw
 #anees-bank .st-attn-det details.dw-info[open] > div { font-size: 12px; overflow-wrap: anywhere; }
 /* round 7 rules page: the jump chips are bigger tap targets */
 body.dw-doc .toc a { font-size: 13px !important; padding: 4px 9px !important; }
+/* round 8 rules page phone: score tiles 3 + 2 */
+@media (max-width: 680px) { body.dw-doc .dw-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
