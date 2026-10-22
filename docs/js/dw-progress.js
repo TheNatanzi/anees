@@ -127,6 +127,22 @@
       line.textContent = ''; line.append(head, d);
     }
     box.classList.add('dw-alerts');
+    // when the site-wide stall bar already says the robot stopped, this box folds to one small chip
+    const stall = document.getElementById('stall-bar') || document.getElementById('stale-bar');
+    if (stall && !box.querySelector(':scope > details.dw-alllog')) {
+      const d = info('robot log', true); d.classList.add('dw-alllog');
+      d.lastChild.append(...box.childNodes);
+      box.append(d);
+    }
+  }
+
+  // 9. the "saved data / loading" status line: a small chip, its words behind it
+  function notice() {
+    const n = document.getElementById('vp-notice');
+    if (!n || n.dataset.dw || !textOf(n)) return;
+    n.dataset.dw = '1';
+    const d = info('saved data', true); d.classList.add('dw-notice');
+    n.before(d); d.lastChild.append(n);
   }
 
   // 6. a tile that repeats a top card (Lessons tracked = Lessons + Lesson hours) steps aside
@@ -202,7 +218,7 @@
     busy = true;
     try {
       const head = document.querySelector('.vp-header');
-      method(root); subs(root); notes(root); tables(root); dups(root); alerts(); charts();
+      method(root); subs(root); notes(root); tables(root); dups(root); alerts(); notice(); charts();
       if (head) subs(head);
     } finally { busy = false; }
   }

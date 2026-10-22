@@ -138,8 +138,8 @@ html[data-look="kurz"] #anees-bank .dw-more { background: var(--dw-a1); color: v
 
 /* the source notes at the end of a tab read as one small "Sources ⓘ" line, not stray icons */
 #anees-bank .ov2 > details.dw-p:last-child > summary::before, #anees-bank #vp-footer + details.dw-p > summary::before,
-#anees-bank details.dw-p:has(> div > #vp-footer) > summary::before { content: "Source"; font: 600 11px/1 var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-muted); }
-#anees-bank details.dw-p:has(> div > #vp-footer) > summary::before { content: "Status"; }
+#anees-bank details.dw-p:has(> div > #vp-footer) > summary::before { content: ""; font: 600 11px/1 var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-muted); }
+#anees-bank details.dw-p:has(> div > #vp-footer) > summary::before { content: ""; }
 
 /* ---------- Look B extras: bright pills, lettered badges, a small sky scene by the title ---------- */
 html[data-look="kurz"] #anees-bank details.dw-chart > summary { background: var(--kz-raised); border: 0; color: var(--kz-ink); }
@@ -199,9 +199,19 @@ html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-
 #anees-bank #vp-content:not([hidden]) { display: flex; flex-direction: column; }
 #anees-bank #vp-content > * { order: 4; min-width: 0; }
 #anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > .vp-tabs { order: 1; }
-#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-tab-overview { order: 2; }
-#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-top { order: 3; margin-top: 18px; }
+#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-tab-overview { order: 2; display: contents; }
+#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-tab-overview > * { order: 4; }
+#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-tab-overview > #ov2 { order: 2; }
+#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-top { order: 3; margin-top: 8px; }
 /* a card's ⓘ sits up by its icon, clear of the trend chip */
 #anees-bank .vp-card > details.dw-p:not([open]) { top: 13px; right: 38px; bottom: auto; }
 @media (max-width: 680px) { #anees-bank #vp-top .vp-card, #anees-bank #vp-vocab .vp-card { padding-bottom: 14px; } }
 #anees-bank .ov2 > details.dw-p:last-child:not([open]) { display: block; text-align: right; margin-top: -4px; }
+
+#anees-bank details.dw-notice { display: block; margin: 0 0 10px; }
+#anees-bank details.dw-notice > div > #vp-notice { margin: 0; }
+#anees-bank details.dw-notice:has(> div > #vp-notice[hidden]) { display: none; }
+#lesson-alerts.dw-alerts:has(> details.dw-alllog) { background: none !important; border: 0 !important; padding: 0 !important; margin: 0 0 6px !important; }
+#lesson-alerts details.dw-alllog { display: block; }
+#lesson-alerts details.dw-alllog > summary { margin-left: 0; }
+#lesson-alerts details.dw-alllog > div { font: 13px/1.45 system-ui !important; }
