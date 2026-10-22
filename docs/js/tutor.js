@@ -84,6 +84,9 @@
     : `<span class="tu-left">${fmt(t.left)}</span><span class="tu-unit"> ${esc(t.unit)} left </span><span class="dw-chip muted tu-min">${mins(t)} min</span>`;
   const short = s => String(s || '').replace(/\s*\(about \d+ min(?:utes)?\)\s*$/, '');
   const info = (txt, label) => `<details class="dw-info"><summary aria-label="${esc(label || 'More')}">i</summary><div>${txt}</div></details>`;
+  const hico = (c, d) => `<svg class="dw-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="var(${c})" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const HICO = { list: hico('--dw-a1', '<path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/>'),
+    clock: hico('--dw-a2', '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>') };
   const pctBar = v => `<div class="hb-bar tu-pct" aria-hidden="true"><i class="${v === null || v === undefined ? '' : v < 50 ? 'lo' : v < 80 ? 'mid' : 'hi'}" style="width:${v || 0}%"></i></div>`;
 
   // ---- the one list + panel every tab uses (PG-17) ----------------------------------------------------------------
@@ -91,8 +94,8 @@
   const wide = () => window.matchMedia('(min-width:960px)').matches;
   function listPanel(tab, rows, selId, fill, o) {
     o = o || {};
-    const view = $('#hb-view'), sel = rows.find(r => r.id === selId) || (wide() && !o.noAuto ? rows[0] : null);
-    let shown = Math.max(PAGE, sel ? rows.indexOf(sel) + 1 : 0), q = '';
+    const view = $('#hb-view'), sel = rows.find(r => r.id === selId) || ((wide() || o.autoPhone) && !o.noAuto ? rows[0] : null);
+    let shown = Math.max(PAGE, sel ? rows.indexOf(sel) + 1 : 0), q = '', foldOpen = false;
     view.innerHTML = `<div class="hb-wrap">${o.head || ''}<div class="hb-list" role="list">${o.search ? `<input type="search" class="hb-search" placeholder="${esc(o.search)}" aria-label="${esc(o.search)}">` : ''}<div data-rows></div></div>
       <div class="hb-panel" id="hb-panel" hidden></div></div>`;
     const panelEl = $('#hb-panel'), $rows = view.querySelector('[data-rows]');
@@ -103,11 +106,19 @@
         + (!list.length ? '<p class="hb-empty">Nothing matches.</p>' : '');
       $rows.querySelectorAll('[data-row]').forEach(b => b.onclick = () => { location.hash = tab + (sel && sel.id === b.dataset.row && !wide() ? '' : '/' + b.dataset.row); });
       const m = $rows.querySelector('[data-more]'); if (m) m.onclick = () => { shown += PAGE; draw(); };
+      // de-word 2026-10-22: the first few rows stay in sight, the rest of the same list (same order) opens in place
+      if (o.fold && !ql && page.length > o.fold + 1) {
+        const rest = [...$rows.querySelectorAll(':scope > [data-row]')].slice(o.fold), d = document.createElement('details');
+        d.className = 'tu-more'; d.open = foldOpen || !!(sel && page.indexOf(sel) >= o.fold);
+        d.innerHTML = `<summary>All tasks (${page.length}) · ${rest.length} more</summary><div class="tu-more-rows"></div>`;
+        rest[0].before(d); rest.forEach(b => d.lastChild.appendChild(b));
+        d.addEventListener('toggle', () => { foldOpen = d.open; });
+      }
       if (sel && !wide()) { const row = $rows.querySelector(`[data-row="${CSS.escape(sel.id)}"]`); if (row) row.insertAdjacentElement('afterend', panelEl); }
     }
     const s = view.querySelector('.hb-search'); if (s) s.oninput = () => { q = s.value; shown = PAGE; draw(); };
     draw();
-    if (sel) { panelEl.hidden = false; fill(sel, panelEl); if (!wide()) panelEl.scrollIntoView({ block: 'nearest' }); }
+    if (sel) { panelEl.hidden = false; fill(sel, panelEl); if (!wide() && selId) panelEl.scrollIntoView({ block: 'nearest' }); }
   }
 
   // ---- To do --------------------------------------------------------------------------------------------------
@@ -116,7 +127,7 @@
     setTab('todo');
     const open = tasks.filter(t => !t.finished);
     if (!open.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing to check right now. Shukran!</p>'; return; }
-    listPanel('todo', open.map((t, i) => ({ id: t.id, next: i === 0, title: short(t.title), sep: short(t.title) !== t.title, subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p));
+    listPanel('todo', open.map((t, i) => ({ id: t.id, next: i === 0, title: short(t.title), sep: short(t.title) !== t.title, subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p), { fold: 5, autoPhone: !location.hash.slice(1) });
   }
   // every kind of item opens here, with the same module as its old address (no link to another page)
   // AM-27 (Medi 2026-10-07 "lets add a place for notes for amal always"): a note box under every card and one per list.
@@ -419,7 +430,7 @@
     } catch (e) {}
     rankAll(tasks); count();
     const open = tasks.filter(t => !t.finished && !t.quiet), m = open.reduce((s, t) => s + t.left * minEach(t), 0);
-    $('#hb-hello').innerHTML = open.length ? `<span class="tu-bigs"><span class="dw-big"><b>${open.length}</b><span>thing${open.length === 1 ? '' : 's'} to check</span></span><span class="dw-big"><b>${Math.max(1, Math.round(m))}</b><span>min to go</span></span></span>` : 'Marhaba · nothing to check right now';
+    $('#hb-hello').innerHTML = open.length ? `<span class="tu-bigs"><span class="dw-big">${HICO.list}<b>${open.length}</b><span>thing${open.length === 1 ? '' : 's'} to check</span></span><span class="dw-big">${HICO.clock}<b>${Math.max(1, Math.round(m))}</b><span>min to go</span></span></span>` : 'Marhaba · nothing to check right now';
     $('#ab-source').textContent = 'Live · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
     if (!wired) { wired = true; window.addEventListener('hashchange', route); route(); }
     else if (onList()) route();

@@ -91,15 +91,18 @@
     // de-word 2026-10-22: one big number + a 2-3 word label each; how it counts sits behind the i (PG-29 keeps the dash's reason)
     const tile = (l, v, sub, ico, inf) => `<div class="dw-big st-big">${ico || ''}<b>${v}</b><span>${l}${inf || ''}</span>${sub ? `<small>${sub}</small>` : ''}</div>`;
     const info = ` <details class="dw-info"><summary aria-label="How homework counts">i</summary><div>Only your teacher's verdict counts: right 1, close ½, wrong 0. The AI check never counts.</div></details>`;
-    return tile('Homework', sc.pct === null ? '—' : sc.pct + '%', sc.done ? `${sc.done} checked by teacher` : 'no teacher check yet', ICO.star, info)
-      + (sc.todo || sc.waiting + sc.checking || sc.overruled
-        ? tile('To answer', sc.todo, '', ICO.pen) + tile('With teacher', sc.waiting + sc.checking, '', ICO.clock) + tile('AI overruled', sc.overruled, sc.done ? `of ${sc.done}` : '', ICO.flip)
-        : `<div class="dw-big st-big st-calm">${ICO.ok}<b>Nothing waiting</b><span>0 to answer · 0 with teacher · 0 AI overruled</span></div>`);   // all three 0: one calm tile
+    // round 6: what to do now leads (card sets + Start); the teacher's numbers follow, three zeros fold into one small line
+    const C = openCards().sort((a, b) => String(a.lesson_date || '9999').localeCompare(String(b.lesson_date || '9999')) || String(a.created_at).localeCompare(String(b.created_at)));
+    const go = C.length ? `<div class="dw-big st-big st-now">${ICO.cards}<b>${C.length}</b><span>card sets to do</span><a class="hb-ans primary st-go st-start" href="cards.html?tile=${encodeURIComponent(C[0].set_ref)}">Start: ${esc(C[0].set_title)} →</a></div>` : '';
+    const zero = !(sc.todo || sc.waiting + sc.checking || sc.overruled);
+    return go + tile('Homework', sc.pct === null ? '—' : sc.pct + '%', sc.done ? `${sc.done} checked by teacher` : 'no teacher check yet', ICO.clip, info)
+      + (zero ? `<p class="st-zero"><span class="dw-chip muted">0 to answer</span><span class="dw-chip muted">0 with teacher</span><span class="dw-chip muted">0 AI overruled</span></p>`
+        : tile('To answer', sc.todo, '', ICO.pen) + tile('With teacher', sc.waiting + sc.checking, '', ICO.clock) + tile('AI overruled', sc.overruled, sc.done ? `of ${sc.done}` : '', ICO.flip));
   }
   // small flat icons (inline SVG in the kit colours) for the four numbers
   const svg = (c, d) => `<svg class="dw-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="var(${c})" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
   const ICO = { star: svg('--dw-a1', '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>'), pen: svg('--dw-a2', '<path d="M4 20h4L19 9l-4-4L4 16z"/>'),
-    clock: svg('--dw-a3', '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/>'), flip: svg('--dw-a4', '<path d="M4 8h13l-3-3M20 16H7l3 3"/>'), ok: svg('--dw-ok', '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/>') };
+    clock: svg('--dw-a3', '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/>'), flip: svg('--dw-a4', '<path d="M4 8h13l-3-3M20 16H7l3 3"/>'), clip: svg('--dw-a1', '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM8.5 12h7M8.5 16h5"/>'), cards: svg('--dw-a2', '<rect x="3" y="7" width="13" height="13" rx="2"/><path d="M8 4h11a2 2 0 0 1 2 2v11"/>'), ok: svg('--dw-ok', '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/>') };
   function setTab(tab) { document.querySelectorAll('.hb-tab').forEach(a => a.setAttribute('aria-selected', String(a.dataset.tab === tab))); }
   function cardsView() {
     setTab('cards');
@@ -131,6 +134,7 @@
   // but has not assigned for a lesson yet is a To do row too - every upload is the student's, assigned or not
   function allCards() { return H.effective(D.tasks).filter(x => x.kind === 'cards').concat(H.unassignedUploads(D.uploads || [], D.tasks)); }
   function openCards(t) { return allCards().filter(x => !(x.n_cards && H.cardsDone(x, D.log) >= x.n_cards)); }
+  const ring = f => `<svg class="st-ring" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--dw-line)" stroke-width="5"/><circle cx="18" cy="18" r="15" fill="none" stroke="var(--dw-a1)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(94.25 * Math.min(1, f)).toFixed(1)} 94.25" transform="rotate(-90 18 18)"/></svg>`;
   function cardsCard(t) {
     const done = H.cardsDone(t, D.log), n = t.n_cards || 0, today = new Date().toISOString().slice(0, 10), past = t.lesson_date && t.lesson_date < today;
     // de-word 2026-10-22: chips say what kind of set (lesson / new upload) and its warning (lesson passed); the count is a big n / N
@@ -138,7 +142,7 @@
     const chips = t.upload ? `<span class="dw-chip">new set · ${esc(set)}</span><span class="dw-chip muted">${t.keep === 'permanent' ? 'permanent' : 'next lessons'}</span>`
       : `<span class="dw-chip">lesson ${esc(les)}</span>${set && set !== les ? `<span class="dw-chip muted">set ${esc(set)}</span>` : ''}${past ? '<span class="dw-chip warn">lesson passed</span>' : ''}`;
     return `<a class="st-task st-cards" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" aria-label="${esc(t.set_title)}: open on Flashcards"><div class="st-cmain"><p class="dw-row st-chips2">${chips}</p>
-      <p class="st-prompt">${esc(t.set_title)}</p><div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></div><div class="st-count"><b>${n}</b><span>cards · ${done >= n && n ? 'all done' : done + ' done'}</span></div><span class="st-go2" aria-hidden="true">›</span></a>`;
+      <p class="st-prompt">${esc(t.set_title)}</p><div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></div><div class="st-count">${ring(n ? done / n : 0)}<b>${n}</b><span>cards · ${done >= n && n ? 'all done' : done + ' done'}</span></div><span class="st-go2" aria-hidden="true">›</span></a>`;
   }
   // Medi 2026-10-06: the questions he sent from a flashcard (the attention button) and her replies
   function attn() { return (window.AneesAttentionTask || { view: () => ({ all: [], open: [], answered: [] }) }).view(D.attention || []); }

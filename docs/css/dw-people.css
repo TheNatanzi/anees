@@ -151,3 +151,18 @@ html[data-look="kurz"] #anees-bank details.tu-more > summary { border-radius: 18
   #anees-bank .hb-tabs > * { flex: none; }
   #anees-bank #hb-hello .tu-bigs > .dw-big { flex: 1 1 0; min-width: 0; }
 }
+/* round 6 */
+#anees-bank .st-now { grid-column: span 2; display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 14px; background: var(--dw-card); }
+#anees-bank .st-now > b { grid-row: span 2; font-size: 52px; }
+#anees-bank .st-now > span { align-self: end; }
+#anees-bank .st-now .st-start { width: auto; min-height: 44px; margin-top: 8px; justify-self: start; display: inline-flex; align-items: center; text-decoration: none; font-size: 15px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#anees-bank .st-zero { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+#anees-bank .st-cards .hb-bar { display: none; }
+#anees-bank .st-count { display: grid; grid-template-columns: auto auto; column-gap: 10px; align-items: center; justify-items: end; }
+#anees-bank .st-count .st-ring { grid-row: span 2; width: 40px; height: 40px; }
+#anees-bank #hb-hello .tu-bigs > .dw-big { position: relative; padding-right: 44px; }
+@media (max-width: 680px) {
+  #anees-bank .st-now { grid-column: 1 / -1; }
+  #anees-bank .st-now > b { font-size: 40px; }
+  #anees-bank .st-count .st-ring { width: 32px; height: 32px; }
+}
