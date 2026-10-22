@@ -134,16 +134,18 @@ function panelB(ls){
  let s='';for(let v=lo;v<=hi;v+=10)s+=hline(L,W-R,y(v))+tx(L-6,y(v)+4,v+'%','end');
  const bt=y(Math.min(hi,base+2)),bb=y(Math.max(lo,base-2));
  s+=`<rect class="ov2-band" x="${L}" y="${bt.toFixed(1)}" width="${pw}" height="${(bb-bt).toFixed(1)}"/><line class="ov2-base" x1="${L}" x2="${W-R}" y1="${y(base).toFixed(1)}" y2="${y(base).toFixed(1)}"/>`+tx(W-R+5,y(base)+4,`baseline ${f1(base)}`);
- wk.forEach((w,i)=>{if(w.slips===null)return;const h=w.slips/maxS*ph*.5;s+=`<rect class="ov2-f-sage" fill-opacity=".45" x="${(x(i)-9).toFixed(1)}" y="${(T+ph-h).toFixed(1)}" width="18" height="${h.toFixed(1)}" rx="3"><title>Week of ${dm(w.k)}: ${f1(w.slips)} grammar slips per 10 min</title></rect>`+tx(x(i),T+ph-h-3,f1(w.slips),'middle','dw-slipv');});
+ // de-word r2: grammar slips get their own small chart under this one (own scale, a value on every bar)
+ const SH=96,ST=16,SB=24,sph=SH-ST-SB;let s2=hline(L,W-R,ST+sph)+tx(L-6,ST+sph+4,'0','end')+tx(L-6,ST+4,f1(maxS),'end')+hline(L,W-R,ST);
+ wk.forEach((w,i)=>{if(w.slips===null)return;const h=w.slips/maxS*sph;s2+=`<rect class="ov2-f-sage" x="${(x(i)-10).toFixed(1)}" y="${(ST+sph-h).toFixed(1)}" width="20" height="${h.toFixed(1)}" rx="3"><title>Week of ${dm(w.k)}: ${f1(w.slips)} grammar slips per 10 min</title></rect>`+tx(x(i),ST+sph-h-4,f1(w.slips),'middle','ov2-lbl')+(ph_&&i%2?'':tx(x(i),SH-6,dm(w.k),'middle'));});
  s+=`<rect class="dw-basebox" x="${(x(0)-16).toFixed(1)}" y="${T}" width="${(x(1)-x(0)+32).toFixed(1)}" height="${ph}" rx="8"/>`;   // the two baseline weeks, set apart
  s+=`<polyline class="ov2-line" points="${wk.map((w,i)=>x(i).toFixed(1)+','+y(w.pct).toFixed(1)).join(' ')}"/>`;
  wk.forEach((w,i)=>{s+=`<circle class="ov2-pt ${i<2?'dw-baseweek ':''}${w.pct>base+2?'ov2-f-good':'ov2-f-accent'}" cx="${x(i).toFixed(1)}" cy="${y(w.pct).toFixed(1)}" r="${i>=2?6:5}"><title>Week of ${dm(w.k)}: ${f1(w.pct)}% of ${w.scored} scored uses · ${plural(w.g.length,'lesson')}${i<2?' · baseline week':''}</title></circle>`+tx(x(i),y(w.pct)-10,f1(w.pct),'middle','ov2-lbl')+(ph_&&i%2?'':tx(x(i),H-10,dm(w.k),'middle'));});   // phone: every other week's date, so they never touch
- s+=`<rect class="ov2-f-sage" fill-opacity=".45" x="${L+4}" y="${T+2}" width="12" height="12" rx="2"/>`+tx(L+20,T+12,'bars: grammar slips / 10 min','','dw-cap-svg');   // swatch = the grey bars
+    // swatch = the grey bars
  const allP=pooledWords(ls),wl=ls.filter(l=>l.words&&ok(l.words.pct)),mean=wl.length?sum(wl,l=>l.words.pct)/wl.length:null;
  const small=wl.slice().sort((a,b)=>a.words.scored-b.words.scored)[0];
  const AX=(window.AneesLessonMath&&window.AneesLessonMath.approx(ls))?'≈':'';   // Medi's decision 4 (2026-09-29): unverified lessons -> "≈"
  const why=`${AX?'Every number here is "≈": it comes from lessons that are not verified yet (hover a lesson score on the table above for why). ':''}Pooled over every scored use: ${AX}${f1(allP)}%. A plain mean of the lesson percentages, ${f1(mean)}%, would weight every lesson the same${small&&mean!==null&&allP!==null&&mean<allP&&small.words.pct<mean?`, so a small lesson (${dm(small.date)}: ${small.words.scored} uses, ${f1(small.words.pct)}%) pulls it down`:''}.${called?' Progress called: the last three weeks all sit above the band.':''}`;
- return panel('b',title,sub,frame(s,'Weekly pooled words right with baseline',H,W),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`)+dots(wk.map((w,i)=>i<2?null:w.pct>base+2)),why,src:'words.right, partial, scored by ISO week'});
+ return panel('b',title,sub,`<div class="dw-chartcap">Words right, % per week</div>`+frame(s,'Weekly pooled words right with baseline',H,W)+`<div class="dw-chartcap">Grammar slips per 10 min, per week</div>`+frame(s2,'Weekly grammar slips per 10 minutes',SH,W),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`)+dots(wk.map((w,i)=>i<2?null:w.pct>base+2)),why,src:'words.right, partial, scored by ISO week'});
 }
 
 /* ---------- C: time of day ---------- */

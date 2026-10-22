@@ -312,3 +312,6 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
 #anees-bank #ov2 > .ov2-more-h { order: 4; margin: 28px 0 12px; }
 #anees-bank #ov2 > .ov2-rest { order: 4; }
 #anees-bank svg text.dw-slipv { font-size: 10px; fill: var(--dw-muted); }
+#anees-bank .dw-chartcap { font: 600 12px/1.3 var(--sabz-font-sans, system-ui); color: var(--dw-ink); margin: 10px 0 2px; }
+/* phone: the week dots repeat "5 of 6" and the chart; the chart stays */
+@media (max-width: 680px) { #anees-bank .dw-dotcap { display: none; } }

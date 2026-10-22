@@ -171,7 +171,7 @@
 
   // 3c. an Overview "why" line: sentences with a number stay; sentences without one go behind a ⓘ at its end
   function whySplit(root) {
-    for (const el of root.querySelectorAll('.ov2-why')) {
+    for (const el of root.querySelectorAll('.ov2-why, .ov2-notes > div, .ov2-text')) {
       if (el.dataset.dws || el.closest('details') || el.children.length) continue;
       const t = el.textContent || '';
       const sent = t.match(/(?:[^.!?]|[.!?](?=\S))+(?:[.!?]+\s*|$)/g) || [t];
