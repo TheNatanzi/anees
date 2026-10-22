@@ -595,3 +595,30 @@ html[data-look="kurz"] .dw-paste input { background: var(--kz-raised); border-co
 html[data-look="kurz"] #anees-bank .bp-funnel .bp-f1 { stroke: var(--kz-yellow); fill: color-mix(in srgb, var(--kz-yellow) 30%, transparent); }
 html[data-look="kurz"] #anees-bank .bp-funnel .bp-f2 { stroke: var(--kz-orange); fill: color-mix(in srgb, var(--kz-orange) 30%, transparent); }
 html[data-look="kurz"] #anees-bank .bp-funnel .bp-f3 { stroke: var(--kz-teal); }
+/* round m: the five tiles are the one summary (the stacked bar and its key are gone from view) */
+body.dw-doc .dw-status > .dw-sbar, body.dw-doc .dw-status > .dw-cap { display: none !important; }
+@media (max-width: 680px) {
+  .dw-tiles { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; gap: 4px; }
+  .dw-tiles > .dw-filt, .dw-tiles > .dw-filt.s-None, .dw-tiles > .dw-filt:nth-child(4), .dw-tiles > .dw-filt:nth-child(5) { grid-column: auto !important; }
+  body.dw-doc .dw-big.dw-filt { padding: 8px 2px 7px !important; border-left-width: 0 !important; border-top: 4px solid currentColor !important; text-align: center; }
+  html body.dw-doc .dw-big.dw-filt svg.dw-ico { display: block !important; position: static !important; transform: none !important; width: 18px !important; height: 18px !important; margin: 0 auto 2px; padding: 0 !important; background: none !important; }
+  body.dw-doc .dw-big.dw-filt b { font-size: 24px; }
+  body.dw-doc .dw-big.dw-filt span { font-size: 9px; letter-spacing: 0; white-space: nowrap; }
+  html[data-look="kurz"] body.dw-doc .dw-big.dw-filt { padding-right: 2px !important; }
+}
+.dw-gate .dw-lock { width: 96px; height: 80px; }
+#anees-bank .bp-steps { list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-start; gap: 6px; }
+#anees-bank .bp-steps li { display: grid; justify-items: center; gap: 3px; font-size: 12px; font-weight: 700; color: var(--ab-text); min-width: 52px; }
+#anees-bank .bp-steps li + li::before { content: "\2192"; position: relative; left: -32px; top: 12px; height: 0; color: var(--dw-muted); font-size: 16px; }
+#anees-bank .bp-steps svg { width: 32px; height: 32px; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+#anees-bank .bp-steps .bp-f1 { stroke: var(--dw-a4); fill: color-mix(in srgb, var(--dw-a4) 25%, transparent); }
+#anees-bank .bp-steps .bp-f2 { stroke: var(--dw-a2); fill: color-mix(in srgb, var(--dw-a2) 20%, transparent); }
+#anees-bank .bp-steps .bp-f3 { stroke: var(--dw-a1); }
+#anees-bank .bp-steps li { position: relative; }
+#anees-bank .bp-steps li + li { margin-left: 22px; }
+#anees-bank .bp-steps li + li::before { position: absolute; left: -22px; top: 6px; }
+html[data-look="kurz"] #anees-bank .bp-steps .bp-f1 { stroke: var(--kz-yellow); fill: color-mix(in srgb, var(--kz-yellow) 30%, transparent); }
+html[data-look="kurz"] #anees-bank .bp-steps .bp-f2 { stroke: var(--kz-orange); fill: color-mix(in srgb, var(--kz-orange) 25%, transparent); }
+html[data-look="kurz"] #anees-bank .bp-steps .bp-f3 { stroke: var(--kz-teal); }
+html[data-look="kurz"] body.dw-doc .fl { font-size: 13px; padding: 3px 10px; }
+html[data-look="kurz"][data-sabz-theme="light"] body.dw-doc .fl, html[data-look="kurz"] body.dw-doc .fl { color: #14204A; }
