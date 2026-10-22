@@ -1,0 +1,122 @@
+/* De-word: Progress & Stats (js/dw-progress.js moves words behind ⓘ; this file makes what is left big and plain).
+   Same markup in both looks; html[data-look="kurz"] rules only restyle. */
+
+/* ⓘ that opens in place */
+#anees-bank details.dw-p { display: inline; font: 400 13px/1.45 var(--sabz-font-sans, system-ui); letter-spacing: 0;
+  text-transform: none; color: var(--dw-muted); }
+#anees-bank details.dw-p > summary { display: inline-flex; align-items: center; gap: 6px; width: auto; height: auto; border: 0;
+  border-radius: 999px; vertical-align: middle; margin-left: 6px; background: none; }
+#anees-bank details.dw-p > summary .dw-i { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%;
+  border: 1px solid var(--dw-line); font: 700 12px/1 var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+#anees-bank details.dw-p[open] > summary { background: none; }
+#anees-bank details.dw-p[open] > summary .dw-i { background: var(--dw-ink); color: var(--sabz-bg, #F5F2EA); border-color: var(--dw-ink); }
+#anees-bank details.dw-p > div { display: block; margin: 8px 0; max-width: 72ch; font-size: 13px; color: var(--dw-muted); }
+#anees-bank details.dw-p > div > * { margin: 0; font-size: inherit; color: inherit; max-width: none; }
+#anees-bank details.dw-p > div > * + * { margin-top: 6px; }
+#anees-bank details.dw-p > summary .dw-i::before { content: "ⓘ"; }
+#anees-bank details.dw-p > summary .dw-chip::after { content: attr(data-chip); }
+/* a note that stood on its own line keeps a line (the ⓘ sits where the words were) */
+#anees-bank .vp-panel > details.dw-p, #anees-bank .ov2 > details.dw-p, #anees-bank [class*="-tab"] > details.dw-p,
+#anees-bank #va-root > details.dw-p, #anees-bank .vu-root > details.dw-p, #anees-bank .gu-root > details.dw-p,
+#anees-bank #vp-content > div > details.dw-p, #anees-bank .ov2-two > details.dw-p, #anees-bank .ov2-row > details.dw-p {
+  display: block; margin: 8px 0 0; }
+#anees-bank details.dw-p:not([open]) { min-height: 0; }
+/* warning chip (caveat, ≈ not verified, method change) stays visible */
+#anees-bank details.dw-pwarn > summary { margin-left: 0; }
+#anees-bank details.dw-pwarn > summary .dw-chip { font-size: 12px; }
+#anees-bank details.dw-method { display: block; margin: 0 0 12px; }
+#anees-bank details.dw-method.dw-again { display: none; }
+#anees-bank details.dw-method > div > p { padding: 0 !important; border: 0 !important; }
+
+/* header: title + time horizon only */
+#anees-bank .vp-header .vp-eyebrow { display: none; }
+#anees-bank .vp-header h1 { margin: 0; }
+#anees-bank #vp-notice { display: inline-block; border: 1px dashed var(--dw-line); border-radius: 999px; padding: 3px 12px;
+  background: transparent; font-size: 12px; margin: 0 0 12px; }
+
+/* the four top cards and the overview numbers: one big number, short label */
+#anees-bank #vp-top.vp-cards .vp-num, #anees-bank #vp-vocab .vp-num, #anees-bank .fp-tab .vp-num {
+  font: 600 var(--dw-big, 42px)/1.05 var(--sabz-font-serif, Georgia, serif); font-variant-numeric: tabular-nums lining-nums; }
+#anees-bank .vp-card { position: relative; }
+#anees-bank .vp-card > details.dw-p:not([open]), #anees-bank #ov-metrics .ab-metric > details.dw-p:not([open]) {
+  position: absolute; right: 10px; bottom: 10px; margin: 0; }
+#anees-bank #ov-metrics .ab-metric > details.dw-p:not([open]) { top: 8px; bottom: auto; right: 8px; }
+#anees-bank #ov-metrics .ab-metric-label { padding-right: 24px; }
+#anees-bank .vp-card > details.dw-p[open] { display: block; margin-top: 6px; }
+#anees-bank .dw-link { display: inline-block; margin: 6px 0 0 8px; font-size: 13px; font-weight: 600; }
+#anees-bank .dw-link a { color: var(--dw-a1); }
+#anees-bank .vp-card > details.dw-p > summary { margin-left: 0; }
+#anees-bank .vp-card-status { margin-top: 6px; }
+#anees-bank #ov-metrics .ab-number { font: 600 clamp(20px, 2.1vw, 28px)/1.1 var(--sabz-font-serif, Georgia, serif); letter-spacing: 0; white-space: nowrap; }
+#anees-bank #ov-metrics .ab-metric { position: relative; }
+#anees-bank #ov-metrics .ab-metric > details.dw-p { display: block; margin-top: 4px; }
+#anees-bank #ov-metrics .ab-metric > details.dw-p > summary { margin-left: 0; }
+
+/* overview table: newest 6 rows, the rest one tap away */
+#anees-bank .ov-tbl > table.dw-clip tbody tr:nth-child(n+4) { display: none; }
+#anees-bank .dw-more { display: block; margin: 8px 0 16px; border-radius: 999px; padding: 6px 14px; font-weight: 600; }
+
+/* headings keep their ⓘ on the same line */
+#anees-bank h2 > details.dw-p, #anees-bank h3 > details.dw-p, #anees-bank h1 > details.dw-p { vertical-align: middle; }
+#anees-bank h1 > details.dw-p[open] > div, #anees-bank h2 > details.dw-p[open] > div, #anees-bank h3 > details.dw-p[open] > div {
+  font-family: var(--sabz-font-sans, system-ui); font-weight: 400; }
+
+@media (max-width: 600px) {
+  #anees-bank #vp-top.vp-cards .vp-num, #anees-bank #vp-vocab .vp-num { font-size: 34px; }
+  #anees-bank #ov-metrics .ab-number { font-size: 24px; }
+  #anees-bank #ov-metrics.ab-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #anees-bank #ov-metrics .ab-metric-label { min-height: 0; }
+  #anees-bank #vp-top.vp-cards, #anees-bank #vp-vocab.vp-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  #anees-bank #vp-top .vp-card, #anees-bank #vp-vocab .vp-card { padding: 12px 12px 30px; }
+  #anees-bank .vp-card-label { letter-spacing: .08em; }
+}
+
+/* ---------- Look B (navy + bright accents) ---------- */
+html[data-look="kurz"] #anees-bank .vp-card, html[data-look="kurz"] #anees-bank #ov-metrics .ab-metric { border-radius: 20px; border: 0; overflow: hidden; }
+html[data-look="kurz"] #anees-bank #vp-top .vp-card::after, html[data-look="kurz"] #anees-bank #ov-metrics .ab-metric::after {
+  content: ""; position: absolute; right: -20px; bottom: -20px; width: 70px; height: 70px; border-radius: 50%; background: var(--dw-a1); opacity: .2; pointer-events: none; }
+html[data-look="kurz"] #anees-bank #vp-top .vp-card:nth-child(4n+2)::after, html[data-look="kurz"] #anees-bank #ov-metrics .ab-metric:nth-child(4n+2)::after { background: var(--dw-a2); }
+html[data-look="kurz"] #anees-bank #vp-top .vp-card:nth-child(4n+3)::after, html[data-look="kurz"] #anees-bank #ov-metrics .ab-metric:nth-child(4n+3)::after { background: var(--dw-a3); }
+html[data-look="kurz"] #anees-bank #vp-top .vp-card:nth-child(4n+4)::after, html[data-look="kurz"] #anees-bank #ov-metrics .ab-metric:nth-child(4n+4)::after { background: var(--dw-a4); }
+html[data-look="kurz"] #anees-bank #vp-top .vp-num, html[data-look="kurz"] #anees-bank #ov-metrics .ab-number { font-weight: 900; color: var(--dw-a1); }
+html[data-look="kurz"] #anees-bank #vp-top .vp-card:nth-child(4n+2) .vp-num, html[data-look="kurz"] #anees-bank #ov-metrics .ab-metric:nth-child(4n+2) .ab-number { color: var(--dw-a2); }
+html[data-look="kurz"] #anees-bank #vp-top .vp-card:nth-child(4n+3) .vp-num, html[data-look="kurz"] #anees-bank #ov-metrics .ab-metric:nth-child(4n+3) .ab-number { color: var(--dw-a3); }
+html[data-look="kurz"] #anees-bank #vp-top .vp-card:nth-child(4n+4) .vp-num, html[data-look="kurz"] #anees-bank #ov-metrics .ab-metric:nth-child(4n+4) .ab-number { color: var(--dw-a4); }
+html[data-look="kurz"] #anees-bank .vp-panel, html[data-look="kurz"] #anees-bank .ov2 { border-radius: 22px; }
+html[data-look="kurz"] #anees-bank .dw-more { background: var(--dw-a1); color: var(--sabz-bg, #0E1633); border: 0; }
+
+/* Grammar › Repeat offenders: "21 of 25" and "50 d (12)" were cut to "2…" */
+#anees-bank .gp-two .gp-row .gp-n { max-width: none; overflow: visible; }
+#anees-bank .ov-head .vp-eyebrow { display: none; }
+
+/* Overview angles: big number on top, chart one tap away (summary words drawn by CSS, page text unchanged) */
+#anees-bank details.dw-chart > summary { display: inline-flex; align-items: center; gap: 6px; margin: 6px 0 2px; padding: 4px 12px; border-radius: 999px;
+  border: 1px solid var(--dw-line); font: 600 12px/1.4 var(--sabz-font-sans, system-ui); color: var(--dw-ink); cursor: pointer; list-style: none; }
+#anees-bank details.dw-chart > summary::-webkit-details-marker { display: none; }
+#anees-bank details.dw-chart > summary::before { content: "▸  Show chart"; }
+#anees-bank details.dw-chart[open] > summary::before { content: "▾  Hide chart"; }
+#anees-bank details.dw-chart[open] > summary { margin-bottom: 8px; }
+#anees-bank .ov2 .vp-grid { align-items: start; }
+
+/* phone: the menu bar sits at the TOP of the page in the flow (sticky), so it never covers cards (same as dw-words.css) */
+@media (max-width: 680px) {
+  body { display: flex; flex-direction: column; }
+  body > * { min-width: 0; }
+  body > .pn-bar { order: -1; position: sticky !important; top: 0; bottom: auto !important; border-top: 0 !important; border-bottom: 1px solid var(--ab-line, #33423c); padding-bottom: 6px !important; }
+  #anees-bank main { padding-bottom: 18px !important; }
+  /* the lesson table fits the phone: compact cells, headers may wrap */
+  #anees-bank .ov-tbl table { font-size: 11px; }
+  #anees-bank .ov-tbl th { font-size: 8.5px; letter-spacing: .02em; padding: 6px 3px; white-space: normal; vertical-align: bottom; }
+  #anees-bank .ov-tbl td { padding: 6px 3px; }
+  /* phone: the lesson type column steps aside (it is in the row's hover and on the Lessons page) so the numbers fit */
+  #anees-bank .ov-tbl th:nth-child(2), #anees-bank .ov-tbl td:nth-child(2) { display: none; }
+}
+
+/* sources at the very end of a tab: one small row of ⓘ */
+#anees-bank #vp-content > div > details.dw-p:last-child, #anees-bank .ov2 > details.dw-p:last-child { display: inline-block; }
+
+#anees-bank #ov-metrics .ab-metric.dw-dup { display: none; }
+/* robot alert: one short line, the log one tap away */
+#lesson-alerts.dw-alerts { font-size: 13px !important; padding: 7px 12px !important; }
+#lesson-alerts.dw-alerts details.dw-p { display: inline; font-weight: 400; }
+#lesson-alerts.dw-alerts details.dw-p > div { font-family: ui-monospace, Consolas, monospace; font-size: 12px; overflow-wrap: anywhere; color: inherit; }

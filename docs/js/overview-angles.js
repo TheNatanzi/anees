@@ -78,7 +78,13 @@ const hline=(x1,x2,y)=>`<line class="vp-gridline" x1="${x1}" x2="${x2}" y1="${y.
 const tx=(x,y,t,a='',cls='')=>`<text${cls?` class="${cls}"`:''} x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}"${a?` text-anchor="${a}"`:''}>${esc(t)}</text>`;
 const empty=t=>`<div class="vp-empty">${esc(t)}</div>`;
 const big=(v,s)=>`<div class="ov2-big">${esc(v)}<small>${s}</small></div>`;
-const panel=(key,title,sub,body,{wide=false,head='',why='',src=''}={})=>`<section class="vp-panel ${wide?'ov2-wide':''}" aria-labelledby="ov2-h-${key}"><div class="vp-panelhead"><div><span class="ov2-key">${key.toUpperCase()}</span><h2 id="ov2-h-${key}">${esc(title)}</h2>${sub?`<p class="ab-sub">${sub}</p>`:''}</div></div>${head}${body}${why||src?`<p class="ov2-foot"><span class="ov2-why">${why}</span>${src?`<span class="ov2-src">${esc(src)}</span>`:''}</p>`:''}</section>`;
+const panel=(key,title,sub,body,{wide=false,head='',why='',src=''}={})=>{
+ // the one big number always shows; when a panel keeps it inside its body (C, H) it moves up, out of the chart
+ if(!head){const m=/<div class="ov2-big">.*?<\/small><\/div>/.exec(body);if(m&&body.indexOf(m[0])<body.search(/<svg|<p /)){head=m[0];body=body.replace(m[0],'');}}
+ return `<section class="vp-panel ${wide?'ov2-wide':''}" aria-labelledby="ov2-h-${key}"><div class="vp-panelhead"><div><span class="ov2-key">${key.toUpperCase()}</span><h2 id="ov2-h-${key}">${esc(title)}</h2>${sub?`<p class="ab-sub">${sub}</p>`:''}</div></div>${head}<details class="dw-chart"${CHART_OPEN.includes(key)?' open':''}><summary aria-label="Chart"></summary>${body}${why||src?`<p class="ov2-foot"><span class="ov2-why">${why}</span>${src?`<span class="ov2-src">${esc(src)}</span>`:''}</p>`:''}</details></section>`;};
+// de-word (2026-10-22): each angle shows its one big number; the chart opens in place. Cadence (A) and the weekly
+// baseline (B) stay open: they are the two the student and the tutor track week to week.
+const CHART_OPEN='ab';
 const loadingTurns=()=>turnFail?empty('The turn files could not load. Refresh to retry.'):empty('Loading the turn files…');
 
 /* ---------- A: lessons per week ---------- */
