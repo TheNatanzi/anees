@@ -283,7 +283,7 @@ function panelG(){
  const title='Longest stretch with no English',sub='Per lesson, the longest run of your turns without a single English turn, in minutes. Where it happened is on hover.';
  if(!TURNS)return panel('g',title,sub,loadingTurns());
  const P=TURNS,H=210,L=40,R=10,T=14,B=30,pw=W-L-R,ph=H-T-B,max=Math.max(STRETCH_TARGET+2,Math.ceil(Math.max(...P.map(p=>p.stretch.s/60))+1)),gap=6,bw=(pw-gap*(P.length-1))/P.length;
- let s='';for(let v=0;v<=max;v+=2){const yy=T+ph-v/max*ph;s+=hline(L,W-R,yy)+tx(L-6,yy+4,v+' min','end');}
+ let s='';for(let v=0;v<=max;v+=2){const yy=T+ph-v/max*ph;s+=hline(L,W-R,yy)+tx(L-6,yy+4,v+' min','end',max>12&&v%10?'dw-minor':'');}   // de-word r2: a long axis shows every 10 min (the 2-min ticks stay as gridlines)
  const ty=T+ph-STRETCH_TARGET/max*ph;s+=`<line class="ov2-target" x1="${L}" x2="${W-R}" y1="${ty.toFixed(1)}" y2="${ty.toFixed(1)}"/>`+tx(W-R,ty-4,`${STRETCH_TARGET}-minute target`,'end');
  const rec=P.reduce((a,p)=>p.stretch.s>a.stretch.s?p:a),ri=P.indexOf(rec),stepL=Math.ceil(P.length/7);
  P.forEach((p,i)=>{

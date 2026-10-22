@@ -327,14 +327,14 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
 #anees-bank .vp-pending .vp-card-value::after { content: "…"; visibility: visible; position: absolute; left: 0; top: 0; font: 600 var(--dw-big, 42px)/1.05 var(--sabz-font-serif, Georgia, serif); color: var(--dw-muted); }
 /* round 11: supporting numbers at 14px; the lone last lesson-number tile spans the row on a phone */
 #anees-bank .vp-card-sub, #anees-bank #ov-metrics .ab-tiny { font-size: 14px; opacity: .88; }
-#anees-bank #ov2 .ov2-rest svg.vp-chart text { font-size: 12.5px; fill: var(--ab-text); }
+#anees-bank #ov2 .ov2-rest svg.vp-chart text { font-size: 13px; }
 @media (max-width: 680px) { #anees-bank #ov-metrics .ab-metric:last-child:nth-child(odd) { grid-column: 1 / -1; } }
 /* the one-line takeaway strip on top of the Overview */
 #anees-bank #ov2 > .ov2-verdict { order: 2; margin: 0 0 14px; }
 /* round 14: the goal gauge repeats the strip on a phone; small labels a step darker */
 @media (max-width: 680px) { #anees-bank #ov2 .ov2-top .dw-capt:not(.dw-dotcap) { display: none; } }
 #anees-bank #ov-metrics .ab-metric-label, #anees-bank .vp-card-label, #anees-bank .dw-big > span { color: var(--dw-ink); opacity: .78; }
-#anees-bank #ov2 .vp-chart text { fill: var(--ab-text); }
+#anees-bank #ov2 svg text.dw-minor { display: none; }
 #anees-bank rect.dw-baseweek { opacity: .5; }
 #anees-bank .dw-dotcap { display: none !important; }   /* the strip and the chart already say 5 of 6 */
 #anees-bank .dw-ar { font-family: "Noto Naskh Arabic", "Segoe UI", Tahoma, "Arial", sans-serif; font-size: 1.15em; unicode-bidi: isolate; }
