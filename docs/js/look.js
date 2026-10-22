@@ -22,20 +22,22 @@
     link.rel = 'stylesheet'; link.href = base + 'css/look.css?v=dw1'; link.setAttribute('data-anees-look-css', '');
     (document.head || document.documentElement).appendChild(link);
   }
-  function mount() {
+  function mount(tries) {
     if (document.querySelector('.anees-look')) return paint();
+    // wait (up to 2 s) for js/theme.js to mount its switch, so the look switch sits next to it instead of floating
+    if (!document.querySelector('.sabz-theme') && (tries || 0) < 20) return setTimeout(() => mount((tries || 0) + 1), 100);
     const box = document.createElement('div');
     box.className = 'anees-look'; box.setAttribute('role', 'group'); box.setAttribute('aria-label', 'Page look');
     box.innerHTML = LOOKS.map(([k, s, t]) => `<button type="button" data-look="${k}" title="${t}" aria-label="${t}">${s}</button>`).join('');
     box.addEventListener('click', e => { const b = e.target.closest('button'); if (b) set(b.dataset.look); });
     const theme = document.querySelector('.sabz-theme');
-    if (theme && theme.parentNode) theme.parentNode.insertBefore(box, theme.nextSibling);
+    if (theme && theme.parentNode && !theme.classList.contains('sabz-theme-float')) theme.parentNode.insertBefore(box, theme.nextSibling);
     else { box.classList.add('anees-look-float'); document.body.appendChild(box); }
     paint();
   }
   apply(read()); sheet();
   // theme.js mounts its switch on DOMContentLoaded; mount after it so the look switch sits next to it.
-  const later = () => setTimeout(mount, 0);
+  const later = () => setTimeout(() => mount(0), 0);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', later); else later();
   root.AneesLook = { read, set, apply, mount };
 })(typeof window !== 'undefined' ? window : globalThis);

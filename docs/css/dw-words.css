@@ -49,14 +49,6 @@ html[data-look="kurz"] #ab-promised .ab-promised > summary { padding: 10px 14px;
 #gc-source.dw-chip { align-self: flex-start; }
 @media (max-width: 680px) { #gc-rows .gc-oneline { white-space: normal; } }
 
-/* phone: the menu bar sits at the TOP of the page in the flow (sticky), so it never covers rows or cards */
-@media (max-width: 680px) {
-  body { display: flex; flex-direction: column; }
-  body > * { min-width: 0; }
-  body > .pn-bar { order: -1; position: sticky !important; top: 0; bottom: auto !important; border-top: 0 !important; border-bottom: 1px solid var(--ab-line, #33423c); padding-bottom: 6px !important; }
-  #anees-bank main { padding-bottom: 18px !important; }
-}
-
 /* Grammar Console: phone rule cards with labelled numbers */
 @media (max-width: 680px) {
   #anees-bank #gc-rows .gc-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
