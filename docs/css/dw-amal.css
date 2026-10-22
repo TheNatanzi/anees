@@ -690,3 +690,9 @@ body.dw-doc .dw-big.dw-filt.s-Shaky { background: var(--dw-warn-fill); } body.dw
 body.dw-doc .toc a { font-size: 13px !important; padding: 4px 9px !important; }
 /* round 8 rules page phone: score tiles 3 + 2 */
 @media (max-width: 680px) { body.dw-doc .dw-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
+/* round 9 settings: bigger health numbers; the rule bar labels its own parts */
+#anees-bank .st-line { font-size: 14px !important; color: var(--dw-ink); }
+#anees-bank .st-dw-split > i { position: relative; }
+#anees-bank .st-dw-split { height: 20px !important; }
+#anees-bank .st-dw-split > i > span { position: absolute; left: 6px; top: 1px; font: 700 12px/18px var(--sabz-font-sans, system-ui); color: #fff; }
+#anees-bank .st-dw-split > i:not(:first-child) > span { left: 50%; transform: translateX(-50%); }

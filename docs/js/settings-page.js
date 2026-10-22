@@ -118,7 +118,7 @@ function renderMetrics() {
   box.innerHTML = '';
   var tot = all.length || 1, parts = [['enforced', n('enforced')], ['partly', n('partly')], ['planned', n('planned')]];
   box.innerHTML = '<div class="st-dw-rules"><div class="st-dw-head"><b class="dw-num">' + esc(cards[0][1]) + '</b><small>' + esc(cards[0][2]) + '</small><span>rules</span></div>'
-    + '<div class="dw-split st-dw-split">' + parts.map(function (x) { return '<i class="st-dw-' + x[0] + '" style="width:' + (100 * x[1] / tot).toFixed(1) + '%" title="' + esc(leg[x[0]] || '') + '"></i>'; }).join('') + '</div>'
+    + '<div class="dw-split st-dw-split">' + parts.map(function (x) { return '<i class="st-dw-' + x[0] + '" style="width:' + (100 * x[1] / tot).toFixed(1) + '%" title="' + esc(leg[x[0]] || '') + '"> <span>' + x[1] + '</span> </i>'; }).join('') + '</div>'
     + '<div class="st-dw-keys">' + parts.map(function (x, k) { return '<span class="st-dw-k st-dw-' + x[0] + '"><b>' + x[1] + '</b> ' + esc(cards[k + 1][0]) + '<small>' + esc(cards[k + 1][2]) + '</small></span>'; }).join('') + '</div></div>'
     + '<div class="st-dw-more">' + cards.slice(4).map(function (c) { return '<span class="st-dw-k"><b>' + esc(c[1]) + '</b> ' + esc(c[0]) + '<small>' + esc(c[2]) + '</small></span>'; }).join('') + '</div></div>'
     ;   // round 2: AI reports and standing rules show their counts here too
