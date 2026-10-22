@@ -603,3 +603,18 @@ html[data-sabz-theme="dark"] #anees-bank .tu-strip a.on, html[data-sabz-theme="d
 .card .dw-chip.muted::before { background: transparent !important; border: 1.5px solid currentColor; box-sizing: border-box; }
 .hw-num { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 999px; background: var(--dw-a1); color: #fff; font: 700 13px/1 var(--sabz-font-sans, system-ui); }
 .hw-dots i:not(.ok):not(.ai) { background: transparent !important; border: 2px solid var(--dw-muted); }
+/* r2 round 18: phone: the open list's row is the same green family with a thick left edge; tighter header */
+@media (max-width: 959px) {
+  #anees-bank .tu-strip a.on, html[data-sabz-theme="dark"] #anees-bank .tu-strip a.on { background: var(--dw-ok-fill, rgba(60,120,80,.18)); color: var(--dw-ink); border-color: var(--dw-ok); box-shadow: inset 5px 0 0 var(--dw-ok); }
+  #anees-bank .tu-strip a.on b, html[data-sabz-theme="dark"] #anees-bank .tu-strip a.on b { color: var(--dw-ink); }
+  #anees-bank .tu-strip { gap: 3px; } #anees-bank .tu-strip a.dw-chip { padding: 5px 10px; min-height: 30px; }
+}
+@media (max-width: 680px) {
+  #anees-bank[aria-label="Anees tutor"] .ab-header { margin-bottom: 0; }
+  #anees-bank .hb-tools { margin: 4px 0 4px; } #anees-bank .hb-tabs { margin: 2px 0 6px; }
+  #anees-bank .tv-card { padding: 10px 12px; } #anees-bank .tv-card .tu-meta { margin: 2px 0; }
+  #anees-bank .hb-list .hb-panel > .hb-pnote { margin: 0 0 4px; }
+}
+@media (prefers-color-scheme: dark) { html:not([data-sabz-theme="light"]) .hw-key, html:not([data-sabz-theme="light"]) #sub { opacity: 1; } }
+html[data-sabz-theme="dark"] .hw-key, html[data-sabz-theme="dark"] #sub { opacity: 1; }
+.card .dw-chip { font-size: 12.5px; }
