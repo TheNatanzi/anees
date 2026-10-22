@@ -361,7 +361,7 @@ def test_pg_56_flowchart_page_in_ai_reports():
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     page = io.open(os.path.join(root, "docs", "reports", "anees-flow.html"), encoding="utf-8").read()
     frag = io.open(os.path.join(root, "plan", "ANEES-FLOW.fragment.html"), encoding="utf-8").read()
-    assert 'class="fl"' in page and "Opus + Gemini Argon" in page and frag.split("-->", 1)[1].strip()[:60] in page
+    assert 'class="fl"' in page and "Claude Opus 5.5 + Gemini 4 Argon" in page and "GPT-5.6 Terra" in page and frag.split("-->", 1)[1].strip()[:60] in page
     css = io.open(os.path.join(root, "docs", "css", "ai-reports.css"), encoding="utf-8").read()
     assert "#anees-bank .fl .box{background:var(--ab-panel)" in css
     d = json.load(io.open(os.path.join(root, "docs", "data", "ai_reports.json"), encoding="utf-8"))
