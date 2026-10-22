@@ -489,3 +489,11 @@ html[data-look="kurz"] #anees-bank .hb-row .tu-kind { width: 22px; height: 22px;
 #anees-bank .rt-m .dw-chip { justify-self: start; }
 @media (max-width: 900px) { #anees-bank ul.hb-done > li.rt-try { grid-template-columns: 1fr 1fr; } #anees-bank .rt-h { grid-column: 1 / -1; } }
 #anees-bank .rt-v { white-space: nowrap; }
+/* r2 round 3: tries: the heading on its own line, the two bars side by side with room (stacked on a phone); set columns on the phone too */
+#anees-bank ul.hb-done > li.rt-try { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+#anees-bank ul.hb-done > li.rt-try > .rt-h { grid-column: 1 / -1; }
+#anees-bank .rt-m { grid-template-columns: 70px auto; justify-content: start; }
+@media (max-width: 680px) { #anees-bank ul.hb-done > li.rt-try { grid-template-columns: 1fr; } }
+#anees-bank .st-now .st-stack.st-cols { width: 150px; height: 64px; }
+@media (max-width: 680px) { #anees-bank .st-now .st-stack.st-cols { display: block !important; position: static; transform: none; grid-column: 1 / -1; width: 100%; height: 40px; margin-top: 8px; } }
+@media (max-width: 680px) { #anees-bank .st-now .st-stack.st-cols { order: 9; width: 140px; justify-self: start; } }
