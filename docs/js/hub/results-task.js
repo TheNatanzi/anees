@@ -53,12 +53,16 @@
     return out.sort((a, b) => String(b.last).localeCompare(String(a.last)));
   }
   function count(v) { const n = (v || []).reduce((s, x) => s + x.tries.length, 0); return { total: n, done: n, left: 0 }; }
+  // de-word r2 (2026-10-22): each try is one row of two small bars (first pass, retry) with the same numbers beside them
+  const tone = p => p == null ? '' : p >= 80 ? 'hi' : p >= 50 ? 'mid' : 'lo';
+  const meter = (label, got, n, pct, extra) => '<span class="rt-m"><span class="rt-l">' + label + '</span><span class="rt-bar" aria-hidden="true"><i class="' + tone(pct) + '" style="width:' + (pct == null ? 0 : pct) + '%"></i></span>'
+    + '<b class="rt-v ' + tone(pct) + '">' + got + ' of ' + n + ' right' + (pct == null ? '' : ' (' + pct + '%)') + '</b>' + (extra ? '<span class="rt-x">' + extra + '</span>' : '') + '</span>';
   function tryHtml(t, i, setN) {
     const head = i === 0 ? 'Try 1 · ' + esc(when(t.at)) : 'Try ' + (i + 1) + ' · ' + esc(gap(t.after_min)) + ' after try ' + i + ' · ' + esc(when(t.at));
     const f = t.first, x = t.fix;
-    const first = 'first pass ' + f.got + ' of ' + f.n + ' right' + (f.pct == null ? '' : ' (' + f.pct + '%)') + (setN && f.n < setN ? ' · ' + f.n + ' of ' + setN + ' cards dealt' : '');
-    const fix = x ? 'fixed mistakes: ' + x.got + ' of ' + x.n + ' right on the retry' + (x.pct == null ? '' : ' (' + x.pct + '%)') : f.got < f.n ? 'mistakes not retried' : 'nothing to fix';
-    return '<li><b>' + head + '</b><span> · ' + first + ' · ' + fix + '</span></li>';
+    const first = meter('first pass', f.got, f.n, f.pct, setN && f.n < setN ? f.n + ' of ' + setN + ' cards dealt' : '');
+    const fix = x ? meter('retry of mistakes', x.got, x.n, x.pct, '') : '<span class="rt-m"><span class="rt-l">retry of mistakes</span><span class="dw-chip muted">' + (f.got < f.n ? 'mistakes not retried' : 'nothing to fix') + '</span></span>';
+    return '<li class="rt-try"><b class="rt-h">' + head + '</b>' + first + fix + '</li>';
   }
   function mount(el, ctx) {
     const v = (ctx && ctx.view) || [];

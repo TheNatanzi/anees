@@ -472,3 +472,20 @@ html[data-look="kurz"] #anees-bank .hb-row .tu-kind { width: 22px; height: 22px;
 }
 #anees-bank .st-when { font-size: 12px; color: var(--dw-muted); }
 #anees-bank .st-zline { display: inline-flex; flex-wrap: wrap; gap: 6px; margin-left: 8px; }
+/* r2 round 2: the Homework line wraps: title + reason on one line, the three zero chips in one row under it */
+#anees-bank .st-hwline { flex-wrap: wrap !important; }
+#anees-bank .st-hwline > b, #anees-bank .st-hwline > span:not(.st-zline) { white-space: nowrap; }
+@media (max-width: 680px) { #anees-bank .st-hwline .st-zline { flex-basis: 100%; margin-left: 28px; } }
+/* r2 round 2: card-set tries on the Tutor page: one row per try, two small bars (first pass / retry) with their numbers */
+#anees-bank ul.hb-done > li.rt-try { display: grid; grid-template-columns: minmax(150px, 230px) 1fr 1fr; gap: 6px 18px; align-items: center; }
+#anees-bank .rt-h { font-size: 13.5px; }
+#anees-bank .rt-m { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; align-items: center; min-width: 0; }
+#anees-bank .rt-l { grid-column: 1 / -1; font: 600 10.5px/1.2 var(--sabz-font-sans, system-ui); text-transform: uppercase; letter-spacing: .05em; color: var(--dw-muted); }
+#anees-bank .rt-bar { display: block; width: 70px; height: 7px; border-radius: 999px; background: var(--dw-line); overflow: hidden; }
+#anees-bank .rt-bar > i { display: block; height: 100%; background: var(--dw-muted); }
+#anees-bank .rt-bar > i.hi { background: var(--dw-ok); } #anees-bank .rt-bar > i.mid { background: var(--dw-warn); } #anees-bank .rt-bar > i.lo { background: var(--dw-bad); }
+#anees-bank .rt-v { font-size: 14px; font-variant-numeric: tabular-nums; } #anees-bank .rt-v.lo { color: var(--dw-bad); }
+#anees-bank .rt-x { grid-column: 1 / -1; font-size: 12px; color: var(--dw-muted); }
+#anees-bank .rt-m .dw-chip { justify-self: start; }
+@media (max-width: 900px) { #anees-bank ul.hb-done > li.rt-try { grid-template-columns: 1fr 1fr; } #anees-bank .rt-h { grid-column: 1 / -1; } }
+#anees-bank .rt-v { white-space: nowrap; }
