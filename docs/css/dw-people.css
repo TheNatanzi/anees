@@ -672,3 +672,10 @@ html[data-sabz-theme="dark"] #anees-bank[aria-label="Anees tutor"], html[data-sa
 #anees-bank p.dp-verdict .dp-v.ok { background: var(--dw-ok-fill, rgba(60,120,80,.14)); color: var(--dw-ink); }
 #anees-bank details.dp-vmore { display: inline; } #anees-bank details.dp-vmore > summary { display: inline; cursor: pointer; color: var(--dw-a1); font-weight: 600; font-size: 13px; margin-left: 4px; }
 #anees-bank details.dp-vmore[open] > span { display: inline; }
+/* r2 round 27: the pair reads left to right: wrong (red) -> right (green) */
+#anees-bank article.tv-card .tv-pair { direction: ltr; display: flex; flex-direction: row !important; align-items: center; justify-content: flex-start; gap: 8px; flex-wrap: wrap; }
+#anees-bank article.tv-card .tv-pair .tv-arrow { display: inline !important; color: var(--dw-muted); }
+#anees-bank article.tv-card .tv-pair .tv-ar { direction: rtl; unicode-bidi: isolate; }
+#anees-bank article.tv-card .tv-pair .tv-wrong::before, #anees-bank article.tv-card .tv-pair .tv-right::before { content: none; }
+#anees-bank article.tv-card .tv-pair .tv-arrow { font-size: 0 !important; } #anees-bank article.tv-card .tv-pair .tv-arrow::after { content: "\2192"; font-size: 20px; color: var(--dw-muted); }
+#anees-bank article.tv-card .tv-pair .tv-arrow { transform: none !important; }
