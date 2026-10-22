@@ -95,7 +95,7 @@
     const C = openCards().sort((a, b) => String(a.lesson_date || '9999').localeCompare(String(b.lesson_date || '9999')) || String(a.created_at).localeCompare(String(b.created_at)));
     const go = C.length ? `<div class="dw-big st-big st-now"><b>${C.length}</b><span>card sets to do</span>${(() => { const N = C.reduce((x, t) => x + (t.n_cards || 0), 0), Dn = C.reduce((x, t) => x + Math.min(t.n_cards || 0, H.cardsDone(t, D.log)), 0);
       return N ? `<span class="st-tot" role="img" aria-label="${Dn} of ${N} cards done"><span class="dw-split"><i style="width:${(100 * Dn / N).toFixed(1)}%"></i></span><em>${Dn} of ${N} cards</em></span>` : ''; })()}<a class="hb-ans primary st-go st-start" href="cards.html?tile=${encodeURIComponent(C[0].set_ref)}">Start: ${esc(C[0].set_title)} →</a></div>` : '';
-    const zero = !(sc.todo || sc.waiting + sc.checking || sc.overruled);
+    const zero = false;   // r2: the four numbers always show as tiles (Medi 10-22: data back on screen)
     // nothing checked and nothing waiting: the Homework number is one quiet line under the Start card (PG-29: the dash keeps its reason)
     if (zero && sc.pct === null) return go + `<div class="st-hwline">${ICO.clip}<b>Homework —</b><span>no teacher check yet</span>${info}<span class="st-zline"><span class="dw-chip muted">0 to answer</span><span class="dw-chip muted">0 with teacher</span><span class="dw-chip muted">0 AI overruled</span></span></div>`;
     return go + tile('Homework', sc.pct === null ? '—' : sc.pct + '%', sc.done ? `${sc.done} checked by teacher` : 'no teacher check yet', ICO.clip, info)

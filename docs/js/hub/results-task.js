@@ -68,11 +68,12 @@
   function trend(s) {
     const P = s.tries.map(t => t.first.pct);
     if (!P.some(p => p != null)) return '';
-    const K = P.filter(p => p != null), bw = 14, gp = 6, Hh = 44, W = P.length * (bw + gp), y80 = Hh - 0.8 * (Hh - 4);
+    const K = P.filter(p => p != null), bw = 26, gp = 6, Hh = 60, W = P.length * (bw + gp), y80 = Hh - 0.8 * (Hh - 4);
     const bars = P.map((p, i) => p == null ? '' : '<rect x="' + (i * (bw + gp)) + '" y="' + (Hh - Math.max(2, (Hh - 4) * p / 100)).toFixed(1) + '" width="' + bw + '" height="' + Math.max(2, (Hh - 4) * p / 100).toFixed(1) + '" rx="2" fill="var(' + (p >= 80 ? '--dw-ok' : p >= 50 ? '--dw-warn' : '--dw-bad') + ')"/>').join('');
-    const svg = '<svg class="rt-chart" viewBox="0 0 ' + (W + 30) + ' ' + Hh + '" style="width:' + (W + 30) + 'px" aria-hidden="true">' + bars
-      + '<line x1="0" x2="' + W + '" y1="' + y80.toFixed(1) + '" y2="' + y80.toFixed(1) + '" stroke="var(--dw-ink)" stroke-width="1" stroke-dasharray="4 3" opacity=".55"/><text x="' + (W + 3) + '" y="' + (y80 + 4).toFixed(1) + '" font-size="10" fill="var(--dw-ink)">80%</text></svg>';
-    return '<div class="rt-sum">' + svg + '<span class="rt-nums"><span><b>' + s.tries.length + '</b> ' + (s.tries.length === 1 ? 'try' : 'tries') + '</span> · <span>best <b>' + Math.max(...K) + '%</b></span> · <span>last <b>' + K[K.length - 1] + '%</b></span></span><span class="rt-k">first pass, one bar per try</span></div>';
+    const lab = P.map((p, i) => p == null ? '' : '<text x="' + (i * (bw + gp) + bw / 2) + '" y="' + (Hh + 12) + '" text-anchor="middle" font-size="10" font-weight="700" fill="var(--dw-ink)">' + p + '</text>').join('');
+    const svg = '<svg class="rt-chart" viewBox="0 0 ' + (W + 30) + ' ' + (Hh + 15) + '" style="width:' + (W + 30) + 'px" aria-hidden="true">' + bars + lab
+      + '<line x1="0" x2="' + W + '" y1="' + y80.toFixed(1) + '" y2="' + y80.toFixed(1) + '" stroke="var(--dw-warn)" stroke-width="2" stroke-dasharray="5 3"/><text x="' + (W + 3) + '" y="' + (y80 + 4).toFixed(1) + '" font-size="11" font-weight="700" fill="var(--dw-warn)">80%</text></svg>';
+    return '<div class="rt-sum">' + svg + '<span class="rt-nums"><span><b>' + s.tries.length + '</b> ' + (s.tries.length === 1 ? 'try' : 'tries') + '</span> · <span>best <b>' + Math.max(...K) + '%</b></span> · <span>last <b>' + K[K.length - 1] + '%</b></span></span><span class="rt-k">first pass % per try</span></div>';
   }
   function mount(el, ctx) {
     const v = (ctx && ctx.view) || [];
