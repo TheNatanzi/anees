@@ -1,11 +1,9 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 8,
+ "count": 2,
  "by_date": {
   "2026-09-26": 1,
-  "2026-10-06": 1,
-  "2026-10-12": 5,
-  "2026-10-14": 1
+  "2026-10-12": 1
  },
  "rows": [
   {
@@ -24,53 +22,14 @@
     "decided by the third reader alone, in one pass only"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-6-astra",
+    "verdict": "unsure",
+    "reason": "Amal introduces «كيف صارت؟» before Medi's response, so her subsequent explanation does not clearly establish a correction. The independent transcriptions leave his alleged «كيف حالك؟» unclear, including «كيف واد؟», which could be a clarification request."
+   },
    "listen_from": "00:47",
    "listen_to": "01:21"
-  },
-  {
-   "uid": "FA-75dc1bf0",
-   "date": "2026-10-06",
-   "t": "41:36",
-   "t_amal": "41:53",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "أ-أنا بدل أغلب ... I can say أنا بدل أغلب، أغلب مساري.",
-   "amal_said": "كيف يعني أنا بضل؟ ... No. I stay أنا بضل.",
-   "wrong": "بدل",
-   "right": "بستعمل",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "the transcript under it is disputed (engine wrote something else)"
-   ],
-   "check": "audio",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "41:26",
-   "listen_to": "42:13"
-  },
-  {
-   "uid": "FA-c93a9de9",
-   "date": "2026-10-12",
-   "t": "05:12",
-   "t_amal": "05:17",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A4",
-   "medi_said": "حلق بوجه، أو بوجه حلق؟",
-   "amal_said": "حليـ… حل… هو.",
-   "wrong": "حلق",
-   "right": "حلقي",
-   "why_check": [
-    "both readers found it but the third reader challenged it"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "05:02",
-   "listen_to": "05:37"
   },
   {
    "uid": "FA-7ad77653",
@@ -88,94 +47,14 @@
     "decided by the third reader alone, in one pass only"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-6-astra",
+    "verdict": "rejected",
+    "reason": "No correction: Amal's «دايمًا فيه» neither supplies «المدرسة» nor signals a missing article. The claimed article repair is absent from all supplied evidence."
+   },
    "listen_from": "05:51",
    "listen_to": "06:21"
-  },
-  {
-   "uid": "FA-0082562d",
-   "date": "2026-10-12",
-   "t": "15:29",
-   "t_amal": "15:35",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C2",
-   "medi_said": "بفكر في الصباح",
-   "amal_said": "About. ... فيه، فيه الصبح. You need two فيهs. ... بفكر فيه الصبح because فيه you have to refer it back to أول إشي.",
-   "wrong": "بفكر في الصباح",
-   "right": "بفكر فيه الصبح",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "15:19",
-   "listen_to": "15:55"
-  },
-  {
-   "uid": "FA-22f51afb",
-   "date": "2026-10-12",
-   "t": "20:38",
-   "t_amal": "20:41",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C10",
-   "medi_said": "شو عن، شو عن بتحكي؟",
-   "amal_said": "no, we put it before what. About what are you talking؟",
-   "wrong": "شو عن بتحكي",
-   "right": "عن شو بتحكي",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "20:28",
-   "listen_to": "21:01"
-  },
-  {
-   "uid": "FA-6c3b1d36",
-   "date": "2026-10-12",
-   "t": "21:20",
-   "t_amal": "21:24",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "عن شو bitihki",
-   "amal_said": "بس بتفكري takes what؟ ... No, we don't need عن. خلص. It's بفكر فيه. ... فيه شو بتفكري؟",
-   "wrong": "عن شو",
-   "right": "في شو بتفكري",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "21:10",
-   "listen_to": "21:44"
-  },
-  {
-   "uid": "FA-1f4f12d3",
-   "date": "2026-10-14",
-   "t": "47:05",
-   "t_amal": "47:15",
-   "kind": "vocab-A",
-   "tier": 3,
-   "bucket": null,
-   "medi_said": "um, إذا الـ war,",
-   "amal_said": "War is حرب. حرب is feminine.",
-   "wrong": "war",
-   "right": "حرب",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "46:55",
-   "listen_to": "47:35"
   }
  ]
 }
