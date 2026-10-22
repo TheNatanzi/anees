@@ -484,6 +484,13 @@ def main():
             os.replace(out3, out3[:-5] + ".invalid.json"); log("third reader wrote a broken file; stopping"); return 1
         pin(out3, third_in, prompt3)
     py(os.path.join(HERE, "full_audit_compare.py"), "settle", d)
+    # 4b PR-29 (Medi 2026-10-21 "Switch now"): the judge panel decides the slips - Opus + Argon rule on every candidate of
+    # six readers (r1, r2 + Codex terra / astra + Gemini 3.7 Flash / 3.1 Pro). A month past its paid cap (exit 3) or a failed
+    # call leaves the readers' own settle in place, logged; it never blocks the lesson.
+    if not a.dry_run:
+        jp = py(os.path.join(HERE, "judge_panel.py"), d, check=False)
+        if jp.returncode:
+            log("judge panel not applied for", d, "(exit %d): the lesson keeps the readers' rows" % jp.returncode)
     # 5 build the audit (all lessons) + 6 pages. A builder that fails leaves its page stale: recorded, the run fails, no push.
     py(os.path.join(HERE, "full_audit_build.py"))
     # the build rewrites the audit JSON without Amal's rulings: re-apply them before any page is built (2026-09-30)

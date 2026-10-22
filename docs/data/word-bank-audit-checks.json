@@ -3,7 +3,7 @@
   "checks": {
     "learner_occurrences": 9008,
     "initial_pending": 2098,
-    "extra_checked": 2158,
+    "extra_checked": 2159,
     "integrity_failures": 0
   },
   "ledger": [
@@ -291155,8 +291155,28 @@
           "grouping_lossless": true
         }
       },
-      "status": "Correct",
-      "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)"
+      "extra": {
+        "pass4": {
+          "method": "wider available source context",
+          "rows": 38,
+          "context_sha256": "6474762aa5461a960ff6d72d379bafe3f625644693ed1baf69004f086dd5c2e8"
+        },
+        "pass5": {
+          "method": "catalog identity and alternative transcript check",
+          "catalog_candidates": [
+            "mitshaje3"
+          ],
+          "transcript_status": "asr",
+          "raw_source_preserved": true
+        },
+        "pass6": {
+          "method": "final counterexample check: repetition, grammar, prompt versus supplied answer, self-correction, false ASR binding",
+          "outcome": "Needs review",
+          "remaining_reason": "A correction cue from the tutor right after; the readers decide"
+        }
+      },
+      "status": "Needs review",
+      "reason": "A correction cue from the tutor right after; the readers decide"
     },
     {
       "id": "c329e933094ebc10e7cd3e7111b4eef3306377d6ed1b6c7ad7867ecd68eb9a01",
@@ -291311,8 +291331,8 @@
           "grouping_lossless": true
         }
       },
-      "status": "Correct",
-      "reason": "Word he said on his own (WS-30: a word said alone counts like any other)"
+      "status": "Not scored",
+      "reason": "Repeat of the tutor's fix of a counted slip at 21:02 («لا، لا، متأكدة is motivated»): not credited, not a mistake (WS-31)"
     },
     {
       "id": "f0d2a2bc3cd1db7bda7709513d62da294964bcde228b35d3b235998f77884f12",
@@ -291341,7 +291361,7 @@
         }
       },
       "status": "Not scored",
-      "reason": "said again right after his own حافز at 21:12 with nothing from the tutor between: one try, counted once (WS-36)"
+      "reason": "Repeat of the tutor's fix of a counted slip at 21:02 («لا، لا، متأكدة is motivated»): not credited, not a mistake (WS-31)"
     },
     {
       "id": "ff22be82dab6a6cf631336e9e7e4190f7ff5c0f9e07565594cff920eaef45ad8",
@@ -292272,8 +292292,8 @@
           "grouping_lossless": true
         }
       },
-      "status": "Not scored",
-      "reason": "Repeat of the tutor's fix of a counted slip at 23:43 («What do you mean كان عندي سنة ماضية؟»): not credited, not a mistake (WS-31)"
+      "status": "Correct",
+      "reason": "His own answer to her question (23:43 «What do you mean كان عندي سنة ماضية؟»): counts like any word, not a repeat (WS-38)"
     },
     {
       "id": "94c856c7478cf5678e0009f56e599723a50b53f9d438e8e1c3f194e948a1671b",
@@ -292301,8 +292321,8 @@
           "grouping_lossless": true
         }
       },
-      "status": "Not scored",
-      "reason": "Repeat of the tutor's fix of a counted slip at 23:43 («What do you mean كان عندي سنة ماضية؟»): not credited, not a mistake (WS-31)"
+      "status": "Correct",
+      "reason": "His own answer to her question (23:43 «What do you mean كان عندي سنة ماضية؟»): counts like any word, not a repeat (WS-38)"
     },
     {
       "id": "c5a5189f5a1bfc7480efc68a995da4a6c75922dff792e2480f86190f5ee40bd8",
@@ -292330,8 +292350,8 @@
           "grouping_lossless": true
         }
       },
-      "status": "Not scored",
-      "reason": "Repeat of the tutor's fix of a counted slip at 23:43 («What do you mean كان عندي سنة ماضية؟»): not credited, not a mistake (WS-31)"
+      "status": "Correct",
+      "reason": "His own answer to her question (23:43 «What do you mean كان عندي سنة ماضية؟»): counts like any word, not a repeat (WS-38)"
     },
     {
       "id": "8a7ac9bb26327b99c8d5d2d80be5a81eb4f72ce209be53c8c49d86e6d87302a5",
@@ -292417,8 +292437,8 @@
           "grouping_lossless": true
         }
       },
-      "status": "Not scored",
-      "reason": "Repeat of the tutor's fix of a counted slip at 23:43 («What do you mean كان عندي سنة ماضية؟»): not credited, not a mistake (WS-31)"
+      "status": "Correct",
+      "reason": "His own answer to her question (23:43 «What do you mean كان عندي سنة ماضية؟»): counts like any word, not a repeat (WS-38)"
     },
     {
       "id": "dae022ba9e466e9129fdb636455505e51bde261d18f8584a296d20492675f586",
@@ -292447,7 +292467,7 @@
         }
       },
       "status": "Not scored",
-      "reason": "Repeat of the tutor's fix of a counted slip at 23:43 («What do you mean كان عندي سنة ماضية؟»): not credited, not a mistake (WS-31)"
+      "reason": "said again right after his own سنة at 23:50 with nothing from the tutor between: one try, counted once (WS-36)"
     },
     {
       "id": "1955c49e599758fb77c34498e808c4cd76d2580fa0b9f7acc616a818a1fd8c07",
@@ -292621,7 +292641,7 @@
         }
       },
       "status": "Not scored",
-      "reason": "Repeat of the tutor's fix of a counted slip at 28:22 («مشروع.»): not credited, not a mistake (WS-31)"
+      "reason": "He says the tutor's words back (28:22 «مشروع.»): a repeat, not credited, not a mistake (WS-31)"
     },
     {
       "id": "2632b1c2d95570e6bb42cfe4e7254bdd0557bc4c54ef5fc71767ed126da2997b",
@@ -293628,8 +293648,8 @@
           "grouping_lossless": true
         }
       },
-      "status": "Partial",
-      "reason": "Same vocabulary said by the tutor within 15 s (her own wording, not a fix): practice, half credit"
+      "status": "Not scored",
+      "reason": "Repeat of the tutor's fix of a counted slip at 37:01 («زبط.»): not credited, not a mistake (WS-31)"
     },
     {
       "id": "e5a4e78ddb28745556ea80296f5665f1f828a3acc357508f794186f594f5d8da",
@@ -298354,7 +298374,7 @@
         }
       },
       "status": "Not scored",
-      "reason": "Repeat of the tutor's fix of a counted slip at 52:56 («خطبة.»): not credited, not a mistake (WS-31)"
+      "reason": "He says the tutor's words back (52:56 «خطبة.»): a repeat, not credited, not a mistake (WS-31)"
     },
     {
       "id": "218d04938bdace752207bd20fa7a574b3c39ba63ce3fe5b3fc5b888b30fc7f7c",
@@ -298383,7 +298403,7 @@
         }
       },
       "status": "Not scored",
-      "reason": "Repeat of the tutor's fix of a counted slip at 52:56 («خطبة.»): not credited, not a mistake (WS-31)"
+      "reason": "He says the tutor's words back (52:56 «خطبة.»): a repeat, not credited, not a mistake (WS-31)"
     },
     {
       "id": "83741f1e5d8305d43316d6a5075e00e631f61f54b2faf8b0784de0d250e24da4",
@@ -302488,8 +302508,8 @@
           "grouping_lossless": true
         }
       },
-      "status": "Correct",
-      "reason": "Word he said on his own (WS-30: a word said alone counts like any other)"
+      "status": "Not scored",
+      "reason": "Repeat of the tutor's fix of a counted slip at 68:02 («أخوه.»): not credited, not a mistake (WS-31)"
     },
     {
       "id": "47f1ecef03f3a8f230f331a44917d3a9b44373167af4bdc099c3728c09ad627a",
@@ -302692,7 +302712,7 @@
         }
       },
       "status": "Not scored",
-      "reason": "Repeat of the tutor's recast of his line at 68:26 («نفس، نفس اسم سيده.»): not credited, not a mistake (WS-31)"
+      "reason": "Repeat of the tutor's fix of a counted slip at 68:26 («نفس، نفس اسم سيده.»): not credited, not a mistake (WS-31)"
     },
     {
       "id": "29a679c8921b1a8e6ce16e28e888ca372bab3f35c91705b0b94a742a8ac29f17",
@@ -302741,7 +302761,7 @@
         }
       },
       "status": "Not scored",
-      "reason": "Repeat of the tutor's recast of his line at 68:26 («نفس، نفس اسم سيده.»): not credited, not a mistake (WS-31)"
+      "reason": "Repeat of the tutor's fix of a counted slip at 68:26 («نفس، نفس اسم سيده.»): not credited, not a mistake (WS-31)"
     },
     {
       "id": "7ad9b5270df15fe8450cef0712cce430194f54647156257acfa229768b67c11a",
@@ -302935,7 +302955,7 @@
         }
       },
       "status": "Not scored",
-      "reason": "Repeat of the tutor's recast of his line at 68:49 («اسمه نفس اسم سيده. His name is the same as his grandfather's name.»): not credited, not a mistake (WS-31)"
+      "reason": "Repeat of the tutor's fix of a counted slip at 68:49 («اسمه نفس اسم سيده. His name is the same as his grandfather's name.»): not credited, not a mistake (WS-31)"
     },
     {
       "id": "6e9611fa8c192a8d1ad97d4aa92a71900791233ecc7d6e567203b72c533148e5",
@@ -302964,7 +302984,7 @@
         }
       },
       "status": "Not scored",
-      "reason": "Repeat of the tutor's recast of his line at 68:49 («اسمه نفس اسم سيده. His name is the same as his grandfather's name.»): not credited, not a mistake (WS-31)"
+      "reason": "Repeat of the tutor's fix of a counted slip at 68:49 («اسمه نفس اسم سيده. His name is the same as his grandfather's name.»): not credited, not a mistake (WS-31)"
     },
     {
       "id": "24565906a2800c4334d72649a28a31ac96685005501a154dbe353a82279d3149",
@@ -302993,7 +303013,7 @@
         }
       },
       "status": "Not scored",
-      "reason": "Repeat of the tutor's recast of his line at 68:49 («اسمه نفس اسم سيده. His name is the same as his grandfather's name.»): not credited, not a mistake (WS-31)"
+      "reason": "Repeat of the tutor's fix of a counted slip at 68:49 («اسمه نفس اسم سيده. His name is the same as his grandfather's name.»): not credited, not a mistake (WS-31)"
     },
     {
       "id": "0a66d23d6145842de05af884830c90a24aa7344ba6433471047c3281929997da",

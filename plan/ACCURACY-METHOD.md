@@ -14,13 +14,13 @@ rule at the bottom. Evidence: `reports/READER-90-OVERNIGHT-2026-10-17.pdf` (bran
 | 1 | Hear | ElevenLabs writes both tracks; Gemini re-listens to each of his lines 3 times, 2 of 3 wins (method A) | 95% / 94% of his words right (10-09, 10-10); beat B, C, E, F | PR-23 |
 | 2 | Hold | A re-heard line that moves toward the tutor's own word waits for her ear | stops hidden mistakes | TR-27 |
 | 3 | Read | Mistake readers read the whole lesson with READER-BRIEF.md | see 4 | PR-25 |
-| 4 | Decide | Best tested: **judge panel** - every reader's flags pooled, Claude Opus + Gemini 3.7 Flash judges rule on each | 83.5 held-out F0.5 (live Opus + Sonnet both-agree: ~80) | PR-28 (rollout) |
+| 4 | Decide | **Judge panel (live 2026-10-21)** - flags of six readers (Opus, Sonnet, Codex terra + astra, Gemini 3.7 Flash + 3.1 Pro) pooled; Claude Opus + Gemini 4 Argon rule on each; kept at mean p >= 0.60 (scripts/judge_panel.py) | key v4: 87.9 F0.5 vs 76.3 for Opus + Sonnet both-agree, better in 100 % of bootstrap resamples | PR-29 |
 | 5 | Grade-book rules | "Asked for a word" = grey half-credit chip, never a mistake; no tutor reaction = never a mistake | +5 to +10 on every reader | PR-27 |
 | 6 | Tutor wins | Amal's rulings (Tutor page, AM-33 dispute checks, AM-29 key checks) override every AI decision and are re-applied after every rebuild | 14 rulings, key 102 -> 99 | AM-33 |
 | 7 | Grammar lists | Her uploads feed the rules (collocation sets -> D2) | D2 49 -> 63 verbs | GR-40 |
 | 8 | Publish | Only through the publish guard; stalls pop up on the PC | | PR-26 |
 
-Until the judge-panel rollout is live, step 4 runs Opus + Sonnet both-agree (PR-25).
+Step 4 is the judge panel since 2026-10-21 (PR-29; paid Gemini calls capped at 20 USD a month). A month past the cap, or a failed judge call, leaves that lesson on Opus + Sonnet both-agree (PR-25) and is logged.
 
 ## 2. What it may cost
 

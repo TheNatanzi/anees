@@ -327,3 +327,27 @@ def test_pg_55_research_paper_opens_with_app_styled_pictures():
     d = json.load(io.open(os.path.join(root, 'docs', 'data', 'ai_reports.json'), encoding='utf-8'))
     paper = [r for r in d['reports'] if r.get('featured')][0]
     assert paper['story_html'] and paper['bars'] and all(c['url'].split('#')[1] in ids for c in paper['chapters'])
+
+
+
+def test_pr_29_judge_panel_decides_the_slips(tmp_path, monkeypatch):
+    """PR-29 (Medi 2026-10-21 'Switch now'; paid Gemini key with a 20 USD a month cap): the judge panel groups the readers'
+    flags, keeps a candidate at mean p(slip) >= 0.60 of Opus + Argon, and never calls Gemini past 90 % of the cap."""
+    import json, os, sys
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sys.path.insert(0, os.path.join(root, "scripts"))
+    import judge_panel as JP
+    assert JP.THRESHOLD == 0.60 and JP.CAP_USD == 20.0 and [j[2] for j in JP.JUDGES] == ["claude-opus-5-5", "gemini-4-argon"]
+    pool = {"r1": [{"t": "01:00", "kind": "grammar", "signal": "recast", "wrong": "a", "right": "b"},
+                   {"t": "02:00", "kind": "vocab-A", "signal": "asked", "wrong": "c", "right": "d"}],
+            "r2": [{"t": "01:10", "kind": "grammar", "signal": "explicit-no", "wrong": "a", "right": "b", "why": "longer reason"}]}
+    c = JP.candidates(pool)
+    assert len(c) == 1 and c[0]["readers"] == ["r1", "r2"]                 # same family within 15 s = one candidate; 'asked' is dropped
+    assert JP.p_slip({"verdict": "slip", "confidence": 70}) == 0.7 and JP.p_slip({"verdict": "not", "confidence": 70}) == 0.30000000000000004
+    monkeypatch.setattr(JP, "SPEND", str(tmp_path / "spend.json"))
+    json.dump({"months": {JP.month(): 17.9}}, open(JP.SPEND, "w"))
+    assert not JP.can_spend("gemini-4-argon")                               # 17.9 + ~0.25 would pass 18 (90 % of 20)
+    json.dump({"months": {JP.month(): 5.0}}, open(JP.SPEND, "w"))
+    assert JP.can_spend("gemini-4-argon")
+    src = open(os.path.join(root, "scripts", "review_lesson.py"), encoding="utf-8").read()
+    assert src.index('"settle", d)') < src.index("judge_panel.py") < src.index('full_audit_build.py")')

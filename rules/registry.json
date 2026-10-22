@@ -11597,6 +11597,52 @@
    "aliases": []
   },
   {
+   "id": "PR-29",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every new lesson's slips are decided by the judge panel (scripts/judge_panel.py, run by review_lesson.py right after the readers settle): the flags of six readers with the same READER-BRIEF (the lesson's r1 Opus and r2 Sonnet, Codex gpt-5.6-terra and gpt-6-astra, Gemini 3.7 Flash and 3.1 Pro) are grouped per family within 15 s ('asked' / no-reaction never a slip); Claude Opus and Gemini 4 Argon (thinking high) rule on every candidate; a candidate is kept when the mean of their p(slip) is >= 0.60. Kept candidates replace the vocab / grammar slip rows of <date>.settled.json (the readers' settle is kept as <date>.settled.readers.json). Paid Gemini calls of this step stop at 90 % of 20 USD a month (data/lesson-work/judge-panel/spend.json); a capped or failed run leaves the readers' rows and is logged. The tutor's rulings still override it.",
+   "plain": "A panel of two AI judges (Claude Opus and Gemini Argon) now decides which of your mistakes count, after six AI readers flag them.",
+   "plain_for": "85b95b69",
+   "topic": "process",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-21",
+     "quote": "Switch now"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-21",
+     "quote": "Yes, use the paid Gemini key for Argon with a 20 dollar per month cap."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/judge_panel.py",
+     "contains": "THRESHOLD = 0.60"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "judge_panel.py"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_pr_29_judge_panel_decides_the_slips"
+    }
+   ],
+   "example": {
+    "date": "2026-10-21",
+    "note": "key v4 re-score: Opus + Argon 87.9 F0.5 vs 76.3 (research/evidence/r90-43fa688/replay_v4.py)"
+   },
+   "aliases": []
+  },
+  {
    "id": "GR-37",
    "kind": "process",
    "scope": "grammar-scoring",

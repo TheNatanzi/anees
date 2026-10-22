@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21T12:01:21-07:00",
+ "updated": "2026-10-21T23:10:42-07:00",
  "rule": "GR-18",
  "about": "Grammar corrections Amal made that fit no existing rule. Each is a proposed new rule for Medi's yes or no; nothing here is scored until he says yes. Built by scripts/full_audit_build.py from the audit rows and data/lesson-work/full-audit/proposed-buckets.json.",
  "proposals": [
@@ -1064,6 +1064,58 @@
    ]
   },
   {
+   "id": "P-FA-ff3d87bd",
+   "name": null,
+   "proposed_rule": "Say a period went well with the period as subject (el-sane kaanat mnee7a ili / santi kaanat mnee7a), not 'kaan 3indi sane mnee7' (I had a good year).",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-ff3d87bd (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-ff3d87bd",
+     "date": "2026-10-14",
+     "t": "23:59",
+     "t_amal": "24:09",
+     "medi_said": "أنا كان عندي سنة، سـ سنة ماضية منيح / I had a good last year.",
+     "amal_said": "No. That doesn't work like this. You could say my year was good. This year was good for me. ... بس we don't have years.",
+     "chat": null,
+     "wrong": "أنا كان عندي سنة ماضية منيح",
+     "right": "السنة كانت منيحة إلي (my year was good / this year was good for me)",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "high",
+     "why": "Amal said No, 'that doesn't work like this' - 'I had a year' (kaan 3indi sane) is not how Arabic says a year went well; she gave 'my year was good / this year was good for me'.",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
+   "id": "P-FA-21e964b2",
+   "name": null,
+   "proposed_rule": "'Something like this' is 'eshi zayy heik' or 'heik ishi', not 'eshi zayy eshi'.",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-21e964b2 (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-21e964b2",
+     "date": "2026-10-14",
+     "t": "35:39",
+     "t_amal": "35:50",
+     "medi_said": "Uh, أنا عملت إشي زي إشي, uh...",
+     "amal_said": "إشي زي هيك you mean something like this؟ أو هيك إشي؟",
+     "chat": "ana 3melet ishi zayy heik / heik ishi",
+     "wrong": "إشي زي إشي",
+     "right": "إشي زي هيك",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "medium",
+     "why": "He tried to say 'something like this' by repeating 'eshi' instead of using 'heik'.",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
    "id": "P-FA-6a67173e",
    "name": null,
    "proposed_rule": "heik ('such / like this') goes BEFORE the noun: heik ishi; after the noun you need zayy: ishi zayy heik.",
@@ -1083,7 +1135,7 @@
      "right": "هيك إشي",
      "kind": "grammar-propose",
      "bucket": "PROPOSE",
-     "confidence": "medium",
+     "confidence": "high",
      "why": "Right after her fix he said ishi heik; Amal fixed it again: heik goes before the noun (heik ishi) or use ishi zayy heik. Wrong again after her fix = its own slip.",
      "also_counted_as": []
     }
