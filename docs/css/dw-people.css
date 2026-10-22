@@ -650,3 +650,11 @@ html[data-sabz-theme="dark"] #anees-bank[aria-label="Anees tutor"], html[data-sa
 @media (prefers-color-scheme: dark) { html:not([data-sabz-theme="light"]) #anees-bank[aria-label="Anees tutor"], html:not([data-sabz-theme="light"]) #anees-bank[aria-label="Anees student"] { --dw-muted: #B9C4BD; } }
 @media (min-width: 681px) { #anees-bank[aria-label="Anees tutor"] .ab-header { justify-content: flex-start; align-items: flex-end; gap: 20px; } #anees-bank[aria-label="Anees tutor"] .ab-header .ab-preview { align-self: flex-end; margin-bottom: 6px; } }
 #anees-bank .hb-line-en { font-size: 14px !important; color: var(--dw-muted) !important; opacity: 1 !important; }
+/* r2 round 24: Live chip on the tiles' line; phone: tool label off (a label, not data), tighter chips and list rows */
+@media (min-width: 681px) { #anees-bank[aria-label="Anees tutor"] .ab-header { align-items: center; } #anees-bank[aria-label="Anees tutor"] .ab-header .ab-preview { align-self: center; margin: 52px 0 0; } }
+@media (max-width: 680px) {
+  #anees-bank .hb-tools-l { display: none !important; }
+  #anees-bank .tu-strip a.dw-chip { min-height: 28px; padding: 3px 10px; }
+  #anees-bank[aria-label="Anees tutor"] .ab-header .ab-preview { margin: 0; }
+  #anees-bank .tv-card .tv-pair { margin: 2px 0; }
+}
