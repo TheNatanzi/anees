@@ -142,9 +142,9 @@
     // de-word 2026-10-22: chips say what kind of set (lesson / new upload) and its warning (lesson passed); the count is a big n / N
     const set = pretty(t.created_at), les = pretty(t.lesson_date);
     const chips = t.upload ? `<span class="dw-chip">new set · ${esc(set)}</span><span class="dw-chip muted">${t.keep === 'permanent' ? 'permanent' : 'next lessons'}</span>`
-      : `<span class="dw-chip">lesson ${esc(les)}</span>${set && set !== les ? `<span class="dw-chip muted">set ${esc(set)}</span>` : ''}${past ? '<span class="dw-chip warn">lesson passed</span>' : ''}`;
+      : `<span class="dw-chip">lesson ${esc(les)}</span>${set && set !== les ? `<span class="dw-chip muted">set ${esc(set)}</span>` : ''}${past ? '<span class="dw-chip warn" title="the lesson date has passed">late</span>' : ''}`;
     return `<a class="st-task st-cards" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" aria-label="${esc(t.set_title)}: open on Flashcards"><div class="st-cmain"><p class="dw-row st-chips2">${chips}</p>
-      <p class="st-prompt">${esc(t.set_title)}</p><div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></div><div class="st-count">${ring(n ? done / n : 0)}<b>${n}</b><span>cards · ${done >= n && n ? 'all done' : done + ' done'}</span></div><span class="st-go2" aria-hidden="true">›</span></a>`;
+      <p class="st-prompt">${esc(t.set_title)}</p><p class="st-of" aria-label="${done} of ${n} cards done"><b class="st-n">${n}</b> <b class="st-d">${done}</b><span>${done >= n && n ? 'all done' : 'cards done'}</span></p><div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></div><span class="st-go2" aria-hidden="true">›</span></a>`;
   }
   // Medi 2026-10-06: the questions he sent from a flashcard (the attention button) and her replies
   function attn() { return (window.AneesAttentionTask || { view: () => ({ all: [], open: [], answered: [] }) }).view(D.attention || []); }
