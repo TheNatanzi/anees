@@ -116,14 +116,15 @@ function dwBigs(){
  // each number sits on its own section row (one card per blind spot: number, meaning, tap to open)
  const put=(sec,b,s,warn,fill)=>{const h=document.querySelector(sec+' details.ar-unk-d > summary .ar-unk-h');if(!h)return;const p=part(b),m=String(b).match(/^([\d,]+)\/([\d,]+)$/);   // one big number; "of N ..." small under it
   const n=document.createElement('span');n.className='dw-sumbig'+(warn?' dw-warnbig':'');
-  n.innerHTML=`<b>${m?m[1]:b}</b><small>${m?'of '+m[2]+' ':''}${s}</small>${p===null?'':`<i class="dw-split dw-bigbar ${fill||'dw-good'}" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
+  const [what,...more]=String(s).split(' · ');
+  n.innerHTML=`<span class="dw-sumline"><b>${m?m[1]:b}</b><em>${what}</em></span><small>${m?'of '+m[2]:''}${more.length?(m?' · ':'')+more.join(' · '):''}</small>${p===null?'':`<i class="dw-split dw-bigbar ${fill||'dw-good'}" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
  const VT=(txt('air-unknowns-vocab').match(/of the student’s ([\d,]+) word events/)||[])[1];
  // each row leads with the problem count (what is still wrong or open); the bar is that share, in the warning colour
  const num=x=>+String(x).replace(/,/g,''),fmt=x=>x.toLocaleString('en-US'),LM=String(L).match(/^(\d+)\/(\d+)$/);
  put('#ar-unk-listen',LM?`${num(LM[2])-num(LM[1])}/${LM[2]}`:L,`listening labels wrong · ${L} right`,1,'dw-miss');
- put('#ar-unk-vocab',VT?`${V}/${VT}`:V,'word events need review',1,'dw-todo');
+ put('#ar-unk-vocab',VT?`${V}/${VT}`:V,'word events to review',1,'dw-miss0');
  put('#ar-unk-grammar',`${fmt(num(G1)-num(G2))}/${G1}`,`grammar slips missed · ${G2} caught`,1,'dw-miss');
- if(N)put('#ar-unk-names',N,'possible names need a label',1);
+ if(N)put('#ar-unk-names',N,'names to label',1);
  const nav=T.querySelector('.ar-jump');if(nav)nav.after(box);if(nav)nav.hidden=true;
 }
 let dwT=0;

@@ -87,8 +87,9 @@ def dword(frag):
     if 0 < b < f:
         inner = frag[b:f].rstrip()
         robot = ('<details class="phase fl-group" id="fl-robot" style="--pc:#0b8a74"><summary><header><span class="fl-ico" aria-hidden="true">%s</span>'
-                 '<h2>The robot</h2><span class="fl-sum"><span class="fl-chain">Hear → Check → Count → Publish</span><span class="chip money">$</span></span>'
-                 '<span class="when">every hour</span></header></summary><div class="fl-inner">%s</div></details>\n  ' % (ROBOT_ICON, inner))
+                 '<h2>The robot</h2><span class="fl-sum"><span class="fl-chain">%s</span><span class="chip money">$</span></span>'
+                 '<span class="when">every hour</span></header></summary><div class="fl-inner">%s</div></details>\n  ' % (ROBOT_ICON, ''.join('<span class="fl-mini" style="--pc:%s">%s<em>%s</em></span>' % (c, SVG_ICONS[k], WORD[k])
+                                       for k, c in (('B', '#0b8a74'), ('C', '#c2410c'), ('D', '#8b5a2b'), ('E', '#3f4a5c'))), inner))
         frag = frag[:b] + robot + frag[f:]
     frag = re.sub(r'<div class="fl-band">[^<]*</div>', '', frag)   # 5 cards now say who acts; no band labels needed
     # "who decides" is the rule behind the whole path: it closes the page, under Done
