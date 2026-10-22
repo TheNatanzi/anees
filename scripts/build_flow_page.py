@@ -36,6 +36,18 @@ def build():
 
 TAB = os.path.join(REPO, "docs", "ai-reports.html")
 
+# PG-33: app pages show roles, not names; "Amal's hub" is a retired name (check_pages 'hub')
+ROLES = [(r"Amal's hub", "the Tutor page"), (r"Amal \(tutor\)", "Tutor"), (r"Medi \(student\)", "Student"),
+         (r"[Tt]he Amal trigger", "the tutor trigger"), (r"Amal's", "the tutor's"), (r"Medi's", "the student's"),
+         (r"\bAmal\b", "the tutor"), (r"\bMedi\b", "the student")]
+
+
+def screen_roles(html):
+    for pat, role in ROLES:
+        html = re.sub(pat, role, html)
+    # a role that starts a sentence, a heading, a chip or a list item gets a capital letter
+    return re.sub(r'((?:^|>|[.!?:]\s|"|→ )\s*)the (tutor|student|Tutor)', lambda m: m.group(1) + "The " + m.group(2), html)
+
 
 def fill_tab(frag):
     """Medi 2026-10-22 ("make a new tab for the flowchart in the ai report"): the same flowchart is the first tab of
@@ -48,6 +60,7 @@ def fill_tab(frag):
             return m.group(0)
         return 'href="%s"' % (u[3:] if u.startswith("../") else "reports/" + u)
     body = re.sub(r'href="([^"]+)"', fix, body)
+    body = screen_roles(body)
     page = io.open(TAB, encoding="utf-8").read()
     a, b = page.index("<!-- FLOW:start -->") + len("<!-- FLOW:start -->"), page.index("<!-- FLOW:end -->")
     head = ('<div class="ov-head"><span class="vp-eyebrow">From the Meet call to the grade book</span><h2 class="ov-h2">How Anees works</h2>'
