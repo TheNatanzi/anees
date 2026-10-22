@@ -685,3 +685,6 @@ html[data-sabz-theme="dark"] #anees-bank[aria-label="Anees tutor"], html[data-sa
 @media (max-width: 680px) { #anees-bank .hb-tab[data-tab="upload"] .tu-long { display: inline; } }
 #anees-bank .dp-v .dp-vg { width: 15px; height: 15px; vertical-align: -3px; margin-right: 4px; }
 #anees-bank p.dp-verdict .dp-v::before { display: none; }
+/* r2 round 30: a zero tile is grey all over (edge too); homework phone steps in one row, words wrap inside each step */
+#anees-bank #st-score .st-big.st-nil { border-left-color: var(--dw-line) !important; box-shadow: none !important; }
+@media (max-width: 680px) { ol.hw-flow { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } .hw-flow > li { white-space: normal !important; font-size: 11.5px !important; line-height: 1.2; padding: 5px 6px !important; } .hw-flow > li svg { display: none; } }
