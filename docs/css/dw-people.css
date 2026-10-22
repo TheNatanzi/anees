@@ -520,3 +520,12 @@ html[data-look="kurz"] #anees-bank .hb-row .tu-kind { width: 22px; height: 22px;
 #anees-bank a.st-task.st-cards.st-late .hb-bar i { background: var(--dw-warn); }
 html[data-look="flat"] #anees-bank a.st-task.st-cards.st-late .hb-bar i { background: #D9962B; }
 #anees-bank .rt-chart { height: 75px; }
+/* r2 round 8: the four homework tiles fill the row (2 x 2 and compact on a phone); on a phone the open panel sits under its row,
+   so it does not repeat the row's title and count (the row shows them) */
+@media (min-width: 681px) { #anees-bank #st-score.dw-bigs { grid-template-columns: repeat(4, minmax(0, 1fr)); } #anees-bank #st-score .st-now { grid-column: 1 / -1; } }
+@media (max-width: 680px) {
+  #anees-bank #st-score.dw-bigs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  #anees-bank #st-score .st-big:not(.st-now) { padding: 8px 10px; min-height: 0; }
+  #anees-bank #st-score .st-big:not(.st-now) b { font-size: 26px; }
+  #anees-bank .hb-list .hb-panel > .hb-ptitle, #anees-bank .hb-list .hb-panel > .hb-pnote { display: none !important; }
+}
