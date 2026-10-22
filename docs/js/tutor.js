@@ -81,7 +81,7 @@
   const bar = t => `<div class="hb-bar" aria-hidden="true"><i style="width:${t.total ? Math.round(100 * t.done / t.total) : 0}%"></i></div>`;
   // de-word 2026-10-22: the row's count stands out, the time is a chip; the same words as sub(), only shorter
   const subHtml = t => t.subText ? esc(t.subText) : t.finished ? '<span class="dw-chip">Done · thank you</span>'
-    : `<span class="tu-left">${fmt(t.left)}</span> ${esc(t.unit)} left <span class="dw-chip muted tu-min">${mins(t)} min</span>`;
+    : `<span class="tu-left">${fmt(t.left)}</span><span class="tu-unit"> ${esc(t.unit)} left </span><span class="dw-chip muted tu-min">${mins(t)} min</span>`;
   const short = s => String(s || '').replace(/\s*\(about \d+ min(?:utes)?\)\s*$/, '');
   const info = (txt, label) => `<details class="dw-info"><summary aria-label="${esc(label || 'More')}">i</summary><div>${txt}</div></details>`;
   const pctBar = v => `<div class="hb-bar tu-pct" aria-hidden="true"><i class="${v === null || v === undefined ? '' : v < 50 ? 'lo' : v < 80 ? 'mid' : 'hi'}" style="width:${v || 0}%"></i></div>`;
@@ -98,7 +98,7 @@
     const panelEl = $('#hb-panel'), $rows = view.querySelector('[data-rows]');
     function draw() {
       const ql = q.trim().toLowerCase(), list = rows.filter(r => !ql || (r.title + ' ' + (r.find || '')).toLowerCase().includes(ql)), page = list.slice(0, shown);
-      $rows.innerHTML = page.map(r => `<button type="button" class="hb-row" role="listitem" data-row="${esc(r.id)}" aria-expanded="${!!(sel && r.id === sel.id)}"${sel && r.id === sel.id ? ' aria-current="true"' : ''}><p class="hb-row-t">${esc(r.title)}</p>${r.subHtml ? `<p class="hb-row-s tu-row-s">${r.sep ? ' ' : ''}${r.subHtml}</p>` : r.sub ? `<p class="hb-row-s">${esc(r.sub)}</p>` : ''}${r.bar || ''}</button>`).join('')
+      $rows.innerHTML = page.map(r => `<button type="button" class="hb-row${r.subHtml ? ' tu-row' : ''}${r.next ? ' tu-next' : ''}" role="listitem" data-row="${esc(r.id)}" aria-expanded="${!!(sel && r.id === sel.id)}"${sel && r.id === sel.id ? ' aria-current="true"' : ''}><p class="hb-row-t">${esc(r.title)}</p>${r.subHtml ? `<p class="hb-row-s tu-row-s">${r.sep ? ' ' : ''}${r.subHtml}</p>` : r.sub ? `<p class="hb-row-s">${esc(r.sub)}</p>` : ''}${r.bar || ''}</button>`).join('')
         + (list.length > shown ? `<button type="button" class="hb-ans" data-more>Next ${Math.min(PAGE, list.length - shown)} (${list.length - shown} more)</button>` : '')
         + (!list.length ? '<p class="hb-empty">Nothing matches.</p>' : '');
       $rows.querySelectorAll('[data-row]').forEach(b => b.onclick = () => { location.hash = tab + (sel && sel.id === b.dataset.row && !wide() ? '' : '/' + b.dataset.row); });
@@ -116,7 +116,7 @@
     setTab('todo');
     const open = tasks.filter(t => !t.finished);
     if (!open.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing to check right now. Shukran!</p>'; return; }
-    listPanel('todo', open.map(t => ({ id: t.id, title: short(t.title), sep: short(t.title) !== t.title, subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p));
+    listPanel('todo', open.map((t, i) => ({ id: t.id, next: i === 0, title: short(t.title), sep: short(t.title) !== t.title, subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p));
   }
   // every kind of item opens here, with the same module as its old address (no link to another page)
   // AM-27 (Medi 2026-10-07 "lets add a place for notes for amal always"): a note box under every card and one per list.
