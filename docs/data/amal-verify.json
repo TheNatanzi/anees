@@ -1,8 +1,93 @@
 {
  "about": "Rows two AIs disagree on (Claude readers: a mistake Amal signalled; Codex, listening to an independent transcription of the audio: not so, or cannot tell). Built by scripts/codex_rejudge.py. Amal answers on the Tutor page; her 'Correction is correct' makes the row a scored mistake, her reason drops it (scripts/apply_amal_audit_rulings.py).",
- "built": "2026-10-21T12:05:19-07:00",
- "count": 0,
- "items": [],
+ "built": "2026-10-21T19:59:17-07:00",
+ "count": 4,
+ "items": [
+  {
+   "id": "verify:FA-7ad77653",
+   "uid": "FA-7ad77653",
+   "date": "2026-10-12",
+   "t": "06:01",
+   "t_amal": null,
+   "kind": "grammar",
+   "bucket": "D5",
+   "tier": null,
+   "medi_said": "عشان الـ، ولاد دايمًا في مدرسة،",
+   "amal_said": "دايمًا فيه.",
+   "chat": null,
+   "wrong": "في مدرسة",
+   "right": "في المدرسة",
+   "english": "because the kids are always in school",
+   "readers_say": "After في the place 'school' keeps el- (fi el-madrase); the tutor's دايمًا فيه does not fix it, so it is let-pass.",
+   "codex_says": "No correction: the tutor's «دايمًا فيه» neither supplies «المدرسة» nor signals a missing article. The claimed article repair is absent from all supplied evidence.",
+   "codex_verdict": "rejected",
+   "audio": "lessons/2026-10-12/audio/lesson.mp3#t=351,382",
+   "sec": 361.0
+  },
+  {
+   "id": "verify:FA-a80c8f45",
+   "uid": "FA-a80c8f45",
+   "date": "2026-10-14",
+   "t": "23:36",
+   "t_amal": "23:44",
+   "kind": "grammar",
+   "bucket": "A8",
+   "tier": null,
+   "medi_said": "كان عندي / سنة ماضي / و متحمس،",
+   "amal_said": "What do you mean كان عندي سنة ماضية؟",
+   "chat": null,
+   "wrong": "سنة ماضي",
+   "right": "سنة ماضية",
+   "english": "last year",
+   "readers_say": "sane is feminine; the tutor echoed his line with ماضية and he said ماضية from then on (23:59).",
+   "codex_says": "No demonstrated gender correction: the tutor echoes «كان عندي سنة ماضية» while asking what he means. Her echo and the independent dialect transcription support ماضية already being present; the subsequent objection concerns the sentence's meaning and construction.",
+   "codex_verdict": "rejected",
+   "audio": "lessons/2026-10-14/audio/lesson.mp3#t=1406,1445",
+   "sec": 1416.0
+  },
+  {
+   "id": "verify:FA-a22b7051",
+   "uid": "FA-a22b7051",
+   "date": "2026-10-14",
+   "t": "30:25",
+   "t_amal": "30:28",
+   "kind": "vocab-A",
+   "bucket": null,
+   "tier": 0,
+   "medi_said": "مـ موعد؟ موعد؟ موعد؟",
+   "amal_said": "موعد. موعد. مواعيد.",
+   "chat": "shubbaak - shababeek + maw3ed - mawa3eed ...",
+   "wrong": "(plural not attempted)",
+   "right": "مواعيد",
+   "english": "appointment / appointments",
+   "readers_say": "In the plural-pattern drill she asked 'What's appointment?'; he gave the singular موعد right and she supplied the plural مواعيد he had not given - didn't-know, tier 0 (same treatment as agreed A8 مشاريع).",
+   "codex_says": "No demonstrated correction or request for an unknown plural: the student answers the singular question with موعد, and the tutor then adds مواعيد. Supplying a plural during instruction does not establish that he unsuccessfully reached for it.",
+   "codex_verdict": "rejected",
+   "audio": "lessons/2026-10-14/audio/lesson.mp3#t=1815,1849",
+   "sec": 1825.0
+  },
+  {
+   "id": "verify:FA-c4c20b29",
+   "uid": "FA-c4c20b29",
+   "date": "2026-10-14",
+   "t": "34:51",
+   "t_amal": "34:55",
+   "kind": "grammar",
+   "bucket": "D4",
+   "tier": null,
+   "medi_said": "So, uh, يذكّر",
+   "amal_said": "ذكرني.",
+   "chat": "lamma inti ta3tini waajeb, el-app ra7 yeb3at notification u yzakkerni a3malo",
+   "wrong": "يذكّر",
+   "right": "يذكرني",
+   "english": "(it) reminds me",
+   "readers_say": "'Reminds me' needs the object -ni on the verb; he gave the bare verb, the tutor supplied ذكرني and he said يزكرني at 34:56.",
+   "codex_says": "The original transcript suggests a missing ـني, but both independent the student transcriptions include it in «يذكريني». The tutor's «يذكرني» could be a correction or a model during word retrieval; the evidence does not establish the claimed omission.",
+   "codex_verdict": "unsure",
+   "audio": "lessons/2026-10-14/audio/lesson.mp3#t=2081,2116",
+   "sec": 2091.0
+  }
+ ],
  "answered": [
   {
    "id": "verify:FA-6350dadb",
@@ -1695,5 +1780,37 @@
    }
   }
  ],
- "tutor_from": "2026-10-08"
+ "tutor_from": "2026-10-08",
+ "paused": {
+  "why": "AM-28 (Medi 2026-10-10): questions about lessons before 2026-10-08 are paused until the process is honed; kept here unchanged, shown again when TUTOR_FROM moves back. Answered ones stay in her history.",
+  "from": "2026-10-08",
+  "lists": {
+   "items": [
+    {
+     "id": "verify:FA-bd5ae37e",
+     "uid": "FA-bd5ae37e",
+     "date": "2026-09-26",
+     "t": "00:57",
+     "t_amal": "01:01",
+     "kind": "vocab-A",
+     "bucket": null,
+     "tier": 1,
+     "medi_said": "Uh, كيف حالك؟",
+     "amal_said": "So I don't know if you remember، بس this doesn't have an equivalent in English. كيف صرتي؟ كيف صارت؟",
+     "chat": "how have you been since = keef serti",
+     "wrong": "كيف حالك",
+     "right": "كيف صارت / كيف صرتي",
+     "english": "How have you been since (the injury)?",
+     "readers_say": "For 'how is it (your knee) since it happened' he gave the stock كيف حالك; the tutor said 'I don't know if you remember' (taught before) and gave كيف صرتي / كيف صارت, so it is the wrong expression for this meaning, not a new word.",
+     "codex_says": "The tutor introduces «كيف صارت؟» before the student's response, so her subsequent explanation does not clearly establish a correction. The independent transcriptions leave his alleged «كيف حالك؟» unclear, including «كيف واد؟», which could be a clarification request.",
+     "codex_verdict": "unsure",
+     "audio": "lessons/2026-09-26/audio/lesson.mp3#t=47,82",
+     "sec": 57.0
+    }
+   ]
+  },
+  "counts": {
+   "items": 1
+  }
+ }
 }

@@ -29882,6 +29882,660 @@
    },
    "at": "2026-10-13T00:41:08-07:00",
    "run_id": "d0710a4b06ed42c09509022130d39279"
+  },
+  {
+   "uid": "FA-bd5ae37e",
+   "date": "2026-09-26",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "unsure",
+   "confidence": "medium",
+   "reason": "Amal introduces «كيف صارت؟» before Medi's response, so her subsequent explanation does not clearly establish a correction. The independent transcriptions leave his alleged «كيف حالك؟» unclear, including «كيف واد؟», which could be a clarification request.",
+   "evidence": {
+    "t_start": 47.0,
+    "t_end": 81.0,
+    "quote": "Amal: «In this case we would ask… كيف صارت؟»; Medi, mixed dialect: «أه، كيف واد؟».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-26/FA-bd5ae37e_Medi_Medi_Natanzi-5c940108559.mp3",
+      "sha256": "3e85e792640d83b3c385809d8208170f4560b3baca736121793a31b720ded961",
+      "source": "Medi_Natanzi-5c9401085597b6ae.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-26/FA-bd5ae37e_Amal_Amal-e5a0b9e60fa56fd1.mp3",
+      "sha256": "7b96092009e2fd468da9bd833f22f17f893a426cbc6b4b0655f5a1e966887b83",
+      "source": "Amal-e5a0b9e60fa56fd1.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-26/FA-bd5ae37e_mixed_lesson.mp3",
+      "sha256": "c4ac34c1e3f174666d5b42269eed2dc32fbd0afb356bf55b2d5813b7d870a235",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "شكرا اشتركوا في القناة",
+     "Amal": "في هذه الحالة ، سنسأل كيف حدث لذا لا أعرف إذا تذكرون هذا لا يملك مقابلة في الإنجليزية كيف سرتي كيف صارت it's like how is it after a change or after something that happened to it كيف صرتي how are you after an incident or after a change",
+     "mixed": "في هذه الحالة سنسأل كيف صارت كيف لذا لا أعرف إذا تذكر أن هذا لا يملك مقارنة في الإنجليزية كيف سرتي كيف صارت كيف هو بعد تغيير أو بعد شيء ما حدث لهذا كيف سرتي How are you after an incident Or after A change"
+    }
+   },
+   "claim": {
+    "wrong": "كيف حالك",
+    "right": "كيف صارت / كيف صرتي",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-21T19:58:46-07:00",
+   "run_id": "10fd4771515040aaabe633dd061b7b76"
+  },
+  {
+   "uid": "FA-75dc1bf0",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Amal's echo identifies his word as «بضل», and she explicitly rejects its use for keeping money: «بس مش keep». The supplied chat records «بستعمل» as the eventual alternative; «بدل» is the transcription's spelling of the echoed word.",
+   "evidence": {
+    "t_start": 2486.0,
+    "t_end": 2533.0,
+    "quote": "«كيف يعني أنا بضل؟ … No. I stay أنا بضل … it's keep on، yeah. بس مش keep.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-75dc1bf0_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "bc2de9ce9fdf7fb377f6b5a01097435b0a4459c0850e05b0a559c6e8e6b39020",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-75dc1bf0_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "9aac1e75af97f044bb1fc47c1560231aa5e5d4d093b3c766c0c504a268de71bc",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-75dc1bf0_mixed_lesson.mp3",
+      "sha256": "1780cb1e5c5a80db0ca09babf1f433adb95d57d5a137d052bd7f7172f8464f89",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا انا بدل اغلب اغلب اغلب مصاري اكيد أعتقد أنه يمكنني أن أتبعه أيضًا لكن لن أتبعه لا بأس لن أتبعه لن أفعل شيئًا حسنًا حسنًا لذلك لا يمكنني أن أقول",
+     "Amal": "أكثر من المال يذهب الى اي اي كيف ياني أنا بادل؟ أنا أبقى أنا بادل اوه نعم إنه كيب اوه نعم إنه كيب",
+     "mixed": "او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او او ا انا اعتقد انه يمكنني ان اتبعه ايضا لا اوه ولكن هذا اتبعه لا بأس ه"
+    }
+   },
+   "claim": {
+    "wrong": "بدل",
+    "right": "بستعمل",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-21T19:58:46-07:00",
+   "run_id": "10fd4771515040aaabe633dd061b7b76"
+  },
+  {
+   "uid": "FA-c93a9de9",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "The original transcript and independent large-v3 capture initial «حلق» followed by «حلقي» after Amal's partial prompt. This supports a prompted possessive repair, although her unfinished cue is indistinct.",
+   "evidence": {
+    "t_start": 302.0,
+    "t_end": 337.0,
+    "quote": "Medi: «حلق بوجه، أو بوجه حلق؟»; Amal: «حليـ… حل…»; Medi: «حلقي بوجع».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-c93a9de9_Medi_Medi_Natanzi-41d3af5d98c.mp3",
+      "sha256": "046c1ade2a6d7eb080575e6904f563ac588d3f2f03aeb89da98da410337be340",
+      "source": "Medi_Natanzi-41d3af5d98cb5491.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-c93a9de9_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "087f24e6c5c768813091ecbd6bd21d368c702491d77da74caf76544d727b5f31",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-c93a9de9_mixed_lesson.mp3",
+      "sha256": "53b981b33efd7e5759ddcaba70a9210f447bc9dd0379cf7cd12a879f9b989c45",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا شوي حلق بوجه حلق حلقي حلقي بوجه من شوف من واحد أنا بعد",
+     "Amal": "اشتركوا في القناة شكرا",
+     "mixed": "انا شوي حلق بوجه حلق حلق هو حلق اي حلق اي بوجه من شو من شو أن بعد"
+    }
+   },
+   "claim": {
+    "wrong": "حلق",
+    "right": "حلقي",
+    "bucket": "A4",
+    "tier": null
+   },
+   "at": "2026-10-21T19:58:46-07:00",
+   "run_id": "10fd4771515040aaabe633dd061b7b76"
+  },
+  {
+   "uid": "FA-7ad77653",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "high",
+   "reason": "No correction: Amal's «دايمًا فيه» neither supplies «المدرسة» nor signals a missing article. The claimed article repair is absent from all supplied evidence.",
+   "evidence": {
+    "t_start": 351.0,
+    "t_end": 381.0,
+    "quote": "Medi: «عشان الولاد دايمًا في مدرسة»; Amal: «دايمًا فيه».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-7ad77653_Medi_Medi_Natanzi-41d3af5d98c.mp3",
+      "sha256": "3d4f527aabc2710bada5ca3e80aad8b0f44ccdc8dac0cc1209f13b5ea882ebb2",
+      "source": "Medi_Natanzi-41d3af5d98cb5491.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-7ad77653_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "0960f40092f286b7caac202487d9923a26dd0ab2e03a90c367f3c7ce048a40c3",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-7ad77653_mixed_lesson.mp3",
+      "sha256": "0cb5e21cccd6dfcaf2f81d7d126882acff29142da84098ad9eae52421a766fe9",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "ما ما بنات اخوي. عشان الولاد دايما في مدرسة. عندما يكون هناك الكثير من الأطفال في المدرسة، لا أعرف كيف أشرح ذلك، هم جميعاً يحملون الفيروسات.",
+     "Amal": "هم مكان وعينات دايما في",
+     "mixed": "مع بنات اخوي. هم مكان وعينات. عشان الولاد دايما في مدرسة. دايما فيه."
+    }
+   },
+   "claim": {
+    "wrong": "في مدرسة",
+    "right": "في المدرسة",
+    "bucket": "D5",
+    "tier": null
+   },
+   "at": "2026-10-21T19:58:46-07:00",
+   "run_id": "10fd4771515040aaabe633dd061b7b76"
+  },
+  {
+   "uid": "FA-0082562d",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Amal explicitly prompts the missing 'about it' after «بفكر في الصباح» and explains that «فيه» refers back to «أول إشي». The independent mixed dialect transcription also captures her supplying «فيو في الصباح».",
+   "evidence": {
+    "t_start": 919.0,
+    "t_end": 955.0,
+    "quote": "«About … فيو في الصباح … You need two fees»; «بفكر فيه الصبح because فيه you have to refer it back to أول إشي».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-0082562d_Medi_Medi_Natanzi-41d3af5d98c.mp3",
+      "sha256": "0596ccb19b32c867173d302eba9d730e2ba8577cf79ad3230ed509a594df30f1",
+      "source": "Medi_Natanzi-41d3af5d98cb5491.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-0082562d_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "1467645e007896af2ac46a325dcd54a96b10dc75357ddaad10bab8c40698a44a",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-0082562d_mixed_lesson.mp3",
+      "sha256": "546060fe0fd60a7061988e466322ec50f8cbf0f3797ad15c8e5b1195fb30f388",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "فتفكري في الصباح بفكري في الصباح هذا ليس في؟ هذا صحيح، أنت صحيح انتظر، هل تفكر في صباح؟ بس فاكر بس فاكر",
+     "Amal": "You think I think بفكر About فيه فيه الصبح You need two fees Or you just say الصبح Or just الصبح اشتركوا في القناة",
+     "mixed": "بتفكري في السباح. You think. I think. بفكر. بفكر في السباح. It's not it's not fee. Oh that's right. You need two fees. تقول صباحا. انتظر. هل تتذكر في صباحك؟ امم. او فقط الصباح. تتذكر تتذكر الصباح."
+    }
+   },
+   "claim": {
+    "wrong": "بفكر في الصباح",
+    "right": "بفكر فيه الصبح",
+    "bucket": "C2",
+    "tier": null
+   },
+   "at": "2026-10-21T19:58:46-07:00",
+   "run_id": "10fd4771515040aaabe633dd061b7b76"
+  },
+  {
+   "uid": "FA-22f51afb",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "The independent dialect transcriptions preserve «شو عن بتحكي» followed by Amal's explicit correction of the order. Medi then produces «عن شو بتحكي» and she accepts it.",
+   "evidence": {
+    "t_start": 1228.0,
+    "t_end": 1261.0,
+    "quote": "Medi: «شو عن، شو عن بتحكي؟»; Amal: «No, we put it before what»; Medi: «عن شو بتحكي»; Amal: «Yeah».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-22f51afb_Medi_Medi_Natanzi-41d3af5d98c.mp3",
+      "sha256": "a6a02011b684e4fa617a954677001dfdc3479a5a2bf9abd26935071905596d3d",
+      "source": "Medi_Natanzi-41d3af5d98cb5491.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-22f51afb_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "391dde37e3b97a41dc7cb974eb5da6004c1f8d7a90d56ce3a3ef837916836674",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-22f51afb_mixed_lesson.mp3",
+      "sha256": "4f2e53f02f0dc92fa745cae4cc7d0db02958f943ad9f6ff46281c6212b83815b",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "حسنًا ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لقد وضعت ذلك في البداية ، لق",
+     "Amal": "بس the order is wrong so what's how do I say so in Arabic when you when we form a question yes so no we put it before what about what are you talking yeah how about what are you thinking about نعم",
+     "mixed": "بس the order is wrong. Okay. So what's how do I say? So in Arabic when you oh you put that in the beginning. Form a question. Yes. So. No. We put it before what? About what are you talking? Oh. Yeah. How about what are you thinking about? Can you do it the way I said بالنسبة للقوانين أو لا هذا لا يجب أن يكون صحيح لا حسنًا"
+    }
+   },
+   "claim": {
+    "wrong": "شو عن بتحكي",
+    "right": "عن شو بتحكي",
+    "bucket": "C10",
+    "tier": null
+   },
+   "at": "2026-10-21T19:58:46-07:00",
+   "run_id": "10fd4771515040aaabe633dd061b7b76"
+  },
+  {
+   "uid": "FA-6c3b1d36",
+   "date": "2026-10-12",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Amal explicitly rejects عن after Medi's attempt and supplies في شو بتفكري; the independent dialect transcription corroborates this correction.",
+   "evidence": {
+    "t_start": 1270.0,
+    "t_end": 1304.0,
+    "quote": "Medi: «عن شو» / «شو عن فيه؟»; Amal: «No, we don't need عن… بفكر فيه… في شو بتفكري».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-12/FA-6c3b1d36_Medi_Medi_Natanzi-41d3af5d98c.mp3",
+      "sha256": "497064b1144c335bd5fae11e5b475dee1b4ea8343de8aef7e56a7b25c9e0c8f5",
+      "source": "Medi_Natanzi-41d3af5d98cb5491.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-12/FA-6c3b1d36_Amal_Amal-0662860c1f705057.mp3",
+      "sha256": "dd1fa3f78315a1256e696d393e1e63bfab93bc5d60c5fbdacb058f08382d395a",
+      "source": "Amal-0662860c1f705057.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-12/FA-6c3b1d36_mixed_lesson.mp3",
+      "sha256": "49cd17b9d9d3bd28bd36a5023684d4724544c3cade5ec21e0e13e15193da5bd8",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "تفكر في أنت تفكر و أنت تفكر في فهل هذا شوانفي لكن لم يكن هذا أيضاً مثل من أنت تفكر فيه أو لذا فهذا نفس من من وماذا ومين",
+     "Amal": "بس بتفكر no we don't need عن خلص بفكر فيه so if I want to make it a question it would be في شو بتفكره سوف يكون مرتفع",
+     "mixed": "تفكر في تفكر في تفكر في تفكر في تفكر في تفكر في تفكر في تفكر في ولكن هل يمكن أن يكون هذا أيضاً مثل من أنت تفكر فيه أو سيكون فى لذا فهذا نفس من وماذا وماذا"
+    }
+   },
+   "claim": {
+    "wrong": "عن شو",
+    "right": "في شو بتفكري",
+    "bucket": "D2",
+    "tier": null
+   },
+   "at": "2026-10-21T19:59:07-07:00",
+   "run_id": "ecbee96fb6384b45bf90d5cc47b585bc"
+  },
+  {
+   "uid": "FA-a80c8f45",
+   "date": "2026-10-14",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "medium",
+   "reason": "No demonstrated gender correction: Amal echoes «كان عندي سنة ماضية» while asking what he means. Her echo and the independent dialect transcription support ماضية already being present; the subsequent objection concerns the sentence's meaning and construction.",
+   "evidence": {
+    "t_start": 1406.0,
+    "t_end": 1444.0,
+    "quote": "Medi, dialect: «أنا كان عندي سنة ماضية ومتحمس»; Amal: «What do you mean كان عندي سنة ماضية؟»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-14/FA-a80c8f45_Medi_Medi_Natanzi-b50dcc648c1.mp3",
+      "sha256": "a613b9600f577d937d844ffb606601a50b27416fe283f249e472a8e5437dc7b5",
+      "source": "Medi_Natanzi-b50dcc648c1c6031.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-14/FA-a80c8f45_Amal_Amal-4d3dee821e70bd65.mp3",
+      "sha256": "3350f52901e55feabda0fdf440c7a0cb48f557f514b9a360cd2556bbdca83f36",
+      "source": "Amal-4d3dee821e70bd65.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-14/FA-a80c8f45_mixed_lesson.mp3",
+      "sha256": "9b5c0cadfb13cd6d0415d5d26ae3555d5ac952e136acdf33cc7b2b955264015d",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا كان عندي سنة ماضي ومتهمس انا كان اندي سنة سنة ماضية امني I had a good last",
+     "Amal": "ترجمة نانسي قنقر شكرا",
+     "mixed": "انا كان عندي سنة ماضي ومتهمس انا كان عندي سنة سنة ماضية مني I had a good last"
+    }
+   },
+   "claim": {
+    "wrong": "سنة ماضي",
+    "right": "سنة ماضية",
+    "bucket": "A8",
+    "tier": null
+   },
+   "at": "2026-10-21T19:59:07-07:00",
+   "run_id": "ecbee96fb6384b45bf90d5cc47b585bc"
+  },
+  {
+   "uid": "FA-4d5b273f",
+   "date": "2026-10-14",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Amal explicitly rejects the كان عندي سنة construction and supplies 'my year was good' as an alternative. This supports the proposed repair, although her objection concerns the possession construction rather than a missing possessive ending alone.",
+   "evidence": {
+    "t_start": 1421.0,
+    "t_end": 1469.0,
+    "quote": "Medi: «أنا كان عندي سنة… سنة ماضية منيح»; Amal: «No. That doesn't work like this… My year was good… بس we don't have years».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-14/FA-4d5b273f_Medi_Medi_Natanzi-b50dcc648c1.mp3",
+      "sha256": "ff710ad126ec4889a012825651a06740ed9b8f74511a56dfbc030d2ae7d0573e",
+      "source": "Medi_Natanzi-b50dcc648c1c6031.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-14/FA-4d5b273f_Amal_Amal-4d3dee821e70bd65.mp3",
+      "sha256": "13d0bf4bafe9c271b27f7121e98a81f2890af02ff737ab0b9c1f13727b5689b3",
+      "source": "Amal-4d3dee821e70bd65.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-14/FA-4d5b273f_mixed_lesson.mp3",
+      "sha256": "a45adc865a4775e01d321535a289472e9cdd982b108813b767bcda9faf14a3b4",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا كان اندي سنة سنة ماضية امني I had a good last year I had a good year last year ترجمة نانسي قنقر",
+     "Amal": "ماذا تقصد؟ هل يمكنني أن أقوم بمساعدتكم؟ هذا لا يبدو بهذه الطريقة يمكنك أن تقول أن عامي كان جيداً هذا العام كان جيداً لأنا لكن لا نملك عامات",
+     "mixed": "اه ماذا تقصد انا اندي سنة مالتية اه انا كان اندي سنة سنة مالتية امني انا لدي سنة جيدة من السنة السابقة لدي سنة جيدة من السنة السابقة لا هذا لا يبدو كذلك يمكنك أن تقول عامي كان جيد عامي كان جيد لأنا لكن لدينا عام لا يوجد وقلت أن العام الأخير كان جيد"
+    }
+   },
+   "claim": {
+    "wrong": "أنا كان عندي سنة",
+    "right": "سنتي كانت منيحة (my year was good)",
+    "bucket": "A4",
+    "tier": null
+   },
+   "at": "2026-10-21T19:59:07-07:00",
+   "run_id": "ecbee96fb6384b45bf90d5cc47b585bc"
+  },
+  {
+   "uid": "FA-a22b7051",
+   "date": "2026-10-14",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "medium",
+   "reason": "No demonstrated correction or request for an unknown plural: Medi answers the singular question with موعد, and Amal then adds مواعيد. Supplying a plural during instruction does not establish that he unsuccessfully reached for it.",
+   "evidence": {
+    "t_start": 1815.0,
+    "t_end": 1848.0,
+    "quote": "Amal: «What's appointment?»; Medi: «موعد؟ موعد؟»; Amal: «موعد. موعد. مواعيد».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-14/FA-a22b7051_Medi_Medi_Natanzi-b50dcc648c1.mp3",
+      "sha256": "08f939bd0ea6de90c2bac0d645cd89efc062bc814833886b08071afc0d75f2c0",
+      "source": "Medi_Natanzi-b50dcc648c1c6031.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-14/FA-a22b7051_Amal_Amal-4d3dee821e70bd65.mp3",
+      "sha256": "22919f339fe5bf02f5230103c509d080a8c712f2dfaae15e494b4fb3cc7cf497",
+      "source": "Amal-4d3dee821e70bd65.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-14/FA-a22b7051_mixed_lesson.mp3",
+      "sha256": "cd1220ad4d555adb6950b8b9350c0024c54b9af69c89e3c8f9f19968b49ea6d5",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "مرحبا بكم في مرحبا بكم في مرحبا بكم في مرحبا بكم في مرحبا بكم في مرحبا بكم في مرحبا بكم. اشتركوا في القناة",
+     "Amal": "موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد ماذا يجب أن أدرس؟ يمكنك أن تدرس وأدرس أدرس؟ أنت لا أنت فقط تدرس أم",
+     "mixed": "موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد موعد م أنت لا أنت أفضل أفضل أفضل"
+    }
+   },
+   "claim": {
+    "wrong": "(plural not attempted)",
+    "right": "مواعيد",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-21T19:59:07-07:00",
+   "run_id": "ecbee96fb6384b45bf90d5cc47b585bc"
+  },
+  {
+   "uid": "FA-c4c20b29",
+   "date": "2026-10-14",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "unsure",
+   "confidence": "medium",
+   "reason": "The original transcript suggests a missing ـني, but both independent Medi transcriptions include it in «يذكريني». Amal's «يذكرني» could be a correction or a model during word retrieval; the evidence does not establish the claimed omission.",
+   "evidence": {
+    "t_start": 2081.0,
+    "t_end": 2115.0,
+    "quote": "Original Medi: «يذكّر»; independent Medi: «يذكريني… يذكريني»; independent Amal: «ذكرني… يذكرني».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-14/FA-c4c20b29_Medi_Medi_Natanzi-b50dcc648c1.mp3",
+      "sha256": "e02c84cfeb60fe8003ba205bc84400f017f0d160a5b346679d7ec4b90ca4da27",
+      "source": "Medi_Natanzi-b50dcc648c1c6031.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-14/FA-c4c20b29_Amal_Amal-4d3dee821e70bd65.mp3",
+      "sha256": "b7594f2e38bdc9937586b91a00a8e82be7cb9c7ec3b95691d8fd9893394377fa",
+      "source": "Amal-4d3dee821e70bd65.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-14/FA-c4c20b29_mixed_lesson.mp3",
+      "sha256": "a444bd8e83bc0d99d323c43ae3b0394263df104a6995a5e6e6179d7bf3b05ed6",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "يذكريني يذكريني أملهم لا أملهم لا أملهم حسناً، حسناً.",
+     "Amal": "اشتركوا في القناة شكراً لكم",
+     "mixed": "يذكرني يذكرني يذكرني أملهم لا أملهم لا أعمله لكنه واجب حسناً، حسناً."
+    }
+   },
+   "claim": {
+    "wrong": "يذكّر",
+    "right": "يذكرني",
+    "bucket": "D4",
+    "tier": null
+   },
+   "at": "2026-10-21T19:59:07-07:00",
+   "run_id": "ecbee96fb6384b45bf90d5cc47b585bc"
+  },
+  {
+   "uid": "FA-4f74c690",
+   "date": "2026-10-14",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "high",
+   "reason": "Amal's intervention at 38:30 corrects Medi's reference to this year, «هادي السنة», to next year. Her earlier «السنة الجاي» precedes his answer and does not establish an article correction.",
+   "evidence": {
+    "t_start": 2279.0,
+    "t_end": 2330.0,
+    "quote": "Medi, 38:29: «هادي السنة»; Amal, 38:30: «السنة الجاي»; Medi: «Okay».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-14/FA-4f74c690_Medi_Medi_Natanzi-b50dcc648c1.mp3",
+      "sha256": "8f5a7aa7355970ecf4c2a81dbafd3c57598d342b958d1eb1c8833655cdb1dd07",
+      "source": "Medi_Natanzi-b50dcc648c1c6031.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-14/FA-4f74c690_Amal_Amal-4d3dee821e70bd65.mp3",
+      "sha256": "89c97e999f9d72305c33a81c0297b880f7b6cffe2410923ebc58d00a7392928a",
+      "source": "Amal-4d3dee821e70bd65.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-14/FA-4f74c690_mixed_lesson.mp3",
+      "sha256": "5c08ee208c689bbbc77f694d839783cb2385496e8989fd89fe1ff77a0a182e20",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "موسيقى سنة القادمة سنة القادمة سنة القادمة بدي ألاعي",
+     "Amal": "طيب السنة الجاي السنة الجاي شو بتحب شو شو بتخطط تعمل بشكل عام شو سن الجاي",
+     "mixed": "طيب السنة الجاي السنة الجاي السنة الجاي شو بتحب شو شو بتخطط تعمل بشكل عام في الجنو هذه السنة؟ سنة الجاي سنة الجاي سنة الجاي أنا بدي أنا بدي ألاقي"
+    }
+   },
+   "claim": {
+    "wrong": "سنة الجاي",
+    "right": "السنة الجاي",
+    "bucket": "A7",
+    "tier": null
+   },
+   "at": "2026-10-21T19:59:07-07:00",
+   "run_id": "ecbee96fb6384b45bf90d5cc47b585bc",
+   "changed_to": {
+    "wrong": "هادي السنة",
+    "right": "السنة الجاي"
+   }
+  },
+  {
+   "uid": "FA-1f4f12d3",
+   "date": "2026-10-14",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi’s dialect transcription preserves the English “war,” and both mixed transcriptions capture Amal supplying «حرب». He then adopts it in «إذا الحرب بتخلص».",
+   "evidence": {
+    "t_start": 2815.0,
+    "t_end": 2855.0,
+    "quote": "Medi: «إذا ال war»; Amal: «War is حرب. حرب is feminine»; Medi: «أوكي. إذا الحرب بتخلص».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-14/FA-1f4f12d3_Medi_Medi_Natanzi-b50dcc648c1.mp3",
+      "sha256": "1cbfef7919d7e22749388b73d31d61ef5989e2fd47245e77ca9e0d740e2a3847",
+      "source": "Medi_Natanzi-b50dcc648c1c6031.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-14/FA-1f4f12d3_Amal_Amal-4d3dee821e70bd65.mp3",
+      "sha256": "956d2926a9a5bdaf6ae859c6169c77153e9dd5664f08e33ae7a24c20a7de294a",
+      "source": "Amal-4d3dee821e70bd65.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-14/FA-1f4f12d3_mixed_lesson.mp3",
+      "sha256": "702a73b6c1d83c60868af3db5237c643c362e59b2e7e67be1a3514e54adbb143",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "بس إذا الهرب تخلص إذا الهرب تخلص نروح على فلسطين وإيران",
+     "Amal": "موسيقى حرب حرب موسيقى ما كان ذلك بالضبط؟",
+     "mixed": "بس اذا ال اذا ال war تخلص war is حرب is feminine اذا ال حرب تخلص راح نروح على فلسطين وإيران which were exactly"
+    }
+   },
+   "claim": {
+    "wrong": "war",
+    "right": "حرب",
+    "bucket": null,
+    "tier": 3
+   },
+   "at": "2026-10-21T19:59:17-07:00",
+   "run_id": "6e005f1017384700891377634fb4216f"
   }
  ]
 }
