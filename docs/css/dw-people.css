@@ -350,3 +350,11 @@ html[data-look="flat"] #anees-bank a.st-task.st-cards.st-late { border-left: 1px
 @media (max-width: 680px) { #anees-bank .st-now .st-stack { display: none; } }
 /* the late cards in the picture read amber in Look A too */
 html[data-look="flat"] #anees-bank .st-stack rect[fill="var(--dw-warn)"] { fill: #D9962B; }
+/* round 20: the card list shows the next 3, the rest opens in place */
+#anees-bank details.dp-cards { display: grid; gap: 12px; }
+#anees-bank details.dp-cards > summary { cursor: pointer; list-style: none; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 6px;
+  border: 1px dashed var(--dw-line); border-radius: 12px; font: 600 14px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+#anees-bank details.dp-cards > summary::-webkit-details-marker { display: none; }
+#anees-bank details.dp-cards > summary::after { content: '▾'; } #anees-bank details.dp-cards[open] > summary::after { content: '▴'; }
+#anees-bank details.dp-cards[open] > summary { margin-bottom: 12px; }
+html[data-look="kurz"] #anees-bank details.dp-cards > summary { border-radius: 18px; border-color: var(--dw-a1); color: var(--dw-a1); }

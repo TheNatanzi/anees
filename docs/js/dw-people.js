@@ -99,10 +99,25 @@
       p.insertAdjacentHTML('beforeend', `<span class="dp-pbar" role="img" aria-label="${all - left} of ${all} done"><span class="dw-split"><i style="width:${(100 * (all - left) / all).toFixed(1)}%"></i></span><span class="dp-pdone">${all - left} of ${all} done</span></span>`);
     });
   }
+  // 6. a long card list (the mistakes to review): the next 3 cards in sight, the rest of the same page (same order) opens in
+  //    place; answering a card brings the next one up, so her order never changes
+  const foldOpen = new WeakMap();
+  function cardFold(root) {
+    root.querySelectorAll('[data-root]').forEach(r => {
+      if (r.querySelector(':scope > details.dp-cards')) return;
+      const cs = [...r.querySelectorAll(':scope > article.hb-card')];
+      if (cs.length < 6) return;
+      const rest = cs.slice(3), d = document.createElement('details');
+      d.className = 'dp-cards'; d.open = !!foldOpen.get(r);
+      d.innerHTML = `<summary>${rest.length} more cards on this page</summary>`;
+      rest[0].before(d); rest.forEach(c => d.appendChild(c));
+      d.addEventListener('toggle', () => foldOpen.set(r, d.open));
+    });
+  }
   let busy = false;
   function run() {
     if (busy) return; busy = true;
-    try { intros(view); cards(view); grammar(view); lists(view); progress(view); } finally { busy = false; }
+    try { intros(view); cards(view); grammar(view); lists(view); progress(view); cardFold(view); } finally { busy = false; }
   }
   let t = 0;
   new MutationObserver(() => { if (!busy) { clearTimeout(t); t = setTimeout(run, 30); } }).observe(view, { childList: true, subtree: true });
