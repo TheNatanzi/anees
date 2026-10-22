@@ -114,3 +114,92 @@ html[data-look="kurz"] body.dw-doc .dw-big.dw-filt { background: var(--kz-panel)
 body.dw-doc .dw-filt.s-Mastered { color: var(--m); } body.dw-doc .dw-filt.s-Good { color: var(--g); }
 body.dw-doc .dw-filt.s-Shaky { color: var(--s); } body.dw-doc .dw-filt.s-Wrong { color: var(--w); }
 html[data-look] body.dw-doc .dw-big.dw-filt { border-left: 5px solid currentColor; }
+
+/* closed cards: header + the rule line + one example row; a tap opens the rest in place */
+body.dw-doc .dw-peek[hidden] { display: flex; }
+body.dw-doc .dw-peek { width: 100%; align-items: center; justify-content: space-between; gap: 10px; margin: 2px 0 0; padding: 6px 10px;
+  border: 1px dashed var(--line); border-radius: 8px; background: transparent; color: var(--ink); font: inherit; font-size: 13px; cursor: pointer; text-align: left; }
+body.dw-doc .dw-peek:hover { border-style: solid; }
+body.dw-doc .dw-ex1 { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
+body.dw-doc .dw-ex1 code { color: var(--ink); }
+body.dw-doc .dw-more-n { flex: none; font-weight: 600; color: var(--green); }
+body.dw-doc .dw-more-n::after { content: " \25BE"; }
+body.dw-doc article.dw-on .dw-more-n::after { content: " \25B4"; }
+body.dw-doc article > header { cursor: pointer; }
+body.dw-doc article:not(.dw-on) > :not(header):not(.one):not(.dw-peek) { display: none; }
+body.dw-doc article.dw-on > .dw-peek { margin-bottom: 10px; }
+body.dw-doc article.dw-on > .dw-peek .dw-ex1 { visibility: hidden; }
+body.dw-doc article { margin-bottom: 8px; }
+html[data-look="kurz"] body.dw-doc .dw-peek { border: 0; background: var(--kz-raised); }
+
+/* every card wears its verdict: a colour stripe + a filled status chip */
+body.dw-doc article { border-left: 6px solid var(--u); }
+body.dw-doc article:has(> header .pill.s-Mastered) { border-left-color: var(--m); }
+body.dw-doc article:has(> header .pill.s-Good) { border-left-color: var(--g); }
+body.dw-doc article:has(> header .pill.s-Shaky) { border-left-color: var(--s); }
+body.dw-doc article:has(> header .pill.s-Wrong) { border-left-color: var(--w); }
+body.dw-doc article > header .pill { font-size: 13px; font-weight: 700; padding: 1px 10px; }
+body.dw-doc article > header .pill.s-Mastered { background: var(--dw-ok-fill); }
+body.dw-doc article > header .pill.s-Shaky { background: var(--dw-warn-fill); }
+body.dw-doc article > header .pill.s-Wrong { background: var(--dw-bad-fill); }
+@media (max-width: 680px) {
+  body.dw-doc .dw-peek { flex-wrap: wrap; }
+  body.dw-doc .dw-ex1 { white-space: normal; overflow: visible; flex: 1 1 100%; }
+}
+html[data-look="kurz"] body.dw-doc article { border-left: 8px solid var(--u); }
+html[data-look="kurz"] body.dw-doc article:has(> header .pill.s-Mastered) { border-left-color: var(--m); }
+html[data-look="kurz"] body.dw-doc article:has(> header .pill.s-Good) { border-left-color: var(--g); }
+html[data-look="kurz"] body.dw-doc article:has(> header .pill.s-Shaky) { border-left-color: var(--s); }
+html[data-look="kurz"] body.dw-doc article:has(> header .pill.s-Wrong) { border-left-color: var(--w); }
+
+/* closed card = a scan line: id, name, status, a % bar, what opens */
+body.dw-doc .dw-pct { display: none; }
+body.dw-doc .dw-pct { display: block; flex: 1 0 100%; order: 9; height: 6px; border-radius: 999px; background: linear-gradient(90deg, currentColor var(--p), var(--line) var(--p)); }
+body.dw-doc article:not(.dw-on) > .one { display: none; }
+body.dw-doc article:not(.dw-on) .dw-ex1 { display: none; }
+body.dw-doc article:not(.dw-on) > .dw-peek { border: 0; padding: 4px 0 0; justify-content: flex-end; }
+body.dw-doc article:not(.dw-on) { padding-block: 10px; }
+body.dw-doc article > header h3 { font-size: 16px; }
+body.dw-doc .an-box { max-width: none; padding: 8px 12px; font-size: 13px; margin-bottom: 12px; }
+body.dw-doc article:not(.dw-on) { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; align-items: end; }
+body.dw-doc article:not(.dw-on) > .dw-peek { width: auto; padding: 0; font-size: 12px; }
+body.dw-doc article:not(.dw-on) > .dw-peek .dw-more-n { color: var(--muted); font-weight: 500; }
+
+/* the eye lands on what needs work: Mastered / Good cards sit quieter */
+body.dw-doc article:not(.dw-on):has(> header .pill.s-Mastered), body.dw-doc article:not(.dw-on):has(> header .pill.s-Good) { padding-block: 6px; opacity: .78; }
+body.dw-doc article:not(.dw-on):has(> header .pill.s-Mastered) h3, body.dw-doc article:not(.dw-on):has(> header .pill.s-Good) h3 { font-weight: 500; font-size: 15px; }
+body.dw-doc article:not(.dw-on):has(> header .pill.s-Wrong) { background: color-mix(in srgb, var(--dw-bad-fill) 55%, var(--panel)); }
+@media (max-width: 680px) {
+  body.dw-doc article > header { display: flex; flex-wrap: wrap; align-items: baseline; }
+  body.dw-doc article > header h3 { flex: 1 1 calc(100% - 70px); }
+  body.dw-doc article > header .pill { margin-left: 0; }
+}
+/* closed: no meta line, the bar runs the full width; the caret on the name says it opens */
+body.dw-doc article:not(.dw-on) { display: block; }
+body.dw-doc article:not(.dw-on) > .dw-peek { display: none; }
+body.dw-doc article > header h3::after { content: " \25BE"; font-size: 12px; color: var(--muted); font-weight: 400; }
+body.dw-doc article.dw-on > header h3::after { content: " \25B4"; }
+
+/* families fold to one line: status dots + counts; tap to open (filters and rule links open them too) */
+body.dw-doc .dw-fam[hidden] { display: flex; }
+body.dw-doc .dw-fam { width: 100%; align-items: center; gap: 12px; flex-wrap: wrap; margin: -4px 0 10px; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; cursor: pointer; text-align: left; }
+body.dw-doc .dw-dots { display: flex; flex-wrap: wrap; gap: 4px; flex: 1 1 200px; }
+body.dw-doc .dw-dots i { width: 14px; height: 14px; border-radius: 4px; background: currentColor; }
+body.dw-doc .dw-dots i.s-Untested, body.dw-doc .dw-dots i.s-Unscored, body.dw-doc .dw-dots i.s-NotTaught { background: transparent; border: 1.5px dashed currentColor; }
+body.dw-doc .dw-famn { flex: none; color: var(--muted); }
+body.dw-doc .dw-famn b { color: var(--ink); font-size: 15px; }
+body.dw-doc .dw-famn::after { content: " \25BE"; }
+body.dw-doc main section > h2 { cursor: pointer; margin-top: 22px; }
+body.dw-doc main section:not(.dw-open) > :not(h2):not(.dw-fam) { display: none; }
+body.dw-doc main section.dw-open > .dw-fam { margin-bottom: 12px; }
+body.dw-doc main section.dw-open > .dw-fam .dw-famn::after { content: " \25B4"; }
+body[data-dw-filter="Mastered"].dw-doc main section > article:has(> header .pill.s-Mastered),
+body[data-dw-filter="Good"].dw-doc main section > article:has(> header .pill.s-Good),
+body[data-dw-filter="Shaky"].dw-doc main section > article:has(> header .pill.s-Shaky),
+body[data-dw-filter="Wrong"].dw-doc main section > article:has(> header .pill.s-Wrong) { display: block !important; }
+body[data-dw-filter].dw-doc main section:not(.dw-open) > .lede { display: none; }
+html[data-look="kurz"] body.dw-doc .dw-fam { border: 0; border-radius: 18px; }
+body.dw-doc .dw-dots.dw-leg { display: inline-flex; flex: none; align-items: center; gap: 4px; margin-right: 8px; }
+body.dw-doc .dw-dots.dw-leg i { width: 10px; height: 10px; border-radius: 3px; margin-left: 4px; }
+body.dw-doc .dw-famn b + * , body.dw-doc .dw-famn { font-size: 14px; }

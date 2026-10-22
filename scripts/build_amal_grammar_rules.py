@@ -45,6 +45,10 @@ def header(m):
                       if r["status"] == "NotTaught"
                       else "%s correction%s" % (r["mistakes"], "" if r["mistakes"] == 1 else "s") if r["status"] == "Unscored"
                       else "%s use%s" % (r["uses"], "" if r["uses"] == 1 else "s")), head, count=1)
+    # de-word: a small bar of the % right, in the status colour (drawn by css/dw-amal.css on the rules page)
+    head = re.sub(r'<i class="dw-pct[^"]*"[^>]*></i>', "", head)
+    if r["pct"] is not None:
+        head += '<i class="dw-pct s-%s" style="--p:%s%%" aria-hidden="true"></i>' % (r["status"], r["pct"])
     return '<article id="%s"><header>%s</header>' % (rid, head)
 
 
@@ -67,8 +71,7 @@ def tutor_section(bs):
                     '<table class="ext">%s</table><h4>The detail</h4><ul class="more">%s</ul></div><div><h4>From the student&#39;s lessons</h4>'
                     '<p class="none">No automatic detection yet: counted only from the AI readers and your and the student&#39;s notes.</p></div></div></article>'
                     % (e(b["id"]), e(b["id"]), e(b["name"]), e(b["one_line"]), e(b.get("why")), ex, more))
-    return ('<section id="tutor-added"><h2><span class="fl">+</span>Rules you added</h2><p class="lede">Rules you wrote on your Tutor page '
-            '(Add grammar) and said yes to. The app has no automatic detection for them yet.</p>' + "".join(arts) + "</section>")
+    return ('<section id="tutor-added"><h2><span class="fl">+</span>Rules you added</h2><p class="lede">Rules you added (Add grammar). No auto-check yet.</p>' + "".join(arts) + "</section>")
 
 
 _tb = [x for x in json.load(open(os.path.join(ROOT, "docs", "data", "grammar-buckets.json"), encoding="utf-8"))["buckets"] if x.get("added_by") == "tutor"]
@@ -93,8 +96,18 @@ def dw_fold(m):
             % (" &middot; %d more" % n_more if n_more else "", why, ("<h4>The detail</h4>" + more.group(0)) if more else ""))
     les = ('<details class="dw-fold dw-les"><summary><b>%d</b> %s</summary><div><h4>From the student&#39;s lessons</h4>%s</div></details>'
            % (n_les, "fix heard" if n_les == 1 else "fixes heard", body)) if n_les else '<div class="dw-none">%s</div>' % body
-    return ('<p class="one">%s</p><div class="grid dw-g"><div class="dw-ex">%s</div><div class="dw-acts">%s%s</div></div></article>'
-            % (one, ex.group(0) if ex else "", info, les))
+    return ('<p class="one">%s</p>%s<div class="grid dw-g"><div class="dw-ex">%s</div><div class="dw-acts">%s%s</div></div></article>'
+            % (one, dw_peek(ex.group(0) if ex else "", n_les), ex.group(0) if ex else "", info, les))
+
+
+def dw_peek(table, n_les):
+    """The closed card's one row (only drawn on the rules page itself, css/dw-amal.css; the Tutor hub keeps the full card):
+    the first example, then how much opens on a tap."""
+    first = re.search(r'<td class="az">(.*?)</td><td class="en">(.*?)</td>', table, re.S)
+    n_ex = table.count("<tr>")
+    bits = (['<b>%d</b> example%s' % (n_ex, "" if n_ex == 1 else "s")] if n_ex else []) + (['<b>%d</b> fix%s' % (n_les, "" if n_les == 1 else "es")] if n_les else [])
+    return ('<button type="button" class="dw-peek" hidden>%s<span class="dw-more-n">%s</span></button>'
+            % ('<span class="dw-ex1"><code>%s</code> = %s</span>' % first.groups() if first else "", " &middot; ".join(bits) or "Open"))
 
 
 _T = r"((?:(?!</article>|<article ).)*?)"   # never across a card
@@ -107,7 +120,8 @@ def dw_fold_p(m):
     n = right.count("<tr>")
     return ('<div class="grid dw-g"><div class="dw-ex">%s</div><div class="dw-acts"><details class="dw-fold dw-more"><summary><span class="dw-i">i</span>Your yes</summary>'
             '<div><p class="why">%s</p></div></details><details class="dw-fold dw-les"><summary><b>%d</b> lesson minute%s</summary><div>%s</div></details></div></div></article>'
-            % (left, why, n, "" if n == 1 else "s", right))
+            % (left, why, n, "" if n == 1 else "s", right)).replace('<div class="grid dw-g">', '<button type="button" class="dw-peek" hidden><span class="dw-ex1">%s</span>'
+            '<span class="dw-more-n"><b>%d</b> lesson minute%s</span></button><div class="grid dw-g">' % (re.sub(r"<[^>]+>", "", (re.search(r"<li>(.*?)</li>", left) or re.search("(.*)", "")).group(1)), n, "" if n == 1 else "s"), 1)
 
 
 s = re.sub(r'<p class="why">' + _T + r'</p><div class="grid"><div>(<h4>What it says</h4>' + _T[1:-1] + r')</div><div>(<h4>From the ' + _T[1:-1]
@@ -132,15 +146,47 @@ s = re.sub(re.escape(DW_S) + ".*?" + re.escape(DW_E), "", s, flags=re.S).replace
 _toc_end = s.index("</nav>", s.index('<nav class="toc">'))
 s = s[:_toc_end + 6] + DW_J + s[_toc_end + 6:]
 s = s.replace('<nav class="toc">', DW_S + '<div class="dw-status"><div class="dw-sbar">%s</div><div class="dw-bigs dw-tiles">%s</div>'
-              '<p class="dw-cap">%s &middot; tap a box to see only those rules</p></div>'
+              '<p class="dw-cap"><span class="dw-dots dw-leg"><i class="s-Mastered"></i>mastered <i class="s-Good"></i>good <i class="s-Shaky"></i>shaky '
+              '<i class="s-Wrong"></i>wrong <i class="s-Untested"></i>no score yet</span> %s &middot; tap a box to see only those rules</p></div>'
               '<details class="dw-fold dw-jump"><summary>Jump to a rule</summary><div>' % (_bar, _tiles, _rest) + DW_E + '<nav class="toc">', 1)
 DW_JS = ('<script data-dw-filter>document.addEventListener("click",function(e){var b=e.target.closest(".dw-filt");if(!b)return;'
          'var on=b.getAttribute("aria-pressed")!=="true";document.querySelectorAll(".dw-filt").forEach(function(x){x.setAttribute("aria-pressed","false")});'
          'if(on){b.setAttribute("aria-pressed","true");document.body.setAttribute("data-dw-filter",b.dataset.s)}else document.body.removeAttribute("data-dw-filter")});</script>')
+DW_JS += ('<script data-dw-cards>(function(){function open(a,on){if(a)a.classList.toggle("dw-on",on)}'
+          'document.addEventListener("click",function(e){var b=e.target.closest(".dw-peek, article > header");if(!b||e.target.closest("a,abbr"))return;var a=b.closest("article");open(a,!a.classList.contains("dw-on"))});'
+          'function hash(){var a=location.hash&&document.getElementById(decodeURIComponent(location.hash.slice(1)));if(a&&a.tagName==="ARTICLE")open(a,true)}'
+          'window.addEventListener("hashchange",hash);hash()})();</script>')
 if "data-dw-filter>" not in s:
     s = s.replace("</body>", DW_JS + "</body>", 1)
 s = re.sub(r'<a( class="s-\w+")? href="#([^"]+)">', lambda m: '<a class="s-%s" href="#%s">' % (_st.get(m.group(2)) or _st.get(m.group(2).replace("-add", "+")) or "Untested", m.group(2))
            if m.group(2) in _st or m.group(2).replace("-add", "+") in _st else m.group(0), s)
+# each family folds to one line: its rules as status dots + how many (tap the line to open; css/dw-amal.css)
+s = re.sub(r'<button type="button" class="dw-fam"[^>]*>.*?</button>', "", s, flags=re.S)
+
+
+def _fam(m):
+    sec = m.group(0)
+    ids = re.findall(r'<article id="([^"]+)">', sec)
+    dots = "".join('<i class="s-%s" title="%s"></i>' % (_st.get(i, "Untested"), i) for i in ids)
+    weak = sum(1 for i in ids if _st.get(i) in ("Wrong", "Shaky"))
+    btn = ('<button type="button" class="dw-fam" hidden><span class="dw-dots">%s</span><span class="dw-famn"><b>%d</b> rule%s%s</span></button>'
+           % (dots, len(ids), "" if len(ids) == 1 else "s", " &middot; <b>%d</b> to work on" % weak if weak else ""))
+    return sec.replace("</h2>", "</h2>" + btn, 1)
+
+
+s = re.sub(r"<section[^>]*>.*?</section>", _fam, s, flags=re.S)
+DW_JS2 = ('<script data-dw-fams>(function(){document.addEventListener("click",function(e){var b=e.target.closest(".dw-fam, main section > h2");if(!b)return;'
+          'b.closest("section").classList.toggle("dw-open")});function hash(){var a=location.hash&&document.getElementById(decodeURIComponent(location.hash.slice(1)));'
+          'if(a){var s=a.closest("section");if(s)s.classList.add("dw-open")}}window.addEventListener("hashchange",hash);hash()})();</script>')
+if "data-dw-fams>" not in s:
+    s = s.replace("</body>", DW_JS2 + "</body>", 1)
+# one rule count everywhere: the headline adds up to the cards and the bar
+_secs = re.findall(r"<section( id=\"([^\"]*)\")?>(.*?)</section>", s, re.S)
+_core = sum(len(re.findall(r"<article id=", b)) for _, i, b in _secs if not i)
+_prop = sum(len(re.findall(r"<article id=", b)) for _, i, b in _secs if i.startswith("proposed-"))
+_mine = sum(len(re.findall(r"<article id=", b)) for _, i, b in _secs if i == "tutor-added")
+s = re.sub(r'(<h1>.*?</h1><p class="lede">).*?(</p>)', lambda m: m.group(1) + "%d rules: %d core%s%s. Please check each one." % (
+    _core + _prop + _mine, _core, " + %d approved" % _prop if _prop else "", " + %d you added" % _mine if _mine else "") + m.group(2), s, count=1, flags=re.S)
 # theme + look switch (js/theme.js loads js/look.js) and the page's de-word skin
 if "../js/theme.js" not in s:
     s = s.replace("</title>", '</title><script src="../js/theme.js"></script>', 1)
