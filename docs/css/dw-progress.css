@@ -176,3 +176,12 @@ html[data-look="kurz"] #anees-bank .dw-morebtn { border: 0; border-radius: 22px;
 /* Overview: the two takeaways (cadence, weekly baseline) come first; the lesson numbers follow (visual order only) */
 #anees-bank #vp-tab-overview { display: flex; flex-direction: column; }
 #anees-bank #vp-tab-overview > #ov2 { order: -1; }
+
+/* trend on a card: a small chip with an arrow (flat line for "no change") */
+#anees-bank .vp-card .vp-trend { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 999px;
+  background: var(--dw-ok-fill); color: var(--dw-ok); font-size: 11.5px; font-weight: 700; }
+#anees-bank .vp-card .vp-trend::before { content: "▲"; font-size: 9px; }
+#anees-bank .vp-card .vp-trend.vp-trend-down { background: var(--dw-bad-fill); color: var(--dw-bad); }
+#anees-bank .vp-card .vp-trend.vp-trend-down::before { content: "▼"; }
+#anees-bank .vp-card .vp-trend.vp-trend-flat { background: transparent; border: 1px solid var(--dw-line); color: var(--dw-muted); }
+#anees-bank .vp-card .vp-trend.vp-trend-flat::before { content: ""; width: 14px; height: 2px; border-radius: 2px; background: currentColor; }
