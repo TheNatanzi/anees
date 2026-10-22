@@ -48,6 +48,11 @@ def dword(frag):
         if re.search(r'\d', txt) or len(txt.split()) <= 60:
             return m.group(0)   # a number in it is data, and a one-liner reads faster than a tap: it stays in view
         return '<details class="dw-info fl-more"><summary aria-label="How this step works">ⓘ</summary><div>%s</div></details>' % m.group(1)
+    # step 6: the six readers as three plan groups (every model name and number stays), the merge rule as one line
+    frag = frag.replace('<p><b>Claude Opus 5.5</b> and <b>Claude Sonnet 5.5</b> (Claude plan), <b>GPT-5.6 Terra</b> and <b>GPT-6 Astra</b> through Codex (ChatGPT plan), '
+                        '<b>Gemini 3.7 Flash</b> and <b>Gemini 3.1 Pro (preview)</b> (paid Gemini key). Same reading instructions; flags of the same kind within 15 s become one candidate.</p>',
+                        '<div class="fl-plans"><span><em>Claude plan</em> Opus 5.5 · Sonnet 5.5</span><span><em>ChatGPT plan (Codex)</em> GPT-5.6 Terra · GPT-6 Astra</span>'
+                        '<span><em>Paid Gemini key</em> 3.7 Flash · 3.1 Pro (preview)</span></div><p>Same instructions; same-kind flags within 15 s → one candidate.</p>', 1)
     frag = re.sub(r'<p>(.*?)</p>(?=<div class="chips">)', info, frag)
 
     def phase(m):
