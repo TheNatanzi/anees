@@ -20,6 +20,9 @@ OUT = os.path.join(REPO, "docs", "reports", "anees-flow.html")
 TITLE = "Anees: from lesson to grade"
 
 
+ICONS = {'A': '🎙️', 'B': '👂', 'C': '🔍', 'D': '📒', 'E': '🌐', 'F': '🧑‍🏫', 'G': '📚', 'H': '🏆'}   # one picture per phase
+
+
 def dword(frag):
     """De-word (plan/OVERNIGHT-DEWORD-2026-10-22.md): each step shows its title, who and cost; the how-it-works sentence
     opens in place behind a small (i) on the step. A numbered strip of the 8 phases sits on top (tap one to jump)."""
@@ -35,6 +38,7 @@ def dword(frag):
         sumry = ('<span class="fl-sum"><span class="fl-n">%d %s</span>%s%s</span>'
                  % (steps, 'step' if steps == 1 else 'steps', '<span class="fl-n">%d %s</span>' % (asks, 'choice' if asks == 1 else 'choices') if asks else '', who))
         head = head.replace('</h2>', '</h2>' + sumry, 1)
+        head = '<span class="fl-ico" aria-hidden="true">%s</span>' % ICONS.get(code, '') + head
         return ('<details class="phase" id="fl-%s" style="--pc:%s"><summary><header><span class="pcode">%s</span>%s</header></summary>%s</details>'
                 % (code, color, code, head, body))
     frag = re.sub(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>(.*?)</header>(.*?)</section>',

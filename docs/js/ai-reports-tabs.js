@@ -116,8 +116,12 @@ function dwBigs(){
  const nav=T.querySelector('.ar-jump');(nav||T.firstElementChild).after(box);if(nav)nav.hidden=true;
 }
 let dwT=0;
-function dwPass(){dwGroups();document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwInfo(el);});dwFold(t);});dwBigs();}
+const dwTry=(f,...a)=>{try{f(...a);}catch(e){window.dwErr=(window.dwErr||[]).concat(f.name+': '+e);}};
+function dwPass(){dwTry(dwBigs);dwTry(dwGroups);document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwTry(dwInfo,el);});dwTry(dwFold,t);});}
+{let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 new MutationObserver(()=>{clearTimeout(dwT);dwT=setTimeout(dwPass,60);}).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
+// a tap on a big number (or a #ar-unk-… link) opens that section in place
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#ar-unk-"]');if(!a)return;const sec=document.querySelector(a.getAttribute('href'));const d=sec&&sec.querySelector('details.ar-unk-d');if(d)d.open=true;});
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');
 if(!first){try{first=localStorage.getItem('anees-ai-reports-tab');}catch(e){}}

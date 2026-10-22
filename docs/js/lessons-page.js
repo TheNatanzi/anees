@@ -1173,7 +1173,7 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     if (!box || box.dataset.dw === box.textContent.length + '') return;
     [].slice.call(box.children).forEach(function (d) {
       if (d.querySelector('details')) return;
-      var t = d.textContent, m = t.match(/not published since ([^:]+):/), short = m ? 'Robot stuck since ' + m[1] : t.split(/[:.]/)[0];
+      var t = d.textContent, m = t.match(/not published since (.+?):\s/), short = m ? 'Robot stuck since ' + m[1] : t.split(/[:.]/)[0];
       if (short === t) return;
       d.textContent = '';
       d.appendChild(el('span', 'dw-chip bad', short));

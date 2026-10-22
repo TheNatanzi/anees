@@ -169,3 +169,35 @@ html.lsn-page .lsn-map figcaption span { margin-left: auto; }
 }
 html[data-look="kurz"] #anees-bank .fl details.phase { border-radius: 22px; border-left-width: 0; box-shadow: inset 6px 0 0 var(--pc); }
 html[data-look="kurz"] #anees-bank .fl .pcode { border-radius: 50%; }
+/* Robot blind spots round 5: each section is one row under the big numbers; it opens in place */
+#ar-tab-unknowns .ar-unk { margin: 0 0 8px; }
+#ar-tab-unknowns details.ar-unk-d > summary { list-style: none; cursor: pointer; }
+#ar-tab-unknowns details.ar-unk-d > summary::-webkit-details-marker { display: none; }
+#ar-tab-unknowns details.ar-unk-d > summary .ar-unk-h { display: flex; align-items: center; gap: 8px; margin: 0; padding: 12px 14px; border: 1px solid var(--dw-line);
+  border-radius: var(--dw-radius); background: var(--dw-card); font-size: 18px; }
+#ar-tab-unknowns details.ar-unk-d > summary .ar-unk-h::after { content: "›"; margin-left: auto; font-size: 22px; color: var(--dw-muted); transition: transform .15s; }
+#ar-tab-unknowns details.ar-unk-d[open] > summary .ar-unk-h::after { transform: rotate(90deg); }
+#ar-tab-unknowns details.ar-unk-d[open] > summary { margin-bottom: 12px; }
+/* flow round 5: rows joined by a line (one chain), one picture per phase, cost chip in the money colour */
+#anees-bank .fl details.phase { position: relative; margin-top: 16px; }
+#anees-bank .fl details.phase + details.phase::before, #anees-bank .fl details.phase + .done::before { content: ""; position: absolute; left: 22px; top: -17px; width: 3px; height: 16px; background: var(--pc, var(--ab-line)); opacity: .6; }
+#anees-bank .fl > .done { position: relative; margin-top: 16px; }
+#anees-bank .fl .fl-ico { font-size: 20px; line-height: 1; }
+#anees-bank .fl .fl-sum .chip.money { background: var(--fl-moneyBg); color: var(--fl-money); }
+@media (max-width: 600px) {
+  #anees-bank .fl details.phase > summary header { grid-template-columns: 28px 26px 1fr auto; }
+  #anees-bank .fl details.phase > summary .fl-sum, #anees-bank .fl details.phase > summary .when { grid-column: 3 / 5; }
+  #anees-bank .fl details.phase > summary header::after { grid-column: 4; }
+}
+/* Lessons round 2: search & filters fold into one row; summary tiles go compact on a phone */
+#anees-bank details.ls-filters { margin: 4px 0 8px; }
+#anees-bank details.ls-filters > summary { display: inline-block; list-style: none; cursor: pointer; padding: 5px 14px; border-radius: 999px; border: 1px solid var(--dw-line); background: var(--dw-card); font-weight: 600; font-size: 13px; }
+#anees-bank details.ls-filters > summary::-webkit-details-marker { display: none; }
+#anees-bank details.ls-filters > summary::before { content: "⌕ "; }
+#anees-bank details.ls-filters[open] > summary { margin-bottom: 8px; }
+@media (max-width: 680px) {
+  #anees-bank #ls-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 6px !important; }
+  #anees-bank #ls-metrics .ab-metric { padding: 8px !important; min-height: 0 !important; }
+  #anees-bank #ls-metrics .ab-number { font-size: 22px !important; margin: 2px 0 0 !important; }
+  #anees-bank #ls-metrics .ab-metric-label { font-size: 10.5px !important; }
+}
