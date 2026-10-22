@@ -563,3 +563,14 @@ html[data-sabz-theme="dark"] #anees-bank .tu-meta, html[data-sabz-theme="dark"] 
 .hw-key { display: inline-flex; align-items: center; gap: 4px; margin-left: 10px; font-size: 11.5px; color: var(--dw-muted); }
 .hw-key i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--dw-muted); margin-left: 6px; } .hw-key i.ok { background: var(--dw-ok); border-color: var(--dw-ok); } .hw-key i.ai { background: var(--dw-warn); border-color: var(--dw-warn); }
 .hw-big { font-size: 13px; color: var(--dw-muted); } .hw-big b { font: 700 26px/1 var(--sabz-font-sans, system-ui); color: var(--dw-ink); margin-right: 4px; }
+/* r2 round 14: phone: the chip row IS the list (the same rows stay in the page, not drawn twice); homework dots under the counter */
+@media (max-width: 680px) {
+  #anees-bank .hb-list [data-rows] > .hb-row { display: none; }
+  #anees-bank .tu-strip a.on { background: var(--dw-a2); color: #fff; border-color: var(--dw-a2); }
+  #anees-bank .tu-strip a.on b { color: #fff; }
+}
+#hw-state { display: grid; justify-items: end; gap: 6px; }
+#hw-state .hw-dots { margin: 0; gap: 6px; } #hw-state .hw-dots i { width: 16px; height: 16px; }
+#sub { font-size: 14px; color: var(--dw-ink); opacity: .85; } .hw-key { font-size: 13px; color: var(--dw-ink); opacity: .85; }
+.hw-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+@media (max-width: 680px) { #anees-bank .hb-list .hb-panel > .hb-ptitle, #anees-bank .hb-list .hb-panel > .hb-pnote { display: block !important; } #anees-bank .hb-list .hb-panel > .hb-ptitle { margin: 0 40px 2px 0; font-size: 18px; } }
