@@ -452,3 +452,7 @@ html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big::after { display
 #anees-bank .hb-row.tu-next .tu-kind { color: var(--dw-a2); }
 html[data-look="kurz"] #anees-bank .hb-row .tu-kind { width: 22px; height: 22px; padding: 3px; border-radius: 8px; background: var(--dw-ok-fill); color: var(--dw-a3); vertical-align: -6px; }
 @media (min-width: 681px) { #anees-bank .dp-pairs { justify-content: center; column-gap: 40px; } }
+/* round 35: the unit sits small under each To do row's big number */
+#anees-bank .hb-row.tu-row .hb-row-s .tu-unit { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: nowrap; display: block;
+  font: 600 10.5px/1.1 var(--sabz-font-sans, system-ui); color: var(--dw-muted); text-transform: uppercase; letter-spacing: .04em; }
+#anees-bank .hb-card > .hb-prog { text-transform: none; letter-spacing: 0; font: 600 14px/1.35 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }

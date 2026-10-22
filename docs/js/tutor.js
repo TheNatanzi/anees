@@ -83,8 +83,9 @@
   const subHtml = t => t.subText ? esc(t.subText) : t.finished ? '<span class="dw-chip">Done · thank you</span>'
     : `<span class="tu-left">${fmt(t.left)}</span><span class="tu-unit"> ${esc(t.unit)} left </span><span class="dw-chip muted tu-min">${mins(t)} min</span>`;
   const short = s => String(s || '').replace(/\s*\(about \d+ min(?:utes)?\)\s*$/, '')
-    .replace(/^(\d[\d,]*) moments to look at again, with the whole exchange$/, '$1 moments to re-check')
-    .replace(/^(\d[\d,]*) moments we are unsure about$/, '$1 unsure moments')
+    .replace(/^\d[\d,]* moments to look at again, with the whole exchange$/, 'Moments to re-check')
+    .replace(/^\d[\d,]* moments we are unsure about$/, 'Unsure moments')
+    .replace(/^\d[\d,]* quick questions about (.*)$/, 'Quick questions: $1')
     .replace(/did the student say this word\? - part (\d+) of (\d+)$/, 'was the word said? · $1 of $2')
     .replace(/what did the student say\? - part (\d+)$/, 'what was said? · $1')
     .replace(/the student’s own corrections$/, 'his own fixes');
@@ -258,8 +259,8 @@
     setTab('decay'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
     let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
     const K = D.decay || { decaying: [], untested: [], days: 0 };
-    const rows = K.decaying.map(w => ({ id: 'decay:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(gloss(w.english))} · last said ${pretty(w.last_date)} (${w.days_ago} days)${w.status ? ' · was ' + esc(w.status) : ''}`, find: w.english || '', w, kind: 'decaying' }))
-      .concat(K.untested.map(w => ({ id: 'untested:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(gloss(w.english))} · never said in a recorded lesson · in the Doc since ${pretty(w.first_seen)}`, find: w.english || '', w, kind: 'untested' })));
+    const rows = K.decaying.map(w => ({ id: 'decay:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, subHtml: `<span class="tu-pline">${esc(gloss(w.english))} · ${esc(pretty(w.last_date))}</span><span class="dp-hide"> · last said ${esc(pretty(w.last_date))} (${w.days_ago} days)${w.status ? ' · was ' + esc(w.status) : ''}</span>`, find: w.english || '', w, kind: 'decaying' }))
+      .concat(K.untested.map(w => ({ id: 'untested:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, subHtml: `<span class="tu-pline">${esc(gloss(w.english))} · never said</span><span class="dp-hide"> · never said in a recorded lesson · in the Doc since ${esc(pretty(w.first_seen))}</span>`, find: w.english || '', w, kind: 'untested' })));
     const maxAge = Math.max(1, ...K.decaying.map(w => w.days_ago || 0));
     rows.forEach(r => { r.bar = r.kind === 'decaying' ? `<div class="hb-bar tu-age" aria-hidden="true"><i style="width:${Math.round(100 * (r.w.days_ago || 0) / maxAge)}%"></i></div>` : '<div class="hb-bar tu-age" aria-hidden="true"><i class="never" style="width:100%"></i></div>'; });
     listPanel('decay', rows, id, (row, p) => {
