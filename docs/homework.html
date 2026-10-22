@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Homework</title><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/anees-page.css"><link rel="stylesheet" href="css/dw-people.css?v=r2p"><script src="js/theme.js"></script>
+<title>Homework</title><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/anees-page.css"><link rel="stylesheet" href="css/dw-people.css?v=r2q"><script src="js/theme.js"></script>
 <style>
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere}
 main{max-width:640px;margin:0 auto;padding:14px 14px 40px}
@@ -36,7 +36,7 @@ const root=document.getElementById('root'), sub=document.getElementById('sub');
 const KEY=new URLSearchParams(location.search).get('date');
 let items=[], answers={};
 function promptText(it){ return (it.status==='edit'||it.status==='amal')&&it.edited_english ? it.edited_english : it.english; }
-function badge(it){ if(it.status==='suggested') return '<span class="dw-chip warn">not reviewed</span>'; if(it.status==='amal') return '<span class="dw-chip">tutor\'s line</span>'; if(it.status==='edit') return '<span class="dw-chip">tutor edited</span>'; return '<span class="dw-chip">tutor kept</span>'; }
+function badge(it){ if(it.status==='suggested') return '<span class="dw-chip muted">not reviewed</span>'; if(it.status==='amal') return '<span class="dw-chip">tutor\'s line</span>'; if(it.status==='edit') return '<span class="dw-chip">tutor edited</span>'; return '<span class="dw-chip">tutor kept</span>'; }
 function gradeHtml(a){ if(!a) return ''; const g=a.grade; let h='<div class="grade">';
   if(!g) h+='<span class="pill">checking…</span>'; else { const v=g.verdict||'ungraded'; h+=`<span class="pill ${esc(v)}">${v==='right'?'Right':v==='close'?'Close':v==='wrong'?'Not yet':'Ungraded'}</span> <span class="mute">Anees</span>`;
     (g.notes||[]).forEach(n=>{ h+=`<div class="note"><b>${esc(n.kind||'')}</b> ${esc(n.say||'')}</div>`; });

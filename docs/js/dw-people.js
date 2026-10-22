@@ -221,11 +221,20 @@
       if (el.textContent !== lab) el.textContent = lab;
     });
   }
+  // r2: "65 of 69 answered" gets a thin bar under it
+  function answeredBars(root) {
+    root.querySelectorAll('#hb-panel p, #hb-panel div').forEach(p => {
+      if (p.children.length > 1 || p.querySelector('.dp-abar')) return;
+      const m = /^(\d[\d,]*) of (\d[\d,]*) answered$/.exec(txt(p)); if (!m) return;
+      const a = +m[1].replace(/,/g, ''), n = +m[2].replace(/,/g, ''); if (!n) return;
+      p.insertAdjacentHTML('beforeend', `<span class="dp-abar dw-split" aria-hidden="true"><i style="width:${(100 * a / n).toFixed(1)}%"></i></span>`);
+    });
+  }
   let busy = false;
   function run() {
     if (busy) return; busy = true;
     // round 2 (Medi 10-22 'you cut out too much data'): no list, card, decided or phone filter folds
-    try { intros(view); cards(view); grammar(view); progress(view); aiNotes(view); answerTint(view); counters(view); } finally { busy = false; }
+    try { intros(view); cards(view); grammar(view); progress(view); aiNotes(view); answerTint(view); counters(view); answeredBars(view); } finally { busy = false; }
   }
   let t = 0;
   new MutationObserver(() => { if (!busy) { clearTimeout(t); t = setTimeout(run, 30); } }).observe(view, { childList: true, subtree: true });

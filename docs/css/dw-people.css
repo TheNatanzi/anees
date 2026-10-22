@@ -574,3 +574,14 @@ html[data-sabz-theme="dark"] #anees-bank .tu-meta, html[data-sabz-theme="dark"] 
 #sub { font-size: 14px; color: var(--dw-ink); opacity: .85; } .hw-key { font-size: 13px; color: var(--dw-ink); opacity: .85; }
 .hw-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 @media (max-width: 680px) { #anees-bank .hb-list .hb-panel > .hb-ptitle, #anees-bank .hb-list .hb-panel > .hb-pnote { display: block !important; } #anees-bank .hb-list .hb-panel > .hb-ptitle { margin: 0 40px 2px 0; font-size: 18px; } }
+/* r2 round 15: phone list = compact rows (name left, count + minutes right); a bar under "N of M answered" */
+@media (max-width: 959px) {
+  #anees-bank .tu-strip { display: grid; grid-template-columns: 1fr; gap: 4px; }
+  #anees-bank .tu-strip a.dw-chip { display: flex; justify-content: space-between; gap: 10px; border-radius: 10px; padding: 7px 10px; font-size: 13.5px; font-weight: 600; }
+  #anees-bank .tu-strip a.dw-chip::before { display: none; }
+  #anees-bank .tu-strip .tu-sn { font-weight: 400; white-space: nowrap; font-size: 12.5px; }
+  #anees-bank .tu-strip .tu-sn b { font-size: 15px; }
+}
+#anees-bank .dp-abar { display: block; height: 6px; margin-top: 4px; max-width: 260px; }
+#anees-bank .dp-abar > i { background: var(--dw-ok); }
+.hw-dots i:not(.ok):not(.ai) { background: var(--dw-line); }
