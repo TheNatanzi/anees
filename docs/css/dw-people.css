@@ -272,3 +272,16 @@ html[data-look="kurz"] #anees-bank details.tu-more > summary { border-radius: 18
   #anees-bank .hb-card .tv-pair .tv-wrong { border-right: 4px solid var(--dw-bad); padding-right: 8px; }
   #anees-bank .hb-card .tv-pair .tv-right { border-right: 4px solid var(--dw-ok); padding-right: 8px; }
 }
+/* round 14, phone: the open card's buttons come up sooner */
+@media (max-width: 680px) {
+  #anees-bank .hb-panel .hb-chips { margin-right: 46px !important; }
+  #anees-bank .hb-row.tu-row[aria-current="true"] { padding: 6px 12px; }
+  #anees-bank .hb-row.tu-row[aria-current="true"] .hb-bar { display: none; }
+  #anees-bank .hb-list .hb-panel { padding: 10px 10px 12px; }
+  #anees-bank .hb-card { padding: 10px 12px; gap: 2px; }
+  #anees-bank .hb-card > .hb-prog { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0 0 2px; }
+  #anees-bank .hb-card .tv-ar { font-size: 16px; line-height: 1.35; }
+  #anees-bank .hb-card .dp-times { margin: 2px 0; }
+  #anees-bank .hb-card .tv-wrong::before { content: "✗ "; color: var(--dw-bad); }
+  #anees-bank .hb-card .tv-right::before { content: "✓ "; color: var(--dw-ok); }
+}
