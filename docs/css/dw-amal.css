@@ -531,3 +531,23 @@ body.dw-doc .dw-dots[hidden] { display: none !important; }
   .dw-tiles > .dw-filt.s-None { grid-column: span 3 !important; }
   body.dw-doc .dw-mbar { flex: none; height: 10px; min-width: 0; width: 100%; }
 }
+/* her checks fold under the tiles */
+body.dw-doc details.dw-askbox { display: block; padding: 8px 12px; margin: 6px 0; }
+body.dw-doc details.dw-askbox > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; }
+body.dw-doc details.dw-askbox > summary::-webkit-details-marker { display: none; }
+body.dw-doc details.dw-askbox > summary::after { content: "\25BE"; font-size: 12px; color: var(--muted); }
+body.dw-doc details.dw-askbox[open] > summary::after { content: "\25B4"; }
+body.dw-doc details.dw-askbox[open] > .dw-flow { margin: 8px 0 6px; }
+body.dw-doc .an-box { text-align: left; display: inline-block; margin: 0 8px 6px 0; }
+body.dw-doc .an-box a { display: inline-block; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); text-decoration: none; font-weight: 600; font-size: 13px; }
+body.dw-doc details.dw-jump { display: inline-block; vertical-align: top; }
+body.dw-doc details.dw-jump[open] { display: block; }
+body.dw-doc .dw-status + details.dw-askbox + .an-box, body.dw-doc details.dw-askbox + .an-box { margin-top: 2px; }
+/* one colour key, under the top bar */
+body.dw-doc .dw-status > .dw-cap { display: block; margin: 6px 0 0; }
+body.dw-doc .dw-status > .dw-cap .dw-dots.dw-leg { display: inline-flex !important; flex-wrap: wrap; }
+body.dw-doc .dw-status { display: flex; flex-direction: column; }
+body.dw-doc .dw-status > .dw-sbar { order: 1; } body.dw-doc .dw-status > .dw-cap { order: 2; } body.dw-doc .dw-status > .dw-tiles { order: 3; } body.dw-doc .dw-status > .dw-work { order: 4; }
+body.dw-doc .dw-fam { position: relative; padding-right: 32px; }
+body.dw-doc .dw-famn::after { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
+@media (max-width: 680px) { body.dw-doc .dw-famn::after { top: 14px; transform: none; } }

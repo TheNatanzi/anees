@@ -148,6 +148,12 @@ _tiles += ('<button type="button" class="dw-big dw-filt s-None" data-s="None" ar
            '<b>%d</b><span>No score</span><small>%s</small></button>' % (_none, _rest)) if _none else ""
 
 s = re.sub(re.escape(DW_S) + ".*?" + re.escape(DW_E), "", s, flags=re.S).replace(DW_J, "")
+# her three checks: one folded box under the score tiles (the review button and the tiles come first); rebuilt every run
+ASK = ('<details class="ask dw-askbox"><summary><b>Check three things</b></summary><ol class="dw-flow"><li>Rule right?</li><li>Spelling yours?</li>'
+       '<li>Rule missing?</li></ol><details class="dw-fold dw-askmore"><summary><span class="dw-i">i</span>What to check</summary><div><ol>'
+       '<li>Is each rule right the way you teach it?</li><li>Are the example spellings yours? Please correct any that aren&#39;t.</li>'
+       '<li>Is a rule missing that you want us to track?</li></ol></div></details></details>')
+s = re.sub(r'<div class="ask">.*?</details></div>', "", s, count=1, flags=re.S)
 _work = ('<button type="button" class="dw-filt dw-work" data-s="Work" aria-pressed="false" title="Shaky + wrong rules">Review the <b>%d</b> to work on &rarr;</button>'
          % (_cnt["Shaky"] + _cnt["Wrong"])) if _cnt["Shaky"] + _cnt["Wrong"] else ""
 _toc_end = s.index("</nav>", s.index('<nav class="toc">'))
@@ -155,7 +161,7 @@ s = s[:_toc_end + 6] + DW_J + s[_toc_end + 6:]
 s = s.replace('<nav class="toc">', DW_S + '<div class="dw-status"><div class="dw-sbar">%s</div><div class="dw-bigs dw-tiles">%s</div>%s'
               '<p class="dw-cap"><span class="dw-dots dw-leg"><i class="s-Mastered"></i>mastered <i class="s-Good"></i>good <i class="s-Shaky"></i>shaky '
               '<i class="s-Wrong"></i>wrong <i class="s-Untested"></i>no score yet</span></p></div>'
-              '<details class="dw-fold dw-jump"><summary>Jump to a rule</summary><div>' % (_bar, _tiles, _work) + DW_E + '<nav class="toc">', 1)
+              '%s<details class="dw-fold dw-jump"><summary>Jump to a rule</summary><div>' % (_bar, _tiles, _work, ASK) + DW_E + '<nav class="toc">', 1)
 DW_JS = ('<script data-dw-filter>document.addEventListener("click",function(e){var b=e.target.closest(".dw-filt");if(!b)return;'
          'var on=b.getAttribute("aria-pressed")!=="true";document.querySelectorAll(".dw-filt").forEach(function(x){x.setAttribute("aria-pressed","false")});'
          'if(on){b.setAttribute("aria-pressed","true");document.body.setAttribute("data-dw-filter",b.dataset.s)}else document.body.removeAttribute("data-dw-filter")});</script>')
@@ -179,9 +185,13 @@ def _fam(m):
     solid = sum(1 for i in ids if _st.get(i) in ("Mastered", "Good"))
     sts = [_st.get(i, "Untested") for i in ids]
     mbar = "".join('<i class="s-%s" style="width:%.1f%%"></i>' % (k, 100.0 * sts.count(k) / len(ids)) for k, _ in _order if sts.count(k)) if ids else ""
+    scored = any(x in ("Mastered", "Good", "Shaky", "Wrong") for x in sts)
     btn = ('<button type="button" class="dw-fam" hidden><span class="dw-dots" hidden>%s</span><span class="dw-mbar">%s</span><span class="dw-famn"><b>%d</b> rule%s%s%s</span></button>'
            % (dots, mbar, len(ids), "" if len(ids) == 1 else "s", " &middot; <b>%d</b> to work on" % weak if weak else "",
-              " &middot; <b>%d</b> solid" % solid if solid else ""))
+              (" &middot; <b>%d</b> solid" % solid if solid else "") + (" &middot; <b>%d</b> not scored" % (len(ids) - weak - solid) if scored and len(ids) - weak - solid else "")
+              if scored else " &middot; not scored yet"))
+    if not scored:
+        btn = btn.replace('<span class="dw-mbar">%s</span>' % mbar, "")
     return sec.replace("</h2>", "</h2>" + btn, 1)
 
 
@@ -196,7 +206,7 @@ _secs = re.findall(r"<section( id=\"([^\"]*)\")?>(.*?)</section>", s, re.S)
 _core = sum(len(re.findall(r"<article id=", b)) for _, i, b in _secs if not i)
 _prop = sum(len(re.findall(r"<article id=", b)) for _, i, b in _secs if i.startswith("proposed-"))
 _mine = sum(len(re.findall(r"<article id=", b)) for _, i, b in _secs if i == "tutor-added")
-s = re.sub(r'(<h1>.*?</h1><p class="lede">).*?(</p>)', lambda m: m.group(1) + "%d rules: %d core%s%s. Please check each one." % (
+s = re.sub(r'(<h1>.*?</h1><p class="lede">).*?(</p>)', lambda m: m.group(1) + "%d rules: %d core%s%s." % (
     _core + _prop + _mine, _core, " + %d approved" % _prop if _prop else "", " + %d you added" % _mine if _mine else "") + m.group(2), s, count=1, flags=re.S)
 # theme + look switch (js/theme.js loads js/look.js) and the page's de-word skin
 if "../js/theme.js" not in s:
