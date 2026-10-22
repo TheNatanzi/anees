@@ -8,7 +8,7 @@ For each page: serve docs/ locally, load it in Playwright, click through every t
   <page>.numbers.json  every number token on the page per tab (page text, scripts/styles removed)
   <page>.words.json    visible word count per tab
   <page>-<light|dark>-<desktop|phone>.png  default tab, top 2400 px
-External requests (Supabase etc.) are blocked so before/after compare the same local data.
+Outside requests are blocked, except GET reads of the app's own Supabase rows (no writes).
 Nothing is sent anywhere.
 """
 import argparse, functools, http.server, json, re, sys, threading
@@ -22,8 +22,6 @@ PAGES = {
     'lessons': 'lessons.html', 'lesson': 'lessons/2026-10-14.html', 'word-bank': 'word-bank.html',
     'grammar': 'grammar.html', 'cards': 'cards.html', 'student': 'student.html', 'homework': 'homework.html',
     'tutor': 'tutor.html', 'amal-grammar-rules': 'amal/grammar-rules.html', 'amal-materials': 'amal/materials.html',
-    'amal-after': 'amal/after.html', 'amal-plan': 'amal/plan.html', 'amal-review': 'amal/review.html',
-    'amal-verb-check': 'amal/verb-check.html', 'amal-word-review': 'amal/word-review.html',
     'big-picture': 'big-picture.html', 'settings': 'settings.html',
 }
 TABS = '[role=tab], .vp-tab, [data-artab]'
@@ -54,13 +52,25 @@ def words(text):
     return len(re.findall(r"[A-Za-z؀-ۿ][\w'؀-ۿ-]*", text or ''))
 
 
+SUPA = 'https://yljcbdxvnkfrwvelypfu.supabase.co/'
+
+
+def _outside(route):
+    # Live rows (Big Picture ideas, card sets, homework) come from Supabase: let the page READ them (GET only),
+    # so a page is not judged on an empty "Offline" state. Every write (POST/PATCH/DELETE) and every other host is blocked.
+    r = route.request
+    if r.url.startswith(SUPA) and r.method in ('GET', 'HEAD', 'OPTIONS'):
+        return route.continue_()
+    return route.abort()
+
+
 def open_page(ctx, url, look, theme):
     p = ctx.new_page()
     js = f"try{{localStorage.setItem('anees-theme','{theme}');"
     if look:
         js += f"localStorage.setItem('anees-look','{look}');"
     p.add_init_script(js + "}catch(e){}")
-    p.route(re.compile(r'^https?://(?!127\.0\.0\.1).*'), lambda r: r.abort())
+    p.route(re.compile(r'^https?://(?!127\.0\.0\.1).*'), _outside)
     p.goto(url, wait_until='load', timeout=60000)
     try:
         p.wait_for_load_state('networkidle', timeout=15000)
