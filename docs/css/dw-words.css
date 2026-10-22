@@ -406,3 +406,6 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
 #ab-rows :is(.vp-memory-badge, .vp-memory-mini).vp-memory-fading { background: color-mix(in srgb, var(--dw-a3) 25%, transparent); color: var(--dw-ink); }
 #ab-rows :is(.vp-memory-badge, .vp-memory-mini).vp-memory-risk { background: var(--dw-warn-fill); color: var(--dw-warn); }
 #ab-rows :is(.vp-memory-badge, .vp-memory-mini).vp-memory-high { background: var(--dw-bad-fill); color: var(--dw-bad); }
+#ab-rows .vp-memory-detail .ab-tiny { white-space: nowrap; }
+#anees-bank .ab-tablehead, #ab-rows .ab-rowhead { grid-template-columns: minmax(130px, 1.2fr) minmax(110px, 1.1fr) minmax(170px, 1.6fr) 150px 200px; }
+@media (max-width: 680px) { #ab-rows .ab-rowhead { grid-template-columns: 1fr 1fr; } #ab-rows .vp-memory-detail .ab-tiny { white-space: normal; } }
