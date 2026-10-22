@@ -33,10 +33,15 @@
       row.insertAdjacentHTML('beforeend', '<span>How it works</span>');
     });
   }
+  const g = (c, d) => `<svg class="dp-glyph" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="var(${c})" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const GLYPH = { gram: g('--dw-a1', '<path d="M3 12h13M12 7l5 5-5 5"/><circle cx="20" cy="12" r="1.5"/>'), word: g('--dw-a2', '<path d="M4 7h7M4 12h5M4 17h7M14 12h6M17 9l3 3-3 3"/>'),
+    new: g('--dw-a3', '<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/>') };
   // 2. a mistake card: the why line and the e.g. line -> one i on the "N times in ..." line, which becomes a chip
   function cards(root) {
     root.querySelectorAll('.hb-card').forEach(c => {
       if (c.dataset.dp) return; c.dataset.dp = '1';
+      const head = c.querySelector(':scope > .hb-prog');   // a small glyph per card kind: grammar slip, word slip, new word
+      if (head) { const k = /new word/i.test(txt(head)) ? 'new' : /grammar/i.test(txt(head)) ? 'gram' : 'word'; head.insertAdjacentHTML('afterbegin', GLYPH[k]); }
       const why = c.querySelector(':scope > .hb-why'), eg = [...c.querySelectorAll(':scope > p.hb-sub')].find(p => /^e\.g\./.test(txt(p)));
       const times = [...c.querySelectorAll(':scope > p.hb-sub')].find(p => /^(\d[\d,]* times? in|Came up \d)/.test(txt(p)));
       if (times) { times.classList.add('dp-times'); times.innerHTML = `<span class="dw-chip muted">${times.innerHTML}</span>`; }

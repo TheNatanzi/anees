@@ -224,3 +224,12 @@ html[data-look="kurz"] #anees-bank details.tu-more > summary { border-radius: 18
   html[data-look="kurz"] body > .pn-bar .pn-tab[aria-current="page"] { color: var(--dw-a1); }
 }
 @media (max-width: 680px) { #anees-bank .st-now .st-stack { display: none; } }
+/* round 10 */
+#anees-bank details.st-wlist > summary { cursor: pointer; list-style: none; min-height: 44px; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--dw-a1); }
+#anees-bank details.st-wlist > summary::-webkit-details-marker { display: none; }
+#anees-bank details.st-wlist > summary::before { content: '▸'; } #anees-bank details.st-wlist[open] > summary::before { content: '▾'; }
+#anees-bank .st-cards .hb-bar { height: 6px; }
+#anees-bank .hb-card > .hb-prog { display: flex; align-items: center; gap: 6px; }
+#anees-bank .dp-glyph { width: 20px; height: 20px; flex: none; }
+#anees-bank .hb-card > .hb-prog { display: block; }
+#anees-bank .dp-glyph { display: inline-block; vertical-align: -5px; margin-right: 6px; }

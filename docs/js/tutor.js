@@ -127,7 +127,7 @@
     setTab('todo');
     const open = tasks.filter(t => !t.finished);
     if (!open.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing to check right now. Shukran!</p>'; return; }
-    listPanel('todo', open.map((t, i) => ({ id: t.id, next: i === 0, title: short(t.title), sep: short(t.title) !== t.title, subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p), { fold: 5, autoPhone: !location.hash.slice(1) });
+    listPanel('todo', open.map((t, i) => ({ id: t.id, next: i === 0, title: short(t.title), sep: short(t.title) !== t.title, subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p), { fold: wide() ? 5 : 1, autoPhone: !location.hash.slice(1) });
   }
   // every kind of item opens here, with the same module as its old address (no link to another page)
   // AM-27 (Medi 2026-10-07 "lets add a place for notes for amal always"): a note box under every card and one per list.
