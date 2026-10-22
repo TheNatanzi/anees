@@ -700,3 +700,7 @@ body.dw-doc .toc a { font-size: 13px !important; padding: 4px 9px !important; }
 #anees-bank #st-guard, #anees-bank #st-amal { background: var(--dw-card); border: 1px solid var(--dw-line); padding: 8px 12px; margin: 0; }
 #anees-bank #st-guard { border-radius: 10px 10px 0 0; border-bottom: 0; } #anees-bank #st-amal { border-radius: 0 0 10px 10px; margin-bottom: 12px; }
 body.dw-mat .dw-en .dw-ar { display: block; color: var(--ink); direction: rtl; text-align: left; unicode-bidi: plaintext; }
+/* round 12 rules page phone: all five score tiles in one row */
+@media (max-width: 680px) { body.dw-doc .dw-tiles { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; gap: 4px; }
+  body.dw-doc .dw-tiles .dw-big { padding: 6px 4px; } body.dw-doc .dw-tiles .dw-big b { font-size: 24px; } body.dw-doc .dw-tiles .dw-big span { font-size: 9px; letter-spacing: 0; }
+  body.dw-doc .dw-tiles .dw-big small { font-size: 8px; line-height: 1.2; } body.dw-doc .toc a { font-size: 14px !important; padding: 5px 10px !important; } }
