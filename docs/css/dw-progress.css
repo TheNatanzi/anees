@@ -53,7 +53,6 @@
 #anees-bank #ov-metrics .ab-metric > details.dw-p > summary { margin-left: 0; }
 
 /* overview table: newest 6 rows, the rest one tap away */
-#anees-bank .ov-tbl:has(> table.dw-clip) { display: none; }
 #anees-bank .dw-more { display: block; margin: 8px 0 16px; border-radius: 999px; padding: 6px 14px; font-weight: 600; }
 
 /* headings keep their ⓘ on the same line */
@@ -108,14 +107,12 @@ html[data-look="kurz"] #anees-bank .dw-more { background: var(--dw-a1); color: v
   #anees-bank .ov-tbl table { font-size: 11px; }
   #anees-bank .ov-tbl th { font-size: 8.5px; letter-spacing: .02em; padding: 6px 3px; white-space: normal; vertical-align: bottom; }
   #anees-bank .ov-tbl td { padding: 6px 3px; }
-  /* phone: the lesson type column steps aside (it is in the row's hover and on the Lessons page) so the numbers fit */
-  #anees-bank .ov-tbl th:nth-child(2), #anees-bank .ov-tbl td:nth-child(2) { display: none; }
+  #anees-bank .ov-tbl { overflow-x: auto; }
 }
 
 /* sources at the very end of a tab: one small row of ⓘ */
 #anees-bank #vp-content > div > details.dw-p:last-child, #anees-bank .ov2 > details.dw-p:last-child { display: inline-block; }
 
-#anees-bank #ov-metrics .ab-metric.dw-dup { display: none; }
 /* robot alert: one short line, the log one tap away */
 #lesson-alerts.dw-alerts { font-size: 13px !important; padding: 7px 12px !important; }
 #lesson-alerts.dw-alerts details.dw-p { display: inline; font-weight: 400; }
@@ -166,7 +163,6 @@ html[data-look="kurz"] #anees-bank .vp-header > div:first-child::after {
 html[data-look="kurz"] #anees-bank .ov2-key { margin-bottom: 6px; }
 
 /* other tabs: two panels, then one "N more views" button (label drawn by CSS) */
-#anees-bank .dw-folded:not(.dw-open) .dw-extra { display: none !important; }
 #anees-bank .dw-morebtn { display: flex; width: 100%; margin: 14px 0; padding: 12px 16px; border-radius: var(--dw-radius, 10px); text-align: left;
   background: var(--ab-panel); border: 1px solid var(--ab-line); font: 600 14px/1.3 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
 #anees-bank .dw-morebtn::before { content: "▸  " attr(data-n) " more views"; }
@@ -174,8 +170,6 @@ html[data-look="kurz"] #anees-bank .ov2-key { margin-bottom: 6px; }
 #anees-bank .dw-folded.dw-open .dw-morebtn { order: 99; }
 html[data-look="kurz"] #anees-bank .dw-morebtn { border: 0; border-radius: 22px; box-shadow: inset 6px 0 0 var(--kz-yellow); }
 /* Overview: the two takeaways (cadence, weekly baseline) come first; the lesson numbers follow (visual order only) */
-#anees-bank #vp-tab-overview { display: flex; flex-direction: column; }
-#anees-bank #vp-tab-overview > #ov2 { order: -1; }
 
 /* trend on a card: a small chip with an arrow (flat line for "no change") */
 #anees-bank .vp-card .vp-trend { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 999px;
@@ -196,13 +190,6 @@ html[data-look="kurz"] #anees-bank .dw-mini-on, html[data-look="kurz"] #anees-ba
 html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-yellow); stroke-width: 2.5; }
 
 /* Overview: the two takeaways come before the lifetime totals (visual order only; the page text keeps its order) */
-#anees-bank #vp-content:not([hidden]) { display: flex; flex-direction: column; }
-#anees-bank #vp-content > * { order: 4; min-width: 0; }
-#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > .vp-tabs { order: 1; }
-#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-tab-overview { order: 2; display: contents; }
-#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-tab-overview > * { order: 4; }
-#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-tab-overview > #ov2 { order: 2; }
-#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-top { order: 0; }
 /* a card's ⓘ sits up by its icon, clear of the trend chip */
 #anees-bank .vp-card > details.dw-p:not([open]) { top: 13px; right: 38px; bottom: auto; }
 @media (max-width: 680px) { #anees-bank #vp-top .vp-card, #anees-bank #vp-vocab .vp-card { padding-bottom: 14px; } }
@@ -219,7 +206,7 @@ html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-
 /* Overview: one method-change chip, at the top of the tab (the one in the takeaways block) */
 #anees-bank #vp-tab-overview details.dw-method:not(#ov2 details) { display: none; }
 #anees-bank #ov2 details.dw-method.dw-again { display: block; }
-#anees-bank #ov2 { margin-top: 0; }
+#anees-bank #ov2 { margin-top: 28px; }
 #anees-bank #ov2 > .ov2-head { margin-top: 0; padding-top: 0; }
 @media (max-width: 680px) {
   /* tabs: one row that scrolls sideways, so the takeaways reach the first screen */
@@ -235,7 +222,6 @@ html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-
 #anees-bank main > details.dw-notice[open], #anees-bank main > #lesson-alerts:has(> details[open]) { grid-column: 1 / -1 !important; }
 #anees-bank main:has(> details.dw-notice) > #vp-content, #anees-bank main:has(> details.dw-notice) > #vp-retry { grid-row: auto; }
 
-#anees-bank #vp-tab-overview:has(table.dw-clip) #ov-metrics .ab-metric.dw-tmore { display: none; }
 #anees-bank .dw-mini-base { fill: none; stroke: var(--dw-muted); stroke-width: 2; stroke-dasharray: 3 2; }
 #anees-bank .vp-chart text.dw-cap-svg, #anees-bank svg text.dw-cap-svg { font-size: 12px; }
 @media (min-width: 681px) { #anees-bank #vp-tab-overview:has(table.dw-clip) #ov-metrics.ab-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -260,7 +246,6 @@ html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-
   #anees-bank #ov-metrics .ab-metric:hover > details.dw-p, #anees-bank #ov-metrics .ab-metric:focus-within > details.dw-p { opacity: 1; }
 }
 
-#anees-bank .vp-card .vp-trend.vp-trend-flat { display: none; }
 #anees-bank details.dw-notes > div > details.dw-p:not(.dw-pwarn) > summary::before { content: "source"; font: 600 11px/1 var(--sabz-font-sans, system-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--dw-muted); }
 #anees-bank details.dw-notes > div > details.dw-p[data-dwkey="status"] > summary::before { content: "status"; }
 #anees-bank details.dw-notes > summary .dw-chip { white-space: normal; line-height: 1.35; padding-top: 3px; padding-bottom: 3px; } #anees-bank details.dw-notes > summary { max-width: 100%; }
@@ -268,12 +253,9 @@ html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-
 /* chart B: the two baseline weeks sit in a dashed box, dimmed; the grammar-slip bars (per lesson on the Grammar tab) step out */
 #anees-bank .dw-basebox { fill: none; stroke: var(--dw-muted); stroke-width: 1.2; stroke-dasharray: 4 3; }
 #anees-bank circle.dw-baseweek { opacity: .45; }
-#anees-bank section[aria-labelledby="ov2-h-b"] rect.ov2-f-sage, #anees-bank section[aria-labelledby="ov2-h-b"] text.dw-cap-svg { display: none; }
 
-#anees-bank .dw-tail { display: none; }
 #anees-bank .dw-capt::after { font-size: 14px; color: var(--dw-ink); }
 /* Flashcards with no answers yet */
-#anees-bank .dw-fempty:not(.dw-open) > :not(.dw-start) { display: none !important; }
 #anees-bank .dw-start { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding: 18px 20px; margin: 0 0 14px;
   border-radius: var(--dw-radius, 10px); background: var(--ab-panel); border: 1px solid var(--ab-line); font-size: 16px; }
 #anees-bank .dw-startlink { padding: 8px 16px; border-radius: 999px; background: var(--dw-a1); color: var(--sabz-bg, #F5F2EA); font-weight: 700; text-decoration: none; }
@@ -287,3 +269,8 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
 #anees-bank .dw-mini-base { stroke: var(--dw-muted); stroke-dasharray: none; fill: var(--ab-raised, #E3E0D3); }
 #anees-bank .dw-dotcap::after { font-size: 12px; font-weight: 600; color: var(--dw-muted); }
 @media (min-width: 681px) { #anees-bank #vp-tab-overview:has(table.dw-clip) #ov-metrics.ab-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* round 2 (Medi 2026-10-22: "you cut out too much data"): every number on screen. The card sub-lines and the
+   panel "why" lines are data, so they read as small text right under their number. */
+#anees-bank .vp-card-sub, #anees-bank .ov2-why { font-size: 13px; color: var(--dw-muted); }
+#anees-bank #ov-metrics.ab-metrics { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }

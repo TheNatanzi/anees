@@ -81,10 +81,8 @@ const big=(v,s)=>`<div class="ov2-big">${esc(v)}<small>${s}</small></div>`;
 const panel=(key,title,sub,body,{wide=false,head='',why='',src=''}={})=>{
  // the one big number always shows; when a panel keeps it inside its body (C, H) it moves up, out of the chart
  if(!head){const m=/<div class="ov2-big">.*?<\/small><\/div>/.exec(body);if(m&&body.indexOf(m[0])<body.search(/<svg|<p /)){head=m[0];body=body.replace(m[0],'');}}
- return `<section class="vp-panel ${wide?'ov2-wide':''}" aria-labelledby="ov2-h-${key}"><div class="vp-panelhead"><div><span class="ov2-key">${key.toUpperCase()}</span><h2 id="ov2-h-${key}">${esc(title)}</h2>${sub?`<p class="ab-sub">${sub}</p>`:''}</div></div>${head}<details class="dw-chart"${CHART_OPEN.includes(key)?' open':''}><summary aria-label="Chart"></summary>${body}${why||src?`<p class="ov2-foot"><span class="ov2-why">${why}</span>${src?`<span class="ov2-src">${esc(src)}</span>`:''}</p>`:''}</details></section>`;};
-// de-word (2026-10-22): each angle shows its one big number; the chart opens in place. Cadence (A) and the weekly
-// baseline (B) stay open: they are the two the student and the tutor track week to week.
-const CHART_OPEN=(typeof matchMedia==='function'&&matchMedia('(max-width: 680px)').matches)?'':'ab';   // a phone opens none: the number first, the chart on tap
+ return `<section class="vp-panel ${wide?'ov2-wide':''}" aria-labelledby="ov2-h-${key}"><div class="vp-panelhead"><div><span class="ov2-key">${key.toUpperCase()}</span><h2 id="ov2-h-${key}">${esc(title)}</h2>${sub?`<p class="ab-sub">${sub}</p>`:''}</div></div>${head}${body}${why||src?`<p class="ov2-foot"><span class="ov2-why">${why}</span>${src?`<span class="ov2-src">${esc(src)}</span>`:''}</p>`:''}</section>`;};
+// de-word round 2 (Medi 2026-10-22, "you cut out too much data"): all eight angles and their charts show, no folds.
 const loadingTurns=()=>turnFail?empty('The turn files could not load. Refresh to retry.'):empty('Loading the turn files…');
 
 
@@ -324,8 +322,7 @@ function render(){
  const one=f=>{try{return f();}catch(e){console.error('overview-angles',e);return `<section class="vp-panel">${empty('This panel could not be drawn ('+e.message+').')}</section>`;}};
  h.innerHTML=`<div class="ov-head ov2-head"><span class="vp-eyebrow">Across lessons</span><h2 class="ov-h2">What the lesson numbers add up to</h2><p class="ab-sub">Eight views the table cannot show: cadence, weekly baseline, time of day, rest days, talk shape, language mix, Arabic stretches and hesitation. Hover any mark for its numbers.</p></div>
  ${(window.AneesLessonMath&&window.AneesLessonMath.methodHtml(LJ))||''}
- <div class="vp-grid">${[()=>panelA(ls),()=>panelB(ls)].map(one).join('')}</div>
- <details class="dw-more-views"><summary aria-label="Six more views"></summary><div class="vp-grid">${[()=>panelC(ls),()=>panelD(ls),panelE,panelF,panelG,()=>panelH(ls)].map(one).join('')}</div></details>
+ <div class="vp-grid">${[()=>panelA(ls),()=>panelB(ls),()=>panelC(ls),()=>panelD(ls),panelE,panelF,panelG,()=>panelH(ls)].map(one).join('')}</div>
  <p class="ov2-source">Source: data/lessons.json${TURNS?` + ${TURNS.length} turn files (data/lessons/&lt;date&gt;.json)`:''} · updated ${esc(String(LJ.updated||'').replace('T',' ').slice(0,16))}</p>`;
 }
 async function json(url){const r=await fetch(url+(url.includes('?')?'&':'?')+'v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status+' '+url);return r.json();}

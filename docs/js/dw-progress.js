@@ -3,19 +3,26 @@
    - a line under a heading goes behind a small ⓘ on the heading (opens in place),
    - notes, sources and footers go behind a ⓘ where they stood (a caveat keeps a visible warning chip),
    - the method-change box becomes one warning chip per tab (its words open from the chip),
-   - long tables show their newest rows with a "Show all" button.
+   Round 2 (Medi 2026-10-22: "you cut out too much data"): every number, row, card sub-line and chart stays ON
+   SCREEN. Only a line with no data in it (pure explanation, sources, method notes) goes behind a ⓘ.
    Nothing is deleted: every word and number is still in the page, one tap away. Runs again whenever a
    renderer redraws (period switch, live data), so the next hourly build keeps the same look. */
 (function () {
   'use strict';
   const ROOT_ID = 'vp-content';
   // lines that sit right under a heading
-  const SUBS = '.ab-sub, .vp-panelhead .ab-sub, .ov2-sub';
+  const SUBS = '.ab-sub, .vp-panelhead .ab-sub';   // .ov2-sub is a small heading over data: it stays
   // notes, sources, footers, long explanations: behind a ⓘ where they stand
-  const NOTES = ['.vp-card-sub', '#ov-metrics .ab-tiny', '.vp-foot', '.vp-footer', '.ov2-source', '.ov2-foot',
+  const NOTES = ['.vp-card-sub', '.vp-foot', '.vp-footer', '.ov2-source', '.ov2-src', '.ov2-why',
     '.ov2-notes', '.ov2-text', '.ov2-quote', '.va-foot', '.vu-foot', '.vl-foot', '.gp-foot', '.gu-foot', '.gu-src',
     '.fu-foot', '.fu-do', '.fl-foot', '.fl-rule', '.fl-strict', '.vl-fwhy', '.vl-kpis + small',
     '.vl-strip small', '.gp-strip small', '.rb-link', '.vp-empty-long'].join(',');
+  // explanation/source lines: behind ⓘ even when they hold a date or a file name
+  const SOURCE = 'p.vp-foot, .vp-footer, .ov2-source, .ov2-src, .gu-src, .rb-link, .vp-empty-long';
+  // a line that carries data (a percent, a decimal, a 2+ digit count) stays on screen
+  const DATA = /\d+(?:[.,]\d+)+|\d+\s*%|\b\d{2,}\b/g;
+  const nOfM = el => /\b\d+ of [\d,]+\b/.test(el.textContent || '');
+  const dataCount = el => ((el.textContent || '').replace(/\b20\d\d-\d\d-\d\d\b/g, '').match(DATA) || []).length;
   const WARN = /not verified|caveat|hard to trust|\bearly\b|not comparable|machine gues|offline|stale/i;
   let busy = false, queued = false;
 
@@ -39,6 +46,7 @@
   function subs(root) {
     for (const p of root.querySelectorAll(SUBS)) {
       if (p.dataset.dw || p.closest('details.dw-p') || !textOf(p)) continue;
+      if (dataCount(p) >= 2 || nOfM(p) || p.querySelector('a[href]')) { p.dataset.dw = '1'; continue; }   // numbers and links stay
       let h = p.previousElementSibling;
       while (h && h.matches('.vp-eyebrow, .ov2-k, span.vp-eyebrow')) h = h.previousElementSibling;
       if (!h || !/^H[1-4]$/.test(h.tagName)) h = null;
@@ -49,10 +57,26 @@
     }
   }
 
+  // 0. a card's line can be wrapped while it still says "loading" and get its numbers later: put it back on screen
+  function unwrap(root) {
+    for (const d of root.querySelectorAll('details.dw-p:not(.dw-pwarn)')) {
+      const body = d.lastElementChild;
+      if (!body || body.tagName !== 'DIV' || d.closest('.dw-notes')) continue;
+      const kids = [...body.children];
+      const stays = k => !k.matches(SOURCE) && (k.matches('.ov2-sub') || (k.matches(SUBS) ? dataCount(k) >= 2 || nOfM(k) || !!k.querySelector('a[href]') : dataCount(k) >= 1));
+      if (!kids.length || !kids.every(stays)) continue;
+      busy = true;
+      if (kids.some(k => k.matches(SUBS)) && /^H[1-4]$/.test(d.parentElement.tagName)) d.parentElement.after(...kids);
+      else d.before(...kids);
+      d.remove();
+    }
+  }
+
   // 2. notes → ⓘ in place (a caveat keeps a visible warning chip)
   function notes(root) {
     for (const el of root.querySelectorAll(NOTES)) {
       if (el.dataset.dw || el.closest('details.dw-p') || !textOf(el) || el.hidden) continue;
+      if (!el.matches(SOURCE) && dataCount(el) >= 1) { el.dataset.dw = '1'; continue; }   // numbers stay on screen
       // the Good / Shaky / Wrong row of a card is a number to track: it stays out
       const keep = el.querySelector(':scope > .vp-card-status');
       const t = textOf(el);
@@ -261,9 +285,6 @@
     if (!empty || pane.querySelector(':scope > .dw-start')) return;
     const box = document.createElement('div'); box.className = 'dw-start'; box.dataset.dw = '1';
     box.innerHTML = '<b>No cards answered yet</b><a class="dw-startlink" href="cards.html">Start review →</a>';
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'dw-statbtn';
-    b.addEventListener('click', () => { const o = pane.classList.toggle('dw-open'); b.dataset.open = o ? '1' : ''; });
-    box.append(b);
     pane.prepend(box);
   }
 
@@ -274,7 +295,7 @@
     busy = true;
     try {
       const head = document.querySelector('.vp-header');
-      method(root); subs(root); notes(root); tables(root); dups(root); alerts(); notice(); charts(); dataNotes(); flashEmpty();
+      unwrap(root); method(root); subs(root); notes(root); alerts(); notice(); dataNotes(); flashEmpty();   // round 2: no table clip, no folds
       if (head) subs(head);
     } finally { busy = false; }
   }
