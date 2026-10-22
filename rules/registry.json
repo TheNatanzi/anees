@@ -12153,6 +12153,42 @@
     "note": "anees-case-study-2026-10-19.html: 11 picture chapters, then 'The full paper' with chapter chips"
    },
    "aliases": []
+  },
+  {
+   "id": "PG-56",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "AI Reports carries the whole Anees process as one flowchart page, docs/reports/anees-flow.html (built by scripts/build_flow_page.py from plan/ANEES-FLOW.fragment.html into the AI Reports page shell; styled by css/ai-reports.css .fl in the app's own colours, so it follows Light / Dark), with its card first in the Research section of AI Reports.",
+   "plain": "AI Reports has a flowchart of every step a lesson goes through, from the Meet call to the grade book.",
+   "plain_for": "c5cbf7f3",
+   "topic": "pages",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-21",
+     "quote": "add the flowchart to the ai reports"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_flow_page.py",
+     "contains": "def build():"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_pg_56_flowchart_page_in_ai_reports"
+    }
+   ],
+   "example": {
+    "date": "2026-10-21",
+    "note": "7 phases, 15 steps, the PR-29 judge panel as step 6b"
+   },
+   "aliases": []
   }
  ]
 }

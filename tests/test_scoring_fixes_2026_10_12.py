@@ -325,7 +325,7 @@ def test_pg_55_research_paper_opens_with_app_styled_pictures():
     ids = set(re.findall(r'id="([^"]+)"', page))
     assert all(a in ids for a in re.findall(r'href="#([^"]+)"', page))
     d = json.load(io.open(os.path.join(root, 'docs', 'data', 'ai_reports.json'), encoding='utf-8'))
-    paper = [r for r in d['reports'] if r.get('featured')][0]
+    paper = [r for r in d['reports'] if r.get('featured') and r.get('story_html')][0]
     assert paper['story_html'] and paper['bars'] and all(c['url'].split('#')[1] in ids for c in paper['chapters'])
 
 
@@ -351,3 +351,19 @@ def test_pr_29_judge_panel_decides_the_slips(tmp_path, monkeypatch):
     assert JP.can_spend("gemini-4-argon")
     src = open(os.path.join(root, "scripts", "review_lesson.py"), encoding="utf-8").read()
     assert src.index('"settle", d)') < src.index("judge_panel.py") < src.index('full_audit_build.py")')
+
+
+
+def test_pg_56_flowchart_page_in_ai_reports():
+    """PG-56 (Medi 2026-10-21 'add the flowchart to the ai reports'): the flowchart page is built from its fragment, uses the app's
+    colours (no fixed page background), and its card links to it from AI Reports."""
+    import io, json, os
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    page = io.open(os.path.join(root, "docs", "reports", "anees-flow.html"), encoding="utf-8").read()
+    frag = io.open(os.path.join(root, "plan", "ANEES-FLOW.fragment.html"), encoding="utf-8").read()
+    assert 'class="fl"' in page and "Opus + Gemini Argon" in page and frag.split("-->", 1)[1].strip()[:60] in page
+    css = io.open(os.path.join(root, "docs", "css", "ai-reports.css"), encoding="utf-8").read()
+    assert "#anees-bank .fl .box{background:var(--ab-panel)" in css
+    d = json.load(io.open(os.path.join(root, "docs", "data", "ai_reports.json"), encoding="utf-8"))
+    card = [r for r in d["reports"] if r.get("slug") == "anees-flow"][0]
+    assert card.get("featured") and card["links"][0]["url"] == "reports/anees-flow.html"

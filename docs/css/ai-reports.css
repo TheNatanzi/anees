@@ -131,3 +131,48 @@
 #anees-bank .rs-toc a{font-size:12px}
 @media(max-width:900px){#anees-bank .rs-ch{grid-template-columns:1fr;padding:16px}}
 #anees-bank .ar-chapters{margin:2px 0 10px}#anees-bank .ar-chapters a{font-size:12px;padding:4px 11px}
+
+/* PG-56 (Medi 2026-10-21 "add the flowchart to the ai reports"): the whole process as one flowchart page
+   (docs/reports/anees-flow.html), the Coinbase-onboarding layout in the app's own colours. */
+#anees-bank .fl{max-width:820px;display:grid;gap:4px;--fl-auto:var(--ab-accent);--fl-autoBg:var(--sabz-state-calm-fill);
+  --fl-amal:light-dark(#8a3a7c,#e7a3da);--fl-amalBg:light-dark(#f4e6f1,#35203a);--fl-medi:light-dark(#2f6a4e,#8fc3a3);--fl-mediBg:light-dark(#e4efe7,#1d3328);
+  --fl-money:light-dark(#7a5a1e,#f2c46a);--fl-moneyBg:light-dark(#f6ecd6,#3a2c0e);--fl-diamond:#e0a400}
+#anees-bank .fl .key,#anees-bank .fl .chips{display:flex;flex-wrap:wrap;gap:6px}
+#anees-bank .fl .kit{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:12px 0 4px}
+#anees-bank .fl .kit div{background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:center;font-size:14px;min-width:0}
+#anees-bank .fl .kit b{font-size:18px;min-width:26px;text-align:center}
+#anees-bank .fl .warn{background:var(--fl-amalBg);border-radius:12px;padding:10px 14px;margin:6px 0 10px;font-size:14px}
+#anees-bank .fl .phase{margin-top:18px}
+#anees-bank .fl .phase header{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+#anees-bank .fl .pcode{width:28px;height:28px;border-radius:8px;background:var(--pc);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px;flex:none}
+#anees-bank .fl .phase h2{font-family:var(--sabz-font-serif);font-size:19px;font-weight:500;margin:0}
+#anees-bank .fl .when{margin-left:auto;font-size:12.5px;color:var(--ab-muted);font-weight:600}
+#anees-bank .fl .flow{list-style:none;margin:0;padding:0;position:relative}
+#anees-bank .fl .flow::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:3px;border-radius:2px;background:var(--pc);opacity:.35}
+#anees-bank .fl .node{position:relative;display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;margin-bottom:10px}
+#anees-bank .fl .num{width:40px;height:40px;border-radius:50%;background:var(--pc);color:#fff;display:grid;place-items:center;font-weight:700;font-size:15px;position:relative;z-index:1;box-shadow:0 0 0 4px var(--ab-bg)}
+#anees-bank .fl .box{background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:12px;padding:12px 14px;min-width:0}
+#anees-bank .fl .top{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:flex-start;justify-content:space-between}
+#anees-bank .fl .box h3{font-size:15.5px;line-height:1.3;flex:1 1 220px;margin:0;font-weight:600}
+#anees-bank .fl .box p{margin:6px 0 0;color:var(--ab-muted);font-size:14px;line-height:1.5;max-width:64ch}
+#anees-bank .fl .box p b{color:var(--ab-text)}
+#anees-bank .fl .icons{display:flex;flex-wrap:wrap;gap:6px}
+#anees-bank .fl .ico{display:flex;flex-direction:column;align-items:center;gap:3px;width:56px}
+#anees-bank .fl .ico i{width:38px;height:38px;border-radius:10px;background:var(--c);display:grid;place-items:center;font:700 10.5px/1 var(--sabz-font-sans);color:#fff;font-style:normal}
+#anees-bank .fl .ico em{font-style:normal;font-size:10.5px;line-height:1.2;color:var(--ab-muted);text-align:center}
+#anees-bank .fl .chip{display:inline-flex;align-items:center;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--ab-raised);color:var(--ab-muted)}
+#anees-bank .fl .chips{margin-top:8px}
+#anees-bank .fl .chip.auto{background:var(--fl-autoBg);color:var(--fl-auto)}
+#anees-bank .fl .chip.amal{background:var(--fl-amalBg);color:var(--fl-amal)}
+#anees-bank .fl .chip.medi{background:var(--fl-mediBg);color:var(--fl-medi)}
+#anees-bank .fl .chip.money{background:var(--fl-moneyBg);color:var(--fl-money)}
+#anees-bank .fl .decision .diamond{width:40px;height:40px;display:grid;place-items:center;position:relative;z-index:1}
+#anees-bank .fl .decision .diamond::before{content:"";position:absolute;inset:7px;background:var(--fl-diamond);transform:rotate(45deg);border-radius:5px;box-shadow:0 0 0 4px var(--ab-bg)}
+#anees-bank .fl .decision .diamond span{position:relative;font-weight:700;color:#1a1300}
+#anees-bank .fl .decision .box{border-style:dashed;border-color:var(--fl-diamond)}
+#anees-bank .fl .branch{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+#anees-bank .fl .branch span{font-size:13px;font-weight:600;padding:3px 9px;border-radius:8px;border:1px solid var(--ab-line)}
+#anees-bank .fl .branch .yes{color:var(--fl-medi)} #anees-bank .fl .branch .no{color:var(--ab-red)}
+#anees-bank .fl .done{margin-top:18px;background:var(--ab-panel);border:2px solid var(--fl-medi);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-weight:600}
+#anees-bank .fl .done b{font-family:var(--sabz-font-serif);font-size:17px;color:var(--fl-medi)}
+#anees-bank .fl .loop{color:var(--ab-muted);font-size:13.5px;margin:6px 0 0}

@@ -1,0 +1,70 @@
+<!-- PG-56 source: the Anees flowchart (scripts/build_flow_page.py builds docs/reports/anees-flow.html from it) -->
+<div class="fl">
+
+  <div class="key">
+    <span class="chip auto">Automatic</span>
+    <span class="chip amal">Amal (tutor)</span>
+    <span class="chip medi">Medi (student)</span>
+    <span class="chip money">Costs money</span>
+  </div>
+
+  <div class="kit">
+    <div><b>🎙</b>A Google Meet lesson, Medi as host</div>
+    <div><b>⏱</b>The hourly job (runs at :15 every hour)</div>
+    <div><b>⚡</b>The Amal trigger (every 15 min)</div>
+    <div><b>✓</b>The publish guard: 18 checks before anything goes live</div>
+    <div><b>$</b>Monthly plans first; paid keys only with a $ cap</div>
+  </div>
+  <div class="warn"><b>Who decides:</b> the AIs propose, Amal rules on what is a mistake, Medi's own corrections always win on his lines.</div>
+
+  <!-- A -->
+  <section class="phase" style="--pc:#1f5fbf"><header><span class="pcode">A</span><h2>Record the lesson</h2><span class="when">during the call</span></header><ol class="flow">
+    <li class="node"><div class="num">1</div><div class="box"><div class="top"><h3>Medi starts the Meet and sends the recording bot</h3><div class="icons"><span class="ico"><i style="--c:#00897b">Meet</i><em>Google Meet</em></span><span class="ico"><i style="--c:#6b4ce6">Bot</i><em>Recall bot</em></span></div></div><p>The bot "Anees notes" knocks; Medi admits it. It records <b>each person's own microphone</b> as a separate track. Meet also saves a mixed recording to Drive.</p><div class="chips"><span class="chip medi">Medi admits the bot</span></div></div></li>
+    <li class="node decision"><div class="diamond"><span>?</span></div><div class="box"><h3>Did a bot record the right call?</h3><div class="branch"><span class="yes">Yes → own mic tracks</span><span class="no">Empty bot → the next bot's recording is used</span><span class="no">No bot → Meet's mixed recording (limited)</span></div></div></li>
+  </ol></section>
+
+  <!-- B -->
+  <section class="phase" style="--pc:#0b8a74"><header><span class="pcode">B</span><h2>Hear what he said</h2><span class="when">next hourly run</span></header><ol class="flow">
+    <li class="node"><div class="num">2</div><div class="box"><div class="top"><h3>Fetch the tracks</h3><div class="icons"><span class="ico"><i style="--c:#6b4ce6">Bot</i><em>Recall</em></span></div></div><p>The hourly job downloads Medi's and Amal's tracks into the lesson folder.</p><div class="chips"><span class="chip auto">Automatic</span></div></div></li>
+    <li class="node"><div class="num">3</div><div class="box"><div class="top"><h3>ElevenLabs writes the transcript</h3><div class="icons"><span class="ico"><i style="--c:#1d1d1f">11</i><em>ElevenLabs</em></span></div></div><p>One transcript per track, put on the lesson clock. About <b>61–69%</b> of his Arabic words right on its own.</p><div class="chips"><span class="chip auto">Automatic</span><span class="chip money">~$0.30 / lesson · $15 cap</span></div></div></li>
+    <li class="node"><div class="num">4</div><div class="box"><div class="top"><h3>Second listen: Gemini Flash re-hears each of his lines 3 times</h3><div class="icons"><span class="ico"><i style="--c:#4285f4">Flash</i><em>Gemini 3.8 Flash</em></span></div></div><p>A change goes in when <b>2 of the 3</b> listens agree. Together with step 3 this is <b>method A: 94–95%</b> right.</p><div class="chips"><span class="chip auto">Automatic</span><span class="chip money">~$2.85 / lesson (Batch)</span></div></div></li>
+    <li class="node decision"><div class="diamond"><span>?</span></div><div class="box"><h3>Does a change copy Amal's words?</h3><div class="branch"><span class="yes">No → applied</span><span class="no">Yes → held for Amal (the guard)</span></div></div></li>
+    <li class="node"><div class="num">5</div><div class="box"><div class="top"><h3>Build the lesson page</h3></div><p>Transcript with clips, Arabizi and English under every line. Medi's own corrections always win on his lines.</p><div class="chips"><span class="chip auto">Automatic</span></div></div></li>
+  </ol></section>
+
+  <!-- C -->
+  <section class="phase" style="--pc:#c2410c"><header><span class="pcode">C</span><h2>Find the mistakes</h2><span class="when">same run</span></header><ol class="flow">
+    <li class="node"><div class="num">6</div><div class="box"><div class="top"><h3>Six AI readers flag every possible mistake</h3><div class="icons"><span class="ico"><i style="--c:#d97757">Opus</i><em>Claude Opus</em></span><span class="ico"><i style="--c:#d97757">Son</i><em>Claude Sonnet</em></span><span class="ico"><i style="--c:#10a37f">GPT</i><em>2 × Codex</em></span><span class="ico"><i style="--c:#4285f4">Gem</i><em>2 × Gemini</em></span></div></div><p>All six use the same reading instructions. Flags of the same kind within 15 s become one candidate.</p><div class="chips"><span class="chip auto">Automatic</span><span class="chip money">Claude + ChatGPT plans · Gemini ~$0.65</span></div></div></li>
+    <li class="node"><div class="num">6b</div><div class="box"><div class="top"><h3>Two judges decide: Claude Opus + Gemini Argon</h3><div class="icons"><span class="ico"><i style="--c:#d97757">Opus</i><em>Claude Opus</em></span><span class="ico"><i style="--c:#1a73e8">Argon</i><em>Gemini 4 Argon</em></span></div></div><p>Each rules on every candidate. A mistake is kept when their average score is <b>0.60 or more</b>. Live since Oct 21 (key v4: <b>87.9</b> vs 76.3 for the old two-reader rule).</p><div class="chips"><span class="chip auto">Automatic</span><span class="chip money">~$0.32 / lesson · $20/month cap</span></div></div></li>
+    <li class="node"><div class="num">7</div><div class="box"><div class="top"><h3>Codex double-checks the unsure ones against the audio</h3><div class="icons"><span class="ico"><i style="--c:#10a37f">GPT</i><em>Codex · gpt-6-astra</em></span></div></div><p>"Real" → counted. "Not real" → goes to Amal, never dropped on its own.</p><div class="chips"><span class="chip auto">Automatic</span><span class="chip money">ChatGPT plan</span></div></div></li>
+    <li class="node"><div class="num">8</div><div class="box"><div class="top"><h3>Count everything from one ledger</h3></div><p>Word Bank, vocab buckets, grammar use counter, slips. Every number on every page is a count over the same marked transcript.</p><div class="chips"><span class="chip auto">Automatic</span></div></div></li>
+  </ol></section>
+
+  <!-- D -->
+  <section class="phase" style="--pc:#3f4a5c"><header><span class="pcode">D</span><h2>Publish</h2><span class="when">end of the run</span></header><ol class="flow">
+    <li class="node decision"><div class="diamond"><span>?</span></div><div class="box"><h3>Do all 18 guard checks pass?</h3><div class="branch"><span class="yes">Yes → published</span><span class="no">No → nothing goes live; fixed and retried next hour</span></div></div></li>
+    <li class="node"><div class="num">9</div><div class="box"><div class="top"><h3>The site updates</h3><div class="icons"><span class="ico"><i style="--c:#24292f">Web</i><em>GitHub Pages</em></span></div></div><p>Lessons, Progress, Word Bank, Grammar, Flashcards, AI Reports and Amal's Tutor page.</p><div class="chips"><span class="chip auto">Automatic</span></div></div></li>
+  </ol></section>
+
+  <!-- E -->
+  <section class="phase" style="--pc:#9a3b8a"><header><span class="pcode">E</span><h2>Amal checks</h2><span class="when">when she has time</span></header><ol class="flow">
+    <li class="node"><div class="num">10</div><div class="box"><div class="top"><h3>Amal opens her Tutor page</h3><div class="icons"><span class="ico"><i style="--c:#9a3b8a">Tutor</i><em>Tutor page</em></span></div></div><p>Blind cards (no AI names): "was this a mistake?", held lines, new words, grammar to approve.</p><div class="chips"><span class="chip amal">Amal taps an answer + why</span></div></div></li>
+    <li class="node decision"><div class="diamond"><span>?</span></div><div class="box"><h3>Is she unsure, or was the clip not enough?</h3><div class="branch"><span class="yes">No → her answer counts</span><span class="no">Yes → sent back with the whole conversation (up to 3 times)</span></div></div></li>
+    <li class="node"><div class="num">11</div><div class="box"><div class="top"><h3>Her answers update the lesson</h3></div><p>The Amal trigger picks them up within 15 minutes, re-scores, and republishes. Her ruling beats any AI.</p><div class="chips"><span class="chip auto">Automatic</span></div></div></li>
+  </ol></section>
+
+  <!-- F -->
+  <section class="phase" style="--pc:#0d7a3e"><header><span class="pcode">F</span><h2>Medi studies</h2><span class="when">any time</span></header><ol class="flow">
+    <li class="node"><div class="num">12</div><div class="box"><div class="top"><h3>Review the lesson and fix what's wrong</h3></div><p>Corrections on the lesson page win on his lines and re-score everything.</p><div class="chips"><span class="chip medi">Medi</span></div></div></li>
+    <li class="node"><div class="num">13</div><div class="box"><div class="top"><h3>Flashcards, homework, grammar rules</h3></div><p>Built from his own mistakes; shaky words come back until they stick.</p><div class="chips"><span class="chip medi">Medi</span></div></div></li>
+  </ol></section>
+
+  <!-- G -->
+  <section class="phase" style="--pc:#b7791f"><header><span class="pcode">G</span><h2>Grade and improve</h2><span class="when">exam lessons</span></header><ol class="flow">
+    <li class="node"><div class="num">14</div><div class="box"><div class="top"><h3>Answer key → grade book</h3></div><p>Medi's full review + Amal's rulings make the key (now <b>v4, 128 mistakes</b> on Oct 8–10). The app is graded against it on AI Reports › Grades.</p><div class="chips"><span class="chip medi">Medi</span><span class="chip amal">Amal</span></div></div></li>
+    <li class="node"><div class="num">15</div><div class="box"><div class="top"><h3>Test a better way, fairly</h3></div><p>Practice lesson to tune, exam lesson to score, repeat runs. A new method replaces the old one only if it wins again on new lessons.</p><div class="chips"><span class="chip auto">Claude</span><span class="chip money">Plans first · $ cap</span></div></div></li>
+  </ol></section>
+
+  <div class="done"><b>✓ Done</b> The lesson is heard, checked by Amal, graded, and on Medi's flashcards.</div>
+  <p class="loop">Next lesson starts again at step 1.</p>
+</div>
