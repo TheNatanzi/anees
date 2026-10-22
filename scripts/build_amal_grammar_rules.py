@@ -20,6 +20,10 @@ CONSOLE = os.path.join(ROOT, "docs", "data", "grammar-console.json")
 g = json.load(open(CONSOLE, encoding="utf-8"))
 rules = {r["id"]: r for r in g["rules"]}
 s = open(PAGE, encoding="utf-8").read()
+# de-word round 2 marks (added at the end of this script) come off first, so every match below sees the plain template
+s = s.replace(' class="dw-on">', ">").replace('<section class="dw-open">', "<section>")
+s = re.sub(r'(<section id="[^"]*") class="dw-open">', lambda m: m.group(1) + ">", s)
+s = s.replace('<details class="dw-fold dw-les" open>', '<details class="dw-fold dw-les">').replace('<details class="dw-fold dw-jump" open>', '<details class="dw-fold dw-jump">')
 
 
 def pretty(d):
@@ -232,6 +236,20 @@ assert n == 1, "footer not found"
 # Amal writes her grammar notes on this page (scripts/build_amal_docs.py, js/amal-grammar-notes.js; Medi 2026-10-01)
 assert "js/amal-grammar-notes.js" in s, "the notes script tag is missing from the page"
 assert "js/amal-undo.js" in s, "the Undo script (AM-17) is missing from the page"
+
+# ---- De-word round 2 (Medi 2026-10-22: "you cut out too much data"): every family, rule card, example table, detail list
+# and lesson moment shows without a tap; only the "why" prose stays behind its (i). Idempotent; the taps still close a card.
+def _unfold_detail(m):
+    return ('<details class="dw-fold dw-more"><summary><span class="dw-i">i</span>Why</summary><div>%s</div></details>'
+            '<div class="dw-detail">%s</div>' % (m.group(1), m.group(2)))
+
+
+s = re.sub(r'<details class="dw-fold dw-more"><summary><span class="dw-i">i</span>Why[^<]*</summary><div>(<p class="why">(?:(?!</details>).)*?</p>)'
+           r'(<h4>The detail</h4><ul class="more">(?:(?!</details>).)*?</ul>)</div></details>', _unfold_detail, s, flags=re.S)
+s = re.sub(r'<article id="([^"]+)">', lambda m: '<article id="%s" class="dw-on">' % m.group(1), s)
+s = re.sub(r"<section( id=\"[^\"]*\")?>", lambda m: "<section%s class=\"dw-open\">" % (m.group(1) or ""), s)
+s = s.replace('<details class="dw-fold dw-les">', '<details class="dw-fold dw-les" open>')
+s = s.replace('<details class="dw-fold dw-jump">', '<details class="dw-fold dw-jump" open>')
 
 open(PAGE, "w", encoding="utf-8", newline="").write(s)
 print("updated", len(seen), "rules on", PAGE)

@@ -331,7 +331,8 @@ function renderCharts() {
   // eng audit 2026-09-29: the cut-offs the statuses use (scripts/build_grammar_console.py status()) were not written
   // anywhere on the page; scripts/check_numbers.py checks every rule against exactly these.
   // de-word 2026-10-22: the cut-offs open in place (ⓘ) instead of a paragraph under the donut
-  $('gc-c4-foot').innerHTML = '<details class="dw-info"><summary aria-label="How a rule gets its level">ⓘ</summary><div>Score = (uses − mistakes) ÷ uses, rounded. Mastered = 95%+ on 10+ uses · Good = 85%+ · Shaky = 65%+ · Wrong = under 65%. Unscored = no counter for his right uses. Status never moves on its own — it needs a recorded use.</div></details>';
+  var c4n = document.querySelector('#gc-c4 .gc-chart-note'); if (c4n) c4n.textContent = 'All ' + DATA.rules.length + ' rules';
+  $('gc-c4-foot').innerHTML = '<details class="dw-info"><summary aria-label="How a rule gets its level">ⓘ</summary><div>All 60 buckets. Score = (uses − mistakes) ÷ uses, rounded. Mastered = 95%+ on 10+ uses · Good = 85%+ · Shaky = 65%+ · Wrong = under 65%. Unscored = no counter for his right uses. Status never moves on its own — it needs a recorded use.</div></details>';
 }
 
 /* ---------- rule rows ---------- */

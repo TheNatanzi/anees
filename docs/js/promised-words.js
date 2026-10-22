@@ -25,8 +25,12 @@
     const P = (data && data.promised) || [];
     if (!P.length) return '';
     const waiting = P.filter(p => p.state !== 'in_doc').length, inDoc = P.length - waiting;
-    return note(P) + `<details class="ab-promised" data-promised ${waiting ? 'open' : ''}><summary class="ab-sub"><span class="dw-chip${waiting ? ' warn' : ' muted'}">${waiting} waiting</span> for the tutor's Doc · <span class="dw-muted">${inDoc} of ${P.length} in</span></summary>
-      <p class="ab-sub"><b>The tutor said she will add (${P.length})</b></p><ul>${P.map(p => `<li data-state="${esc(p.state)}"><b>${esc(p.arabizi || p.arabic)}</b>${p.arabizi && p.arabic ? ` <span lang="ar">${esc(p.arabic)}</span>` : ''} <span>· ${esc(p.english || '')} · ${esc(pretty(p.date))} lesson · ${esc(label(p))}</span></li>`).join('')}</ul></details>`;
+    // round 2: every promised word stays on screen as one compact table row with a status chip (waiting first)
+    const chip = p => p.state === 'in_doc' ? `<span class="dw-chip">In the Doc${p.in_doc_since ? ' · ' + esc(pretty(p.in_doc_since)) : ''}</span>`
+      : `<span class="dw-chip warn">${esc(label(p))}</span>`;
+    const order = [...P].sort((x, y) => (x.state === 'in_doc') - (y.state === 'in_doc'));
+    return note(P) + `<details class="ab-promised" data-promised open><summary class="ab-sub"><b>The tutor said she will add (${P.length})</b> · <span class="dw-chip${waiting ? ' warn' : ' muted'}">${waiting} waiting</span> · <span class="dw-chip">${inDoc} in the Doc</span></summary>
+      <table class="dw-ptable"><tbody>${order.map(p => `<tr data-state="${esc(p.state)}"><td><b>${esc(p.arabizi || p.arabic)}</b>${p.arabizi && p.arabic ? ` <span lang="ar">${esc(p.arabic)}</span>` : ''}</td><td>${esc(p.english || '')}</td><td>${esc(pretty(p.date))} lesson</td><td>${chip(p)}</td><td class="dw-age">${esc(p.age || '')}</td></tr>`).join('')}</tbody></table></details>`;
   }
   async function mount(el) {
     if (!el) return;

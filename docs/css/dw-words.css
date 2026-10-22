@@ -317,3 +317,14 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
 #anees-bank #ab-metrics .dw-big small { display: block; font-size: 11px; color: var(--dw-muted); }
 #anees-bank .dw-practice > div > span { display: block; font: 400 10px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
 @media (max-width: 680px) { #anees-bank #ab-metrics.dw-wb-bigs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; } }
+#ab-promised .dw-ptable { width: 100%; border-collapse: collapse; font-size: 13px; margin: 6px 0 14px; }
+#ab-promised .dw-ptable td { padding: 3px 8px; border-bottom: 1px solid var(--dw-line); vertical-align: middle; }
+#ab-promised .dw-ptable td:first-child { white-space: nowrap; }
+#ab-promised .dw-ptable .dw-chip { font-size: 11px; white-space: nowrap; }
+#ab-promised .dw-ptable tr:not([data-state="in_doc"]) .dw-chip { font-weight: 700; }
+#ab-promised .dw-ptable .dw-age { color: var(--dw-muted); font-size: 11px; }
+#ab-promised .ab-promised { max-height: none; }
+@media (max-width: 680px) { #ab-promised .dw-ptable tr { display: grid; grid-template-columns: 1fr auto; padding: 4px 0; border-bottom: 1px solid var(--dw-line); }
+  #ab-promised .dw-ptable td { border: 0; padding: 1px 4px; } #ab-promised .dw-ptable td:nth-child(3), #ab-promised .dw-ptable td:nth-child(5) { font-size: 11px; color: var(--dw-muted); } }
+/* grammar: the one-line meaning wraps instead of being cut with an ellipsis */
+#gc-rows .gc-oneline { white-space: normal !important; overflow: visible; text-overflow: clip; }

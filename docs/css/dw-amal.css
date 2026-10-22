@@ -622,3 +622,6 @@ html[data-look="kurz"] #anees-bank .bp-steps .bp-f2 { stroke: var(--kz-orange); 
 html[data-look="kurz"] #anees-bank .bp-steps .bp-f3 { stroke: var(--kz-teal); }
 html[data-look="kurz"] body.dw-doc .fl { font-size: 13px; padding: 3px 10px; }
 html[data-look="kurz"][data-sabz-theme="light"] body.dw-doc .fl, html[data-look="kurz"] body.dw-doc .fl { color: #14204A; }
+/* round 2 (Medi 2026-10-22: data back on screen): an open card needs no "N examples" bar above its examples */
+body.dw-doc article.dw-on > .dw-peek { display: none !important; }
+body.dw-doc .dw-detail h4 { margin-top: 8px; }
