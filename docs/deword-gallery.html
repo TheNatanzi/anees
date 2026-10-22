@@ -40,7 +40,17 @@ h1{font:600 34px/1.1 var(--serif);margin:0 0 4px;text-wrap:balance}
 figure{margin:0;min-width:0}figcaption{font:700 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 figure img{display:block;width:100%;height:auto;max-height:620px;object-fit:cover;object-position:top;border:1px solid var(--line);border-radius:8px;background:var(--card);cursor:zoom-in}
 .miss{display:grid;place-items:center;height:160px;border:1px dashed var(--line);border-radius:8px;color:var(--muted)}
-.zoom img{max-height:none}
+.lb{position:fixed;inset:0;z-index:20;background:rgb(0 0 0 / .86);display:flex;flex-direction:column}
+.lb[hidden]{display:none}
+.lb-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;color:#fff}
+.lb-bar b{font:600 16px var(--sans)}
+.lb-bar .seg{border-color:rgb(255 255 255 / .35)}.lb-bar .seg button{color:#fff}
+.lb-bar .seg button[aria-pressed="true"]{background:#fff;color:#111}
+.lb-close{border:0;border-radius:999px;background:#fff;color:#111;font:700 14px var(--sans);padding:7px 14px;cursor:pointer}
+.lb-scroll{flex:1;overflow:auto;padding:0 16px calc(16px + env(safe-area-inset-bottom,0px));text-align:center}
+.lb-scroll img{display:inline-block;max-width:100%;height:auto;border-radius:6px;background:#fff}
+.lb-scroll.full img{max-width:none}
+.lb-hint{font-size:12px;opacity:.75}
 @media (max-width:700px){.shots,.phone .shots{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}h1{font-size:28px}}
 @media (prefers-reduced-motion:no-preference){figure img{transition:opacity .15s}}
 </style></head><body>
@@ -153,13 +163,29 @@ figure img{display:block;width:100%;height:auto;max-height:620px;object-fit:cove
 <div class="grades"><div><span class="lk">A</span><span class="chip warn">not all A</span><span class="rnd">final</span><span class="g b" title="Claude: add · crucial · pictures · modes · look"><i>Claude</i><b>BBBAA</b></span><span class="g b" title="GPT-6 Astra: add · crucial · pictures · modes · look"><i>GPT-6 Astra</i><b>CCBCB</b></span><span class="g b" title="Gemini 3.8 Flash: add · crucial · pictures · modes · look"><i>Gemini 3.8 Flash</i><b>quota out</b></span></div><div><span class="lk b">B</span><span class="chip warn">not all A</span><span class="rnd">final</span><span class="g b" title="Claude: add · crucial · pictures · modes · look"><i>Claude</i><b>BBBBA</b></span><span class="g b" title="GPT-6 Astra: add · crucial · pictures · modes · look"><i>GPT-6 Astra</i><b>CCCBB</b></span><span class="g b" title="Gemini 3.8 Flash: add · crucial · pictures · modes · look"><i>Gemini 3.8 Flash</i><b>quota out</b></span></div></div>
 <div class="shots"><figure><figcaption>Before</figcaption><img loading="lazy" data-page="settings" data-state="before" src="deword/settings-before-light-desktop.jpg" alt="System Settings, Before"></figure><figure><figcaption>Look A · flat</figcaption><img loading="lazy" data-page="settings" data-state="flat" src="deword/settings-flat-light-desktop.jpg" alt="System Settings, Look A · flat"></figure><figure><figcaption>Look B · bright</figcaption><img loading="lazy" data-page="settings" data-state="kurz" src="deword/settings-kurz-light-desktop.jpg" alt="System Settings, Look B · bright"></figure></div></section>
 </div>
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-labelledby="lb-title">
+<div class="lb-bar"><b id="lb-title"></b>
+<div class="seg" id="lb-state"><button id="lb-before" data-v="before">Before</button><button id="lb-flat" data-v="flat">Look A</button><button id="lb-kurz" data-v="kurz">Look B</button></div>
+<span class="lb-hint">tap picture = full size · ← → switch</span><button class="lb-close" id="lb-close">Close</button></div>
+<div class="lb-scroll" id="lb-scroll"><img id="lb-img" alt=""></div></div>
 <script>
 (function(){var s={theme:'light',dev:'desktop'};
 function paint(){document.body.classList.toggle('phone',s.dev==='phone');
 document.querySelectorAll('img[data-page]').forEach(function(i){i.src='deword/'+i.dataset.page+'-'+i.dataset.state+'-'+s.theme+'-'+s.dev+'.jpg';});}
 document.querySelectorAll('.seg').forEach(function(g){g.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
 s[g.dataset.k]=b.dataset.v;g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});paint();});});
-document.addEventListener('click',function(e){var i=e.target.closest('figure img');if(i)i.parentNode.classList.toggle('zoom');});
+var lb=document.getElementById('lb'),li=document.getElementById('lb-img'),lt=document.getElementById('lb-title'),ls=document.getElementById('lb-scroll'),cur=null;
+var NAMES={before:'Before',flat:'Look A',kurz:'Look B'};
+function show(){li.src=SRC(cur.page,cur.state);li.alt=cur.title+', '+NAMES[cur.state];lt.textContent=cur.title;
+document.querySelectorAll('#lb-state button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.v===cur.state));});}
+function SRC(p,st){return (typeof IMG!=='undefined'?IMG[p+'-'+st+'-'+s.theme+'-'+s.dev]:'deword/'+p+'-'+st+'-'+s.theme+'-'+s.dev+'.jpg')||'';}
+document.addEventListener('click',function(e){var i=e.target.closest('figure img');if(!i)return;
+cur={page:i.dataset.page,state:i.dataset.state,title:i.closest('.row').querySelector('h2').textContent};ls.classList.remove('full');show();lb.hidden=false;ls.scrollTop=0;document.getElementById('lb-close').focus();});
+document.getElementById('lb-state').addEventListener('click',function(e){var b=e.target.closest('button');if(b){cur.state=b.dataset.v;show();}});
+document.getElementById('lb-close').addEventListener('click',function(){lb.hidden=true;});
+li.addEventListener('click',function(){ls.classList.toggle('full');});
+document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')lb.hidden=true;
+var o=['before','flat','kurz'],k=o.indexOf(cur.state);if(e.key==='ArrowRight'){cur.state=o[(k+1)%3];show();}if(e.key==='ArrowLeft'){cur.state=o[(k+2)%3];show();}});
 })();
 </script>
 </body></html>
