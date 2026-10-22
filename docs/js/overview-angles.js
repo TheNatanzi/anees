@@ -89,8 +89,8 @@ const loadingTurns=()=>turnFail?empty('The turn files could not load. Refresh to
 
 
 // de-word mini pictures (no text inside, so the page text is unchanged): a gauge with the target band, and one dot per week
-const gauge=(v,[a,b],max)=>{const X=t=>(8+Math.min(max,Math.max(0,t))/max*284).toFixed(1);return `<span class="dw-capt" data-cap="target ${a}–${b} a week"><svg class="dw-mini" viewBox="0 0 300 26" role="img" aria-label="${f1(v)} a week against the ${a} to ${b} target"><rect x="8" y="9" width="284" height="8" rx="4" class="dw-mini-track"/><rect x="${X(a)}" y="5" width="${(X(b)-X(a)).toFixed(1)}" height="16" rx="4" class="dw-mini-band"/><circle cx="${X(v)}" cy="13" r="8" class="dw-mini-dot ${v>=a&&v<=b?'dw-in':'dw-out'}"/></svg></span>`;};
-const dots=flags=>`<span class="dw-capt dw-dotcap" data-cap="filled = above baseline"><svg class="dw-mini" viewBox="0 0 ${flags.length*26+4} 26" role="img" aria-label="${flags.filter(f=>f===true).length} of ${flags.filter(f=>f!==null).length} weeks above the baseline, after two baseline weeks">${flags.map((f,i)=>f===null?`<rect x="${i*26+7}" y="5" width="16" height="16" rx="3" class="dw-mini-base"/>`:`<circle cx="${i*26+15}" cy="13" r="9" class="${f?'dw-mini-on':'dw-mini-off'}"/>`).join('')}</svg></span>`;   // squares = the two baseline weeks
+const gauge=(v,[a,b],max)=>{const X=t=>(8+Math.min(max,Math.max(0,t))/max*284).toFixed(1);return `<span class="dw-capt" data-cap="goal ${a}–${b} a week"><svg class="dw-mini" viewBox="0 0 300 26" role="img" aria-label="${f1(v)} a week against the ${a} to ${b} target"><rect x="8" y="9" width="284" height="8" rx="4" class="dw-mini-track"/><rect x="${X(a)}" y="5" width="${(X(b)-X(a)).toFixed(1)}" height="16" rx="4" class="dw-mini-band"/><circle cx="${X(v)}" cy="13" r="8" class="dw-mini-dot ${v>=a&&v<=b?'dw-in':'dw-out'}"/></svg></span>`;};
+const dots=flags=>`<span class="dw-capt dw-dotcap"><svg class="dw-mini" viewBox="0 0 ${flags.length*26+4} 26" role="img" aria-label="${flags.filter(f=>f===true).length} of ${flags.filter(f=>f!==null).length} weeks above the baseline, after two baseline weeks">${flags.map((f,i)=>f===null?`<rect x="${i*26+7}" y="5" width="16" height="16" rx="3" class="dw-mini-base"/>`:`<circle cx="${i*26+15}" cy="13" r="9" class="${f?'dw-mini-on':'dw-mini-off'}"/>`).join('')}</svg></span>`;   // squares = the two baseline weeks
 
 /* ---------- A: lessons per week ---------- */
 function panelA(ls){
@@ -115,7 +115,7 @@ function panelA(ls){
  });
  s+=tx(bx,h-4,'lessons that week');
  const why=`${inBand} of ${plural(full.length,'full week')} landed in the band. Most in one week: ${top.n} (week of ${dm(top.key)}).${gap.d?` Longest break: ${gap.d} days (${dm(gap.a)} to ${dm(gap.b)}).`:''}${weeks.length>show.length?` Showing the last ${show.length} of ${weeks.length} weeks.`:''}${weeks[weeks.length-1].open?' The current week is still running and is left out of the average.':''}`;
- return panel('a',title,sub,frame(s,'Lessons per week calendar',h),{head:big(f1(avg),`lessons a week on average over ${plural(base.length,full.length?'full week':'week')} · target ${TARGET[0]} to ${TARGET[1]}`)+gauge(avg,TARGET,7),why,src:'lessons.json dates'});
+ return panel('a',title,sub,frame(s,'Lessons per week calendar',h),{head:big(f1(avg),`lessons a week on average over ${plural(base.length,full.length?'full week':'week')}<span class="dw-tail"> · target ${TARGET[0]} to ${TARGET[1]}</span>`)+gauge(avg,TARGET,7),why,src:'lessons.json dates'});
 }
 
 /* ---------- B: weekly pooled words vs baseline ---------- */

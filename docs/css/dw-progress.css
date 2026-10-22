@@ -269,3 +269,16 @@ html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-
 #anees-bank .dw-basebox { fill: none; stroke: var(--dw-muted); stroke-width: 1.2; stroke-dasharray: 4 3; }
 #anees-bank circle.dw-baseweek { opacity: .45; }
 #anees-bank section[aria-labelledby="ov2-h-b"] rect.ov2-f-sage, #anees-bank section[aria-labelledby="ov2-h-b"] text.dw-cap-svg { display: none; }
+
+#anees-bank .dw-tail { display: none; }
+#anees-bank .dw-capt::after { font-size: 14px; color: var(--dw-ink); }
+/* Flashcards with no answers yet */
+#anees-bank .dw-fempty:not(.dw-open) > :not(.dw-start) { display: none !important; }
+#anees-bank .dw-start { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding: 18px 20px; margin: 0 0 14px;
+  border-radius: var(--dw-radius, 10px); background: var(--ab-panel); border: 1px solid var(--ab-line); font-size: 16px; }
+#anees-bank .dw-startlink { padding: 8px 16px; border-radius: 999px; background: var(--dw-a1); color: var(--sabz-bg, #F5F2EA); font-weight: 700; text-decoration: none; }
+#anees-bank .dw-statbtn { margin-left: auto; border: 1px solid var(--ab-line); background: transparent; border-radius: 999px; padding: 6px 12px; font-size: 13px; }
+#anees-bank .dw-statbtn::before { content: "▸  Card stats (all zero)"; }
+#anees-bank .dw-statbtn[data-open="1"]::before { content: "▾  Hide card stats"; }
+html[data-look="kurz"] #anees-bank .dw-start { border: 0; border-radius: 22px; box-shadow: inset 6px 0 0 var(--kz-yellow); }
+html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow); color: light-dark(#fff, #14204A); }

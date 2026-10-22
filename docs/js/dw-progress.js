@@ -251,6 +251,22 @@
     pane.classList.add('dw-folded');
   }
 
+  // 11. Flashcards before the first answer: one line and the way in; the all-zero stats wait behind a button
+  function flashEmpty() {
+    const pane = document.getElementById('vp-tab-flash');
+    if (!pane) return;
+    const t = pane.textContent || '';
+    const empty = /No cards studied today/.test(t) && !/\d+\s*cards? studied today/i.test(t);
+    pane.classList.toggle('dw-fempty', empty);
+    if (!empty || pane.querySelector(':scope > .dw-start')) return;
+    const box = document.createElement('div'); box.className = 'dw-start'; box.dataset.dw = '1';
+    box.innerHTML = '<b>No cards answered yet</b><a class="dw-startlink" href="cards.html">Start review →</a>';
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'dw-statbtn';
+    b.addEventListener('click', () => { const o = pane.classList.toggle('dw-open'); b.dataset.open = o ? '1' : ''; });
+    box.append(b);
+    pane.prepend(box);
+  }
+
   function run() {
     queued = false;
     const root = document.getElementById(ROOT_ID);
@@ -258,7 +274,7 @@
     busy = true;
     try {
       const head = document.querySelector('.vp-header');
-      method(root); subs(root); notes(root); tables(root); dups(root); alerts(); notice(); charts(); dataNotes();
+      method(root); subs(root); notes(root); tables(root); dups(root); alerts(); notice(); charts(); dataNotes(); flashEmpty();
       if (head) subs(head);
     } finally { busy = false; }
   }
