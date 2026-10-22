@@ -1,0 +1,52 @@
+/* De-word, group "reports" (plan/OVERNIGHT-DEWORD-2026-10-22.md): AI Reports (4 tabs), the flow page, Lessons, a lesson.
+   Same markup in both looks; html[data-look="kurz"] rules below only restyle. Kit classes (.dw-*) live in css/look.css. */
+
+/* ---------- ⓘ that sits on its own line ---------- */
+#anees-bank details.dw-info-line { display: block; margin: 2px 0 6px; }
+#anees-bank h2 details.dw-info, #anees-bank h3 details.dw-info, #anees-bank h4 details.dw-info { font-family: var(--sabz-font-sans, system-ui); font-weight: 400; letter-spacing: 0; text-transform: none; }
+#anees-bank :is(h2, h3, h4) details.dw-info[open] > div { font-size: 13px; }
+#anees-bank .ar-verdict details.dw-info > div p { margin: 0 0 6px; }
+
+/* ---------- AI Reports · Robot blind spots: a row shows its count; the example and the why open with the row ---------- */
+#ar-tab-unknowns details:not([open]) > summary :is(.vu-ex, .vu-lab small) { display: none; }
+#ar-tab-unknowns .vu-sub { letter-spacing: .08em; }
+#ar-tab-research .ar-legend { margin: 0 0 12px; }
+#ar-tab-research .ar-verdict { font-size: 15px; font-weight: 600; }
+#ar-tab-grades td span.ab-tiny { display: none; }
+
+/* ---------- Flow: the 8 phases as one numbered strip; steps keep title, who and cost ---------- */
+#anees-bank .fl-phases { margin: 4px 0 10px; }
+#anees-bank .fl-phases > li { flex: 1 1 140px; padding: 6px 10px; font-size: 13px; font-weight: 600; }
+#anees-bank .fl-phases > li::before { content: counter(dw, upper-alpha); background: var(--pc); color: #fff; border-radius: 7px; }
+#anees-bank .fl-phases a { color: inherit; text-decoration: none; }
+#anees-bank .fl-phases a:hover { text-decoration: underline; }
+#anees-bank .fl .phase { scroll-margin-top: 12px; }
+#anees-bank .fl .box > details.fl-more { display: inline-block; margin: 8px 6px 0 0; vertical-align: middle; }
+#anees-bank .fl .box > details.fl-more[open] { display: block; }
+#anees-bank .fl .box > details.fl-more > div { color: var(--ab-muted); font-size: 14px; }
+#anees-bank .fl .box > details.fl-more > div b { color: var(--ab-text); }
+#anees-bank .fl .box > .chips { display: inline-flex; vertical-align: middle; }
+/* studies: one small pill each, side by side; the finding opens below */
+#anees-bank .fl details.study:not([open]) { display: inline-block; margin: 8px 6px 0 0; }
+#anees-bank .fl details.study:not([open]) + details.study { margin-top: 8px; }
+#anees-bank .fl details.study:not([open]) summary { padding: 4px 10px; font-size: 12.5px; font-weight: 500; }
+#anees-bank .fl details.study:not([open]) summary::after { content: ''; margin: 0; }
+#anees-bank .fl .kit { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 6px; }
+#anees-bank .fl .kit div { padding: 7px 10px; font-size: 13px; }
+@media (max-width: 600px) {
+  #anees-bank .fl-phases > li { flex: 1 1 42%; }
+  #anees-bank .fl .kit { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- Look B "kurz": navy + bright accents, rounded ---------- */
+html[data-look="kurz"] #anees-bank .fl .box, html[data-look="kurz"] #anees-bank .ar-rep,
+html[data-look="kurz"] #anees-bank .fl .kit div { border-radius: 20px; }
+html[data-look="kurz"] #anees-bank .fl-phases > li { border-radius: 999px; }
+html[data-look="kurz"] #anees-bank .fl-phases > li::before { border-radius: 50%; }
+html[data-look="kurz"] #anees-bank .fl .num { box-shadow: 0 0 0 4px var(--kz-bg), 0 0 0 6px var(--pc); }
+#ar-tab-unknowns details:not([open]) > summary .vu-top { display: none; }
+#anees-bank details.dw-info > div > :is(p, ol) { margin: 0 0 6px; }
+#anees-bank details.dw-info > div > :is(p, ol):last-child { margin-bottom: 0; }
+#anees-bank .fl .key { align-items: center; }
+#anees-bank .fl .key details.fl-kit[open] { flex-basis: 100%; }
+#anees-bank .fl .key details.fl-kit > div.kit { max-width: none; padding: 0; border: 0; background: none; margin: 8px 0 0; }

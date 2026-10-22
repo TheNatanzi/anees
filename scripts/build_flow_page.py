@@ -20,10 +20,31 @@ OUT = os.path.join(REPO, "docs", "reports", "anees-flow.html")
 TITLE = "Anees: from lesson to grade"
 
 
+def dword(frag):
+    """De-word (plan/OVERNIGHT-DEWORD-2026-10-22.md): each step shows its title, who and cost; the how-it-works sentence
+    opens in place behind a small (i) on the step. A numbered strip of the 8 phases sits on top (tap one to jump)."""
+    frag = re.sub(r'<p>(.*?)</p>(?=<div class="chips">)',
+                  r'<details class="dw-info fl-more"><summary aria-label="How this step works">ⓘ</summary><div>\1</div></details>', frag)
+    phases = re.findall(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span><h2>(.*?)</h2>', frag)
+    frag = re.sub(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>',
+                  r'<section class="phase" id="fl-\2" style="--pc:\1"><header><span class="pcode">\2</span>', frag)
+    strip = ('<ol class="dw-flow fl-phases" aria-label="The 8 phases">' +
+             ''.join('<li style="--pc:%s"><a href="#fl-%s">%s</a></li>' % (c, k, t) for c, k, t in phases) + '</ol>')
+    frag = frag.replace('<div class="key">', strip + '\n  <div class="key">', 1)
+    # the 5 building blocks (Meet, hourly job, tutor trigger, guard, plans) join the colour key behind one (i)
+    m = re.search(r'\s*</div>\s*<div class="kit">(.*?)</div>\s*(?=<div class="warn">)', frag, re.S)
+    if m:
+        frag = frag[:m.start()] + ('<details class="dw-info fl-kit"><summary aria-label="The building blocks">ⓘ</summary>'
+                                   '<div class="kit">%s</div></details></div>\n  ' % m.group(1).strip()) + frag[m.end():]
+    return frag
+
+
 def build():
-    frag = io.open(SRC, encoding="utf-8").read()
-    html = BR.page(TITLE, "", "ANEES-FLOW.fragment.html", "Claude", "2026-10-21", story=frag)
-    html = html.replace('<article class="ar-doc">\n\n</article>', "")
+    frag = dword(io.open(SRC, encoding="utf-8").read())
+    html = BR.page(TITLE, "", "ANEES-FLOW.fragment.html", "Claude", "2026-10-21", story=screen_roles(frag))
+    html = html.replace('<link rel="stylesheet" href="../css/ai-reports.css?v=20261022-study">',
+                        '<link rel="stylesheet" href="../css/ai-reports.css?v=20261022-study"><link rel="stylesheet" href="../css/dw-reports.css?v=1">')
+    html = html.replace('<article class="ar-doc">\n\n</article>', "").replace('<div class="ab-sub">Built from ANEES-FLOW.fragment.html</div>', "")
     io.open(OUT, "w", encoding="utf-8").write(html)
     print("built", os.path.relpath(OUT, REPO), "%d KB" % (len(html) // 1024))
     fill_tab(frag)
@@ -64,7 +85,7 @@ def fill_tab(frag):
     page = io.open(TAB, encoding="utf-8").read()
     a, b = page.index("<!-- FLOW:start -->") + len("<!-- FLOW:start -->"), page.index("<!-- FLOW:end -->")
     head = ('<div class="ov-head"><span class="vp-eyebrow">From the Meet call to the grade book</span><h2 class="ov-h2">How Anees works</h2>'
-            '<p class="ab-sub">Every step a lesson goes through, who does it and what it costs. Open a <b>Study</b> to see the test behind a step.</p></div>')
+            '<p class="ab-sub">Every step, who does it, what it costs.</p></div>')
     io.open(TAB, "w", encoding="utf-8").write(page[:a] + "\n" + head + "\n" + body + "\n" + page[b:])
     print("filled the How Anees works tab in", os.path.relpath(TAB, REPO))
 

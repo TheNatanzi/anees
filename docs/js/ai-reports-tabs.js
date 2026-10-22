@@ -51,6 +51,30 @@ function show(tab){
  if(tab==='unknowns')mountUnknowns();
  if(tab==='grades')mountGrades();
 }
+// De-word (plan/OVERNIGHT-DEWORD-2026-10-22.md): the panels on this page keep numbers, actions and warnings in view;
+// every explanation goes behind a small ⓘ that opens in place (its text, and every number in it, stays on the page).
+// The modules are shared with Progress, so the move happens here, on this page only.
+const DW_INFO=['.vp-panelhead p.ab-sub','.vu-head p.ab-sub','.gu-head p.ab-sub','.pn-panel .vp-panelhead p','p.rb-link','p.fl-foot','p.vu-foot',
+ 'p.gu-foot','p.pn-foot','p.vp-footer','p.gu-src','.gu-callout','ol.vu-do','.rg-detail > p.ab-sub','#air-grades p.ar-foot'].join(',');
+function dwHeading(el){   // the heading this text explains: right before it, else its panel's / section's heading
+ const h=el.previousElementSibling;if(h&&/^H[1-4]$/.test(h.tagName))return h;
+ for(let p=el.parentElement;p&&p.id!=='anees-bank';p=p.parentElement){
+  if(p.matches('.vp-panel,section,.ov-head')){const x=p.querySelector(':scope > .vp-panelhead h3, :scope > .vp-panelhead h2, :scope > h2, :scope > h3, :scope .vp-panelhead h3');if(x)return x;}
+ }
+ return null;
+}
+function dwInfo(el){
+ const h=dwHeading(el),have=h&&h.querySelector(':scope > details.dw-info');
+ const wrap=document.createElement(el.tagName==='OL'?'ol':'p');while(el.firstChild)wrap.append(el.firstChild);wrap.append(' ');
+ if(have){have.lastChild.append(wrap);el.remove();return;}   // one ⓘ per heading: later notes join it
+ const d=document.createElement('details');d.className='dw-info';d.dataset.dw='1';
+ d.innerHTML='<summary aria-label="More about this">ⓘ</summary><div></div>';d.lastChild.append(wrap);
+ if(h){h.append(' ',d);el.remove();}
+ else{d.classList.add('dw-info-line');el.replaceWith(d);}
+}
+let dwT=0;
+function dwPass(){document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwInfo(el);}));}
+new MutationObserver(()=>{clearTimeout(dwT);dwT=setTimeout(dwPass,60);}).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');
 if(!first){try{first=localStorage.getItem('anees-ai-reports-tab');}catch(e){}}

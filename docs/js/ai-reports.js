@@ -15,7 +15,10 @@
     const bars = (p.bars && p.bars.length) ? `<div class="ar-bars"><span class="vp-eyebrow">${esc(p.bars_title || '')}</span>${p.bars.map(b => `<div class="ar-brow"><span>${esc(b.label)}</span><div class="ar-track"><div class="ar-fill${b.tone ? ' ' + esc(b.tone) : ''}" style="width:${Math.max(2, Math.round(100 * b.value / (b.max || 1)))}%"></div></div><span class="ar-bv">${esc(b.text ?? b.value)}</span></div>`).join('')}</div>` : '';
     const links = (p.links || []).map(l => `<a class="ar-btn" href="${esc(l.url)}">${esc(l.label)}</a>`).join('');
     const chapters = (p.chapters || []).length ? `<nav class="ar-jump ar-chapters" aria-label="Jump into the study">${p.chapters.map(c => `<a href="${esc(c.url)}">${esc(c.label)}</a>`).join('')}</nav>` : '';   // PG-55
-    return `<article class="ar-rep"><div class="ar-top">${badge(p.author)}<span class="ar-date">${esc(p.date)}</span></div><h2 class="ar-title">${title}</h2><p class="ar-q">${esc(p.question)}</p><p class="ar-verdict">${esc(p.verdict)}</p>${kpis ? `<div class="ar-kpis">${kpis}</div>` : ''}${bars}${chapters}<div class="ar-links">${links}</div></article>`;
+    // De-word (2026-10-22): the answer's first sentence stays in view; the question and the rest open in place (ⓘ).
+    const v = String(p.verdict || ''), cut = v.search(/[.!?](\s|$)/), head = cut > 0 ? v.slice(0, cut + 1) : v, rest = cut > 0 ? v.slice(cut + 1).trim() : '';
+    const info = (p.question || rest) ? `<details class="dw-info"><summary aria-label="The question and the full answer">ⓘ</summary><div>${p.question ? `<p class="ar-q">${esc(p.question)}</p>` : ''}${rest ? `<p>${esc(rest)}</p>` : ''}</div></details>` : '';
+    return `<article class="ar-rep"><div class="ar-top">${badge(p.author)}<span class="ar-date">${esc(p.date)}</span></div><h2 class="ar-title">${title}</h2><p class="ar-verdict">${esc(head)} ${info}</p>${kpis ? `<div class="ar-kpis">${kpis}</div>` : ''}${bars}${chapters}<div class="ar-links">${links}</div></article>`;
   }
   function reports(r) {
     const reps = (r.reports || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
@@ -26,7 +29,7 @@
     const papers = reps.filter(p => p.featured);   // Medi 2026-10-19: a Research section for experiments and results, like a research paper
     if (papers.length && $('#ar-papers')) { $('#ar-papers-list').innerHTML = papers.map(card).join(''); $('#ar-papers').hidden = false; }
     $('#ar-list').innerHTML = reps.filter(p => !p.featured).map(card).join('') || '<div class="vp-notice">No reports yet.</div>';
-    $('#ar-foot').textContent = `Updated ${r.updated}. Engine numbers (Sept 4–5) are counts on 20 frozen clips, not accuracy; the process audit counts hand-audited rows.`;
+    $('#ar-foot').innerHTML = `Updated ${esc(r.updated)} <details class="dw-info"><summary aria-label="About these numbers">ⓘ</summary><div>Engine numbers (Sept 4–5) are counts on 20 frozen clips, not accuracy; the process audit counts hand-audited rows.</div></details>`;
   }
 
   async function main() {
