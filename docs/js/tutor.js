@@ -203,6 +203,7 @@
   let WEAK = null;
   async function weak() { if (!WEAK) WEAK = await (await fetch('data/tutor-weak.json', { cache: 'no-store' })).json(); return WEAK; }
   const notesToken = () => { const g = T.open.find(x => x.kind === 'grammar_notes'); return g ? g.token : ''; };
+  const gloss = e => String(e || '').split(/\s*[/;]\s*|,\s+/)[0];   // the row shows the first meaning; the open item shows them all
   const pctTxt = v => (v === null || v === undefined) ? '—' : v + '%';
   function momentsHtml(ms, how) {
     if (!ms || !ms.length) return '<p class="hb-sub">No moment recorded yet.</p>';
@@ -228,7 +229,7 @@
   async function vocab(id) {
     setTab('vocab'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
     let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
-    const rows = D.words.map(w => ({ id: 'word:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · ${pctTxt(w.pct)} right · ${fmt(w.n)} uses · last ${pretty(w.last_date)}`, bar: pctBar(w.pct), find: w.english || '', w }));
+    const rows = D.words.map(w => ({ id: 'word:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(gloss(w.english))} · ${pctTxt(w.pct)} right · ${fmt(w.n)} uses · last ${pretty(w.last_date)}`, bar: pctBar(w.pct), find: w.english || '', w }));
     listPanel('vocab', rows, id, (row, p) => {
       const w = row.w;
       p.innerHTML = `<article id="${esc(row.id)}" class="hb-doc"><h3 class="hb-q">${esc(w.arabizi)} ${w.arabic ? `<span lang="ar" dir="rtl">${esc(w.arabic)}</span>` : ''}</h3><p class="hb-sub">${esc(w.english || '')}</p>
@@ -241,8 +242,8 @@
     setTab('decay'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
     let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
     const K = D.decay || { decaying: [], untested: [], days: 0 };
-    const rows = K.decaying.map(w => ({ id: 'decay:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · last said ${pretty(w.last_date)} (${w.days_ago} days) · was ${esc(w.status || '')}`, find: w.english || '', w, kind: 'decaying' }))
-      .concat(K.untested.map(w => ({ id: 'untested:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · never said in a recorded lesson · in the Doc since ${pretty(w.first_seen)}`, find: w.english || '', w, kind: 'untested' })));
+    const rows = K.decaying.map(w => ({ id: 'decay:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(gloss(w.english))} · last said ${pretty(w.last_date)} (${w.days_ago} days)${w.status ? ' · was ' + esc(w.status) : ''}`, find: w.english || '', w, kind: 'decaying' }))
+      .concat(K.untested.map(w => ({ id: 'untested:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(gloss(w.english))} · never said in a recorded lesson · in the Doc since ${pretty(w.first_seen)}`, find: w.english || '', w, kind: 'untested' })));
     listPanel('decay', rows, id, (row, p) => {
       const w = row.w;
       p.innerHTML = `<article id="${esc(row.id)}" class="hb-doc"><h3 class="hb-q">${esc(w.arabizi)} ${w.arabic ? `<span lang="ar" dir="rtl">${esc(w.arabic)}</span>` : ''}</h3><p class="hb-sub">${esc(w.english || '')}</p>

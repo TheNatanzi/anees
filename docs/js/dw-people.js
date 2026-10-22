@@ -66,7 +66,10 @@
       c.querySelectorAll('.tv-pair ~ .hb-en').forEach(e => { if (/^\s*→|→\s*$/.test(txt(e))) e.classList.add('dp-sr'); });   // a half Arabizi pair (one side missing) is noise
       diffMark(c);
       const foot = c.closest('.hb-task') && c.closest('.hb-task').querySelector(':scope > .hb-foot');   // provenance line -> the i
-      if (foot && !foot.dataset.dp && txt(foot).length > 60) { foot.dataset.dp = '1'; const row = document.createElement('p'); row.className = 'dp-footi'; foot.before(row); row.appendChild(info([foot], 'Where this list comes from')); }
+      if (foot && !foot.dataset.dp && txt(foot).length > 60) {   // joins the panel's one "how it works" i (no second i)
+        foot.dataset.dp = '1'; const box = (c.closest('#hb-panel') || view).querySelector('.dp-how > details > div');
+        if (box) box.appendChild(foot); else { const row = document.createElement('p'); row.className = 'dp-footi'; foot.before(row); row.appendChild(info([foot], 'Where this list comes from')); }
+      }
       const head = c.querySelector(':scope > .hb-prog');   // a small glyph per card kind: grammar slip, word slip, new word
       if (head) { const k = /new word/i.test(txt(head)) ? 'new' : /grammar/i.test(txt(head)) ? 'gram' : 'word'; head.insertAdjacentHTML('afterbegin', GLYPH[k]); }
       const why = c.querySelector(':scope > .hb-why'), eg = [...c.querySelectorAll(':scope > p.hb-sub')].find(p => /^e\.g\./.test(txt(p)));
@@ -139,6 +142,7 @@
       d.className = 'dp-cards'; d.open = !!foldOpen.get(r);
       d.innerHTML = `<summary>${rest.length} more cards on this page</summary>`;
       rest[0].before(d); rest.forEach(c => d.appendChild(c));
+      const more = r.querySelector(':scope > [data-more]'); if (more) d.appendChild(more);   // "Show the next 8" lives inside the fold: one control
       d.addEventListener('toggle', () => foldOpen.set(r, d.open));
     });
   }
