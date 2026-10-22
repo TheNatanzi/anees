@@ -183,10 +183,24 @@ def parse(text):
         return json.loads(t[t.find("{"):t.rfind("}") + 1])
 
 
-def call(vendor, model, system, user, thinking=None):
-    if vendor == "gemini":
-        return call_gemini(model, system, user, thinking)
-    return {"claude": call_claude, "codex": call_codex}[vendor](model, system, user)
+def call(vendor, model, system, user, thinking=None, date=None, what="judge"):
+    """One model call, with its run line (check_rules AI-logged / AI-paid-logged: scripts/track.py)."""
+    import track
+    t0 = time.time()
+    try:
+        if vendor == "gemini":
+            text, usage = call_gemini(model, system, user, thinking)
+        else:
+            text, usage = {"claude": call_claude, "codex": call_codex}[vendor](model, system, user)
+    except Exception as e:
+        track.log_run("judge_panel." + what, date, kind="inference", provider={"gemini": "google", "claude": "anthropic", "codex": "openai"}[vendor],
+                      request_model=model, response_model=model, status="error", duration_ms=int((time.time() - t0) * 1000),
+                      params={"rule": RULE, "error": str(e)[:200]})
+        raise
+    track.log_run("judge_panel." + what, date, kind="inference", provider={"gemini": "google", "claude": "anthropic", "codex": "openai"}[vendor],
+                  request_model=model, response_model=model, cost_usd=usage.get("usd") or 0.0, duration_ms=int((time.time() - t0) * 1000),
+                  params={"rule": RULE, "via": usage.get("via") or "paid Gemini key", "tokens_in": usage.get("in"), "tokens_out": usage.get("out")})
+    return text, usage
 
 
 # ------------------------------------------------------------------------------------------------ 1 pool
@@ -214,7 +228,7 @@ def pool_rows(date, dry=False, log=print):
         if not os.path.exists(p) and not dry:
             system, user = reader_prompt(date)
             try:
-                text, usage = call(vendor, model, system, user)
+                text, usage = call(vendor, model, system, user, date=date, what="reader")
                 rows = parse(text).get("rows") or []
                 W(p, {"date": date, "reader": tag, "model": model, "usage": usage, "rows": rows})
                 if usage.get("usd"):
@@ -286,7 +300,7 @@ def judge(date, cands, sig, log=print):
         p = os.path.join(OUT, "%s.judge.%s.json" % (date, tag))
         J0 = J(p, {}) or {}
         if J0.get("candidates_sig") != sig:
-            text, usage = call(vendor, model, system, user, thinking="high" if vendor == "gemini" else None)
+            text, usage = call(vendor, model, system, user, thinking="high" if vendor == "gemini" else None, date=date, what="judge")
             v = parse(text)
             J0 = {"date": date, "judge": tag, "model": model, "usage": usage, "candidates_sig": sig, "verdicts": v.get("verdicts", v)}
             W(p, J0)
