@@ -96,7 +96,7 @@
       const key = left + '/' + all; if (p.dataset.dp === key && p.querySelector('.dp-pbar')) return; p.dataset.dp = key;
       p.classList.add('dp-prog');
       const old = p.querySelector('.dp-pbar'); if (old) old.remove();
-      p.insertAdjacentHTML('beforeend', `<span class="dp-pbar" role="img" aria-label="${all - left} of ${all} done"><span class="dw-split"><i style="width:${(100 * (all - left) / all).toFixed(1)}%"></i></span><span class="dp-pdone">${all - left} done</span></span>`);
+      p.insertAdjacentHTML('beforeend', `<span class="dp-pbar" role="img" aria-label="${all - left} of ${all} done"><span class="dw-split"><i style="width:${(100 * (all - left) / all).toFixed(1)}%"></i></span><span class="dp-pdone">${all - left} of ${all} done</span></span>`);
     });
   }
   let busy = false;
