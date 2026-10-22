@@ -344,8 +344,8 @@ function render(){
  const ls=(LJ.lessons||[]).slice().sort((a,b)=>a.date<b.date?-1:1);
  const one=f=>{try{return f();}catch(e){console.error('overview-angles',e);return `<section class="vp-panel">${empty('This panel could not be drawn ('+e.message+').')}</section>`;}};
  TOP={};const topHtml=[()=>panelA(ls),()=>panelB(ls)].map(one).join('');
- const A=TOP.a,B=TOP.b,big2=(v,l)=>`<div class="dw-big"><b>${v}</b><span>${l}</span></div>`;
- const strip=A||B?`<div class="dw-bigs ov2-verdict">${A?big2(f1(A.avg),`lessons a week · goal ${TARGET[0]}–${TARGET[1]}`)+big2(`${A.inBand} of ${A.full}`,'weeks on goal'):''}${B?big2(`${B.above} of ${B.n}`,'weeks above the baseline band')+big2(`${B.AX}${f1(B.last.pct)}%`,`words right, week of ${dm(B.last.k)}`):''}</div>`:'';
+ const A=TOP.a,B=TOP.b,big2=(v,l,t='')=>`<div class="dw-big${t?' dw-'+t:''}"><b>${v}</b><span>${l}</span></div>`;   // t: ok / warn tints the tile
+ const strip=A||B?`<div class="dw-bigs ov2-verdict">${A?big2(f1(A.avg),`lessons a week · goal ${TARGET[0]}–${TARGET[1]}`)+big2(`${A.inBand} of ${A.full}`,'weeks on goal',A.full?(A.inBand*2>=A.full?'ok':'warn'):''):''}${B?big2(`${B.above} of ${B.n}`,'weeks above the baseline band',B.n?(B.above*2>B.n?'ok':'warn'):'')+big2(`${B.AX}${f1(B.last.pct)}%`,`words right, week of ${dm(B.last.k)}`):''}</div>`:'';
  // one plain-words line over the strip: where the lessons-a-week and the words-right numbers stand
  const sayA=A&&A.full?(A.inBand*2>=A.full?'lessons a week: on the goal most weeks':'lessons a week: off the goal most weeks'):'';
  const sayB=B?(B.n&&B.above*2>B.n?'words right: above your baseline':B.n?'words right: not yet above your baseline':''):'';
