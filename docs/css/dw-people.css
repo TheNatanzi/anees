@@ -285,3 +285,7 @@ html[data-look="kurz"] #anees-bank details.tu-more > summary { border-radius: 18
   #anees-bank .hb-card .tv-wrong::before { content: "✗ "; color: var(--dw-bad); }
   #anees-bank .hb-card .tv-right::before { content: "✓ "; color: var(--dw-ok); }
 }
+/* Homework page: its own "button" style (teal, 48 px) also hit the A/B look switch; give the switch back its own small style */
+body .anees-look button { min-height: 0; margin: 0; padding: 0 8px; height: 24px; border: 0; background: transparent; color: inherit; font: 600 12px/1 var(--sabz-font-sans, system-ui); cursor: pointer; }
+body .anees-look button[aria-pressed="true"] { background: var(--dw-knob, light-dark(#FFFDF6, #2C3B34)); box-shadow: 0 1px 2px rgb(0 0 0 / .2); }
+body > .anees-look:not(.anees-look-float) { position: fixed; left: 12px; bottom: 18px; width: 96px; margin: 0; z-index: 50; }
