@@ -215,3 +215,23 @@ html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-
 #lesson-alerts details.dw-alllog { display: block; }
 #lesson-alerts details.dw-alllog > summary { margin-left: 0; }
 #lesson-alerts details.dw-alllog > div { font: 13px/1.45 system-ui !important; }
+
+/* Overview: one method-change chip, at the top of the tab (the one in the takeaways block) */
+#anees-bank #vp-tab-overview details.dw-method:not(#ov2 details) { display: none; }
+#anees-bank #ov2 details.dw-method.dw-again { display: block; }
+#anees-bank #ov2 { margin-top: 0; }
+#anees-bank #ov2 > .ov2-head { margin-top: 0; padding-top: 0; }
+@media (max-width: 680px) {
+  /* tabs: one row that scrolls sideways, so the takeaways reach the first screen */
+  #anees-bank .vp-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  #anees-bank .vp-tabs .vp-tab { flex: none; }
+}
+
+/* the status chips (robot log, saved data) share one row under the title */
+#anees-bank main:has(> details.dw-notice) { display: grid; grid-template-columns: auto auto 1fr; column-gap: 8px; align-content: start; }
+#anees-bank main:has(> details.dw-notice) > * { grid-column: 1 / -1; min-width: 0; }
+#anees-bank main:has(> details.dw-notice) > .vp-header { grid-row: 1; }
+#anees-bank main:has(> details.dw-notice) > #lesson-alerts.dw-alerts:has(> details.dw-alllog) { grid-row: 2; grid-column: 1; }
+#anees-bank main:has(> details.dw-notice) > details.dw-notice { grid-row: 2; grid-column: 2; }
+#anees-bank main > details.dw-notice[open], #anees-bank main > #lesson-alerts:has(> details[open]) { grid-column: 1 / -1 !important; }
+#anees-bank main:has(> details.dw-notice) > #vp-content, #anees-bank main:has(> details.dw-notice) > #vp-retry { grid-row: auto; }
