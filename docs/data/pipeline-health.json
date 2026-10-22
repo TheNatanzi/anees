@@ -1,15 +1,17 @@
 {
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-10-22T17:19:38Z",
- "last_publish_sha": "4143b41ee2f3c15217056233c51a46526a07c8ca",
- "last_block_reason": null,
- "last_block_utc": null,
- "first_block_reason": null,
- "blocked_since_utc": null,
+ "last_publish_sha": "08aba450eeb8bc18a4eb5eceb72932aefb92437d",
+ "last_block_reason": "tests_py: timed out after 180 s",
+ "last_block_utc": "2026-10-22T17:24:37Z",
+ "first_block_reason": "tests_py: timed out after 180 s",
+ "blocked_since_utc": "2026-10-22T17:24:37Z",
  "open_failures": [],
- "pending": [],
- "hours_since_publish": 0.0,
+ "pending": [
+  "1 blocked push(es) since the last publish"
+ ],
+ "hours_since_publish": 0.1,
  "stalled": false,
- "generated_at": "2026-10-22T17:19:38Z",
- "plain_reason": "unknown"
+ "generated_at": "2026-10-22T17:24:37Z",
+ "plain_reason": "a test failed"
 }
