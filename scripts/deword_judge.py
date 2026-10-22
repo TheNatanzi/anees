@@ -38,7 +38,7 @@ or a warning) and turned into pictures where a picture says it better.
 
 Grade each line A-F (A = excellent, no real fix left):
 - add: can someone with ADD get the point in 5 seconds?
-- crucial: nothing crucial missing; nothing non-crucial left
+- crucial: every tracked number, row and list the learner or tutor uses is visible on screen (not hidden behind a fold or (i)); only explanation prose is cut. The owner said the first pass "cut out too much data": hiding data is a worse fault than a long page
 - pictures: pictures say it better than words would
 - modes: reads well in Light and Dark, desktop (1280 px) and phone (390 px): no overflow, no clipped or overlapping text
 - look: the look matches its brief and feels like one app
