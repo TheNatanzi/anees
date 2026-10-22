@@ -223,7 +223,7 @@
         <p class="hb-prog">${pctTxt(r.pct)} right over ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections · ${esc(r.status || '')}</p>
         <h4 class="hb-q">His last moments</h4>${momentsHtml(r.moments, m => (m.said || '') + (m.recast ? ' → ' + m.recast : ''))}</article>`;
       clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
-    }, { noAuto: false, head: `<p class="hb-sub hb-span dw-row"><span class="dw-chip bad">${D.rules.length} weakest rules</span> lowest % first ${info(`The student's ${D.rules.length} weakest grammar rules, lowest % first (3+ uses). Tap one: his numbers, his last moments, and a note box for you.`, 'About this list')}</p>` });
+    }, { noAuto: false, head: `<div class="hb-sub hb-span dw-row"><span class="dw-chip bad">${D.rules.length} weakest rules</span> lowest % first ${info(`The student's ${D.rules.length} weakest grammar rules, lowest % first (3+ uses). Tap one: his numbers, his last moments, and a note box for you.`, 'About this list')}</div>` });
   }
   async function vocab(id) {
     setTab('vocab'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
@@ -235,7 +235,7 @@
         <p class="hb-prog">${pctTxt(w.pct)} right · ${fmt(w.right)} right, ${fmt(w.partial)} partly, ${fmt(w.wrong)} wrong · ${esc(w.status || '')}</p>
         <h4 class="hb-q">His last moments</h4>${momentsHtml(w.moments, m => `he said «${m.said || '?'}»${m.fix ? ' → ' + m.fix : ''}${m.kind === 'asked' ? ' (asked you for the word)' : ''}`)}</article>`;
       clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
-    }, { search: 'Find a word', head: `<p class="hb-sub hb-span dw-row"><span class="dw-chip bad">${D.words.length} weakest words</span> lowest % first ${info(`The student's ${D.words.length} weakest Doc words, lowest % first (2+ scored uses). Tap one: his numbers, his last moments, and a note box for you.`, 'About this list')}</p>` });
+    }, { search: 'Find a word', head: `<div class="hb-sub hb-span dw-row"><span class="dw-chip bad">${D.words.length} weakest words</span> lowest % first ${info(`The student's ${D.words.length} weakest Doc words, lowest % first (2+ scored uses). Tap one: his numbers, his last moments, and a note box for you.`, 'About this list')}</div>` });
   }
   async function decay(id) {
     setTab('decay'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
@@ -249,7 +249,7 @@
         <p class="hb-prog">${row.kind === 'decaying' ? `Last said ${esc(pretty(w.last_date))}, ${w.days_ago} days ago · was ${esc(w.status || '')} (${pctTxt(w.pct)} over ${fmt(w.n)} uses)` : `Never said in a recorded lesson · in the Doc since ${esc(pretty(w.first_seen))}`}</p>
         ${row.kind === 'decaying' ? `<h4 class="hb-q">His last moments</h4>${momentsHtml(w.moments, m => `he said «${m.said || '?'}»${m.fix ? ' → ' + m.fix : ''}`)}` : ''}</article>`;
       clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
-    }, { search: 'Find a word', noAuto: true, head: `<div class="hb-span tu-decay"><p class="dw-row"><span class="dw-chip warn">${fmt(K.decaying.length)} fading · ${K.days}+ days</span><span class="dw-chip muted">${fmt(K.untested.length)} never said</span> ${info(`Decay: ${fmt(K.decaying.length)} words the student knew but has not said for ${K.days}+ days (longest first), then ${fmt(K.untested.length)} Doc words never said in a recorded lesson. Tap one for its story and a note box.`, 'About this list')}</p>
+    }, { search: 'Find a word', noAuto: true, head: `<div class="hb-span tu-decay"><div class="dw-row"><span class="dw-chip warn">${fmt(K.decaying.length)} fading · ${K.days}+ days</span><span class="dw-chip muted">${fmt(K.untested.length)} never said</span> ${info(`Decay: ${fmt(K.decaying.length)} words the student knew but has not said for ${K.days}+ days (longest first), then ${fmt(K.untested.length)} Doc words never said in a recorded lesson. Tap one for its story and a note box.`, 'About this list')}</div>
       <div class="dw-split" role="img" aria-label="${fmt(K.decaying.length)} fading, ${fmt(K.untested.length)} never said"><i class="tu-fade" style="width:${(100 * K.decaying.length / Math.max(1, K.decaying.length + K.untested.length)).toFixed(1)}%"></i><i class="tu-never" style="width:${(100 * K.untested.length / Math.max(1, K.decaying.length + K.untested.length)).toFixed(1)}%"></i></div></div>` });
   }
   async function materials(id) {
@@ -304,7 +304,7 @@
     if (!fin.length && !C.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing finished yet.</p>'; return; }
     const rows = fin.map(t => ({ key: 't:' + t.id, title: t.title, note: `${fmt(t.done)} of ${fmt(t.total)} ${t.unit} answered`, open: () => t }))
       .concat(C.map(c => ({ key: 'c:' + c.id, title: c.title, note: `${c.why}${c.detail ? ` · ${fmt(c.detail.answered)} of ${fmt(c.detail.total)} answered` : ''}`, c })));
-    $('#hb-view').innerHTML = `<p class="hb-sub dw-row"><span class="dw-chip">${rows.length} finished</span> ${info('Tap a row to see what was asked and every answer. Undo works while a list is still open.', 'How this works')}</p><div class="hb-accs">${rows.map((r, i) =>
+    $('#hb-view').innerHTML = `<div class="hb-sub dw-row"><span class="dw-chip">${rows.length} finished</span> ${info('Tap a row to see what was asked and every answer. Undo works while a list is still open.', 'How this works')}</div><div class="hb-accs">${rows.map((r, i) =>
       `<details class="hb-acc" data-i="${i}"><summary><b>${esc(r.title)}</b> <span>· ${esc(r.note)}</span></summary><div class="hb-acc-body"></div><div data-earlier></div></details>`).join('')}</div>`;
     document.querySelectorAll('.hb-accs > details').forEach(d => d.addEventListener('toggle', () => {
       if (!d.open || d.dataset.on) return; d.dataset.on = '1';

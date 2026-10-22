@@ -95,6 +95,8 @@
     const C = openCards().sort((a, b) => String(a.lesson_date || '9999').localeCompare(String(b.lesson_date || '9999')) || String(a.created_at).localeCompare(String(b.created_at)));
     const go = C.length ? `<div class="dw-big st-big st-now">${ICO.cards}<b>${C.length}</b><span>card sets to do</span><a class="hb-ans primary st-go st-start" href="cards.html?tile=${encodeURIComponent(C[0].set_ref)}">Start: ${esc(C[0].set_title)} →</a></div>` : '';
     const zero = !(sc.todo || sc.waiting + sc.checking || sc.overruled);
+    // nothing checked and nothing waiting: the Homework number is one quiet line under the Start card (PG-29: the dash keeps its reason)
+    if (zero && sc.pct === null) return go + `<div class="st-hwline">${ICO.clip}<b>Homework —</b><span>no teacher check yet</span>${info}<span class="dp-sr"> · 0 to answer · 0 with teacher · 0 AI overruled</span></div>`;
     return go + tile('Homework', sc.pct === null ? '—' : sc.pct + '%', sc.done ? `${sc.done} checked by teacher` : 'no teacher check yet', ICO.clip, info)
       + (zero ? `<p class="st-zero"><span class="dw-chip muted">0 to answer</span><span class="dw-chip muted">0 with teacher</span><span class="dw-chip muted">0 AI overruled</span></p>`
         : tile('To answer', sc.todo, '', ICO.pen) + tile('With teacher', sc.waiting + sc.checking, '', ICO.clock) + tile('AI overruled', sc.overruled, sc.done ? `of ${sc.done}` : '', ICO.flip));
@@ -124,8 +126,8 @@
     const row = w => `<li><b dir="auto">${esc(w.arabizi || w.arabic)}</b>${w.arabizi && w.arabic ? ` <span lang="ar">${esc(w.arabic)}</span>` : ''} <i>${esc(w.english || '')}</i><span class="dw-chip ${KIND[k(w)][1]}">${KIND[k(w)][0]}</span>${w.right_since ? '<span class="dw-chip">1 right since</span>' : ''}<span class="dp-sr"> · ${esc(pretty(w.date))}</span></li>`;
     $('#st-view').innerHTML = `<div class="st-shead"><div class="dw-big st-big"><b>${open.length}</b><span>shaky words</span><small>last 2 lessons: ${(S.lessons || []).map(pretty).join(' and ')}</small></div>
       <div class="st-sbar"><div class="dw-split" role="img" aria-label="${by.wrong} wrong, ${by.partial} partly wrong, ${by.asked} asked">${['wrong', 'partial', 'asked'].map(x => `<i class="st-k-${x}" style="width:${pc(by[x])}%"></i>`).join('')}</div>
-      <p class="dw-row">${['wrong', 'partial', 'asked'].filter(x => by[x]).map(x => `<span class="dw-chip ${KIND[x][1]}">${by[x]} ${KIND[x][0]}</span>`).join('')}
-      <details class="dw-info"><summary aria-label="When a word leaves">i</summary><div>A word leaves this list after two right answers on Flashcards.</div></details></p>
+      <div class="dw-row">${['wrong', 'partial', 'asked'].filter(x => by[x]).map(x => `<span class="dw-chip ${KIND[x][1]}">${by[x]} ${KIND[x][0]}</span>`).join('')}
+      <details class="dw-info"><summary aria-label="When a word leaves">i</summary><div>A word leaves this list after two right answers on Flashcards.</div></details></div>
       <a class="hb-ans primary st-go st-practice" href="cards.html?tile=shaky">Practice as cards →</a></div></div>
       ${open.length ? dates.map(d => { const L = open.filter(w => w.date === d); return `<h3 class="st-day">${esc(pretty(d))} <span class="hb-n">${L.length}</span></h3><ul class="hb-done st-words">${L.map(row).join('')}</ul>`; }).join('') : '<p class="hb-empty">Nothing shaky left from the last 2 lessons.</p>'}`;
   }

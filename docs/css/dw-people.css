@@ -166,3 +166,27 @@ html[data-look="kurz"] #anees-bank details.tu-more > summary { border-radius: 18
   #anees-bank .st-now > b { font-size: 40px; }
   #anees-bank .st-count .st-ring { width: 32px; height: 32px; }
 }
+/* round 7 */
+#anees-bank .st-now { grid-column: 1 / -1; }
+#anees-bank .st-now .st-start { white-space: normal; }
+#anees-bank .st-hwline { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0; font-size: 14px; color: var(--dw-muted); position: relative; }
+#anees-bank .st-hwline svg.dw-ico { position: static; width: 20px; height: 20px; }
+#anees-bank .st-hwline b { color: var(--dw-ink); font-size: 15px; }
+#anees-bank .st-hwline details.dw-info > div { position: absolute; left: 0; top: 100%; z-index: 6; }
+@media (max-width: 680px) {
+  /* Tutor phone: a compact head so the first card shows sooner; the panel's title repeats its row, so it is not shown twice */
+  #anees-bank #hb-hello .tu-bigs { flex-wrap: nowrap; gap: 8px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big { padding: 6px 36px 6px 10px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big b { font-size: 26px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big span { font-size: 10px; }
+  #anees-bank .hb-tools-l { display: none; }
+  #anees-bank .hb-tabs { margin: 2px 0 10px; -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 24px; }
+  #anees-bank .hb-tab { min-height: 36px; padding: 6px 12px; font-size: 13px; }
+  #anees-bank .hb-list .hb-panel > .hb-ptitle, #anees-bank .hb-list .hb-panel > .hb-pnote { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  #anees-bank .hb-list .hb-panel { position: relative; }
+  #anees-bank .hb-panel .hb-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  #anees-bank .hb-panel .hb-chip { flex: none; }
+  #anees-bank .ab-header { gap: 6px; }
+}
+#anees-bank .st-hwline { flex-wrap: nowrap; }
+#anees-bank .st-hwline details.dw-info { display: inline-block; flex: none; width: auto; }
