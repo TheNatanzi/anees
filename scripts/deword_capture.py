@@ -11,7 +11,7 @@ For each page: serve docs/ locally, load it in Playwright, click through every t
 Outside requests are blocked, except GET reads of the app's own Supabase rows (no writes).
 Nothing is sent anywhere.
 """
-import argparse, functools, http.server, json, re, sys, threading
+import argparse, functools, http.server, json, os, re, sys, threading
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -59,7 +59,7 @@ def _outside(route):
     # Live rows (Big Picture ideas, card sets, homework) come from Supabase: let the page READ them (GET only),
     # so a page is not judged on an empty "Offline" state. Every write (POST/PATCH/DELETE) and every other host is blocked.
     r = route.request
-    if r.url.startswith(SUPA) and r.method in ('GET', 'HEAD', 'OPTIONS'):
+    if r.url.startswith(SUPA) and r.method in ('GET', 'HEAD', 'OPTIONS') and not os.environ.get('DEWORD_OFFLINE'):
         return route.continue_()
     return route.abort()
 
@@ -73,7 +73,9 @@ def open_page(ctx, url, look, theme):
     p.route(re.compile(r'^https?://(?!127\.0\.0\.1).*'), _outside)
     p.goto(url, wait_until='load', timeout=60000)
     try:
-        p.wait_for_load_state('networkidle', timeout=15000)
+        p.wait_for_load_state('networkidle', timeout=60000)
+        # pages that hold their content until the live rows arrive (Progress: #vp-content)
+        p.wait_for_function("!document.getElementById('vp-content') || !document.getElementById('vp-content').hidden", timeout=60000)
     except Exception:
         pass
     p.wait_for_timeout(1200)
@@ -102,6 +104,10 @@ def capture(out, names, look, shots):
                         continue
                     label = (el.inner_text() or f'tab{i}').strip()[:40] or f'tab{i}'
                     el.click(timeout=3000)
+                    try:  # a tab may fetch its own live rows (slow Supabase days: 10-30 s)
+                        p.wait_for_load_state('networkidle', timeout=45000)
+                    except Exception:
+                        pass
                     p.wait_for_timeout(900)
                     t = p.evaluate(TEXT_JS)
                     per[label], wc[label], texts[label] = tokens(t['all']), words(t['vis']), t['vis']

@@ -36,7 +36,7 @@
 
 /* the four top cards and the overview numbers: one big number, short label */
 #anees-bank #vp-top.vp-cards .vp-num, #anees-bank #vp-vocab .vp-num, #anees-bank .fp-tab .vp-num {
-  font: 600 var(--dw-big, 42px)/1.05 var(--sabz-font-serif, Georgia, serif); font-variant-numeric: tabular-nums lining-nums; }
+  font: 600 var(--tile-num, 30px)/1.08 var(--sabz-font-serif, Georgia, serif); font-variant-numeric: tabular-nums lining-nums; }
 #anees-bank .vp-card { position: relative; }
 #anees-bank .vp-card > details.dw-p:not([open]), #anees-bank #ov-metrics .ab-metric > details.dw-p:not([open]) {
   position: absolute; right: 10px; bottom: 10px; margin: 0; }
@@ -47,7 +47,7 @@
 #anees-bank .dw-link a { color: var(--dw-a1); }
 #anees-bank .vp-card > details.dw-p > summary { margin-left: 0; }
 #anees-bank .vp-card-status { margin-top: 6px; }
-#anees-bank #ov-metrics .ab-number { font: 600 clamp(20px, 2.1vw, 28px)/1.1 var(--sabz-font-serif, Georgia, serif); letter-spacing: 0; white-space: nowrap; }
+#anees-bank #ov-metrics .ab-number { font: 600 var(--tile-num, 30px)/1.08 var(--sabz-font-serif, Georgia, serif); letter-spacing: 0; white-space: nowrap; }
 #anees-bank #ov-metrics .ab-metric { position: relative; }
 #anees-bank #ov-metrics .ab-metric > details.dw-p { display: block; margin-top: 4px; }
 #anees-bank #ov-metrics .ab-metric > details.dw-p > summary { margin-left: 0; }
@@ -61,8 +61,6 @@
   font-family: var(--sabz-font-sans, system-ui); font-weight: 400; }
 
 @media (max-width: 600px) {
-  #anees-bank #vp-top.vp-cards .vp-num, #anees-bank #vp-vocab .vp-num { font-size: 34px; }
-  #anees-bank #ov-metrics .ab-number { font-size: 24px; }
   #anees-bank #ov-metrics.ab-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   #anees-bank #ov-metrics .ab-metric-label { min-height: 0; }
   #anees-bank #vp-top.vp-cards, #anees-bank #vp-vocab.vp-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -362,3 +360,15 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
 /* takeaway tiles: on-goal tiles wash green, off-goal tiles wash amber */
 #anees-bank #ov2 .ov2-verdict .dw-big.dw-ok { background: var(--dw-ok-fill); border-left-color: var(--dw-ok); }
 #anees-bank #ov2 .ov2-verdict .dw-big.dw-warn { background: var(--dw-warn-fill); border-left-color: var(--dw-warn); }
+
+/* Medi 2026-10-22 "the tile sizes dont match on progress": every tile on this page is one size in Look A,
+   whatever it holds (big-number verdict, summary card, lesson-number tile, fluency and grammar tiles). */
+html[data-look="flat"] #anees-bank.vp-sabz { --tile-h: 156px; }
+html[data-look="flat"] #anees-bank.vp-sabz :is(.dw-big, .fu-tile, .gu-tile, .fl-tile, .vu-tile, .ab-metric, .vp-card) { height: auto; min-height: var(--tile-h); }
+@media (max-width: 600px) {
+  /* phone: the summary cards carry two lines of sub-numbers, so they take the full width; every tile keeps one height */
+  html[data-look="flat"] #anees-bank.vp-sabz { --tile-h: 156px; }
+  html[data-look="flat"] #anees-bank.vp-sabz :is(#vp-top, #vp-vocab, .vp-cards) { grid-template-columns: 1fr; }
+}
+html[data-look="flat"] #anees-bank.vp-sabz .vp-card-status { display: flex; flex-wrap: wrap; gap: 0 10px; margin-top: 4px; }
+html[data-look="flat"] #anees-bank.vp-sabz .vp-card-status > span { display: inline; }
