@@ -59,8 +59,8 @@ function renderTop(){
  $('vp-top').innerHTML=[
   // Lessons + Lesson hours: totals come from data/lessons.json (one row per lesson, audio length) once it loads, so they match the
   // Overview tab's "Lessons tracked"; the "+N this week" trend stays pill-scoped from the speaking evidence (Overview audit 2026-09-27).
-  `<div id="vp-lessons">${card({label:'Lessons',icon:'◷',value:n(t.lessons.count),trendHtml:trend(t.lessons.week,' this week'),sub:t.lessons.count?`<b>${n(t.lessons.loaded)}</b> loaded in total · last week ${n(t.lessons.lastWeek)}${waiting} · from speaking evidence`:'No recordings loaded yet',href:'index.html#lessons',title:'Open Lessons & Audio'})}</div>`,
-  `<div id="vp-hours">${card({label:'Lesson hours',icon:'◔',value:t.lessons.count?n(t.hours.total):'0',unit:'h',trendHtml:trend(t.hours.week,' h this week'),sub:t.hours.avgMinutes!==null?`<b>${n(t.hours.avgMinutes)} min</b> per lesson on average · from speaking evidence`:'No recordings loaded yet',href:'index.html#lessons',title:'Open Lessons & Audio'})}</div>`,
+  `<div id="vp-lessons" class="vp-pending">${card({label:'Lessons',icon:'◷',value:n(t.lessons.count),trendHtml:trend(t.lessons.week,' this week'),sub:t.lessons.count?`<b>${n(t.lessons.loaded)}</b> loaded in total · last week ${n(t.lessons.lastWeek)}${waiting} · from speaking evidence`:'No recordings loaded yet',href:'index.html#lessons',title:'Open Lessons & Audio'})}</div>`,
+  `<div id="vp-hours" class="vp-pending">${card({label:'Lesson hours',icon:'◔',value:t.lessons.count?n(t.hours.total):'0',unit:'h',trendHtml:trend(t.hours.week,' h this week'),sub:t.hours.avgMinutes!==null?`<b>${n(t.hours.avgMinutes)} min</b> per lesson on average · from speaking evidence`:'No recordings loaded yet',href:'index.html#lessons',title:'Open Lessons & Audio'})}</div>`,
   card({label:'Words known',icon:'✓',value:n(t.known.count),unit:'forms',trendHtml:trend(t.known.week,' this week'),sub:t.known.total?`<b>${pct(t.known.pct)}</b> of ${n(t.known.total)} studied forms · <b>${pct(t.known.pctExercised)}</b> of the ${n(t.known.exercised)} forms any lesson has used · Mastered <b>${n(t.known.mastered)}</b>`:'No scored lessons yet',bar:t.known.total?`<div class="vp-card-bar"><span style="width:${t.known.pct}%;background:var(--vp-forest)"></span></div>`:'',href:'word-bank.html?status=Good,Mastered',title:`Open Word Bank · Good + Mastered. Studied forms count every slot on the tutor's list (each verb tense, each plural). "Used" forms were said or heard in a lesson, or belong to a form type the lessons exercise; ${n(t.known.total-t.known.exercised)} slots have never come up.`}),
   // Talk time is measured (both voices separate on every lesson, data/lessons.json talk.*) - Medi 2026-09-27 "isn't this done"
   `<div id="vp-talk">${card({label:'Talk time',icon:'◌',value:'…',sub:'Loading from the lessons…'})}</div>`
@@ -74,6 +74,8 @@ function renderTop(){
   const cmpN=`lessons.json: ${all.length} lessons · speaking evidence: ${n(t.lessons.loaded)} loaded, ${n(t.lessons.count)} ${pl}`;
   const cmpH=`lessons.json: ${hrs} h of lesson audio · speaking evidence: ${n(t.hours.total)} h of speaking events ${pl}`;
   const eN=document.getElementById('vp-lessons'),eH=document.getElementById('vp-hours');
+  // de-word r2: the speaking-evidence numbers wait unseen (class vp-pending) until lessons.json lands, so the first paint never shows 13 then 25
+  for(const e of [eN,eH])if(e)e.classList.remove('vp-pending');
   if(eN&&all.length)eN.innerHTML=card({label:'Lessons',icon:'◷',value:n(all.length),trendHtml:trend(t.lessons.week,' this week'),sub:`<b>${n(D.length)}</b> with audio · last week ${n(t.lessons.lastWeek)} · from lessons.json (one row per lesson)${diffN?' · <span title="'+esc(cmpN)+'">differs from speaking evidence</span>':''}`,href:'index.html#lessons',title:'Open Lessons & Audio · '+cmpN});
   if(eH&&D.length)eH.innerHTML=card({label:'Lesson hours',icon:'◔',value:n(hrs),unit:'h',trendHtml:trend(t.hours.week,' h this week'),sub:`<b>${n(avgMin)} min</b> per lesson on average · from lessons.json (audio length)${diffH?' · <span title="'+esc(cmpH)+'">differs from speaking evidence</span>':''}`,href:'index.html#lessons',title:'Open Lessons & Audio · '+cmpH});
   // Talk time (kept: hours you spoke + last lesson share). Average share is pooled = Σ your seconds ÷ Σ both, not a mean of percentages.
@@ -83,7 +85,7 @@ function renderTop(){
   const el=document.getElementById('vp-talk');
   if(el)el.innerHTML=card({label:'Talk time',icon:'◌',value:r1(h).toLocaleString(),unit:'h you spoke',
    sub:`Last lesson you <b>${last.speak_pct}%</b> · Tutor ${last.listen_pct}% · pooled average you ${avg===null?'—':avg+'%'} over ${L.length} lessons`,href:'lessons.html',title:'Measured from each lesson: your talking time vs the tutor’s. Average = your seconds ÷ everyone’s seconds over all lessons.'});
- }).catch(()=>{});
+ }).catch(()=>{for(const id of ['vp-lessons','vp-hours']){const e=document.getElementById(id);if(e)e.classList.remove('vp-pending');}});
  return t;
 }
 function renderVocab(){

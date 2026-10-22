@@ -144,8 +144,10 @@ function panelB(ls){
  const allP=pooledWords(ls),wl=ls.filter(l=>l.words&&ok(l.words.pct)),mean=wl.length?sum(wl,l=>l.words.pct)/wl.length:null;
  const small=wl.slice().sort((a,b)=>a.words.scored-b.words.scored)[0];
  const AX=(window.AneesLessonMath&&window.AneesLessonMath.approx(ls))?'≈':'';   // Medi's decision 4 (2026-09-29): unverified lessons -> "≈"
- const why=`${AX?'Every number here is "≈": it comes from lessons that are not verified yet (hover a lesson score on the table above for why). ':''}Pooled over every scored use: ${AX}${f1(allP)}%. A plain mean of the lesson percentages, ${f1(mean)}%, would weight every lesson the same${small&&mean!==null&&allP!==null&&mean<allP&&small.words.pct<mean?`, so a small lesson (${dm(small.date)}: ${small.words.scored} uses, ${f1(small.words.pct)}%) pulls it down`:''}.${called?' Progress called: the last three weeks all sit above the band.':''}`;
- return panel('b',title,sub,`<div class="dw-chartcap">Words right, % per week</div>`+frame(s,'Weekly pooled words right with baseline',H,W)+`<div class="dw-chartcap">Grammar slips per 10 min, per week</div>`+frame(s2,'Weekly grammar slips per 10 minutes',SH,W),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`)+dots(wk.map((w,i)=>i<2?null:w.pct>base+2)),why,src:'words.right, partial, scored by ISO week'});
+ const why=`${AX?'Every number here is "≈": it comes from lessons that are not verified yet (hover a lesson score on the table above for why). ':''}Pooled over every scored use: ${AX}${f1(allP)}% · plain mean of the lessons: ${f1(mean)}%.${called?' Progress called: the last three weeks all sit above the band.':''}`;
+ // de-word r2: why the two differ is explanation, so it sits with the source note (behind the ⓘ)
+ const whyMean=`A plain mean weights every lesson the same${small&&mean!==null&&allP!==null&&mean<allP&&small.words.pct<mean?`, so a small lesson (${dm(small.date)}: ${small.words.scored} uses, ${f1(small.words.pct)}%) pulls it down`:''}. `;
+ return panel('b',title,sub,`<div class="dw-chartcap">Words right, % per week</div>`+frame(s,'Weekly pooled words right with baseline',H,W)+`<div class="dw-chartcap">Grammar slips per 10 min, per week</div>`+frame(s2,'Weekly grammar slips per 10 minutes',SH,W),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`)+dots(wk.map((w,i)=>i<2?null:w.pct>base+2)),why,src:whyMean+'Source: words.right, partial, scored by ISO week'});
 }
 
 /* ---------- C: time of day ---------- */

@@ -315,3 +315,13 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
 #anees-bank .dw-chartcap { font: 600 12px/1.3 var(--sabz-font-sans, system-ui); color: var(--dw-ink); margin: 10px 0 2px; }
 /* phone: the week dots repeat "5 of 6" and the chart; the chart stays */
 @media (max-width: 680px) { #anees-bank .dw-dotcap { display: none; } }
+/* bigger chart words in the two top charts and the captions under the big numbers */
+#anees-bank #ov2 .ov2-top svg.vp-chart text { font-size: 15px; fill: var(--ab-text); }
+@media (max-width: 680px) { #anees-bank #ov2 .ov2-top svg.vp-chart text { font-size: 13.5px; } }
+#anees-bank #ov2 .ov2-top svg.vp-chart text.ov2-lbl { font-weight: 700; }
+#anees-bank #ov2 .ov2-big small { font-size: 14px; color: var(--dw-ink); opacity: .8; }
+#anees-bank .dw-chartcap { font-size: 14px; }
+#anees-bank #ov2 .ov2-why { font-size: 14px; color: var(--dw-ink); }
+/* top cards: Lessons / Lesson hours wait for lessons.json (a "…" instead of a number that changes a second later) */
+#anees-bank .vp-pending .vp-card-value, #anees-bank .vp-pending .vp-card-sub { visibility: hidden; position: relative; }
+#anees-bank .vp-pending .vp-card-value::after { content: "…"; visibility: visible; position: absolute; left: 0; top: 0; font: 600 var(--dw-big, 42px)/1.05 var(--sabz-font-serif, Georgia, serif); color: var(--dw-muted); }
