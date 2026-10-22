@@ -15,7 +15,7 @@
   const NOTES = ['.vp-card-sub', '#ov-metrics .ab-tiny', '.vp-foot', '.vp-footer', '.ov2-source', '.ov2-foot',
     '.ov2-notes', '.ov2-text', '.ov2-quote', '.va-foot', '.vu-foot', '.vl-foot', '.gp-foot', '.gu-foot', '.gu-src',
     '.fu-foot', '.fu-do', '.fl-foot', '.fl-rule', '.fl-strict', '.vl-fwhy', '.vl-kpis + small',
-    '.vl-summary small', '.gp-summary small', '.vp-empty-long'].join(',');
+    '.vl-strip small', '.gp-strip small', '.rb-link', '.vp-empty-long'].join(',');
   const WARN = /not verified|caveat|hard to trust|\bearly\b|not comparable|machine gues|offline|stale/i;
   let busy = false, queued = false;
 
@@ -179,7 +179,7 @@
     if (m) parts.push('method change ' + (m.dataset.methodChange || '').slice(5));
     if (keys.includes('alerts')) parts.push('robot log');
     if (keys.includes('notice')) parts.push('saved data');
-    box.querySelector('.dw-chip').dataset.chip = parts.join(' · ') || 'data notes';
+    box.querySelector('.dw-chip').dataset.chip = parts.length ? parts[0] + (parts.length > 1 ? ` · +${parts.length - 1} notes` : '') : 'data notes';
     box.hidden = !keys.length;
   }
 

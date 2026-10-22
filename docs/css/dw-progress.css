@@ -223,8 +223,7 @@ html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-
 #anees-bank #ov2 > .ov2-head { margin-top: 0; padding-top: 0; }
 @media (max-width: 680px) {
   /* tabs: one row that scrolls sideways, so the takeaways reach the first screen */
-  #anees-bank .vp-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
-  #anees-bank .vp-tabs .vp-tab { flex: none; }
+  #anees-bank .vp-tabs { flex-wrap: wrap; }
 }
 
 /* the status chips (robot log, saved data) share one row under the title */
@@ -265,3 +264,8 @@ html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-
 #anees-bank details.dw-notes > div > details.dw-p:not(.dw-pwarn) > summary::before { content: "source"; font: 600 11px/1 var(--sabz-font-sans, system-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--dw-muted); }
 #anees-bank details.dw-notes > div > details.dw-p[data-dwkey="status"] > summary::before { content: "status"; }
 #anees-bank details.dw-notes > summary .dw-chip { white-space: normal; line-height: 1.35; padding-top: 3px; padding-bottom: 3px; } #anees-bank details.dw-notes > summary { max-width: 100%; }
+
+/* chart B: the two baseline weeks sit in a dashed box, dimmed; the grammar-slip bars (per lesson on the Grammar tab) step out */
+#anees-bank .dw-basebox { fill: none; stroke: var(--dw-muted); stroke-width: 1.2; stroke-dasharray: 4 3; }
+#anees-bank circle.dw-baseweek { opacity: .45; }
+#anees-bank section[aria-labelledby="ov2-h-b"] rect.ov2-f-sage, #anees-bank section[aria-labelledby="ov2-h-b"] text.dw-cap-svg { display: none; }
