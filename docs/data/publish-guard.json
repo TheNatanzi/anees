@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-22T12:18:19-07:00",
+ "updated": "2026-10-22T12:21:25-07:00",
  "result": "pass",
- "source": "hourly: tutor refresh",
- "checked_commit": "c44ac06141df",
- "secs": 152.8,
+ "source": "hourly: 1 local commit(s)",
+ "checked_commit": "cbe99cb79909",
+ "secs": 156.2,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 2.4,
+   "secs": 1.5,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "162 JSON files parse"
   },
@@ -33,7 +33,7 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 2.8,
+   "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
    "detail": "rule_registry: OK - 277 rules: enforced 185 (code 176, brief 9), written 72, moment-only 12, needs Medi 0, superseded 8"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 3.9,
+   "secs": 3.6,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 3.8,
+   "secs": 2.6,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 975 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 9.2,
+   "secs": 5.0,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...5 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 6.8,
+   "secs": 6.7,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 79 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 1.9,
+   "secs": 1.8,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 104.1,
+   "secs": 111.9,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 97%] | ....................                                                     [100%] | 953 passed, 3 xfailed in 102.32s (0:01:42)"
+   "detail": "............................. [ 97%] | ....................                                                     [100%] | 953 passed, 3 xfailed in 110.14s (0:01:50)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 6.6,
+   "secs": 8.0,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6502.9183"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 7876.4331"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 6.9,
+   "secs": 10.9,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -161,7 +161,7 @@
    "id": "data_freshness",
    "required": false,
    "ok": true,
-   "secs": 0.7,
+   "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
    "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
   },
