@@ -1,0 +1,81 @@
+/* De-word 2026-10-22, group "people": Student, Homework, Tutor.
+   Same markup in both looks; Look B specifics under html[data-look="kurz"]. Uses the picture-kit vars from look.css. */
+#anees-bank details.dw-info > div { white-space: normal; text-align: left; text-transform: none; letter-spacing: 0; font-weight: 400; }
+#anees-bank .dw-big span details.dw-info > div { position: absolute; left: 8px; right: 8px; z-index: 6; }
+#anees-bank .ab-sub:empty { display: none; }
+
+/* ---------- Student ---------- */
+#anees-bank .st-score.dw-bigs, #anees-bank #st-score { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+#anees-bank .st-big b { font-size: clamp(32px, 4.4vw, 44px); }
+#anees-bank .st-big svg.dw-ico { width: 24px; height: 24px; }
+#anees-bank a.st-task.st-cards { display: grid; grid-template-columns: minmax(0, 1fr) auto 18px; gap: 6px 16px; align-items: center;
+  text-decoration: none; color: inherit; }
+#anees-bank a.st-task.st-cards:hover { border-color: var(--ab-muted); }
+#anees-bank .st-cmain { min-width: 0; }
+#anees-bank .st-chips2 { margin: 0 0 6px; gap: 6px; }
+#anees-bank .st-cards .st-prompt { margin: 0 0 8px; font-size: 21px; }
+#anees-bank .st-count { text-align: right; min-width: 74px; }
+#anees-bank .st-count b { display: block; font: 600 30px/1 var(--sabz-font-serif, Georgia, serif); font-variant-numeric: tabular-nums; }
+#anees-bank .st-count b em { font-style: normal; font-size: 17px; color: var(--dw-muted); }
+#anees-bank .st-count span { display: block; font: 600 11px/1.3 var(--sabz-font-sans, system-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--dw-muted); margin-top: 4px; }
+#anees-bank .st-go2 { font-size: 26px; color: var(--dw-muted); line-height: 1; }
+#anees-bank .st-shead { display: grid; grid-template-columns: minmax(160px, 220px) minmax(0, 1fr); gap: 14px; align-items: center; margin: 0 0 14px; }
+#anees-bank .st-sbar .dw-split { height: 16px; }
+#anees-bank .st-sbar .dw-row { margin: 6px 0 10px; }
+#anees-bank .st-k-wrong { background: var(--dw-bad) !important; }
+#anees-bank .st-k-partial { background: var(--dw-warn) !important; }
+#anees-bank .st-k-asked { background: var(--dw-muted) !important; }
+#anees-bank .st-practice { width: auto; display: inline-flex; align-items: center; text-decoration: none; }
+#anees-bank .st-day { font: 600 13px/1.3 var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-muted); margin: 16px 0 8px; }
+#anees-bank .st-words { grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); }
+#anees-bank .st-words li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+#anees-bank .st-words li b { font-size: 16px; }
+#anees-bank .st-words li span[lang] { color: var(--dw-ink); font-size: 16px; }
+#anees-bank .st-words li i { font-style: normal; color: var(--dw-muted); flex: 1 1 auto; min-width: 0; }
+#anees-bank .st-words li .dw-chip { margin-left: auto; }
+@media (max-width: 680px) {
+  #anees-bank #st-score { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #anees-bank .st-shead { grid-template-columns: 1fr; }
+  #anees-bank .st-cards .st-prompt { font-size: 19px; }
+  #anees-bank .st-count b { font-size: 24px; }
+}
+
+/* ---------- Homework (static page, no sidebar) ---------- */
+.hw-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.hw-flow { flex-wrap: nowrap; }
+.hw-flow > li { font-size: 14px; flex: 1 1 0; min-width: 0; }
+.hw-flow > li svg { flex: none; width: 20px; height: 20px; color: var(--dw-a1); }
+.hw-keys { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 4px 0 14px; padding: 0; list-style: none; }
+.hw-keys li { display: flex; align-items: baseline; justify-content: center; gap: 8px; padding: 8px 4px; border-radius: var(--dw-radius); background: var(--dw-card); border: 1px solid var(--dw-line); }
+.hw-keys li b { font: 700 26px/1 var(--sabz-font-sans, system-ui); font-variant-numeric: tabular-nums; color: var(--dw-a2); }
+.hw-keys li span { font-size: 28px; line-height: 1; color: var(--dw-ink); }
+.hw-is-off .hw-flow, .hw-is-off .hw-keys { display: none; }
+.hw-off { display: grid; justify-items: center; text-align: center; gap: 8px; padding: 28px 18px; border-radius: var(--dw-radius);
+  background: var(--dw-bad-fill); color: var(--dw-bad); }
+.hw-off svg { width: 64px; height: 64px; }
+.hw-off b { font-size: 24px; color: var(--dw-ink); }
+.hw-off span { font-size: 15px; color: var(--dw-muted); }
+.hw-off button { min-width: 160px; background: var(--dw-bad); border-color: var(--dw-bad); color: var(--dw-bad-fill); font-size: 18px; }
+@media (max-width: 680px) { .hw-flow > li { flex-direction: column; text-align: center; font-size: 13px; padding: 8px 4px; } .hw-flow > li::before { display: none; } }
+
+/* ---------- Tutor ---------- */
+#anees-bank .tu-bigs { display: flex; flex-wrap: wrap; gap: 10px; margin: 2px 0 0; }
+#anees-bank .tu-bigs .dw-big { min-width: 130px; padding: 8px 14px; }
+#anees-bank .tu-bigs .dw-big b { font-size: 34px; }
+#anees-bank .tu-intro { margin: 0 0 12px; }
+#anees-bank .hb-row .tu-row-s { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+#anees-bank .hb-row .tu-left { font: 600 15px/1 var(--sabz-font-sans, system-ui); color: var(--dw-ink); font-variant-numeric: tabular-nums; }
+#anees-bank .hb-row .tu-min { margin-left: auto; }
+#anees-bank .hb-span.dw-row { gap: 8px; }
+
+/* ---------- Look B ---------- */
+html[data-look="kurz"] #anees-bank a.st-task.st-cards { border-radius: var(--dw-radius); border: 0; background: var(--dw-card); }
+html[data-look="kurz"] #anees-bank .st-count b { color: var(--dw-a1); }
+html[data-look="kurz"] #anees-bank .st-words li { border: 0; border-radius: 16px; }
+html[data-look="kurz"] .hw-keys li { border: 0; }
+.dp-sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+#anees-bank .st-calm { grid-column: span 3; display: flex; flex-direction: column; justify-content: center; background: var(--dw-ok-fill); border-left-color: var(--dw-ok) !important; }
+#anees-bank .st-calm b { font-size: 28px; color: var(--dw-ok); }
+#anees-bank .st-calm span { text-transform: none; letter-spacing: 0; font-weight: 500; font-size: 13px; }
+@media (max-width: 680px) { #anees-bank .st-calm { grid-column: auto; } #anees-bank .st-calm b { font-size: 22px; } }

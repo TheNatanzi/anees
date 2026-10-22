@@ -76,7 +76,7 @@
       <button type="button" class="hb-ans primary st-go" data-send ${busy ? 'disabled' : ''}>${busy ? 'Checking…' : 'Check my answer'}</button></div>`;
     return `<div class="st-task">${head(t)}<p class="st-ans" dir="auto">You: ${esc(r.answer)}</p>
       ${s.ai ? `<p>${verdictHtml(s.ai.verdict, 'AI')} <span class="st-why">${esc(s.ai.reason || '')}${s.ai.fixed && s.ai.fixed !== r.answer ? ' · <span dir="auto">' + esc(s.ai.fixed) + '</span>' : ''}</span></p>` : (busy ? '<p class="st-wait">AI check running…</p>' : `<p class="st-wait">${esc(msg[r.id] || (r.ai && r.ai.reason) || 'AI check pending')}</p>`)}
-      <p class="st-wait">Waiting for your teacher - that word is the one that counts.</p></div>`;
+      <p class="st-wait"><span class="dw-chip warn">waiting for teacher</span></p></div>`;
   }
   function doneCard(t, s) {
     const v = s.verdict;
@@ -88,10 +88,18 @@
   function states() { return H.effective(D.tasks).map(t => ({ t, s: t.kind === 'cards' ? null : H.taskState(t, D.replies, D.verdicts) })); }
   function scoreHtml() {
     const sc = H.score(D.tasks, D.replies, D.verdicts);
-    const tile = (l, v, sub) => `<div class="vp-card"><div class="vp-card-label"><span>${l}</span></div><div class="vp-card-value"><span class="vp-num">${v}</span></div><div class="vp-card-sub">${sub}</div></div>`;
-    return tile('Homework', sc.pct === null ? '—' : sc.pct + '%', sc.done ? `${sc.done} checked by your teacher · right 1, close ½` : 'nothing checked by your teacher yet - only that verdict counts')
-      + tile('To do', sc.todo, 'not answered yet') + tile('Waiting', sc.waiting + sc.checking, 'answered, waiting for your teacher') + tile('Overruled', sc.overruled, sc.done ? `of ${sc.done} the AI check was corrected by your teacher` : '');
+    // de-word 2026-10-22: one big number + a 2-3 word label each; how it counts sits behind the i (PG-29 keeps the dash's reason)
+    const tile = (l, v, sub, ico, inf) => `<div class="dw-big st-big">${ico || ''}<b>${v}</b><span>${l}${inf || ''}</span>${sub ? `<small>${sub}</small>` : ''}</div>`;
+    const info = ` <details class="dw-info"><summary aria-label="How homework counts">i</summary><div>Only your teacher's verdict counts: right 1, close ½, wrong 0. The AI check never counts.</div></details>`;
+    return tile('Homework', sc.pct === null ? '—' : sc.pct + '%', sc.done ? `${sc.done} checked by teacher` : 'no teacher check yet', ICO.star, info)
+      + (sc.todo || sc.waiting + sc.checking || sc.overruled
+        ? tile('To answer', sc.todo, '', ICO.pen) + tile('With teacher', sc.waiting + sc.checking, '', ICO.clock) + tile('AI overruled', sc.overruled, sc.done ? `of ${sc.done}` : '', ICO.flip)
+        : `<div class="dw-big st-big st-calm">${ICO.ok}<b>Nothing waiting</b><span>0 to answer · 0 with teacher · 0 AI overruled</span></div>`);   // all three 0: one calm tile
   }
+  // small flat icons (inline SVG in the kit colours) for the four numbers
+  const svg = (c, d) => `<svg class="dw-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="var(${c})" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const ICO = { star: svg('--dw-a1', '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>'), pen: svg('--dw-a2', '<path d="M4 20h4L19 9l-4-4L4 16z"/>'),
+    clock: svg('--dw-a3', '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/>'), flip: svg('--dw-a4', '<path d="M4 8h13l-3-3M20 16H7l3 3"/>'), ok: svg('--dw-ok', '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/>') };
   function setTab(tab) { document.querySelectorAll('.hb-tab').forEach(a => a.setAttribute('aria-selected', String(a.dataset.tab === tab))); }
   function cardsView() {
     setTab('cards');
@@ -105,8 +113,18 @@
     setTab('shaky');
     const S = D.shaky, open = S ? H.shakyCards(S, D.log) : [];
     if (!S) { $('#st-view').innerHTML = '<p class="hb-empty">The shaky-words list has not been built yet (it comes from the hourly job).</p>'; return; }
-    $('#st-view').innerHTML = `<p class="hb-sub">Words you got wrong, partly wrong, or had to ask for in the last 2 lessons (${(S.lessons || []).map(pretty).join(' and ')}). A word leaves this list after two right answers on Flashcards. <a href="cards.html?tile=shaky">Open them as cards →</a></p>
-      ${open.length ? `<ul class="hb-done">${open.map(w => `<li><b>${esc(w.arabizi || w.arabic)}</b>${w.arabizi && w.arabic ? ` <span lang="ar">${esc(w.arabic)}</span>` : ''} <span>· ${esc(w.english || '')} · ${w.kind === 'asked' ? 'you asked for it' : w.kind === 'partial' ? 'partly wrong' : 'wrong'} · ${esc(pretty(w.date))}${w.right_since ? ' · 1 right since' : ''}</span></li>`).join('')}</ul>` : '<p class="hb-empty">Nothing shaky left from the last 2 lessons.</p>'}`;
+    // de-word 2026-10-22: one big number, one split bar (wrong / partly / asked), one Practice button; rows grouped by lesson
+    const KIND = { wrong: ['wrong', 'bad'], partial: ['partly wrong', 'warn'], asked: ['asked', 'muted'] }, k = w => KIND[w.kind] ? w.kind : 'wrong';
+    const by = { wrong: 0, partial: 0, asked: 0 }; open.forEach(w => by[k(w)]++);
+    const pc = x => open.length ? (100 * x / open.length).toFixed(1) : 0;
+    const dates = [...new Set(open.map(w => w.date))].sort();
+    const row = w => `<li><b dir="auto">${esc(w.arabizi || w.arabic)}</b>${w.arabizi && w.arabic ? ` <span lang="ar">${esc(w.arabic)}</span>` : ''} <i>${esc(w.english || '')}</i><span class="dw-chip ${KIND[k(w)][1]}">${KIND[k(w)][0]}</span>${w.right_since ? '<span class="dw-chip">1 right since</span>' : ''}<span class="dp-sr"> · ${esc(pretty(w.date))}</span></li>`;
+    $('#st-view').innerHTML = `<div class="st-shead"><div class="dw-big st-big"><b>${open.length}</b><span>shaky words</span><small>last 2 lessons: ${(S.lessons || []).map(pretty).join(' and ')}</small></div>
+      <div class="st-sbar"><div class="dw-split" role="img" aria-label="${by.wrong} wrong, ${by.partial} partly wrong, ${by.asked} asked">${['wrong', 'partial', 'asked'].map(x => `<i class="st-k-${x}" style="width:${pc(by[x])}%"></i>`).join('')}</div>
+      <p class="dw-row">${['wrong', 'partial', 'asked'].filter(x => by[x]).map(x => `<span class="dw-chip ${KIND[x][1]}">${by[x]} ${KIND[x][0]}</span>`).join('')}
+      <details class="dw-info"><summary aria-label="When a word leaves">i</summary><div>A word leaves this list after two right answers on Flashcards.</div></details></p>
+      <a class="hb-ans primary st-go st-practice" href="cards.html?tile=shaky">Practice as cards →</a></div></div>
+      ${open.length ? dates.map(d => { const L = open.filter(w => w.date === d); return `<h3 class="st-day">${esc(pretty(d))} <span class="hb-n">${L.length}</span></h3><ul class="hb-done st-words">${L.map(row).join('')}</ul>`; }).join('') : '<p class="hb-empty">Nothing shaky left from the last 2 lessons.</p>'}`;
   }
   // Medi 2026-10-05 "get rid of cards for lesson and have Todo be for all assignments": card sets for a lesson are To do rows too
   // PG-35 (Medi 2026-10-08 "see why amal uploaded two card sets but the student page only shows one"): a set she uploaded
@@ -115,10 +133,12 @@
   function openCards(t) { return allCards().filter(x => !(x.n_cards && H.cardsDone(x, D.log) >= x.n_cards)); }
   function cardsCard(t) {
     const done = H.cardsDone(t, D.log), n = t.n_cards || 0, today = new Date().toISOString().slice(0, 10), past = t.lesson_date && t.lesson_date < today;
-    const head = t.upload ? `New card set from your teacher · uploaded ${esc(pretty(t.created_at))}${t.keep === 'permanent' ? ' · permanent' : ' · for the next lessons'}` : `Cards for the lesson on ${esc(pretty(t.lesson_date))} · assigned ${esc(pretty(t.created_at))}`;
-    return `<a class="st-task st-cards" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" style="display:block;text-decoration:none;color:inherit"><p class="st-kind">${head}</p>
-      <p class="st-prompt">${esc(t.set_title)}</p><p class="st-wait">${n} cards · ${done} done${done >= n && n ? ' · all done' : ''}${past ? ' · lesson passed' : ''} · tap to open on Flashcards</p>
-      <div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></a>`;
+    // de-word 2026-10-22: chips say what kind of set (lesson / new upload) and its warning (lesson passed); the count is a big n / N
+    const set = pretty(t.created_at), les = pretty(t.lesson_date);
+    const chips = t.upload ? `<span class="dw-chip">new set · ${esc(set)}</span><span class="dw-chip muted">${t.keep === 'permanent' ? 'permanent' : 'next lessons'}</span>`
+      : `<span class="dw-chip">lesson ${esc(les)}</span>${set && set !== les ? `<span class="dw-chip muted">set ${esc(set)}</span>` : ''}${past ? '<span class="dw-chip warn">lesson passed</span>' : ''}`;
+    return `<a class="st-task st-cards" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" aria-label="${esc(t.set_title)}: open on Flashcards"><div class="st-cmain"><p class="dw-row st-chips2">${chips}</p>
+      <p class="st-prompt">${esc(t.set_title)}</p><div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></div><div class="st-count"><b>${n}</b><span>cards · ${done >= n && n ? 'all done' : done + ' done'}</span></div><span class="st-go2" aria-hidden="true">›</span></a>`;
   }
   // Medi 2026-10-06: the questions he sent from a flashcard (the attention button) and her replies
   function attn() { return (window.AneesAttentionTask || { view: () => ({ all: [], open: [], answered: [] }) }).view(D.attention || []); }
@@ -151,7 +171,7 @@
     $('#st-n-shaky').textContent = D.shaky ? (H.shakyCards(D.shaky, D.log).length || '') : '';
     $('#st-n-done').textContent = (sc.done + attn().answered.length) || '';
     $('#st-score').innerHTML = scoreHtml();
-    $('#st-hello').textContent = sc.todo ? `${sc.todo} to do · ${sc.waiting + sc.checking} waiting for your teacher` : 'Homework your teacher assigned, and the cards to do before the next lesson.';
+    $('#st-hello').textContent = sc.todo ? `${sc.todo} to do · ${sc.waiting + sc.checking} waiting for your teacher` : '';
   }
   function route() { counts(); const tab = (location.hash.slice(1) || 'todo').split('/')[0]; ({ cards: todoView, shaky: shakyView, done: doneView })[tab] ? ({ cards: todoView, shaky: shakyView, done: doneView })[tab]() : todoView(); }   // #cards = old links -> To do
   // AM-27: notes the tutor wrote on her screens (docs/data/tutor-notes.json, rebuilt by the hourly job and her every tap)
