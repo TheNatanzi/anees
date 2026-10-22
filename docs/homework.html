@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Homework</title><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/anees-page.css"><link rel="stylesheet" href="css/dw-people.css?v=r2r"><script src="js/theme.js"></script>
+<title>Homework</title><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/anees-page.css"><link rel="stylesheet" href="css/dw-people.css?v=r2t"><script src="js/theme.js"></script>
 <style>
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere}
 main{max-width:640px;margin:0 auto;padding:14px 14px 40px}
@@ -44,7 +44,7 @@ function gradeHtml(a){ if(!a) return ''; const g=a.grade; let h='<div class="gra
   if(a.amal_verdict) h+=`<div class="amalv"><b>Tutor:</b> ${a.amal_verdict==='right'?'correct ✓':a.amal_verdict==='fix'?('fix → '+esc(a.amal_fix||'')):'skipped'}</div>`; else h+='<div style="margin-top:6px"><span class="dw-chip warn">tutor to confirm</span></div>';
   return h+'</div>'; }
 function card(it){ const mine=(answers[it.id]||[]); const last=mine[0]; const id='i'+it.id;
-  return `<div class="card" id="${id}"><div class="n">${it.n}${badge(it)}</div><div class="en">${esc(promptText(it))}</div>
+  return `<div class="card" id="${id}"><div class="n"><span class="hw-num">${it.n}</span>${badge(it)}</div><div class="en">${esc(promptText(it))}</div>
    ${last?`<div class="prev">Your answer: <b style="color:var(--ink)">${esc(last.answer)}</b>${gradeHtml(last)}</div>`:''}
    <textarea id="${id}t" placeholder="${last?'try again…':'your Arabic, in Arabizi'}"></textarea><button id="${id}b">Check</button><div class="err" id="${id}e"></div>
    ${mine.length>1?`<details class="mute" style="margin-top:6px"><summary>${mine.length-1} earlier ${mine.length-1===1?'try':'tries'}</summary>${mine.slice(1).map(a=>`<div class="prev">${esc(a.answer)}${gradeHtml(a)}</div>`).join('')}</details>`:''}</div>`; }

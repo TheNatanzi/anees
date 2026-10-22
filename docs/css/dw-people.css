@@ -594,3 +594,12 @@ html[data-sabz-theme="dark"] #anees-bank .tu-strip a.on, html[data-sabz-theme="d
 #anees-bank .tv-card.tv-done { padding-top: 8px; padding-bottom: 8px; opacity: .8; }
 #sub { font-size: 15px; } .hw-key { font-size: 14px; } .hw-key i { width: 11px; height: 11px; }
 @media (max-width: 680px) { #anees-bank .dw-chip, .card .dw-chip { font-size: 12.5px; } }
+/* r2 round 17: the wrong -> right pair as two swatches; homework: number badge, hollow dot for "not reviewed" */
+#anees-bank .tv-card .tv-pair .tv-ar { padding: 2px 10px; border-radius: 8px; }
+#anees-bank .tv-card .tv-pair .tv-wrong { background: var(--dw-bad-fill, rgba(180,60,50,.12)); border-right: 0 !important; }
+#anees-bank .tv-card .tv-pair .tv-right { background: var(--dw-ok-fill, rgba(60,120,80,.12)); border-right: 0 !important; }
+.card > .n { display: flex; align-items: center; gap: 8px; }
+.card > .n::first-letter { font-weight: 700; }
+.card .dw-chip.muted::before { background: transparent !important; border: 1.5px solid currentColor; box-sizing: border-box; }
+.hw-num { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 999px; background: var(--dw-a1); color: #fff; font: 700 13px/1 var(--sabz-font-sans, system-ui); }
+.hw-dots i:not(.ok):not(.ai) { background: transparent !important; border: 2px solid var(--dw-muted); }
