@@ -85,7 +85,12 @@ function dwV1(){const V=$('air-unknowns-vocab');if(!V||$('dw-v1-bigs'))return;co
 function dwPcts(){document.querySelectorAll('#ar-tab-unknowns .vu-split').forEach(b=>{const nx=b.nextElementSibling;const t=[...b.querySelectorAll('i.dw-clip')].map(i=>i.title||i.textContent.trim()).filter(Boolean);
  if(nx&&nx.classList.contains('dw-pcts')){nx.innerHTML=t.map(x=>'<span>'+x.replace(/</g,'&lt;')+'</span>').join('');return;}if(!t.length)return;
  const d=document.createElement('div');d.className='dw-pcts';d.innerHTML=t.map(x=>'<span>'+x.replace(/</g,'&lt;')+'</span>').join('');b.after(d);});}   // only a slice too thin for its label gets it here
-function dwPass(){dwClip();try{dwL1();}catch(e){}try{dwPcts();}catch(e){}try{dwV1();}catch(e){}document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
+// V1: every slice's share as one stat row above the split bar (from the legend's own counts)
+function dwStat(){document.querySelectorAll('#ar-tab-unknowns .vu-split').forEach(b=>{if(b.previousElementSibling&&b.previousElementSibling.classList.contains('dw-stat'))return;
+ let lg=b.nextElementSibling;while(lg&&!lg.classList.contains('vu-legend'))lg=lg.nextElementSibling;if(!lg)return;
+ const it=[...lg.children].map(c=>(c.textContent.trim().match(/^(.*?)\s+([\d,]+)$/)||[]).slice(1)).filter(x=>x.length===2);const tot=it.reduce((a,x)=>a+ +x[1].replace(/,/g,''),0);if(!tot||it.length<2)return;
+ const d=document.createElement('div');d.className='dw-stat';d.innerHTML=it.map(([l,n])=>{const v=100*+n.replace(/,/g,'')/tot;return `<span><b>${v>0&&v<1?'<1':Math.round(v)}%</b> ${l.replace(/</g,'&lt;')}</span>`;}).join('');b.before(d);});}
+function dwPass(){dwClip();try{dwStat();}catch(e){}try{dwL1();}catch(e){}try{dwPcts();}catch(e){}try{dwV1();}catch(e){}document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');

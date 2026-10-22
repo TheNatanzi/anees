@@ -536,3 +536,11 @@ html.lsn-page .lsn-map figcaption { flex-wrap: wrap; }
 html.lsn-page .lsn-map figcaption span { white-space: nowrap; }
 html.lsn-page .lsn-playkey { flex-basis: 100%; order: 9; margin: 4px 0 0 !important; }
 #anees-bank #ls-metrics .ab-metric-label { font-size: 12.5px !important; color: var(--dw-ink); }
+/* round 8 (r2) */
+#anees-bank #ls-metrics .ab-metric:nth-child(n):nth-child(n) .ab-number { font-size: 32px !important; margin: 2px 0 !important; }
+#anees-bank #ls-metrics .ab-metric:nth-child(n):nth-child(n) { padding: 10px 12px !important; min-height: 0 !important; grid-row: auto !important; grid-column: auto !important; }
+@media (max-width: 680px) { #anees-bank #ls-metrics .ab-metric:nth-child(n):nth-child(n) .ab-number { font-size: 26px !important; } }
+@media (min-width: 681px) { #anees-bank .ls-row .ls-rowhead .ls-tcell { padding-top: 30px; } }
+html.lsn-page .lsn-playkey { flex-basis: auto; order: 0; margin: 0 0 0 10px !important; }
+#ar-tab-unknowns .dw-stat { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 4px 0 6px; font: 700 14px/1.4 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
+#ar-tab-unknowns .dw-stat b { font-size: 18px; }

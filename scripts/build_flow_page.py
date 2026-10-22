@@ -67,7 +67,8 @@ def dword(frag):
         strip = ('<ol class="fl-path" aria-label="The %d stops from the call to the grade">' % len(stops) +
                  ''.join('<li style="--pc:%s"><a href="#fl-%s"><span class="fl-dot">%s</span><b>%s</b></a></li>'
                          % (c, k, SVG_ICONS.get(k, k), WORD.get(k, k)) for c, k in stops) + '</ol>')
-        i = frag.find('<section class="phase"')
+        i = frag.find('<div class="fl">')
+        i = i + len('<div class="fl">') if i >= 0 else frag.find('<section class="phase"')   # the path first, before the key and the building blocks
         frag = frag[:i] + strip + '\n  ' + frag[i:]
     frag = frag.replace("<div class=\"done\"><b>✓ Done</b>", "<div class=\"done\">" + DONE_ICON + "<b>Done</b>", 1)
     return frag
