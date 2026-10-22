@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Homework</title><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/anees-page.css"><link rel="stylesheet" href="css/dw-people.css?v=r2m"><script src="js/theme.js"></script>
+<title>Homework</title><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/anees-page.css"><link rel="stylesheet" href="css/dw-people.css?v=r2n"><script src="js/theme.js"></script>
 <style>
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere}
 main{max-width:640px;margin:0 auto;padding:14px 14px 40px}
@@ -51,7 +51,8 @@ function card(it){ const mine=(answers[it.id]||[]); const last=mine[0]; const id
 function render(){ if(!items.length){ root.innerHTML='<div class="card">No homework sheet yet. It appears after the next lesson.</div>'; return; }
   const date=items[0].lesson_date; const approved=items.filter(i=>i.status!=='suggested').length;
   sub.textContent=`${date} lesson · ${items.length} lines · ${approved} tutor-checked`;
-  sub.insertAdjacentHTML('beforeend',`<span class="hw-dots" role="img" aria-label="one dot per line: green = tutor confirmed, amber = answered, empty = not answered">${items.map(i=>{ const l=(answers[i.id]||[])[0]; return `<i class="${l&&l.amal_verdict?'ok':l?'ai':''}" title="${l&&l.amal_verdict?'tutor confirmed':l?'answered, Anees checked':'not answered yet'}"></i>`; }).join('')}</span>`);
+  sub.insertAdjacentHTML('beforeend',`<span class="hw-dots" role="img" aria-label="one dot per line: green = tutor confirmed, amber = answered, empty = not answered">${items.map(i=>{ const l=(answers[i.id]||[])[0]; return `<i class="${l&&l.amal_verdict?'ok':l?'ai':''}" title="${l&&l.amal_verdict?'tutor confirmed':l?'answered, Anees checked':'not answered yet'}"></i>`; }).join('')}</span><span class="hw-key"><i class="ok"></i>tutor confirmed <i class="ai"></i>answered <i></i>not yet</span>`);
+  { const done=items.filter(i=>(answers[i.id]||[]).length).length; document.getElementById('hw-state').innerHTML=`<span class="hw-big"><b>${done} / ${items.length}</b> answered</span>`; }
   root.innerHTML=items.map(card).join('');
   const nx=items.find(i=>!(answers[i.id]||[]).length); if(nx){ const c=document.getElementById('i'+nx.id); c.classList.add('hw-next'); c.querySelector('.n').insertAdjacentHTML('beforeend','<span class="dw-chip">start here</span>'); }
   items.forEach(it=>{ const id='i'+it.id; document.getElementById(id+'b').onclick=()=>submit(it); document.getElementById(id+'t').onkeydown=e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); submit(it);} }; }); }
