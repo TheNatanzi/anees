@@ -84,7 +84,13 @@ function dwV1(){const V=$('air-unknowns-vocab');if(!V||$('dw-v1-bigs'))return;co
 function dwPcts(){document.querySelectorAll('#ar-tab-unknowns .vu-split').forEach(b=>{if(b.nextElementSibling&&b.nextElementSibling.classList.contains('dw-pcts'))return;
  const t=[...b.children].map(i=>i.textContent.trim()).filter(Boolean);if(t.length<2)return;const d=document.createElement('div');d.className='dw-pcts';d.innerHTML=t.map(x=>'<span>'+x.replace(/</g,'&lt;')+'</span>').join('');b.after(d);
  b.querySelectorAll('i').forEach(i=>i.classList.add('dw-clip'));});}
-function dwPass(){dwClip();try{dwPcts();}catch(e){}try{dwV1();}catch(e){}document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
+// L1: direct evidence vs content reply only as one two-part bar (both counts stay as text)
+function dwL1(){const L=$('air-unknowns-listen');if(!L||L.querySelector('.dw-l1bar'))return;const t=L.textContent;
+ const a=(t.match(/direct evidence ([\d,]+)/)||[])[1],b=(t.match(/content reply only ([\d,]+)/)||[])[1];if(!a||!b)return;
+ const n=x=>+x.replace(/,/g,''),p=Math.round(100*n(a)/(n(a)+n(b)));
+ const host=[...L.querySelectorAll('*')].find(e=>e.children.length&&/direct evidence/.test(e.textContent)&&/content reply only/.test(e.textContent)&&![...e.children].some(c=>/direct evidence/.test(c.textContent)&&/content reply only/.test(c.textContent)));if(!host)return;
+ const bar=document.createElement('div');bar.className='dw-split dw-l1bar';bar.setAttribute('aria-hidden','true');bar.innerHTML=`<i style="width:${p}%"></i><i style="width:${100-p}%"></i>`;host.after(bar);}
+function dwPass(){dwClip();try{dwL1();}catch(e){}try{dwPcts();}catch(e){}try{dwV1();}catch(e){}document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');

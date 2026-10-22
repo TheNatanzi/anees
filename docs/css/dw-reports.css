@@ -505,3 +505,14 @@ html.lsn-page .lsn-map { padding-top: 34px; }
 #anees-bank .dw-sortchips button { padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line); background: var(--dw-card); color: var(--dw-ink); font: 600 13px/1.4 var(--sabz-font-sans, system-ui); cursor: pointer; }
 #anees-bank .dw-sortchips button[aria-pressed="true"] { background: var(--dw-a1); color: var(--dw-card); border-color: var(--dw-a1); }
 #ar-tab-unknowns .dw-pcts { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 2px 0 6px; font: 700 13px/1.4 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
+/* round 4 */
+html.lsn-page .az-arabic { font-size: 1em !important; opacity: 1 !important; color: var(--dw-ink); }   /* the recorded Arabic: same size and contrast as the line */
+html.lsn-page .lsn-bigs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+html.lsn-page .lsn-bigs .dw-big b, html.lsn-page .lsn-bigs .dw-big:first-child b, html.lsn-page .lsn-bigs .dw-big:not(:first-child) b { font-size: clamp(24px, 5vw, 38px); }
+@media (min-width: 601px) { #anees-bank .fl .node .box:has(.icons > .ico:nth-child(4)) { padding-right: 16px; }
+  #anees-bank .fl .node .box:has(.icons > .ico:nth-child(4)) > .top .icons { position: static; display: flex; flex-wrap: wrap; margin: 6px 0 0; } }
+#ar-tab-unknowns .vu-track > i { min-width: 3px; }
+#anees-bank #ls-sort { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }   /* the sort chips below do this job */
+#ar-tab-unknowns .dw-l1bar { margin: 6px 0 2px; max-width: 420px; height: 10px; }
+#ar-tab-unknowns .dw-l1bar > i:first-child { background: var(--dw-ok); }
+#ar-tab-unknowns .dw-l1bar > i + i { background: var(--dw-warn); }
