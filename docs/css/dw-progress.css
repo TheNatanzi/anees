@@ -235,3 +235,8 @@ html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-
 #anees-bank main:has(> details.dw-notice) > details.dw-notice { grid-row: 2; grid-column: 2; }
 #anees-bank main > details.dw-notice[open], #anees-bank main > #lesson-alerts:has(> details[open]) { grid-column: 1 / -1 !important; }
 #anees-bank main:has(> details.dw-notice) > #vp-content, #anees-bank main:has(> details.dw-notice) > #vp-retry { grid-row: auto; }
+
+#anees-bank #vp-tab-overview:has(table.dw-clip) #ov-metrics .ab-metric.dw-tmore { display: none; }
+#anees-bank .dw-mini-base { fill: none; stroke: var(--dw-muted); stroke-width: 2; stroke-dasharray: 3 2; }
+#anees-bank .vp-chart text.dw-cap-svg, #anees-bank svg text.dw-cap-svg { font-size: 12px; }
+@media (min-width: 681px) { #anees-bank #vp-tab-overview:has(table.dw-clip) #ov-metrics.ab-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

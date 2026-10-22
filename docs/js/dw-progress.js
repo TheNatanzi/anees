@@ -147,9 +147,11 @@
 
   // 6. a tile that repeats a top card (Lessons tracked = Lessons + Lesson hours) steps aside
   function dups(root) {
-    for (const m of root.querySelectorAll('#ov-metrics .ab-metric:not(.dw-dup)')) {
+    for (const m of root.querySelectorAll('#ov-metrics .ab-metric:not(.dw-dup):not(.dw-tmore)')) {
       const l = m.querySelector('.ab-metric-label');
       if (l && /^\s*Lessons tracked/.test(l.textContent)) m.classList.add('dw-dup');
+      // speed, fillers and homework open with the lesson table
+      if (l && /^\s*(Words per minute|Fillers|Homework)/.test(l.textContent)) m.classList.add('dw-tmore');
     }
   }
 
