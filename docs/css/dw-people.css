@@ -509,3 +509,13 @@ html[data-look="kurz"] #anees-bank .hb-row .tu-kind { width: 22px; height: 22px;
 #anees-bank .rt-spark { width: 126px; height: 28px; flex: none; }
 #anees-bank .rt-k { font-size: 11.5px; }
 #anees-bank .st-now { padding-right: 18px; }
+/* r2 round 6: the per-set chart is one bar per try against a labelled 80% line; student captions read larger */
+#anees-bank .rt-sum { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px 14px; }
+#anees-bank .rt-chart { height: 44px; max-width: 100%; flex: none; }
+#anees-bank .rt-nums { font-size: 13.5px; color: var(--dw-ink); white-space: nowrap; }
+#anees-bank .rt-k { flex-basis: 100%; }
+#anees-bank .st-when { font-size: 14px; color: var(--dw-ink); opacity: .78; }
+#anees-bank .st-of span, #anees-bank .st-now .st-tot em { font-size: 14px; color: var(--dw-ink); opacity: .78; }
+#anees-bank .st-hwline, #anees-bank .st-hwline .dw-chip { font-size: 14px; }
+#anees-bank a.st-task.st-cards.st-late .hb-bar i { background: var(--dw-warn); }
+html[data-look="flat"] #anees-bank a.st-task.st-cards.st-late .hb-bar i { background: #D9962B; }
