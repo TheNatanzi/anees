@@ -84,7 +84,7 @@ const panel=(key,title,sub,body,{wide=false,head='',why='',src=''}={})=>{
  return `<section class="vp-panel ${wide?'ov2-wide':''}" aria-labelledby="ov2-h-${key}"><div class="vp-panelhead"><div><span class="ov2-key">${key.toUpperCase()}</span><h2 id="ov2-h-${key}">${esc(title)}</h2>${sub?`<p class="ab-sub">${sub}</p>`:''}</div></div>${head}<details class="dw-chart"${CHART_OPEN.includes(key)?' open':''}><summary aria-label="Chart"></summary>${body}${why||src?`<p class="ov2-foot"><span class="ov2-why">${why}</span>${src?`<span class="ov2-src">${esc(src)}</span>`:''}</p>`:''}</details></section>`;};
 // de-word (2026-10-22): each angle shows its one big number; the chart opens in place. Cadence (A) and the weekly
 // baseline (B) stay open: they are the two the student and the tutor track week to week.
-const CHART_OPEN='ab';
+const CHART_OPEN=(typeof matchMedia==='function'&&matchMedia('(max-width: 680px)').matches)?'':'ab';   // a phone opens none: the number first, the chart on tap
 const loadingTurns=()=>turnFail?empty('The turn files could not load. Refresh to retry.'):empty('Loading the turn files…');
 
 /* ---------- A: lessons per week ---------- */

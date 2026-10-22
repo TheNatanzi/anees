@@ -135,3 +135,32 @@ html[data-look="kurz"] #anees-bank .dw-more { background: var(--dw-a1); color: v
 #anees-bank details.dw-more-views > summary::before { content: "▸  6 more views: time of day · rest days · who talks · language · Arabic stretches · pauses"; }
 #anees-bank details.dw-more-views[open] > summary::before { content: "▾  Hide the 6 more views"; }
 #anees-bank details.dw-more-views[open] > summary { margin-bottom: 14px; }
+
+/* the source notes at the end of a tab read as one small "Sources ⓘ" line, not stray icons */
+#anees-bank .ov2 > details.dw-p:last-child > summary::before, #anees-bank #vp-footer + details.dw-p > summary::before,
+#anees-bank details.dw-p:has(> div > #vp-footer) > summary::before { content: "Source"; font: 600 11px/1 var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-muted); }
+#anees-bank details.dw-p:has(> div > #vp-footer) > summary::before { content: "Status"; }
+
+/* ---------- Look B extras: bright pills, lettered badges, a small sky scene by the title ---------- */
+html[data-look="kurz"] #anees-bank details.dw-chart > summary { background: var(--kz-raised); border: 0; color: var(--kz-ink); }
+html[data-look="kurz"] #anees-bank details.dw-chart[open] > summary { background: var(--kz-yellow); color: light-dark(#fff, #14204A); }
+html[data-look="kurz"] #anees-bank details.dw-more-views > summary { border: 0; border-radius: 22px; background: var(--kz-panel);
+  box-shadow: inset 6px 0 0 var(--kz-yellow); }
+html[data-look="kurz"] #anees-bank .dw-more { background: var(--kz-blue); color: light-dark(#fff, #0E1A3A); border: 0; }
+html[data-look="kurz"] #anees-bank .ov2-key { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--kz-yellow); color: light-dark(#fff, #14204A); font-weight: 900; }
+html[data-look="kurz"] #anees-bank .ov2-big { font-family: var(--sabz-font-serif); font-weight: 900; color: var(--kz-teal); }
+html[data-look="kurz"] #anees-bank .vp-panel:nth-child(2n) .ov2-big { color: var(--kz-orange); }
+html[data-look="kurz"] #anees-bank .vp-tab[aria-current="page"] { background: var(--kz-yellow); color: light-dark(#fff, #14204A); border-color: transparent; }
+html[data-look="kurz"] #anees-bank details.dw-p > summary .dw-i { border-color: var(--kz-line); background: var(--kz-raised); color: var(--kz-ink); }
+html[data-look="kurz"] #anees-bank #vp-notice { border-color: var(--kz-line); }
+html[data-look="kurz"] #anees-bank .vp-header { position: relative; }
+html[data-look="kurz"] #anees-bank .vp-header > div:first-child { position: relative; padding-right: 120px; }
+html[data-look="kurz"] #anees-bank .vp-header > div:first-child::after {
+  content: ""; position: absolute; right: 0; top: 50%; width: 110px; height: 56px; transform: translateY(-50%); pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 56'%3E%3Ccircle cx='70' cy='30' r='18' fill='%23FFC93C'/%3E%3Cellipse cx='70' cy='31' rx='30' ry='7' fill='none' stroke='%23FF7A3D' stroke-width='3'/%3E%3Ccircle cx='62' cy='24' r='4' fill='%23FF7A3D' opacity='.5'/%3E%3Ccircle cx='20' cy='14' r='3' fill='%235AA9FF'/%3E%3Ccircle cx='100' cy='8' r='2' fill='%232EE6B6'/%3E%3Ccircle cx='32' cy='44' r='5' fill='%232EE6B6'/%3E%3Ccircle cx='8' cy='34' r='2' fill='%23FF5C8A'/%3E%3C/svg%3E") center / contain no-repeat; }
+@media (max-width: 680px) {
+  html[data-look="kurz"] #anees-bank .vp-header > div:first-child { padding-right: 80px; }
+  html[data-look="kurz"] #anees-bank .vp-header > div:first-child::after { width: 76px; height: 40px; }
+}
+html[data-look="kurz"] #anees-bank .ov2-key { margin-bottom: 6px; }
