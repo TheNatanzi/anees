@@ -282,3 +282,8 @@ html[data-look="kurz"] #anees-bank .dw-mini-band { fill: none; stroke: var(--kz-
 #anees-bank .dw-statbtn[data-open="1"]::before { content: "▾  Hide card stats"; }
 html[data-look="kurz"] #anees-bank .dw-start { border: 0; border-radius: 22px; box-shadow: inset 6px 0 0 var(--kz-yellow); }
 html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow); color: light-dark(#fff, #14204A); }
+
+#anees-bank .dw-mini-off { stroke: var(--dw-a2); stroke-width: 2.5; }
+#anees-bank .dw-mini-base { stroke: var(--dw-muted); stroke-dasharray: none; fill: var(--ab-raised, #E3E0D3); }
+#anees-bank .dw-dotcap::after { font-size: 12px; font-weight: 600; color: var(--dw-muted); }
+@media (min-width: 681px) { #anees-bank #vp-tab-overview:has(table.dw-clip) #ov-metrics.ab-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

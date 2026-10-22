@@ -189,7 +189,7 @@
       const l = m.querySelector('.ab-metric-label');
       if (l && /^\s*Lessons tracked/.test(l.textContent)) m.classList.add('dw-dup');
       // speed, fillers and homework open with the lesson table
-      if (l && /^\s*(Words per minute|Fillers|Homework)/.test(l.textContent)) m.classList.add('dw-tmore');
+      if (l && /^\s*(Words per minute|Fillers|Homework|Vocab right|Grammar right)/.test(l.textContent)) m.classList.add('dw-tmore');
     }
   }
 

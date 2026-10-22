@@ -90,7 +90,7 @@ const loadingTurns=()=>turnFail?empty('The turn files could not load. Refresh to
 
 // de-word mini pictures (no text inside, so the page text is unchanged): a gauge with the target band, and one dot per week
 const gauge=(v,[a,b],max)=>{const X=t=>(8+Math.min(max,Math.max(0,t))/max*284).toFixed(1);return `<span class="dw-capt" data-cap="goal ${a}–${b} a week"><svg class="dw-mini" viewBox="0 0 300 26" role="img" aria-label="${f1(v)} a week against the ${a} to ${b} target"><rect x="8" y="9" width="284" height="8" rx="4" class="dw-mini-track"/><rect x="${X(a)}" y="5" width="${(X(b)-X(a)).toFixed(1)}" height="16" rx="4" class="dw-mini-band"/><circle cx="${X(v)}" cy="13" r="8" class="dw-mini-dot ${v>=a&&v<=b?'dw-in':'dw-out'}"/></svg></span>`;};
-const dots=flags=>`<span class="dw-capt dw-dotcap"><svg class="dw-mini" viewBox="0 0 ${flags.length*26+4} 26" role="img" aria-label="${flags.filter(f=>f===true).length} of ${flags.filter(f=>f!==null).length} weeks above the baseline, after two baseline weeks">${flags.map((f,i)=>f===null?`<rect x="${i*26+7}" y="5" width="16" height="16" rx="3" class="dw-mini-base"/>`:`<circle cx="${i*26+15}" cy="13" r="9" class="${f?'dw-mini-on':'dw-mini-off'}"/>`).join('')}</svg></span>`;   // squares = the two baseline weeks
+const dots=flags=>`<span class="dw-capt dw-dotcap" data-cap="□ baseline · ● above · ○ below"><svg class="dw-mini" viewBox="0 0 ${flags.length*26+4} 26" role="img" aria-label="${flags.filter(f=>f===true).length} of ${flags.filter(f=>f!==null).length} weeks above the baseline, after two baseline weeks">${flags.map((f,i)=>f===null?`<rect x="${i*26+7}" y="5" width="16" height="16" rx="3" class="dw-mini-base"/>`:`<circle cx="${i*26+15}" cy="13" r="9" class="${f?'dw-mini-on':'dw-mini-off'}"/>`).join('')}</svg></span>`;   // squares = the two baseline weeks
 
 /* ---------- A: lessons per week ---------- */
 function panelA(ls){
@@ -141,7 +141,7 @@ function panelB(ls){
  const small=wl.slice().sort((a,b)=>a.words.scored-b.words.scored)[0];
  const AX=(window.AneesLessonMath&&window.AneesLessonMath.approx(ls))?'≈':'';   // Medi's decision 4 (2026-09-29): unverified lessons -> "≈"
  const why=`${AX?'Every number here is "≈": it comes from lessons that are not verified yet (hover a lesson score on the table above for why). ':''}Pooled over every scored use: ${AX}${f1(allP)}%. A plain mean of the lesson percentages, ${f1(mean)}%, would weight every lesson the same${small&&mean!==null&&allP!==null&&mean<allP&&small.words.pct<mean?`, so a small lesson (${dm(small.date)}: ${small.words.scored} uses, ${f1(small.words.pct)}%) pulls it down`:''}.${called?' Progress called: the last three weeks all sit above the band.':''}`;
- return panel('b',title,sub,frame(s,'Weekly pooled words right with baseline',H),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`)+dots(after.map(w=>w.pct>base+2)),why,src:'words.right, partial, scored by ISO week'});
+ return panel('b',title,sub,frame(s,'Weekly pooled words right with baseline',H),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`)+dots(wk.map((w,i)=>i<2?null:w.pct>base+2)),why,src:'words.right, partial, scored by ISO week'});
 }
 
 /* ---------- C: time of day ---------- */
