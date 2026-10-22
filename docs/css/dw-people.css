@@ -635,3 +635,12 @@ html[data-sabz-theme="dark"] .hw-key, html[data-sabz-theme="dark"] #sub { opacit
 #anees-bank .hb-row.tu-row .hb-row-s .tu-unit { font-size: 13px !important; }
 #anees-bank .hb-row.tu-row .tu-min, #anees-bank .hb-panel > .hb-pnote, #anees-bank .tv-card .hb-en, #anees-bank .hb-card .hb-en, #anees-bank .tv-card .tu-meta, #anees-bank .rt-x, #anees-bank .tu-pline, #anees-bank .tu-cnt { font-size: 14px !important; }
 #anees-bank .hb-row .hb-row-s { font-size: 14px; }
+/* r2 round 22: shaky word rows carry their kind as a left colour edge */
+#anees-bank ul.st-words > li { border-left: 5px solid var(--dw-line); padding-left: 10px; }
+#anees-bank ul.st-words > li:has(.dw-chip.bad) { border-left-color: var(--dw-bad); }
+#anees-bank ul.st-words > li:has(.dw-chip.warn) { border-left-color: var(--dw-warn); }
+#anees-bank ul.st-words > li:has(.dw-chip.muted) { border-left-color: var(--dw-a3); }
+/* r2 round 22b: Grammar / Vocab / Decay rows: the line under the title runs full width, left-aligned (no narrow right column) */
+#anees-bank .hb-row.tu-row .hb-row-s.tu-row-s:has(.tu-pline) { grid-column: 1 / -1; justify-items: start; text-align: left; white-space: normal; }
+#anees-bank .hb-row.tu-row .tu-pline, #anees-bank .hb-row.tu-row .tu-cnt { max-width: none !important; text-align: left; }
+#anees-bank .hb-row.tu-row .hb-row-s.tu-row-s:has(.tu-pctn) { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
