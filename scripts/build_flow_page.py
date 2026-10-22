@@ -25,12 +25,20 @@ def dword(frag):
     opens in place behind a small (i) on the step. A numbered strip of the 8 phases sits on top (tap one to jump)."""
     frag = re.sub(r'<p>(.*?)</p>(?=<div class="chips">)',
                   r'<details class="dw-info fl-more"><summary aria-label="How this step works">ⓘ</summary><div>\1</div></details>', frag)
-    phases = re.findall(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span><h2>(.*?)</h2>', frag)
-    frag = re.sub(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>',
-                  r'<section class="phase" id="fl-\2" style="--pc:\1"><header><span class="pcode">\2</span>', frag)
-    strip = ('<ol class="dw-flow fl-phases" aria-label="The 8 phases">' +
-             ''.join('<li style="--pc:%s"><a href="#fl-%s">%s</a></li>' % (c, k, t) for c, k, t in phases) + '</ol>')
-    frag = frag.replace('<div class="key">', strip + '\n  <div class="key">', 1)
+    # each phase is one row that opens on tap: letter, name, when, how many steps, and who / cost chips
+    def phase(m):
+        color, code, head, body = m.groups()
+        steps = len(re.findall(r'<li class="node(?! decision)', body))
+        asks = len(re.findall(r'<li class="node decision', body))
+        who = ''.join(c for c, k in (('<span class="chip amal">Tutor</span>', 'chip amal'), ('<span class="chip medi">Student</span>', 'chip medi'),
+                                     ('<span class="chip money">$</span>', 'chip money')) if k in body)
+        sumry = ('<span class="fl-sum"><span class="fl-n">%d %s</span>%s%s</span>'
+                 % (steps, 'step' if steps == 1 else 'steps', '<span class="fl-n">%d %s</span>' % (asks, 'choice' if asks == 1 else 'choices') if asks else '', who))
+        head = head.replace('</h2>', '</h2>' + sumry, 1)
+        return ('<details class="phase" id="fl-%s" style="--pc:%s"><summary><header><span class="pcode">%s</span>%s</header></summary>%s</details>'
+                % (code, color, code, head, body))
+    frag = re.sub(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>(.*?)</header>(.*?)</section>',
+                  phase, frag, flags=re.S)
     # a step's studies fold into one pill ("3 studies") that opens in place
     def fold(m):
         n = m.group(0).count('<details class="study">')

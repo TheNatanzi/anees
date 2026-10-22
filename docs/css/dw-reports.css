@@ -120,3 +120,52 @@ html.lsn-page .context-listen { background: var(--dw-card); color: var(--dw-ink)
   #anees-bank .fl .top > h3 { flex: none; }
   #anees-bank .fl .top { gap: 6px; }
 }
+#anees-bank .dw-more { justify-self: start; width: auto; }
+/* small drawn scenes: quiet in Look A, bigger and brighter in Look B */
+#anees-bank .ov-head { position: relative; }
+#anees-bank .dw-scene.dw-robot { position: absolute; right: 0; top: 0; width: 64px; opacity: .55; }
+html[data-look="kurz"] #anees-bank .dw-scene.dw-robot { width: 96px; opacity: 1; }
+@media (max-width: 600px) { #anees-bank .dw-scene.dw-robot { width: 48px; } html[data-look="kurz"] #anees-bank .dw-scene.dw-robot { width: 64px; } }
+html.lsn-page .lsn-map { margin: 2px 0 10px; }
+html.lsn-page .lsn-map svg { height: 22px; border-radius: 999px; overflow: hidden; background: var(--dw-line); }
+html.lsn-page .tm-you { fill: var(--dw-a1); background: var(--dw-a1); }
+html.lsn-page .tm-tutor { fill: var(--dw-a2); background: var(--dw-a2); }
+html.lsn-page .tm-chat { fill: var(--dw-a3); background: var(--dw-a3); }
+html.lsn-page .lsn-map figcaption { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--dw-muted); margin-top: 4px; }
+html.lsn-page .lsn-map figcaption i { display: inline-block; width: 12px; height: 8px; border-radius: 4px; margin-left: 6px; }
+html.lsn-page .lsn-map figcaption i:first-child { margin-left: 0; }
+html.lsn-page .lsn-map figcaption span { margin-left: auto; }
+
+/* phone: the tab bar sits at the top and never covers content (same as the other de-word pages) */
+@media (max-width: 680px) {
+  body { display: flex; flex-direction: column; }
+  body > * { min-width: 0; }
+  body > .pn-bar { order: -1; position: sticky !important; top: 0; bottom: auto !important; border-top: 0 !important; border-bottom: 1px solid var(--ab-line, #33423c); padding-bottom: 6px !important; }
+  #anees-bank main { padding-bottom: 18px !important; }
+  html.lsn-page body > .pn-bar { position: static !important; background: var(--dw-card); border-bottom-color: var(--dw-line); }
+}
+#anees-bank #lesson-alerts { padding: 8px 12px !important; font-weight: 400 !important; }
+#anees-bank #lesson-alerts details.dw-info > div { font-size: 13px; max-width: none; }
+/* flow round 4: the 8 phases are 8 rows; tap one to open its steps */
+#anees-bank .fl details.phase { margin-top: 8px; border-radius: 14px; background: var(--ab-panel); border: 1px solid var(--ab-line); border-left: 6px solid var(--pc); }
+#anees-bank .fl details.phase > summary { list-style: none; cursor: pointer; padding: 10px 14px; }
+#anees-bank .fl details.phase > summary::-webkit-details-marker { display: none; }
+#anees-bank .fl details.phase > summary header { margin: 0; }
+#anees-bank .fl details.phase > summary header::after { content: "›"; font-size: 22px; line-height: 1; color: var(--ab-muted); transition: transform .15s; }
+#anees-bank .fl details.phase[open] > summary header::after { transform: rotate(90deg); }
+#anees-bank .fl details.phase[open] > summary { border-bottom: 1px dashed var(--ab-line); margin-bottom: 10px; }
+#anees-bank .fl details.phase > ol.flow { padding: 0 12px 4px; }
+#anees-bank .fl details.phase > ol.flow::before { left: 31px; }
+#anees-bank .fl .fl-sum { display: inline-flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+#anees-bank .fl .fl-n { font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: var(--ab-raised); color: var(--ab-text); }
+#anees-bank .fl .phase h2 { flex: 0 1 auto; }
+#anees-bank .fl .phase .when { margin-left: auto; }
+#anees-bank .fl > .done { margin-top: 12px; }
+@media (max-width: 600px) {
+  #anees-bank .fl details.phase > summary header { display: grid; grid-template-columns: 28px 1fr auto; row-gap: 4px; }
+  #anees-bank .fl details.phase > summary .fl-sum { grid-column: 2 / 4; }
+  #anees-bank .fl details.phase > summary .when { grid-column: 2 / 4; margin: 0; }
+  #anees-bank .fl details.phase > summary header::after { grid-column: 3; grid-row: 1; }
+}
+html[data-look="kurz"] #anees-bank .fl details.phase { border-radius: 22px; border-left-width: 0; box-shadow: inset 6px 0 0 var(--pc); }
+html[data-look="kurz"] #anees-bank .fl .pcode { border-radius: 50%; }

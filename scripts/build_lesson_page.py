@@ -139,7 +139,28 @@ def dword(page):
                 '<summary aria-label="About this transcript">ⓘ</summary><div>%s '
                 '(%s minutes · %s transcribed words · %s lines Amal typed in chat)</div></details></div>'
                 % (mins, words, typed, note + ('' if 'Tap a time' in note else ' Tap a time to hear that line.'), mins, words, typed))
-    return DW_STATS.sub(stats, page, count=1)
+    page = DW_STATS.sub(stats, page, count=1)
+    return page.replace('<div class="lsn-note">', talk_map(page) + '<div class="lsn-note">', 1)
+
+
+def talk_map(page, bins=60):
+    """A picture of the lesson: one strip, left = start, right = end; each slice is coloured by who spoke most in it
+    (the student, the tutor, or typed chat). Read from the page's own rows, so it matches the transcript below."""
+    rows = re.findall(r'<p dir="auto" class="(turn|chat)"><button class="t" data-t="([\d.]+)"[^>]*>.*?</button><b>([^<]+)</b>', page)
+    if not rows:
+        return ''
+    end = max(float(t) for _, t, _ in rows) or 1.0
+    tally = [dict() for _ in range(bins)]
+    for kind, t, who in rows:
+        k = 'chat' if kind == 'chat' else ('you' if who.strip().lower() in LEARNER else 'tutor')
+        b = min(bins - 1, int(float(t) / end * bins))
+        tally[b][k] = tally[b].get(k, 0) + 1
+    w = 100.0 / bins
+    rects = ''.join('<rect x="%.2f" y="0" width="%.2f" height="10" class="tm-%s"/>' % (i * w, w + .05, max(c, key=c.get))
+                    for i, c in enumerate(tally) if c)
+    return ('<figure class="lsn-map"><svg class="dw-pic" viewBox="0 0 100 10" preserveAspectRatio="none" role="img" '
+            'aria-label="Who spoke when, start to end">' + rects + '</svg><figcaption><i class="tm-you"></i>you '
+            '<i class="tm-tutor"></i>tutor <i class="tm-chat"></i>chat <span>start → end</span></figcaption></figure>')
 
 
 def dword_dates(dates):

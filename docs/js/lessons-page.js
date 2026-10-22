@@ -1166,4 +1166,22 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     $('ls-notice').textContent = 'Could not load the lessons data: ' + err.message;
     $('ls-source').textContent = 'Failed to load';
   });
+
+  // De-word (2026-10-22): a robot alert shows as one short warning; the exact error opens in place behind (i).
+  function dwAlerts() {
+    var box = document.getElementById('lesson-alerts');
+    if (!box || box.dataset.dw === box.textContent.length + '') return;
+    [].slice.call(box.children).forEach(function (d) {
+      if (d.querySelector('details')) return;
+      var t = d.textContent, m = t.match(/not published since ([^:]+):/), short = m ? 'Robot stuck since ' + m[1] : t.split(/[:.]/)[0];
+      if (short === t) return;
+      d.textContent = '';
+      d.appendChild(el('span', 'dw-chip bad', short));
+      d.appendChild(document.createTextNode(' '));
+      var det = el('details', 'dw-info'), s = el('summary', '', 'ⓘ'); s.setAttribute('aria-label', 'The exact error');
+      det.appendChild(s); det.appendChild(el('div', '', t)); d.appendChild(det);
+    });
+    box.dataset.dw = box.textContent.length + '';
+  }
+  new MutationObserver(dwAlerts).observe(document.querySelector('main') || document.body, { childList: true, subtree: true });
 })();
