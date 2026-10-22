@@ -212,11 +212,20 @@
       if (/^Yes, the student was wrong/i.test(t)) b.classList.add('dp-a-wrong'); else if (/^No, the student was fine/i.test(t)) b.classList.add('dp-a-fine');
     });
   }
+  // r2: each moment card says where it sits in its list ("3 of 69")
+  function counters(root) {
+    root.querySelectorAll('article.tv-card').forEach(c => {
+      const sib = [...c.parentElement.querySelectorAll(':scope > article.tv-card')], k = sib.indexOf(c) + 1, lab = k + ' of ' + sib.length + ' ';
+      let el = c.querySelector(':scope > .tu-top > .dp-k');
+      if (!el) { const top = c.querySelector(':scope > .tu-top'); if (!top) return; el = document.createElement('span'); el.className = 'dp-k'; top.prepend(el); }
+      if (el.textContent !== lab) el.textContent = lab;
+    });
+  }
   let busy = false;
   function run() {
     if (busy) return; busy = true;
     // round 2 (Medi 10-22 'you cut out too much data'): no list, card, decided or phone filter folds
-    try { intros(view); cards(view); grammar(view); progress(view); aiNotes(view); answerTint(view); } finally { busy = false; }
+    try { intros(view); cards(view); grammar(view); progress(view); aiNotes(view); answerTint(view); counters(view); } finally { busy = false; }
   }
   let t = 0;
   new MutationObserver(() => { if (!busy) { clearTimeout(t); t = setTimeout(run, 30); } }).observe(view, { childList: true, subtree: true });

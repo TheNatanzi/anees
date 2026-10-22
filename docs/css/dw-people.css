@@ -547,3 +547,12 @@ html[data-look="flat"] #anees-bank a.st-task.st-cards.st-late .hb-bar i { backgr
 #anees-bank .dp-a-fine { background: var(--dw-ok-fill, rgba(60,120,80,.14)) !important; border-color: var(--dw-ok) !important; color: var(--dw-ink) !important; }
 #anees-bank .dp-a-fine::before { content: "✓ "; color: var(--dw-ok); font-weight: 700; }
 @media (max-width: 680px) { ol.hw-flow { grid-template-columns: 1fr !important; gap: 4px; } .hw-flow > li { padding: 4px 8px !important; } }
+/* r2 round 12: a "3 of 69" mark on each moment card; brighter wrong/right Arabic in dark mode; homework dots by state */
+#anees-bank .tv-card .dp-k { display: inline-block; margin-right: 8px; padding: 1px 8px; border-radius: 999px; background: var(--dw-line); font: 700 11px/1.6 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
+html[data-sabz-theme="dark"] #anees-bank .tv-wrong, html[data-sabz-theme="dark"] #anees-bank .dp-del { color: #FF8A7A !important; }
+html[data-sabz-theme="dark"] #anees-bank .tv-right, html[data-sabz-theme="dark"] #anees-bank .dp-ins { color: #8FE0A8 !important; }
+@media (prefers-color-scheme: dark) { html:not([data-sabz-theme="light"]) #anees-bank .tv-wrong { color: #FF8A7A !important; } html:not([data-sabz-theme="light"]) #anees-bank .tv-right { color: #8FE0A8 !important; } }
+html[data-sabz-theme="dark"] #anees-bank .tu-meta, html[data-sabz-theme="dark"] #anees-bank .hb-en { opacity: 1; color: #C9D3CC; }
+.hw-dots { gap: 5px; } .hw-dots i { width: 13px; height: 13px; } .hw-dots i.ai { background: var(--dw-warn); border-color: var(--dw-warn); }
+.hw-dots i:not(.ok):not(.ai) { background: transparent; }
+.hw-row.hw-next, .card.hw-next { outline: 2px solid var(--dw-ok); }
