@@ -82,7 +82,12 @@
   // de-word 2026-10-22: the row's count stands out, the time is a chip; the same words as sub(), only shorter
   const subHtml = t => t.subText ? esc(t.subText) : t.finished ? '<span class="dw-chip">Done · thank you</span>'
     : `<span class="tu-left">${fmt(t.left)}</span><span class="tu-unit"> ${esc(t.unit)} left </span><span class="dw-chip muted tu-min">${mins(t)} min</span>`;
-  const short = s => String(s || '').replace(/\s*\(about \d+ min(?:utes)?\)\s*$/, '');
+  const short = s => String(s || '').replace(/\s*\(about \d+ min(?:utes)?\)\s*$/, '')
+    .replace(/^(\d[\d,]*) moments to look at again, with the whole exchange$/, '$1 moments to re-check')
+    .replace(/^(\d[\d,]*) moments we are unsure about$/, '$1 unsure moments')
+    .replace(/did the student say this word\? - part (\d+) of (\d+)$/, 'was the word said? · $1 of $2')
+    .replace(/what did the student say\? - part (\d+)$/, 'what was said? · $1')
+    .replace(/the student’s own corrections$/, 'his own fixes');
   const info = (txt, label) => `<details class="dw-info"><summary aria-label="${esc(label || 'More')}">i</summary><div>${txt}</div></details>`;
   const hico = (c, d) => `<svg class="dw-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="var(${c})" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
   const HICO = { list: hico('--dw-a1', '<path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/>'),
@@ -134,7 +139,7 @@
     setTab('todo');
     const open = tasks.filter(t => !t.finished);
     if (!open.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing to check right now. Shukran!</p>'; return; }
-    listPanel('todo', open.map((t, i) => ({ id: t.id, next: i === 0, icon: kindIcon(t), title: short(t.title), sep: short(t.title) !== t.title, subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p), { fold: wide() ? 5 : 1, autoPhone: !location.hash.slice(1) });
+    listPanel('todo', open.map((t, i) => ({ id: t.id, next: i === 0, icon: kindIcon(t), title: short(t.title), sep: /\d$/.test(short(t.title)) && !/\d$/.test(t.title), subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p), { fold: wide() ? 5 : 1, autoPhone: !location.hash.slice(1) });
   }
   // every kind of item opens here, with the same module as its old address (no link to another page)
   // AM-27 (Medi 2026-10-07 "lets add a place for notes for amal always"): a note box under every card and one per list.
