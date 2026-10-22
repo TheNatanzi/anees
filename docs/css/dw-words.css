@@ -70,7 +70,7 @@ html[data-look="kurz"] #ab-promised .ab-promised > summary { padding: 10px 14px;
   #gc-rows .gc-rowhead > div:nth-child(5)::before { content: "Score"; }
   #gc-rows .gc-rowhead .gc-last { display: flex; gap: 6px; align-items: baseline; }
 }
-#gc-rows.dw-clip > .gc-row:nth-child(n+16) { display: none; }
+#gc-rows.dw-clip > .gc-row:not(.gc-row-Wrong) { display: none; }
 #gc-showall { display: block; margin: 10px auto; }
 
 /* Flashcards & Review */
@@ -80,3 +80,104 @@ html[data-look="kurz"] #ab-promised .ab-promised > summary { padding: 10px 14px;
 h2 details.dw-info { font-size: 13px; font-weight: 400; }
 #sync:not(:empty) { display: table; margin: 14px auto; padding: 3px 12px; border-radius: 999px; background: var(--dw-warn-fill); color: var(--dw-warn); font-weight: 600; }
 #ab-rows.dw-clip > article:nth-child(n+21) { display: none; }
+
+/* Word Bank round 4: practice counts as icon + number, level words as coloured chips, age instead of date */
+#anees-bank .dw-practice > div > span { display: none; }
+#anees-bank .dw-practice > div::before { content: ""; display: block; width: 16px; height: 16px; margin: 0 auto 3px; background: var(--dw-muted);
+  -webkit-mask: var(--dw-ico) center / contain no-repeat; mask: var(--dw-ico) center / contain no-repeat; }
+#anees-bank .dw-practice > div:nth-child(1) { --dw-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H10l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z'/%3E%3C/svg%3E"); }
+#anees-bank .dw-practice > div:nth-child(2) { --dw-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a8 8 0 0 0-8 8v4a3 3 0 0 0 3 3h1v-7H6a6 6 0 0 1 12 0h-2v7h1a3 3 0 0 0 3-3v-4a8 8 0 0 0-8-8zM8 19h8v2H8z'/%3E%3C/svg%3E"); }
+#anees-bank .dw-practice > div:nth-child(3) { --dw-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 3h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-4 4v13a1 1 0 0 0 1 1h13v-2H5V7z'/%3E%3C/svg%3E"); }
+#anees-bank .dw-practice > div:nth-child(1)::before { background: var(--dw-a1); }
+#anees-bank .dw-practice > div:nth-child(2)::before { background: var(--dw-a2); }
+#anees-bank .dw-practice > div:nth-child(3)::before { background: var(--dw-a3); }
+#anees-bank .dw-practice { font-size: 15px; font-weight: 600; }
+#ab-rows .ab-badge strong[class^="ab-status-"] { padding: 1px 8px; border-radius: 999px; font-weight: 700; }
+#ab-rows .ab-badge strong.ab-status-Mastered { background: var(--dw-ok-fill); color: var(--dw-ok); }
+#ab-rows .ab-badge strong.ab-status-Good { background: color-mix(in srgb, var(--dw-a3) 22%, transparent); color: var(--dw-ink); }
+#ab-rows .ab-badge strong.ab-status-Shaky { background: var(--dw-warn-fill); color: var(--dw-warn); }
+#ab-rows .ab-badge strong.ab-status-Wrong { background: var(--dw-bad-fill); color: var(--dw-bad); }
+#ab-rows .ab-badge strong.ab-status-Untested { border: 1px dashed var(--dw-line); color: var(--dw-muted); }
+#ab-rows .dw-ago { font-size: 13px; font-weight: 600; color: var(--dw-ink); }
+#ab-rows .ab-badge strong.ab-status-Untested + .vp-memory-mini { display: none; }
+#anees-bank .dw-wb-bigs .dw-big b { font-size: clamp(26px, 2.6vw, 36px); }
+#ab-rows .vp-memory-mini { white-space: nowrap; }
+@media (max-width: 680px) {
+  #anees-bank #ab-rows .ab-seencell { grid-column: auto !important; align-self: center; justify-content: flex-end; }
+  #anees-bank #ab-rows .dw-practice { max-width: 180px; }
+}
+#ab-rows .ab-badge { min-width: 0; gap: 4px; } #ab-rows .ab-badge > span:last-child { gap: 4px; }
+
+/* Flashcards round 4: tiles read as buttons, colour mix shows only the counts that are there */
+#anees-bank .stile { position: relative; }
+#anees-bank .stile:not(.empty)::after { content: "→"; position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font: 700 14px/1 var(--sabz-font-sans, system-ui); background: var(--dw-a1); color: var(--sabz-bg, #F5F2EA); }
+#anees-bank .stile:not(.empty) .vp-card-label { padding-right: 32px; }
+#anees-bank .fc-mixn .zero { display: none; }
+#anees-bank .fc-mixn span::after { font: 400 11px var(--sabz-font-sans, system-ui); color: var(--dw-muted); margin-left: 3px; }
+#anees-bank .fc-mixn .mx-mastered::after { content: "mastered"; } #anees-bank .fc-mixn .mx-good::after { content: "good"; }
+#anees-bank .fc-mixn .mx-shaky::after { content: "shaky"; } #anees-bank .fc-mixn .mx-wrong::after { content: "wrong"; }
+#anees-bank .fc-mixn .mx-untested::after { content: "not tried yet"; }
+
+/* Grammar round 4: "needs work" action row */
+#anees-bank .dw-needs { margin: 4px 0 12px; gap: 10px; }
+#anees-bank .dw-needbtn { display: inline-flex; align-items: baseline; gap: 6px; padding: 8px 16px; border-radius: 999px; border: 0;
+  font: 600 15px var(--sabz-font-sans, system-ui); cursor: pointer; }
+#anees-bank .dw-needbtn b { font: 700 24px/1 var(--sabz-font-serif, Georgia, serif); }
+#anees-bank .dw-need-Wrong { background: var(--dw-bad-fill); color: var(--dw-bad); }
+#anees-bank .dw-need-Shaky { background: var(--dw-warn-fill); color: var(--dw-warn); }
+@media (max-width: 680px) {
+  #anees-bank .gc-charts { grid-template-columns: 1fr 1fr !important; gap: 8px; }
+  #anees-bank .gc-chart { padding: 10px; min-width: 0; }
+  #anees-bank .gc-chart-foot { font-size: 11px; }
+  #anees-bank .gc-chart .gc-chart-value { font-size: 26px; }
+  #anees-bank .gc-chart-note { display: none; }
+}
+
+/* round 5 */
+#anees-bank .fc.dw-allzero { display: none; }
+#anees-bank details.dw-more { margin-top: 18px; }
+#anees-bank details.dw-more > summary { cursor: pointer; display: inline-block; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--dw-line);
+  font: 600 14px var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
+#anees-bank .stile[data-t="shaky"] { grid-column: 1 / -1; background: var(--dw-warn-fill); border-color: transparent; }
+#anees-bank .stile[data-t="shaky"]::after { background: var(--dw-warn); content: "Practise →"; width: auto; padding: 0 12px; border-radius: 999px; }
+#anees-bank .stile[data-t="shaky"] .vp-num { font-size: 44px; }
+#gc-rows.dw-clip::before { content: "Wrong rules"; display: block; padding: 10px 12px 4px; font: 700 12px var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-bad); }
+#anees-bank details.dw-more { margin-bottom: 18px; }
+
+/* ---------- Look B (kurz) for the words pages: a small drawn scene by each title, bright rounded blocks ---------- */
+html[data-look="kurz"] #anees-bank h1::after { content: ""; display: inline-block; width: 92px; height: 46px; margin-left: 12px; vertical-align: middle;
+  background: center / contain no-repeat; }
+/* Word Bank: two speech bubbles and a star */
+html[data-look="kurz"] #anees-bank[aria-label="Anees Word Bank"] h1::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 46'%3E%3Crect x='4' y='6' width='42' height='26' rx='13' fill='%235AA9FF'/%3E%3Cpath d='M14 30l-4 10 12-8z' fill='%235AA9FF'/%3E%3Crect x='40' y='16' width='40' height='24' rx='12' fill='%23FF7A3D'/%3E%3Cpath d='M70 38l6 7 0-10z' fill='%23FF7A3D'/%3E%3Ccircle cx='18' cy='19' r='3' fill='%230E1A3A'/%3E%3Ccircle cx='26' cy='19' r='3' fill='%230E1A3A'/%3E%3Ccircle cx='34' cy='19' r='3' fill='%230E1A3A'/%3E%3Cpath d='M84 2l2 5 5 1-4 3 1 5-4-3-4 3 1-5-4-3 5-1z' fill='%23FFC93C'/%3E%3C/svg%3E"); }
+/* Grammar: three building blocks */
+html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 46'%3E%3Crect x='4' y='24' width='26' height='20' rx='5' fill='%232EE6B6'/%3E%3Crect x='32' y='24' width='26' height='20' rx='5' fill='%235AA9FF'/%3E%3Crect x='18' y='3' width='26' height='20' rx='5' fill='%23FF7A3D'/%3E%3Crect x='60' y='24' width='26' height='20' rx='5' fill='%23B28CFF'/%3E%3Ccircle cx='76' cy='10' r='7' fill='%23FFC93C'/%3E%3C/svg%3E"); }
+/* Cards: a fanned stack of cards */
+html[data-look="kurz"] #root h1::after, html[data-look="kurz"] .vp-header h1::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 46'%3E%3Crect x='14' y='8' width='28' height='36' rx='6' fill='%23B28CFF' transform='rotate(-14 28 26)'/%3E%3Crect x='32' y='5' width='28' height='36' rx='6' fill='%235AA9FF'/%3E%3Crect x='50' y='8' width='28' height='36' rx='6' fill='%23FF7A3D' transform='rotate(14 64 26)'/%3E%3Cpath d='M64 20l3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4 6-1z' fill='%23FFC93C'/%3E%3C/svg%3E"); }
+html[data-look="kurz"] #anees-bank :is(.stile, .gc-chart, .ab-row, .gc-row, .panel, .fc > div) { border-color: transparent; box-shadow: 0 2px 0 var(--kz-line); }
+html[data-look="kurz"] #anees-bank :is(.stile, .gc-chart) { border-radius: 20px; }
+html[data-look="kurz"] #anees-bank .fc-grid > .stile:nth-child(4n+1) { border-top: 5px solid var(--kz-blue); }
+html[data-look="kurz"] #anees-bank .fc-grid > .stile:nth-child(4n+2) { border-top: 5px solid var(--kz-orange); }
+html[data-look="kurz"] #anees-bank .fc-grid > .stile:nth-child(4n+3) { border-top: 5px solid var(--kz-teal); }
+html[data-look="kurz"] #anees-bank .fc-grid > .stile:nth-child(4n+4) { border-top: 5px solid var(--kz-purple); }
+html[data-look="kurz"] #anees-bank .stile[data-t="shaky"] { border-top: 0; background: var(--kz-yellow); color: #14204A; }
+html[data-look="kurz"] #anees-bank .stile[data-t="shaky"] :is(.vp-num, .vp-card-unit, .vp-card-sub, .vp-card-label span) { color: #14204A !important; }
+html[data-look="kurz"] #anees-bank .stile[data-t="shaky"]::after { background: #14204A; color: #FFC93C; }
+html[data-look="kurz"] #anees-bank .stile:not(.empty)::after { color: #fff; }
+html[data-look="kurz"] #anees-bank .dw-need-Wrong { background: var(--kz-pink); color: #fff; }
+html[data-look="kurz"] #anees-bank .dw-need-Shaky { background: var(--kz-yellow); color: #14204A; }
+html[data-look="kurz"] #anees-bank .gc-chart { border-top: 5px solid var(--kz-blue); }
+html[data-look="kurz"] #anees-bank .gc-chart:nth-child(2) { border-top-color: var(--kz-orange); }
+html[data-look="kurz"] #anees-bank .gc-chart:nth-child(3) { border-top-color: var(--kz-teal); }
+html[data-look="kurz"] #anees-bank .gc-chart:nth-child(4) { border-top-color: var(--kz-purple); }
+html[data-look="kurz"] #anees-bank .gc-chart-value { font-weight: 900; color: var(--kz-blue); }
+html[data-look="kurz"] #anees-bank .gc-chart:nth-child(2) .gc-chart-value { color: var(--kz-orange); }
+html[data-look="kurz"] #anees-bank .gc-chart:nth-child(3) .gc-chart-value { color: var(--kz-teal); }
+html[data-look="kurz"] #anees-bank .ab-row, html[data-look="kurz"] #anees-bank .gc-row { border-radius: 16px; margin-bottom: 6px; background: var(--kz-panel); }
+html[data-look="kurz"] #anees-bank .dw-practice > div { font-weight: 900; }
+html[data-look="kurz"] #ab-rows .ab-badge strong.ab-status-Mastered { background: var(--kz-teal); color: #0E1A3A; }
+html[data-look="kurz"] #ab-rows .ab-badge strong.ab-status-Shaky { background: var(--kz-yellow); color: #0E1A3A; }
+html[data-look="kurz"] #ab-rows .ab-badge strong.ab-status-Wrong { background: var(--kz-pink); color: #fff; }
+html[data-look="kurz"] #ab-rows .ab-badge strong.ab-status-Good { background: var(--kz-blue); color: #fff; }
+html[data-look="kurz"] .fc.dw-fc .dw-fcbar { background: var(--kz-yellow); opacity: .45; }
+@media (max-width: 680px) { html[data-look="kurz"] #anees-bank h1::after { width: 64px; height: 32px; } }

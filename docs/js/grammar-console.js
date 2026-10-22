@@ -847,8 +847,8 @@ function render() {
   }
   $('gc-results').textContent = list.length + ' of ' + DATA.rules.length + ' rules';
   var filtered = QUERY || FAMILY !== 'all' || STATUSES.some(function (s) { return STATUS_ON[s]; });
-  // de-word 2026-10-22: with no filter the first 15 rules show; the rest open in place (every row stays on the page)
-  rows.classList.toggle('dw-clip', !filtered && !SHOW_ALL && list.length > 15);
+  // de-word 2026-10-22: with no filter only the Wrong rules show; the rest open in place (every row stays on the page)
+  rows.classList.toggle('dw-clip', !filtered && !SHOW_ALL && list.some(function (r) { return r.status === 'Wrong'; }));
   var more = $('gc-showall');
   if (!more) { more = el('button', 'ab-control', ''); more.id = 'gc-showall'; more.type = 'button';
     more.addEventListener('click', function () { SHOW_ALL = true; render(); }); rows.after(more); }
@@ -871,8 +871,27 @@ function buildStatusChips() {
       render();
     });
     box.appendChild(b);
+    CHIP[s] = b;
   });
+  // de-word 2026-10-22: the rules that need work, as one action row at the top (same filter as the chips below)
+  var needs = $('gc-needs');
+  if (needs) {
+    needs.textContent = '';
+    ['Wrong', 'Shaky'].forEach(function (s) {
+      if (!counts[s]) return;
+      var b = el('button', 'dw-needbtn dw-need-' + s, '');
+      b.type = 'button';
+      b.appendChild(el('b', null, String(counts[s])));
+      b.appendChild(document.createTextNode(' ' + statusLabel(s).toLowerCase() + ' rules →'));
+      b.addEventListener('click', function () {
+        if (!STATUS_ON[s]) CHIP[s].click();
+        $('gc-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      needs.appendChild(b);
+    });
+  }
 }
+var CHIP = {};
 
 function wire() {
   Array.prototype.forEach.call(document.querySelectorAll('.gc-period'), function (b) {
