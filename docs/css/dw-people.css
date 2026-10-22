@@ -319,3 +319,14 @@ html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big { padding-right:
 html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big::after { width: 38px; height: 38px; right: -12px; bottom: -12px; }
 html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big span { position: relative; z-index: 1; }
 @media (max-width: 680px) { html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big { padding-right: 30px; } html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big::after { width: 26px; height: 26px; } }
+/* round 19, phone: short tool labels, the tool row and the tabs in one line each when they fit */
+#anees-bank .tu-short { display: none; }
+@media (max-width: 680px) {
+  #anees-bank .tu-long { display: none; }
+  #anees-bank .tu-short { display: inline; }
+  #anees-bank[aria-label="Anees tutor"] .hb-tab { padding: 4px 8px; font-size: 11.5px; }
+  #anees-bank[aria-label="Anees tutor"] .ab-header { margin-bottom: 4px; }
+  #anees-bank[aria-label="Anees tutor"] .ab-header .ab-preview { align-self: flex-start; }
+  #anees-bank .hb-list .hb-panel .dp-prog { margin: 2px 0 6px; }
+}
+@media (max-width: 680px) { #anees-bank .hb-card .tv-ar { font-size: 15px; } #anees-bank .hb-card .hb-moment { padding: 8px 10px; } }
