@@ -80,17 +80,17 @@ function dwV1(){const V=$('air-unknowns-vocab');if(!V||$('dw-v1-bigs'))return;co
  const cls=['dw-warnbig','',''];const box=document.createElement('div');box.id='dw-v1-bigs';box.className='dw-bigs';
  const VT=+((V.textContent.match(/of the student’s ([\d,]+) word events/)||[])[1]||'0').replace(/,/g,'');
  box.innerHTML=g.map((x,i)=>{const n=+x[0].replace(/,/g,''),p=VT?Math.round(100*n/VT):null;return `<div class="dw-big ${cls[i]||''}"><b>${x[0]}</b><span>${x[1].toLowerCase()}</span>${p===null?'':`<small>${100*n/VT<1?(100*n/VT).toFixed(1):p}% of ${VT.toLocaleString('en-US')} events</small><i class="dw-split dw-bigbar" aria-hidden="true"><i style="width:${Math.max(1,100*n/VT)}%"></i></i>`}</div>`;}).join('');
- const bar=V.querySelector('.vu-split');(bar||subs[0]).before(box);}
+ const bar=V.querySelector('.vu-split'),st=bar&&bar.previousElementSibling&&bar.previousElementSibling.classList.contains('dw-stat')?bar.previousElementSibling:bar;(st||subs[0]).before(box);}
 // under each split bar: its slices' labels on one line, so a thin slice never loses its number
 function dwPcts(){document.querySelectorAll('#ar-tab-unknowns .vu-split').forEach(b=>{const nx=b.nextElementSibling;const t=[...b.querySelectorAll('i.dw-clip')].map(i=>i.title||i.textContent.trim()).filter(Boolean);
  if(nx&&nx.classList.contains('dw-pcts')){nx.innerHTML=t.map(x=>'<span>'+x.replace(/</g,'&lt;')+'</span>').join('');return;}if(!t.length)return;
  const d=document.createElement('div');d.className='dw-pcts';d.innerHTML=t.map(x=>'<span>'+x.replace(/</g,'&lt;')+'</span>').join('');b.after(d);});}   // only a slice too thin for its label gets it here
 // V1: every slice's share as one stat row above the split bar (from the legend's own counts)
-function dwStat(){document.querySelectorAll('#ar-tab-unknowns .vu-split').forEach(b=>{if(b.previousElementSibling&&b.previousElementSibling.classList.contains('dw-stat'))return;
+function dwStat(){document.querySelectorAll('#ar-tab-unknowns .vu-split').forEach(b=>{if(b.dataset.dwStat)return;b.dataset.dwStat='1';
  let lg=b.nextElementSibling;while(lg&&!lg.classList.contains('vu-legend'))lg=lg.nextElementSibling;if(!lg)return;
  const it=[...lg.children].map(c=>(c.textContent.trim().match(/^(.*?)\s+([\d,]+)$/)||[]).slice(1)).filter(x=>x.length===2);const tot=it.reduce((a,x)=>a+ +x[1].replace(/,/g,''),0);if(!tot||it.length<2)return;
  const d=document.createElement('div');d.className='dw-stat';d.innerHTML=it.map(([l,n])=>{const v=100*+n.replace(/,/g,'')/tot;return `<span><b>${v>0&&v<1?'<1':Math.round(v)}%</b> ${l.replace(/</g,'&lt;')}</span>`;}).join('');b.before(d);});}
-function dwPass(){dwClip();try{dwStat();}catch(e){}try{dwL1();}catch(e){}try{dwPcts();}catch(e){}try{dwV1();}catch(e){}document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
+function dwPass(){dwClip();try{dwStat();}catch(e){}try{dwL1();}catch(e){}try{dwV1();}catch(e){}document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');
