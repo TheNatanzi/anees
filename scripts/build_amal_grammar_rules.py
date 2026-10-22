@@ -253,6 +253,25 @@ if "data-dw-allopen>" not in s:
 s = s.replace('<details class="dw-fold dw-les">', '<details class="dw-fold dw-les" open>')
 s = s.replace('<details class="dw-fold dw-jump">', '<details class="dw-fold dw-jump" open>')
 
+# round 5: the jump chips grouped by family (one labelled row each); rebuilt every run
+s = re.sub(r'<span class="dw-tocf">[^<]*</span>', "", s).replace('<span class="dw-tocr">', "").replace("</span><!--tocr-->", "")
+
+
+def _toc_group(m):
+    out, last = [], None
+    for a in re.findall(r'<a[^>]*>[^<]*</a>', m.group(1)):
+        code = re.sub(r"<[^>]+>", "", a)
+        fam = code[:3] if code.startswith("P-") else code[:1]
+        if fam != last:
+            if last is not None:
+                out.append("</span><!--tocr-->")
+            out.append('<span class="dw-tocr"><span class="dw-tocf">%s</span>' % ("Approved" if fam.startswith("P-") else fam))
+            last = fam
+        out.append(a)
+    return '<nav class="toc">' + "".join(out) + ("</span><!--tocr-->" if out else "") + "</nav>"
+
+
+s = re.sub(r'<nav class="toc">(.*?)</nav>', _toc_group, s, count=1, flags=re.S)
 open(PAGE, "w", encoding="utf-8", newline="").write(s)
 print("updated", len(seen), "rules on", PAGE)
 if missing:

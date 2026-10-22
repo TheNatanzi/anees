@@ -361,3 +361,12 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
   #anees-bank #ab-rows .dw-practice > div::before { width: 12px; height: 12px; margin: 0; }
   #ab-rows .dw-mtk, #ab-rows .ab-tiny { font-size: 12px; }
 }
+/* round 5 grammar phone: the sort buttons wrap */
+@media (max-width: 680px) { #anees-bank #gc-tablehead { flex-wrap: wrap !important; overflow: visible !important; } }
+/* round 5 word bank phone: counts on one full row, memory on the next */
+@media (max-width: 680px) { #anees-bank #ab-rows .ab-practice, #anees-bank #ab-rows .ab-seencell { grid-column: 1 / -1 !important; justify-content: flex-start; } }
+/* round 5 cards: a taller mix bar; on phone the five counts sit 3 + 2 */
+#anees-bank .fc-mixbar { height: 9px !important; }
+@media (max-width: 680px) { #anees-bank .fc-mixn { grid-template-columns: repeat(3, auto) !important; justify-content: start; gap: 2px 14px; } }
+@media (max-width: 680px) { #anees-bank #ab-rows .ab-seencell { display: flex; flex-direction: column; align-items: flex-start !important; gap: 4px; text-align: left; }
+  #anees-bank #ab-rows .ab-seencell .vp-memory-detail { width: 100%; } }

@@ -665,3 +665,18 @@ body.dw-doc .dw-jump[open] > div::before { content: "red = wrong · amber = shak
 #anees-bank .bp-st-idea { box-shadow: inset 0 -4px 0 var(--dw-a2); } #anees-bank .bp-st-picked { box-shadow: inset 0 -4px 0 var(--dw-ok); }
 #anees-bank .bp-st-building { box-shadow: inset 0 -4px 0 var(--dw-warn); } #anees-bank :is(.bp-st-done, .bp-st-dropped) { box-shadow: inset 0 -4px 0 var(--dw-muted); }
 #anees-bank .bp-sec .bp-idea { border-left-width: 6px !important; }
+/* round 5 rules page: one labelled row of chips per family */
+body.dw-doc .toc .dw-tocf { display: inline-block; min-width: 64px; font: 700 12px var(--sabz-font-sans, system-ui); color: var(--dw-muted); padding-top: 3px; }
+body.dw-doc .toc .dw-tocr { display: flex; flex-wrap: wrap; gap: 6px; width: 100%; align-items: center; }
+body.dw-doc .toc { row-gap: 6px; }
+/* materials: each topic chip in its section's colour */
+body.dw-mat .dw-mtoc a:nth-child(4n+1) { border-color: var(--dw-a1); color: var(--dw-a1); } body.dw-mat .dw-mtoc a:nth-child(4n+2) { border-color: var(--dw-a2); color: var(--dw-a2); }
+body.dw-mat .dw-mtoc a:nth-child(4n+3) { border-color: var(--dw-a3); color: var(--dw-a3); } body.dw-mat .dw-mtoc a:nth-child(4n+4) { border-color: var(--dw-a4); color: var(--dw-a4); }
+body.dw-mat .dw-mtoc a { border-width: 2px; font-weight: 600; }
+/* settings: chip, (i), then the line */
+#anees-bank #st-guard, #anees-bank #st-amal { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+#anees-bank #st-guard > details, #anees-bank #st-amal > details { order: 1; } #anees-bank #st-guard .st-line, #anees-bank #st-amal .st-line { order: 2; }
+@media (max-width: 680px) { #anees-bank #st-guard .st-line, #anees-bank #st-amal .st-line { flex-basis: 100%; margin-left: 0; } }
+/* big picture: the stage menu wears its stage colour */
+#anees-bank .bp-sec-idea select { border-color: var(--dw-a2); } #anees-bank .bp-sec-picked select { border-color: var(--dw-ok); }
+#anees-bank .bp-sec-building select { border-color: var(--dw-warn); } #anees-bank .bp-meta select { border-width: 2px; font-weight: 600; }
