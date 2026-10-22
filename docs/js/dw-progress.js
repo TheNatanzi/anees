@@ -136,6 +136,50 @@
     }
   }
 
+  // 3b. a card's small line keeps its numbers on screen; the "·" parts with no number in them (where it comes from,
+  //     how it is counted) go behind one ⓘ at the end of the line
+  function trim(root) {
+    for (const el of root.querySelectorAll('.vp-card-sub, #ov-metrics .ab-tiny')) {
+      if (el.dataset.dwt || el.closest('details') || !/\d/.test(el.textContent || '') || !/ · /.test(el.textContent || '')) continue;
+      el.dataset.dwt = '1';
+      // split the top-level nodes into "·" parts
+      const parts = [[]];
+      for (const n of [...el.childNodes]) {
+        if (n.nodeType === 3 && n.textContent.includes(' · ')) {
+          const bits = n.textContent.split(' · ');
+          bits.forEach((b, i) => { if (i) parts.push([]); if (b) parts[parts.length - 1].push(document.createTextNode(b)); });
+        } else parts[parts.length - 1].push(n);
+      }
+      const txt = ns => ns.map(n => n.textContent).join('');
+      const keep = parts.filter((ns, i) => (i === 0 || /\d|—/.test(txt(ns))) && txt(ns).trim());   // the first part names the number: it stays
+      const move = parts.filter(ns => !keep.includes(ns) && txt(ns).trim());
+      if (!move.length || !keep.length) continue;
+      busy = true;
+      el.textContent = '';
+      keep.forEach((ns, i) => { if (i) el.append(' · '); el.append(...ns); });
+      const d = info(); d.classList.add('dw-trim');
+      move.forEach((ns, i) => { if (i) d.lastChild.append(' · '); d.lastChild.append(...ns); });
+      el.append(d);
+    }
+  }
+
+  // 3c. an Overview "why" line: sentences with a number stay; sentences without one go behind a ⓘ at its end
+  function whySplit(root) {
+    for (const el of root.querySelectorAll('.ov2-why')) {
+      if (el.dataset.dws || el.closest('details') || el.children.length) continue;
+      const t = el.textContent || '';
+      const sent = t.match(/(?:[^.!?]|[.!?](?=\S))+(?:[.!?]+\s*|$)/g) || [t];
+      const num = x => /\d+(?:[.,]\d+)+|\d+\s*%|\b\d{2,}\b|\b\d+ of \d+/.test(x);
+      const keep = sent.filter(num), move = sent.filter(x => !num(x) && x.trim());
+      el.dataset.dws = '1';
+      if (!move.length || !keep.length) continue;
+      busy = true;
+      el.textContent = keep.join('').trim() + ' ';
+      const d = info(); d.classList.add('dw-trim'); d.lastChild.textContent = move.join('').trim();
+      el.append(d);
+    }
+  }
+
   // 4. the lesson table: each cell knows its column name, so a phone can show every row as a small card
   function labels(root) {
     for (const tb of root.querySelectorAll('.ov-tbl > table')) {
@@ -305,7 +349,7 @@
     busy = true;
     try {
       const head = document.querySelector('.vp-header');
-      unwrap(root); method(root); subs(root); notes(root); labels(root); alerts(); notice(); dataNotes(); flashEmpty();   // round 2: no table clip, no folds
+      unwrap(root); method(root); subs(root); notes(root); trim(root); whySplit(root); labels(root); alerts(); notice(); dataNotes(); flashEmpty();   // round 2: no table clip, no folds
       if (head) subs(head);
     } finally { busy = false; }
   }

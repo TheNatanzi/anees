@@ -156,7 +156,8 @@ function panelC(ls){
  const rows=slots.map(s=>`<div class="ov2-row"><b>${esc(s.label)}</b><span class="ov2-track"><i style="width:${s.words===null?0:Math.max(2,s.words)}%"></i></span><span class="ov2-n">${s.n?`${plural(s.n,'lesson')} · ${r0(s.words)}% words · ${f1(s.slips)} slips/10 min`:'no lessons'}</span></div>`).join('');
  const early=slots[0],others=slots.slice(1).filter(s=>s.n&&s.words!==null);
  const earlyWins=!!(early.n&&others.length&&others.every(s=>early.words>s.words&&early.slips!==null&&s.slips!==null&&early.slips<s.slips));
- const verdict=filled.map(s=>`${s.label} (${plural(s.n,'lesson')}): ${r0(s.words)}% words right, ${f1(s.slips)} slips per 10 min.`).join(' ')+' '
+ // de-word: the verdict no longer repeats the slot rows beside it (same numbers, shown once)
+ const verdict=''
   +(span<180?(earlyWins?`The earliest slot leads on both, but with ${pts.length} lessons inside ${span} minutes treat it as a hint, not a finding.`:`With ${pts.length} lessons all inside ${span} minutes, nothing here supports "earlier is better" yet.`)+` One lesson two hours either side of ${hm(lo)} to ${hm(hi)} would test it.`
    :(earlyWins?'Earlier lessons lead on both words and grammar.':'Earlier lessons do not lead on both words and grammar.'));
  // quote: Medi's own words about the lesson time, if a turn file carries them

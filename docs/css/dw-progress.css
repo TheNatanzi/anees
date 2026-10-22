@@ -294,3 +294,9 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
 }
 /* a note's ⓘ alone at the foot of a card: small, at the right, so it does not read as data */
 #anees-bank .vp-panel > details.dw-p:not(.dw-pwarn):not([open]) { text-align: right; opacity: .6; margin-top: 2px; }
+/* card captions: darker and a touch bigger, so the small numbers read in both themes */
+#anees-bank .vp-card-sub, #anees-bank #ov-metrics .ab-tiny { color: var(--dw-ink); opacity: .82; font-size: 13.5px; }
+#anees-bank details.dw-trim { display: inline; }
+#anees-bank details.dw-trim[open] > div { display: block; }
+/* desktop: the seven lesson-number tiles sit in rows of four (no lone tile) */
+@media (min-width: 681px) { #anees-bank #ov-metrics.ab-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
