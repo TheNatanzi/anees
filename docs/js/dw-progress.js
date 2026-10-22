@@ -93,7 +93,7 @@
     }
   }
 
-  // 4. long tables: newest rows first, "Show all" button
+  // 4. the lesson table (25 rows x 9 numbers) opens from one button
   function tables(root) {
     for (const tb of root.querySelectorAll('.ov-tbl > table')) {
       const body = tb.tBodies && tb.tBodies[0];
@@ -106,7 +106,7 @@
       b.textContent = `Show all ${n} lessons`;
       b.addEventListener('click', () => {
         const open = tb.classList.toggle('dw-clip');
-        b.textContent = open ? `Show all ${n} lessons` : 'Show newest 3';
+        b.textContent = open ? `Show all ${n} lessons` : 'Hide the table';
       });
       (tb.closest('.ov-tbl') || tb).after(b);
     }
