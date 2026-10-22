@@ -346,9 +346,14 @@ function render(){
  TOP={};const topHtml=[()=>panelA(ls),()=>panelB(ls)].map(one).join('');
  const A=TOP.a,B=TOP.b,big2=(v,l)=>`<div class="dw-big"><b>${v}</b><span>${l}</span></div>`;
  const strip=A||B?`<div class="dw-bigs ov2-verdict">${A?big2(f1(A.avg),`lessons a week · goal ${TARGET[0]}–${TARGET[1]}`)+big2(`${A.inBand} of ${A.full}`,'weeks on goal'):''}${B?big2(`${B.above} of ${B.n}`,'weeks above your baseline')+big2(`${B.AX}${f1(B.last.pct)}%`,`words right, week of ${dm(B.last.k)}`):''}</div>`:'';
+ // one plain-words line over the strip: where the lessons-a-week and the words-right numbers stand
+ const sayA=A?(A.avg<TARGET[0]?'lessons a week under the goal':A.avg>TARGET[1]?'lessons a week over the goal':'lessons a week on the goal'):'';
+ const sayB=B?(B.n&&B.above*2>B.n?'words right above your baseline':B.n?'words right not yet above your baseline':''):'';
+ const say=[sayB,sayA].filter(Boolean).join(' · ');
+ const sayHtml=say?`<p class="ov2-say">${esc(say[0].toUpperCase()+say.slice(1))}</p>`:'';
  h.innerHTML=`<div class="ov-head ov2-head"><span class="vp-eyebrow">Across lessons</span><h2 class="ov-h2">What the lesson numbers add up to</h2><p class="ab-sub">Eight views the table cannot show: cadence, weekly baseline, time of day, rest days, talk shape, language mix, Arabic stretches and hesitation. Hover any mark for its numbers.</p></div>
  ${(window.AneesLessonMath&&window.AneesLessonMath.methodHtml(LJ))||''}
- ${strip}<div class="vp-grid ov2-top">${topHtml}</div>
+ ${sayHtml}${strip}<div class="vp-grid ov2-top">${topHtml}</div>
  <h2 class="ov-h2 ov2-more-h">Six more views across lessons</h2>
  <div class="vp-grid ov2-rest">${[()=>panelC(ls),()=>panelD(ls),panelE,panelF,panelG,()=>panelH(ls)].map(one).join('')}</div>
  <p class="ov2-source">Source: data/lessons.json${TURNS?` + ${TURNS.length} turn files (data/lessons/&lt;date&gt;.json)`:''} · updated ${esc(String(LJ.updated||'').replace('T',' ').slice(0,16))}</p>`;

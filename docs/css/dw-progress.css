@@ -342,3 +342,18 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
 /* round 22: captions at full strength; lesson dates in the table read as plain ink (still links) */
 #anees-bank .vp-card-sub, #anees-bank #ov-metrics .ab-tiny, #anees-bank #ov-metrics .ab-metric-label, #anees-bank .vp-card-label, #anees-bank .dw-big > span { opacity: 1; }
 #anees-bank .ov-tbl td:first-child a { color: var(--dw-ink); font-weight: 600; }
+/* round 23: on the Overview, the plain-words line and the takeaway strip come first, above the lifetime cards
+   (visual order only; every block stays open) */
+#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) { display: flex; flex-direction: column; }
+#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > * { order: 9; min-width: 0; }
+#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-tab-overview { display: contents; }
+#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-top { order: 2; }
+#anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > .vp-tabs { order: 3; }
+#anees-bank #vp-tab-overview > * { order: 6; }
+#anees-bank #ov2 > * { order: 8; }
+#anees-bank #ov2 > .ov2-say { order: 0; }
+#anees-bank #ov2 > .ov2-verdict { order: 1; margin: 0 0 16px; }
+#anees-bank #ov2 > .ov2-head { order: 4; }
+#anees-bank #ov2 > .ov2-top { order: 5; }
+#anees-bank #ov2 > .ov2-more-h, #anees-bank #ov2 > .ov2-rest { order: 7; }
+#anees-bank .ov2-say { margin: 0 0 10px; font: 600 18px/1.35 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
