@@ -22,6 +22,20 @@ TITLE = "Anees: from lesson to grade"
 
 WORD = {'A': 'Record', 'B': 'Hear', 'C': 'Check', 'D': 'Count', 'E': 'Publish', 'F': 'Tutor', 'G': 'Study', 'H': 'Grade'}
 ICONS = {'A': '🎙️', 'B': '👂', 'C': '🔍', 'D': '📒', 'E': '🌐', 'F': '✍️', 'G': '📚', 'H': '🏆'}   # one picture per phase
+# the same pictures drawn as flat SVG (white strokes on the phase colour), so they look the same on every device
+_S = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">%s</svg>'
+SVG_ICONS = {
+    'A': _S % '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/>',
+    'B': _S % '<path d="M7 10a5 5 0 0 1 10 0c0 3-3 4-3 7a3 3 0 0 1-6 0"/><path d="M10 10a2 2 0 0 1 4 0"/>',
+    'C': _S % '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/>',
+    'D': _S % '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/>',
+    'E': _S % '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+    'F': _S % '<path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/>',
+    'G': _S % '<path d="M4 5h6v15H4zM10 5h5v15h-5zM15 6l4-1 2 14-4 1z"/>',
+    'H': _S % '<path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 20h8"/>',
+}
+DONE_ICON = ('<svg class="fl-doneico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" '
+             'stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3L17 9"/></svg>')
 
 
 def dword(frag):
@@ -38,7 +52,7 @@ def dword(frag):
                                      ('<span class="chip money">$</span>', 'chip money')) if k in body)
         sumry = '<span class="fl-sum">%s</span>' % who   # who acts and what costs money; the step count opens with the row
         head = head.replace('</h2>', '</h2>' + sumry, 1)
-        head = '<span class="fl-ico" aria-hidden="true">%s</span>' % ICONS.get(code, '') + head
+        head = '<span class="fl-ico" aria-hidden="true">%s</span>' % (SVG_ICONS.get(code) or ICONS.get(code, '')) + head
         return ('<details class="phase" id="fl-%s" style="--pc:%s"><summary><header><span class="pcode">%s</span>%s</header></summary>%s</details>'
                 % (code, color, code, head, body))
     frag = re.sub(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>(.*?)</header>(.*?)</section>',
@@ -75,6 +89,7 @@ def dword(frag):
                 '<i>→</i><span class="chip medi">Student wins on his lines</span> <details class="dw-info"><summary aria-label="Who decides">ⓘ</summary>'
                 '<div>%s</div></details></div>' % w.group(1).strip())
         frag = frag.replace('<p class="loop">', rule + '\n  <p class="loop">', 1)
+    frag = frag.replace("<div class=\"done\"><b>✓ Done</b>", "<div class=\"done\">" + DONE_ICON + "<b>Done</b>", 1)
     return frag
 
 

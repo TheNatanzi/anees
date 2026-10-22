@@ -265,6 +265,10 @@ function renderMetrics() {
     var v = el('div', 'ab-number', typeof c[1] === 'string' ? c[1] : c[1].text);
     if (typeof c[1] !== 'string' && c[1].approx) { v.classList.add('rel-approx'); v.title = c[1].title; v.setAttribute('data-why', c[1].title); v.tabIndex = 0; }
     m.appendChild(v);
+    if (c[0] === 'Words right' || c[0] === 'Grammar right') {   // de-word: the hero numbers get their bar (right vs the rest)
+      var pv = parseFloat(String(typeof c[1] === 'string' ? c[1] : c[1].text).replace(/[^\d.]/g, ''));
+      if (!isNaN(pv)) { var hb = el('div', 'dw-split ls-herobar'); hb.setAttribute('aria-hidden', 'true'); var hi = el('i', 'ls-wok'); hi.style.width = pv + '%'; hb.appendChild(hi); m.appendChild(hb); }
+    }
     // De-word (2026-10-22): the how-it-was-counted note opens in place behind a small (i) on the label
     if (/\d/.test(c[2])) { var d = el('details', 'dw-info'); var s = el('summary', '', 'ⓘ'); s.setAttribute('aria-label', 'How this is counted'); d.appendChild(s); d.appendChild(el('div', '', c[2])); lab.appendChild(document.createTextNode(' ')); lab.appendChild(d); }
     box.appendChild(m);
@@ -1076,6 +1080,7 @@ function renderMedi() {
       wp.appendChild(document.createTextNode(' ' + (amal === 1 ? 'word waits' : 'words wait') + ' for the tutor '));
       var wd = el('details', 'dw-info'), ws = el('summary', '', 'ⓘ'); ws.setAttribute('aria-label', 'Why they wait'); wd.appendChild(ws);
       wd.appendChild(el('div', '', 'Waiting for the tutor · ' + amal + (amal === 1 ? ' moment' : ' moments') + ' where two judges disagree about a word are on her Tutor hub. Counted as before until she answers.'));
+      var wa = el('a', 'dw-act', 'Open on the Tutor page →'); wa.href = 'tutor.html'; wp.appendChild(wa);
       wp.appendChild(wd); box.appendChild(wp);
     }
     return;
@@ -1173,7 +1178,7 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     $('ls-coverage').innerHTML = '';   // de-word: the source line opens in place
     var cd = el('details', 'dw-info'), cs = el('summary', '', 'ⓘ'); cs.setAttribute('aria-label', 'Where these numbers come from'); cd.appendChild(cs);
     cd.appendChild(el('div', '', 'Source: docs/data/lessons.json · updated ' + DATA.updated + ' · lesson types are Claude’s reading, tell Claude to change any.'));
-    $('ls-coverage').appendChild(document.createTextNode('Source ')); $('ls-coverage').appendChild(cd);
+    $('ls-coverage').appendChild(cd);
     window.AneesLessonMath.wireTaps(document);
     window.AneesLessonMath.stampMethod(DATA, $('ls-coverage'), 'after');   // 2026-10-05: the numbers are counted another way from that day
     renderMetrics();

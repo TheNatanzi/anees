@@ -364,3 +364,13 @@ html[data-look="kurz"] #anees-bank .fl details.phase > summary .fl-ico { border-
 /* the page-top robot banner (js/stale.js) reads as one slim status line on these pages */
 body:has(#anees-bank) > #stall-bar { padding: 4px 12px !important; font: 600 12.5px/1.4 system-ui !important; }
 html[data-look="kurz"] body > #stall-bar { background: var(--kz-orange) !important; color: #14204A !important; }
+/* round 15 */
+#anees-bank .fl details.phase + details.phase::before, #anees-bank .fl details.phase + .done::before { display: none; }
+#anees-bank .fl .fl-ico svg { width: 22px; height: 22px; display: block; }
+#anees-bank .fl > .done { display: flex; align-items: center; gap: 10px; }
+#anees-bank .fl .fl-doneico { width: 30px; height: 30px; flex: none; color: var(--fl-medi); }
+html[data-look="kurz"] #anees-bank .fl .fl-doneico { color: var(--kz-teal); width: 36px; height: 36px; }
+#anees-bank .dw-wait .dw-act { margin-left: auto; padding: 6px 14px; border-radius: 999px; background: var(--dw-warn); color: var(--sabz-bg, #fff); font-weight: 700; font-size: 13px; text-decoration: none; }
+html[data-look="kurz"] #anees-bank .dw-wait .dw-act { background: var(--kz-orange); color: #fff; }
+#anees-bank .ls-herobar { height: 8px; margin-top: 8px; background: var(--dw-bad); }
+#anees-bank .ls-herobar > .ls-wok { background: var(--dw-ok); }
