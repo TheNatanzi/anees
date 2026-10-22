@@ -1199,6 +1199,18 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     sm.setAttribute('aria-label', 'About this page'); d.appendChild(sm); var dv = el('div', ''); d.appendChild(dv); dv.appendChild(sub);
     h.appendChild(document.createTextNode(' ')); h.appendChild(d);
   }
-  dwHead(); dwAlerts();
+  // the five sort choices as chips (the select stays for keyboards and old links)
+  function dwSort() {
+    var sel = $('ls-sort'); if (!sel || document.querySelector('.dw-sortchips')) return;
+    var box = el('div', 'dw-sortchips'); box.setAttribute('aria-label', 'Sort lessons');
+    [].slice.call(sel.options).forEach(function (o) {
+      var b = el('button', '', o.textContent); b.type = 'button'; b.setAttribute('aria-pressed', String(sel.value === o.value));
+      b.addEventListener('click', function () { sel.value = o.value; sel.dispatchEvent(new Event('change', { bubbles: true }));
+        [].slice.call(box.children).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); });
+      box.appendChild(b);
+    });
+    sel.closest('.ab-controls').after(box);
+  }
+  dwHead(); dwAlerts(); dwSort();
   new MutationObserver(dwAlerts).observe(document.querySelector('main') || document.body, { childList: true, subtree: true });
 })();

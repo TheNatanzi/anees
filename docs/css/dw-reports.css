@@ -483,4 +483,25 @@ html.lsn-page .lsn-map { position: relative; padding-top: 24px; }
   #anees-bank .ls-rehearnote { font-size: 10.5px; padding: 0 6px; opacity: .85; }
 }
 #anees-bank .fl .fl-acc { margin: 8px 0 6px; max-width: 520px; }
-html.lsn-page .tm-chat { fill: var(--dw-warn); background: var(--dw-warn); }   /* chat: its own colour, far from "you" */
+html.lsn-page .tm-chat { fill: var(--dw-a4); background: var(--dw-a4); }   /* chat: its own colour, far from "you" */
+/* flow round 3: the tool logos sit in the card's corner, so the step line follows its title with no gap */
+@media (min-width: 601px) {
+  #anees-bank .fl .node .box { position: relative; padding-right: 140px; }
+  #anees-bank .fl .node .box > .top { display: block; min-height: 0; }
+  #anees-bank .fl .node .box > .top .icons { position: absolute; top: 12px; right: 12px; }
+  #anees-bank .fl .node .box > p { margin-top: 6px; }
+}
+#anees-bank .fl section.phase .fl-ico { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 9px; background: var(--pc); margin: 0 8px 0 2px; flex: none; }
+#anees-bank .fl section.phase .fl-ico svg { width: 18px; height: 18px; }
+#anees-bank .fl .box > p { color: var(--dw-ink); }
+/* lesson round 3: the practice start is a big jump button with a tick into the bar */
+html.lsn-page .lsn-mark { font-size: 14px; padding: 4px 12px; }
+html.lsn-page .lsn-mark::after { top: 100%; height: 14px; width: 3px; background: var(--dw-a1); }
+html.lsn-page .lsn-map { padding-top: 34px; }
+/* lessons round 3: counts and captions larger, full contrast */
+#anees-bank .ls-row .ls-small { font-size: 13.5px; color: var(--dw-ink); }
+#anees-bank #ls-metrics .ab-tiny { font-size: 12.5px; color: var(--dw-ink); opacity: .8; }
+#anees-bank .dw-sortchips { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+#anees-bank .dw-sortchips button { padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line); background: var(--dw-card); color: var(--dw-ink); font: 600 13px/1.4 var(--sabz-font-sans, system-ui); cursor: pointer; }
+#anees-bank .dw-sortchips button[aria-pressed="true"] { background: var(--dw-a1); color: var(--dw-card); border-color: var(--dw-a1); }
+#ar-tab-unknowns .dw-pcts { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 2px 0 6px; font: 700 13px/1.4 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }

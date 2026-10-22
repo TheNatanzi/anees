@@ -80,7 +80,11 @@ function dwV1(){const V=$('air-unknowns-vocab');if(!V||$('dw-v1-bigs'))return;co
  const cls=['dw-warnbig','',''];const box=document.createElement('div');box.id='dw-v1-bigs';box.className='dw-bigs';
  box.innerHTML=g.map((x,i)=>`<div class="dw-big ${cls[i]||''}"><b>${x[0]}</b><span>${x[1].toLowerCase()}</span></div>`).join('');
  const bar=V.querySelector('.vu-split');(bar||subs[0]).before(box);}
-function dwPass(){dwClip();try{dwV1();}catch(e){}document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
+// under each split bar: its slices' labels on one line, so a thin slice never loses its number
+function dwPcts(){document.querySelectorAll('#ar-tab-unknowns .vu-split').forEach(b=>{if(b.nextElementSibling&&b.nextElementSibling.classList.contains('dw-pcts'))return;
+ const t=[...b.children].map(i=>i.textContent.trim()).filter(Boolean);if(t.length<2)return;const d=document.createElement('div');d.className='dw-pcts';d.innerHTML=t.map(x=>'<span>'+x.replace(/</g,'&lt;')+'</span>').join('');b.after(d);
+ b.querySelectorAll('i').forEach(i=>i.classList.add('dw-clip'));});}
+function dwPass(){dwClip();try{dwPcts();}catch(e){}try{dwV1();}catch(e){}document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');
