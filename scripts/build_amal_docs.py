@@ -182,18 +182,18 @@ def materials(meta):
     def parts(m):
         heads = [re.sub(r"<[^>]+>", "", h) for h in re.findall(r"<h3>(.*?)</h3>", m.group(2))]
         row = ('<button type="button" class="dw-parts" hidden><b>%d</b> part%s%s</button>'
-               % (len(heads), "" if len(heads) == 1 else "s", ('<span class="dw-pn">: ' + " &middot; ".join("<bdi>%s</bdi>" % h for h in heads) + "</span>") if heads else "")) if heads else ""
+               % (len(heads), "" if len(heads) == 1 else "s", ('<span class="dw-pn">: ' + " &middot; ".join("<bdi>%s</bdi>" % h for h in heads) + "</span>") if heads else "")) if heads else '<button type="button" class="dw-parts dw-noparts" hidden>Open</button>'
         return m.group(1) + row + m.group(2)
     joined = re.sub(r'(<section id="s\d+"><h2>.*?</h2>)(.*?)(?=</section>)', parts, joined, flags=re.S)
     # one flat icon per topic (by its title; a plain dot when no word matches)
     ICONS = [("preposition", '<circle cx="12" cy="7" r="3.2"/><path d="M3 12.5h18M6 12.5V20M18 12.5V20"/>'),
-             ("possess", '<circle cx="8" cy="12" r="4"/><path d="M12 12h9M18 12v3M21 12v2"/>'),
+             ("possess", '<path d="M2.5 12L8 6.5l5.5 5.5M4.5 10.5V18h7v-7.5"/><circle cx="18" cy="8.5" r="2.3"/><path d="M14.5 18c0-2.6 1.6-4.4 3.5-4.4s3.5 1.8 3.5 4.4"/>'),
              ("adjective def", '<path d="M3 12l8-8h9v9l-8 8z"/><circle cx="15.5" cy="8.5" r="1.5"/>'),
              ("time", '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>'),
              ("adjective", '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>'),
              ("kul", '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'),
-             ("prefix", '<path d="M7 4v16M7 13a4.5 4.5 0 1 0 0-.1"/><path d="M3 21L21 3"/>'),
-             ("pointer", '<path d="M3 12h13M12 7l5 5-5 5"/><circle cx="20" cy="12" r="1.6"/>')]
+             ("prefix", '<text x="12" y="17" text-anchor="middle" font-size="15" font-family="serif" fill="currentColor" stroke="none">ب</text><path d="M4 20L20 4"/>'),
+             ("pointer", '<path d="M9 11V5.5a1.6 1.6 0 0 1 3.2 0V11M12.2 10V9a1.6 1.6 0 0 1 3.2 0v2M15.4 10.5a1.6 1.6 0 0 1 3.2 0V15a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.8l-2.3-3.8a1.5 1.5 0 0 1 2.5-1.6L9 14"/>')]
 
     def icon(m):
         t = re.sub(r"<[^>]+>", "", m.group(2)).lower()
