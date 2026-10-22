@@ -397,6 +397,14 @@ function sortValue(r) {
 function buildHeaders() {
   var head = $('gc-tablehead');
   head.textContent = '';
+  // de-word 2026-10-22: one "Sort by" menu instead of seven buttons
+  var pick = el('select', 'dw-sortpick'); pick.setAttribute('aria-label', 'Sort the rules');
+  COLS.forEach(function (c) { ['asc', 'desc'].forEach(function (d) {
+    var o = el('option', null, c.label + (c.key === 'rule' ? (d === 'asc' ? ' (A → Z)' : ' (Z → A)') : d === c.first ? ' ' + (d === 'desc' ? '↓' : '↑') : ' ' + (d === 'desc' ? '↓' : '↑')));
+    o.value = c.key + ':' + d; if (SORT.key === c.key && SORT.dir === d) o.selected = true; pick.appendChild(o); }); });
+  pick.addEventListener('change', function () { var v = pick.value.split(':'); SORT = { key: v[0], dir: v[1] };
+    try { localStorage.setItem(SORT_KEY, JSON.stringify(SORT)); } catch (e) { /* not saved */ } render(); });
+  var lab = el('label', 'dw-sortlabel', 'Sort by '); lab.appendChild(pick); head.appendChild(lab);
   COLS.forEach(function (c, i) {
     var cell = el('div');
     cell.setAttribute('role', 'columnheader');
@@ -868,7 +876,7 @@ function buildStatusChips() {
   STATUSES.forEach(function (s) { if (!counts[s]) return; var i = el('i', 'dw-lv-' + s); i.style.width = (100 * counts[s] / DATA.rules.length).toFixed(2) + '%'; bar.appendChild(i); });
   var anchor = box.closest('details.dw-filters') || box; anchor.parentNode.insertBefore(bar, anchor);
   STATUSES.forEach(function (s) {
-    var b = el('button', 'ab-chip', statusLabel(s) + ' ' + (counts[s] || 0));
+    var b = el('button', 'ab-chip dw-st-' + s, statusLabel(s) + ' ' + (counts[s] || 0));
     b.type = 'button';
     b.setAttribute('aria-pressed', 'false');
     b.addEventListener('click', function () {

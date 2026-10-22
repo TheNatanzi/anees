@@ -335,3 +335,21 @@ html[data-look="kurz"] #ab-rows .dw-level.dw-lv-Wrong { background: var(--kz-pin
   #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(6) { grid-column: 2 !important; align-self: center; }
 }
 #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4):has(.gc-flag) { font-size: 0; } #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4) .gc-flag { font-size: 11px; }
+
+/* round 11: chips are the bar's legend (same colour dot), one Sort menu, plain card headings */
+#anees-bank :is(#ab-statuses .ab-chip, #gc-statuses .ab-chip)::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 0; background: transparent; border: 1px solid var(--dw-line); }
+#anees-bank :is(#ab-statuses .ab-status-Wrong, #gc-statuses .dw-st-Wrong)::before { background: var(--dw-bad); border: 0; }
+#anees-bank :is(#ab-statuses .ab-status-Shaky, #gc-statuses .dw-st-Shaky)::before { background: var(--dw-warn); border: 0; }
+#anees-bank :is(#ab-statuses .ab-status-Good, #gc-statuses .dw-st-Good)::before { background: var(--dw-a3); border: 0; }
+#anees-bank :is(#ab-statuses .ab-status-Mastered, #gc-statuses .dw-st-Mastered)::before { background: var(--dw-a1); border: 0; }
+#anees-bank #gc-statuses .dw-st-Unscored::before { background: var(--dw-muted); border: 0; }
+#dw-levelbar .dw-levels { margin-bottom: 4px; }
+#anees-bank #gc-tablehead::before { content: none; }
+#anees-bank #gc-tablehead > div { display: none; }
+#anees-bank #gc-tablehead { background: transparent; padding: 0; }
+#anees-bank .dw-sortlabel { font: 600 13px var(--sabz-font-sans, system-ui); color: var(--dw-muted); text-transform: none; letter-spacing: 0; }
+#anees-bank .dw-sortpick { margin-left: 6px; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--dw-line); background: var(--dw-card); color: var(--dw-ink); font: inherit; }
+#gc-rows.dw-clip::before { content: "Wrong rules · score = % right"; }
+html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after { display: none; }
+#anees-bank .stile .vp-card-label, #anees-bank .stile .vp-card-label span { text-transform: none !important; letter-spacing: 0 !important; font-size: 14px !important; font-weight: 700; }
+#anees-bank .stile .vp-card-sub { font-size: 13px; }
