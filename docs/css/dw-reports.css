@@ -374,3 +374,12 @@ html[data-look="kurz"] #anees-bank .fl .fl-doneico { color: var(--kz-teal); widt
 html[data-look="kurz"] #anees-bank .dw-wait .dw-act { background: var(--kz-orange); color: #fff; }
 #anees-bank .ls-herobar { height: 8px; margin-top: 8px; background: var(--dw-bad); }
 #anees-bank .ls-herobar > .ls-wok { background: var(--dw-ok); }
+/* round 16: red part = missed, green rest = right/caught; amber = still to review */
+#anees-bank .dw-bigbar.dw-miss { background: var(--dw-ok); } #anees-bank .dw-bigbar.dw-miss > i { background: var(--dw-bad) !important; }
+#anees-bank .dw-bigbar.dw-todo { background: var(--dw-line); } #anees-bank .dw-bigbar.dw-todo > i { background: var(--dw-warn) !important; }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig.dw-warnbig b { color: var(--dw-bad); }
+html[data-look="kurz"] #ar-tab-unknowns .ar-unk-h .dw-sumbig.dw-warnbig b { color: var(--kz-pink); }
+#anees-bank #ls-coverage { display: none; }
+#anees-bank .fl .fl-chain { font-size: 13px; font-weight: 600; color: var(--ab-muted); }
+#anees-bank .fl .fl-inner { padding: 0 10px 8px; }
+#anees-bank .fl .fl-inner details.phase { margin-top: 8px; border-left-width: 4px; }

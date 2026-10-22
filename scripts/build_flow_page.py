@@ -34,6 +34,7 @@ SVG_ICONS = {
     'G': _S % '<path d="M4 5h6v15H4zM10 5h5v15h-5zM15 6l4-1 2 14-4 1z"/>',
     'H': _S % '<path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 20h8"/>',
 }
+ROBOT_ICON = _S % '<rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M10 16h4"/>'
 DONE_ICON = ('<svg class="fl-doneico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" '
              'stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3L17 9"/></svg>')
 
@@ -81,6 +82,15 @@ def dword(frag):
     # three bands, so the 5-second read is the call -> the robot -> the tutor -> the student
     for code, band in (('A', '🎙️ The call'), ('B', '🤖 The robot · automatic'), ('F', '✍️ The tutor'), ('G', '📚 The student')):
         frag = frag.replace('<details class="phase" id="fl-%s"' % code, '<div class="fl-band">%s</div><details class="phase" id="fl-%s"' % (band, code), 1)
+    # the robot's 4 phases (B-E) are one card: hear -> check -> count -> publish; it opens to the 4 phases
+    b, f = frag.find('<details class="phase" id="fl-B"'), frag.find('<div class="fl-band">✍️ The tutor</div>')
+    if 0 < b < f:
+        inner = frag[b:f].rstrip()
+        robot = ('<details class="phase fl-group" id="fl-robot" style="--pc:#0b8a74"><summary><header><span class="fl-ico" aria-hidden="true">%s</span>'
+                 '<h2>The robot</h2><span class="fl-sum"><span class="fl-chain">Hear → Check → Count → Publish</span><span class="chip money">$</span></span>'
+                 '<span class="when">every hour</span></header></summary><div class="fl-inner">%s</div></details>\n  ' % (ROBOT_ICON, inner))
+        frag = frag[:b] + robot + frag[f:]
+    frag = re.sub(r'<div class="fl-band">[^<]*</div>', '', frag)   # 5 cards now say who acts; no band labels needed
     # "who decides" is the rule behind the whole path: it closes the page, under Done
     w = re.search(r'\s*<div class="warn">(.*?)</div>', frag, re.S)
     if w and '<div class="done">' in frag:
