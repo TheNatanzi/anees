@@ -237,8 +237,8 @@
       p.dataset.dv = '1';
       const body = m[2];
       const doubt = /^(no |not |none|nothing|unclear|cannot|can't|there is no)/i.test(body);
-      const chip = m[1] === 'Reader AI' ? '<span class="dw-chip bad dp-v">Reader AI: counted a mistake</span>'
-        : `<span class="dw-chip ${doubt ? 'dp-v ok' : 'muted dp-v'}">Listening AI${doubt ? ': doubts it' : ''}</span>`;
+      const chip = m[1] === 'Reader AI' ? '<span class="dw-chip bad dp-v"><svg class="dp-vg" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg>Reader AI: counted a mistake</span>'
+        : `<span class="dw-chip ${doubt ? 'dp-v ok' : 'muted dp-v'}"><svg class="dp-vg" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9a5 5 0 0 1 10 0c0 3-3 4-3 7a3 3 0 0 1-6 0"/><path d="M10 10a2 2 0 0 1 4 0"/></svg>Listening AI${doubt ? ': doubts it' : ''}</span>`;
       p.classList.add('dp-verdict');
       p.innerHTML = chip + '<details class="dp-vmore"><summary>why</summary><span>' + escH(body) + '</span></details>';   // round 28: the chip on screen, its reasoning one tap away
     });
