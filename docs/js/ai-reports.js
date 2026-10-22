@@ -11,7 +11,7 @@
   function card(p) {
     const link = (p.links || [])[0];
     const title = link ? `<a href="${esc(link.url)}">${esc(p.title)}</a>` : esc(p.title);
-    const kpis = (p.numbers || []).map(n => `<div class="ar-kpi"><div class="ab-number">${esc(n.value)}</div><div class="ab-metric-label">${esc(n.label)}</div>${n.note ? `<div class="ab-tiny">${esc(n.note)}</div>` : ''}</div>`).join('');
+    const kpis = (p.numbers || []).map(n => `<div class="ar-kpi"><div class="ab-number">${esc(n.value)}</div><div class="ab-metric-label">${esc(n.label)}</div>${n.note ? (String(n.note).split(/\s+/).length <= 3 ? `<div class="ab-tiny">${esc(n.note)}</div>` : ` <details class="dw-info"><summary aria-label="How this was measured">ⓘ</summary><div>${esc(n.note)}</div></details>`) : ''}</div>`).join('');   // de-word: a long or technical note opens in place
     const bars = (p.bars && p.bars.length) ? `<div class="ar-bars"><span class="vp-eyebrow">${esc(p.bars_title || '')}</span>${p.bars.map(b => `<div class="ar-brow"><span>${esc(b.label)}</span><div class="ar-track"><div class="ar-fill${b.tone ? ' ' + esc(b.tone) : ''}" style="width:${Math.max(2, Math.round(100 * b.value / (b.max || 1)))}%"></div></div><span class="ar-bv">${esc(b.text ?? b.value)}</span></div>`).join('')}</div>` : '';
     const links = (p.links || []).map(l => `<a class="ar-btn" href="${esc(l.url)}">${esc(l.label)}</a>`).join('');
     // PG-55 chapter links; de-word: they open from one tap
