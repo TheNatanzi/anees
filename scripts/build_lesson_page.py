@@ -192,6 +192,8 @@ def mark_turns(page):
         mark = ('<a class="lsn-mark" href="#arabic-start" style="left:%.1f%%">▶ Arabic starts %s</a>'
                 % (100 * float(rows[start][1]) / end, clock(float(rows[start][1]))))
         page = page.replace('</svg><figcaption>', '</svg>' + mark + '<figcaption>', 1)
+        jump = '<a class="lsn-jump" href="#arabic-start">▶ Start Arabic practice · %s</a>' % clock(float(rows[start][1]))
+        page = page.replace('</figcaption></figure>', '</figcaption></figure>' + jump, 1)
     return page
 
 
@@ -212,7 +214,7 @@ def talk_map(page, bins=60):
                     for i, c in enumerate(tally) if c)
     return ('<figure class="lsn-map"><svg class="dw-pic" viewBox="0 0 100 10" preserveAspectRatio="none" role="img" '
             'aria-label="Who spoke when, start to end">' + rects + '</svg><figcaption><i class="tm-you"></i>you '
-            '<i class="tm-tutor"></i>tutor <i class="tm-chat"></i>chat <span>start → end</span></figcaption></figure>')
+            '<i class="tm-tutor"></i>tutor <i class="tm-chat"></i>chat <b class="lsn-playkey">▶ Play = a clip of his own line</b><span>start → end</span></figcaption></figure>')
 
 
 def dword_dates(dates):

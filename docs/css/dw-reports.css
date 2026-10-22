@@ -522,3 +522,13 @@ html.lsn-page button.t small { font-size: 13px; color: var(--dw-ink); }
 html.lsn-page .lsn-map figcaption { font-size: 14px; color: var(--dw-ink); }
 #ar-tab-unknowns #dw-v1-bigs .dw-bigbar { display: flex; height: 6px; margin-top: 6px; }
 #ar-tab-unknowns #dw-v1-bigs .dw-bigbar > i { background: var(--dw-warn); }
+/* round 6 (r2): the six Lessons tiles are equal, same order on every width */
+#anees-bank #ls-metrics { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 8px !important; }
+#anees-bank #ls-metrics .ab-metric { grid-row: auto !important; grid-column: auto !important; order: 0 !important; padding: 10px 12px !important; min-height: 0 !important; }
+#anees-bank #ls-metrics .ab-number, #anees-bank #ls-metrics .ab-metric .ab-number { font-size: 32px !important; margin: 2px 0 !important; }
+@media (max-width: 680px) { #anees-bank #ls-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } #anees-bank #ls-metrics .ab-number, #anees-bank #ls-metrics .ab-metric .ab-number { font-size: 26px !important; } }
+/* V1 rows: the count and share read big next to each bar */
+#ar-tab-unknowns .vu-v { font-size: 17px; font-weight: 700; color: var(--dw-ink); }
+#ar-tab-unknowns .vu-v small, #ar-tab-unknowns .vu-row small { font-size: 13px; font-weight: 700; color: var(--dw-ink); }
+html.lsn-page a.lsn-jump { display: block; text-align: center; margin: 4px 0 10px; padding: 10px 14px; border-radius: 12px; background: var(--dw-a1); color: var(--dw-card) !important; font-weight: 700; text-decoration: none; font-size: 16px; }
+html.lsn-page .lsn-playkey { margin-left: 10px; font-weight: 600; }
