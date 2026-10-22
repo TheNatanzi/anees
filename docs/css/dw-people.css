@@ -247,3 +247,18 @@ html[data-look="kurz"] #anees-bank details.tu-more > summary { border-radius: 18
   #anees-bank .hb-tabs + .hb-tabs, #anees-bank .hb-tools { margin-bottom: 8px; }
 }
 @media (max-width: 680px) { #anees-bank .hb-panel .hb-task > .hb-chips:first-of-type, #anees-bank .hb-panel .hb-chips { margin-right: 34px; } }
+/* round 12, Tutor phone: title and the two numbers share one line; the tool row and the tabs each slide in one line */
+@media (max-width: 680px) {
+  #anees-bank[aria-label="Anees tutor"] .vp-eyebrow { display: none; }
+  #anees-bank[aria-label="Anees tutor"] .ab-header > div { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; }
+  #anees-bank[aria-label="Anees tutor"] .ab-header h1 { margin: 0; }
+  #anees-bank[aria-label="Anees tutor"] #hb-hello { margin: 0; }
+  #anees-bank #hb-hello .tu-bigs { margin: 0; gap: 6px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big { padding: 4px 30px 4px 8px; min-width: 0; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big b { font-size: 22px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big span { font-size: 9px; letter-spacing: .04em; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big svg.dw-ico { width: 16px; height: 16px; top: 6px; right: 6px; }
+  #anees-bank[aria-label="Anees tutor"] .hb-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 86%, transparent); mask-image: linear-gradient(90deg, #000 86%, transparent); padding-right: 22px; }
+  #anees-bank[aria-label="Anees tutor"] .hb-tab { flex: none; }
+  #anees-bank[aria-label="Anees tutor"] .hb-tools { padding-bottom: 8px; }
+}
