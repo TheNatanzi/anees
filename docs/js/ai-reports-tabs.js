@@ -122,7 +122,10 @@ function dwBigs(){
 }
 let dwT=0;
 const dwTry=(f,...a)=>{try{f(...a);}catch(e){window.dwErr=(window.dwErr||[]).concat(f.name+': '+e);}};
-function dwPass(){dwTry(dwBigs);dwTry(dwGroups);document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwTry(dwInfo,el);});dwTry(dwFold,t);});}
+// Grades: the KPIs and the per-lesson bars stay; the full table opens from one tap
+function dwTable(){const H=$('air-grades');if(!H)return;H.querySelectorAll('table').forEach(t=>{if(t.closest('details.dw-fold'))return;const box=t.closest('.ar-tbl')||t;
+ const n=t.tBodies[0]?t.tBodies[0].rows.length:0;const d=document.createElement('details');d.className='dw-fold';d.innerHTML=`<summary>Full table · every lesson and version (${n} rows)</summary>`;box.before(d);d.append(box);});}
+function dwPass(){dwTry(dwBigs);dwTry(dwTable);dwTry(dwGroups);document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwTry(dwInfo,el);});dwTry(dwFold,t);});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 new MutationObserver(()=>{clearTimeout(dwT);dwT=setTimeout(dwPass,60);}).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
 // a tap on a big number (or a #ar-unk-… link) opens that section in place

@@ -271,3 +271,19 @@ html[data-look="kurz"] #ar-tab-unknowns .ar-unk-h .dw-sumbig.dw-warnbig b { colo
 #anees-bank .dw-method { margin: 10px 0; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 #anees-bank .dw-method details.dw-info[open] { flex-basis: 100%; }
 #anees-bank .dw-method details.dw-info p.method-change { margin: 0; border: 0; padding: 0; }
+/* round 8: Lessons hero numbers = words + grammar right; the rest sit small */
+@media (min-width: 681px) {
+  #anees-bank #ls-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  #anees-bank #ls-metrics .ab-metric:nth-child(3), #anees-bank #ls-metrics .ab-metric:nth-child(4) { grid-row: 1; }
+  #anees-bank #ls-metrics .ab-metric:nth-child(3) { grid-column: 1 / 3; }
+  #anees-bank #ls-metrics .ab-metric:nth-child(4) { grid-column: 3 / 5; }
+  #anees-bank #ls-metrics .ab-metric:nth-child(3) .ab-number, #anees-bank #ls-metrics .ab-metric:nth-child(4) .ab-number { font-size: 44px !important; }
+  #anees-bank #ls-metrics .ab-metric:not(:nth-child(3)):not(:nth-child(4)) { padding: 8px 12px !important; min-height: 0 !important; }
+  #anees-bank #ls-metrics .ab-metric:not(:nth-child(3)):not(:nth-child(4)) .ab-number { font-size: 22px !important; margin: 0 !important; }
+}
+@media (max-width: 680px) {
+  #anees-bank #ls-metrics .ab-metric:nth-child(3), #anees-bank #ls-metrics .ab-metric:nth-child(4) { order: -1; }
+  #anees-bank #ls-metrics .ab-metric:nth-child(3) .ab-number, #anees-bank #ls-metrics .ab-metric:nth-child(4) .ab-number { font-size: 28px !important; }
+}
+#anees-bank .ls-row .ls-rowhead .ls-tcell .ls-small { display: flex; justify-content: space-between; }
+#anees-bank .ab-header h1:has(.dw-mic) { display: flex; align-items: center; gap: 4px; }

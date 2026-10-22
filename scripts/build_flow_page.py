@@ -35,8 +35,7 @@ def dword(frag):
         asks = len(re.findall(r'<li class="node decision', body))
         who = ''.join(c for c, k in (('<span class="chip amal">Tutor</span>', 'chip amal'), ('<span class="chip medi">Student</span>', 'chip medi'),
                                      ('<span class="chip money">$</span>', 'chip money')) if k in body)
-        sumry = ('<span class="fl-sum"><span class="fl-n">%d %s</span>%s%s</span>'
-                 % (steps, 'step' if steps == 1 else 'steps', '<span class="fl-n">%d %s</span>' % (asks, 'choice' if asks == 1 else 'choices') if asks else '', who))
+        sumry = '<span class="fl-sum">%s</span>' % who   # who acts and what costs money; the step count opens with the row
         head = head.replace('</h2>', '</h2>' + sumry, 1)
         head = '<span class="fl-ico" aria-hidden="true">%s</span>' % ICONS.get(code, '') + head
         return ('<details class="phase" id="fl-%s" style="--pc:%s"><summary><header><span class="pcode">%s</span>%s</header></summary>%s</details>'
