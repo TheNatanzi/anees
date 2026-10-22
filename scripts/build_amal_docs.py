@@ -175,14 +175,45 @@ def materials(meta):
     flush()
     if open_sec:
         body.append("</section>")
+    # de-word (plan/OVERNIGHT-DEWORD-2026-10-22.md): every section folds to its title + the names of its parts (a tap opens it in place,
+    # css/dw-amal.css; the Tutor hub reads the same sections and ignores the hidden part list). Her words are untouched.
+    joined = "".join(body)
+
+    def parts(m):
+        heads = [re.sub(r"<[^>]+>", "", h) for h in re.findall(r"<h3>(.*?)</h3>", m.group(2))]
+        row = ('<button type="button" class="dw-parts" hidden><b>%d</b> part%s%s</button>'
+               % (len(heads), "" if len(heads) == 1 else "s", ('<span class="dw-pn">: ' + " &middot; ".join("<bdi>%s</bdi>" % h for h in heads) + "</span>") if heads else "")) if heads else ""
+        return m.group(1) + row + m.group(2)
+    joined = re.sub(r'(<section id="s\d+"><h2>.*?</h2>)(.*?)(?=</section>)', parts, joined, flags=re.S)
+    # one flat icon per topic (by its title; a plain dot when no word matches)
+    ICONS = [("preposition", '<circle cx="12" cy="7" r="3.2"/><path d="M3 12.5h18M6 12.5V20M18 12.5V20"/>'),
+             ("possess", '<circle cx="8" cy="12" r="4"/><path d="M12 12h9M18 12v3M21 12v2"/>'),
+             ("adjective def", '<path d="M3 12l8-8h9v9l-8 8z"/><circle cx="15.5" cy="8.5" r="1.5"/>'),
+             ("time", '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>'),
+             ("adjective", '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>'),
+             ("kul", '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'),
+             ("prefix", '<path d="M7 4v16M7 13a4.5 4.5 0 1 0 0-.1"/><path d="M3 21L21 3"/>'),
+             ("pointer", '<path d="M3 12h13M12 7l5 5-5 5"/><circle cx="20" cy="12" r="1.6"/>')]
+
+    def icon(m):
+        t = re.sub(r"<[^>]+>", "", m.group(2)).lower()
+        d = next((g for k, g in ICONS if k in t), '<circle cx="12" cy="12" r="5"/>')
+        return ('%s<svg class="dw-tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+                'stroke-linejoin="round" aria-hidden="true">%s</svg>%s' % (m.group(1), d, m.group(2)))
+    joined = re.sub(r'(<section id="s\d+"><h2>)(.*?</h2>)', icon, joined)
+    tiles = ""  # the section list itself is the menu (numbered by css), so no second list of the same names
+    _unused = "".join('<a class="dw-topic" href="#%s"><b>%d</b><span>%s</span></a>' % (sid, i + 1, name)
+                    for i, (sid, name) in enumerate(re.findall(r'<a href="#(s\d+)">(.*?)</a>', "".join(toc))))
     page = ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<meta name="robots" content="noindex,nofollow"><title>Arabic Materials</title>'
             '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Literata:opsz,wght@7..72,600&family=Noto+Naskh+Arabic&display=swap">'
-            '<style>%s</style></head><body><main><h1>Arabic Materials</h1>'
-            '<p class="lede">Your explanations for the student: prepositions, possession, adjectives, time, kul, the b- prefix and the pointer rule. '
-            'Your words, copied from your Doc (last edited %s). <a href="grammar-rules.html">The student&#39;s grammar rules &rarr;</a></p>'
-            '<nav class="toc">%s</nav>%s<footer>Copied word for word from your Google Doc &ldquo;%s&rdquo; (read %s). '
-            'Built by scripts/build_amal_docs.py.</footer></main>'
+            '<script src="../js/theme.js"></script><style>%s</style><link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/dw-amal.css?v=dw1">'
+            '</head><body class="dw-doc dw-mat"><main><div class="dw-top" data-theme-slot></div><h1>Arabic Materials</h1>'
+            '<p class="lede dw-lede">Your Doc notes, word for word <span class="dw-chip muted">edited %s</span> <a class="dw-btn" href="grammar-rules.html">Grammar rules &rarr;</a></p>'
+            '%s%s<footer>Copied from your Google Doc &ldquo;%s&rdquo; (read %s).</footer></main>'
+            '<script>(function(){function sec(el){return el&&el.closest("section")}document.addEventListener("click",function(e){var b=e.target.closest(".dw-parts, main section > h2");'
+            'if(b)sec(b).classList.toggle("dw-open")});function hash(){var a=location.hash&&document.getElementById(location.hash.slice(1));if(a&&sec(a))sec(a).classList.add("dw-open")}'
+            'window.addEventListener("hashchange",hash);hash()})();</script>'
             # opened from the Tutor menu (go.html adds from=app): the same Back-to-Tutor bar as her other pages
             '<script>(function(){if(new URLSearchParams(location.search).get("from")!=="app")return;var b=document.createElement("div");'
             'b.setAttribute("style","position:sticky;top:0;z-index:9;background:#1D2521;color:#fff;font:600 14px system-ui;padding:9px 14px");'
@@ -192,7 +223,7 @@ def materials(meta):
             'document.querySelectorAll(\'a[href="grammar-rules.html"]\').forEach(function(a){a.href="grammar-rules.html?t="+encodeURIComponent(t);});})();</script>'
             '<script src="../js/rule-names.js?v=20261002-1" defer></script>'   # rule ids explain themselves on hover/tap
             '</body></html>\n'
-            % (CSS, meta["edited"], "".join(toc), "".join(body), html.escape(meta["title"]), meta["read"]))
+            % (CSS, meta["edited"], tiles, joined, html.escape(meta["title"]), meta["read"]))
     open(os.path.join(DOCS, "amal", "materials.html"), "w", encoding="utf-8", newline="").write(page)
     print("materials: %d sections -> docs/amal/materials.html" % n)
 
