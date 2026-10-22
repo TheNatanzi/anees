@@ -269,6 +269,11 @@ function renderMetrics() {
     if (/\d/.test(c[2])) { var d = el('details', 'dw-info'); var s = el('summary', '', 'ⓘ'); s.setAttribute('aria-label', 'How this is counted'); d.appendChild(s); d.appendChild(el('div', '', c[2])); lab.appendChild(document.createTextNode(' ')); lab.appendChild(d); }
     box.appendChild(m);
   });
+  // de-word: words + grammar right are the two hero numbers; the other four open from one tap
+  var tiles = [].slice.call(box.children), more = el('details', 'ls-more'), ms = el('summary', '', 'More numbers'), mg = el('div', 'ls-moregrid');
+  more.appendChild(ms); more.appendChild(mg);
+  [0, 1, 4, 5].forEach(function (i) { if (tiles[i]) mg.appendChild(tiles[i]); });
+  box.appendChild(more);
 }
 
 /* ---------- tabs + chips ---------- */
@@ -1159,7 +1164,10 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     DATA = json;
     var L = lessons();
     $('ls-source').textContent = L.length + ' lessons · ' + L[0].date.slice(5) + ' to ' + L[L.length - 1].date.slice(5);
-    $('ls-coverage').textContent = 'Source: docs/data/lessons.json · updated ' + DATA.updated + ' · lesson types are Claude’s reading, tell Claude to change any.';
+    $('ls-coverage').innerHTML = '';   // de-word: the source line opens in place
+    var cd = el('details', 'dw-info'), cs = el('summary', '', 'ⓘ'); cs.setAttribute('aria-label', 'Where these numbers come from'); cd.appendChild(cs);
+    cd.appendChild(el('div', '', 'Source: docs/data/lessons.json · updated ' + DATA.updated + ' · lesson types are Claude’s reading, tell Claude to change any.'));
+    $('ls-coverage').appendChild(document.createTextNode('Source ')); $('ls-coverage').appendChild(cd);
     window.AneesLessonMath.wireTaps(document);
     window.AneesLessonMath.stampMethod(DATA, $('ls-coverage'), 'after');   // 2026-10-05: the numbers are counted another way from that day
     renderMetrics();
@@ -1207,7 +1215,7 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
   function dwMethod() {
     [].slice.call(document.querySelectorAll('#anees-bank p.method-change:not([data-dw])')).forEach(function (p) {
       p.dataset.dw = '1'; p.removeAttribute('style');
-      var w = el('div', 'dw-method'), c = el('span', 'dw-chip warn', 'Counting changed ' + (p.dataset.methodChange || '') + ' · older numbers not comparable');
+      var w = el('div', 'dw-method'), md = (p.dataset.methodChange || '').match(/^\d{4}-(\d\d)-(\d\d)$/), c = el('span', 'dw-chip warn', 'Counting changed ' + (md ? ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+md[1] - 1] + ' ' + (+md[2]) : (p.dataset.methodChange || '')));
       var d = el('details', 'dw-info'), s = el('summary', '', 'ⓘ'); s.setAttribute('aria-label', 'What changed'); d.appendChild(s);
       var inner = el('div', ''); d.appendChild(inner); p.before(w); w.appendChild(c); w.appendChild(document.createTextNode(' ')); w.appendChild(d); inner.appendChild(p);
     });

@@ -304,3 +304,27 @@ html[data-look="kurz"] #anees-bank .fl .fl-path::before { top: 24px; height: 4px
 }
 #anees-bank .fl > .warn { margin-top: 10px; font-size: 13px; }
 #ar-tab-unknowns .ar-unk-h .dw-sumbig { min-width: 230px; } @media (max-width: 600px) { #ar-tab-unknowns .ar-unk-h .dw-sumbig { min-width: 0; } }
+/* round 10 */
+@media (max-width: 600px) {
+  #anees-bank .fl details.phase > summary header { grid-template-columns: 28px minmax(0, 1fr) auto !important; }
+  #anees-bank .fl details.phase > summary header h2 { grid-column: 2; min-width: 0; }
+  #anees-bank .fl details.phase > summary .fl-sum, #anees-bank .fl details.phase > summary .when { grid-column: 2 / 4 !important; }
+  #anees-bank .fl details.phase > summary header::after { grid-column: 3 !important; grid-row: 1; }
+}
+#anees-bank #ls-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+#anees-bank #ls-metrics > .ab-metric { grid-column: auto !important; grid-row: auto !important; }
+#anees-bank #ls-metrics > .ab-metric .ab-number { font-size: clamp(30px, 6vw, 44px) !important; }
+#anees-bank #ls-metrics > details.ls-more { grid-column: 1 / -1; }
+#anees-bank details.ls-more > summary { display: inline-block; list-style: none; cursor: pointer; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line); background: var(--dw-card); font-size: 12.5px; font-weight: 600; }
+#anees-bank details.ls-more > summary::-webkit-details-marker { display: none; }
+#anees-bank details.ls-more > summary::before { content: "+ "; }
+#anees-bank details.ls-more[open] > summary::before { content: "− "; }
+#anees-bank .ls-moregrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
+#anees-bank .ls-moregrid .ab-metric { padding: 8px 12px !important; min-height: 0 !important; }
+#anees-bank .ls-moregrid .ab-number { font-size: 22px !important; margin: 0 !important; }
+@media (max-width: 680px) { #anees-bank .ls-moregrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+#anees-bank #ls-source { white-space: nowrap; }
+@media (max-width: 600px) { #anees-bank .ab-header .dw-scene.dw-mic { display: none; } }
+html[data-look="kurz"] body > .pn-bar { background: var(--kz-panel) !important; border-color: var(--kz-line) !important; color: var(--kz-ink); }
+html[data-look="kurz"] body > .pn-bar .pn-tab { color: var(--kz-muted); border-radius: 16px; }
+html[data-look="kurz"] body > .pn-bar .pn-tab[aria-current="page"] { background: var(--kz-yellow); color: #14204A; }

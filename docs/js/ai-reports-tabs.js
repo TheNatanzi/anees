@@ -116,9 +116,9 @@ function dwBigs(){
  // each number sits on its own section row (one card per blind spot: number, meaning, tap to open)
  const put=(sec,b,s,warn)=>{const h=document.querySelector(sec+' details.ar-unk-d > summary .ar-unk-h');if(!h)return;const p=part(b);
   const n=document.createElement('span');n.className='dw-sumbig'+(warn?' dw-warnbig':'');
-  n.innerHTML=`<b>${b}</b><small>${s}${warn?' · needs work':''}</small>${p===null?'':`<i class="dw-split dw-bigbar" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
+  n.innerHTML=`<b>${b}</b><small>${s}</small>${p===null?'':`<i class="dw-split dw-bigbar" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
  const VT=(txt('air-unknowns-vocab').match(/of the student’s ([\d,]+) word events/)||[])[1];
- put('#ar-unk-listen',L,'labels right');put('#ar-unk-vocab',VT?`${V}/${VT}`:V,'events to settle',1);put('#ar-unk-grammar',`${G2}/${G1}`,'slips caught',1);if(N)put('#ar-unk-names',N,'names to label',1);
+ put('#ar-unk-listen',L,'labels correct · higher is better');put('#ar-unk-vocab',V,(VT?`of ${VT} `:'')+'events need review',1);put('#ar-unk-grammar',`${G2}/${G1}`,'slips detected · higher is better',1);if(N)put('#ar-unk-names',N,'names need a label',1);
  const nav=T.querySelector('.ar-jump');if(nav)nav.after(box);if(nav)nav.hidden=true;
 }
 let dwT=0;
