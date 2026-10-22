@@ -1213,5 +1213,17 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     sel.closest('.ab-controls').after(box);
   }
   dwHead(); dwAlerts(); dwSort();
-  new MutationObserver(dwAlerts).observe(document.querySelector('main') || document.body, { childList: true, subtree: true });
+  // the three share tiles get a bar under their number (the number and its caption stay)
+  function dwTileBars() {
+    [].slice.call(document.querySelectorAll('#ls-metrics .ab-metric')).forEach(function (m) {
+      if (m.querySelector('.ls-herobar')) return;
+      var lab = (m.querySelector('.ab-metric-label') || {}).textContent || '', nEl = m.querySelector('.ab-number');
+      if (!nEl || !/^(Words right|Grammar right|Speaking share)/.test(lab.trim())) return;
+      var v = parseFloat(nEl.textContent.replace(/[^\d.]/g, '')); if (isNaN(v)) return;
+      var hb = el('div', 'dw-split ls-herobar'); hb.setAttribute('aria-hidden', 'true'); var hi = el('i', 'ls-wok'); hi.style.width = v + '%'; hb.appendChild(hi);
+      nEl.after(hb);
+    });
+  }
+  dwTileBars();
+  new MutationObserver(function () { dwAlerts(); dwTileBars(); }).observe(document.querySelector('main') || document.body, { childList: true, subtree: true });
 })();

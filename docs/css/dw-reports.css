@@ -529,7 +529,7 @@ html.lsn-page .lsn-map figcaption { font-size: 14px; color: var(--dw-ink); }
 @media (max-width: 680px) { #anees-bank #ls-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } #anees-bank #ls-metrics .ab-number, #anees-bank #ls-metrics .ab-metric .ab-number { font-size: 26px !important; } }
 /* V1 rows: the count and share read big next to each bar */
 #ar-tab-unknowns .vu-v { font-size: 17px; font-weight: 700; color: var(--dw-ink); }
-#ar-tab-unknowns .vu-v small, #ar-tab-unknowns .vu-row small { font-size: 13px; font-weight: 700; color: var(--dw-ink); }
+#ar-tab-unknowns .vu-v small { font-size: 13px; font-weight: 700; color: var(--dw-ink); }
 html.lsn-page a.lsn-jump { display: block; text-align: center; margin: 4px 0 10px; padding: 10px 14px; border-radius: 12px; background: var(--dw-a1); color: var(--dw-card) !important; font-weight: 700; text-decoration: none; font-size: 16px; }
 html.lsn-page .lsn-playkey { margin-left: 10px; font-weight: 600; }
 html.lsn-page .lsn-map figcaption { flex-wrap: wrap; }
@@ -569,3 +569,9 @@ html.lsn-page .lsn-map figcaption .lk-i i { margin-left: 0 !important; }
 #anees-bank .fl .fl-mini > span { padding: 4px 12px; border-radius: 999px; background: var(--dw-card); border: 1px solid var(--dw-line); font-weight: 600; font-size: 13.5px; }
 #anees-bank .fl .fl-mini > span b { font-size: 16px; color: var(--dw-a1); }
 #anees-bank .fl .fl-mini > i { font-style: normal; color: var(--dw-muted); }
+#anees-bank .fl .box > .fl-mini { flex-direction: row !important; align-items: center !important; }
+html.lsn-page .lsn-bigs { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+@media (max-width: 600px) { html.lsn-page .lsn-bigs { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+html.lsn-page .lsn-arbig b { color: var(--dw-a1); }
+html.lsn-page .lsn-flag { font-size: 13px; padding: 1px 8px; border-radius: 999px; background: var(--dw-a2); color: #fff !important; }
+#anees-bank #ls-metrics .ls-herobar { background: var(--dw-line); margin: 4px 0 6px; }

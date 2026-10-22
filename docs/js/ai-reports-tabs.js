@@ -97,6 +97,12 @@ function dwTop(){const T=$('ar-tab-unknowns');if(!T||$('dw-top-bigs'))return;con
  const box=document.createElement('div');box.id='dw-top-bigs';box.className='dw-bigs';
  box.innerHTML=`<a class="dw-big" href="#ar-unk-listen"><b>${L}</b><span>🎧 listening labels right</span></a><a class="dw-big dw-warnbig" href="#ar-unk-vocab"><b>${V}</b><span>📚 word events unresolved</span></a><a class="dw-big dw-warnbig" href="#ar-unk-grammar"><b>${(n(G1)-n(G2)).toLocaleString('en-US')}/${G1}</b><span>✏️ grammar slips missed</span></a>`;
  nav.after(box);}
+// L1: direct evidence vs content reply only as one two-part bar (both counts stay as text)
+function dwL1(){const L=$('air-unknowns-listen');if(!L||L.querySelector('.dw-l1bar'))return;const t=L.textContent;
+ const a=(t.match(/direct evidence ([\d,]+)/)||[])[1],b=(t.match(/content reply only ([\d,]+)/)||[])[1];if(!a||!b)return;
+ const n=x=>+x.replace(/,/g,''),p=Math.round(100*n(a)/(n(a)+n(b)));
+ const host=[...L.querySelectorAll('*')].find(e=>e.children.length&&/direct evidence/.test(e.textContent)&&/content reply only/.test(e.textContent)&&![...e.children].some(c=>/direct evidence/.test(c.textContent)&&/content reply only/.test(c.textContent)));if(!host)return;
+ const bar=document.createElement('div');bar.className='dw-split dw-l1bar';bar.setAttribute('aria-hidden','true');bar.innerHTML=`<i style="width:${p}%"></i><i style="width:${100-p}%"></i>`;host.after(bar);}
 function dwPass(){dwClip();try{dwTop();}catch(e){}try{dwStat();}catch(e){}try{dwL1();}catch(e){}try{dwV1();}catch(e){}document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));

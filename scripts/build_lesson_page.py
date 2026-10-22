@@ -180,6 +180,9 @@ def mark_turns(page):
         btn = m.group(1)[:-len('</button>')] + mark + '</button>' if mark else m.group(1)
         return '<p dir="auto" class="turn">%s<b>%s</b>: <span class="words">%s</span></p>' % (btn, m.group(3), text)
     page = TURN.sub(sub, page)
+    # a 4th headline number: the share of lines that hold Arabic (2+ Arabic words), the one share the learner tracks
+    arp = round(100.0 * sum(has) / len(has))
+    page = page.replace('<span>typed in chat</span></div>', '<span>typed in chat</span></div><div class="dw-big lsn-arbig"><b>%d%%</b><span>lines in Arabic</span><small>%d of %d lines</small></div>' % (arp, sum(has), len(has)), 1)
     # Round 2 (Medi 2026-10-22: "you cut out too much data"): no line folds away any more. Filler lines stay in view
     # (drawn small), the talk before the Arabic practice stays in view, and a divider marks where the practice starts.
     if start is not None and start > 0:
@@ -190,7 +193,7 @@ def mark_turns(page):
         # the talk map gets a marker where the practice starts (a tap jumps there)
         # round 2: the start is one big button under the strip (the bubble on the strip was a repeat)
         end = max(float(r[1]) for r in rows) or 1.0
-        flag = '<a class="lsn-flag" href="#arabic-start" style="left:%.1f%%" aria-label="Arabic practice starts">Arabic</a>' % (100 * float(rows[start][1]) / end)
+        flag = '<a class="lsn-flag" href="#arabic-start" style="left:%.1f%%" aria-label="Arabic practice starts">▶ Practice starts %s</a>' % (100 * float(rows[start][1]) / end, clock(float(rows[start][1])))
         page = page.replace('</svg><figcaption>', '</svg>' + flag + '<figcaption>', 1)
         jump = '<a class="lsn-jump" href="#arabic-start">▶ Start Arabic practice · %s</a>' % clock(float(rows[start][1]))
         page = page.replace('</figcaption></figure>', '</figcaption></figure>' + jump, 1)
