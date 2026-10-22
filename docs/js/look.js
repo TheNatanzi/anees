@@ -19,7 +19,7 @@
     if (document.querySelector('link[data-anees-look-css]')) return;
     const base = HERE.replace(/js\/look\.js.*$/, '');
     const link = document.createElement('link');
-    link.rel = 'stylesheet'; link.href = base + 'css/look.css?v=dw1'; link.setAttribute('data-anees-look-css', '');
+    link.rel = 'stylesheet'; link.href = base + 'css/look.css?v=dw2'; link.setAttribute('data-anees-look-css', '');
     (document.head || document.documentElement).appendChild(link);
   }
   function mount(tries) {

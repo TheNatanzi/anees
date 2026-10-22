@@ -71,12 +71,71 @@ details.dw-info > div { display: block; margin: 6px 0; padding: 8px 10px; border
 .dw-cap { font-size: 12px; color: var(--dw-muted); margin: 2px 0 0; }
 
 /* ---------- 3 · Look A "flat": Anees colours, flat colour blocks, big numbers ---------- */
-html[data-look="flat"] #anees-bank .ab-metric, html[data-look="flat"] #anees-bank .vp-card,
-html[data-look="flat"] .dw-big { box-shadow: none; }
-html[data-look="flat"] .dw-big { border: 0; border-left: 5px solid var(--dw-a1); }
-html[data-look="flat"] .dw-big:nth-child(4n+2) { border-left-color: var(--dw-a2); }
-html[data-look="flat"] .dw-big:nth-child(4n+3) { border-left-color: var(--dw-a3); }
-html[data-look="flat"] .dw-big:nth-child(4n+4) { border-left-color: var(--dw-a4); }
+/* ONE tile on every page (Medi 2026-10-22: "get the tiles to fit and match on every page").
+   Two markups exist: the kit tile (.dw-big/.fu-/.gu-/.fl-/.vu-tile: b = number, span = label, small = sub) and the
+   card tile (.ab-metric/.vp-card: label div, number div/span, sub div). Same box, same number, same label, same grid.
+   :is(#anees-bank, body) lifts these over page rules like "#anees-bank .ab-metric". The Big Picture pipeline keeps its
+   joined arrow shape (it is a flowchart) and only takes the number and label. The Tutor header chips (.tu-bigs) stay small. */
+html[data-look="flat"] {
+  --tile-min: 172px; --tile-h: 104px; --tile-num: 30px; --tile-gap: 10px;
+}
+html[data-look="flat"] :is(#anees-bank, body) :is(.dw-bigs, .fu-tiles, .gu-tiles, .fl-tiles, .vu-tiles, .ab-metrics, .vp-cards, .fc-grid, .st-score, .st-shead):not(.dw-tiles) {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--tile-min), 1fr)); gap: var(--tile-gap); align-items: stretch;
+}
+html[data-look="flat"] :is(#anees-bank, body) :is(.dw-big, .fu-tile, .gu-tile, .fl-tile, .vu-tile, .ab-metric, .vp-card):not(.tu-bigs *) {
+  position: relative; display: flex; flex-direction: column; justify-content: flex-start; gap: 4px; min-width: 0;
+  height: auto; min-height: var(--tile-h); margin: 0; padding: 12px 14px; box-sizing: border-box;
+  background: var(--dw-card); border: 1px solid var(--dw-line); border-left: 4px solid var(--dw-a1); border-radius: 10px; box-shadow: none;
+  grid-column: auto;
+}
+html[data-look="flat"] :is(#anees-bank, body) :is(.dw-big, .fu-tile, .gu-tile, .fl-tile, .vu-tile, .ab-metric, .vp-card):not(.tu-bigs *) > * { order: 4; }
+/* the number */
+html[data-look="flat"] :is(#anees-bank, body) :is(.dw-big, .fu-tile, .gu-tile, .fl-tile, .vu-tile):not(.tu-bigs *) > b,
+html[data-look="flat"] :is(#anees-bank, body) .ab-metric > .ab-number,
+html[data-look="flat"] :is(#anees-bank, body) .vp-card .vp-num,
+html[data-look="flat"] :is(#anees-bank, body) .bp-st > b {
+  display: block; margin: 0; font: 600 var(--tile-num)/1.08 var(--sabz-font-serif, Georgia, serif);
+  font-variant-numeric: tabular-nums lining-nums; letter-spacing: 0; color: var(--dw-ink); overflow-wrap: anywhere;
+}
+html[data-look="flat"] :is(#anees-bank, body) :is(.dw-big, .fu-tile, .gu-tile, .fl-tile, .vu-tile):not(.tu-bigs *) > b,
+html[data-look="flat"] :is(#anees-bank, body) .ab-metric > .ab-number { order: 1; }
+/* the number inside a card's value row comes first, its unit and change chip after it */
+html[data-look="flat"] :is(#anees-bank, body) .vp-card .vp-card-value { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+html[data-look="flat"] :is(#anees-bank, body) .vp-card .vp-card-value > .vp-num { order: -1; }
+/* the label: one small caps line above the number on card tiles, below it on kit tiles (their markup order), same look */
+html[data-look="flat"] :is(#anees-bank, body) :is(.dw-big, .fu-tile, .gu-tile, .fl-tile, .vu-tile):not(.tu-bigs *) > span:first-of-type,
+html[data-look="flat"] :is(#anees-bank, body) .ab-metric > .ab-metric-label,
+html[data-look="flat"] :is(#anees-bank, body) .vp-card > .vp-card-label,
+html[data-look="flat"] :is(#anees-bank, body) .bp-st > span {
+  display: block; margin: 0; font: 600 11.5px/1.3 var(--sabz-font-sans, system-ui); letter-spacing: .06em; text-transform: uppercase;
+  color: var(--dw-muted); overflow-wrap: anywhere;
+}
+html[data-look="flat"] :is(#anees-bank, body) :is(.dw-big, .fu-tile, .gu-tile, .fl-tile, .vu-tile):not(.tu-bigs *) > span:first-of-type { order: 2; }
+html[data-look="flat"] :is(#anees-bank, body) :is(.ab-metric > .ab-metric-label, .vp-card > .vp-card-label) { order: 0; }
+html[data-look="flat"] :is(#anees-bank, body) .vp-card > .vp-card-value { order: 1; margin: 0; }
+/* the small line under it */
+html[data-look="flat"] :is(#anees-bank, body) :is(.dw-big, .fu-tile, .gu-tile, .fl-tile, .vu-tile):not(.tu-bigs *) > :is(small, span ~ span),
+html[data-look="flat"] :is(#anees-bank, body) .ab-metric > .ab-tiny,
+html[data-look="flat"] :is(#anees-bank, body) .vp-card > .vp-card-sub {
+  order: 3; display: block; margin: 0; font: 400 12px/1.4 var(--sabz-font-sans, system-ui); color: var(--dw-muted); text-transform: none; letter-spacing: 0;
+}
+/* the icon (some kit tiles have one): top right, same size everywhere */
+html[data-look="flat"] :is(#anees-bank, body) :is(.dw-big, .fu-tile, .gu-tile, .fl-tile, .vu-tile):not(.tu-bigs *) > svg:first-child {
+  position: absolute; top: 10px; right: 10px; width: 20px; height: 20px;
+}
+/* status tiles keep their meaning in the stripe, nothing else */
+html[data-look="flat"] :is(#anees-bank, body) :is(.dw-warn, .dw-warnbig, .s-Shaky, .st-now):is(.dw-big, .fu-tile, .gu-tile) { border-left-color: var(--dw-warn); }
+html[data-look="flat"] :is(#anees-bank, body) :is(.dw-bad, .s-Wrong):is(.dw-big, .fu-tile, .gu-tile) { border-left-color: var(--dw-bad); }
+html[data-look="flat"] :is(#anees-bank, body) :is(.dw-ok, .s-Mastered, .s-Good):is(.dw-big, .fu-tile, .gu-tile) { border-left-color: var(--dw-ok); }
+html[data-look="flat"] :is(#anees-bank, body) :is(.s-None, .st-nil, .bp-zero):is(.dw-big, .fu-tile, .gu-tile, .bp-st) { border-left-color: var(--dw-line); }
+/* Big Picture pipeline: same number + label, same height as a tile */
+html[data-look="flat"] :is(#anees-bank, body) .bp-st { min-height: var(--tile-h); align-content: center; }
+@media (max-width: 600px) {
+  html[data-look="flat"] { --tile-min: 140px; --tile-h: 92px; --tile-num: 26px; --tile-gap: 8px; }
+  html[data-look="flat"] :is(#anees-bank, body) :is(.dw-bigs, .fu-tiles, .gu-tiles, .fl-tiles, .vu-tiles, .ab-metrics, .vp-cards, .fc-grid, .st-score, .st-shead):not(.dw-tiles) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 
 /* ---------- 4 · Look B "kurz": deep navy, bright accents, rounded shapes ---------- */
 html[data-look="kurz"][data-look]:root {
