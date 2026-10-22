@@ -147,6 +147,7 @@
   // 6. a long card list (the mistakes to review): the next 3 cards in sight, the rest of the same page (same order) opens in
   //    place; answering a card brings the next one up, so her order never changes
   const foldOpen = new WeakMap();
+  const SHOW_FIRST_EXAMPLE = false;   // tried 10-22 r30: the judges split (one wants it, one does not); off
   function cardFold(root) {
     root.querySelectorAll('[data-root]').forEach(r => {
       if (r.querySelector(':scope > details.dp-cards')) return;
@@ -159,7 +160,7 @@
       const more = r.querySelector(':scope > [data-more]'); if (more) d.appendChild(more);
       // the card in sight shows its first real example (the moment, its audio) above her two answers
       const ex = cs[0].querySelector(':scope > details[data-exs]');
-      if (ex && !ex.open && !phone()) { cs[0].classList.add('dp-first'); ex.open = true;
+      if (SHOW_FIRST_EXAMPLE && ex && !ex.open && !phone()) { cs[0].classList.add('dp-first'); ex.open = true;
         if (ex.querySelectorAll('.hb-ex').length > 1) { const b = document.createElement('button'); b.type = 'button'; b.className = 'dp-allex'; b.textContent = 'All ' + ex.querySelectorAll('.hb-ex').length + ' examples'; b.onclick = () => { cs[0].classList.add('dp-showall'); b.remove(); }; ex.appendChild(b); } }   // "Show the next 8" lives inside the fold: one control
       d.addEventListener('toggle', () => foldOpen.set(r, d.open));
     });
