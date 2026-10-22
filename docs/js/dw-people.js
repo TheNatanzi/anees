@@ -44,7 +44,11 @@
       if (head) { const k = /new word/i.test(txt(head)) ? 'new' : /grammar/i.test(txt(head)) ? 'gram' : 'word'; head.insertAdjacentHTML('afterbegin', GLYPH[k]); }
       const why = c.querySelector(':scope > .hb-why'), eg = [...c.querySelectorAll(':scope > p.hb-sub')].find(p => /^e\.g\./.test(txt(p)));
       const times = [...c.querySelectorAll(':scope > p.hb-sub')].find(p => /^(\d[\d,]* times? in|Came up \d)/.test(txt(p)));
-      if (times) { times.classList.add('dp-times'); times.innerHTML = `<span class="dw-chip muted">${times.innerHTML}</span>`; }
+      if (times) {   // "3 times in 3 lessons" -> one dot per time (up to 8) + the same words as a chip
+        times.classList.add('dp-times');
+        const n = Math.min(8, parseInt(txt(times).replace(/^Came up /, ''), 10) || 0);
+        times.innerHTML = `<span class="dp-dots" aria-hidden="true">${'<i></i>'.repeat(n)}</span><span class="dw-chip muted">${times.innerHTML}</span>`;
+      }
       const long = [...c.querySelectorAll(':scope > .hb-en')].filter(x => txt(x).length > 60);   // a long note in place of a meaning line
       const move = [why, eg, ...long].filter(x => x && txt(x));
       if (!move.length) return;
@@ -81,10 +85,24 @@
       d.appendChild(s); h.replaceWith(d); body.forEach(x => d.appendChild(x));
     });
   }
+  // 5. "28 left to decide" under the filter chips -> a big number and one split bar (done / left) read from the chips
+  function progress(root) {
+    root.querySelectorAll('p.hb-prog[data-prog]').forEach(p => {
+      const m = /^(\d[\d,]*) left to decide/i.exec(txt(p)), task = p.closest('.hb-task');
+      if (!m || !task) return;
+      const chip = re => { const c = [...task.querySelectorAll('.hb-chip')].find(x => re.test(txt(x))); const k = c && /\((\d+)\)/.exec(txt(c)); return k ? +k[1] : null; };
+      const all = chip(/^All\b/), left = parseInt(m[1].replace(/,/g, ''), 10);
+      if (!all || left > all) return;
+      const key = left + '/' + all; if (p.dataset.dp === key && p.querySelector('.dp-pbar')) return; p.dataset.dp = key;
+      p.classList.add('dp-prog');
+      const old = p.querySelector('.dp-pbar'); if (old) old.remove();
+      p.insertAdjacentHTML('beforeend', `<span class="dp-pbar" role="img" aria-label="${all - left} of ${all} done"><span class="dw-split"><i style="width:${(100 * (all - left) / all).toFixed(1)}%"></i></span><span class="dp-pdone">${all - left} done</span></span>`);
+    });
+  }
   let busy = false;
   function run() {
     if (busy) return; busy = true;
-    try { intros(view); cards(view); grammar(view); lists(view); } finally { busy = false; }
+    try { intros(view); cards(view); grammar(view); lists(view); progress(view); } finally { busy = false; }
   }
   let t = 0;
   new MutationObserver(() => { if (!busy) { clearTimeout(t); t = setTimeout(run, 30); } }).observe(view, { childList: true, subtree: true });

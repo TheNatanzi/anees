@@ -289,3 +289,17 @@ html[data-look="kurz"] #anees-bank details.tu-more > summary { border-radius: 18
 body .anees-look button { min-height: 0; margin: 0; padding: 0 8px; height: 24px; border: 0; background: transparent; color: inherit; font: 600 12px/1 var(--sabz-font-sans, system-ui); cursor: pointer; }
 body .anees-look button[aria-pressed="true"] { background: var(--dw-knob, light-dark(#FFFDF6, #2C3B34)); box-shadow: 0 1px 2px rgb(0 0 0 / .2); }
 body > .anees-look:not(.anees-look-float) { position: fixed; left: 12px; bottom: 18px; width: 96px; margin: 0; z-index: 50; }
+/* round 15: dots per time, the list's progress as one split bar, wrong / right marked ✗ / ✓ at every width */
+#anees-bank .dp-dots { display: inline-flex; gap: 3px; }
+#anees-bank .dp-dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--dw-a2); display: block; }
+#anees-bank .dp-prog { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; }
+#anees-bank .dp-pbar { display: inline-flex; align-items: center; gap: 8px; flex: 1 1 160px; text-transform: none; letter-spacing: 0; font-weight: 600; color: var(--dw-muted); }
+#anees-bank .dp-pbar .dw-split { flex: 1; height: 10px; margin: 0; }
+#anees-bank .dp-pbar .dw-split > i { background: var(--dw-ok); }
+#anees-bank .hb-card .tv-pair { flex-direction: column; align-items: stretch; gap: 4px; }
+#anees-bank .hb-card .tv-pair .tv-arrow { display: none; }
+#anees-bank .hb-card .tv-pair .tv-wrong { border-right: 4px solid var(--dw-bad); padding-right: 8px; }
+#anees-bank .hb-card .tv-pair .tv-right { border-right: 4px solid var(--dw-ok); padding-right: 8px; }
+#anees-bank .hb-card .tv-wrong::before { content: "✗ "; color: var(--dw-bad); }
+#anees-bank .hb-card .tv-right::before { content: "✓ "; color: var(--dw-ok); }
+@media (min-width: 960px) { #anees-bank .hb-panel > .hb-pnote { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } }
