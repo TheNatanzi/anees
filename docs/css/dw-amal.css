@@ -480,3 +480,54 @@ html[data-look="kurz"] #anees-bank #st-guard .dw-chip::before, html[data-look="k
 }
 @media (max-width: 680px) { body:has(> .pn-bar) > #anees-bank .ab-shell { min-height: 0; } }
 @media (max-width: 680px) { #anees-bank .st-tabnote { height: auto; margin: 4px 0; } #anees-bank .st-tabnote > details.dw-info { position: static; } #anees-bank .st-tabnote > details.dw-info[open] > div { position: static; width: auto; } }
+.dw-gate .dw-lock { width: 104px; height: 78px; }
+html[data-look] #anees-bank .dw-paste .dw-go { color: var(--sabz-bg, #fff); }
+html[data-look="kurz"] #anees-bank .dw-paste .dw-go { background: var(--kz-yellow); color: #14204A; }
+@media (max-width: 680px) { .dw-gate .dw-lock { width: 88px; height: 66px; } }
+/* settings: a warning turns its robot's box amber (the one thing to act on) */
+#anees-bank #st-guard:has(.warn), #anees-bank #st-amal:has(.warn) { border-color: var(--dw-warn); box-shadow: inset 4px 0 0 var(--dw-warn); }
+#anees-bank #st-guard .dw-chip.warn, #anees-bank #st-amal .dw-chip.warn { font-size: 13px; }
+html[data-look="kurz"] #anees-bank #st-guard:has(.warn), html[data-look="kurz"] #anees-bank #st-amal:has(.warn) { box-shadow: inset 6px 0 0 var(--kz-yellow); }
+/* the one action: review what needs work */
+body.dw-doc .dw-work { display: block; width: 100%; margin: 4px 0 6px; padding: 12px 16px; border: 0; border-radius: 12px; cursor: pointer;
+  background: var(--dw-a1); color: var(--sabz-bg, #fff); font: 700 16px/1.2 var(--sabz-font-sans, system-ui); text-align: left; }
+body.dw-doc .dw-work b { font-size: 20px; }
+body.dw-doc .dw-work[aria-pressed="true"] { outline: 3px solid var(--dw-warn); outline-offset: 2px; }
+html[data-look="kurz"] body.dw-doc .dw-work { background: var(--kz-yellow); color: #14204A; border-radius: 999px; }
+body[data-dw-filter="Work"] article:not(:has(> header .pill.s-Shaky)):not(:has(> header .pill.s-Wrong)) { display: none !important; }
+body[data-dw-filter="Work"].dw-doc main section > article { display: block; }
+body[data-dw-filter="Work"].dw-doc main section:not(.dw-open) > article { display: block; }
+/* the ask in one row: three steps + ⓘ; the materials link sits small on the right */
+body.dw-doc .ask { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 8px 12px; margin-bottom: 8px; }
+body.dw-doc .ask > b { flex: none; }
+body.dw-doc .ask .dw-flow { flex: 1 1 420px; margin: 0; }
+body.dw-doc .ask .dw-flow > li { padding: 5px 8px; }
+body.dw-doc .ask details.dw-askmore[open] { flex-basis: 100%; }
+body.dw-doc .an-box { border: 0; background: none; padding: 0 2px; margin: 0 0 8px; text-align: right; }
+body.dw-doc .dw-status > .dw-cap { display: none; }
+body.dw-doc .dw-big.dw-filt small { display: none; }
+body.dw-doc .dw-fam { flex-direction: row-reverse; justify-content: space-between; }
+body.dw-doc .dw-famn { font-size: 15px; }
+body.dw-doc .dw-famn b { font-size: 20px; }
+body.dw-doc .dw-dots { flex: 0 1 auto; justify-content: flex-end; }
+body.dw-doc .dw-dots i { width: 10px; height: 10px; border-radius: 3px; }
+@media (max-width: 680px) {
+  .dw-tiles { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; gap: 6px; }
+  .dw-tiles > .dw-filt { grid-column: span 2; }
+  .dw-tiles > .dw-filt:nth-child(4), .dw-tiles > .dw-filt:nth-child(5) { grid-column: span 3; }
+  body.dw-doc .dw-big.dw-filt b { font-size: 28px; }
+  body.dw-doc .dw-big.dw-filt span { font-size: 11px; white-space: nowrap; }
+  body.dw-doc .dw-fam { flex-direction: column; align-items: flex-start; gap: 6px; }
+  body.dw-doc .dw-dots { justify-content: flex-start; }
+  body.dw-doc footer details { display: block; margin: 6px 0 0; }
+}
+body.dw-doc .dw-mbar { display: flex; flex: 1 1 160px; height: 12px; border-radius: 999px; overflow: hidden; background: var(--line); min-width: 120px; }
+body.dw-doc .dw-mbar > i { display: block; height: 100%; background: currentColor; }
+body.dw-doc .dw-mbar > .s-Untested, body.dw-doc .dw-mbar > .s-Unscored, body.dw-doc .dw-mbar > .s-NotTaught { opacity: .45; }
+body.dw-doc .dw-fam { flex-direction: row; }
+@media (max-width: 680px) { body.dw-doc .dw-fam { flex-direction: column-reverse; align-items: stretch; } }
+body.dw-doc .dw-dots[hidden] { display: none !important; }
+@media (max-width: 680px) {
+  .dw-tiles > .dw-filt.s-None { grid-column: span 3 !important; }
+  body.dw-doc .dw-mbar { flex: none; height: 10px; min-width: 0; width: 100%; }
+}

@@ -119,7 +119,7 @@
     const mat = SCOPE === document ? '<a href="materials.html">Your Arabic Materials &rarr;</a>' : '<a href="#materials">Your Arabic Materials &rarr;</a>';
     box.innerHTML = canWrite
       ? `<b>Write a note</b> under any rule (✎), or below for anything general. ${mat}${writer('general', 'A general note (anything not about one rule)')}`
-      : `<b>Doc notes</b> sit under each rule · ${TOKEN ? 'link expired: ask the student for a new one' : 'to write, use the student’s link'} · ${mat}`;
+      : `${TOKEN ? '<b>Link expired</b>: ask the student for a new one · ' : ''}${mat}`;
     if (ask) ask.insertAdjacentElement('afterend', box);
     else if (SCOPE.querySelector('[data-general]')) SCOPE.querySelector('[data-general]').appendChild(box);
     if (!canWrite) for (const id of Object.keys(rows)) {
