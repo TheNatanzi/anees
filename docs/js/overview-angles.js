@@ -347,7 +347,7 @@ function render(){
  const A=TOP.a,B=TOP.b,big2=(v,l)=>`<div class="dw-big"><b>${v}</b><span>${l}</span></div>`;
  const strip=A||B?`<div class="dw-bigs ov2-verdict">${A?big2(f1(A.avg),`lessons a week · goal ${TARGET[0]}–${TARGET[1]}`)+big2(`${A.inBand} of ${A.full}`,'weeks on goal'):''}${B?big2(`${B.above} of ${B.n}`,'weeks above your baseline')+big2(`${B.AX}${f1(B.last.pct)}%`,`words right, week of ${dm(B.last.k)}`):''}</div>`:'';
  // one plain-words line over the strip: where the lessons-a-week and the words-right numbers stand
- const sayA=A?(A.avg<TARGET[0]?'lessons a week under the goal':A.avg>TARGET[1]?'lessons a week over the goal':'lessons a week on the goal'):'';
+ const sayA=A?`${f1(A.avg)} lessons a week on average; ${A.inBand} of ${A.full} weeks met the ${TARGET[0]}–${TARGET[1]} goal`:'';
  const sayB=B?(B.n&&B.above*2>B.n?'words right above your baseline':B.n?'words right not yet above your baseline':''):'';
  const say=[sayB,sayA].filter(Boolean).join(' · ');
  const sayHtml=say?`<p class="ov2-say">${esc(say[0].toUpperCase()+say.slice(1))}</p>`:'';
