@@ -378,3 +378,19 @@ html[data-look="kurz"] #anees-bank .hb-ans.primary, html[data-look="kurz"] #anee
 #anees-bank .hb-card .hb-btns .hb-ans[data-rv="sheet_add"]::before { content: "+"; background: var(--dw-a1); }
 #anees-bank .hb-card .hb-btns .hb-ans[data-rv="sheet_skip"]::before { content: "–"; background: var(--dw-muted); }
 html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv]::before { color: light-dark(#fff, #0B1638); }
+/* round 23: Look-matched answer buttons (red = the student was wrong, green = fine); phone folds for filters and tools */
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"] { background: var(--dw-bad-fill); color: var(--dw-ink); border: 2px solid var(--dw-bad); }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"] small { color: var(--dw-muted); opacity: 1; }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="skip"] { background: var(--dw-ok-fill); color: var(--dw-ink); border: 2px solid var(--dw-ok); }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="skip"] small { color: var(--dw-muted); opacity: 1; }
+html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"], html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv="skip"],
+html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"] small, html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv="skip"] small { color: var(--dw-ink); }
+#anees-bank details.dp-fold-row { margin: 0 0 8px; }
+#anees-bank details.dp-fold-row > summary { cursor: pointer; list-style: none; min-height: 40px; display: flex; align-items: center; gap: 6px; padding: 6px 12px;
+  border: 1px solid var(--dw-line); border-radius: 999px; font: 600 13px var(--sabz-font-sans, system-ui); color: var(--dw-ink); background: var(--dw-card); }
+#anees-bank details.dp-fold-row > summary::-webkit-details-marker { display: none; }
+#anees-bank details.dp-fold-row > summary::after { content: '▾'; margin-left: auto; color: var(--dw-muted); }
+#anees-bank details.dp-fold-row[open] > summary::after { content: '▴'; }
+#anees-bank details.dp-fold-row[open] > summary { margin-bottom: 8px; }
+#anees-bank details.dp-tools > nav.hb-tools { border-bottom: 0; margin: 0; padding: 0; }
+@media (max-width: 680px) { #anees-bank[aria-label="Anees tutor"] .hb-tabs:not(.hb-tools) { gap: 3px; } #anees-bank[aria-label="Anees tutor"] .hb-tabs:not(.hb-tools) .hb-tab { padding: 4px 7px; font-size: 11px; gap: 3px; } }

@@ -133,10 +133,37 @@
       d.addEventListener('toggle', () => foldOpen.set(r, d.open));
     });
   }
+  // 7. phone only: the filter chips fold into one "Filter: Unanswered (28)" row, and the three tools for the student into one
+  //    "For the student" row; both open in place, every chip and tool is the same element with the same handler
+  const phone = () => window.matchMedia('(max-width: 680px)').matches;
+  function fold(el, cls, label) {
+    let d = el.parentElement && el.parentElement.matches('details.' + cls) ? el.parentElement : null;
+    if (!d) {
+      d = document.createElement('details'); d.className = cls + ' dp-fold-row';
+      const s = document.createElement('summary'); d.appendChild(s);
+      el.before(d); d.appendChild(el);
+    }
+    const s = d.querySelector(':scope > summary'), t = label();
+    if (s.textContent !== t) s.textContent = t;
+    return d;
+  }
+  function phoneFolds(root) {
+    if (!phone()) return;
+    root.querySelectorAll('.hb-task [data-filters].hb-chips').forEach(f => {
+      if (!f.querySelector('.hb-chip')) return;
+      fold(f, 'dp-filt', () => 'Filter: ' + txt(f.querySelector('.hb-chip[aria-pressed="true"]') || f.querySelector('.hb-chip')));
+    });
+    const tools = document.querySelector('nav.hb-tools');
+    if (tools) {
+      const NM = { upload: 'Upload', homework: 'Homework', 'add-grammar': 'Grammar' };
+      const d = fold(tools, 'dp-tools', () => 'For the student: ' + [...tools.querySelectorAll('.hb-tab')].map(a => { const n = txt(a.querySelector('.hb-n') || document.createElement('i')).split(' ')[0]; return (NM[a.dataset.tab] || txt(a)) + (n ? ' ' + n : ''); }).join(' · '));
+      if (tools.querySelector('.hb-tab[aria-selected="true"]')) d.open = true;
+    }
+  }
   let busy = false;
   function run() {
     if (busy) return; busy = true;
-    try { intros(view); cards(view); grammar(view); lists(view); progress(view); cardFold(view); } finally { busy = false; }
+    try { intros(view); cards(view); grammar(view); lists(view); progress(view); cardFold(view); phoneFolds(view); } finally { busy = false; }
   }
   let t = 0;
   new MutationObserver(() => { if (!busy) { clearTimeout(t); t = setTimeout(run, 30); } }).observe(view, { childList: true, subtree: true });
