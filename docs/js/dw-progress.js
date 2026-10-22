@@ -209,6 +209,22 @@
     }
   }
 
+  // 3e. Talk time: a you / tutor split bar for the last lesson (a picture of the two numbers right under it)
+  function talkSplit() {
+    const card = document.querySelector('#vp-talk .vp-card');
+    const sub = card && card.querySelector('.vp-card-sub');
+    const m = sub && /you\s*([\d.]+)%\s*·\s*Tutor\s*([\d.]+)%/.exec(sub.textContent || '');
+    const old = card && card.querySelector('.dw-split');
+    if (!m) { if (old) old.remove(); return; }
+    const key = m[1] + '/' + m[2];
+    if (old && old.dataset.k === key) return;
+    busy = true;
+    const bar = old || document.createElement('div');
+    bar.className = 'dw-split dw-talk'; bar.dataset.k = key; bar.setAttribute('aria-hidden', 'true');
+    bar.innerHTML = `<i style="width:${+m[1]}%"></i><i style="width:${+m[2]}%"></i>`;
+    if (!old) sub.before(bar);
+  }
+
   // 4. the lesson table: each cell knows its column name, so a phone can show every row as a small card
   function labels(root) {
     for (const tb of root.querySelectorAll('.ov-tbl > table')) {
@@ -378,7 +394,7 @@
     busy = true;
     try {
       const head = document.querySelector('.vp-header');
-      unwrap(root); method(root); subs(root); notes(root); trim(root); whySplit(root); arabic(root); labels(root); alerts(); notice(); dataNotes(); flashEmpty();   // round 2: no table clip, no folds
+      unwrap(root); method(root); subs(root); notes(root); trim(root); whySplit(root); arabic(root); labels(root); alerts(); notice(); dataNotes(); flashEmpty(); talkSplit();   // round 2: no table clip, no folds
       if (head) subs(head);
     } finally { busy = false; }
   }
