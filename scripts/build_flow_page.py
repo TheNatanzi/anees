@@ -20,6 +20,7 @@ OUT = os.path.join(REPO, "docs", "reports", "anees-flow.html")
 TITLE = "Anees: from lesson to grade"
 
 
+WORD = {'A': 'Record', 'B': 'Hear', 'C': 'Check', 'D': 'Count', 'E': 'Publish', 'F': 'Tutor', 'G': 'Study', 'H': 'Grade'}
 ICONS = {'A': '🎙️', 'B': '👂', 'C': '🔍', 'D': '📒', 'E': '🌐', 'F': '✍️', 'G': '📚', 'H': '🏆'}   # one picture per phase
 
 
@@ -37,7 +38,6 @@ def dword(frag):
                                      ('<span class="chip money">$</span>', 'chip money')) if k in body)
         sumry = '<span class="fl-sum">%s</span>' % who   # who acts and what costs money; the step count opens with the row
         head = head.replace('</h2>', '</h2>' + sumry, 1)
-        head = '<span class="fl-ico" aria-hidden="true">%s</span>' % ICONS.get(code, '') + head
         return ('<details class="phase" id="fl-%s" style="--pc:%s"><summary><header><span class="pcode">%s</span>%s</header></summary>%s</details>'
                 % (code, color, code, head, body))
     frag = re.sub(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>(.*?)</header>(.*?)</section>',
@@ -56,22 +56,18 @@ def dword(frag):
     if m:
         frag = frag[:m.start()] + ('<details class="dw-info fl-kit"><summary aria-label="The building blocks">ⓘ</summary>'
                                    '<div class="kit">%s</div></details></div>\n  ' % m.group(1).strip()) + frag[m.end():]
-    # a drawn road: 8 coloured stops from the call (A) to the grade (H), the same colours as the rows below
+    # one picture of the path: 8 coloured stops, icon + one word each, A to H; tap one to open it below
     stops = re.findall(r'<details class="phase" id="fl-(\w)" style="--pc:([^"]+)">', frag)
     if stops:
-        n = len(stops)
-        xs = [20 + i * (560 / max(1, n - 1)) for i in range(n)]
-        ys = [40 + (14 if i % 2 else -14) for i in range(n)]
-        path = 'M' + ' '.join('%.0f %.0f' % (x, y) for x, y in zip(xs, ys))
-        dots = ''.join('<a href="#fl-%s"><circle cx="%.0f" cy="%.0f" r="15" fill="%s"/><text x="%.0f" y="%.0f" text-anchor="middle" '
-                       'font-size="15">%s</text><text x="%.0f" y="%.0f" text-anchor="middle" font-size="11" font-weight="700" '
-                       'fill="var(--dw-muted)">%s</text></a>' % (k, x, y, c, x, y + 5, ICONS.get(k, k), x, y + (30 if ys[0] != y else -21), k)
-                       for (k, c), x, y in zip(stops, xs, ys))
-        road = ('<svg class="dw-pic dw-scene fl-road" viewBox="0 -8 600 96" role="img" aria-label="The road from the call to the grade">'
-                '<path d="%s" fill="none" stroke="var(--dw-line)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>'
-                '<path d="%s" fill="none" stroke="var(--dw-muted)" stroke-width="2" stroke-dasharray="6 8"/>%s'
-                '</svg>' % (path, path, dots))
-        frag = frag.replace('<div class="key">', road + '\n  <div class="key">', 1)
+        strip = ('<ol class="fl-path" aria-label="The 8 stops from the call to the grade">' +
+                 ''.join('<li style="--pc:%s"><a href="#fl-%s"><span class="fl-dot">%s</span><b>%s</b></a></li>'
+                         % (c, k, ICONS.get(k, k), WORD.get(k, k)) for k, c in stops) + '</ol>')
+        frag = frag.replace('<div class="key">', strip + '\n  <div class="key">', 1)
+    # "who decides" is the rule behind the whole path: it closes the page, under Done
+    w = re.search(r'\s*<div class="warn">.*?</div>', frag, re.S)
+    if w and '<div class="done">' in frag:
+        frag = frag[:w.start()] + frag[w.end():]
+        frag = frag.replace('<p class="loop">', w.group(0).strip() + '\n  <p class="loop">', 1)
     return frag
 
 

@@ -287,3 +287,20 @@ html[data-look="kurz"] #ar-tab-unknowns .ar-unk-h .dw-sumbig.dw-warnbig b { colo
 }
 #anees-bank .ls-row .ls-rowhead .ls-tcell .ls-small { display: flex; justify-content: space-between; }
 #anees-bank .ab-header h1:has(.dw-mic) { display: flex; align-items: center; gap: 4px; }
+/* round 9 */
+#anees-bank .dw-method .dw-chip, #anees-bank #lesson-alerts .dw-chip, html.lsn-page .lsn-note .dw-chip { white-space: normal; max-width: 100%; }
+#anees-bank .fl .fl-path { list-style: none; margin: 6px 0 12px; padding: 0; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; position: relative; }
+#anees-bank .fl .fl-path::before { content: ""; position: absolute; left: 6%; right: 6%; top: 21px; height: 3px; background: var(--ab-line); border-radius: 2px; }
+#anees-bank .fl .fl-path li { position: relative; text-align: center; }
+#anees-bank .fl .fl-path a { display: grid; justify-items: center; gap: 4px; text-decoration: none; color: var(--ab-text); }
+#anees-bank .fl .fl-path .fl-dot { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 20px; background: var(--pc); box-shadow: 0 0 0 4px var(--ab-bg); }
+#anees-bank .fl .fl-path b { font-size: 12.5px; font-weight: 700; }
+html[data-look="kurz"] #anees-bank .fl .fl-path .fl-dot { border-radius: 50%; width: 50px; height: 50px; font-size: 22px; box-shadow: 0 0 0 4px var(--kz-bg), 0 6px 0 rgb(0 0 0 / .15); }
+html[data-look="kurz"] #anees-bank .fl .fl-path::before { top: 24px; height: 4px; background: var(--kz-raised); }
+@media (max-width: 600px) {
+  #anees-bank .fl .fl-path { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 10px; }
+  #anees-bank .fl .fl-path::before { display: none; }
+  #anees-bank .fl .fl-path .fl-dot { width: 40px; height: 40px; }
+}
+#anees-bank .fl > .warn { margin-top: 10px; font-size: 13px; }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig { min-width: 230px; } @media (max-width: 600px) { #ar-tab-unknowns .ar-unk-h .dw-sumbig { min-width: 0; } }

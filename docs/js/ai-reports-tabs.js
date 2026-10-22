@@ -117,7 +117,8 @@ function dwBigs(){
  const put=(sec,b,s,warn)=>{const h=document.querySelector(sec+' details.ar-unk-d > summary .ar-unk-h');if(!h)return;const p=part(b);
   const n=document.createElement('span');n.className='dw-sumbig'+(warn?' dw-warnbig':'');
   n.innerHTML=`<b>${b}</b><small>${s}${warn?' · needs work':''}</small>${p===null?'':`<i class="dw-split dw-bigbar" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
- put('#ar-unk-listen',L,'labels right');put('#ar-unk-vocab',V,'words to settle',1);put('#ar-unk-grammar',`${G2}/${G1}`,'slips caught',1);if(N)put('#ar-unk-names',N,'maybe a name',1);
+ const VT=(txt('air-unknowns-vocab').match(/of the student’s ([\d,]+) word events/)||[])[1];
+ put('#ar-unk-listen',L,'labels right');put('#ar-unk-vocab',VT?`${V}/${VT}`:V,'events to settle',1);put('#ar-unk-grammar',`${G2}/${G1}`,'slips caught',1);if(N)put('#ar-unk-names',N,'names to label',1);
  const nav=T.querySelector('.ar-jump');if(nav)nav.after(box);if(nav)nav.hidden=true;
 }
 let dwT=0;
