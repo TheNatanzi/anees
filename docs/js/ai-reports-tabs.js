@@ -73,7 +73,14 @@ function dwInfo(el){
 }
 function dwClip(){document.querySelectorAll('#ar-tab-unknowns .vu-split i, #ar-tab-unknowns .gu-split i').forEach(i=>{if(i.classList.contains('dw-clip')||!i.textContent.trim()||!i.clientWidth)return;
  if(i.scrollWidth>i.clientWidth+1){i.classList.add('dw-clip');i.title=i.textContent.trim();}});}   // a slice too thin for its words: no cut-off label
-function dwPass(){dwClip();document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
+// V1: the three groups as three big numbers on top (unresolved / no evidence possible / not counted); the rows stay below
+function dwV1(){const V=$('air-unknowns-vocab');if(!V||$('dw-v1-bigs'))return;const subs=[...V.querySelectorAll('.vu-sub')];if(subs.length<2)return;
+ const pick=t=>{const m=t.match(/^(.*?)·\s*([\d,]+)\s*·/);return m?[m[2],m[1].replace(/:.*$/,'').trim()]:null;};
+ const g=subs.map(x=>pick(x.textContent.trim())).filter(Boolean);if(g.length<2)return;
+ const cls=['dw-warnbig','',''];const box=document.createElement('div');box.id='dw-v1-bigs';box.className='dw-bigs';
+ box.innerHTML=g.map((x,i)=>`<div class="dw-big ${cls[i]||''}"><b>${x[0]}</b><span>${x[1].toLowerCase()}</span></div>`).join('');
+ const bar=V.querySelector('.vu-split');(bar||subs[0]).before(box);}
+function dwPass(){dwClip();try{dwV1();}catch(e){}document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');

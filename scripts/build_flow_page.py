@@ -45,7 +45,7 @@ def dword(frag):
     number opens behind a small (i); each phase gets its picture."""
     def info(m):
         txt = re.sub(r'<[^>]+>', '', m.group(1))
-        if re.search(r'\d', txt) or len(txt.split()) <= 22:
+        if re.search(r'\d', txt) or len(txt.split()) <= 60:
             return m.group(0)   # a number in it is data, and a one-liner reads faster than a tap: it stays in view
         return '<details class="dw-info fl-more"><summary aria-label="How this step works">ⓘ</summary><div>%s</div></details>' % m.group(1)
     frag = re.sub(r'<p>(.*?)</p>(?=<div class="chips">)', info, frag)
@@ -54,6 +54,11 @@ def dword(frag):
         code = m.group(2)
         return m.group(0) + '<span class="fl-ico" aria-hidden="true">%s</span>' % (SVG_ICONS.get(code) or ICONS.get(code, ''))
     frag = re.sub(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>', phase, frag)
+    # steps 3 + 4 as one picture: the first transcript alone vs after the second listen (the numbers stay in the text too)
+    acc = ('<div class="dw-bars fl-acc" role="img" aria-label="Words right: 61–69% from ElevenLabs alone, 94–95% after the second listen">'
+           '<div><span>ElevenLabs alone</span><div class="dw-track"><i style="width:65%"></i></div><b>61–69%</b></div>'
+           '<div><span>+ 3 listens, 2 agree</span><div class="dw-track"><i style="width:94.5%"></i></div><b>94–95%</b></div></div>')
+    frag = re.sub(r'(method A: 94–95%</b> right\.(?:(?!<div class="chips">).)*?)(<div class="chips">)', lambda m: m.group(1) + acc + m.group(2), frag, count=1, flags=re.S)
     frag = frag.replace("<div class=\"done\"><b>✓ Done</b>", "<div class=\"done\">" + DONE_ICON + "<b>Done</b>", 1)
     return frag
 

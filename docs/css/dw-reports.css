@@ -385,7 +385,7 @@ html[data-look="kurz"] #ar-tab-unknowns .ar-unk-h .dw-sumbig.dw-warnbig b { colo
 #anees-bank .fl .fl-inner details.phase { margin-top: 8px; border-left-width: 4px; }
 /* lesson round 3: every line stays; Arabic lines get a colour band, tiny English/filler lines read small and faint */
 html.lsn-page p.turn:has(i[data-k="ar"]) { border-left: 4px solid var(--dw-a1); }
-html.lsn-page p.turn:has(i[data-k="lite"]) { padding-top: 4px; padding-bottom: 4px; }   /* round 2: short lines full size, full contrast */
+html.lsn-page p.turn:has(i[data-k="lite"]) { }   /* round 2: short lines full size, full contrast */
 html.lsn-page .lsn-jump { display: inline-block; margin: 2px 0 10px; padding: 8px 16px; border-radius: 999px; background: var(--dw-a1); color: var(--sabz-bg, #fff) !important;
   font-weight: 700; font-size: 15px; text-decoration: none; }
 html.lsn-page #arabic-start { scroll-margin-top: 70px; }
@@ -473,3 +473,14 @@ html.lsn-page body > #stall-bar { padding: 4px 12px !important; font: 600 12.5px
 #ar-tab-unknowns .dw-clip { font-size: 0 !important; }                  /* a bar slice too thin for its label: the legend underneath carries it */
 html.lsn-page .lsn-mark { padding: 2px 9px; border-radius: 999px; background: var(--dw-a1); color: var(--dw-card) !important; }   /* the practice start: a pill */
 html.lsn-page .lsn-map { position: relative; padding-top: 24px; }
+#ar-tab-unknowns #dw-v1-bigs { margin: 8px 0 10px; }
+#ar-tab-unknowns #dw-v1-bigs .dw-warnbig b { color: var(--dw-warn); }
+/* Lessons on a phone: tighter top so the first lesson shows sooner (every number stays) */
+@media (max-width: 600px) {
+  #anees-bank .dw-wait { padding: 4px 10px !important; margin: 6px 0 !important; }
+  #anees-bank #ls-metrics .ab-metric { padding: 8px 10px; min-height: 0; }
+  #anees-bank #ls-metrics .ab-number { font-size: 30px; margin: 2px 0; }
+  #anees-bank .ls-rehearnote { font-size: 10.5px; padding: 0 6px; opacity: .85; }
+}
+#anees-bank .fl .fl-acc { margin: 8px 0 6px; max-width: 520px; }
+html.lsn-page .tm-chat { fill: var(--dw-warn); background: var(--dw-warn); }   /* chat: its own colour, far from "you" */
