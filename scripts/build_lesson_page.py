@@ -180,16 +180,21 @@ def mark_turns(page):
         btn = m.group(1)[:-len('</button>')] + mark + '</button>' if mark else m.group(1)
         return '<p dir="auto" class="turn">%s<b>%s</b>: <span class="words">%s</span></p>' % (btn, m.group(3), text)
     page = TURN.sub(sub, page)
+    # 2+ short filler lines in a row (mm, ok, yeah) fold into one faint "n short lines" strip that opens in place
+    lite = r'<p dir="auto" class="turn"><button[^>]*>(?:(?!</button>).)*data-k="lite"(?:(?!</button>).)*</button>(?:(?!<p dir=).)*?</p>'
+    page = re.sub('(?:%s){2,}' % lite, lambda m: '<details class="lsn-lite"><summary data-n="%d short lines" aria-label="%d short lines"></summary>%s</details>'
+                  % (m.group(0).count('<p dir="auto"'), m.group(0).count('<p dir="auto"'), m.group(0)), page, flags=re.S)
     if start is not None and start > 0:
         # the talk before the Arabic practice (set-up, small talk) folds into one row that opens in place: every line is still here
-        a = page.find('<p dir="auto"')
-        b = page.find('<p dir="auto" class="turn"><i class="lk"', a)
-        b = page.find('id="arabic-start"', b)
+        a = min(x for x in (page.find('<p dir="auto"'), page.find('<details class="lsn-lite">')) if x >= 0)
+        b = page.find('id="arabic-start"', a)
         b = page.rfind('<p dir="auto"', 0, b)
+        if page.rfind('<details class="lsn-lite">', a, b) > page.rfind('</details>', a, b):   # never cut a filler strip in two
+            b = page.rfind('<details class="lsn-lite">', a, b)
         if 0 <= a < b:
             n = page.count('<p dir="auto"', a, b)
             fold = ('<details class="lsn-before"><summary>Before the Arabic practice · 00:00–%s · %d lines</summary>%s</details>'
-                    '<p class="lsn-start">▶ The Arabic practice starts · %s</p>' % (clock(float(rows[start][1])), n, page[a:b], clock(float(rows[start][1]))))
+                    '<p class="lsn-start">▶ The Arabic practice starts · %s </p>' % (clock(float(rows[start][1])), n, page[a:b], clock(float(rows[start][1]))))
             page = page[:a] + fold + page[b:]
         # the talk map gets a marker where the practice starts (a tap jumps there)
         end = max(float(r[1]) for r in rows) or 1.0

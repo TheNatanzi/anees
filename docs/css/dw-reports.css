@@ -407,3 +407,7 @@ html.lsn-page .lsn-mark::after { content: ""; position: absolute; left: 50%; top
 html.lsn-page .lsn-bigs .dw-big { color: var(--dw-muted); }
 html[data-look="kurz"].lsn-page .lsn-mark { color: var(--kz-yellow); }
 @media (max-width: 600px) { html.lsn-page .lsn-bigs .dw-ico { display: none; } }
+html.lsn-page details.lsn-lite > summary { cursor: pointer; list-style: none; padding: 3px 12px; font-size: 13px; color: var(--dw-muted); opacity: .75; border-bottom: 1px dotted var(--dw-line); }
+html.lsn-page details.lsn-lite > summary::-webkit-details-marker { display: none; }
+html.lsn-page details.lsn-lite > summary::before { content: "··· " attr(data-n); }
+html.lsn-page details.lsn-lite[open] > summary::before { content: "− " attr(data-n); }
