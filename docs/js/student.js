@@ -100,7 +100,7 @@
       return N ? `<span class="st-tot" role="img" aria-label="${Dn} of ${N} cards done"><span class="dw-split"><i style="width:${(100 * Dn / N).toFixed(1)}%"></i></span><em>${Dn} of ${N} cards</em></span>` : ''; })()}<a class="hb-ans primary st-go st-start" href="cards.html?tile=${encodeURIComponent(C[0].set_ref)}">Start: ${esc(C[0].set_title)} →</a></div>` : '';
     const zero = !(sc.todo || sc.waiting + sc.checking || sc.overruled);
     // nothing checked and nothing waiting: the Homework number is one quiet line under the Start card (PG-29: the dash keeps its reason)
-    if (zero && sc.pct === null) return go + `<div class="st-hwline">${ICO.clip}<b>Homework —</b><span>no teacher check yet</span>${info}<span class="dp-sr"> · 0 to answer · 0 with teacher · 0 AI overruled</span></div>`;
+    if (zero && sc.pct === null) return go + `<div class="st-hwline">${ICO.clip}<b>Homework —</b><span>no teacher check yet</span>${info}<span class="st-zline"><span class="dw-chip muted">0 to answer</span><span class="dw-chip muted">0 with teacher</span><span class="dw-chip muted">0 AI overruled</span></span></div>`;
     return go + tile('Homework', sc.pct === null ? '—' : sc.pct + '%', sc.done ? `${sc.done} checked by teacher` : 'no teacher check yet', ICO.clip, info)
       + (zero ? `<p class="st-zero"><span class="dw-chip muted">0 to answer</span><span class="dw-chip muted">0 with teacher</span><span class="dw-chip muted">0 AI overruled</span></p>`
         : tile('To answer', sc.todo, '', ICO.pen) + tile('With teacher', sc.waiting + sc.checking, '', ICO.clock) + tile('AI overruled', sc.overruled, sc.done ? `of ${sc.done}` : '', ICO.flip));
@@ -133,7 +133,7 @@
       <div class="dw-row">${['wrong', 'partial', 'asked'].filter(x => by[x]).map(x => `<span class="dw-chip ${KIND[x][1]}">${by[x]} ${KIND[x][0]}</span>`).join('')}
       <details class="dw-info"><summary aria-label="When a word leaves">i</summary><div>A word leaves this list after two right answers on Flashcards.</div></details></div>
       <a class="hb-ans primary st-go st-practice" href="cards.html?tile=shaky">Practice as cards →</a></div></div>
-      ${open.length ? `<details class="st-wlist"><summary>Show the ${open.length} words</summary>` + dates.map(d => { const L = open.filter(w => w.date === d); return `<h3 class="st-day">${esc(pretty(d))} <span class="hb-n">${L.length}</span></h3><ul class="hb-done st-words">${L.map(row).join('')}</ul>`; }).join('') + '</details>' : '<p class="hb-empty">Nothing shaky left from the last 2 lessons.</p>'}`;
+      ${open.length ? `<div class="st-wlist">` + dates.map(d => { const L = open.filter(w => w.date === d); return `<h3 class="st-day">${esc(pretty(d))} <span class="hb-n">${L.length}</span></h3><ul class="hb-done st-words">${L.map(row).join('')}</ul>`; }).join('') + '</div>' : '<p class="hb-empty">Nothing shaky left from the last 2 lessons.</p>'}`;
   }
   // Medi 2026-10-05 "get rid of cards for lesson and have Todo be for all assignments": card sets for a lesson are To do rows too
   // PG-35 (Medi 2026-10-08 "see why amal uploaded two card sets but the student page only shows one"): a set she uploaded
@@ -146,8 +146,8 @@
     // de-word 2026-10-22: chips say what kind of set (lesson / new upload) and its warning (lesson passed); the count is a big n / N
     const set = pretty(t.created_at), les = pretty(t.lesson_date);
     // round 11: only the warning (late) and "new" show; the dates and kind stay in the text for a screen reader (same numbers)
-    const chips = t.upload ? `<span class="dw-chip">new</span><span class="dp-sr">set · ${esc(set)} · ${t.keep === 'permanent' ? 'permanent' : 'next lessons'} · </span>`
-      : `${past ? '<span class="dw-chip warn" title="the lesson date has passed"><svg class="st-clock" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>late</span>' : ''}<span class="dp-sr">lesson ${esc(les)}${set && set !== les ? ` · set ${esc(set)}` : ''} · </span>`;
+    const chips = t.upload ? `<span class="dw-chip">new</span><span class="st-when">uploaded ${esc(set)} · ${t.keep === 'permanent' ? 'permanent' : 'for the next lessons'}</span>`
+      : `${past ? '<span class="dw-chip warn" title="the lesson date has passed"><svg class="st-clock" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>late</span>' : ''}<span class="st-when">lesson ${esc(les)}${set && set !== les ? ` · assigned ${esc(set)}` : ''}</span>`;
     return `<a class="st-task st-cards${past ? ' st-late' : ''}" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" aria-label="${esc(t.set_title)}: open on Flashcards"><div class="st-cmain"><p class="dw-row st-chips2">${chips}</p>
       <p class="st-prompt">${esc(t.set_title)}</p>${done ? `<p class="st-of" aria-label="${done} of ${n} cards done"><b class="st-n">${n}</b> <b class="st-d">${done}</b><span>${done >= n && n ? 'all done' : 'cards done'}</span></p><div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div>` : `<p class="st-of st-zero-of"><b class="st-n0">${n}</b><span>cards</span></p>`}</div><span class="st-go2" aria-hidden="true">›</span></a>`;
   }

@@ -140,7 +140,7 @@
     setTab('todo');
     const open = tasks.filter(t => !t.finished);
     if (!open.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing to check right now. Shukran!</p>'; return; }
-    listPanel('todo', open.map((t, i) => ({ id: t.id, next: i === 0, icon: kindIcon(t), title: short(t.title), sep: /\d$/.test(short(t.title)) && !/\d$/.test(t.title), subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p), { fold: wide() ? 5 : 1, autoPhone: !location.hash.slice(1) });
+    listPanel('todo', open.map((t, i) => ({ id: t.id, next: i === 0, icon: kindIcon(t), title: short(t.title), sep: /\d$/.test(short(t.title)) && !/\d$/.test(t.title), subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p), { autoPhone: !location.hash.slice(1) });
   }
   // every kind of item opens here, with the same module as its old address (no link to another page)
   // AM-27 (Medi 2026-10-07 "lets add a place for notes for amal always"): a note box under every card and one per list.
@@ -217,10 +217,9 @@
   async function weak() { if (!WEAK) WEAK = await (await fetch('data/tutor-weak.json', { cache: 'no-store' })).json(); return WEAK; }
   const notesToken = () => { const g = T.open.find(x => x.kind === 'grammar_notes'); return g ? g.token : ''; };
   // 389 min reads as "6½ h"; the exact minutes stay in the text
-  const hrs = n => n < 90 ? `<b>${n}</b><span>min to go</span>` : `<b>${Math.floor(n / 60)}${(n % 60) >= 45 ? '¾' : (n % 60) >= 15 ? '½' : ''}</b><span>hours to go <span class="dp-sr">(${n} min)</span></span>`;
+  const hrs = n => n < 90 ? `<b>${n}</b><span>min to go</span>` : `<b>${Math.floor(n / 60)}${(n % 60) >= 45 ? '¾' : (n % 60) >= 15 ? '½' : ''}</b><span>hours to go <span class="tu-mins">(${n} min)</span></span>`;
   // a weak rule / word row: the % is the big number, then one short line; the counts stay in the text for a reader
-  const pctRow = (v, hid, line) => `<b title="${esc(hid)}" class="tu-pctn ${v === null || v === undefined ? '' : v < 50 ? 'lo' : v < 80 ? 'mid' : 'hi'}">${esc(pctTxt(v))}</b><span class="dp-hide"> ${esc(hid)}</span> <span class="tu-pline">${esc(line)}</span>`;
-  const gloss = e => String(e || '').split(/\s*[/;]\s*|,\s+/)[0];   // the row shows the first meaning; the open item shows them all
+  const pctRow = (v, hid, line) => `<b title="${esc(hid)}" class="tu-pctn ${v === null || v === undefined ? '' : v < 50 ? 'lo' : v < 80 ? 'mid' : 'hi'}">${esc(pctTxt(v))}</b><span class="tu-cnt">${esc(hid)}</span> <span class="tu-pline">${esc(line)}</span>`;
   const pctTxt = v => (v === null || v === undefined) ? '—' : v + '%';
   function momentsHtml(ms, how) {
     if (!ms || !ms.length) return '<p class="hb-sub">No moment recorded yet.</p>';
@@ -246,7 +245,7 @@
   async function vocab(id) {
     setTab('vocab'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
     let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
-    const rows = D.words.map(w => ({ id: 'word:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, subHtml: pctRow(w.pct, `right · ${fmt(w.n)} uses`, `${gloss(w.english)} · last ${pretty(w.last_date)}`), bar: pctBar(w.pct), find: w.english || '', w }));
+    const rows = D.words.map(w => ({ id: 'word:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, subHtml: pctRow(w.pct, `right · ${fmt(w.n)} uses`, `${w.english || ''} · last ${pretty(w.last_date)}`), bar: pctBar(w.pct), find: w.english || '', w }));
     listPanel('vocab', rows, id, (row, p) => {
       const w = row.w;
       p.innerHTML = `<article id="${esc(row.id)}" class="hb-doc"><h3 class="hb-q">${esc(w.arabizi)} ${w.arabic ? `<span lang="ar" dir="rtl">${esc(w.arabic)}</span>` : ''}</h3><p class="hb-sub">${esc(w.english || '')}</p>
@@ -259,8 +258,8 @@
     setTab('decay'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
     let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
     const K = D.decay || { decaying: [], untested: [], days: 0 };
-    const rows = K.decaying.map(w => ({ id: 'decay:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, subHtml: `<span class="tu-pline">${esc(gloss(w.english))} · ${esc(pretty(w.last_date))}</span><span class="dp-hide"> · last said ${esc(pretty(w.last_date))} (${w.days_ago} days)${w.status ? ' · was ' + esc(w.status) : ''}</span>`, find: w.english || '', w, kind: 'decaying' }))
-      .concat(K.untested.map(w => ({ id: 'untested:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, subHtml: `<span class="tu-pline">${esc(gloss(w.english))} · never said</span><span class="dp-hide"> · never said in a recorded lesson · in the Doc since ${esc(pretty(w.first_seen))}</span>`, find: w.english || '', w, kind: 'untested' })));
+    const rows = K.decaying.map(w => ({ id: 'decay:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, subHtml: `<span class="tu-pline tu-dline">${esc(w.english || '')} · last said ${esc(pretty(w.last_date))} (${w.days_ago} days)${w.status ? ' · was ' + esc(w.status) : ''}</span>`, find: w.english || '', w, kind: 'decaying' }))
+      .concat(K.untested.map(w => ({ id: 'untested:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, subHtml: `<span class="tu-pline tu-dline">${esc(w.english || '')} · never said in a recorded lesson · in the Doc since ${esc(pretty(w.first_seen))}</span>`, find: w.english || '', w, kind: 'untested' })));
     const maxAge = Math.max(1, ...K.decaying.map(w => w.days_ago || 0));
     rows.forEach(r => { r.bar = r.kind === 'decaying' ? `<div class="hb-bar tu-age" aria-hidden="true"><i style="width:${Math.round(100 * (r.w.days_ago || 0) / maxAge)}%"></i></div>` : '<div class="hb-bar tu-age" aria-hidden="true"><i class="never" style="width:100%"></i></div>'; });
     listPanel('decay', rows, id, (row, p) => {
@@ -328,7 +327,7 @@
     const acc = (r, i) => `<details class="hb-acc" data-i="${i}"><summary><b>${esc(r.title)}</b> <span>· ${esc(r.note)}</span><span class="tu-mini" aria-hidden="true"><i style="width:${Math.round(100 * Math.min(1, r.frac || 0))}%"></i></span></summary><div class="hb-acc-body"></div><div data-earlier></div></details>`;
     const full = rows.map((r, i) => [r, i]).filter(([r]) => (r.frac || 0) >= 1), part = rows.map((r, i) => [r, i]).filter(([r]) => (r.frac || 0) < 1);
     $('#hb-view').innerHTML = `<div class="hb-sub dw-row"><span class="dw-chip">${full.length} done</span>${part.length ? `<span class="dw-chip muted">${part.length} closed early</span>` : ''} ${info('Tap a row to see what was asked and every answer. Undo works while a list is still open. "Closed early" = the list closed before every question was answered.', 'How this works')}</div><div class="hb-accs">${full.map(([r, i]) => acc(r, i)).join('')}</div>`
-      + (part.length ? `<details class="tu-more tu-closed"><summary>Closed early (${part.length})</summary><div class="hb-accs">${part.map(([r, i]) => acc(r, i)).join('')}</div></details>` : '');
+      + (part.length ? `<div class="tu-closed"><p class="hb-prog">Closed early (${part.length})</p><div class="hb-accs">${part.map(([r, i]) => acc(r, i)).join('')}</div></div>` : '');
     document.querySelectorAll('.hb-accs > details.hb-acc').forEach(d => d.addEventListener('toggle', () => {
       if (!d.open || d.dataset.on) return; d.dataset.on = '1';
       const r = rows[+d.dataset.i], body = d.querySelector('.hb-acc-body');

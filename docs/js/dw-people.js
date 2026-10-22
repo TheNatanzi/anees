@@ -59,14 +59,14 @@
       if (W.length > 2) g.dataset.more = W.length - 2;
       g.removeAttribute('aria-hidden'); pair.after(g); pair.classList.add('dp-hide');   // the slash line stays in the page text, not on screen
       const az = g.parentElement.querySelector(':scope > .hb-en');   // an Arabizi line that covers only one of the pieces would mislead
-      if (az && !/\//.test(txt(az))) az.classList.add('dp-hide');
+      // round 2: the Arabizi line stays on screen
     }
   }
   // 2. a mistake card: the why line and the e.g. line -> one i on the "N times in ..." line, which becomes a chip
   function cards(root) {
     root.querySelectorAll('.hb-card').forEach(c => {
       if (c.dataset.dp) return; c.dataset.dp = '1';
-      c.querySelectorAll('.tv-pair ~ .hb-en').forEach(e => { if (/^\s*→|→\s*$/.test(txt(e))) e.classList.add('dp-sr'); });   // a half Arabizi pair (one side missing) is noise
+      // round 2: a half Arabizi pair stays on screen too   // a half Arabizi pair (one side missing) is noise
       diffMark(c);
       const foot = c.closest('.hb-task') && c.closest('.hb-task').querySelector(':scope > .hb-foot');   // provenance line -> the i
       if (foot && !foot.dataset.dp && txt(foot).length > 60) {   // joins the panel's one "how it works" i (no second i)
@@ -96,14 +96,15 @@
       if (c.dataset.dp) return; c.dataset.dp = '1';
       const more = [...c.querySelectorAll(':scope > .tg-heard, :scope > .tg-yours, :scope > .tu-meta, :scope > .tg-over')].filter(x => !/^Rewritten after/.test(txt(x)));
       const done = c.querySelector(':scope > .an-answered') && !c.querySelector(':scope > .hb-btns');
-      if (done) {
+      if (done && false) {   // round 2: an answered card stays open (its rule card is data)
         const keep = new Set([c.querySelector(':scope > .tg-title'), c.querySelector(':scope > .an-answered')]);
         const rest = [...c.children].filter(x => !keep.has(x) && !x.matches('.an-note, details.an-note, [data-note]'));
         if (rest.length) { const d = info(rest, 'Show the rule card', 'dp-fold'); const t = c.querySelector(':scope > .tg-title'); if (t) t.appendChild(d); }
         c.classList.add('dp-done');
         return;
       }
-      if (more.length) { const d = info(more, 'Where this came from'); const t = c.querySelector(':scope > .tg-title'); if (t) t.appendChild(d); }
+      if (more.length && false) { const d = info(more, 'Where this came from');   // round 2: where it was heard (lesson + time) stays on screen
+ const t = c.querySelector(':scope > .tg-title'); if (t) t.appendChild(d); }
     });
   }
   // 3b. the rule cards she already decided go together under one "Decided (n)" row at the end (same cards, open in place)
@@ -195,7 +196,8 @@
   let busy = false;
   function run() {
     if (busy) return; busy = true;
-    try { intros(view); cards(view); grammar(view); grammarDone(view); lists(view); progress(view); cardFold(view); phoneFolds(view); } finally { busy = false; }
+    // round 2 (Medi 10-22 'you cut out too much data'): no list, card, decided or phone filter folds
+    try { intros(view); cards(view); grammar(view); progress(view); } finally { busy = false; }
   }
   let t = 0;
   new MutationObserver(() => { if (!busy) { clearTimeout(t); t = setTimeout(run, 30); } }).observe(view, { childList: true, subtree: true });
