@@ -1,15 +1,17 @@
 {
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-10-22T02:20:31Z",
- "last_publish_sha": "95e44fd76d5456f28ddc418f318751f00a41ae2b",
- "last_block_reason": null,
- "last_block_utc": null,
- "first_block_reason": null,
- "blocked_since_utc": null,
+ "last_publish_sha": "f90cf087e1d08a06370f7bc533ec33643bf79120",
+ "last_block_reason": "tests_py: exit 1: FAILED tests/test_tutor_page_english.py::test_no_name_in_her_page_data - Asse... | 1 failed, 949 passed, 3 xfailed in 170.13s (0:02:50)",
+ "last_block_utc": "2026-10-22T06:38:47Z",
+ "first_block_reason": "accuracy_gates: exit 1: ... counts in lessons.json are stale (run scripts/accuracy_gates.py annotate) | PROBLEM verification queue is stale: file has 13 rows, the gates give 5 | accuracy check: 7 problem(s) - do not publish. First: 2026-10-06: the release layer in lessons.json is stale (run scripts/accuracy_gates.py annotate)",
+ "blocked_since_utc": "2026-10-22T03:18:05Z",
  "open_failures": [],
- "pending": [],
- "hours_since_publish": 0.0,
- "stalled": false,
- "generated_at": "2026-10-22T02:20:31Z",
- "plain_reason": "unknown"
+ "pending": [
+  "11 blocked push(es) since the last publish"
+ ],
+ "hours_since_publish": 4.4,
+ "stalled": true,
+ "generated_at": "2026-10-22T06:42:59Z",
+ "plain_reason": "a test failed"
 }
