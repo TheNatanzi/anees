@@ -644,3 +644,9 @@ html[data-sabz-theme="dark"] .hw-key, html[data-sabz-theme="dark"] #sub { opacit
 #anees-bank .hb-row.tu-row .hb-row-s.tu-row-s:has(.tu-pline) { grid-column: 1 / -1; justify-items: start; text-align: left; white-space: normal; }
 #anees-bank .hb-row.tu-row .tu-pline, #anees-bank .hb-row.tu-row .tu-cnt { max-width: none !important; text-align: left; }
 #anees-bank .hb-row.tu-row .hb-row-s.tu-row-s:has(.tu-pctn) { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
+/* r2 round 23: Tutor + Student: stronger muted text (page-local); the Live chip sits beside the two header numbers */
+#anees-bank[aria-label="Anees tutor"], #anees-bank[aria-label="Anees student"] { --dw-muted: #4F5B54; }
+html[data-sabz-theme="dark"] #anees-bank[aria-label="Anees tutor"], html[data-sabz-theme="dark"] #anees-bank[aria-label="Anees student"] { --dw-muted: #B9C4BD; }
+@media (prefers-color-scheme: dark) { html:not([data-sabz-theme="light"]) #anees-bank[aria-label="Anees tutor"], html:not([data-sabz-theme="light"]) #anees-bank[aria-label="Anees student"] { --dw-muted: #B9C4BD; } }
+@media (min-width: 681px) { #anees-bank[aria-label="Anees tutor"] .ab-header { justify-content: flex-start; align-items: flex-end; gap: 20px; } #anees-bank[aria-label="Anees tutor"] .ab-header .ab-preview { align-self: flex-end; margin-bottom: 6px; } }
+#anees-bank .hb-line-en { font-size: 14px !important; color: var(--dw-muted) !important; opacity: 1 !important; }
