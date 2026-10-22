@@ -575,3 +575,11 @@ html.lsn-page .lsn-bigs { grid-template-columns: repeat(4, minmax(0, 1fr)) !impo
 html.lsn-page .lsn-arbig b { color: var(--dw-a1); }
 html.lsn-page .lsn-flag { font-size: 13px; padding: 1px 8px; border-radius: 999px; background: var(--dw-a2); color: #fff !important; }
 #anees-bank #ls-metrics .ls-herobar { background: var(--dw-line); margin: 4px 0 6px; }
+@media (max-width: 600px) {
+  #anees-bank .dw-sortchips { display: none; }
+  #anees-bank #ls-sort { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+}
+#anees-bank .ls-row .ls-small { font-size: 14px; }
+#anees-bank #ls-metrics .ab-metric-label { font-size: 13.5px !important; }
+#anees-bank #ls-metrics .ab-tiny { font-size: 13px; }
+html.lsn-page .lsn-map figcaption { font-size: 15px; font-weight: 600; }

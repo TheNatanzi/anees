@@ -12,7 +12,9 @@ const $=id=>document.getElementById(id);
 const TABS=['unknowns','research','grades','flow'];   // flow: the whole process as a flowchart (PG-56, Medi 2026-10-22 'make a new tab')
 const build=()=>encodeURIComponent(window.ANEES_BUILD||'')+'&v=20260928-rb3';   // v: robot/progress split + vocab audit bins (2026-09-28)
 function loadScript(src){return new Promise((res,rej)=>{if(document.querySelector('script[data-src="'+src+'"]'))return res();const s=document.createElement('script');s.src=src+'?build='+build();s.dataset.src=src;s.onload=res;s.onerror=()=>rej(Error('missing '+src));document.body.append(s);});}
-async function chain(list){for(const s of list)await loadScript(s);}
+// all scripts of a chain download at once and still run in order (async=false), so the slow vocabulary stack is ready sooner
+function chain(list){return Promise.all(list.map(src=>new Promise((res,rej)=>{if(document.querySelector('script[data-src="'+src+'"]'))return res();
+ const s=document.createElement('script');s.src=src+'?build='+build();s.dataset.src=src;s.async=false;s.onload=res;s.onerror=()=>rej(Error('missing '+src));document.body.append(s);})));}
 const notice=(host,t)=>{if(host)host.innerHTML=`<div class="vp-notice">${t}</div>`;};
 let mounted=false;
 async function mountUnknowns(){
