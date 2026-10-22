@@ -649,3 +649,19 @@ body.dw-mat p.dw-lab b { display: inline-block; margin-right: 6px; padding: 0 8p
   background: var(--greenbg, var(--dw-ok-fill)); color: var(--green, var(--dw-ok)); vertical-align: 1px; }
 body.dw-mat section h3 { display: inline-block; padding: 2px 12px; border-radius: 8px; background: var(--greenbg, var(--dw-ok-fill)); }
 @media (max-width: 680px) { body.dw-mat li.dw-exr { grid-template-columns: 1fr; gap: 0; } }
+/* round 4 rules page: examples full width, then the detail, then the lesson fixes as a row of cards (no empty column) */
+body.dw-doc .grid.dw-g { grid-template-columns: minmax(0, 1fr) !important; }
+body.dw-doc .dw-les[open] > div { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+body.dw-doc .dw-les[open] > div > h4 { grid-column: 1 / -1; margin: 0; }
+body.dw-doc .dw-les[open] > div > .les { margin: 0; }
+body.dw-doc .dw-detail ul.more { columns: 2 260px; column-gap: 24px; display: block; }
+body.dw-doc .dw-detail ul.more li { break-inside: avoid; margin-bottom: 4px; }
+body.dw-doc .toc a.s-Mastered { color: var(--dw-ok); } body.dw-doc .toc a.s-Good { color: var(--dw-a3); }
+body.dw-doc .toc a.s-Shaky { color: var(--dw-warn); font-weight: 700; } body.dw-doc .toc a.s-Wrong { color: var(--dw-bad); font-weight: 700; }
+body.dw-doc .dw-jump[open] > div::before { content: "red = wrong · amber = shaky · green = good / mastered · dashed = no score"; display: block; font-size: 12px; color: var(--dw-muted); margin-bottom: 6px; }
+/* round 4 settings phone: each OK row = chip, then its line small underneath */
+@media (max-width: 680px) { #anees-bank .st-line { display: block; font-size: 12px; margin: 2px 0 0 26px; } }
+/* round 4 big picture: stage tiles share the card stripe colours */
+#anees-bank .bp-st-idea { box-shadow: inset 0 -4px 0 var(--dw-a2); } #anees-bank .bp-st-picked { box-shadow: inset 0 -4px 0 var(--dw-ok); }
+#anees-bank .bp-st-building { box-shadow: inset 0 -4px 0 var(--dw-warn); } #anees-bank :is(.bp-st-done, .bp-st-dropped) { box-shadow: inset 0 -4px 0 var(--dw-muted); }
+#anees-bank .bp-sec .bp-idea { border-left-width: 6px !important; }

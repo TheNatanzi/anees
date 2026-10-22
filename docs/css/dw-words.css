@@ -346,3 +346,18 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
 #anees-bank .fc-mixn span { display: flex; flex-direction: column; align-items: flex-start; white-space: normal; }
 #anees-bank .fc-mixn span::after { margin-left: 0 !important; font-size: 10px !important; line-height: 1.2; white-space: nowrap; }
 #anees-bank .fc-mixn .mx-mastered::after { content: "mast."; } #anees-bank .fc-mixn .mx-untested::after { content: "new"; }
+/* round 4 cards: mix counts never break inside a number */
+#anees-bank .fc-mixn { grid-template-columns: repeat(5, auto) !important; justify-content: space-between; gap: 2px 6px; font-size: 12px; }
+#anees-bank .fc-mixn span { white-space: nowrap !important; }
+/* round 4 grammar: bold column heads on desktop; the generic per-cell label shows only where there is no head (phone) */
+#anees-bank #gc-tablehead { font-weight: 700; color: var(--dw-ink); font-size: 12px; }
+@media (min-width: 681px) { #gc-rows small.dw-sr, #gc-rows .dw-sr { display: none; } }
+#gc-rows small { color: var(--dw-muted); font-size: 13px; }
+/* round 4 word bank phone: the level is the loudest thing on a card, the three counts one quiet line */
+@media (max-width: 680px) {
+  #ab-rows .ab-badge strong[class^="ab-status-"] { font-size: 14px; padding: 2px 10px; }
+  #anees-bank #ab-rows .dw-practice { display: flex; gap: 12px; font-size: 13px; }
+  #anees-bank #ab-rows .dw-practice > div { display: flex; align-items: center; gap: 3px; }
+  #anees-bank #ab-rows .dw-practice > div::before { width: 12px; height: 12px; margin: 0; }
+  #ab-rows .dw-mtk, #ab-rows .ab-tiny { font-size: 12px; }
+}
