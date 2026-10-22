@@ -364,6 +364,8 @@ def test_pg_56_flowchart_page_in_ai_reports():
     assert 'class="fl"' in page and "Claude Opus 5.5 + Gemini 4 Argon" in page and "GPT-5.6 Terra" in page and frag.split("-->", 1)[1].strip()[:60] in page
     css = io.open(os.path.join(root, "docs", "css", "ai-reports.css"), encoding="utf-8").read()
     assert "#anees-bank .fl .box{background:var(--ab-panel)" in css
+    # Medi 2026-10-22: a step with a study behind it has a dropdown: a one-line summary, the result, and a link
+    assert page.count('<details class="study">') >= 9 and "<b>Result:</b>" in page and "#anees-bank .fl details.study" in css
     d = json.load(io.open(os.path.join(root, "docs", "data", "ai_reports.json"), encoding="utf-8"))
     card = [r for r in d["reports"] if r.get("slug") == "anees-flow"][0]
     assert card.get("featured") and card["links"][0]["url"] == "reports/anees-flow.html"

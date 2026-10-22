@@ -156,6 +156,15 @@
 #anees-bank .fl .box h3{font-size:15.5px;line-height:1.3;flex:1 1 220px;margin:0;font-weight:600}
 #anees-bank .fl .box p{margin:6px 0 0;color:var(--ab-muted);font-size:14px;line-height:1.5;max-width:64ch}
 #anees-bank .fl .box p b{color:var(--ab-text)}
+#anees-bank .fl details.study{margin-top:8px;border:1px solid var(--ab-line);border-radius:10px;background:var(--ab-bg)}
+#anees-bank .fl details.study+details.study{margin-top:6px}
+#anees-bank .fl details.study summary{cursor:pointer;padding:7px 10px;font-size:13.5px;font-weight:600;color:var(--ab-text);display:flex;gap:8px;align-items:baseline;list-style:none}
+#anees-bank .fl details.study summary::-webkit-details-marker{display:none}
+#anees-bank .fl details.study summary::after{content:'+';margin-left:auto;color:var(--ab-muted);font-weight:700}
+#anees-bank .fl details.study[open] summary::after{content:'−'}
+#anees-bank .fl .stag{flex:none;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ab-accent)}
+#anees-bank .fl details.study p{margin:0;padding:0 10px 9px;font-size:13.5px}
+#anees-bank .fl details.study a{white-space:nowrap;font-weight:600;color:var(--ab-accent)}
 #anees-bank .fl .icons{display:flex;flex-wrap:wrap;gap:6px}
 #anees-bank .fl .ico{display:flex;flex-direction:column;align-items:center;gap:3px;width:56px}
 #anees-bank .fl .ico i{width:38px;height:38px;border-radius:10px;background:var(--c);display:grid;place-items:center;font:700 10.5px/1 var(--sabz-font-sans);color:#fff;font-style:normal}

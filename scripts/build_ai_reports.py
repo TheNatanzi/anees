@@ -28,7 +28,7 @@ def paper_nav(body):
 def page(title, body_html, source, author='', date='', story=''):
     """Word Bank skin (Medi 2026-09-26): sidebar + ab-header; the document body is styled by css/ai-reports.css."""
     eyebrow = ' · '.join(x for x in ('AI report', author, date) if x)
-    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>{html.escape(title)} · AI Reports · Anees</title><script src="../js/theme.js"></script><link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/word-bank.css?v=menu1"><link rel="stylesheet" href="../css/vocabulary-progress.css"><link rel="stylesheet" href="../css/ai-reports.css?v=20261021-pg56"></head>
+    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>{html.escape(title)} · AI Reports · Anees</title><script src="../js/theme.js"></script><link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/word-bank.css?v=menu1"><link rel="stylesheet" href="../css/vocabulary-progress.css"><link rel="stylesheet" href="../css/ai-reports.css?v=20261022-study"></head>
 <body><div id="anees-bank" class="vp-sabz" aria-label="Anees AI report"><div class="ab-shell">
 <aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation">{NAV}</nav></aside>
 <main>
