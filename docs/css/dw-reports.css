@@ -597,3 +597,7 @@ html.lsn-page .lsn-flag::after { height: 30px; width: 4px; background: var(--dw-
   #ar-tab-unknowns #dw-top-bigs .dw-big span { font-size: 10.5px; letter-spacing: .02em; }
   #anees-bank .ab-header h1 { font-size: 30px; }
 }
+@media (max-width: 600px) { #ar-tab-unknowns #dw-v1-bigs { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 6px; }
+  #ar-tab-unknowns #dw-v1-bigs .dw-big { padding: 8px; } #ar-tab-unknowns #dw-v1-bigs .dw-big b { font-size: 22px; }
+  #ar-tab-unknowns #dw-v1-bigs .dw-big span { font-size: 10.5px; letter-spacing: .02em; } }
+#ar-tab-unknowns .vu-ex, #ar-tab-unknowns .vu-lab small { font-size: 14px; color: var(--dw-ink); }
