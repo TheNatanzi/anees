@@ -369,3 +369,17 @@ def test_pg_56_flowchart_page_in_ai_reports():
     d = json.load(io.open(os.path.join(root, "docs", "data", "ai_reports.json"), encoding="utf-8"))
     card = [r for r in d["reports"] if r.get("slug") == "anees-flow"][0]
     assert card.get("featured") and card["links"][0]["url"] == "reports/anees-flow.html"
+
+
+def test_pg_56_flowchart_is_the_first_ai_reports_tab():
+    """Medi 2026-10-22 ("dude you didnt make a new tab for the flowchart in the ai report"): How Anees works is the first
+    AI Reports tab, filled from the same fragment, with its study links re-pointed from the page one level up."""
+    import io, os
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    page = io.open(os.path.join(root, "docs", "ai-reports.html"), encoding="utf-8").read()
+    js = io.open(os.path.join(root, "docs", "js", "ai-reports-tabs.js"), encoding="utf-8").read()
+    nav = page.split('<nav class="vp-tabs"', 1)[1].split("</nav>", 1)[0]
+    assert nav.index('data-artab="flow"') < nav.index('data-artab="unknowns"') and "'flow'" in js
+    tab = page.split('<div id="ar-tab-flow"', 1)[1].split("<!-- FLOW:end -->", 1)[0]
+    assert 'class="fl"' in tab and tab.count('<details class="study">') >= 10
+    assert 'href="reports/engine-benchmark-2026-10-02.html"' in tab and 'href="engine-report.html"' in tab

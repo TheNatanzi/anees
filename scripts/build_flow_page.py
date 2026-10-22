@@ -8,7 +8,7 @@ css/ai-reports.css .fl-* in the app's own colours, so it follows Light / Dark li
 
     python scripts/build_flow_page.py
 """
-import io, os, sys
+import io, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -26,11 +26,34 @@ def build():
     html = html.replace('<article class="ar-doc">\n\n</article>', "")
     io.open(OUT, "w", encoding="utf-8").write(html)
     print("built", os.path.relpath(OUT, REPO), "%d KB" % (len(html) // 1024))
+    fill_tab(frag)
     for out, title, body in STUDIES:
         p = os.path.join(REPO, "docs", "reports", out)
         io.open(p, "w", encoding="utf-8").write(BR.page(title, body, out, "Claude", "2026-10-21"))
         print("built", out)
     return OUT
+
+
+TAB = os.path.join(REPO, "docs", "ai-reports.html")
+
+
+def fill_tab(frag):
+    """Medi 2026-10-22 ("make a new tab for the flowchart in the ai report"): the same flowchart is the first tab of
+    AI Reports, between the FLOW markers of docs/ai-reports.html. Links are written for docs/reports/, so they are
+    re-pointed from the page one level up."""
+    body = frag.split("-->", 1)[1].strip()
+    def fix(m):
+        u = m.group(1)
+        if re.match(r"(https?:|#|mailto:)", u):
+            return m.group(0)
+        return 'href="%s"' % (u[3:] if u.startswith("../") else "reports/" + u)
+    body = re.sub(r'href="([^"]+)"', fix, body)
+    page = io.open(TAB, encoding="utf-8").read()
+    a, b = page.index("<!-- FLOW:start -->") + len("<!-- FLOW:start -->"), page.index("<!-- FLOW:end -->")
+    head = ('<div class="ov-head"><span class="vp-eyebrow">From the Meet call to the grade book</span><h2 class="ov-h2">How Anees works</h2>'
+            '<p class="ab-sub">Every step a lesson goes through, who does it and what it costs. Open a <b>Study</b> to see the test behind a step.</p></div>')
+    io.open(TAB, "w", encoding="utf-8").write(page[:a] + "\n" + head + "\n" + body + "\n" + page[b:])
+    print("filled the How Anees works tab in", os.path.relpath(TAB, REPO))
 
 
 # Short write-ups for flowchart studies that have no report of their own (Medi 2026-10-22: "put a link to the study")

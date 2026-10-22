@@ -5,11 +5,11 @@
    the Unknowns tab is labelled "Robot blind spots" (key stays 'unknowns' for old links) and shows only the machine's
    panels: Listening L1 (labeller accuracy, from Progress › Fluency), Vocabulary V1 V3 V5, Grammar G1 G2 G5. The personal
    panels (V2 V4, G1b G3 G4) render on Progress › Vocab / Grammar from the same modules.
-   Tab choice: ?tab=unknowns|research|grades, else the last one used on this device, else Unknowns. */
+   Tab choice: ?tab=flow|unknowns|research|grades, else the last one used on this device, else Unknowns. */
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
-const TABS=['unknowns','research','grades'];
+const TABS=['flow','unknowns','research','grades'];   // flow: the whole process as a flowchart (PG-56, Medi 2026-10-22 'make a new tab')
 const build=()=>encodeURIComponent(window.ANEES_BUILD||'')+'&v=20260928-rb3';   // v: robot/progress split + vocab audit bins (2026-09-28)
 function loadScript(src){return new Promise((res,rej)=>{if(document.querySelector('script[data-src="'+src+'"]'))return res();const s=document.createElement('script');s.src=src+'?build='+build();s.dataset.src=src;s.onload=res;s.onerror=()=>rej(Error('missing '+src));document.body.append(s);});}
 async function chain(list){for(const s of list)await loadScript(s);}
