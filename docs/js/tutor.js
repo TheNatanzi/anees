@@ -87,6 +87,13 @@
   const hico = (c, d) => `<svg class="dw-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="var(${c})" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
   const HICO = { list: hico('--dw-a1', '<path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/>'),
     clock: hico('--dw-a2', '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>') };
+  // a small glyph per kind of task, so a row reads by its shape: cards, an ear, a magnifier, a loop, a speech bubble, a plus
+  const KG = { cards: '<rect x="3" y="7" width="13" height="14" rx="2"/><path d="M8 4h11a2 2 0 0 1 2 2v11"/>', ear: '<path d="M7 9a5 5 0 0 1 10 0c0 3-3 4-3 7a3 3 0 0 1-6 0"/><path d="M10 10a2 2 0 0 1 4 0"/>',
+    look: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>', loop: '<path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M20 4v5h-5M4 20v-5h5"/>',
+    talk: '<path d="M4 5h16v11H9l-5 4z"/>', plus: '<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/>', note: '<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/>' };
+  const kindIcon = t => { const k = t.kind === 'review' ? 'cards' : t.kind === 'listen' || /^Listen/i.test(t.title) ? 'ear' : t.kind === 'verb_check' ? 'loop'
+      : t.kind === 'word_review' ? 'talk' : t.kind === 'newwords' || t.kind === 'proposals' ? 'plus' : /notes/i.test(t.title) ? 'note' : 'look';
+    return `<svg class="tu-kind" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${KG[k]}</svg>`; };
   const pctBar = v => `<div class="hb-bar tu-pct" aria-hidden="true"><i class="${v === null || v === undefined ? '' : v < 50 ? 'lo' : v < 80 ? 'mid' : 'hi'}" style="width:${v || 0}%"></i></div>`;
 
   // ---- the one list + panel every tab uses (PG-17) ----------------------------------------------------------------
@@ -101,7 +108,7 @@
     const panelEl = $('#hb-panel'), $rows = view.querySelector('[data-rows]');
     function draw() {
       const ql = q.trim().toLowerCase(), list = rows.filter(r => !ql || (r.title + ' ' + (r.find || '')).toLowerCase().includes(ql)), page = list.slice(0, shown);
-      $rows.innerHTML = page.map(r => `<button type="button" class="hb-row${r.subHtml ? ' tu-row' : ''}${r.next ? ' tu-next' : ''}" role="listitem" data-row="${esc(r.id)}" aria-expanded="${!!(sel && r.id === sel.id)}"${sel && r.id === sel.id ? ' aria-current="true"' : ''}><p class="hb-row-t">${esc(r.title)}</p>${r.subHtml ? `<p class="hb-row-s tu-row-s">${r.sep ? ' ' : ''}${r.subHtml}</p>` : r.sub ? `<p class="hb-row-s">${esc(r.sub)}</p>` : ''}${r.bar || ''}</button>`).join('')
+      $rows.innerHTML = page.map(r => `<button type="button" class="hb-row${r.subHtml ? ' tu-row' : ''}${r.next ? ' tu-next' : ''}" role="listitem" data-row="${esc(r.id)}" aria-expanded="${!!(sel && r.id === sel.id)}"${sel && r.id === sel.id ? ' aria-current="true"' : ''}><p class="hb-row-t">${r.icon || ''}${esc(r.title)}</p>${r.subHtml ? `<p class="hb-row-s tu-row-s">${r.sep ? ' ' : ''}${r.subHtml}</p>` : r.sub ? `<p class="hb-row-s">${esc(r.sub)}</p>` : ''}${r.bar || ''}</button>`).join('')
         + (list.length > shown ? `<button type="button" class="hb-ans" data-more>Next ${Math.min(PAGE, list.length - shown)} (${list.length - shown} more)</button>` : '')
         + (!list.length ? '<p class="hb-empty">Nothing matches.</p>' : '');
       $rows.querySelectorAll('[data-row]').forEach(b => b.onclick = () => { location.hash = tab + (sel && sel.id === b.dataset.row && !wide() ? '' : '/' + b.dataset.row); });
@@ -127,7 +134,7 @@
     setTab('todo');
     const open = tasks.filter(t => !t.finished);
     if (!open.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing to check right now. Shukran!</p>'; return; }
-    listPanel('todo', open.map((t, i) => ({ id: t.id, next: i === 0, title: short(t.title), sep: short(t.title) !== t.title, subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p), { fold: wide() ? 5 : 1, autoPhone: !location.hash.slice(1) });
+    listPanel('todo', open.map((t, i) => ({ id: t.id, next: i === 0, icon: kindIcon(t), title: short(t.title), sep: short(t.title) !== t.title, subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p), { fold: wide() ? 5 : 1, autoPhone: !location.hash.slice(1) });
   }
   // every kind of item opens here, with the same module as its old address (no link to another page)
   // AM-27 (Medi 2026-10-07 "lets add a place for notes for amal always"): a note box under every card and one per list.
