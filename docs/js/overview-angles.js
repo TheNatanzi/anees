@@ -104,7 +104,7 @@ function panelA(ls){
  const inBand=full.filter(w=>w.n>=TARGET[0]&&w.n<=TARGET[1]).length,top=weeks.reduce((a,w)=>w.n>a.n?w:a);
  let gap={d:0};for(let i=1;i<ls.length;i++){const d=dayDiff(ls[i-1].date,ls[i].date);if(d>gap.d)gap={d,a:ls[i-1].date,b:ls[i].date};}
  const ph_=PHONE(),W=ph_?360:640;
- const show=weeks.slice(-10),L=ph_?44:58,T=26,cell=ph_?14:20,gc=ph_?3:4,cal=7*(cell+gc),bx=L+cal+(ph_?16:28),bw=W-bx-(ph_?30:60),maxN=Math.max(7,...show.map(w=>w.n)),h=T+show.length*(cell+gc)+22;
+ const show=weeks.slice(-10),L=ph_?56:58,T=28,cell=ph_?16:20,gc=4,cal=7*(cell+gc),bx=L+cal+(ph_?14:28),bw=W-bx-(ph_?28:60),maxN=Math.max(7,...show.map(w=>w.n)),h=T+show.length*(cell+gc)+22;
  let s='';['M','T','W','T','F','S','S'].forEach((d,i)=>s+=tx(L+i*(cell+gc)+cell/2,T-9,d,'middle'));
  const x0=bx+TARGET[0]/maxN*bw,x1=bx+TARGET[1]/maxN*bw;
  s+=`<rect class="ov2-band" x="${x0.toFixed(1)}" y="${T-5}" width="${(x1-x0).toFixed(1)}" height="${show.length*(cell+gc)+1}"/>`+tx((x0+x1)/2,T-9,`${TARGET[0]} to ${TARGET[1]}`,'middle');
@@ -128,7 +128,7 @@ function panelB(ls){
  const base=pooledWords(wk[0].g.concat(wk[1].g)),after=wk.slice(2),above=after.filter(w=>w.pct>base+2).length;
  const called=after.length>=3&&after.slice(-3).every(w=>w.pct>base+2);
  const ph_=PHONE(),W=ph_?360:640;
- const H=220,L=ph_?34:40,R=ph_?62:78,T=18,B=30,pw=W-L-R,ph=H-T-B;
+ const H=ph_?250:220,L=ph_?40:40,R=ph_?84:78,T=18,B=30,pw=W-L-R,ph=H-T-B;
  const vals=wk.map(w=>w.pct).concat([base]),lo=Math.max(0,Math.floor((Math.min(...vals)-6)/10)*10),hi=Math.min(100,Math.ceil((Math.max(...vals)+6)/10)*10);
  const y=v=>T+ph-(v-lo)/(hi-lo)*ph,x=i=>L+pw*(i+.5)/wk.length,maxS=niceMax(Math.max(...wk.map(w=>w.slips||0),1));
  let s='';for(let v=lo;v<=hi;v+=10)s+=hline(L,W-R,y(v))+tx(L-6,y(v)+4,v+'%','end');
