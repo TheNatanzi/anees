@@ -658,3 +658,11 @@ html[data-sabz-theme="dark"] #anees-bank[aria-label="Anees tutor"], html[data-sa
   #anees-bank[aria-label="Anees tutor"] .ab-header .ab-preview { margin: 0; }
   #anees-bank .tv-card .tv-pair { margin: 2px 0; }
 }
+/* r2 round 25: on a moment card the Play button sits right under the wrong/right pair (her answers keep their place) */
+#anees-bank article.tv-card { display: flex; flex-direction: column; }
+#anees-bank article.tv-card > * { order: 2; }
+#anees-bank article.tv-card > .tu-top, #anees-bank article.tv-card > .tv-pair, #anees-bank article.tv-card > .dp-pairs { order: 0; }
+#anees-bank article.tv-card > div:has(> .tv-play), #anees-bank article.tv-card > .tv-play { order: 1; align-self: flex-start; margin: 6px 0; }
+#anees-bank article.tv-card > .tv-btns, #anees-bank article.tv-card > .an-answered { order: 3; }
+#anees-bank article.tv-card > :is(.an-note, details.an-note, [data-note]) { order: 4; }
+#anees-bank article.tv-card > .tv-reason { order: 3; }

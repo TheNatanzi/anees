@@ -233,7 +233,8 @@
   function run() {
     if (busy) return; busy = true;
     // round 2 (Medi 10-22 'you cut out too much data'): no list, card, decided or phone filter folds
-    try { intros(view); cards(view); grammar(view); progress(view); aiNotes(view); answerTint(view); counters(view); answeredBars(view); } finally { busy = false; }
+    try { intros(view); cards(view); grammar(view); progress(view); answerTint(view);   // r2 round 25: the two AI notes stay on screen (evidence, not prose)
+      counters(view); answeredBars(view); } finally { busy = false; }
   }
   let t = 0;
   new MutationObserver(() => { if (!busy) { clearTimeout(t); t = setTimeout(run, 30); } }).observe(view, { childList: true, subtree: true });
