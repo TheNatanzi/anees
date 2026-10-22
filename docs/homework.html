@@ -76,7 +76,7 @@ async function load(){ document.body.classList.remove('hw-is-off'); document.get
       (Array.isArray(ans)?ans:[]).forEach(a=>{ (answers[a.item_id]=answers[a.item_id]||[]).push(a); }); }
     render();
   }catch(e){ sub.textContent=''; document.body.classList.add('hw-is-off'); document.getElementById('hw-state').innerHTML='<span class="dw-chip bad">offline</span>';
-    root.innerHTML='<div class="hw-off" role="alert"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 36h20a8 8 0 0 0 1-15.9A11 11 0 0 0 14.3 18 9 9 0 0 0 14 36z"/><path d="M8 8l32 32"/></svg><b>Can\'t load homework</b><span>The server is offline. Try again in a minute.</span><button type="button" id="hw-retry">Retry</button></div>';
+    root.innerHTML='<div class="hw-off" role="alert"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 36h20a8 8 0 0 0 1-15.9A11 11 0 0 0 14.3 18 9 9 0 0 0 14 36z"/><path d="M8 8l32 32"/></svg><b>Can\'t load homework</b><span>Try again in a minute.</span><button type="button" id="hw-retry">Retry</button></div>';
     document.getElementById('hw-retry').onclick=load; }
 }
 load();

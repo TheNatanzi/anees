@@ -79,3 +79,27 @@ html[data-look="kurz"] .hw-keys li { border: 0; }
 #anees-bank .st-calm b { font-size: 28px; color: var(--dw-ok); }
 #anees-bank .st-calm span { text-transform: none; letter-spacing: 0; font-weight: 500; font-size: 13px; }
 @media (max-width: 680px) { #anees-bank .st-calm { grid-column: auto; } #anees-bank .st-calm b { font-size: 22px; } }
+
+/* ---------- Tutor (round 1) ---------- */
+#anees-bank #hb-hello .tu-bigs { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 0; }
+#anees-bank #hb-hello .tu-bigs > .dw-big { display: block; min-width: 120px; padding: 8px 14px; }
+#anees-bank #hb-hello .tu-bigs > .dw-big b { font-size: 34px; }
+#anees-bank #hb-hello .tu-bigs > .dw-big:nth-child(2) { border-left-color: var(--dw-a2); }
+#anees-bank .hb-row .tu-row-s { font-size: 13px; }
+#anees-bank .tu-pct i.lo { background: var(--dw-bad); } #anees-bank .tu-pct i.mid { background: var(--dw-warn); } #anees-bank .tu-pct i.hi { background: var(--dw-ok); }
+#anees-bank .tu-decay { display: grid; gap: 6px; margin: 0; }
+#anees-bank .tu-decay .dw-split { height: 12px; margin: 0; }
+#anees-bank .tu-decay .tu-fade { background: var(--dw-warn) !important; } #anees-bank .tu-decay .tu-never { background: var(--dw-muted) !important; }
+#anees-bank .hb-span.dw-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+#anees-bank .dp-how { display: flex; align-items: flex-start; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; font-size: 13px; color: var(--dw-muted); }
+#anees-bank .dp-how > details.dw-info { display: contents; }
+#anees-bank .dp-how > details.dw-info > div { order: 3; flex: 1 0 100%; margin: 0; }
+#anees-bank .dp-how > details.dw-info > div > p { margin: 0; }
+#anees-bank .dp-times { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 4px 0; }
+#anees-bank .dp-times > details.dw-info > div, #anees-bank .tg-title details.dw-info > div { margin-top: 6px; }
+#anees-bank .tg-title details.dw-info { font-size: 13px; font-family: var(--sabz-font-sans, system-ui); font-weight: 400; margin-left: 6px; }
+#anees-bank .tg-title details.dw-info[open] { display: block; margin: 6px 0 0; }
+#anees-bank .tg-card.dp-done { opacity: .85; }
+#anees-bank details.dp-list > summary { cursor: pointer; list-style: none; margin-top: 14px; }
+#anees-bank details.dp-list > summary::-webkit-details-marker { display: none; }
+#anees-bank details.dp-list > summary::before { content: '▸ '; } #anees-bank details.dp-list[open] > summary::before { content: '▾ '; }

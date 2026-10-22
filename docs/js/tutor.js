@@ -79,6 +79,12 @@
   const mins = t => Math.max(1, Math.round(t.left * minEach(t)));
   const sub = t => t.subText ? t.subText : t.finished ? 'Done · thank you' : `${fmt(t.left)} ${t.unit} left · about ${mins(t)} min`;
   const bar = t => `<div class="hb-bar" aria-hidden="true"><i style="width:${t.total ? Math.round(100 * t.done / t.total) : 0}%"></i></div>`;
+  // de-word 2026-10-22: the row's count stands out, the time is a chip; the same words as sub(), only shorter
+  const subHtml = t => t.subText ? esc(t.subText) : t.finished ? '<span class="dw-chip">Done · thank you</span>'
+    : `<span class="tu-left">${fmt(t.left)}</span> ${esc(t.unit)} left <span class="dw-chip muted tu-min">${mins(t)} min</span>`;
+  const short = s => String(s || '').replace(/\s*\(about \d+ min(?:utes)?\)\s*$/, '');
+  const info = (txt, label) => `<details class="dw-info"><summary aria-label="${esc(label || 'More')}">i</summary><div>${txt}</div></details>`;
+  const pctBar = v => `<div class="hb-bar tu-pct" aria-hidden="true"><i class="${v === null || v === undefined ? '' : v < 50 ? 'lo' : v < 80 ? 'mid' : 'hi'}" style="width:${v || 0}%"></i></div>`;
 
   // ---- the one list + panel every tab uses (PG-17) ----------------------------------------------------------------
   // rows: [{id, title, sub, bar}]; laptop: panel on the right; phone: the panel opens right under its row (accordion).
@@ -92,7 +98,7 @@
     const panelEl = $('#hb-panel'), $rows = view.querySelector('[data-rows]');
     function draw() {
       const ql = q.trim().toLowerCase(), list = rows.filter(r => !ql || (r.title + ' ' + (r.find || '')).toLowerCase().includes(ql)), page = list.slice(0, shown);
-      $rows.innerHTML = page.map(r => `<button type="button" class="hb-row" role="listitem" data-row="${esc(r.id)}" aria-expanded="${!!(sel && r.id === sel.id)}"${sel && r.id === sel.id ? ' aria-current="true"' : ''}><p class="hb-row-t">${esc(r.title)}</p>${r.sub ? `<p class="hb-row-s">${esc(r.sub)}</p>` : ''}${r.bar || ''}</button>`).join('')
+      $rows.innerHTML = page.map(r => `<button type="button" class="hb-row" role="listitem" data-row="${esc(r.id)}" aria-expanded="${!!(sel && r.id === sel.id)}"${sel && r.id === sel.id ? ' aria-current="true"' : ''}><p class="hb-row-t">${esc(r.title)}</p>${r.subHtml ? `<p class="hb-row-s tu-row-s">${r.sep ? ' ' : ''}${r.subHtml}</p>` : r.sub ? `<p class="hb-row-s">${esc(r.sub)}</p>` : ''}${r.bar || ''}</button>`).join('')
         + (list.length > shown ? `<button type="button" class="hb-ans" data-more>Next ${Math.min(PAGE, list.length - shown)} (${list.length - shown} more)</button>` : '')
         + (!list.length ? '<p class="hb-empty">Nothing matches.</p>' : '');
       $rows.querySelectorAll('[data-row]').forEach(b => b.onclick = () => { location.hash = tab + (sel && sel.id === b.dataset.row && !wide() ? '' : '/' + b.dataset.row); });
@@ -110,7 +116,7 @@
     setTab('todo');
     const open = tasks.filter(t => !t.finished);
     if (!open.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing to check right now. Shukran!</p>'; return; }
-    listPanel('todo', open.map(t => ({ id: t.id, title: t.title, sub: sub(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p));
+    listPanel('todo', open.map(t => ({ id: t.id, title: short(t.title), sep: short(t.title) !== t.title, subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p));
   }
   // every kind of item opens here, with the same module as its old address (no link to another page)
   // AM-27 (Medi 2026-10-07 "lets add a place for notes for amal always"): a note box under every card and one per list.
@@ -139,10 +145,10 @@
     results: b => AneesResultsTask.mount(b, RS),                                      // PG-36 Medi 2026-10-08: his card-set scores, read here (never sent)
   };
   function panel(t, p) {
-    p.innerHTML = `<h2 class="hb-ptitle">${esc(t.title)}</h2><p class="hb-pnote">${esc(sub(t))}</p>${t.item && t.item.what ? `<p class="hb-sub">${esc(t.item.what)}</p>` : ''}<div id="hb-body"></div><div data-earlier></div>`;
+    p.innerHTML = `<h2 class="hb-ptitle">${esc(short(t.title))}</h2><p class="hb-pnote">${esc(sub(t))}</p>${t.item && t.item.what ? `<p class="hb-sub">${esc(t.item.what)}</p>` : ''}<div id="hb-body"></div><div data-earlier></div>`;
     const update = () => {
       const row = document.querySelector(`.hb-row[data-row="${CSS.escape(t.id)}"]`);
-      if (row) { row.querySelector('.hb-row-s').textContent = sub(t); row.querySelector('.hb-bar i').style.width = (t.total ? Math.round(100 * t.done / t.total) : 0) + '%'; }
+      if (row) { row.querySelector('.hb-row-s').innerHTML = subHtml(t); row.querySelector('.hb-bar i').style.width = (t.total ? Math.round(100 * t.done / t.total) : 0) + '%'; }
       p.querySelector('.hb-pnote').textContent = sub(t); count();
     };
     const on = s => { t.total = s.total; t.done = Math.min(s.done, s.total); t.left = s.total - t.done; t.finished = s.finished; update(); };
@@ -199,26 +205,26 @@
   async function grammar(id) {
     setTab('grammar'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
     let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
-    const rows = D.rules.map(r => ({ id: r.id, title: `${r.id} · ${r.name}`, sub: `${pctTxt(r.pct)} right · ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections · last ${pretty(r.last_used)}`, find: r.family || '', r }));
+    const rows = D.rules.map(r => ({ id: r.id, title: `${r.id} · ${r.name}`, sub: `${pctTxt(r.pct)} right · ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections · last ${pretty(r.last_used)}`, bar: pctBar(r.pct), find: r.family || '', r }));
     listPanel('grammar', rows, id, (row, p) => {
       const r = row.r;
       p.innerHTML = `<article id="${esc(r.id)}" class="hb-doc"><h3 class="hb-q">${esc(r.id)} · ${esc(r.name)}</h3><p class="hb-sub">${esc(r.one_line || '')}</p>
         <p class="hb-prog">${pctTxt(r.pct)} right over ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections · ${esc(r.status || '')}</p>
         <h4 class="hb-q">His last moments</h4>${momentsHtml(r.moments, m => (m.said || '') + (m.recast ? ' → ' + m.recast : ''))}</article>`;
       clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
-    }, { noAuto: false, head: `<p class="hb-sub hb-span">The student's ${D.rules.length} weakest grammar rules, lowest % first (3+ uses). Tap one: his numbers, his last moments, and a note box for you.</p>` });
+    }, { noAuto: false, head: `<p class="hb-sub hb-span dw-row"><span class="dw-chip bad">${D.rules.length} weakest rules</span> lowest % first ${info(`The student's ${D.rules.length} weakest grammar rules, lowest % first (3+ uses). Tap one: his numbers, his last moments, and a note box for you.`, 'About this list')}</p>` });
   }
   async function vocab(id) {
     setTab('vocab'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
     let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
-    const rows = D.words.map(w => ({ id: 'word:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · ${pctTxt(w.pct)} right · ${fmt(w.n)} uses · last ${pretty(w.last_date)}`, find: w.english || '', w }));
+    const rows = D.words.map(w => ({ id: 'word:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · ${pctTxt(w.pct)} right · ${fmt(w.n)} uses · last ${pretty(w.last_date)}`, bar: pctBar(w.pct), find: w.english || '', w }));
     listPanel('vocab', rows, id, (row, p) => {
       const w = row.w;
       p.innerHTML = `<article id="${esc(row.id)}" class="hb-doc"><h3 class="hb-q">${esc(w.arabizi)} ${w.arabic ? `<span lang="ar" dir="rtl">${esc(w.arabic)}</span>` : ''}</h3><p class="hb-sub">${esc(w.english || '')}</p>
         <p class="hb-prog">${pctTxt(w.pct)} right · ${fmt(w.right)} right, ${fmt(w.partial)} partly, ${fmt(w.wrong)} wrong · ${esc(w.status || '')}</p>
         <h4 class="hb-q">His last moments</h4>${momentsHtml(w.moments, m => `he said «${m.said || '?'}»${m.fix ? ' → ' + m.fix : ''}${m.kind === 'asked' ? ' (asked you for the word)' : ''}`)}</article>`;
       clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
-    }, { search: 'Find a word', head: `<p class="hb-sub hb-span">The student's ${D.words.length} weakest Doc words, lowest % first (2+ scored uses). Tap one: his numbers, his last moments, and a note box for you.</p>` });
+    }, { search: 'Find a word', head: `<p class="hb-sub hb-span dw-row"><span class="dw-chip bad">${D.words.length} weakest words</span> lowest % first ${info(`The student's ${D.words.length} weakest Doc words, lowest % first (2+ scored uses). Tap one: his numbers, his last moments, and a note box for you.`, 'About this list')}</p>` });
   }
   async function decay(id) {
     setTab('decay'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
@@ -232,7 +238,8 @@
         <p class="hb-prog">${row.kind === 'decaying' ? `Last said ${esc(pretty(w.last_date))}, ${w.days_ago} days ago · was ${esc(w.status || '')} (${pctTxt(w.pct)} over ${fmt(w.n)} uses)` : `Never said in a recorded lesson · in the Doc since ${esc(pretty(w.first_seen))}`}</p>
         ${row.kind === 'decaying' ? `<h4 class="hb-q">His last moments</h4>${momentsHtml(w.moments, m => `he said «${m.said || '?'}»${m.fix ? ' → ' + m.fix : ''}`)}` : ''}</article>`;
       clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
-    }, { search: 'Find a word', noAuto: true, head: `<p class="hb-sub hb-span">Decay: ${fmt(K.decaying.length)} words the student knew but has not said for ${K.days}+ days (longest first), then ${fmt(K.untested.length)} Doc words never said in a recorded lesson. Tap one for its story and a note box.</p>` });
+    }, { search: 'Find a word', noAuto: true, head: `<div class="hb-span tu-decay"><p class="dw-row"><span class="dw-chip warn">${fmt(K.decaying.length)} fading · ${K.days}+ days</span><span class="dw-chip muted">${fmt(K.untested.length)} never said</span> ${info(`Decay: ${fmt(K.decaying.length)} words the student knew but has not said for ${K.days}+ days (longest first), then ${fmt(K.untested.length)} Doc words never said in a recorded lesson. Tap one for its story and a note box.`, 'About this list')}</p>
+      <div class="dw-split" role="img" aria-label="${fmt(K.decaying.length)} fading, ${fmt(K.untested.length)} never said"><i class="tu-fade" style="width:${(100 * K.decaying.length / Math.max(1, K.decaying.length + K.untested.length)).toFixed(1)}%"></i><i class="tu-never" style="width:${(100 * K.untested.length / Math.max(1, K.decaying.length + K.untested.length)).toFixed(1)}%"></i></div></div>` });
   }
   async function materials(id) {
     setTab('materials');
@@ -286,7 +293,7 @@
     if (!fin.length && !C.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing finished yet.</p>'; return; }
     const rows = fin.map(t => ({ key: 't:' + t.id, title: t.title, note: `${fmt(t.done)} of ${fmt(t.total)} ${t.unit} answered`, open: () => t }))
       .concat(C.map(c => ({ key: 'c:' + c.id, title: c.title, note: `${c.why}${c.detail ? ` · ${fmt(c.detail.answered)} of ${fmt(c.detail.total)} answered` : ''}`, c })));
-    $('#hb-view').innerHTML = `<p class="hb-sub">Tap a row to see what was asked and every answer. Undo works while a list is still open.</p><div class="hb-accs">${rows.map((r, i) =>
+    $('#hb-view').innerHTML = `<p class="hb-sub dw-row"><span class="dw-chip">${rows.length} finished</span> ${info('Tap a row to see what was asked and every answer. Undo works while a list is still open.', 'How this works')}</p><div class="hb-accs">${rows.map((r, i) =>
       `<details class="hb-acc" data-i="${i}"><summary><b>${esc(r.title)}</b> <span>· ${esc(r.note)}</span></summary><div class="hb-acc-body"></div><div data-earlier></div></details>`).join('')}</div>`;
     document.querySelectorAll('.hb-accs > details').forEach(d => d.addEventListener('toggle', () => {
       if (!d.open || d.dataset.on) return; d.dataset.on = '1';
@@ -412,7 +419,7 @@
     } catch (e) {}
     rankAll(tasks); count();
     const open = tasks.filter(t => !t.finished && !t.quiet), m = open.reduce((s, t) => s + t.left * minEach(t), 0);
-    $('#hb-hello').textContent = open.length ? `Marhaba · ${open.length} thing${open.length === 1 ? '' : 's'} to check, about ${Math.max(1, Math.round(m))} min` : 'Marhaba · nothing to check right now';
+    $('#hb-hello').innerHTML = open.length ? `<span class="tu-bigs"><span class="dw-big"><b>${open.length}</b><span>thing${open.length === 1 ? '' : 's'} to check</span></span><span class="dw-big"><b>${Math.max(1, Math.round(m))}</b><span>min to go</span></span></span>` : 'Marhaba · nothing to check right now';
     $('#ab-source').textContent = 'Live · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
     if (!wired) { wired = true; window.addEventListener('hashchange', route); route(); }
     else if (onList()) route();
