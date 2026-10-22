@@ -137,6 +137,35 @@
     }
   }
 
+  // 7. the other tabs: every panel shows its title and headline number; the chart opens in place.
+  //    The first two panels of a tab stay open, and so does any panel you answer in (the swipe check).
+  const PANES = ['vp-tab-vocab', 'vp-tab-flash', 'vp-tab-lexicon', 'vp-tab-fluency', 'vp-tab-grammar'];
+  function charts() {
+    for (const id of PANES) {
+      const pane = document.getElementById(id);
+      if (!pane) continue;
+      const panels = [...pane.querySelectorAll('.vp-panel')].filter(p => !p.parentElement.closest('.vp-panel'));
+      panels.forEach((p, i) => {
+        if (p.dataset.dwc) return;
+        const kids = [...p.children];
+        const h = kids.findIndex(k => k.matches('h2, h3, .vp-panelhead') || k.querySelector('h2, h3'));
+        if (h < 0) return;
+        let cut = h + 1;
+        while (cut < kids.length && /big|side|kpi|-n\b|num/.test(kids[cut].className || '') && !kids[cut].querySelector('svg, table')) cut++;
+        const rest = kids.slice(cut).filter(k => !k.matches('details.dw-p, .dw-link'));
+        if (!rest.length || !rest.some(k => k.querySelector('svg, table, .gp-row, .vp-bar, [class*="row"], [class*="bar"]') || k.matches('svg, table'))) return;
+        p.dataset.dwc = '1';
+        const d = document.createElement('details');
+        d.className = 'dw-chart'; d.dataset.dw = '1';
+        if (i < 2 || p.matches('.fl-swipe-panel, .vu-panel') || p.querySelector('textarea, input[type=text]')) d.open = true;
+        const s = document.createElement('summary'); s.setAttribute('aria-label', 'Chart');
+        d.append(s);
+        kids[cut].before(d);
+        for (const k of kids.slice(cut)) d.append(k);
+      });
+    }
+  }
+
   function run() {
     queued = false;
     const root = document.getElementById(ROOT_ID);
@@ -144,7 +173,7 @@
     busy = true;
     try {
       const head = document.querySelector('.vp-header');
-      method(root); subs(root); notes(root); tables(root); dups(root); alerts();
+      method(root); subs(root); notes(root); tables(root); dups(root); alerts(); charts();
       if (head) subs(head);
     } finally { busy = false; }
   }

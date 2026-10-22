@@ -120,3 +120,9 @@ html[data-look="kurz"] #anees-bank .dw-more { background: var(--dw-a1); color: v
 #lesson-alerts.dw-alerts { font-size: 13px !important; padding: 7px 12px !important; }
 #lesson-alerts.dw-alerts details.dw-p { display: inline; font-weight: 400; }
 #lesson-alerts.dw-alerts details.dw-p > div { font-family: ui-monospace, Consolas, monospace; font-size: 12px; overflow-wrap: anywhere; color: inherit; }
+
+@media (max-width: 680px) {
+  /* the A/B look switch rides at the top right of the page, not over the cards */
+  .anees-look-float { position: absolute; top: 74px; bottom: auto; right: 12px; }
+}
+#anees-bank .vp-grid { align-items: start; }
