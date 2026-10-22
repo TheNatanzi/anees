@@ -399,3 +399,10 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
 #anees-bank #ab-metrics .dw-big.dw-ring::before { float: none !important; display: block; width: 22px; height: 22px; margin: 0 0 4px; }
 #anees-bank .gc-chart-foot { font-size: 14px !important; } #anees-bank .gc-chart-note { font-size: 13px !important; }
 #anees-bank .stile .vp-card-sub { font-size: 14px !important; } #anees-bank .fc-mixn span::after { font-size: 11px !important; }
+/* round 13: thicker rings; recall state as a coloured badge (strong / fading / at risk / high risk) */
+#anees-bank #ab-metrics .dw-big.dw-ring::before { width: 26px; height: 26px; -webkit-mask: radial-gradient(circle, transparent 38%, #000 41%); mask: radial-gradient(circle, transparent 38%, #000 41%); }
+#ab-rows :is(.vp-memory-badge, .vp-memory-mini) { display: inline-block; padding: 1px 8px; border-radius: 999px; font-weight: 700; font-size: 13px; }
+#ab-rows :is(.vp-memory-badge, .vp-memory-mini).vp-memory-strong { background: var(--dw-ok-fill); color: var(--dw-ok); }
+#ab-rows :is(.vp-memory-badge, .vp-memory-mini).vp-memory-fading { background: color-mix(in srgb, var(--dw-a3) 25%, transparent); color: var(--dw-ink); }
+#ab-rows :is(.vp-memory-badge, .vp-memory-mini).vp-memory-risk { background: var(--dw-warn-fill); color: var(--dw-warn); }
+#ab-rows :is(.vp-memory-badge, .vp-memory-mini).vp-memory-high { background: var(--dw-bad-fill); color: var(--dw-bad); }
