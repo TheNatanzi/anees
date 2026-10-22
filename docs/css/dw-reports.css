@@ -385,8 +385,7 @@ html[data-look="kurz"] #ar-tab-unknowns .ar-unk-h .dw-sumbig.dw-warnbig b { colo
 #anees-bank .fl .fl-inner details.phase { margin-top: 8px; border-left-width: 4px; }
 /* lesson round 3: every line stays; Arabic lines get a colour band, tiny English/filler lines read small and faint */
 html.lsn-page p.turn:has(i[data-k="ar"]) { border-left: 4px solid var(--dw-a1); }
-html.lsn-page p.turn:has(i[data-k="lite"]) { font-size: 14px; padding-top: 4px; padding-bottom: 4px; opacity: .6; }
-html.lsn-page p.turn:has(i[data-k="lite"]):hover, html.lsn-page p.turn:has(i[data-k="lite"]).on { opacity: 1; }
+html.lsn-page p.turn:has(i[data-k="lite"]) { padding-top: 4px; padding-bottom: 4px; }   /* round 2: short lines full size, full contrast */
 html.lsn-page .lsn-jump { display: inline-block; margin: 2px 0 10px; padding: 8px 16px; border-radius: 999px; background: var(--dw-a1); color: var(--sabz-bg, #fff) !important;
   font-weight: 700; font-size: 15px; text-decoration: none; }
 html.lsn-page #arabic-start { scroll-margin-top: 70px; }
@@ -468,3 +467,9 @@ html.lsn-page body > #stall-bar { padding: 4px 12px !important; font: 600 12.5px
 #ar-tab-unknowns .ar-unk-h .dw-catico { font-size: 22px; align-self: center; }
 #ar-tab-unknowns .ar-unk-h .dw-sumbig { flex: 1 1 auto; max-width: 560px; }
 #anees-bank .ls-small, #anees-bank .ls-barlab { font-size: 13.5px; }
+
+/* ---------- round 2 (look A): data back in view ---------- */
+#ar-tab-unknowns .vu-grid { grid-template-columns: minmax(0, 1fr); }      /* each vocabulary card is full width: rows and labels never squeeze */
+#ar-tab-unknowns .dw-clip { font-size: 0 !important; }                  /* a bar slice too thin for its label: the legend underneath carries it */
+html.lsn-page .lsn-mark { padding: 2px 9px; border-radius: 999px; background: var(--dw-a1); color: var(--dw-card) !important; }   /* the practice start: a pill */
+html.lsn-page .lsn-map { position: relative; padding-top: 24px; }

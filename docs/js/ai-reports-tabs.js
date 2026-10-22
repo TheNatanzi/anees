@@ -71,10 +71,13 @@ function dwInfo(el){
  const d=document.createElement('details');d.className='dw-info';d.innerHTML='<summary aria-label="More about this">ⓘ</summary><div></div>';d.lastChild.append(wrap);
  if(h){h.append(' ',d);el.remove();}else{d.classList.add('dw-info-line');el.replaceWith(d);}
 }
-function dwPass(){document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
+function dwClip(){document.querySelectorAll('#ar-tab-unknowns .vu-split i, #ar-tab-unknowns .gu-split i').forEach(i=>{if(i.classList.contains('dw-clip')||!i.textContent.trim()||!i.clientWidth)return;
+ if(i.scrollWidth>i.clientWidth+1){i.classList.add('dw-clip');i.title=i.textContent.trim();}});}   // a slice too thin for its words: no cut-off label
+function dwPass(){dwClip();document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');
 if(!first){try{first=localStorage.getItem('anees-ai-reports-tab');}catch(e){}}
 show(first||'unknowns');
 })();
+document.addEventListener('click',()=>setTimeout(()=>{try{dwClip();}catch(e){}},400));

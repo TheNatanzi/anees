@@ -1064,7 +1064,14 @@ function renderMedi() {
   box.textContent = '';
   box.hidden = !items.length && !amal;
   if (!items.length) {
-    if (amal) box.appendChild(el('p', 'ab-mini', 'Waiting for the tutor · ' + amal + (amal === 1 ? ' moment' : ' moments') + ' where two judges disagree about a word are on her Tutor hub. Counted as before until she answers.'));
+    if (amal) {   // de-word r2: one line, the number in bold and an action; the why opens in place
+      var wp = el('p', 'ab-mini dw-wait'); wp.appendChild(el('b', 'dw-waitn', String(amal)));
+      wp.appendChild(document.createTextNode(' ' + (amal === 1 ? 'word waits' : 'words wait') + ' for the tutor '));
+      var wa = el('a', 'dw-act', 'Open on the Tutor page →'); wa.href = 'tutor.html'; wp.appendChild(wa);
+      var wd = el('details', 'dw-info'), ws = el('summary', '', 'ⓘ'); ws.setAttribute('aria-label', 'Why they wait'); wd.appendChild(ws);
+      wd.appendChild(el('div', '', 'Waiting for the tutor · ' + amal + (amal === 1 ? ' moment' : ' moments') + ' where two judges disagree about a word are on her Tutor hub. Counted as before until she answers.'));
+      wp.appendChild(document.createTextNode(' ')); wp.appendChild(wd); box.appendChild(wp);
+    }
     return;
   }
   if (amal) box.appendChild(el('p', 'ab-mini', 'Also waiting for the tutor: ' + amal + ' word ' + (amal === 1 ? 'moment' : 'moments') + ' on her Tutor hub.'));
@@ -1170,4 +1177,28 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     $('ls-notice').textContent = 'Could not load the lessons data: ' + err.message;
     $('ls-source').textContent = 'Failed to load';
   });
+  // De-word r2: a robot alert shows as one short warning chip; the exact error text opens in place behind (i).
+  function dwAlerts() {
+    var box = document.getElementById('lesson-alerts');
+    if (!box || box.dataset.dw === box.textContent.length + '') return;
+    [].slice.call(box.children).forEach(function (d) {
+      if (d.querySelector('details')) return;
+      var t = d.textContent, m = t.match(/not published since (.+?):\s/), short = m ? 'Robot stuck since ' + m[1] : t.split(/[:.]/)[0];
+      if (short === t) return;
+      d.textContent = '';
+      d.appendChild(el('span', 'dw-chip bad', short)); d.appendChild(document.createTextNode(' '));
+      var det = el('details', 'dw-info'), sm = el('summary', '', 'ⓘ'); sm.setAttribute('aria-label', 'The exact error');
+      det.appendChild(sm); det.appendChild(el('div', '', t)); d.appendChild(det);
+    });
+    box.dataset.dw = box.textContent.length + '';
+  }
+  // the header's one-line explanation opens in place behind (i)
+  function dwHead() {
+    var sub = document.querySelector('#anees-bank .ab-header .ab-sub'); if (!sub || sub.closest('details')) return;
+    var h = document.querySelector('#anees-bank .ab-header h1'), d = el('details', 'dw-info'), sm = el('summary', '', 'ⓘ');
+    sm.setAttribute('aria-label', 'About this page'); d.appendChild(sm); var dv = el('div', ''); d.appendChild(dv); dv.appendChild(sub);
+    h.appendChild(document.createTextNode(' ')); h.appendChild(d);
+  }
+  dwHead(); dwAlerts();
+  new MutationObserver(dwAlerts).observe(document.querySelector('main') || document.body, { childList: true, subtree: true });
 })();

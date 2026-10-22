@@ -44,8 +44,9 @@ def dword(frag):
     building block and the who-decides rule stay in view, as before. Only a step's how-it-works sentence that holds no
     number opens behind a small (i); each phase gets its picture."""
     def info(m):
-        if re.search(r'\d', re.sub(r'<[^>]+>', '', m.group(1))):
-            return m.group(0)   # a sentence with a number in it is data: it stays in view
+        txt = re.sub(r'<[^>]+>', '', m.group(1))
+        if re.search(r'\d', txt) or len(txt.split()) <= 22:
+            return m.group(0)   # a number in it is data, and a one-liner reads faster than a tap: it stays in view
         return '<details class="dw-info fl-more"><summary aria-label="How this step works">ⓘ</summary><div>%s</div></details>' % m.group(1)
     frag = re.sub(r'<p>(.*?)</p>(?=<div class="chips">)', info, frag)
 
