@@ -260,24 +260,13 @@ function renderMetrics() {
   box.textContent = '';
   cards.forEach(function (c) {
     var m = el('div', 'ab-metric');
-    var lab = el('div', 'ab-metric-label', c[0]);
-    m.appendChild(lab);
+    m.appendChild(el('div', 'ab-metric-label', c[0]));
     var v = el('div', 'ab-number', typeof c[1] === 'string' ? c[1] : c[1].text);
     if (typeof c[1] !== 'string' && c[1].approx) { v.classList.add('rel-approx'); v.title = c[1].title; v.setAttribute('data-why', c[1].title); v.tabIndex = 0; }
     m.appendChild(v);
-    if (c[0] === 'Words right' || c[0] === 'Grammar right') {   // de-word: the hero numbers get their bar (right vs the rest)
-      var pv = parseFloat(String(typeof c[1] === 'string' ? c[1] : c[1].text).replace(/[^\d.]/g, ''));
-      if (!isNaN(pv)) { var hb = el('div', 'dw-split ls-herobar'); hb.setAttribute('aria-hidden', 'true'); var hi = el('i', 'ls-wok'); hi.style.width = pv + '%'; hb.appendChild(hi); m.appendChild(hb); }
-    }
-    // De-word (2026-10-22): the how-it-was-counted note opens in place behind a small (i) on the label
-    if (/\d/.test(c[2])) { var d = el('details', 'dw-info'); var s = el('summary', '', 'ⓘ'); s.setAttribute('aria-label', 'How this is counted'); d.appendChild(s); d.appendChild(el('div', '', c[2])); lab.appendChild(document.createTextNode(' ')); lab.appendChild(d); }
+    m.appendChild(el('div', 'ab-tiny', c[2]));
     box.appendChild(m);
   });
-  // de-word: words + grammar right are the two hero numbers; the other four open from one tap
-  var tiles = [].slice.call(box.children), more = el('details', 'ls-more'), ms = el('summary', '', 'More numbers'), mg = el('div', 'ls-moregrid');
-  more.appendChild(ms); more.appendChild(mg);
-  [0, 1, 4, 5].forEach(function (i) { if (tiles[i]) mg.appendChild(tiles[i]); });
-  box.appendChild(more);
 }
 
 /* ---------- tabs + chips ---------- */
@@ -1075,14 +1064,7 @@ function renderMedi() {
   box.textContent = '';
   box.hidden = !items.length && !amal;
   if (!items.length) {
-    if (amal) {   // de-word: one bold number; the why opens in place
-      var wp = el('p', 'ab-mini dw-wait'); wp.appendChild(el('b', 'dw-waitn', String(amal)));
-      wp.appendChild(document.createTextNode(' ' + (amal === 1 ? 'word waits' : 'words wait') + ' for the tutor '));
-      var wd = el('details', 'dw-info'), ws = el('summary', '', 'ⓘ'); ws.setAttribute('aria-label', 'Why they wait'); wd.appendChild(ws);
-      wd.appendChild(el('div', '', 'Waiting for the tutor · ' + amal + (amal === 1 ? ' moment' : ' moments') + ' where two judges disagree about a word are on her Tutor hub. Counted as before until she answers.'));
-      var wa = el('a', 'dw-act', 'Open on the Tutor page →'); wa.href = 'tutor.html'; wp.appendChild(wa);
-      wp.appendChild(wd); box.appendChild(wp);
-    }
+    if (amal) box.appendChild(el('p', 'ab-mini', 'Waiting for the tutor · ' + amal + (amal === 1 ? ' moment' : ' moments') + ' where two judges disagree about a word are on her Tutor hub. Counted as before until she answers.'));
     return;
   }
   if (amal) box.appendChild(el('p', 'ab-mini', 'Also waiting for the tutor: ' + amal + ' word ' + (amal === 1 ? 'moment' : 'moments') + ' on her Tutor hub.'));
@@ -1175,10 +1157,7 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     DATA = json;
     var L = lessons();
     $('ls-source').textContent = L.length + ' lessons · ' + L[0].date.slice(5) + ' to ' + L[L.length - 1].date.slice(5);
-    $('ls-coverage').innerHTML = '';   // de-word: the source line opens in place
-    var cd = el('details', 'dw-info'), cs = el('summary', '', 'ⓘ'); cs.setAttribute('aria-label', 'Where these numbers come from'); cd.appendChild(cs);
-    cd.appendChild(el('div', '', 'Source: docs/data/lessons.json · updated ' + DATA.updated + ' · lesson types are Claude’s reading, tell Claude to change any.'));
-    $('ls-coverage').appendChild(cd);
+    $('ls-coverage').textContent = 'Source: docs/data/lessons.json · updated ' + DATA.updated + ' · lesson types are Claude’s reading, tell Claude to change any.';
     window.AneesLessonMath.wireTaps(document);
     window.AneesLessonMath.stampMethod(DATA, $('ls-coverage'), 'after');   // 2026-10-05: the numbers are counted another way from that day
     renderMetrics();
@@ -1191,45 +1170,4 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     $('ls-notice').textContent = 'Could not load the lessons data: ' + err.message;
     $('ls-source').textContent = 'Failed to load';
   });
-
-  // De-word (2026-10-22): a robot alert shows as one short warning; the exact error opens in place behind (i).
-  function dwAlerts() {
-    var box = document.getElementById('lesson-alerts');
-    if (!box || box.dataset.dw === box.textContent.length + '') return;
-    [].slice.call(box.children).forEach(function (d) {
-      if (d.querySelector('details')) return;
-      var t = d.textContent, m = t.match(/not published since (.+?):\s/), short = m ? 'Robot stuck since ' + m[1] : t.split(/[:.]/)[0];
-      if (short === t) return;
-      d.textContent = '';
-      d.appendChild(el('span', 'dw-chip bad', short));
-      d.appendChild(document.createTextNode(' '));
-      var det = el('details', 'dw-info'), s = el('summary', '', 'ⓘ'); s.setAttribute('aria-label', 'The exact error');
-      det.appendChild(s); det.appendChild(el('div', '', t)); d.appendChild(det);
-    });
-    box.dataset.dw = box.textContent.length + '';
-  }
-  // the newest 5 lessons show; "Show all" opens the rest in place (kept for later re-renders on this visit)
-  var dwAll = false;
-  function dwRows() {
-    var box = $('ls-rows'); if (!box) return;
-    var rows = [].slice.call(box.querySelectorAll(':scope > .ls-row'));
-    var btn = box.querySelector(':scope > .dw-more');
-    if (rows.length <= 5 || (btn && btn.dataset.n === String(rows.length) && btn.dataset.all === String(dwAll))) return;
-    if (btn) btn.remove();
-    rows.forEach(function (r, i) { r.classList.toggle('dw-fold-hid', !dwAll && i >= 5); });
-    btn = el('button', 'dw-more', dwAll ? 'Show fewer' : 'Show all ' + rows.length); btn.type = 'button';
-    btn.dataset.n = String(rows.length); btn.dataset.all = String(dwAll);
-    btn.addEventListener('click', function () { dwAll = !dwAll; btn.remove(); dwRows(); });
-    box.appendChild(btn);
-  }
-  // the method-change note: one warning chip, the full note behind (i)
-  function dwMethod() {
-    [].slice.call(document.querySelectorAll('#anees-bank p.method-change:not([data-dw])')).forEach(function (p) {
-      p.dataset.dw = '1'; p.removeAttribute('style');
-      var w = el('div', 'dw-method'), md = (p.dataset.methodChange || '').match(/^\d{4}-(\d\d)-(\d\d)$/), c = el('span', 'dw-chip warn', 'Counting changed ' + (md ? ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+md[1] - 1] + ' ' + (+md[2]) : (p.dataset.methodChange || '')));
-      var d = el('details', 'dw-info'), s = el('summary', '', 'ⓘ'); s.setAttribute('aria-label', 'What changed'); d.appendChild(s);
-      var inner = el('div', ''); d.appendChild(inner); p.before(w); w.appendChild(c); w.appendChild(document.createTextNode(' ')); w.appendChild(d); inner.appendChild(p);
-    });
-  }
-  new MutationObserver(function () { dwAlerts(); dwRows(); dwMethod(); }).observe(document.querySelector('main') || document.body, { childList: true, subtree: true });
 })();

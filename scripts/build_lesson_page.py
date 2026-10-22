@@ -118,7 +118,7 @@ def render(date, merged, *, minutes, words, note, audio=None):
 # place, and the page gets the app's theme + look switch (js/theme.js) and css/dw-reports.css. Works on a fresh render and
 # on an already published page (python scripts/build_lesson_page.py --dword <date>|--dword-all); running it twice is a no-op.
 DW_HEAD = ('<meta name="color-scheme" content="light dark"><script src="../js/theme.js"></script>'
-           '<link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/dw-reports.css?v=1">')
+           '<link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/dw-reports.css?v=2">')
 DW_STATS = re.compile(r'<div class="note">(.*?)</div><p>([\d.]+) minutes · ([\d,]+) transcribed words · (\d+) lines Amal typed in chat</p>', re.S)
 
 
@@ -180,22 +180,13 @@ def mark_turns(page):
         btn = m.group(1)[:-len('</button>')] + mark + '</button>' if mark else m.group(1)
         return '<p dir="auto" class="turn">%s<b>%s</b>: <span class="words">%s</span></p>' % (btn, m.group(3), text)
     page = TURN.sub(sub, page)
-    # 2+ short filler lines in a row (mm, ok, yeah) fold into one faint "n short lines" strip that opens in place
-    lite = r'<p dir="auto" class="turn"><button[^>]*>(?:(?!</button>).)*data-k="lite"(?:(?!</button>).)*</button>(?:(?!<p dir=).)*?</p>'
-    page = re.sub('(?:%s){2,}' % lite, lambda m: '<details class="lsn-lite"><summary data-n="%d short lines" aria-label="%d short lines"></summary>%s</details>'
-                  % (m.group(0).count('<p dir="auto"'), m.group(0).count('<p dir="auto"'), m.group(0)), page, flags=re.S)
+    # Round 2 (Medi 2026-10-22: "you cut out too much data"): no line folds away any more. Filler lines stay in view
+    # (drawn small), the talk before the Arabic practice stays in view, and a divider marks where the practice starts.
     if start is not None and start > 0:
-        # the talk before the Arabic practice (set-up, small talk) folds into one row that opens in place: every line is still here
-        a = min(x for x in (page.find('<p dir="auto"'), page.find('<details class="lsn-lite">')) if x >= 0)
-        b = page.find('id="arabic-start"', a)
+        b = page.find('id="arabic-start"')
         b = page.rfind('<p dir="auto"', 0, b)
-        if page.rfind('<details class="lsn-lite">', a, b) > page.rfind('</details>', a, b):   # never cut a filler strip in two
-            b = page.rfind('<details class="lsn-lite">', a, b)
-        if 0 <= a < b:
-            n = page.count('<p dir="auto"', a, b)
-            fold = ('<details class="lsn-before"><summary>Before the Arabic practice · 00:00–%s · %d lines</summary>%s</details>'
-                    '<p class="lsn-start">▶ The Arabic practice starts · %s </p>' % (clock(float(rows[start][1])), n, page[a:b], clock(float(rows[start][1]))))
-            page = page[:a] + fold + page[b:]
+        if b > 0:
+            page = page[:b] + '<p class="lsn-start">▶ The Arabic practice starts · %s </p>' % clock(float(rows[start][1])) + page[b:]
         # the talk map gets a marker where the practice starts (a tap jumps there)
         end = max(float(r[1]) for r in rows) or 1.0
         mark = ('<a class="lsn-mark" href="#arabic-start" style="left:%.1f%%">▶ %s</a>'

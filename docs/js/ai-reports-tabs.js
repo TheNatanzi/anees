@@ -51,104 +51,28 @@ function show(tab){
  if(tab==='unknowns')mountUnknowns();
  if(tab==='grades')mountGrades();
 }
-// De-word (plan/OVERNIGHT-DEWORD-2026-10-22.md): the panels on this page keep numbers, actions and warnings in view;
-// every explanation goes behind a small ⓘ that opens in place (its text, and every number in it, stays on the page).
-// The modules are shared with Progress, so the move happens here, on this page only.
-const DW_INFO=['.vp-panelhead p.ab-sub','.vu-head p.ab-sub','.gu-head p.ab-sub','.pn-panel .vp-panelhead p','p.rb-link','p.fl-foot','p.vu-foot',
- 'p.gu-foot','p.pn-foot','p.vp-footer','p.gu-src','.gu-callout','ol.vu-do','.rg-detail > p.ab-sub','#air-grades p.ar-foot'].join(',');
-function dwHeading(el){   // the heading this text explains: right before it, else its panel's / section's heading
+// De-word round 2 (Medi 2026-10-22: "you cut out too much data"): every number, table, list and chart stays in view.
+// Only explanation prose goes behind a small ⓘ on its heading, and only when it holds no number (a sentence with a
+// number in it is data and stays on screen). The modules are shared with Progress, so the move happens on this page only.
+const DW_PROSE=['.vp-panelhead p.ab-sub','.vu-head p.ab-sub','.gu-head p.ab-sub','.pn-panel .vp-panelhead p','p.rb-link','p.fl-foot',
+ 'p.vu-foot','p.gu-foot','p.pn-foot','p.vp-footer','p.gu-src','.rg-detail > p.ab-sub','#air-grades p.ar-foot','.ov-head > p.ab-sub','.ab-header .ab-sub'].join(',');
+function dwHeading(el){
  const h=el.previousElementSibling;if(h&&/^H[1-4]$/.test(h.tagName))return h;
  for(let p=el.parentElement;p&&p.id!=='anees-bank';p=p.parentElement){
-  if(p.matches('.vp-panel,section,.ov-head')){const x=p.querySelector(':scope > .vp-panelhead h3, :scope > .vp-panelhead h2, :scope > h2, :scope > h3, :scope .vp-panelhead h3');if(x)return x;}
+  if(p.matches('.vp-panel,section,.ov-head,.ab-header')){const x=p.querySelector(':scope > .vp-panelhead h3, :scope > .vp-panelhead h2, :scope > h2, :scope > h3, :scope h1, :scope .vp-panelhead h3');if(x)return x;}
  }
- const tab=el.closest('[id^="ar-tab-"]');return tab?tab.querySelector('.ov-h2'):null;   // else the tab's own heading
+ const tab=el.closest('[id^="ar-tab-"]');return tab?tab.querySelector('.ov-h2'):null;
 }
 function dwInfo(el){
+ if(/\d/.test(el.textContent))return;   // holds a number: stays in view
  const h=dwHeading(el),have=h&&h.querySelector(':scope > details.dw-info');
- const wrap=document.createElement(el.tagName==='OL'?'ol':'p');while(el.firstChild)wrap.append(el.firstChild);wrap.append(' ');
- if(have){have.lastChild.append(wrap);el.remove();return;}   // one ⓘ per heading: later notes join it
- const d=document.createElement('details');d.className='dw-info';d.dataset.dw='1';
- d.innerHTML='<summary aria-label="More about this">ⓘ</summary><div></div>';d.lastChild.append(wrap);
- if(h){h.append(' ',d);el.remove();}
- else{d.classList.add('dw-info-line');el.replaceWith(d);}
+ const wrap=document.createElement('p');while(el.firstChild)wrap.append(el.firstChild);wrap.append(' ');
+ if(have){have.lastChild.append(wrap);el.remove();return;}
+ const d=document.createElement('details');d.className='dw-info';d.innerHTML='<summary aria-label="More about this">ⓘ</summary><div></div>';d.lastChild.append(wrap);
+ if(h){h.append(' ',d);el.remove();}else{d.classList.add('dw-info-line');el.replaceWith(d);}
 }
-// a long run of rows shows its first 3 (a run of dates: the newest 3); "Show all N" opens the rest in place
-// V1: the unresolved rows stay; the groups after them (no evidence possible, not counted by design) fold into one tap
-function dwGroups(){
- const subs=[...document.querySelectorAll('#air-unknowns-vocab .vu-sub')];if(subs.length<2||subs[0].closest('.dw-fold'))return;
- const first=subs[0],par=first.parentElement,later=subs.filter(s=>s.parentElement===par&&s!==first);if(!later.length)return;
- const start=later[0],move=[];for(let n=start;n;n=n.nextElementSibling){if(n.matches('.vu-sub,details,.dw-more'))move.push(n);else if(move.length&&!n.matches('.vu-sub,details'))break;}
- const counts=later.map(s=>(s.textContent.match(/·\s*([\d,]+)\s*·/)||[])[1]).filter(Boolean);
- const d=document.createElement('details');d.className='dw-fold';
- d.innerHTML=`<summary>${later.length} more groups ${counts.length?'('+counts.join(' + ')+')':''} </summary>`;
- start.before(d);move.forEach(n=>d.append(n));
-}
-function dwFold(root){
- const parents=new Set([...root.querySelectorAll('details:not(.dw-info)')].map(d=>d.parentElement));
- parents.forEach(par=>{
-  if(par.closest('details.dw-info, details.dw-fold'))return;
-  let run=[];const runs=[];
-  [...par.children].forEach(c=>{if(c.tagName==='DETAILS'&&!c.classList.contains('dw-info'))run.push(c);else{if(run.length)runs.push(run);run=[];}});
-  if(run.length)runs.push(run);
-  runs.filter(r=>r.length>5&&!r[0].dataset.dwRun).forEach(r=>{
-   r.forEach(d=>d.dataset.dwRun='1');
-   const dated=/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d/.test((r[0].querySelector('summary')||r[0]).textContent.trim());
-   const hide=dated?r.slice(0,-3):r.slice(3);
-   hide.forEach(d=>d.classList.add('dw-fold-hid'));
-   const b=document.createElement('button');b.type='button';b.className='dw-more';b.textContent=`Show all ${r.length}`;
-   b.onclick=()=>{const open=b.dataset.open!=='1';hide.forEach(d=>d.classList.toggle('dw-fold-hid',!open));b.dataset.open=open?'1':'0';b.textContent=open?'Show fewer':`Show all ${r.length}`;};
-   (dated?r[0]:r[r.length-1])[dated?'before':'after'](b);
-  });
- });
-}
-// the tab's point in 5 seconds: one big number per blind spot, each a tap to its section
-function dwBigs(){
- const T=$('ar-tab-unknowns');if(!T||$('dw-unk-bigs'))return;
- const txt=id=>($(id)||{}).textContent||'';
- const L=(document.querySelector('#air-unknowns-listen .fl-tile b')||{}).textContent;
- const V=(txt('air-unknowns-vocab').match(/could not settle ([\d,]+)/)||txt('air-unknowns-vocab').match(/UNRESOLVED[^·]*·\s*([\d,]+)/i)||[])[1];
- const g=txt('air-unknowns-grammar'),G1=(g.match(/Of the ([\d,]+) slips found by hand/)||[])[1],G2=(g.match(/slip finder caught ([\d,]+)/)||[])[1];
- const N=document.querySelectorAll('#air-possible-names details').length;
- if(!L||!V||!G1||!G2)return;
- const part=t=>{const m=String(t).replace(/,/g,'').match(/^(\d+)\/(\d+)$/);return m&&+m[2]?Math.round(100*m[1]/m[2]):null;};   // a ratio gets its share as one bar
- const big=(href,b,s,warn)=>{const p=part(b);return `<a class="dw-big${warn?' dw-warnbig':''}" href="${href}"><b>${b}</b><span>${s}</span>${p===null?'':`<i class="dw-split dw-bigbar" aria-hidden="true"><i style="width:${p}%"></i></i>`}</a>`;};
- const box=document.createElement('div');box.id='dw-unk-bigs';box.className='dw-bigs';
- // each number sits on its own section row (one card per blind spot: number, meaning, tap to open)
- const put=(sec,b,s,warn,fill)=>{const h=document.querySelector(sec+' details.ar-unk-d > summary .ar-unk-h');if(!h)return;const p=part(b),m=String(b).match(/^([\d,]+)\/([\d,]+)$/);   // one big number; "of N ..." small under it
-  const n=document.createElement('span');n.className='dw-sumbig'+(warn?' dw-warnbig':'');
-  const [what,...more]=String(s).split(' · ');
-  n.innerHTML=`<span class="dw-sumline"><b>${m?m[1]:b}</b><em>${what}</em></span><small>${m?'of '+m[2]:''}${more.length?(m?' · ':'')+more.join(' · '):''}</small>${p===null?'':`<i class="dw-split dw-bigbar ${fill||'dw-good'}" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);
-  // the section name was repeated beside the number: its icon moves in front of the number, the words stay for screen readers
-  [...h.childNodes].filter(x=>x.nodeType===3&&x.textContent.trim()).forEach(t=>{const txt=t.textContent.trim(),ico=(txt.match(/^\S+/)||[''])[0];
-   const c=document.createElement('span');c.className='dw-cat';c.textContent=' '+txt.slice(ico.length).trim()+' ';t.replaceWith(c);
-   const i=document.createElement('span');i.className='dw-catico';i.setAttribute('aria-hidden','true');i.textContent=ico;n.querySelector('.dw-sumline').prepend(i);});};
- const VT=(txt('air-unknowns-vocab').match(/of the student’s ([\d,]+) word events/)||[])[1];
- // each row leads with the problem count (what is still wrong or open); the bar is that share, in the warning colour
- const num=x=>+String(x).replace(/,/g,''),fmt=x=>x.toLocaleString('en-US'),LM=String(L).match(/^(\d+)\/(\d+)$/);
- put('#ar-unk-listen',LM?`${num(LM[2])-num(LM[1])}/${LM[2]}`:L,`listening labels wrong · ${L} right`,1,'dw-miss');
- put('#ar-unk-vocab',VT?`${V}/${VT}`:V,'word events to review',1,'dw-miss0');
- put('#ar-unk-grammar',`${fmt(num(G1)-num(G2))}/${G1}`,`grammar slips missed · ${G2} caught`,1,'dw-miss');
- if(N)put('#ar-unk-names',N,'names to label',1);
- const nav=T.querySelector('.ar-jump');if(nav)nav.after(box);if(nav)nav.hidden=true;
-}
-let dwT=0;
-const dwTry=(f,...a)=>{try{f(...a);}catch(e){window.dwErr=(window.dwErr||[]).concat(f.name+': '+e);}};
-// Grades: the KPIs and the per-lesson bars stay; the full table opens from one tap
-function dwTable(){const H=$('air-grades');if(!H)return;H.querySelectorAll('table').forEach(t=>{if(t.closest('details.dw-fold'))return;const box=t.closest('.ar-tbl')||t;
- const n=t.tBodies[0]?t.tBodies[0].rows.length:0;const d=document.createElement('details');d.className='dw-fold';d.innerHTML=`<summary>Full table · every lesson and version (${n} rows)</summary>`;box.before(d);d.append(box);});}
-// Grades + Research: a long note under a number opens in place (its first words stay)
-function dwTiny(){document.querySelectorAll('#ar-tab-grades .ar-kpi .ab-tiny:not([data-dw])').forEach(t=>{t.dataset.dw='1';const w=t.textContent.trim().split(/\s+/);if(w.length<=7)return;
- const head=t.textContent.split(/[;:(]/)[0].split(/\s+/).slice(0,6).join(' ');const d=document.createElement('details');d.className='dw-info';d.innerHTML='<summary aria-label="More about this number">ⓘ</summary><div></div>';
- d.lastChild.textContent=t.textContent;t.textContent=head+' ';t.append(d);});
- const M=$('ab-metrics'),P=document.querySelector('#ar-list details.ar-past');if(M&&P&&!M.closest('details')&&M.children.length){const lg=document.querySelector('#ar-tab-research .ar-legend'),f=$('ar-foot');
- const box=P.querySelector('.ar-list');[lg,M].forEach(x=>{if(x)box.before(x);});if(f)P.append(f);}}
-function dwSrc(){const x=$('ab-source');if(x&&!x.dataset.dw&&/Source:/.test(x.textContent)){x.dataset.dw='1';const t=x.textContent;x.textContent='';const d=document.createElement('details');d.className='dw-info';d.innerHTML='<summary aria-label="Where this comes from">ⓘ</summary><div></div>';d.lastChild.textContent=t;x.append(d);x.classList.add('dw-src');}}
-function dwDrift(){document.querySelectorAll('#ar-tab-grades .ar-kpi .ab-metric-label').forEach(l=>{if(l.textContent.trim()==='Drift'&&!l.dataset.dw){l.dataset.dw='1';l.textContent='Drift · today vs the key (higher = closer)';}});}
-function dwPass(){dwTry(dwDrift);dwTry(dwSrc);dwTry(dwBigs);dwTry(dwTable);dwTry(dwTiny);dwTry(dwGroups);document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwTry(dwInfo,el);});dwTry(dwFold,t);});}
+function dwPass(){document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
-new MutationObserver(()=>{clearTimeout(dwT);dwT=setTimeout(dwPass,60);}).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
-// a tap on a big number (or a #ar-unk-… link) opens that section in place
-document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#ar-unk-"]');if(!a)return;const sec=document.querySelector(a.getAttribute('href'));const d=sec&&sec.querySelector('details.ar-unk-d');if(d)d.open=true;});
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');
 if(!first){try{first=localStorage.getItem('anees-ai-reports-tab');}catch(e){}}

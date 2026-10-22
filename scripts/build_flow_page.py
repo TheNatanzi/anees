@@ -40,66 +40,19 @@ DONE_ICON = ('<svg class="fl-doneico" viewBox="0 0 24 24" aria-hidden="true" fil
 
 
 def dword(frag):
-    """De-word (plan/OVERNIGHT-DEWORD-2026-10-22.md): each step shows its title, who and cost; the how-it-works sentence
-    opens in place behind a small (i) on the step. A numbered strip of the 8 phases sits on top (tap one to jump)."""
-    frag = re.sub(r'<p>(.*?)</p>(?=<div class="chips">)',
-                  r'<details class="dw-info fl-more"><summary aria-label="How this step works">ⓘ</summary><div>\1</div></details>', frag)
-    # each phase is one row that opens on tap: letter, name, when, how many steps, and who / cost chips
+    """De-word round 2 (Medi 2026-10-22: "I like look A but not how much data you cut"): every phase, step, study,
+    building block and the who-decides rule stay in view, as before. Only a step's how-it-works sentence that holds no
+    number opens behind a small (i); each phase gets its picture."""
+    def info(m):
+        if re.search(r'\d', re.sub(r'<[^>]+>', '', m.group(1))):
+            return m.group(0)   # a sentence with a number in it is data: it stays in view
+        return '<details class="dw-info fl-more"><summary aria-label="How this step works">ⓘ</summary><div>%s</div></details>' % m.group(1)
+    frag = re.sub(r'<p>(.*?)</p>(?=<div class="chips">)', info, frag)
+
     def phase(m):
-        color, code, head, body = m.groups()
-        steps = len(re.findall(r'<li class="node(?! decision)', body))
-        asks = len(re.findall(r'<li class="node decision', body))
-        who = ''.join(c for c, k in (('<span class="chip amal">Tutor</span>', 'chip amal'), ('<span class="chip medi">Student</span>', 'chip medi'),
-                                     ('<span class="chip money">$</span>', 'chip money')) if k in body)
-        sumry = '<span class="fl-sum">%s</span>' % who   # who acts and what costs money; the step count opens with the row
-        head = head.replace('</h2>', '</h2>' + sumry, 1)
-        head = '<span class="fl-ico" aria-hidden="true">%s</span>' % (SVG_ICONS.get(code) or ICONS.get(code, '')) + head
-        return ('<details class="phase" id="fl-%s" style="--pc:%s"><summary><header><span class="pcode">%s</span>%s</header></summary>%s</details>'
-                % (code, color, code, head, body))
-    frag = re.sub(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>(.*?)</header>(.*?)</section>',
-                  phase, frag, flags=re.S)
-    # a step's studies fold into one pill ("3 studies") that opens in place
-    def fold(m):
-        n = m.group(0).count('<details class="study">')
-        return (' <details class="fl-studies"><summary> <span class="stag">%d %s</span></summary>%s</details>'
-                % (n, 'study' if n == 1 else 'studies', m.group(0)))
-    frag = re.sub(r'(?:<details class="study">(?:(?!</details>).)*</details>)+', fold, frag, flags=re.S)
-    # a step that is only automatic (no person, no cost) reads quieter: it is part of the path, not a job for anyone
-    frag = re.sub(r'<li class="node">((?:(?!</li>).)*?<div class="chips"><span class="chip auto">Automatic</span></div>)',
-                  r'<li class="node fl-quiet">\1', frag, flags=re.S)
-    # the 5 building blocks (Meet, hourly job, tutor trigger, guard, plans) join the colour key behind one (i)
-    m = re.search(r'\s*</div>\s*<div class="kit">(.*?)</div>\s*(?=<div class="warn">)', frag, re.S)
-    if m:
-        frag = frag[:m.start()] + ('<details class="dw-info fl-kit"><summary aria-label="The building blocks">ⓘ</summary>'
-                                   '<div class="kit">%s</div></details></div>\n  ' % m.group(1).strip()) + frag[m.end():]
-    # one picture of the path: 8 coloured stops, icon + one word each, A to H; tap one to open it below
-    stops = re.findall(r'<details class="phase" id="fl-(\w)" style="--pc:([^"]+)">', frag)
-    if stops:
-        strip = ('<ol class="fl-path" aria-label="The 8 stops from the call to the grade">' +
-                 ''.join('<li style="--pc:%s"><a href="#fl-%s"><span class="fl-dot">%s</span><b>%s</b></a></li>'
-                         % (c, k, ICONS.get(k, k), WORD.get(k, k)) for k, c in stops) + '</ol>')
-        pass   # judges, round 10: the strip repeated the rows below, so each row carries its icon instead (strip kept unused)
-    # three bands, so the 5-second read is the call -> the robot -> the tutor -> the student
-    for code, band in (('A', '🎙️ The call'), ('B', '🤖 The robot · automatic'), ('F', '✍️ The tutor'), ('G', '📚 The student')):
-        frag = frag.replace('<details class="phase" id="fl-%s"' % code, '<div class="fl-band">%s</div><details class="phase" id="fl-%s"' % (band, code), 1)
-    # the robot's 4 phases (B-E) are one card: hear -> check -> count -> publish; it opens to the 4 phases
-    b, f = frag.find('<details class="phase" id="fl-B"'), frag.find('<div class="fl-band">✍️ The tutor</div>')
-    if 0 < b < f:
-        inner = frag[b:f].rstrip()
-        robot = ('<details class="phase fl-group" id="fl-robot" style="--pc:#0b8a74"><summary><header><span class="fl-ico" aria-hidden="true">%s</span>'
-                 '<h2>The robot</h2><span class="fl-sum"><span class="fl-chain">%s</span><span class="chip money">$</span></span>'
-                 '<span class="when">every hour</span></header></summary><div class="fl-inner">%s</div></details>\n  ' % (ROBOT_ICON, ''.join('<span class="fl-mini" style="--pc:%s">%s<em>%s</em></span>' % (c, SVG_ICONS[k], WORD[k])
-                                       for k, c in (('B', '#0b8a74'), ('C', '#c2410c'), ('D', '#8b5a2b'), ('E', '#3f4a5c'))), inner))
-        frag = frag[:b] + robot + frag[f:]
-    frag = re.sub(r'<div class="fl-band">[^<]*</div>', '', frag)   # 5 cards now say who acts; no band labels needed
-    # "who decides" is the rule behind the whole path: it closes the page, under Done
-    w = re.search(r'\s*<div class="warn">(.*?)</div>', frag, re.S)
-    if w and '<div class="done">' in frag:
-        frag = frag[:w.start()] + frag[w.end():]
-        rule = ('<div class="warn fl-rule"><span class="chip auto">🤖 AIs propose</span><i>→</i><span class="chip amal">Tutor rules</span>'
-                '<i>→</i><span class="chip medi">Student wins on his lines</span> <details class="dw-info"><summary aria-label="Who decides">ⓘ</summary>'
-                '<div>%s</div></details></div>' % w.group(1).strip())
-        frag = frag.replace('<p class="loop">', rule + '\n  <p class="loop">', 1)
+        code = m.group(2)
+        return m.group(0) + '<span class="fl-ico" aria-hidden="true">%s</span>' % (SVG_ICONS.get(code) or ICONS.get(code, ''))
+    frag = re.sub(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>', phase, frag)
     frag = frag.replace("<div class=\"done\"><b>✓ Done</b>", "<div class=\"done\">" + DONE_ICON + "<b>Done</b>", 1)
     return frag
 
@@ -108,7 +61,7 @@ def build():
     frag = dword(io.open(SRC, encoding="utf-8").read())
     html = BR.page(TITLE, "", "ANEES-FLOW.fragment.html", "Claude", "2026-10-21", story=screen_roles(frag))
     html = html.replace('<link rel="stylesheet" href="../css/ai-reports.css?v=20261022-study">',
-                        '<link rel="stylesheet" href="../css/ai-reports.css?v=20261022-study"><link rel="stylesheet" href="../css/dw-reports.css?v=1">')
+                        '<link rel="stylesheet" href="../css/ai-reports.css?v=20261022-study"><link rel="stylesheet" href="../css/dw-reports.css?v=2">')
     html = html.replace('<article class="ar-doc">\n\n</article>', "").replace('<div class="ab-sub">Built from ANEES-FLOW.fragment.html</div>', "").replace('‹ All AI reports</a>', '‹ Reports</a>')
     io.open(OUT, "w", encoding="utf-8").write(html)
     print("built", os.path.relpath(OUT, REPO), "%d KB" % (len(html) // 1024))
