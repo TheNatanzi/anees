@@ -331,3 +331,8 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
 @media (max-width: 680px) { #anees-bank #ov-metrics .ab-metric:last-child:nth-child(odd) { grid-column: 1 / -1; } }
 /* the one-line takeaway strip on top of the Overview */
 #anees-bank #ov2 > .ov2-verdict { order: 2; margin: 0 0 14px; }
+/* round 14: the goal gauge repeats the strip on a phone; small labels a step darker */
+@media (max-width: 680px) { #anees-bank #ov2 .ov2-top .dw-capt:not(.dw-dotcap) { display: none; } }
+#anees-bank #ov-metrics .ab-metric-label, #anees-bank .vp-card-label, #anees-bank .dw-big > span { color: var(--dw-ink); opacity: .78; }
+#anees-bank #ov2 .vp-chart text { fill: var(--ab-text); }
+#anees-bank rect.dw-baseweek { opacity: .5; }
