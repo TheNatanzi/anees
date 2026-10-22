@@ -244,6 +244,8 @@
     const K = D.decay || { decaying: [], untested: [], days: 0 };
     const rows = K.decaying.map(w => ({ id: 'decay:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(gloss(w.english))} · last said ${pretty(w.last_date)} (${w.days_ago} days)${w.status ? ' · was ' + esc(w.status) : ''}`, find: w.english || '', w, kind: 'decaying' }))
       .concat(K.untested.map(w => ({ id: 'untested:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(gloss(w.english))} · never said in a recorded lesson · in the Doc since ${pretty(w.first_seen)}`, find: w.english || '', w, kind: 'untested' })));
+    const maxAge = Math.max(1, ...K.decaying.map(w => w.days_ago || 0));
+    rows.forEach(r => { r.bar = r.kind === 'decaying' ? `<div class="hb-bar tu-age" aria-hidden="true"><i style="width:${Math.round(100 * (r.w.days_ago || 0) / maxAge)}%"></i></div>` : '<div class="hb-bar tu-age" aria-hidden="true"><i class="never" style="width:100%"></i></div>'; });
     listPanel('decay', rows, id, (row, p) => {
       const w = row.w;
       p.innerHTML = `<article id="${esc(row.id)}" class="hb-doc"><h3 class="hb-q">${esc(w.arabizi)} ${w.arabic ? `<span lang="ar" dir="rtl">${esc(w.arabic)}</span>` : ''}</h3><p class="hb-sub">${esc(w.english || '')}</p>
@@ -303,10 +305,11 @@
     setTab('done');
     const fin = tasks.filter(t => t.finished), C = T.closed || [];
     if (!fin.length && !C.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing finished yet.</p>'; return; }
-    const rows = fin.map(t => ({ key: 't:' + t.id, title: t.title, note: `${fmt(t.done)} of ${fmt(t.total)} ${t.unit} answered`, open: () => t }))
-      .concat(C.map(c => ({ key: 'c:' + c.id, title: c.title, note: `${c.why}${c.detail ? ` · ${fmt(c.detail.answered)} of ${fmt(c.detail.total)} answered` : ''}`, c })));
+    // de-word: one state per row (a closed link's reason only when it says more than "answered") + a small done bar
+    const rows = fin.map(t => ({ key: 't:' + t.id, title: t.title, note: `${fmt(t.done)} of ${fmt(t.total)} ${t.unit} answered`, frac: t.total ? t.done / t.total : 0, open: () => t }))
+      .concat(C.map(c => ({ key: 'c:' + c.id, title: c.title, note: `${c.why && c.why !== 'answered' ? c.why + (c.detail ? ' · ' : '') : ''}${c.detail ? `${fmt(c.detail.answered)} of ${fmt(c.detail.total)} answered` : (c.why === 'answered' ? 'answered' : '')}`, frac: c.detail && c.detail.total ? c.detail.answered / c.detail.total : 1, c })));
     $('#hb-view').innerHTML = `<div class="hb-sub dw-row"><span class="dw-chip">${rows.length} finished</span> ${info('Tap a row to see what was asked and every answer. Undo works while a list is still open.', 'How this works')}</div><div class="hb-accs">${rows.map((r, i) =>
-      `<details class="hb-acc" data-i="${i}"><summary><b>${esc(r.title)}</b> <span>· ${esc(r.note)}</span></summary><div class="hb-acc-body"></div><div data-earlier></div></details>`).join('')}</div>`;
+      `<details class="hb-acc" data-i="${i}"><summary><b>${esc(r.title)}</b> <span>· ${esc(r.note)}</span><span class="tu-mini" aria-hidden="true"><i style="width:${Math.round(100 * Math.min(1, r.frac || 0))}%"></i></span></summary><div class="hb-acc-body"></div><div data-earlier></div></details>`).join('')}</div>`;
     document.querySelectorAll('.hb-accs > details').forEach(d => d.addEventListener('toggle', () => {
       if (!d.open || d.dataset.on) return; d.dataset.on = '1';
       const r = rows[+d.dataset.i], body = d.querySelector('.hb-acc-body');

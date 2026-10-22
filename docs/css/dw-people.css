@@ -406,3 +406,14 @@ html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"] 
 @media (max-width: 680px) { #anees-bank .dp-pairs { font-size: 16px; gap: 2px 10px; } }
 #anees-bank .dp-pairs { grid-template-columns: max-content max-content; justify-content: start; column-gap: 28px; }
 @media (max-width: 680px) { #anees-bank .dp-pairs { grid-template-columns: 1fr 1fr; column-gap: 10px; } }
+/* round 26: Completed rows get a small done bar; Decay rows an age bar; the header totals are quieter so "Up next" leads */
+#anees-bank .tu-mini { display: inline-block; width: 70px; height: 6px; border-radius: 999px; background: var(--dw-line); overflow: hidden; margin-left: auto; align-self: center; }
+#anees-bank .tu-mini > i { display: block; height: 100%; background: var(--dw-ok); }
+#anees-bank .tu-age > i { background: var(--dw-warn); } #anees-bank .tu-age > i.never { background: var(--dw-line); }
+@media (min-width: 681px) {
+  #anees-bank #hb-hello .tu-bigs > .dw-big { padding: 4px 40px 4px 10px; display: flex; align-items: baseline; gap: 8px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big b { font-size: 24px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big svg.dw-ico { width: 18px; height: 18px; top: 8px; }
+  #anees-bank .hb-row.tu-next { padding: 14px 14px; }
+  #anees-bank .hb-row.tu-next .hb-row-t { font-size: 18px; }
+}

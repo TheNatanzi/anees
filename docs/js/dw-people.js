@@ -57,6 +57,8 @@
       const g = document.createElement('div'); g.className = 'dp-pairs'; g.setAttribute('aria-hidden', 'true');
       g.innerHTML = W.map((x, i) => `<span class="dp-w" lang="ar">${mark(x, R[i], 'dp-del')}</span><span class="dp-r" lang="ar">${mark(R[i], x, 'dp-ins')}</span>`).join('');
       pair.after(g); pair.classList.add('dp-sr');
+      const az = g.parentElement.querySelector(':scope > .hb-en');   // an Arabizi line that covers only one of the pieces would mislead
+      if (az && !/\//.test(txt(az))) az.classList.add('dp-sr');
     }
   }
   // 2. a mistake card: the why line and the e.g. line -> one i on the "N times in ..." line, which becomes a chip
