@@ -172,9 +172,17 @@ def mark_turns(page):
         mark = '<i class="lk"%s%s></i>' % (kind, rid) if (kind or rid) else ''   # an empty marker: <p class="turn">, <b> and the words stay exact
         return '<p dir="auto" class="turn">%s%s<b>%s</b>: <span class="words">%s</span></p>' % (mark, m.group(1), m.group(3), text)
     page = TURN.sub(sub, page)
-    if start is not None:
-        jump = ('<a class="lsn-jump" href="#arabic-start">▶ Jump to the Arabic practice · %s</a>' % clock(float(rows[start][1])))
-        page = page.replace('<div class="lsn-note">', jump + '<div class="lsn-note">', 1)
+    if start is not None and start > 0:
+        # the talk before the Arabic practice (set-up, small talk) folds into one row that opens in place: every line is still here
+        a = page.find('<p dir="auto"')
+        b = page.find('<p dir="auto" class="turn"><i class="lk"', a)
+        b = page.find('id="arabic-start"', b)
+        b = page.rfind('<p dir="auto"', 0, b)
+        if 0 <= a < b:
+            n = page.count('<p dir="auto"', a, b)
+            fold = ('<details class="lsn-before"><summary>Before the Arabic practice · 00:00–%s · %d lines</summary>%s</details>'
+                    '<p class="lsn-start">▶ The Arabic practice starts · %s</p>' % (clock(float(rows[start][1])), n, page[a:b], clock(float(rows[start][1]))))
+            page = page[:a] + fold + page[b:]
     return page
 
 
