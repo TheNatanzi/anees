@@ -203,6 +203,8 @@
   let WEAK = null;
   async function weak() { if (!WEAK) WEAK = await (await fetch('data/tutor-weak.json', { cache: 'no-store' })).json(); return WEAK; }
   const notesToken = () => { const g = T.open.find(x => x.kind === 'grammar_notes'); return g ? g.token : ''; };
+  // 389 min reads as "6½ h"; the exact minutes stay in the text
+  const hrs = n => n < 90 ? `<b>${n}</b><span>min to go</span>` : `<b>${Math.floor(n / 60)}${(n % 60) >= 45 ? '¾' : (n % 60) >= 15 ? '½' : ''}</b><span>hours to go <span class="dp-sr">(${n} min)</span></span>`;
   const gloss = e => String(e || '').split(/\s*[/;]\s*|,\s+/)[0];   // the row shows the first meaning; the open item shows them all
   const pctTxt = v => (v === null || v === undefined) ? '—' : v + '%';
   function momentsHtml(ms, how) {
@@ -308,9 +310,11 @@
     // de-word: one state per row (a closed link's reason only when it says more than "answered") + a small done bar
     const rows = fin.map(t => ({ key: 't:' + t.id, title: t.title, note: `${fmt(t.done)} of ${fmt(t.total)} ${t.unit} answered`, frac: t.total ? t.done / t.total : 0, open: () => t }))
       .concat(C.map(c => ({ key: 'c:' + c.id, title: c.title, note: `${c.why && c.why !== 'answered' ? c.why + (c.detail ? ' · ' : '') : ''}${c.detail ? `${fmt(c.detail.answered)} of ${fmt(c.detail.total)} answered` : (c.why === 'answered' ? 'answered' : '')}`, frac: c.detail && c.detail.total ? c.detail.answered / c.detail.total : 1, c })));
-    $('#hb-view').innerHTML = `<div class="hb-sub dw-row"><span class="dw-chip">${rows.length} finished</span> ${info('Tap a row to see what was asked and every answer. Undo works while a list is still open.', 'How this works')}</div><div class="hb-accs">${rows.map((r, i) =>
-      `<details class="hb-acc" data-i="${i}"><summary><b>${esc(r.title)}</b> <span>· ${esc(r.note)}</span><span class="tu-mini" aria-hidden="true"><i style="width:${Math.round(100 * Math.min(1, r.frac || 0))}%"></i></span></summary><div class="hb-acc-body"></div><div data-earlier></div></details>`).join('')}</div>`;
-    document.querySelectorAll('.hb-accs > details').forEach(d => d.addEventListener('toggle', () => {
+    const acc = (r, i) => `<details class="hb-acc" data-i="${i}"><summary><b>${esc(r.title)}</b> <span>· ${esc(r.note)}</span><span class="tu-mini" aria-hidden="true"><i style="width:${Math.round(100 * Math.min(1, r.frac || 0))}%"></i></span></summary><div class="hb-acc-body"></div><div data-earlier></div></details>`;
+    const full = rows.map((r, i) => [r, i]).filter(([r]) => (r.frac || 0) >= 1), part = rows.map((r, i) => [r, i]).filter(([r]) => (r.frac || 0) < 1);
+    $('#hb-view').innerHTML = `<div class="hb-sub dw-row"><span class="dw-chip">${full.length} done</span>${part.length ? `<span class="dw-chip muted">${part.length} closed early</span>` : ''} ${info('Tap a row to see what was asked and every answer. Undo works while a list is still open. "Closed early" = the list closed before every question was answered.', 'How this works')}</div><div class="hb-accs">${full.map(([r, i]) => acc(r, i)).join('')}</div>`
+      + (part.length ? `<details class="tu-more tu-closed"><summary>Closed early (${part.length})</summary><div class="hb-accs">${part.map(([r, i]) => acc(r, i)).join('')}</div></details>` : '');
+    document.querySelectorAll('.hb-accs > details.hb-acc').forEach(d => d.addEventListener('toggle', () => {
       if (!d.open || d.dataset.on) return; d.dataset.on = '1';
       const r = rows[+d.dataset.i], body = d.querySelector('.hb-acc-body');
       if (r.c) { accBody(body, r.c); earlier(d.querySelector('[data-earlier]'), r.c); return; }
@@ -434,7 +438,7 @@
     } catch (e) {}
     rankAll(tasks); count();
     const open = tasks.filter(t => !t.finished && !t.quiet), m = open.reduce((s, t) => s + t.left * minEach(t), 0);
-    $('#hb-hello').innerHTML = open.length ? `<span class="tu-bigs"><span class="dw-big">${HICO.list}<b>${open.length}</b><span>thing${open.length === 1 ? '' : 's'} to check</span></span><span class="dw-big">${HICO.clock}<b>${Math.max(1, Math.round(m))}</b><span>min to go</span></span></span>` : 'Marhaba · nothing to check right now';
+    $('#hb-hello').innerHTML = open.length ? `<span class="tu-bigs"><span class="dw-big">${HICO.list}<b>${open.length}</b><span>list${open.length === 1 ? '' : 's'} to check</span></span><span class="dw-big">${HICO.clock}${hrs(Math.max(1, Math.round(m)))}</span></span>` : 'Marhaba · nothing to check right now';
     $('#ab-source').textContent = 'Live · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
     if (!wired) { wired = true; window.addEventListener('hashchange', route); route(); }
     else if (onList()) route();

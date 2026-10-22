@@ -105,6 +105,17 @@
       if (more.length) { const d = info(more, 'Where this came from'); const t = c.querySelector(':scope > .tg-title'); if (t) t.appendChild(d); }
     });
   }
+  // 3b. the rule cards she already decided go together under one "Decided (n)" row at the end (same cards, open in place)
+  function grammarDone(root) {
+    root.querySelectorAll('.tg-list').forEach(l => {
+      if (l.querySelector(':scope > details.dp-decided')) return;
+      const done = [...l.querySelectorAll(':scope > article.tg-card.dp-done')];
+      if (done.length < 2) return;
+      const d = document.createElement('details'); d.className = 'tu-more dp-decided';
+      d.innerHTML = `<summary>Decided (${done.length})</summary><div class="tu-more-rows"></div>`;
+      l.appendChild(d); done.forEach(c => d.lastChild.appendChild(c));
+    });
+  }
   // 4. a long reminder list under a heading (Upload: "Add these to the Doc (34)") -> opens in place from its heading
   function lists(root) {
     root.querySelectorAll('p.hb-prog').forEach(h => {
@@ -178,7 +189,7 @@
   let busy = false;
   function run() {
     if (busy) return; busy = true;
-    try { intros(view); cards(view); grammar(view); lists(view); progress(view); cardFold(view); phoneFolds(view); } finally { busy = false; }
+    try { intros(view); cards(view); grammar(view); grammarDone(view); lists(view); progress(view); cardFold(view); phoneFolds(view); } finally { busy = false; }
   }
   let t = 0;
   new MutationObserver(() => { if (!busy) { clearTimeout(t); t = setTimeout(run, 30); } }).observe(view, { childList: true, subtree: true });
