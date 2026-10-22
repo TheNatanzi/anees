@@ -204,11 +204,19 @@
       row.insertAdjacentHTML('beforeend', '<span>AI notes</span>');
     });
   }
+  // r2: her two answers read by colour as well as words (same buttons, same order): a mistake in red, fine in green
+  function answerTint(root) {
+    root.querySelectorAll('.hb-btns > button, .tv-btns > button').forEach(b => {
+      if (b.dataset.dpt) return; b.dataset.dpt = '1';
+      const t = txt(b);
+      if (/^Yes, the student was wrong/i.test(t)) b.classList.add('dp-a-wrong'); else if (/^No, the student was fine/i.test(t)) b.classList.add('dp-a-fine');
+    });
+  }
   let busy = false;
   function run() {
     if (busy) return; busy = true;
     // round 2 (Medi 10-22 'you cut out too much data'): no list, card, decided or phone filter folds
-    try { intros(view); cards(view); grammar(view); progress(view); aiNotes(view); } finally { busy = false; }
+    try { intros(view); cards(view); grammar(view); progress(view); aiNotes(view); answerTint(view); } finally { busy = false; }
   }
   let t = 0;
   new MutationObserver(() => { if (!busy) { clearTimeout(t); t = setTimeout(run, 30); } }).observe(view, { childList: true, subtree: true });

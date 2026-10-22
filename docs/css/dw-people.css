@@ -541,3 +541,9 @@ html[data-look="flat"] #anees-bank a.st-task.st-cards.st-late .hb-bar i { backgr
 .hw-dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--dw-line); border: 1px solid var(--dw-muted); }
 .hw-dots i.ok { background: var(--dw-ok); border-color: var(--dw-ok); }
 @media (max-width: 680px) { ol.hw-flow { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; } .hw-flow > li { white-space: nowrap; } }
+/* r2 round 11: her answers tinted by meaning (order and wording unchanged); homework phone steps stack */
+#anees-bank .dp-a-wrong { background: var(--dw-bad-fill, rgba(180,60,50,.14)) !important; border-color: var(--dw-bad) !important; color: var(--dw-ink) !important; }
+#anees-bank .dp-a-wrong::before { content: "✗ "; color: var(--dw-bad); font-weight: 700; }
+#anees-bank .dp-a-fine { background: var(--dw-ok-fill, rgba(60,120,80,.14)) !important; border-color: var(--dw-ok) !important; color: var(--dw-ink) !important; }
+#anees-bank .dp-a-fine::before { content: "✓ "; color: var(--dw-ok); font-weight: 700; }
+@media (max-width: 680px) { ol.hw-flow { grid-template-columns: 1fr !important; gap: 4px; } .hw-flow > li { padding: 4px 8px !important; } }
