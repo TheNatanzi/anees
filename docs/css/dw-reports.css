@@ -110,3 +110,13 @@ html.lsn-page p.chat b, html.lsn-page p.chat b::after { color: var(--dw-a3); }
 html.lsn-page .note { background: var(--dw-warn-fill); }
 @media (max-width: 600px) { html.lsn-page body { font-size: 16px; } html.lsn-page .lsn-bigs { gap: 6px; } html.lsn-page .lsn-bigs .dw-big { padding: 8px 10px; } }
 html.lsn-page .context-listen { background: var(--dw-card); color: var(--dw-ink); border: 1px solid var(--dw-line); border-radius: 999px; padding: 2px 12px; font-size: 14px; cursor: pointer; }
+#anees-bank details.dw-fold { margin: 8px 0 2px; }
+#anees-bank details.dw-fold > summary { display: inline-block; list-style: none; cursor: pointer; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line);
+  background: var(--dw-card); font: 600 12.5px/1.5 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
+#anees-bank details.dw-fold > summary::-webkit-details-marker { display: none; }
+#anees-bank details.dw-fold > summary::before { content: "+ "; }
+#anees-bank details.dw-fold[open] > summary::before { content: "− "; }
+@media (max-width: 600px) {
+  #anees-bank .fl .top > h3 { flex: none; }
+  #anees-bank .fl .top { gap: 6px; }
+}

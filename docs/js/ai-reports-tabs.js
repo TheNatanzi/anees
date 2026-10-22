@@ -73,10 +73,20 @@ function dwInfo(el){
  else{d.classList.add('dw-info-line');el.replaceWith(d);}
 }
 // a long run of rows shows its first 3 (a run of dates: the newest 3); "Show all N" opens the rest in place
+// V1: the unresolved rows stay; the groups after them (no evidence possible, not counted by design) fold into one tap
+function dwGroups(){
+ const subs=[...document.querySelectorAll('#air-unknowns-vocab .vu-sub')];if(subs.length<2||subs[0].closest('.dw-fold'))return;
+ const first=subs[0],par=first.parentElement,later=subs.filter(s=>s.parentElement===par&&s!==first);if(!later.length)return;
+ const start=later[0],move=[];for(let n=start;n;n=n.nextElementSibling){if(n.matches('.vu-sub,details,.dw-more'))move.push(n);else if(move.length&&!n.matches('.vu-sub,details'))break;}
+ const counts=later.map(s=>(s.textContent.match(/·\s*([\d,]+)\s*·/)||[])[1]).filter(Boolean);
+ const d=document.createElement('details');d.className='dw-fold';
+ d.innerHTML=`<summary>${later.length} more groups ${counts.length?'('+counts.join(' + ')+')':''} </summary>`;
+ start.before(d);move.forEach(n=>d.append(n));
+}
 function dwFold(root){
  const parents=new Set([...root.querySelectorAll('details:not(.dw-info)')].map(d=>d.parentElement));
  parents.forEach(par=>{
-  if(par.closest('details.dw-info'))return;
+  if(par.closest('details.dw-info, details.dw-fold'))return;
   let run=[];const runs=[];
   [...par.children].forEach(c=>{if(c.tagName==='DETAILS'&&!c.classList.contains('dw-info'))run.push(c);else{if(run.length)runs.push(run);run=[];}});
   if(run.length)runs.push(run);
@@ -106,7 +116,7 @@ function dwBigs(){
  const nav=T.querySelector('.ar-jump');(nav||T.firstElementChild).after(box);if(nav)nav.hidden=true;
 }
 let dwT=0;
-function dwPass(){document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwInfo(el);});dwFold(t);});dwBigs();}
+function dwPass(){dwGroups();document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwInfo(el);});dwFold(t);});dwBigs();}
 new MutationObserver(()=>{clearTimeout(dwT);dwT=setTimeout(dwPass,60);}).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');
