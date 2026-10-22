@@ -54,7 +54,7 @@ function render(d) {
   tx.textContent = d && d.sources ? ' ' + d.sources.length + ' sources · ' + unread + ' unreadable · last check ' + String(d.checked || '').slice(0, 16).replace('T', ' ') : ' ' + L.head; box.appendChild(tx);
   if (unread) attnRow(unread + ' tutor source' + (unread === 1 ? '' : 's') + ' not readable',
     'Next: fix access to ' + d.sources.filter(function (s) { return !s.readable; }).map(function (s) { return s.label; }).join(', ') + '.',
-    d.sources.filter(function (s) { return !s.readable; }).map(function (s) { return s.label + ': ' + s.why; }).join(' · '));
+    'checked ' + String(d.checked || '').slice(5, 16).replace('T', ' ') + ' · ' + d.sources.filter(function (s) { return !s.readable; }).map(function (s) { return s.label + ': ' + s.why; }).join(' · '));
   var det = document.createElement('details'), sum = document.createElement('summary');
   det.className = 'dw-info'; sum.textContent = 'i'; sum.title = 'Her sources and the last recalculations'; det.appendChild(sum);
   var ul = document.createElement('ul');

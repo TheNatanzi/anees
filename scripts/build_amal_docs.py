@@ -207,7 +207,7 @@ def materials(meta):
     tiles = '<nav class="toc dw-mtoc">%s</nav>' % "".join(
         re.sub(r'<a href="#(s\d+)">(.*?)</a>', lambda m: '<a href="#%s">%s%s</a>' % (m.group(1), m.group(2), ' <b>%d</b>' % _np[m.group(1)] if _np.get(m.group(1)) else ""), t) for t in toc)
     # round 3: each example as a two-part row (her Arabic | the English), her labels as small bold tags; every word kept
-    joined = re.sub(r"<li>((?:(?!</li>).)*?) \| ((?:(?!</li>).)*?)</li>", lambda m: '<li class="dw-exr"><span class="dw-az">%s</span><span class="dw-en">%s</span></li>' % (m.group(1), m.group(2)), joined)
+    joined = re.sub(r"<li>((?:(?!</li>).)*?) \| ((?:(?!</li>).)*?)</li>", lambda m: '<li class="dw-exr"><span class="dw-az">%s</span><span class="dw-en">%s</span></li>' % (m.group(1), re.sub(r'^([^a-zA-Z<]*[؀-ۿ][^a-zA-Z<]*?) - ', lambda k: '<span lang="ar" class="dw-ar">%s</span>' % k.group(1), m.group(2))), joined)
     joined = re.sub(r"<p>(Core [Ff]unctions?|English [Ee]quivalents?|Examples?|Use|Rule|Note)\s*:\s*", lambda m: '<p class="dw-lab"><b>%s</b> ' % m.group(1), joined)
     _unused = "".join('<a class="dw-topic" href="#%s"><b>%d</b><span>%s</span></a>' % (sid, i + 1, name)
                     for i, (sid, name) in enumerate(re.findall(r'<a href="#(s\d+)">(.*?)</a>', "".join(toc))))

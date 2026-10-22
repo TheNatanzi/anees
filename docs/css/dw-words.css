@@ -387,10 +387,11 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
 #anees-bank .gc-chart-body svg { max-width: 100%; } #anees-bank .gc-chart { overflow: hidden; }
 #anees-bank .dw-c2lab { gap: 12px; }
 @media (max-width: 680px) { #anees-bank #gc-c1 { grid-column: 1 / -1; } }
-/* round 10 word bank: each % tile carries a small ring filled to its value */
-#anees-bank #ab-metrics .dw-big.dw-ring { position: relative; padding-right: 54px; }
-#anees-bank #ab-metrics .dw-big.dw-ring::after { content: ""; position: absolute; top: 12px; right: 10px; width: 36px; height: 36px; border-radius: 50%;
-  background: conic-gradient(var(--dw-a1) calc(var(--p) * 1%), var(--dw-line) 0); -webkit-mask: radial-gradient(circle, transparent 52%, #000 54%); mask: radial-gradient(circle, transparent 52%, #000 54%); }
-@media (max-width: 680px) { #anees-bank #ab-metrics .dw-big.dw-ring { padding-right: 8px; } #anees-bank #ab-metrics .dw-big.dw-ring::after { width: 22px; height: 22px; top: 6px; right: 6px; } }
+/* round 10 word bank: each % tile carries a small ring filled to its value (floats in its own space, never over the number) */
+#anees-bank #ab-metrics .dw-big.dw-ring { display: block; }
+#anees-bank #ab-metrics .dw-big.dw-ring::before { content: ""; float: right; width: 30px; height: 30px; margin: 2px 0 4px 6px; border-radius: 50%;
+  background: conic-gradient(var(--dw-a1) calc(var(--p) * 1%), var(--dw-line) 0); -webkit-mask: radial-gradient(circle, transparent 50%, #000 53%); mask: radial-gradient(circle, transparent 50%, #000 53%); }
+#anees-bank #ab-metrics .dw-big.dw-ring > b, #anees-bank #ab-metrics .dw-big.dw-ring > span, #anees-bank #ab-metrics .dw-big.dw-ring > small { display: block; }
+@media (max-width: 680px) { #anees-bank #ab-metrics .dw-big.dw-ring::before { float: none; display: block; width: 18px; height: 18px; margin: 0 0 3px; } }
 /* grammar phone: title and its (i) on one line */
 @media (max-width: 680px) { #anees-bank .ab-header h1 { font-size: 26px; } }
