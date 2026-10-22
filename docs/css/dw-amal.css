@@ -435,3 +435,48 @@ html[data-look="kurz"] #anees-bank .st-dw-head .dw-num { color: var(--kz-yellow)
   #anees-bank .st-tabs { flex-wrap: nowrap !important; overflow-x: auto; scrollbar-width: none; }
   #anees-bank .st-tabs .ab-tab { flex: none; white-space: nowrap; }
 }
+.dw-paste { flex: 1 1 auto; min-width: 0; display: grid; gap: 8px; }
+.dw-paste label b { display: block; font-size: 22px; color: var(--ab-text, var(--dw-ink)); }
+.dw-paste label small { display: block; font-size: 13px; color: var(--ab-muted, var(--dw-muted)); }
+.dw-paste-row { display: flex; gap: 8px; }
+.dw-paste input { flex: 1 1 auto; min-width: 0; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--ab-line, var(--dw-line)); background: var(--ab-bg, transparent); color: var(--ab-text, inherit); font: inherit; }
+.dw-paste .dw-go { flex: none; padding: 10px 20px; border: 0; border-radius: 999px; background: var(--dw-a1); color: var(--sabz-bg, #fff); font: 700 15px/1 var(--sabz-font-sans, system-ui); cursor: pointer; }
+html[data-look="kurz"] .dw-paste .dw-go { background: var(--kz-yellow); color: #14204A; }
+html[data-look="kurz"] .dw-gate .dw-lock { stroke: var(--kz-teal); }
+@media (max-width: 680px) {
+  .dw-gate { flex-direction: column; align-items: stretch; gap: 10px; }
+  .dw-gate .dw-lock { width: 52px; height: 52px; }
+  .dw-paste-row { flex-direction: column; }
+  .dw-paste .dw-go { width: 100%; }
+}
+/* settings: the two robots as status lights */
+#anees-bank #st-guard, #anees-bank #st-amal { padding: 8px 12px; border-radius: 14px; background: var(--dw-card); border: 1px solid var(--dw-line); }
+#anees-bank #st-guard .dw-chip, #anees-bank #st-amal .dw-chip { background: transparent; padding-left: 2px; }
+#anees-bank #st-guard .dw-chip::before, #anees-bank #st-amal .dw-chip::before { width: 12px; height: 12px; box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 22%, transparent); }
+#anees-bank #st-guard .dw-chip.warn, #anees-bank #st-amal .dw-chip.warn { background: var(--dw-warn-fill); }
+html[data-look="kurz"] #anees-bank #st-guard, html[data-look="kurz"] #anees-bank #st-amal { border: 0; background: var(--kz-panel); border-radius: 18px; }
+html[data-look="kurz"] #anees-bank #st-guard .dw-chip::before, html[data-look="kurz"] #anees-bank #st-amal .dw-chip::before { box-shadow: 0 0 10px 2px currentColor; }
+
+/* phone app shell + menu icons, same as css/dw-people.css (PG-31 bar kept): the page scrolls above the bar */
+/* phone app shell (PG-31's bottom bar kept): the page scrolls above the bar, so the bar never covers a card */
+@media (max-width: 680px) {
+  html:has(body > .pn-bar), html:has(body > .pn-bar) body { height: 100%; }
+  body:has(> .pn-bar) { display: flex; flex-direction: column; overflow: hidden; margin: 0; }
+  body:has(> .pn-bar) > #anees-bank { flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  body:has(> .pn-bar) > .pn-bar { position: static !important; flex: none; }
+  body:has(> .pn-bar) #anees-bank main { padding-bottom: 18px !important; }
+}
+@media (max-width: 680px) {
+  body > .pn-bar .pn-tab i { border: 0 !important; border-radius: 0 !important; background: currentColor !important;
+    -webkit-mask: var(--pn-ico) center / contain no-repeat; mask: var(--pn-ico) center / contain no-repeat; }
+  body > .pn-bar .pn-tab:nth-child(1) { --pn-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M4 20V10M10 20V4M16 20v-7M22 20H2'/%3E%3C/svg%3E"); }
+  body > .pn-bar .pn-tab:nth-child(2) { --pn-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M4 15v-3a8 8 0 0 1 16 0v3'/%3E%3Crect x='3' y='14' width='5' height='7' rx='2'/%3E%3Crect x='16' y='14' width='5' height='7' rx='2'/%3E%3C/svg%3E"); }
+  body > .pn-bar .pn-tab:nth-child(3) { --pn-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linejoin='round'%3E%3Crect x='3' y='7' width='13' height='14' rx='2'/%3E%3Cpath d='M8 4h11a2 2 0 0 1 2 2v11'/%3E%3C/svg%3E"); }
+  body > .pn-bar .pn-tab:nth-child(4) { --pn-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21a8 8 0 0 1 16 0'/%3E%3C/svg%3E"); }
+  body > .pn-bar .pn-tab:nth-child(5) { --pn-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Ccircle cx='5' cy='12' r='2.2'/%3E%3Ccircle cx='12' cy='12' r='2.2'/%3E%3Ccircle cx='19' cy='12' r='2.2'/%3E%3C/svg%3E"); }
+  body > .pn-bar .pn-tab[aria-current="page"] i { background: currentColor !important; }
+  html[data-look="kurz"] body > .pn-bar { background: var(--dw-card); border-top-color: var(--dw-line); }
+  html[data-look="kurz"] body > .pn-bar .pn-tab[aria-current="page"] { color: var(--dw-a1); }
+}
+@media (max-width: 680px) { body:has(> .pn-bar) > #anees-bank .ab-shell { min-height: 0; } }
+@media (max-width: 680px) { #anees-bank .st-tabnote { height: auto; margin: 4px 0; } #anees-bank .st-tabnote > details.dw-info { position: static; } #anees-bank .st-tabnote > details.dw-info[open] > div { position: static; width: auto; } }
