@@ -61,7 +61,7 @@ function dwHeading(el){   // the heading this text explains: right before it, el
  for(let p=el.parentElement;p&&p.id!=='anees-bank';p=p.parentElement){
   if(p.matches('.vp-panel,section,.ov-head')){const x=p.querySelector(':scope > .vp-panelhead h3, :scope > .vp-panelhead h2, :scope > h2, :scope > h3, :scope .vp-panelhead h3');if(x)return x;}
  }
- return null;
+ const tab=el.closest('[id^="ar-tab-"]');return tab?tab.querySelector('.ov-h2'):null;   // else the tab's own heading
 }
 function dwInfo(el){
  const h=dwHeading(el),have=h&&h.querySelector(':scope > details.dw-info');
@@ -114,11 +114,11 @@ function dwBigs(){
  const big=(href,b,s,warn)=>{const p=part(b);return `<a class="dw-big${warn?' dw-warnbig':''}" href="${href}"><b>${b}</b><span>${s}</span>${p===null?'':`<i class="dw-split dw-bigbar" aria-hidden="true"><i style="width:${p}%"></i></i>`}</a>`;};
  const box=document.createElement('div');box.id='dw-unk-bigs';box.className='dw-bigs';
  // each number sits on its own section row (one card per blind spot: number, meaning, tap to open)
- const put=(sec,b,s,warn)=>{const h=document.querySelector(sec+' details.ar-unk-d > summary .ar-unk-h');if(!h)return;const p=part(b);
+ const put=(sec,b,s,warn,fill)=>{const h=document.querySelector(sec+' details.ar-unk-d > summary .ar-unk-h');if(!h)return;const p=part(b);
   const n=document.createElement('span');n.className='dw-sumbig'+(warn?' dw-warnbig':'');
-  n.innerHTML=`<b>${b}</b><small>${s}</small>${p===null?'':`<i class="dw-split dw-bigbar${warn?' dw-bad':''}" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
+  n.innerHTML=`<b>${b}</b><small>${s}</small>${p===null?'':`<i class="dw-split dw-bigbar ${fill||'dw-good'}" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
  const VT=(txt('air-unknowns-vocab').match(/of the student’s ([\d,]+) word events/)||[])[1];
- put('#ar-unk-listen',L,'labels correct · higher is better');put('#ar-unk-vocab',VT?`${V}/${VT}`:V,'events need review',1);put('#ar-unk-grammar',`${G2}/${G1}`,'slips caught · the rest missed',1);if(N)put('#ar-unk-names',N,'names need a label',1);
+ put('#ar-unk-listen',L,'labels correct · higher is better');put('#ar-unk-vocab',VT?`${V}/${VT}`:V,'events need review',1,'dw-need');put('#ar-unk-grammar',`${G2}/${G1}`,'slips caught · the rest missed',1,'dw-caught');if(N)put('#ar-unk-names',N,'names need a label',1);
  const nav=T.querySelector('.ar-jump');if(nav)nav.after(box);if(nav)nav.hidden=true;
 }
 let dwT=0;
@@ -130,7 +130,8 @@ function dwTable(){const H=$('air-grades');if(!H)return;H.querySelectorAll('tabl
 function dwTiny(){document.querySelectorAll('#ar-tab-grades .ar-kpi .ab-tiny:not([data-dw])').forEach(t=>{t.dataset.dw='1';const w=t.textContent.trim().split(/\s+/);if(w.length<=7)return;
  const head=t.textContent.split(/[;:(]/)[0].split(/\s+/).slice(0,6).join(' ');const d=document.createElement('details');d.className='dw-info';d.innerHTML='<summary aria-label="More about this number">ⓘ</summary><div></div>';
  d.lastChild.textContent=t.textContent;t.textContent=head+' ';t.append(d);});
- const M=$('ab-metrics');if(M&&!M.closest('details')&&M.children.length){const d=document.createElement('details');d.className='dw-fold ar-counts';d.innerHTML='<summary>Report counts</summary>';M.before(d);d.append(M);}}
+ const M=$('ab-metrics'),P=document.querySelector('#ar-list details.ar-past');if(M&&P&&!M.closest('details')&&M.children.length){const lg=document.querySelector('#ar-tab-research .ar-legend'),f=$('ar-foot');
+ const box=P.querySelector('.ar-list');[lg,M].forEach(x=>{if(x)box.before(x);});if(f)P.append(f);}}
 function dwPass(){dwTry(dwBigs);dwTry(dwTable);dwTry(dwTiny);dwTry(dwGroups);document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwTry(dwInfo,el);});dwTry(dwFold,t);});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 new MutationObserver(()=>{clearTimeout(dwT);dwT=setTimeout(dwPass,60);}).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});

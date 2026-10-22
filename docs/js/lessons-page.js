@@ -355,6 +355,12 @@ function grammarCell(L) {
   c.appendChild(top);
   // grammar_math (eng audit 2026-09-29): slips in rules no counter can score are listed but kept out of the %
   var sm = num(g.scored_mistakes) ? g.scored_mistakes : g.mistakes;
+  if (num(sm) && num(g.uses) && g.uses > 0) {   // de-word: right uses vs slips as one split bar, like Words
+    var gb = el('div', 'dw-split ls-wsplit'); gb.setAttribute('aria-hidden', 'true');
+    var ok = el('i', 'ls-wok'); ok.style.width = (100 * Math.max(0, g.uses - sm) / g.uses).toFixed(1) + '%'; gb.appendChild(ok);
+    var bad = el('i', 'ls-wbad'); bad.style.width = (100 * Math.min(sm, g.uses) / g.uses).toFixed(1) + '%'; gb.appendChild(bad);
+    c.appendChild(gb);
+  }
   c.appendChild(el('div', 'ls-small', (num(sm) ? sm : '—') + ' slips / ' + (num(g.uses) ? g.uses : '—') + ' uses' +
     (num(g.unscored_mistakes) && g.unscored_mistakes ? ' · +' + g.unscored_mistakes + ' in unscored rules' : '')));
   return c;

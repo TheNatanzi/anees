@@ -351,3 +351,9 @@ html[data-look="kurz"] #anees-bank .fl details.phase > summary .fl-ico { border-
 #anees-bank .ls-row .ls-rowhead[aria-expanded="true"] .ls-tcell { display: block; }
 #anees-bank details.ls-filters #ls-tabs { margin-bottom: 8px; }
 #anees-bank details.ar-counts { margin: 0 0 10px; }
+/* round 13: bar colours mean the same everywhere: teal/green = right or caught, pink/red = missed or to review */
+#anees-bank .dw-bigbar.dw-good { background: var(--dw-line); } #anees-bank .dw-bigbar.dw-good > i { background: var(--dw-ok) !important; }
+#anees-bank .dw-bigbar.dw-caught { background: var(--dw-bad); } #anees-bank .dw-bigbar.dw-caught > i { background: var(--dw-ok) !important; }
+#anees-bank .dw-bigbar.dw-need { background: var(--dw-line); } #anees-bank .dw-bigbar.dw-need > i { background: var(--dw-bad) !important; }
+#anees-bank .ab-tablehead > div:nth-child(5) { visibility: hidden; }
+@media (max-width: 600px) { #anees-bank .fl details.phase > summary .when { display: block; grid-column: 2 / 4 !important; font-size: 12px; } }
