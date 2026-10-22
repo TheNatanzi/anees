@@ -262,14 +262,12 @@ function renderCharts() {
     if (foot) f.appendChild(foot);
   }
   function foot(text, delta) {
-    // de-word 2026-10-22: the counts behind each chart open in place (ⓘ)
-    var d = el('details', 'dw-info'), sm = el('summary', 'dw-i'), w = el('div', null, text);
-    sm.setAttribute('aria-label', 'The counts behind this chart'); d.appendChild(sm); d.appendChild(w);
+    var w = el('span', null, text);
     if (delta) {
-      var dd = el('span', delta.good ? 'gc-delta-good' : 'gc-delta-bad', ' ' + delta.text);
-      w.appendChild(dd);
+      var d = el('span', delta.good ? 'gc-delta-good' : 'gc-delta-bad', ' ' + delta.text);
+      w.appendChild(d);
     }
-    return d;
+    return w;
   }
 
   function sum(key) {
@@ -333,7 +331,7 @@ function renderCharts() {
   // eng audit 2026-09-29: the cut-offs the statuses use (scripts/build_grammar_console.py status()) were not written
   // anywhere on the page; scripts/check_numbers.py checks every rule against exactly these.
   // de-word 2026-10-22: the cut-offs open in place (ⓘ) instead of a paragraph under the donut
-  $('gc-c4-foot').innerHTML = '<details class="dw-info"><summary aria-label="How a rule gets its level">ⓘ</summary><div>All 60 buckets. Score = (uses − mistakes) ÷ uses, rounded. Mastered = 95%+ on 10+ uses · Good = 85%+ · Shaky = 65%+ · Wrong = under 65%. Unscored = no counter for his right uses. Status never moves on its own — it needs a recorded use.</div></details>';
+  $('gc-c4-foot').innerHTML = '<details class="dw-info"><summary aria-label="How a rule gets its level">ⓘ</summary><div>Score = (uses − mistakes) ÷ uses, rounded. Mastered = 95%+ on 10+ uses · Good = 85%+ · Shaky = 65%+ · Wrong = under 65%. Unscored = no counter for his right uses. Status never moves on its own — it needs a recorded use.</div></details>';
 }
 
 /* ---------- rule rows ---------- */
@@ -399,14 +397,6 @@ function sortValue(r) {
 function buildHeaders() {
   var head = $('gc-tablehead');
   head.textContent = '';
-  // de-word 2026-10-22: one "Sort by" menu instead of seven buttons
-  var pick = el('select', 'dw-sortpick'); pick.setAttribute('aria-label', 'Sort the rules');
-  COLS.forEach(function (c) { ['asc', 'desc'].forEach(function (d) {
-    var o = el('option', null, c.label + (c.key === 'rule' ? (d === 'asc' ? ' (A → Z)' : ' (Z → A)') : d === c.first ? ' ' + (d === 'desc' ? '↓' : '↑') : ' ' + (d === 'desc' ? '↓' : '↑')));
-    o.value = c.key + ':' + d; if (SORT.key === c.key && SORT.dir === d) o.selected = true; pick.appendChild(o); }); });
-  pick.addEventListener('change', function () { var v = pick.value.split(':'); SORT = { key: v[0], dir: v[1] };
-    try { localStorage.setItem(SORT_KEY, JSON.stringify(SORT)); } catch (e) { /* not saved */ } render(); });
-  var lab = el('label', 'dw-sortlabel', 'Sort by '); lab.appendChild(pick); head.appendChild(lab);
   COLS.forEach(function (c, i) {
     var cell = el('div');
     cell.setAttribute('role', 'columnheader');
@@ -860,7 +850,7 @@ function render() {
   $('gc-results').textContent = list.length + ' of ' + DATA.rules.length + ' rules';
   var filtered = QUERY || FAMILY !== 'all' || STATUSES.some(function (s) { return STATUS_ON[s]; });
   // de-word 2026-10-22: with no filter only the Wrong rules show; the rest open in place (every row stays on the page)
-  rows.classList.toggle('dw-clip', !filtered && !SHOW_ALL && list.some(function (r) { return r.status === 'Wrong'; }));
+  rows.classList.remove('dw-clip'); // round 2 (Medi: too much cut): every rule row shows
   var more = $('gc-showall');
   if (!more) { more = el('button', 'ab-control', ''); more.id = 'gc-showall'; more.type = 'button';
     more.addEventListener('click', function () { SHOW_ALL = true; render(); }); rows.after(more); }

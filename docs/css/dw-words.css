@@ -1,6 +1,5 @@
 /* De-word 2026-10-22, group "words": Word Bank, Grammar Console, Flashcards & Review.
    Same markup in both looks; Look B specifics under html[data-look="kurz"]. Uses the picture-kit vars from look.css. */
-.dw-sr { display: none !important; } /* repeated sub-labels: kept in the DOM (same page text), not shown */
 #anees-bank h1 details.dw-info { font-size: 13px; font-weight: 400; vertical-align: middle; }
 #anees-bank h1 details.dw-info > div { position: absolute; z-index: 5; max-width: min(64ch, 86vw); }
 #anees-bank details.dw-info > div { white-space: normal; text-align: left; }
@@ -74,7 +73,6 @@ h2 details.dw-info { font-size: 13px; font-weight: 400; }
 #ab-rows.dw-clip > article:nth-child(n+21) { display: none; }
 
 /* Word Bank round 4: practice counts as icon + number, level words as coloured chips, age instead of date */
-#anees-bank .dw-practice > div > span { display: none; }
 #anees-bank .dw-practice > div::before { content: ""; display: block; width: 16px; height: 16px; margin: 0 auto 3px; background: var(--dw-muted);
   -webkit-mask: var(--dw-ico) center / contain no-repeat; mask: var(--dw-ico) center / contain no-repeat; }
 #anees-bank .dw-practice > div:nth-child(1) { --dw-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H10l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z'/%3E%3C/svg%3E"); }
@@ -91,7 +89,6 @@ h2 details.dw-info { font-size: 13px; font-weight: 400; }
 #ab-rows .ab-badge strong.ab-status-Wrong { background: var(--dw-bad-fill); color: var(--dw-bad); }
 #ab-rows .ab-badge strong.ab-status-Untested { border: 1px dashed var(--dw-line); color: var(--dw-muted); }
 #ab-rows .dw-ago { font-size: 13px; font-weight: 600; color: var(--dw-ink); }
-#ab-rows .ab-badge strong.ab-status-Untested + .vp-memory-mini { display: none; }
 #anees-bank .dw-wb-bigs .dw-big b { font-size: clamp(26px, 2.6vw, 36px); }
 #ab-rows .vp-memory-mini { white-space: nowrap; }
 @media (max-width: 680px) {
@@ -123,7 +120,6 @@ h2 details.dw-info { font-size: 13px; font-weight: 400; }
   #anees-bank .gc-chart { padding: 10px; min-width: 0; }
   #anees-bank .gc-chart-foot { font-size: 11px; }
   #anees-bank .gc-chart .gc-chart-value { font-size: 26px; }
-  #anees-bank .gc-chart-note { display: none; }
 }
 
 /* round 5 */
@@ -199,7 +195,6 @@ html[data-look="kurz"] #anees-bank .dw-need-Wrong { background: #FF5C8A; color: 
   #anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) { padding: 8px 6px; }
   #anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) b { font-size: 18px; }
   #anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) span { font-size: 9px; }
-  #anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) small { display: none; }
 }
 /* card tiles: a small glyph per randomized drill */
 #anees-bank .stile[data-t^="drill:"] .vp-card-value::after, #anees-bank .stile[data-t="never"] .vp-card-value::after { content: ""; width: 30px; height: 30px; margin-left: auto; background: var(--dw-a2);
@@ -214,32 +209,17 @@ details.dw-info > summary.dw-i::before { content: "ⓘ"; }
 html[data-look="kurz"] #anees-bank .fc-grid > .stile[data-t="shaky"] { border-top: 0 !important; }
 
 /* combined round 4 */
-#anees-bank #ab-metrics.dw-wb-bigs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-#anees-bank #ab-metrics .dw-big:nth-child(-n+2) { grid-column: auto; }
 #anees-bank details.dw-morestats { grid-column: 1 / -1; }
 #anees-bank details.dw-morestats > summary { cursor: pointer; display: inline-block; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line); font: 600 13px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
 #anees-bank details.dw-morestats > .dw-bigs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 #anees-bank details.dw-morestats .dw-big b { font-size: 22px !important; }
 #anees-bank .dw-allzero-h { display: none; }
 #anees-bank .fc-mixbar:has(> i.mx-untested:only-child) { display: none; }
-@media (max-width: 680px) {
-  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(2), #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(3),
-  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4), #gc-rows .gc-rowhead[aria-expanded="false"] .gc-oneline { display: none; }
-  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(5) { grid-column: span 2; }
-  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(6) { grid-column: span 2; }
-  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(7) { display: none; }
-}
 /* round 5 */
-#anees-bank section.gc-charts { grid-template-columns: minmax(0, 1fr) !important; }
 #anees-bank .dw-morecharts > summary { cursor: pointer; display: inline-block; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line); font: 600 13px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
 #anees-bank .dw-charts3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 10px; margin-top: 10px; }
 #anees-bank #gc-c1 .gc-chart-body svg { max-height: 120px; }
 @media (max-width: 680px) { #anees-bank .dw-charts3 { grid-template-columns: 1fr 1fr !important; } }
-@media (max-width: 680px) {
-  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4):has(.gc-flag) { display: block; grid-column: span 4; }
-  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4):has(.gc-flag) > :not(.gc-flag) { display: none; }
-  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4):has(.gc-flag)::before { display: none; }
-}
 #anees-bank .fc-mix:has(.fc-mixbar > i.mx-untested:only-child) { display: none; }
 #anees-bank .stile:not(.empty)::after { content: "Start →"; width: auto; padding: 0 10px; border-radius: 999px; height: 24px; font-size: 12px; }
 #anees-bank .stile:not(.empty) .vp-card-label { padding-right: 70px; }
@@ -280,13 +260,6 @@ html[data-look="kurz"] #anees-bank .fc-grid > .stile[data-t="shaky"] { border-to
 @media (max-width: 680px) { #gc-rows .gc-rowhead > div:nth-child(6) .gc-pill { display: inline-block; width: auto; padding: 2px 14px; } #gc-rows .gc-rowhead > div:nth-child(6) { justify-self: start; } }
 
 /* round 9: a closed Word Bank row = word, meaning, one level, last said; the rest opens in place with the row arrow */
-#anees-bank .ab-tablehead, #ab-rows .ab-rowhead { grid-template-columns: minmax(130px, 1.3fr) minmax(110px, 1.3fr) minmax(120px, 1.2fr) 130px; }
-#anees-bank .ab-tablehead > div:nth-child(4) { display: none; }
-#ab-rows .ab-rowhead > .ab-practice { grid-column: 1 / -1; order: 9; justify-content: start; max-width: 240px; }
-#ab-rows .dw-closed :is(.ab-badge, .ab-practice, .ab-topiclabel, .ab-type, .ab-badges > .ab-tiny) { display: none; }
-#ab-rows .dw-closed .ab-seencell details.dw-info { display: none; }
-#ab-rows .ab-row:not(.dw-closed) .dw-level { display: none; }
-#ab-rows .dw-closed .ab-badges { display: block; }
 #ab-rows .dw-level { display: inline-block; padding: 2px 12px; border-radius: 999px; font: 700 12px/1.6 var(--sabz-font-sans, system-ui); }
 #ab-rows .dw-level.dw-lv-Mastered { background: var(--dw-ok-fill); color: var(--dw-ok); }
 #ab-rows .dw-level.dw-lv-Good { background: color-mix(in srgb, var(--dw-a3) 25%, transparent); color: var(--dw-ink); }
@@ -304,38 +277,6 @@ html[data-look="kurz"] #ab-rows .dw-level.dw-lv-Wrong { background: var(--kz-pin
   #ab-rows .dw-closed .ab-seencell { justify-content: flex-end; }
 }
 
-/* round 9: a closed Grammar rule = name, score, status (+ a listening-gap flag); uses, slips, hear it and last used open in place */
-#anees-bank #gc-tablehead { display: flex !important; flex-wrap: wrap; gap: 6px; padding: 8px; border-radius: 6px; margin-bottom: 8px; }
-#anees-bank #gc-tablehead::before { content: "Sort"; align-self: center; margin-right: 2px; }
-#anees-bank #gc-tablehead .gc-sortbtn { border: 1px solid var(--ab-line); background: var(--ab-panel); min-height: 30px; padding: 4px 9px; }
-#anees-bank #gc-tablehead > div { text-align: left; }
-#gc-rows .gc-rowhead[aria-expanded="false"] { grid-template-columns: minmax(0, 1fr) auto 170px 110px !important; }
-#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(1) { grid-column: 1; }
-#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4) { grid-column: 2; }
-#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(5) { grid-column: 3; }
-#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(6) { grid-column: 4; }
-#gc-rows .gc-rowhead[aria-expanded="false"] > :is(div:nth-child(2), div:nth-child(3), div:nth-child(7)),
-#gc-rows .gc-rowhead[aria-expanded="false"] .gc-oneline { display: none !important; }
-#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4):not(:has(.gc-flag)) { display: none !important; }
-#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4):has(.gc-flag) > :not(.gc-flag) { display: none; }
-#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4)::before { display: none !important; }
-#gc-rows .gc-rowhead[aria-expanded="true"] > div:nth-child(n+2):nth-child(-n+5)::before, #gc-rows .gc-rowhead[aria-expanded="true"] > div:nth-child(7)::before {
-  display: block; font: 700 10px/1.4 var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-muted); }
-#gc-rows .gc-rowhead > div:nth-child(2)::before { content: "Uses"; }
-#gc-rows .gc-rowhead > div:nth-child(3)::before { content: "Slips"; }
-#gc-rows .gc-rowhead > div:nth-child(4)::before { content: "Hear it"; }
-#gc-rows .gc-rowhead > div:nth-child(5)::before { content: "Score"; }
-#gc-rows .gc-rowhead > div:nth-child(7)::before { content: "Last used"; }
-#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(5)::before { display: none !important; }
-@media (max-width: 680px) {
-  #gc-rows .gc-rowhead[aria-expanded="false"] { grid-template-columns: minmax(0, 1fr) auto !important; }
-  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(1) { grid-column: 1 / -1 !important; }
-  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4) { grid-column: 1 / -1 !important; }
-  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(5) { grid-column: 1 !important; }
-  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(6) { grid-column: 2 !important; align-self: center; }
-}
-#gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4):has(.gc-flag) { font-size: 0; } #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(4) .gc-flag { font-size: 11px; }
-
 /* round 11: chips are the bar's legend (same colour dot), one Sort menu, plain card headings */
 #anees-bank :is(#ab-statuses .ab-chip, #gc-statuses .ab-chip)::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 0; background: transparent; border: 1px solid var(--dw-line); }
 #anees-bank :is(#ab-statuses .ab-status-Wrong, #gc-statuses .dw-st-Wrong)::before { background: var(--dw-bad); border: 0; }
@@ -344,9 +285,6 @@ html[data-look="kurz"] #ab-rows .dw-level.dw-lv-Wrong { background: var(--kz-pin
 #anees-bank :is(#ab-statuses .ab-status-Mastered, #gc-statuses .dw-st-Mastered)::before { background: var(--dw-a1); border: 0; }
 #anees-bank #gc-statuses .dw-st-Unscored::before { background: var(--dw-muted); border: 0; }
 #dw-levelbar .dw-levels { margin-bottom: 4px; }
-#anees-bank #gc-tablehead::before { content: none; }
-#anees-bank #gc-tablehead > div { display: none; }
-#anees-bank #gc-tablehead { background: transparent; padding: 0; }
 #anees-bank .dw-sortlabel { font: 600 13px var(--sabz-font-sans, system-ui); color: var(--dw-muted); text-transform: none; letter-spacing: 0; }
 #anees-bank .dw-sortpick { margin-left: 6px; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--dw-line); background: var(--dw-card); color: var(--dw-ink); font: inherit; }
 #gc-rows.dw-clip::before { content: "Wrong rules · score = % right"; }
@@ -370,3 +308,12 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
   #gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(3) { grid-column: 2 !important; }
   #gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(5) { grid-column: 3 !important; }
 }
+
+/* round 2 (Medi 2026-10-22: "you cut out too much data"): every number shows again; six tiles in one row */
+#anees-bank #ab-metrics.dw-wb-bigs { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+#anees-bank #ab-metrics .dw-big { grid-column: auto !important; padding: 12px; }
+#anees-bank #ab-metrics .dw-big b { font-size: clamp(24px, 2.4vw, 34px) !important; }
+#anees-bank #ab-metrics .dw-big span { font-size: 11px; }
+#anees-bank #ab-metrics .dw-big small { display: block; font-size: 11px; color: var(--dw-muted); }
+#anees-bank .dw-practice > div > span { display: block; font: 400 10px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+@media (max-width: 680px) { #anees-bank #ab-metrics.dw-wb-bigs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; } }

@@ -19,13 +19,13 @@
     if (!late.length) return '';
     const names = late.map(p => esc(p.arabizi || p.arabic)).join(', ');
     // de-word 2026-10-22: the warning is a chip; the full sentence opens in place (ⓘ)
-    return `<div class="dw-row dw-late" data-still-waiting><span class="dw-chip warn">${late.length} late · ${names}</span><details class="dw-info"><summary aria-label="More">ⓘ</summary><div>${late.length} word${late.length > 1 ? 's' : ''} the tutor said she'd add still not in the Doc after 7 days: ${names}.</div></details></div>`;
+    return `<div class="dw-row dw-late" data-still-waiting><span class="dw-chip warn">${late.length} late</span> ${late.length} word${late.length > 1 ? 's' : ''} the tutor said she'd add still not in the Doc after 7 days: ${names}.</div>`;
   }
   function html(data) {
     const P = (data && data.promised) || [];
     if (!P.length) return '';
     const waiting = P.filter(p => p.state !== 'in_doc').length, inDoc = P.length - waiting;
-    return note(P) + `<details class="ab-promised" data-promised><summary class="ab-sub"><span class="dw-chip${waiting ? ' warn' : ' muted'}">${waiting} waiting</span> for the tutor's Doc · <span class="dw-muted">${inDoc} of ${P.length} in</span></summary>
+    return note(P) + `<details class="ab-promised" data-promised ${waiting ? 'open' : ''}><summary class="ab-sub"><span class="dw-chip${waiting ? ' warn' : ' muted'}">${waiting} waiting</span> for the tutor's Doc · <span class="dw-muted">${inDoc} of ${P.length} in</span></summary>
       <p class="ab-sub"><b>The tutor said she will add (${P.length})</b></p><ul>${P.map(p => `<li data-state="${esc(p.state)}"><b>${esc(p.arabizi || p.arabic)}</b>${p.arabizi && p.arabic ? ` <span lang="ar">${esc(p.arabic)}</span>` : ''} <span>· ${esc(p.english || '')} · ${esc(pretty(p.date))} lesson · ${esc(label(p))}</span></li>`).join('')}</ul></details>`;
   }
   async function mount(el) {
