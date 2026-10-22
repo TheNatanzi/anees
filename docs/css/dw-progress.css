@@ -325,3 +325,7 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
 /* top cards: Lessons / Lesson hours wait for lessons.json (a "…" instead of a number that changes a second later) */
 #anees-bank .vp-pending .vp-card-value, #anees-bank .vp-pending .vp-card-sub { visibility: hidden; position: relative; }
 #anees-bank .vp-pending .vp-card-value::after { content: "…"; visibility: visible; position: absolute; left: 0; top: 0; font: 600 var(--dw-big, 42px)/1.05 var(--sabz-font-serif, Georgia, serif); color: var(--dw-muted); }
+/* round 11: supporting numbers at 14px; the lone last lesson-number tile spans the row on a phone */
+#anees-bank .vp-card-sub, #anees-bank #ov-metrics .ab-tiny { font-size: 14px; opacity: .88; }
+#anees-bank #ov2 .ov2-rest svg.vp-chart text { font-size: 12.5px; fill: var(--ab-text); }
+@media (max-width: 680px) { #anees-bank #ov-metrics .ab-metric:last-child:nth-child(odd) { grid-column: 1 / -1; } }

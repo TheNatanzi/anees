@@ -172,8 +172,11 @@
   // 3c. an Overview "why" line: sentences with a number stay; sentences without one go behind a ⓘ at its end
   function whySplit(root) {
     for (const el of root.querySelectorAll('.ov2-why, .ov2-notes > div, .ov2-text')) {
-      if (el.dataset.dws || el.closest('details') || el.children.length) continue;
+      if (el.dataset.dws || el.closest('details')) continue;
       const t = el.textContent || '';
+      // a whole note with no number in it: behind one ⓘ where it stood
+      if (!/\d+(?:[.,]\d+)+|\d+\s*%|\b\d{2,}\b/.test(t)) { el.dataset.dws = '1'; busy = true; const d = info(); el.before(d); d.lastChild.append(el); continue; }
+      if (el.children.length) { el.dataset.dws = '1'; continue; }
       const sent = t.match(/(?:[^.!?]|[.!?](?=\S))+(?:[.!?]+\s*|$)/g) || [t];
       const num = x => /\d+(?:[.,]\d+)+|\d+\s*%|\b\d{2,}\b|\b\d+ of \d+/.test(x);
       const keep = sent.filter(num), move = sent.filter(x => !num(x) && x.trim());
