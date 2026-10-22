@@ -74,6 +74,7 @@ function perLesson(l,J){
 /* ---------- SVG helpers (same frame as the Grammar tab) ---------- */
 const W=640;
 // de-word r2: on a phone the two top charts draw at phone width (readable labels, nothing cut at the card edge)
+let TOP={};   // de-word r2: the takeaway numbers of A and B, for the one-line strip on top
 const PHONE=()=>typeof matchMedia==='function'&&matchMedia('(max-width: 680px)').matches;
 const frame=(inner,label,h,w=W)=>`<svg class="vp-chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}">${inner}</svg>`;
 const hline=(x1,x2,y)=>`<line class="vp-gridline" x1="${x1}" x2="${x2}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}"/>`;
@@ -116,6 +117,7 @@ function panelA(ls){
  });
  s+=tx(bx,h-4,'lessons that week');
  const why=`${inBand} of ${plural(full.length,'full week')} landed in the band. Most in one week: ${top.n} (week of ${dm(top.key)}).${gap.d?` Longest break: ${gap.d} days (${dm(gap.a)} to ${dm(gap.b)}).`:''}${weeks.length>show.length?` Showing the last ${show.length} of ${weeks.length} weeks.`:''}${weeks[weeks.length-1].open?' The current week is still running and is left out of the average.':''}`;
+ TOP.a={avg,inBand,full:full.length};
  return panel('a',title,sub,frame(s,'Lessons per week calendar',h,W),{head:big(f1(avg),`lessons a week on average over ${plural(base.length,full.length?'full week':'week')}<span class="dw-tail"> · target ${TARGET[0]} to ${TARGET[1]}</span>`)+gauge(avg,TARGET,7),why,src:'lessons.json dates'});
 }
 
@@ -147,6 +149,7 @@ function panelB(ls){
  const why=`${AX?'Every number here is "≈": it comes from lessons that are not verified yet (hover a lesson score on the table above for why). ':''}Pooled over every scored use: ${AX}${f1(allP)}% · plain mean of the lessons: ${f1(mean)}%.${called?' Progress called: the last three weeks all sit above the band.':''}`;
  // de-word r2: why the two differ is explanation, so it sits with the source note (behind the ⓘ)
  const whyMean=`A plain mean weights every lesson the same${small&&mean!==null&&allP!==null&&mean<allP&&small.words.pct<mean?`, so a small lesson (${dm(small.date)}: ${small.words.scored} uses, ${f1(small.words.pct)}%) pulls it down`:''}. `;
+ TOP.b={above,n:after.length,last:wk[wk.length-1],AX};
  return panel('b',title,sub,`<div class="dw-chartcap">Words right, % per week</div>`+frame(s,'Weekly pooled words right with baseline',H,W)+`<div class="dw-chartcap">Grammar slips per 10 min, per week</div>`+frame(s2,'Weekly grammar slips per 10 minutes',SH,W),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`)+dots(wk.map((w,i)=>i<2?null:w.pct>base+2)),why,src:whyMean+'Source: words.right, partial, scored by ISO week'});
 }
 
@@ -329,9 +332,12 @@ function render(){
  if(!LJ){h.innerHTML='<div class="vp-notice">Loading the new angles…</div>';return;}
  const ls=(LJ.lessons||[]).slice().sort((a,b)=>a.date<b.date?-1:1);
  const one=f=>{try{return f();}catch(e){console.error('overview-angles',e);return `<section class="vp-panel">${empty('This panel could not be drawn ('+e.message+').')}</section>`;}};
+ TOP={};const topHtml=[()=>panelA(ls),()=>panelB(ls)].map(one).join('');
+ const A=TOP.a,B=TOP.b,big2=(v,l)=>`<div class="dw-big"><b>${v}</b><span>${l}</span></div>`;
+ const strip=A||B?`<div class="dw-bigs ov2-verdict">${A?big2(f1(A.avg),`lessons a week · goal ${TARGET[0]}–${TARGET[1]}`)+big2(`${A.inBand} of ${A.full}`,'weeks on goal'):''}${B?big2(`${B.above} of ${B.n}`,'weeks above your baseline')+big2(`${B.AX}${f1(B.last.pct)}%`,`words right, week of ${dm(B.last.k)}`):''}</div>`:'';
  h.innerHTML=`<div class="ov-head ov2-head"><span class="vp-eyebrow">Across lessons</span><h2 class="ov-h2">What the lesson numbers add up to</h2><p class="ab-sub">Eight views the table cannot show: cadence, weekly baseline, time of day, rest days, talk shape, language mix, Arabic stretches and hesitation. Hover any mark for its numbers.</p></div>
  ${(window.AneesLessonMath&&window.AneesLessonMath.methodHtml(LJ))||''}
- <div class="vp-grid ov2-top">${[()=>panelA(ls),()=>panelB(ls)].map(one).join('')}</div>
+ ${strip}<div class="vp-grid ov2-top">${topHtml}</div>
  <h2 class="ov-h2 ov2-more-h">Six more views across lessons</h2>
  <div class="vp-grid ov2-rest">${[()=>panelC(ls),()=>panelD(ls),panelE,panelF,panelG,()=>panelH(ls)].map(one).join('')}</div>
  <p class="ov2-source">Source: data/lessons.json${TURNS?` + ${TURNS.length} turn files (data/lessons/&lt;date&gt;.json)`:''} · updated ${esc(String(LJ.updated||'').replace('T',' ').slice(0,16))}</p>`;
