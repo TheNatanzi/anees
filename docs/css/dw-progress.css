@@ -290,7 +290,8 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
   #anees-bank .ov-tbl tbody td:nth-child(1)::before, #anees-bank .ov-tbl tbody td:nth-child(2)::before { display: none; }
   /* the Overview charts keep readable labels: they scroll sideways inside their card instead of shrinking */
   #anees-bank #ov2 .vp-panel { overflow-x: auto; }
-  #anees-bank #ov2 svg.vp-chart { min-width: 600px; }
+  #anees-bank #ov2 .ov2-rest svg.vp-chart { min-width: 600px; }
+  #anees-bank #ov2 .ov2-top .vp-panel { overflow-x: visible; }
 }
 /* a note's ⓘ alone at the foot of a card: small, at the right, so it does not read as data */
 #anees-bank .vp-panel > details.dw-p:not(.dw-pwarn):not([open]) { text-align: right; opacity: .6; margin-top: 2px; }
@@ -300,3 +301,13 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
 #anees-bank details.dw-trim[open] > div { display: block; }
 /* desktop: the seven lesson-number tiles sit in rows of four (no lone tile) */
 @media (min-width: 681px) { #anees-bank #ov-metrics.ab-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* Overview order: the two takeaways (cadence, weekly baseline) first, then the full lesson numbers, then the six
+   other views. Visual order only; every block stays open. */
+#anees-bank #vp-tab-overview:not([hidden]) { display: flex; flex-direction: column; }
+#anees-bank #vp-tab-overview > * { order: 3; min-width: 0; }
+#anees-bank #vp-tab-overview > #ov2 { display: contents; }
+#anees-bank #ov2 > * { order: 5; min-width: 0; }
+#anees-bank #ov2 > .ov2-head { order: 1; margin-top: 0; }
+#anees-bank #ov2 > .ov2-top { order: 2; margin-bottom: 28px; }
+#anees-bank #ov2 > .ov2-more-h { order: 4; margin: 28px 0 12px; }
+#anees-bank #ov2 > .ov2-rest { order: 4; }

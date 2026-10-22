@@ -73,6 +73,8 @@ function perLesson(l,J){
 
 /* ---------- SVG helpers (same frame as the Grammar tab) ---------- */
 const W=640;
+// de-word r2: on a phone the two top charts draw at phone width (readable labels, nothing cut at the card edge)
+const PHONE=()=>typeof matchMedia==='function'&&matchMedia('(max-width: 680px)').matches;
 const frame=(inner,label,h,w=W)=>`<svg class="vp-chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}">${inner}</svg>`;
 const hline=(x1,x2,y)=>`<line class="vp-gridline" x1="${x1}" x2="${x2}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}"/>`;
 const tx=(x,y,t,a='',cls='')=>`<text${cls?` class="${cls}"`:''} x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}"${a?` text-anchor="${a}"`:''}>${esc(t)}</text>`;
@@ -101,7 +103,8 @@ function panelA(ls){
  const full=weeks.filter(w=>!w.open),base=full.length?full:weeks,avg=sum(base,w=>w.n)/base.length;
  const inBand=full.filter(w=>w.n>=TARGET[0]&&w.n<=TARGET[1]).length,top=weeks.reduce((a,w)=>w.n>a.n?w:a);
  let gap={d:0};for(let i=1;i<ls.length;i++){const d=dayDiff(ls[i-1].date,ls[i].date);if(d>gap.d)gap={d,a:ls[i-1].date,b:ls[i].date};}
- const show=weeks.slice(-10),L=58,T=26,cell=20,gc=4,cal=7*(cell+gc),bx=L+cal+28,bw=W-bx-60,maxN=Math.max(7,...show.map(w=>w.n)),h=T+show.length*(cell+gc)+22;
+ const ph_=PHONE(),W=ph_?360:640;
+ const show=weeks.slice(-10),L=ph_?44:58,T=26,cell=ph_?14:20,gc=ph_?3:4,cal=7*(cell+gc),bx=L+cal+(ph_?16:28),bw=W-bx-(ph_?30:60),maxN=Math.max(7,...show.map(w=>w.n)),h=T+show.length*(cell+gc)+22;
  let s='';['M','T','W','T','F','S','S'].forEach((d,i)=>s+=tx(L+i*(cell+gc)+cell/2,T-9,d,'middle'));
  const x0=bx+TARGET[0]/maxN*bw,x1=bx+TARGET[1]/maxN*bw;
  s+=`<rect class="ov2-band" x="${x0.toFixed(1)}" y="${T-5}" width="${(x1-x0).toFixed(1)}" height="${show.length*(cell+gc)+1}"/>`+tx((x0+x1)/2,T-9,`${TARGET[0]} to ${TARGET[1]}`,'middle');
@@ -113,7 +116,7 @@ function panelA(ls){
  });
  s+=tx(bx,h-4,'lessons that week');
  const why=`${inBand} of ${plural(full.length,'full week')} landed in the band. Most in one week: ${top.n} (week of ${dm(top.key)}).${gap.d?` Longest break: ${gap.d} days (${dm(gap.a)} to ${dm(gap.b)}).`:''}${weeks.length>show.length?` Showing the last ${show.length} of ${weeks.length} weeks.`:''}${weeks[weeks.length-1].open?' The current week is still running and is left out of the average.':''}`;
- return panel('a',title,sub,frame(s,'Lessons per week calendar',h),{head:big(f1(avg),`lessons a week on average over ${plural(base.length,full.length?'full week':'week')}<span class="dw-tail"> · target ${TARGET[0]} to ${TARGET[1]}</span>`)+gauge(avg,TARGET,7),why,src:'lessons.json dates'});
+ return panel('a',title,sub,frame(s,'Lessons per week calendar',h,W),{head:big(f1(avg),`lessons a week on average over ${plural(base.length,full.length?'full week':'week')}<span class="dw-tail"> · target ${TARGET[0]} to ${TARGET[1]}</span>`)+gauge(avg,TARGET,7),why,src:'lessons.json dates'});
 }
 
 /* ---------- B: weekly pooled words vs baseline ---------- */
@@ -124,7 +127,8 @@ function panelB(ls){
  if(wk.length<3)return panel('b',title,sub,empty('Needs a third week of lessons after the two baseline weeks.'),{head:big('—','needs three weeks with scored words')});
  const base=pooledWords(wk[0].g.concat(wk[1].g)),after=wk.slice(2),above=after.filter(w=>w.pct>base+2).length;
  const called=after.length>=3&&after.slice(-3).every(w=>w.pct>base+2);
- const H=220,L=40,R=78,T=18,B=30,pw=W-L-R,ph=H-T-B;
+ const ph_=PHONE(),W=ph_?360:640;
+ const H=ph_?232:220,L=ph_?34:40,R=ph_?62:78,T=18,B=ph_?42:30,pw=W-L-R,ph=H-T-B;
  const vals=wk.map(w=>w.pct).concat([base]),lo=Math.max(0,Math.floor((Math.min(...vals)-6)/10)*10),hi=Math.min(100,Math.ceil((Math.max(...vals)+6)/10)*10);
  const y=v=>T+ph-(v-lo)/(hi-lo)*ph,x=i=>L+pw*(i+.5)/wk.length,maxS=niceMax(Math.max(...wk.map(w=>w.slips||0),1));
  let s='';for(let v=lo;v<=hi;v+=10)s+=hline(L,W-R,y(v))+tx(L-6,y(v)+4,v+'%','end');
@@ -133,13 +137,13 @@ function panelB(ls){
  wk.forEach((w,i)=>{if(w.slips===null)return;const h=w.slips/maxS*ph*.5;s+=`<rect class="ov2-f-sage" fill-opacity=".45" x="${(x(i)-9).toFixed(1)}" y="${(T+ph-h).toFixed(1)}" width="18" height="${h.toFixed(1)}" rx="3"><title>Week of ${dm(w.k)}: ${f1(w.slips)} grammar slips per 10 min</title></rect>`;});
  s+=`<rect class="dw-basebox" x="${(x(0)-16).toFixed(1)}" y="${T}" width="${(x(1)-x(0)+32).toFixed(1)}" height="${ph}" rx="8"/>`;   // the two baseline weeks, set apart
  s+=`<polyline class="ov2-line" points="${wk.map((w,i)=>x(i).toFixed(1)+','+y(w.pct).toFixed(1)).join(' ')}"/>`;
- wk.forEach((w,i)=>{s+=`<circle class="ov2-pt ${i<2?'dw-baseweek ':''}${w.pct>base+2?'ov2-f-good':'ov2-f-accent'}" cx="${x(i).toFixed(1)}" cy="${y(w.pct).toFixed(1)}" r="${i>=2?6:5}"><title>Week of ${dm(w.k)}: ${f1(w.pct)}% of ${w.scored} scored uses · ${plural(w.g.length,'lesson')}${i<2?' · baseline week':''}</title></circle>`+tx(x(i),y(w.pct)-10,f1(w.pct),'middle','ov2-lbl')+tx(x(i),H-10,dm(w.k),'middle');});
+ wk.forEach((w,i)=>{s+=`<circle class="ov2-pt ${i<2?'dw-baseweek ':''}${w.pct>base+2?'ov2-f-good':'ov2-f-accent'}" cx="${x(i).toFixed(1)}" cy="${y(w.pct).toFixed(1)}" r="${i>=2?6:5}"><title>Week of ${dm(w.k)}: ${f1(w.pct)}% of ${w.scored} scored uses · ${plural(w.g.length,'lesson')}${i<2?' · baseline week':''}</title></circle>`+tx(x(i),y(w.pct)-10,f1(w.pct),'middle','ov2-lbl')+tx(x(i),H-10-(ph_&&i%2?12:0),dm(w.k),'middle');});   // phone: dates on two rows so they never touch
  s+=`<rect class="ov2-f-sage" fill-opacity=".45" x="${L+4}" y="${T+ph-14}" width="12" height="12" rx="2"/>`+tx(L+20,T+ph-4,'bars: grammar slips / 10 min','','dw-cap-svg');   // swatch = the grey bars
  const allP=pooledWords(ls),wl=ls.filter(l=>l.words&&ok(l.words.pct)),mean=wl.length?sum(wl,l=>l.words.pct)/wl.length:null;
  const small=wl.slice().sort((a,b)=>a.words.scored-b.words.scored)[0];
  const AX=(window.AneesLessonMath&&window.AneesLessonMath.approx(ls))?'≈':'';   // Medi's decision 4 (2026-09-29): unverified lessons -> "≈"
  const why=`${AX?'Every number here is "≈": it comes from lessons that are not verified yet (hover a lesson score on the table above for why). ':''}Pooled over every scored use: ${AX}${f1(allP)}%. A plain mean of the lesson percentages, ${f1(mean)}%, would weight every lesson the same${small&&mean!==null&&allP!==null&&mean<allP&&small.words.pct<mean?`, so a small lesson (${dm(small.date)}: ${small.words.scored} uses, ${f1(small.words.pct)}%) pulls it down`:''}.${called?' Progress called: the last three weeks all sit above the band.':''}`;
- return panel('b',title,sub,frame(s,'Weekly pooled words right with baseline',H),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`)+dots(wk.map((w,i)=>i<2?null:w.pct>base+2)),why,src:'words.right, partial, scored by ISO week'});
+ return panel('b',title,sub,frame(s,'Weekly pooled words right with baseline',H,W),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`)+dots(wk.map((w,i)=>i<2?null:w.pct>base+2)),why,src:'words.right, partial, scored by ISO week'});
 }
 
 /* ---------- C: time of day ---------- */
@@ -323,7 +327,9 @@ function render(){
  const one=f=>{try{return f();}catch(e){console.error('overview-angles',e);return `<section class="vp-panel">${empty('This panel could not be drawn ('+e.message+').')}</section>`;}};
  h.innerHTML=`<div class="ov-head ov2-head"><span class="vp-eyebrow">Across lessons</span><h2 class="ov-h2">What the lesson numbers add up to</h2><p class="ab-sub">Eight views the table cannot show: cadence, weekly baseline, time of day, rest days, talk shape, language mix, Arabic stretches and hesitation. Hover any mark for its numbers.</p></div>
  ${(window.AneesLessonMath&&window.AneesLessonMath.methodHtml(LJ))||''}
- <div class="vp-grid">${[()=>panelA(ls),()=>panelB(ls),()=>panelC(ls),()=>panelD(ls),panelE,panelF,panelG,()=>panelH(ls)].map(one).join('')}</div>
+ <div class="vp-grid ov2-top">${[()=>panelA(ls),()=>panelB(ls)].map(one).join('')}</div>
+ <h2 class="ov-h2 ov2-more-h">Six more views across lessons</h2>
+ <div class="vp-grid ov2-rest">${[()=>panelC(ls),()=>panelD(ls),panelE,panelF,panelG,()=>panelH(ls)].map(one).join('')}</div>
  <p class="ov2-source">Source: data/lessons.json${TURNS?` + ${TURNS.length} turn files (data/lessons/&lt;date&gt;.json)`:''} · updated ${esc(String(LJ.updated||'').replace('T',' ').slice(0,16))}</p>`;
 }
 async function json(url){const r=await fetch(url+(url.includes('?')?'&':'?')+'v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status+' '+url);return r.json();}

@@ -59,7 +59,7 @@
 
   // 0. a card's line can be wrapped while it still says "loading" and get its numbers later: put it back on screen
   function unwrap(root) {
-    for (const d of root.querySelectorAll('details.dw-p:not(.dw-pwarn)')) {
+    for (const d of root.querySelectorAll('details.dw-p:not(.dw-pwarn):not(.dw-trim)')) {
       const body = d.lastElementChild;
       if (!body || body.tagName !== 'DIV' || d.closest('.dw-notes')) continue;
       const kids = [...body.children];
@@ -151,7 +151,13 @@
         } else parts[parts.length - 1].push(n);
       }
       const txt = ns => ns.map(n => n.textContent).join('');
-      const keep = parts.filter((ns, i) => (i === 0 || /\d|—/.test(txt(ns))) && txt(ns).trim());   // the first part names the number: it stays
+      // the first part names the number: it stays; a later part that only repeats numbers already shown steps behind the ⓘ
+      const nums = ns => (txt(ns).match(/\d[\d,.]*%?/g) || []).join(' ');
+      const seen = new Set();
+      const keep = parts.filter((ns, i) => {
+        if (!txt(ns).trim() || !(i === 0 || /\d|—/.test(txt(ns)))) return false;
+        const k = nums(ns); if (k && seen.has(k)) return false; seen.add(k); return true;
+      });
       const move = parts.filter(ns => !keep.includes(ns) && txt(ns).trim());
       if (!move.length || !keep.length) continue;
       busy = true;
@@ -159,7 +165,7 @@
       keep.forEach((ns, i) => { if (i) el.append(' · '); el.append(...ns); });
       const d = info(); d.classList.add('dw-trim');
       move.forEach((ns, i) => { if (i) d.lastChild.append(' · '); d.lastChild.append(...ns); });
-      el.append(d);
+      el.append(d, " ");
     }
   }
 
