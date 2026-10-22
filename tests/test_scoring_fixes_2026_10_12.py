@@ -379,7 +379,7 @@ def test_pg_56_flowchart_is_the_first_ai_reports_tab():
     page = io.open(os.path.join(root, "docs", "ai-reports.html"), encoding="utf-8").read()
     js = io.open(os.path.join(root, "docs", "js", "ai-reports-tabs.js"), encoding="utf-8").read()
     nav = page.split('<nav class="vp-tabs"', 1)[1].split("</nav>", 1)[0]
-    assert nav.index('data-artab="flow"') < nav.index('data-artab="unknowns"') and "'flow'" in js
+    assert nav.index('data-artab="flow"') == nav.index('data-artab="grades"') + len('data-artab="grades">Grades</button><button class="vp-tab" ') and "'flow'" in js   # next to Grades (Medi 2026-10-22)
     tab = page.split('<div id="ar-tab-flow"', 1)[1].split("<!-- FLOW:end -->", 1)[0]
     assert 'class="fl"' in tab and tab.count('<details class="study">') >= 10
     assert 'href="reports/engine-benchmark-2026-10-02.html"' in tab and 'href="engine-report.html"' in tab
