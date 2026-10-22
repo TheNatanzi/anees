@@ -139,18 +139,18 @@ function panelB(ls){
  // de-word r2: grammar slips get their own small chart under this one (own scale, a value on every bar)
  const SH=96,ST=16,SB=24,sph=SH-ST-SB;let s2=hline(L,W-R,ST+sph)+tx(L-6,ST+sph+4,'0','end')+tx(L-6,ST+4,f1(maxS),'end')+hline(L,W-R,ST);
  wk.forEach((w,i)=>{if(w.slips===null)return;const h=w.slips/maxS*sph;s2+=`<rect class="ov2-f-sage" x="${(x(i)-10).toFixed(1)}" y="${(ST+sph-h).toFixed(1)}" width="20" height="${h.toFixed(1)}" rx="3"><title>Week of ${dm(w.k)}: ${f1(w.slips)} grammar slips per 10 min</title></rect>`+tx(x(i),ST+sph-h-4,f1(w.slips),'middle','ov2-lbl')+(ph_&&i%2?'':tx(x(i),SH-6,dm(w.k),'middle'));});
- s+=`<rect class="dw-basebox" x="${(x(0)-16).toFixed(1)}" y="${T}" width="${(x(1)-x(0)+32).toFixed(1)}" height="${ph}" rx="8"/>`;   // the two baseline weeks, set apart
+ s+=`<rect class="dw-basebox" x="${(x(0)-16).toFixed(1)}" y="${T}" width="${(x(1)-x(0)+32).toFixed(1)}" height="${ph}" rx="8"/>`+tx((x(0)+x(1))/2,T+ph-6,'baseline weeks','middle','dw-cap-svg');   // the two baseline weeks, set apart
  s+=`<polyline class="ov2-line" points="${wk.map((w,i)=>x(i).toFixed(1)+','+y(w.pct).toFixed(1)).join(' ')}"/>`;
  wk.forEach((w,i)=>{s+=`<circle class="ov2-pt ${i<2?'dw-baseweek ':''}${w.pct>base+2?'ov2-f-good':'ov2-f-accent'}" cx="${x(i).toFixed(1)}" cy="${y(w.pct).toFixed(1)}" r="${i>=2?6:5}"><title>Week of ${dm(w.k)}: ${f1(w.pct)}% of ${w.scored} scored uses · ${plural(w.g.length,'lesson')}${i<2?' · baseline week':''}</title></circle>`+tx(x(i),y(w.pct)-10,f1(w.pct),'middle','ov2-lbl')+tx(x(i),H-10,dm(w.k),'middle');});
     // swatch = the grey bars
  let HH=H,cap1='Words right, % per week',cap2='Grammar slips per 10 min, per week';
  if(ph_){   // de-word r2 (phone): one row per week, words right as a bar against the baseline, slips at the right
-  const rowH=28,top=26,bx0=58,bx1=262,sx0=290,sx1=352,X=v=>bx0+(Math.max(lo,v)-lo)/(hi-lo)*(bx1-bx0);
+  const rowH=28,top=26,bx0=58,bx1=232,sx0=270,sx1=356,X=v=>bx0+(Math.max(lo,v)-lo)/(hi-lo)*(bx1-bx0);
   s=tx(bx0,14,`words right · ${lo}–${hi}%`)+tx(sx0,14,'slips/10m');
   s+=`<rect class="ov2-band" x="${X(base-2).toFixed(1)}" y="${top-4}" width="${(X(base+2)-X(base-2)).toFixed(1)}" height="${wk.length*rowH+4}"/>`;
   wk.forEach((w,i)=>{const yy=top+i*rowH;
    s+=tx(bx0-6,yy+15,dm(w.k),'end')+`<rect class="${i<2?'dw-baseweek ':''}${w.pct>base+2?'ov2-f-good':'ov2-f-accent'}" x="${bx0}" y="${yy+3}" width="${(X(w.pct)-bx0).toFixed(1)}" height="16" rx="3"><title>Week of ${dm(w.k)}: ${f1(w.pct)}% of ${w.scored} scored uses</title></rect>`+tx(X(w.pct)+4,yy+16,f1(w.pct),'','ov2-lbl');
-   if(w.slips!==null)s+=`<rect class="ov2-f-sage" x="${sx0}" y="${yy+5}" width="${Math.max(2,w.slips/maxS*(sx1-sx0-30)).toFixed(1)}" height="12" rx="2"/>`+tx(sx0+Math.max(2,w.slips/maxS*(sx1-sx0-30))+3,yy+16,f1(w.slips),'','ov2-lbl');});
+   if(w.slips!==null)s+=`<rect class="ov2-f-sage" x="${sx0}" y="${yy+5}" width="${Math.max(2,w.slips/maxS*(sx1-sx0-26)).toFixed(1)}" height="12" rx="2"/>`+tx(sx0+Math.max(2,w.slips/maxS*(sx1-sx0-26))+3,yy+16,f1(w.slips),'','ov2-lbl');});
   const bxl=X(base);s+=`<line class="ov2-base" x1="${bxl.toFixed(1)}" x2="${bxl.toFixed(1)}" y1="${top-6}" y2="${top+wk.length*rowH}"/>`+tx(bxl,top+wk.length*rowH+16,`baseline ${f1(base)}`,'middle');
   HH=top+wk.length*rowH+24;s2='';cap1='Each week: words right (bar) and grammar slips per 10 min';cap2='';
  }
@@ -161,7 +161,7 @@ function panelB(ls){
  // de-word r2: why the two differ is explanation, so it sits with the source note (behind the ⓘ)
  const whyMean=`A plain mean weights every lesson the same${small&&mean!==null&&allP!==null&&mean<allP&&small.words.pct<mean?`, so a small lesson (${dm(small.date)}: ${small.words.scored} uses, ${f1(small.words.pct)}%) pulls it down`:''}. `;
  TOP.b={above,n:after.length,last:wk[wk.length-1],AX};
- return panel('b',title,sub,`<div class="dw-chartcap">${cap1}</div>`+frame(s,'Weekly pooled words right with baseline',HH,W)+(s2?`<div class="dw-chartcap">${cap2}</div>`+frame(s2,'Weekly grammar slips per 10 minutes',SH,W):''),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`)+dots(wk.map((w,i)=>i<2?null:w.pct>base+2)),why,src:whyMean+'Source: words.right, partial, scored by ISO week'});
+ return panel('b',title,sub,`<div class="dw-chartcap">${cap1}</div>`+frame(s,'Weekly pooled words right with baseline',HH,W)+(s2?`<div class="dw-chartcap">${cap2}</div>`+frame(s2,'Weekly grammar slips per 10 minutes',SH,W):''),{head:big(`${above} of ${after.length}`,`weeks more than 2 points above the ${AX}${f1(base)}% baseline (above the band)`)+dots(wk.map((w,i)=>i<2?null:w.pct>base+2)),why,src:whyMean+'Source: words.right, partial, scored by ISO week'});
 }
 
 /* ---------- C: time of day ---------- */
@@ -345,7 +345,7 @@ function render(){
  const one=f=>{try{return f();}catch(e){console.error('overview-angles',e);return `<section class="vp-panel">${empty('This panel could not be drawn ('+e.message+').')}</section>`;}};
  TOP={};const topHtml=[()=>panelA(ls),()=>panelB(ls)].map(one).join('');
  const A=TOP.a,B=TOP.b,big2=(v,l)=>`<div class="dw-big"><b>${v}</b><span>${l}</span></div>`;
- const strip=A||B?`<div class="dw-bigs ov2-verdict">${A?big2(f1(A.avg),`lessons a week · goal ${TARGET[0]}–${TARGET[1]}`)+big2(`${A.inBand} of ${A.full}`,'weeks on goal'):''}${B?big2(`${B.above} of ${B.n}`,'weeks above your baseline')+big2(`${B.AX}${f1(B.last.pct)}%`,`words right, week of ${dm(B.last.k)}`):''}</div>`:'';
+ const strip=A||B?`<div class="dw-bigs ov2-verdict">${A?big2(f1(A.avg),`lessons a week · goal ${TARGET[0]}–${TARGET[1]}`)+big2(`${A.inBand} of ${A.full}`,'weeks on goal'):''}${B?big2(`${B.above} of ${B.n}`,'weeks above the baseline band')+big2(`${B.AX}${f1(B.last.pct)}%`,`words right, week of ${dm(B.last.k)}`):''}</div>`:'';
  // one plain-words line over the strip: where the lessons-a-week and the words-right numbers stand
  const sayA=A&&A.full?(A.inBand*2>=A.full?'lessons a week: on the goal most weeks':'lessons a week: off the goal most weeks'):'';
  const sayB=B?(B.n&&B.above*2>B.n?'words right: above your baseline':B.n?'words right: not yet above your baseline':''):'';

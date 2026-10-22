@@ -357,3 +357,5 @@ html[data-look="kurz"] #anees-bank .dw-startlink { background: var(--kz-yellow);
 #anees-bank #ov2 > .ov2-top { order: 5; }
 #anees-bank #ov2 > .ov2-more-h, #anees-bank #ov2 > .ov2-rest { order: 7; }
 #anees-bank .ov2-say { margin: 0 0 10px; font: 600 18px/1.35 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
+/* phone Overview: the lifetime cards follow the two weekly charts (the takeaways reach the first screen) */
+@media (max-width: 680px) { #anees-bank #vp-content:has(> #vp-tab-overview:not([hidden])) > #vp-top { order: 6; margin-top: 8px; } }
