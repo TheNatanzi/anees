@@ -442,3 +442,8 @@ html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"] 
 #anees-bank .dp-allex { border: 0; background: none; color: var(--dw-a1); font: 600 13px var(--sabz-font-sans, system-ui); padding: 6px 0; min-height: 36px; cursor: pointer; }
 #anees-bank .dp-x { font-size: 16px; }
 html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big::after { display: none; }
+/* round 31, phone: two pairs in sight (the rest: "+2 more", all of them in the examples); the first example stays folded */
+@media (max-width: 680px) {
+  #anees-bank .dp-pairs:not(.dp-open) > :nth-child(n+5) { display: none; }
+  #anees-bank .dp-pairs[data-more]:not(.dp-open)::after { content: "+" attr(data-more) " more"; grid-column: 1 / -1; direction: ltr; text-align: left; font: 600 12px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+}

@@ -56,6 +56,7 @@
     if (W.length > 1 && pair && !pair.nextElementSibling?.matches('.dp-pairs')) {
       const g = document.createElement('div'); g.className = 'dp-pairs'; g.setAttribute('aria-hidden', 'true');
       g.innerHTML = W.map((x, i) => `<span class="dp-w" lang="ar">${mark(x, R[i], 'dp-del')}</span><span class="dp-r" lang="ar">${mark(R[i], x, 'dp-ins')}</span>`).join('');
+      if (W.length > 2) g.dataset.more = W.length - 2;
       g.removeAttribute('aria-hidden'); pair.after(g); pair.classList.add('dp-hide');   // the slash line stays in the page text, not on screen
       const az = g.parentElement.querySelector(':scope > .hb-en');   // an Arabizi line that covers only one of the pieces would mislead
       if (az && !/\//.test(txt(az))) az.classList.add('dp-hide');
@@ -158,7 +159,7 @@
       const more = r.querySelector(':scope > [data-more]'); if (more) d.appendChild(more);
       // the card in sight shows its first real example (the moment, its audio) above her two answers
       const ex = cs[0].querySelector(':scope > details[data-exs]');
-      if (ex && !ex.open) { cs[0].classList.add('dp-first'); ex.open = true;
+      if (ex && !ex.open && !phone()) { cs[0].classList.add('dp-first'); ex.open = true;
         if (ex.querySelectorAll('.hb-ex').length > 1) { const b = document.createElement('button'); b.type = 'button'; b.className = 'dp-allex'; b.textContent = 'All ' + ex.querySelectorAll('.hb-ex').length + ' examples'; b.onclick = () => { cs[0].classList.add('dp-showall'); b.remove(); }; ex.appendChild(b); } }   // "Show the next 8" lives inside the fold: one control
       d.addEventListener('toggle', () => foldOpen.set(r, d.open));
     });
