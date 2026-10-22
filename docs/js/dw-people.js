@@ -235,12 +235,12 @@
       if (p.dataset.dv) return;
       const t = txt(p), m = /^(Reader AI|Listening AI) says:\s*(.*)$/.exec(t); if (!m) return;
       p.dataset.dv = '1';
-      const body = m[2], cut = body.search(/[.;](\s|$)/), first = cut > 0 ? body.slice(0, cut + 1) : body, rest = cut > 0 ? body.slice(cut + 1).trim() : '';
+      const body = m[2];
       const doubt = /^(no |not |none|nothing|unclear|cannot|can't|there is no)/i.test(body);
       const chip = m[1] === 'Reader AI' ? '<span class="dw-chip bad dp-v">Reader AI: counted a mistake</span>'
         : `<span class="dw-chip ${doubt ? 'dp-v ok' : 'muted dp-v'}">Listening AI${doubt ? ': doubts it' : ''}</span>`;
       p.classList.add('dp-verdict');
-      p.innerHTML = chip + ' <span class="dp-vt">' + escH(first) + '</span>' + (rest ? '<details class="dp-vmore"><summary>more</summary><span>' + escH(rest) + '</span></details>' : '');
+      p.innerHTML = chip + '<details class="dp-vmore"><summary>why</summary><span>' + escH(body) + '</span></details>';   // round 28: the chip on screen, its reasoning one tap away
     });
   }
   let busy = false;

@@ -679,3 +679,7 @@ html[data-sabz-theme="dark"] #anees-bank[aria-label="Anees tutor"], html[data-sa
 #anees-bank article.tv-card .tv-pair .tv-wrong::before, #anees-bank article.tv-card .tv-pair .tv-right::before { content: none; }
 #anees-bank article.tv-card .tv-pair .tv-arrow { font-size: 0 !important; } #anees-bank article.tv-card .tv-pair .tv-arrow::after { content: "\2192"; font-size: 20px; color: var(--dw-muted); }
 #anees-bank article.tv-card .tv-pair .tv-arrow { transform: none !important; }
+/* r2 round 28: the two AI chips share one line; phone: 'Upload flashcards' in full */
+#anees-bank article.tv-card p.dp-verdict { display: inline-block; margin: 2px 8px 2px 0; }
+#anees-bank details.dp-vmore[open] { display: block; margin-top: 4px; font-size: 14px; }
+@media (max-width: 680px) { #anees-bank .hb-tab[data-tab="upload"] .tu-long { display: inline; } }
