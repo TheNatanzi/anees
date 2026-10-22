@@ -142,7 +142,7 @@
     const open = tasks.filter(t => !t.finished).filter(t => t.kind !== 'results').concat(tasks.filter(t => !t.finished && t.kind === 'results'));
     if (!open.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing to check right now. Shukran!</p>'; return; }
     listPanel('todo', open.map((t, i, A) => ({ id: t.id, next: t === (A.find(x => x.kind !== 'results') || A[0]),   // r2: Up next = the first list with something to answer (the quiet results row keeps its place)
-       icon: kindIcon(t), title: short(t.title), sep: /\d$/.test(short(t.title)) && !/\d$/.test(t.title), subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p), { autoPhone: !location.hash.slice(1) });
+       icon: kindIcon(t), title: short(t.title), sep: /\d$/.test(short(t.title)) && !/\d$/.test(t.title), subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p));   // r2: on a phone the whole list shows first (as before the de-word); a tap opens a list under its row
     // r2 (Medi 10-22 'you cut out too much data'): every card-set try stays on screen under the lists, without a tap
     const rt = open.find(t => t.kind === 'results'), cur = (location.hash.split('/')[1] || '');
     if (rt && cur !== 'results' && window.AneesResultsTask && RS) {

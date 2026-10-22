@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Homework</title><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/anees-page.css"><link rel="stylesheet" href="css/dw-people.css?v=r2j"><script src="js/theme.js"></script>
+<title>Homework</title><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/anees-page.css"><link rel="stylesheet" href="css/dw-people.css?v=r2k"><script src="js/theme.js"></script>
 <style>
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere}
 main{max-width:640px;margin:0 auto;padding:14px 14px 40px}
@@ -51,6 +51,7 @@ function card(it){ const mine=(answers[it.id]||[]); const last=mine[0]; const id
 function render(){ if(!items.length){ root.innerHTML='<div class="card">No homework sheet yet. It appears after the next lesson.</div>'; return; }
   const date=items[0].lesson_date; const approved=items.filter(i=>i.status!=='suggested').length;
   sub.textContent=`${date} lesson · ${items.length} lines · ${approved} tutor-checked`;
+  sub.insertAdjacentHTML('beforeend',`<span class="hw-dots" role="img" aria-label="${approved} of ${items.length} lines tutor-checked">${items.map(i=>`<i class="${i.status!=='suggested'?'ok':''}"></i>`).join('')}</span>`);
   root.innerHTML=items.map(card).join('');
   items.forEach(it=>{ const id='i'+it.id; document.getElementById(id+'b').onclick=()=>submit(it); document.getElementById(id+'t').onkeydown=e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); submit(it);} }; }); }
 async function submit(it){ const id='i'+it.id; const t=document.getElementById(id+'t'), b=document.getElementById(id+'b'), err=document.getElementById(id+'e'); const v=t.value.trim(); if(!v) return; b.disabled=true; err.textContent='';

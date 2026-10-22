@@ -193,11 +193,22 @@
       if (tools.querySelector('.hb-tab[aria-selected="true"]')) d.open = true;
     }
   }
+  // r2: the two AI notes on a moment (Reader AI says / Listening AI says) are explanation: one "AI notes" i opens them in place
+  function aiNotes(root) {
+    root.querySelectorAll('p.tu-meta').forEach(p => {
+      if (p.dataset.dp || p.closest('details') || !/^Reader AI says:/.test(txt(p))) return;
+      p.dataset.dp = '1';
+      const nx = p.nextElementSibling, move = [p].concat(nx && nx.matches('p.tu-meta') && /^Listening AI says:/.test(txt(nx)) ? [nx] : []);
+      const row = document.createElement('p'); row.className = 'dp-ai'; p.before(row);
+      row.appendChild(info(move, 'What the two AI readers said'));
+      row.insertAdjacentHTML('beforeend', '<span>AI notes</span>');
+    });
+  }
   let busy = false;
   function run() {
     if (busy) return; busy = true;
     // round 2 (Medi 10-22 'you cut out too much data'): no list, card, decided or phone filter folds
-    try { intros(view); cards(view); grammar(view); progress(view); } finally { busy = false; }
+    try { intros(view); cards(view); grammar(view); progress(view); aiNotes(view); } finally { busy = false; }
   }
   let t = 0;
   new MutationObserver(() => { if (!busy) { clearTimeout(t); t = setTimeout(run, 30); } }).observe(view, { childList: true, subtree: true });
