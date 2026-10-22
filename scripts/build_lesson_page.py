@@ -136,12 +136,18 @@ def dword(page):
 
     def stats(m):
         note, mins, words, typed = m.groups()
-        return ('<div class="dw-bigs lsn-bigs"><div class="dw-big"><b>%s</b><span>minutes</span></div>'
-                '<div class="dw-big"><b>%s</b><span>words heard</span></div><div class="dw-big"><b>%s</b><span>typed in chat</span></div></div>'
+        ico = lambda d: ('<svg class="dw-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+                         'stroke-linejoin="round" aria-hidden="true">%s</svg>' % d)
+        clk, ear, msg = (ico('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+                         ico('<path d="M3 12h2l2-5 3 10 3-14 3 12 2-3h3"/>'),
+                         ico('<path d="M4 5h16v11H9l-5 4z"/>'))
+        return ('<div class="dw-bigs lsn-bigs"><div class="dw-big">{CLK}<b>%s</b><span>minutes</span></div>'
+                '<div class="dw-big">{EAR}<b>%s</b><span>words heard</span></div><div class="dw-big">{MSG}<b>%s</b><span>typed in chat</span></div></div>'
                 '<div class="lsn-note"><span class="dw-chip warn">Not checked by a person</span> <details class="dw-info">'
                 '<summary aria-label="About this transcript">ⓘ</summary><div>%s '
                 '(%s minutes · %s transcribed words · %s lines Amal typed in chat)</div></details></div>'
-                % (mins, words, typed, note + ('' if 'Tap a time' in note else ' Tap a time to hear that line.'), mins, words, typed))
+                % (mins, words, typed, note + ('' if 'Tap a time' in note else ' Tap a time to hear that line.'), mins, words, typed)
+                ).replace('{CLK}', clk, 1).replace('{EAR}', ear, 1).replace('{MSG}', msg, 1)
     page = DW_STATS.sub(stats, page, count=1)
     page = page.replace('<div class="lsn-note">', talk_map(page) + '<div class="lsn-note">', 1)
     return mark_turns(page)
@@ -183,6 +189,11 @@ def mark_turns(page):
             fold = ('<details class="lsn-before"><summary>Before the Arabic practice · 00:00–%s · %d lines</summary>%s</details>'
                     '<p class="lsn-start">▶ The Arabic practice starts · %s</p>' % (clock(float(rows[start][1])), n, page[a:b], clock(float(rows[start][1]))))
             page = page[:a] + fold + page[b:]
+        # the talk map gets a marker where the practice starts (a tap jumps there)
+        end = max(float(r[1]) for r in rows) or 1.0
+        mark = ('<a class="lsn-mark" href="#arabic-start" style="left:%.1f%%">▶ %s</a>'
+                % (100 * float(rows[start][1]) / end, clock(float(rows[start][1]))))
+        page = page.replace('</svg><figcaption>', '</svg>' + mark + '<figcaption>', 1)
     return page
 
 

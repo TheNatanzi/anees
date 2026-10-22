@@ -401,3 +401,9 @@ html.lsn-page p.lsn-start { border: 0; padding: 10px 0 4px; font-weight: 700; co
 html[data-look="kurz"].lsn-page details.lsn-before > summary { border-radius: 18px; border-color: var(--kz-line); }
 html[data-look="kurz"].lsn-page details.lsn-before > p.turn, html[data-look="kurz"].lsn-page details.lsn-before > p.chat { border: 0; border-radius: 16px; margin: 6px 0; background: var(--kz-panel); }
 @media (max-width: 600px) { html.lsn-page h1 { font-size: 26px; white-space: nowrap; } }
+html.lsn-page .lsn-map { position: relative; padding-top: 22px; }
+html.lsn-page .lsn-mark { position: absolute; top: 0; transform: translateX(-50%); font-size: 12px; font-weight: 700; white-space: nowrap; text-decoration: none; color: var(--dw-a1); }
+html.lsn-page .lsn-mark::after { content: ""; position: absolute; left: 50%; top: 18px; width: 3px; height: 26px; background: var(--dw-ink); border-radius: 2px; }
+html.lsn-page .lsn-bigs .dw-big { color: var(--dw-muted); }
+html[data-look="kurz"].lsn-page .lsn-mark { color: var(--kz-yellow); }
+@media (max-width: 600px) { html.lsn-page .lsn-bigs .dw-ico { display: none; } }
