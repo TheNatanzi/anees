@@ -93,7 +93,8 @@
     const info = ` <details class="dw-info"><summary aria-label="How homework counts">i</summary><div>Only your teacher's verdict counts: right 1, close ½, wrong 0. The AI check never counts.</div></details>`;
     // round 6: what to do now leads (card sets + Start); the teacher's numbers follow, three zeros fold into one small line
     const C = openCards().sort((a, b) => String(a.lesson_date || '9999').localeCompare(String(b.lesson_date || '9999')) || String(a.created_at).localeCompare(String(b.created_at)));
-    const go = C.length ? `<div class="dw-big st-big st-now">${ICO.cards}<b>${C.length}</b><span>card sets to do</span><a class="hb-ans primary st-go st-start" href="cards.html?tile=${encodeURIComponent(C[0].set_ref)}">Start: ${esc(C[0].set_title)} →</a></div>` : '';
+    const stack = `<svg class="st-stack" viewBox="0 0 120 90" aria-hidden="true"><rect x="30" y="14" width="56" height="70" rx="10" fill="var(--dw-a3)" transform="rotate(-14 58 49)"/><rect x="38" y="10" width="56" height="70" rx="10" fill="var(--dw-a2)" transform="rotate(6 66 45)"/><rect x="34" y="12" width="56" height="70" rx="10" fill="var(--dw-a1)"/><path d="M48 36h28M48 48h20" stroke="var(--dw-card)" stroke-width="6" stroke-linecap="round"/></svg>`;
+    const go = C.length ? `<div class="dw-big st-big st-now">${stack}<b>${C.length}</b><span>card sets to do</span><a class="hb-ans primary st-go st-start" href="cards.html?tile=${encodeURIComponent(C[0].set_ref)}">Start: ${esc(C[0].set_title)} →</a></div>` : '';
     const zero = !(sc.todo || sc.waiting + sc.checking || sc.overruled);
     // nothing checked and nothing waiting: the Homework number is one quiet line under the Start card (PG-29: the dash keeps its reason)
     if (zero && sc.pct === null) return go + `<div class="st-hwline">${ICO.clip}<b>Homework —</b><span>no teacher check yet</span>${info}<span class="dp-sr"> · 0 to answer · 0 with teacher · 0 AI overruled</span></div>`;
@@ -144,7 +145,7 @@
     const chips = t.upload ? `<span class="dw-chip">new set · ${esc(set)}</span><span class="dw-chip muted">${t.keep === 'permanent' ? 'permanent' : 'next lessons'}</span>`
       : `<span class="dw-chip">lesson ${esc(les)}</span>${set && set !== les ? `<span class="dw-chip muted">set ${esc(set)}</span>` : ''}${past ? '<span class="dw-chip warn" title="the lesson date has passed">late</span>' : ''}`;
     return `<a class="st-task st-cards" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" aria-label="${esc(t.set_title)}: open on Flashcards"><div class="st-cmain"><p class="dw-row st-chips2">${chips}</p>
-      <p class="st-prompt">${esc(t.set_title)}</p><p class="st-of" aria-label="${done} of ${n} cards done"><b class="st-n">${n}</b> <b class="st-d">${done}</b><span>${done >= n && n ? 'all done' : 'cards done'}</span></p><div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></div><span class="st-go2" aria-hidden="true">›</span></a>`;
+      <p class="st-prompt">${esc(t.set_title)}</p><p class="st-of" aria-label="${done} of ${n} cards done"><b class="st-n">${n}</b> <b class="st-d">${done}</b><span>${done >= n && n ? 'all done' : 'cards done'}</span></p>${done ? `<div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div>` : ''}</div><span class="st-go2" aria-hidden="true">›</span></a>`;
   }
   // Medi 2026-10-06: the questions he sent from a flashcard (the attention button) and her replies
   function attn() { return (window.AneesAttentionTask || { view: () => ({ all: [], open: [], answered: [] }) }).view(D.attention || []); }

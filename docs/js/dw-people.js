@@ -40,10 +40,11 @@
       const why = c.querySelector(':scope > .hb-why'), eg = [...c.querySelectorAll(':scope > p.hb-sub')].find(p => /^e\.g\./.test(txt(p)));
       const times = [...c.querySelectorAll(':scope > p.hb-sub')].find(p => /^(\d[\d,]* times? in|Came up \d)/.test(txt(p)));
       if (times) { times.classList.add('dp-times'); times.innerHTML = `<span class="dw-chip muted">${times.innerHTML}</span>`; }
-      const move = [why, eg].filter(x => x && txt(x));
+      const long = [...c.querySelectorAll(':scope > .hb-en')].filter(x => txt(x).length > 60);   // a long note in place of a meaning line
+      const move = [why, eg, ...long].filter(x => x && txt(x));
       if (!move.length) return;
       const d = info(move, 'Why this is a mistake');
-      if (times) times.appendChild(d);
+      if (times) times.appendChild(d); else { const h = c.querySelector(':scope > .hb-big, :scope > .hb-prog'); if (h) h.after(d); }
     });
   }
   // 3. Add grammar cards: where Claude heard it, her quote, the why and "close to" -> one i; a card she already answered folds
