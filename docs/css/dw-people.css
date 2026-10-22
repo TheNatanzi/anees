@@ -363,3 +363,18 @@ html[data-look="kurz"] #anees-bank details.dp-cards > summary { border-radius: 1
 #anees-bank .hb-card .tv-ar.tv-wrong { color: var(--dw-bad); }
 #anees-bank .hb-card .tv-ar.tv-right { color: var(--dw-ok); }
 html[data-look="kurz"] #anees-bank .hb-ans.primary, html[data-look="kurz"] #anees-bank .hb-ans.primary small { color: light-dark(#FFFFFF, #0B1638); }
+/* round 22: one card in sight at a time; her answers carry a big ✗ / ✓ (same buttons, same words, same order);
+   "3×" next to the dots; in the wrong / right pair only the changed letters are marked */
+#anees-bank .dp-x { font: 800 14px/1 var(--sabz-font-sans, system-ui); color: var(--dw-ink); margin-right: 4px; }
+#anees-bank .hb-card .tv-ar mark { color: inherit; border-radius: 4px; padding: 0 1px; }
+#anees-bank .hb-card .tv-ar mark.dp-del { background: var(--dw-bad-fill); text-decoration: line-through 2px; text-decoration-color: var(--dw-bad); }
+#anees-bank .hb-card .tv-ar mark.dp-ins { background: var(--dw-ok-fill); text-decoration: underline 3px; text-decoration-color: var(--dw-ok); text-underline-offset: 6px; }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv] { position: relative; padding-left: 54px; }
+#anees-bank .hb-card .hb-btns .hb-ans:is([data-rv="confirm"], [data-rv="skip"], [data-rv="sheet_add"], [data-rv="sheet_skip"])::before {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+  font: 800 18px/1 var(--sabz-font-sans, system-ui); color: #fff; }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"]::before { content: "✗"; background: var(--dw-bad); }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="skip"]::before { content: "✓"; background: var(--dw-ok); }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="sheet_add"]::before { content: "+"; background: var(--dw-a1); }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="sheet_skip"]::before { content: "–"; background: var(--dw-muted); }
+html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv]::before { color: light-dark(#fff, #0B1638); }

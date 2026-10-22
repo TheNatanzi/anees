@@ -36,11 +36,28 @@
   const g = (c, d) => `<svg class="dp-glyph" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="var(${c})" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
   const GLYPH = { gram: g('--dw-a1', '<path d="M3 12h13M12 7l5 5-5 5"/><circle cx="20" cy="12" r="1.5"/>'), word: g('--dw-a2', '<path d="M4 7h7M4 12h5M4 17h7M14 12h6M17 9l3 3-3 3"/>'),
     new: g('--dw-a3', '<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/>') };
+  // the wrong / right pair: in each " / " piece only the letters that change are marked (same text, only wrapped)
+  const escH = x => x.replace(/[&<>]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[ch]));
+  function diffMark(c) {
+    const w = c.querySelector('.tv-ar.tv-wrong'), r = c.querySelector('.tv-ar.tv-right');
+    if (!w || !r || w.children.length || r.children.length) return;
+    const W = w.textContent.split(' / '), R = r.textContent.split(' / ');
+    if (W.length !== R.length) return;
+    const mark = (a, b, cls) => {
+      let p = 0; while (p < a.length && p < b.length && a[p] === b[p]) p++;
+      let s = 0; while (s < a.length - p && s < b.length - p && a[a.length - 1 - s] === b[b.length - 1 - s]) s++;
+      const mid = a.slice(p, a.length - s);
+      return mid ? escH(a.slice(0, p)) + `<mark class="${cls}">${escH(mid)}</mark>` + escH(a.slice(a.length - s)) : escH(a);
+    };
+    w.innerHTML = W.map((x, i) => mark(x, R[i], 'dp-del')).join(' / ');
+    r.innerHTML = R.map((x, i) => mark(x, W[i], 'dp-ins')).join(' / ');
+  }
   // 2. a mistake card: the why line and the e.g. line -> one i on the "N times in ..." line, which becomes a chip
   function cards(root) {
     root.querySelectorAll('.hb-card').forEach(c => {
       if (c.dataset.dp) return; c.dataset.dp = '1';
       c.querySelectorAll('.tv-pair ~ .hb-en').forEach(e => { if (/^\s*→|→\s*$/.test(txt(e))) e.classList.add('dp-sr'); });   // a half Arabizi pair (one side missing) is noise
+      diffMark(c);
       const head = c.querySelector(':scope > .hb-prog');   // a small glyph per card kind: grammar slip, word slip, new word
       if (head) { const k = /new word/i.test(txt(head)) ? 'new' : /grammar/i.test(txt(head)) ? 'gram' : 'word'; head.insertAdjacentHTML('afterbegin', GLYPH[k]); }
       const why = c.querySelector(':scope > .hb-why'), eg = [...c.querySelectorAll(':scope > p.hb-sub')].find(p => /^e\.g\./.test(txt(p)));
@@ -49,7 +66,7 @@
         times.classList.add('dp-times');
         const n = Math.min(8, parseInt(txt(times).replace(/^Came up /, ''), 10) || 0);
         const m2 = /^(\d[\d,]*) times? (in .*)$/.exec(txt(times));   // the dots say "3 times"; the words stay for a screen reader
-        times.innerHTML = `<span class="dp-dots" aria-hidden="true">${'<i></i>'.repeat(n)}</span>` + (m2 ? `<span class="dp-tin"><span class="dp-sr">${m2[1]} time${m2[1] === '1' ? '' : 's'} </span>${m2[2]}</span>` : `<span class="dw-chip muted">${times.innerHTML}</span>`);
+        times.innerHTML = `<span class="dp-dots" aria-hidden="true">${'<i></i>'.repeat(n)}</span>` + (m2 ? `<span class="dp-tin"><b class="dp-x">${m2[1]}×</b><span class="dp-sr"> time${m2[1] === '1' ? '' : 's'}</span> ${m2[2]}</span>` : `<span class="dw-chip muted">${times.innerHTML}</span>`);
       }
       const long = [...c.querySelectorAll(':scope > .hb-en')].filter(x => txt(x).length > 60);   // a long note in place of a meaning line
       const move = [why, eg, ...long].filter(x => x && txt(x));
@@ -108,8 +125,8 @@
     root.querySelectorAll('[data-root]').forEach(r => {
       if (r.querySelector(':scope > details.dp-cards')) return;
       const cs = [...r.querySelectorAll(':scope > article.hb-card')];
-      if (cs.length < 6) return;
-      const rest = cs.slice(3), d = document.createElement('details');
+      if (cs.length < 3) return;
+      const rest = cs.slice(1), d = document.createElement('details');
       d.className = 'dp-cards'; d.open = !!foldOpen.get(r);
       d.innerHTML = `<summary>${rest.length} more cards on this page</summary>`;
       rest[0].before(d); rest.forEach(c => d.appendChild(c));
