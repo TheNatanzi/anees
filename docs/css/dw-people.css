@@ -432,3 +432,13 @@ html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"] 
 #anees-bank .hb-panel > .hb-ptitle { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 #anees-bank .hb-panel .dp-how { top: 10px; }
 #anees-bank .hb-panel > #hb-body > .hb-task > details.dp-fold-row:first-child, #anees-bank .hb-panel .hb-task > [data-filters] { margin-right: 40px; }
+/* round 30: the card in sight: its first example sits above her answers (order only); "3×" without dots; clean header pills in B */
+#anees-bank .hb-card.dp-first > details[data-exs] { order: 1; }
+#anees-bank .hb-card.dp-first > .hb-btns, #anees-bank .hb-card.dp-first > .an-answered { order: 2; }
+#anees-bank .hb-card.dp-first > :is(.an-note, details:not([data-exs]), [data-note]) { order: 3; }
+#anees-bank .hb-card.dp-first > details[data-exs] > summary { display: none; }
+#anees-bank .hb-card.dp-first:not(.dp-showall) .hb-ex ~ .hb-ex { display: none; }
+#anees-bank .hb-card.dp-first .hb-ex { border: 1px solid var(--dw-line); border-radius: 12px; padding: 8px 12px; background: var(--dw-card); }
+#anees-bank .dp-allex { border: 0; background: none; color: var(--dw-a1); font: 600 13px var(--sabz-font-sans, system-ui); padding: 6px 0; min-height: 36px; cursor: pointer; }
+#anees-bank .dp-x { font-size: 16px; }
+html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big::after { display: none; }

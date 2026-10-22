@@ -80,7 +80,7 @@
         times.classList.add('dp-times');
         const n = Math.min(8, parseInt(txt(times).replace(/^Came up /, ''), 10) || 0);
         const m2 = /^(\d[\d,]*) times? (in .*)$/.exec(txt(times));   // the dots say "3 times"; the words stay for a screen reader
-        times.innerHTML = `<span class="dp-dots" aria-hidden="true">${'<i></i>'.repeat(n)}</span>` + (m2 ? `<span class="dp-tin"><b class="dp-x">${m2[1]}×</b><span class="dp-sr"> time${m2[1] === '1' ? '' : 's'}</span> ${m2[2]}</span>` : `<span class="dw-chip muted">${times.innerHTML}</span>`);
+        times.innerHTML = (m2 ? `<span class="dp-tin"><b class="dp-x">${m2[1]}×</b><span class="dp-sr"> time${m2[1] === '1' ? '' : 's'}</span> ${m2[2]}</span>` : `<span class="dw-chip muted">${times.innerHTML}</span>`);
       }
       const long = [...c.querySelectorAll(':scope > .hb-en')].filter(x => txt(x).length > 60);   // a long note in place of a meaning line
       const move = [why, eg, ...long].filter(x => x && txt(x));
@@ -155,7 +155,11 @@
       d.className = 'dp-cards'; d.open = !!foldOpen.get(r);
       d.innerHTML = `<summary>${rest.length} more cards on this page</summary>`;
       rest[0].before(d); rest.forEach(c => d.appendChild(c));
-      const more = r.querySelector(':scope > [data-more]'); if (more) d.appendChild(more);   // "Show the next 8" lives inside the fold: one control
+      const more = r.querySelector(':scope > [data-more]'); if (more) d.appendChild(more);
+      // the card in sight shows its first real example (the moment, its audio) above her two answers
+      const ex = cs[0].querySelector(':scope > details[data-exs]');
+      if (ex && !ex.open) { cs[0].classList.add('dp-first'); ex.open = true;
+        if (ex.querySelectorAll('.hb-ex').length > 1) { const b = document.createElement('button'); b.type = 'button'; b.className = 'dp-allex'; b.textContent = 'All ' + ex.querySelectorAll('.hb-ex').length + ' examples'; b.onclick = () => { cs[0].classList.add('dp-showall'); b.remove(); }; ex.appendChild(b); } }   // "Show the next 8" lives inside the fold: one control
       d.addEventListener('toggle', () => foldOpen.set(r, d.open));
     });
   }
