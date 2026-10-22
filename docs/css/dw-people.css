@@ -424,3 +424,11 @@ html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"] 
 #anees-bank .hb-card > .dp-times { order: -1; margin: 0 0 4px; }
 #anees-bank details.tu-closed, #anees-bank details.dp-decided { margin-top: 10px; }
 #anees-bank details.tu-closed > .hb-accs { margin-top: 8px; }
+/* round 29: weak rules / words: the % is the big number (coloured), one short line under it; the open item's title is the row
+   itself, so the panel does not repeat it (still in the text) */
+#anees-bank .tu-pctn { font: 700 20px/1 var(--sabz-font-sans, system-ui); font-variant-numeric: tabular-nums; }
+#anees-bank .tu-pctn.lo { color: var(--dw-bad); } #anees-bank .tu-pctn.mid { color: var(--dw-warn); } #anees-bank .tu-pctn.hi { color: var(--dw-ok); }
+#anees-bank .tu-pline { font-size: 11.5px; color: var(--dw-muted); white-space: normal; text-align: right; max-width: 140px; }
+#anees-bank .hb-panel > .hb-ptitle { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+#anees-bank .hb-panel .dp-how { top: 10px; }
+#anees-bank .hb-panel > #hb-body > .hb-task > details.dp-fold-row:first-child, #anees-bank .hb-panel .hb-task > [data-filters] { margin-right: 40px; }

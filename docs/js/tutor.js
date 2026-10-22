@@ -205,6 +205,8 @@
   const notesToken = () => { const g = T.open.find(x => x.kind === 'grammar_notes'); return g ? g.token : ''; };
   // 389 min reads as "6½ h"; the exact minutes stay in the text
   const hrs = n => n < 90 ? `<b>${n}</b><span>min to go</span>` : `<b>${Math.floor(n / 60)}${(n % 60) >= 45 ? '¾' : (n % 60) >= 15 ? '½' : ''}</b><span>hours to go <span class="dp-sr">(${n} min)</span></span>`;
+  // a weak rule / word row: the % is the big number, then one short line; the counts stay in the text for a reader
+  const pctRow = (v, hid, line) => `<b title="${esc(hid)}" class="tu-pctn ${v === null || v === undefined ? '' : v < 50 ? 'lo' : v < 80 ? 'mid' : 'hi'}">${esc(pctTxt(v))}</b><span class="dp-hide"> ${esc(hid)}</span> <span class="tu-pline">${esc(line)}</span>`;
   const gloss = e => String(e || '').split(/\s*[/;]\s*|,\s+/)[0];   // the row shows the first meaning; the open item shows them all
   const pctTxt = v => (v === null || v === undefined) ? '—' : v + '%';
   function momentsHtml(ms, how) {
@@ -219,7 +221,7 @@
   async function grammar(id) {
     setTab('grammar'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
     let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
-    const rows = D.rules.map(r => ({ id: r.id, title: `${r.id} · ${r.name}`, sub: `${pctTxt(r.pct)} right · ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections · last ${pretty(r.last_used)}`, bar: pctBar(r.pct), find: r.family || '', r }));
+    const rows = D.rules.map(r => ({ id: r.id, title: `${r.id} · ${r.name}`, subHtml: pctRow(r.pct, `right · ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections`, `last ${pretty(r.last_used)}`), bar: pctBar(r.pct), find: r.family || '', r }));
     listPanel('grammar', rows, id, (row, p) => {
       const r = row.r;
       p.innerHTML = `<article id="${esc(r.id)}" class="hb-doc"><h3 class="hb-q">${esc(r.id)} · ${esc(r.name)}</h3><p class="hb-sub">${esc(r.one_line || '')}</p>
@@ -231,7 +233,7 @@
   async function vocab(id) {
     setTab('vocab'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
     let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
-    const rows = D.words.map(w => ({ id: 'word:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(gloss(w.english))} · ${pctTxt(w.pct)} right · ${fmt(w.n)} uses · last ${pretty(w.last_date)}`, bar: pctBar(w.pct), find: w.english || '', w }));
+    const rows = D.words.map(w => ({ id: 'word:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, subHtml: pctRow(w.pct, `right · ${fmt(w.n)} uses`, `${gloss(w.english)} · last ${pretty(w.last_date)}`), bar: pctBar(w.pct), find: w.english || '', w }));
     listPanel('vocab', rows, id, (row, p) => {
       const w = row.w;
       p.innerHTML = `<article id="${esc(row.id)}" class="hb-doc"><h3 class="hb-q">${esc(w.arabizi)} ${w.arabic ? `<span lang="ar" dir="rtl">${esc(w.arabic)}</span>` : ''}</h3><p class="hb-sub">${esc(w.english || '')}</p>
