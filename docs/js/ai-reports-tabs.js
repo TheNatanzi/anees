@@ -86,11 +86,18 @@ function dwPcts(){document.querySelectorAll('#ar-tab-unknowns .vu-split').forEac
  if(nx&&nx.classList.contains('dw-pcts')){nx.innerHTML=t.map(x=>'<span>'+x.replace(/</g,'&lt;')+'</span>').join('');return;}if(!t.length)return;
  const d=document.createElement('div');d.className='dw-pcts';d.innerHTML=t.map(x=>'<span>'+x.replace(/</g,'&lt;')+'</span>').join('');b.after(d);});}   // only a slice too thin for its label gets it here
 // V1: every slice's share as one stat row above the split bar (from the legend's own counts)
-function dwStat(){document.querySelectorAll('#ar-tab-unknowns .vu-split').forEach(b=>{if(b.dataset.dwStat)return;b.dataset.dwStat='1';
- let lg=b.nextElementSibling;while(lg&&!lg.classList.contains('vu-legend'))lg=lg.nextElementSibling;if(!lg)return;
- const it=[...lg.children].map(c=>(c.textContent.trim().match(/^(.*?)\s+([\d,]+)$/)||[]).slice(1)).filter(x=>x.length===2);const tot=it.reduce((a,x)=>a+ +x[1].replace(/,/g,''),0);if(!tot||it.length<2)return;
- const d=document.createElement('div');d.className='dw-stat';d.innerHTML=it.map(([l,n])=>{const v=100*+n.replace(/,/g,'')/tot;return `<span><b>${v>0&&v<1?'<1':Math.round(v)}%</b> ${l.replace(/</g,'&lt;')}</span>`;}).join('');b.before(d);});}
-function dwPass(){dwClip();try{dwStat();}catch(e){}try{dwL1();}catch(e){}try{dwV1();}catch(e){}document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
+function dwStat(){document.querySelectorAll('#ar-tab-unknowns .vu-legend').forEach(lg=>{if(lg.dataset.dwStat)return;
+ const it=[...lg.children].map(c=>[c,(c.textContent.trim().match(/^(.*?)\s+([\d,]+)$/)||[])[2]]).filter(x=>x[1]);const tot=it.reduce((a,x)=>a+ +x[1].replace(/,/g,''),0);if(!tot||it.length<2)return;
+ lg.dataset.dwStat='1';it.forEach(([c,n])=>{const v=100*+n.replace(/,/g,'')/tot;const b=document.createElement('b');b.className='dw-share';b.textContent=' · '+(v>0&&v<1?'<1':Math.round(v))+'%';c.append(b);});});}   // each slice's share sits on its own legend entry
+// Robot blind spots: the three headline numbers on top, one tap each to its section
+function dwTop(){const T=$('ar-tab-unknowns');if(!T||$('dw-top-bigs'))return;const nav=T.querySelector('.ar-jump');if(!nav)return;
+ const txt=id=>($(id)||{}).textContent||'';const L=((document.querySelector('#air-unknowns-listen .fl-tile b')||{}).textContent||'').trim();
+ const V=(txt('air-unknowns-vocab').match(/could not settle ([\d,]+)/)||[])[1];const g=txt('air-unknowns-grammar'),G1=(g.match(/Of the ([\d,]+) slips found by hand/)||[])[1],G2=(g.match(/slip finder caught ([\d,]+)/)||[])[1];
+ if(!L||!V||!G1||!G2)return;const n=x=>+String(x).replace(/,/g,'');
+ const box=document.createElement('div');box.id='dw-top-bigs';box.className='dw-bigs';
+ box.innerHTML=`<a class="dw-big" href="#ar-unk-listen"><b>${L}</b><span>🎧 listening labels right</span></a><a class="dw-big dw-warnbig" href="#ar-unk-vocab"><b>${V}</b><span>📚 word events unresolved</span></a><a class="dw-big dw-warnbig" href="#ar-unk-grammar"><b>${(n(G1)-n(G2)).toLocaleString('en-US')}/${G1}</b><span>✏️ grammar slips missed</span></a>`;
+ nav.after(box);}
+function dwPass(){dwClip();try{dwTop();}catch(e){}try{dwStat();}catch(e){}try{dwL1();}catch(e){}try{dwV1();}catch(e){}document.querySelectorAll(DW_PROSE).forEach(el=>{if(!el.closest('details.dw-info')){try{dwInfo(el);}catch(e){}}});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 document.querySelectorAll('.vp-tab[data-artab]').forEach(b=>b.onclick=()=>show(b.dataset.artab));
 let first=new URLSearchParams(location.search).get('tab');

@@ -189,9 +189,7 @@ def mark_turns(page):
             page = page[:b] + '<p class="lsn-start">▶ The Arabic practice starts · %s </p>' % clock(float(rows[start][1])) + page[b:]
         # the talk map gets a marker where the practice starts (a tap jumps there)
         end = max(float(r[1]) for r in rows) or 1.0
-        mark = ('<a class="lsn-mark" href="#arabic-start" style="left:%.1f%%">▶ Arabic starts %s</a>'
-                % (100 * float(rows[start][1]) / end, clock(float(rows[start][1]))))
-        page = page.replace('</svg><figcaption>', '</svg>' + mark + '<figcaption>', 1)
+        # round 2: the start is one big button under the strip (the bubble on the strip was a repeat)
         jump = '<a class="lsn-jump" href="#arabic-start">▶ Start Arabic practice · %s</a>' % clock(float(rows[start][1]))
         page = page.replace('</figcaption></figure>', '</figcaption></figure>' + jump, 1)
     return page
