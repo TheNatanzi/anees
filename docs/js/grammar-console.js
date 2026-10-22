@@ -254,6 +254,8 @@ function renderCharts() {
   function fill(box, value, node, foot) {
     var v = $('gc-' + box + '-value'), b = $('gc-' + box + '-body'), f = $('gc-' + box + '-foot');
     if (v) v.textContent = value;
+    // de-word 2026-10-22: the mistakes rate also as a plain "per 100 sentences"
+    if (v && box === 'c1' && /^\d/.test(value)) v.appendChild(el('small', 'dw-per100', '≈ ' + Math.round(parseFloat(value) * 100) + ' per 100 sentences'));
     b.textContent = '';
     b.appendChild(node || blank('No lessons scored in this range'));
     f.textContent = '';
@@ -279,7 +281,7 @@ function renderCharts() {
   var mps = L.map(function (x) { return x.mistakes_per_sentence; });
   var sentences = sum('medi_sentences');
   var rate = sentences ? sum('slips_counted') / sentences : null;
-  fill('c1', rate == null ? '—' : rate.toFixed(3),
+  fill('c1', rate == null ? '—' : rate.toFixed(3) + ' ',
     L.length ? sparkline(mps, { label: 'Mistakes per sentence by lesson', dates: L.map(function (x) { return x.date; }), fmt: function (v) { return v.toFixed(3); } }) : null,
     L.length ? foot(sum('slips_counted') + ' slips in ' + sentences + ' sentences · ' +
       L.length + ' lessons · latest ' + latest) : null);
