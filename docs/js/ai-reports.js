@@ -20,7 +20,7 @@
     const v = String(p.verdict || ''), cut = v.search(/[.!?](\s|$)/), first = cut > 0 ? v.slice(0, cut + 1) : v, long = first.split(/\s+/).length > 14;
     const head = long ? '' : first, rest = long ? v : (cut > 0 ? v.slice(cut + 1).trim() : '');
     const info = (p.question || rest) ? `<details class="dw-info"><summary aria-label="The question and the full answer">ⓘ</summary><div>${p.question ? `<p class="ar-q">${esc(p.question)}</p>` : ''}${rest ? `<p>${esc(rest)}</p>` : ''}</div></details>` : '';
-    return `<article class="ar-rep"><div class="ar-top">${badge(p.author)}<span class="ar-date">${esc(p.date)}</span></div><h2 class="ar-title">${title}</h2><p class="ar-verdict${head ? '' : ' ar-verdict-min'}">${esc(head)} ${info}</p>${kpis ? `<div class="ar-kpis">${kpis}</div>` : ''}${bars}${chapters}<div class="ar-links">${links}</div></article>`;
+    return `<article class="ar-rep"><div class="ar-top">${badge(p.author)}<span class="ar-date">${esc(p.date)}</span></div><h2 class="ar-title">${title}</h2><p class="ar-verdict${head ? '' : ' ar-verdict-min'}">${esc(head)} ${info}</p>${kpis ? `<div class="ar-kpis ar-kpis-1">${kpis}</div>` : ''}${bars}${chapters}<div class="ar-links">${links}</div></article>`;
   }
   function reports(r) {
     const reps = (r.reports || []).slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));

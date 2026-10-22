@@ -114,9 +114,9 @@ function dwBigs(){
  const big=(href,b,s,warn)=>{const p=part(b);return `<a class="dw-big${warn?' dw-warnbig':''}" href="${href}"><b>${b}</b><span>${s}</span>${p===null?'':`<i class="dw-split dw-bigbar" aria-hidden="true"><i style="width:${p}%"></i></i>`}</a>`;};
  const box=document.createElement('div');box.id='dw-unk-bigs';box.className='dw-bigs';
  // each number sits on its own section row (one card per blind spot: number, meaning, tap to open)
- const put=(sec,b,s,warn,fill)=>{const h=document.querySelector(sec+' details.ar-unk-d > summary .ar-unk-h');if(!h)return;const p=part(b);
+ const put=(sec,b,s,warn,fill)=>{const h=document.querySelector(sec+' details.ar-unk-d > summary .ar-unk-h');if(!h)return;const p=part(b),m=String(b).match(/^([\d,]+)\/([\d,]+)$/);   // one big number; "of N ..." small under it
   const n=document.createElement('span');n.className='dw-sumbig'+(warn?' dw-warnbig':'');
-  n.innerHTML=`<b>${b}</b><small>${s}</small>${p===null?'':`<i class="dw-split dw-bigbar ${fill||'dw-good'}" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
+  n.innerHTML=`<b>${m?m[1]:b}</b><small>${m?'of '+m[2]+' ':''}${s}</small>${p===null?'':`<i class="dw-split dw-bigbar ${fill||'dw-good'}" aria-hidden="true"><i style="width:${p}%"></i></i>`}`;h.prepend(n);};
  const VT=(txt('air-unknowns-vocab').match(/of the student’s ([\d,]+) word events/)||[])[1];
  // each row leads with the problem count (what is still wrong or open); the bar is that share, in the warning colour
  const num=x=>+String(x).replace(/,/g,''),fmt=x=>x.toLocaleString('en-US'),LM=String(L).match(/^(\d+)\/(\d+)$/);
@@ -137,7 +137,8 @@ function dwTiny(){document.querySelectorAll('#ar-tab-grades .ar-kpi .ab-tiny:not
  d.lastChild.textContent=t.textContent;t.textContent=head+' ';t.append(d);});
  const M=$('ab-metrics'),P=document.querySelector('#ar-list details.ar-past');if(M&&P&&!M.closest('details')&&M.children.length){const lg=document.querySelector('#ar-tab-research .ar-legend'),f=$('ar-foot');
  const box=P.querySelector('.ar-list');[lg,M].forEach(x=>{if(x)box.before(x);});if(f)P.append(f);}}
-function dwPass(){dwTry(dwBigs);dwTry(dwTable);dwTry(dwTiny);dwTry(dwGroups);document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwTry(dwInfo,el);});dwTry(dwFold,t);});}
+function dwSrc(){const x=$('ab-source');if(x&&!x.dataset.dw&&/Source:/.test(x.textContent)){x.dataset.dw='1';const t=x.textContent;x.textContent='';const d=document.createElement('details');d.className='dw-info';d.innerHTML='<summary aria-label="Where this comes from">ⓘ</summary><div></div>';d.lastChild.textContent=t;x.append(d);x.classList.add('dw-src');}}
+function dwPass(){dwTry(dwSrc);dwTry(dwBigs);dwTry(dwTable);dwTry(dwTiny);dwTry(dwGroups);document.querySelectorAll('#ar-tab-unknowns,#ar-tab-grades').forEach(t=>{t.querySelectorAll(DW_INFO).forEach(el=>{if(!el.closest('details.dw-info'))dwTry(dwInfo,el);});dwTry(dwFold,t);});}
 {let k=0;const iv=setInterval(()=>{dwPass();if(++k>40)clearInterval(iv);},500);}   // modules finish at their own pace
 new MutationObserver(()=>{clearTimeout(dwT);dwT=setTimeout(dwPass,60);}).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
 // a tap on a big number (or a #ar-unk-… link) opens that section in place
