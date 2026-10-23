@@ -1,15 +1,17 @@
 {
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
- "last_publish_utc": "2026-10-23T01:20:43Z",
- "last_publish_sha": "a895ab9889b4818bf56fef1e12383ff510268983",
- "last_block_reason": null,
- "last_block_utc": null,
- "first_block_reason": null,
- "blocked_since_utc": null,
+ "last_publish_utc": "2026-10-23T01:20:44Z",
+ "last_publish_sha": "e1748dcc88511298c336e2719c6f434ecc5f1ee3",
+ "last_block_reason": "rule_registry: exit 1: ...changed after its plain wording was written - re-read it and run: python scripts/rule_registry.py plain PG-57 \"<plain words, same meaning>\" | - PG-57: statement changed after its plain wording was written - re-read it and run: python scripts/rule_registry.py plain PG-57 \"<plain words, same meaning>\"; tests_py: exit 1: FAILED tests/test_rule_registry.py::test_live_regis...",
+ "last_block_utc": "2026-10-23T01:26:39Z",
+ "first_block_reason": "rule_registry: exit 1: ...changed after its plain wording was written - re-read it and run: python scripts/rule_registry.py plain PG-57 \"<plain words, same meaning>\" | - PG-57: statement changed after its plain wording was written - re-read it and run: python scripts/rule_registry.py plain PG-57 \"<plain words, same meaning>\"; tests_py: exit 1: FAILED tests/test_rule_registry.py::test_live_regis...",
+ "blocked_since_utc": "2026-10-23T01:26:39Z",
  "open_failures": [],
- "pending": [],
- "hours_since_publish": 0.0,
+ "pending": [
+  "1 blocked push(es) since the last publish"
+ ],
+ "hours_since_publish": 0.1,
  "stalled": false,
- "generated_at": "2026-10-23T01:20:43Z",
- "plain_reason": "unknown"
+ "generated_at": "2026-10-23T01:29:26Z",
+ "plain_reason": "a test failed"
 }
