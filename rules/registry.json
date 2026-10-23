@@ -12194,6 +12194,41 @@
     "note": "7 phases, 15 steps, the PR-29 judge panel as step 6b"
    },
    "aliases": []
+  },
+  {
+   "id": "PG-57",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Fewer words never means less data: a page redesign may cut explanations, but every number, row, chart and card a page showed before stays on screen (any tab). scripts/deword_capture.py captures every number token per page and tab; `--compare <before>` fails when one is missing.",
+   "plain": "Making a page shorter never hides data: every number, row and chart stays; only the extra words go.",
+   "topic": "pages",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-22",
+     "quote": "cut out too much data"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/deword_capture.py",
+     "contains": "def compare(before, after, names):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_pg_57_shorter_pages_keep_every_number"
+    }
+   ],
+   "example": {
+    "date": "2026-10-22",
+    "note": "first de-word pass cut rows and charts; round 2 put the data back (all 15 pages, a6d81ce)"
+   },
+   "aliases": []
   }
  ]
 }

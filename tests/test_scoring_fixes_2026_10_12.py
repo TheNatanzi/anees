@@ -383,3 +383,19 @@ def test_pg_56_flowchart_is_the_first_ai_reports_tab():
     tab = page.split('<div id="ar-tab-flow"', 1)[1].split("<!-- FLOW:end -->", 1)[0]
     assert 'class="fl"' in tab and tab.count('<details class="study">') >= 10
     assert 'href="reports/engine-benchmark-2026-10-02.html"' in tab and 'href="engine-report.html"' in tab
+
+
+
+def test_pg_57_shorter_pages_keep_every_number(tmp_path):
+    """PG-57 (Medi 2026-10-22, on the first de-word pass: "cut out too much data"): a shorter page keeps every number it
+    showed; the number check fails when one is missing from every tab."""
+    import json, os, sys
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "scripts"))
+    import deword_capture as DC
+    before, after = tmp_path / "before", tmp_path / "after"
+    before.mkdir(); after.mkdir()
+    (before / "progress.numbers.json").write_text(json.dumps({"overview": ["94%", "25", "128"]}), encoding="utf-8")
+    (after / "progress.numbers.json").write_text(json.dumps({"overview": ["94%"], "vocab": ["25", "128"]}), encoding="utf-8")
+    assert DC.compare(before, after, ["progress"]) == {}          # moved to another tab: still on the page
+    (after / "progress.numbers.json").write_text(json.dumps({"overview": ["94%", "25"]}), encoding="utf-8")
+    assert DC.compare(before, after, ["progress"]) == {"progress": ["128"]}
