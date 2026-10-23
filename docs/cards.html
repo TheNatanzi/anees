@@ -114,7 +114,7 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-newfromnow-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260930-mastered3"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20261001-plural-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script><script src="js/homework-core.js?v=20261005-1"></script>
+<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-newfromnow-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260930-mastered3"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20261001-plural-v2"></script><script src="js/speaking-snapshot.js?v=20261022-pool"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script><script src="js/homework-core.js?v=20261005-1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -135,6 +135,10 @@ const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'ap
 const LOG_COLS='id,word_key,ts,result,attempt,mode,subject,undone_at,flip_ms,answer_ms'; let tzColumn=!((LS('anees-tz-col')||{}).off>Date.now()-86400000);
 const noTzColumn=()=>{ tzColumn=false; LS('anees-tz-col',{off:Date.now()}); };
 function tzNow(){ let tz=null; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone||null; }catch(e){} return {tz_offset_min:-new Date().getTimezoneOffset(), tz}; }   // the clock the answer was given in, for the hourly chart
+// Medi 2026-10-22 ("fix the flashcards"): the lesson evidence comes in ~10 pages of 1,000 rows; one failed page (or the
+// hourly job writing mid-read) used to drop the whole lesson lane, and Shaky / Wrong silently showed cards-only counts
+// (54 / 16 instead of 152 / 24). Try 3 times before falling back; the tiles say so when the lesson lane is missing.
+async function snapRetry(){ let err; for(let i=0;i<3;i++){ try{ return await window.AneesSnapshot.load(ANEES.url,H); }catch(e){ err=e; await new Promise(r=>setTimeout(r,800*(i+1))); } } throw err; }
 async function load(){
   try{ let all=[], off=0; while(true){ const r=await fetch(ANEES.url+'/rest/v1/words?select=key,arabizi,arabic,english,plural,first_seen,topic,subtopic,doc_order,house_spelling,aliases&active=eq.true&order=doc_order&limit=1000&offset='+off,{headers:H}); if(!r.ok) break; const part=await r.json(); all=all.concat(part); if(part.length<1000) break; off+=1000; } if(all.length){ words=all; LS('anees-words',words); } }catch(e){}
   if(!words.length){ words=LS('anees-words')||[]; if(!words.length){ try{ const r=await fetch('data/words.json'); words=(await r.json()).items; }catch(e){} } if(words.length) syncEl.textContent='Offline: using the saved word list.'; }
@@ -150,7 +154,7 @@ async function load(){
   try { stats=await window.AneesProgress.load(stats,ANEES.url,H,LS('anees-card-log')||[]); LS(window.AneesProgress.CACHE_KEY,stats); }
   catch(e) { const saved=window.AneesProgress.cached(LS(window.AneesProgress.CACHE_KEY)); if(Object.keys(saved).length) stats=saved; }
   // Selection screen sources: lesson evidence (spoken Shaky / Wrong) and Amal's Quizlet sets.
-  const [snap,review,qz,slips]=await Promise.allSettled([window.AneesSnapshot.load(ANEES.url,H),fetch('data/word-bank-review.json').then(r=>r.ok?r.json():{}),fetch('data/quizlet/amal-quizlet-sets.json').then(r=>r.ok?r.json():Promise.reject(r.status)),fetch('data/word-bank-audit-slips.json').then(r=>r.ok?r.json():null)]);
+  const [snap,review,qz,slips]=await Promise.allSettled([snapRetry(),fetch('data/word-bank-review.json').then(r=>r.ok?r.json():{}),fetch('data/quizlet/amal-quizlet-sets.json').then(r=>r.ok?r.json():Promise.reject(r.status)),fetch('data/word-bank-audit-slips.json').then(r=>r.ok?r.json():null)]);
   let ev=snap.status==='fulfilled'&&Array.isArray(snap.value.events)?snap.value.events:null;
   if(ev) LS('anees-speaking-evidence-v1',snap.value); else ev=(LS('anees-speaking-evidence-v1')||{}).events||null;
   if(ev){ const rv=window.AneesWordBankReview.apply(window.AneesWordBankReview.withSlips(ev,slips.status==='fulfilled'?slips.value:null),review.status==='fulfilled'?review.value:{}); speakEvents=WB.prepareEvidence(rv.events.map(e=>rv.stale.includes(e.id)?{...e,needs_review:true}:e)); lessonScores='ok'; } else lessonScores='offline';
@@ -395,8 +399,8 @@ function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.s
       tileHtml({id:'leech',label:'Words I keep missing',title:'Words I keep missing',unit:'words',words:words.filter(w=>F.isLeech(cards.get(w.key))),note:`missed ${F.DEFAULTS.leechMisses}+ times on cards`,reason:`No word missed ${F.DEFAULTS.leechMisses}+ times yet`}),
       tileHtml({id:'amal',label:'New from the tutor',title:'New from the tutor',unit:'words',words:S.amal,reason:'The tutor has not marked any new words yet'}),
       tileHtml({id:'shaky',label:'Shaky words',title:'Shaky words · last 2 lessons',unit:'words',tone:'shaky',words:S.shaky,note:shaky&&shaky.lessons?`wrong, partly wrong or asked for on ${shaky.lessons.map(d=>new Date(d+'T12:00').toLocaleDateString(undefined,{month:'short',day:'numeric'})).join(' + ')} · gone after 2 right answers`:'from the last 2 lessons',reason:shaky?'Nothing shaky left from the last 2 lessons':'The shaky-words list is not built yet'}),
-      cat('shaky','Shaky',both('Shaky'),{tone:'shaky',unit:'forms',note:'in lessons + on cards',reason:'Nothing shaky yet'}),
-      cat('wrong','Wrong',both('Wrong'),{tone:'wrong',unit:'forms',note:'in lessons + on cards',reason:'Nothing wrong yet'})])}
+      cat('shaky','Shaky',both('Shaky'),{tone:'shaky',unit:'forms',note:lessonScores==='ok'?'in lessons + on cards':'on cards only · lesson scores did not load',reason:'Nothing shaky yet'}),
+      cat('wrong','Wrong',both('Wrong'),{tone:'wrong',unit:'forms',note:lessonScores==='ok'?'in lessons + on cards':'on cards only · lesson scores did not load',reason:'Nothing wrong yet'})])}
     ${group('Randomized',[
       tileHtml({id:'drill:random',kind:'drill',mode:'random',label:'Quick verbs · 20 random',title:'Verb drills · 20 verbs · random',words:S.drills,shown:Math.min(20,S.drills.length),unit:'verbs',note:'one random person and tense per verb',reason:'No verbs in the catalog'}),
       tileHtml({id:'drill:full',kind:'drill',mode:'full',label:'Full verbs · 5 or 10 verbs',title:'Verb drills · 5 or 10 verbs · every person',words:S.drills,shown:10,unit:'verbs',note:'every person of the tenses you pick',reason:'No verbs in the catalog'}),
