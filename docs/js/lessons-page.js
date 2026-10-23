@@ -324,31 +324,42 @@ function approxInto(node, text, L, estimate, provisional) {
   if (title) { node.classList.add('rel-approx'); node.title = title; node.setAttribute('data-why', title); node.tabIndex = 0; }
 }
 function wordsCell(L) {
-  var c = el('div', 'ls-cell');
+  var c = el('div', 'ls-cell ls-wcell');
   var w = L.words || {};
   var top = el('div', 'ls-big');
   if (num(w.pct)) { approxInto(top, Math.round(w.pct) + '%', L); top.classList.add(band(w.pct)); } else top.appendChild(dash(L, ['words']));
   c.appendChild(top);
   c.appendChild(el('div', 'ls-small', (num(w.unique) ? w.unique : '—') + ' words'));
+  // De-word: right / wrong / partial as one split bar (the counts stay underneath)
+  var tot = (w.right || 0) + (w.wrong || 0) + (w.partial || 0);
+  if (tot) { var bar = el('div', 'dw-split ls-wsplit'); bar.setAttribute('aria-hidden', 'true');
+    [[w.right, 'ok'], [w.wrong, 'bad'], [w.partial, 'part']].forEach(function (x) { if (x[0]) { var i = el('i', 'ls-w' + x[1]); i.style.width = (100 * x[0] / tot).toFixed(1) + '%'; bar.appendChild(i); } });
+    c.appendChild(bar); }
   var rw = el('div', 'ls-small');
   rw.innerHTML = '<span class="ls-ok">' + (w.right || 0) + ' right</span> · <span class="ls-bad">' + (w.wrong || 0) + ' wrong</span>' + (w.partial ? ' · <span class="ls-part">' + w.partial + ' partial</span>' : '');
   c.appendChild(rw);
   return c;
 }
 function grammarCell(L) {
-  var c = el('div', 'ls-cell');
+  var c = el('div', 'ls-cell ls-gcell');
   var g = L.grammar || {};
   var top = el('div', 'ls-big');
   if (num(g.pct)) { approxInto(top, Math.round(g.pct) + '%', L, g.estimate, g.provisional); top.classList.add(band(g.pct)); } else top.appendChild(dash(L, ['grammar']));
   c.appendChild(top);
   // grammar_math (eng audit 2026-09-29): slips in rules no counter can score are listed but kept out of the %
   var sm = num(g.scored_mistakes) ? g.scored_mistakes : g.mistakes;
+  if (num(sm) && num(g.uses) && g.uses > 0) {   // de-word: right uses vs slips as one split bar, like Words
+    var gb = el('div', 'dw-split ls-wsplit'); gb.setAttribute('aria-hidden', 'true');
+    var ok = el('i', 'ls-wok'); ok.style.width = (100 * Math.max(0, g.uses - sm) / g.uses).toFixed(1) + '%'; gb.appendChild(ok);
+    var bad = el('i', 'ls-wbad'); bad.style.width = (100 * Math.min(sm, g.uses) / g.uses).toFixed(1) + '%'; gb.appendChild(bad);
+    c.appendChild(gb);
+  }
   c.appendChild(el('div', 'ls-small', (num(sm) ? sm : '—') + ' slips / ' + (num(g.uses) ? g.uses : '—') + ' uses' +
     (num(g.unscored_mistakes) && g.unscored_mistakes ? ' · +' + g.unscored_mistakes + ' in unscored rules' : '')));
   return c;
 }
 function talkCell(L) {
-  var c = el('div', 'ls-cell');
+  var c = el('div', 'ls-cell ls-tcell');
   var t = L.talk;
   if (!t || !num(t.speak_pct)) {
     c.appendChild(dash(L, ['talk', 'timing']));
@@ -365,6 +376,7 @@ function talkCell(L) {
   var lab = el('div', 'ls-small ls-barlab');
   lab.innerHTML = '<span><i class="ls-dot ls-bar-you"></i>You ' + Math.round(t.speak_pct) + '%</span><span><i class="ls-dot ls-bar-amal"></i>Tutor ' + Math.round(t.listen_pct) + '%</span>';
   c.appendChild(lab);
+  if (L.fillers && num(L.fillers.per_min)) c.appendChild(el('div', 'ls-small dw-fpm', ' ' + (Math.round(L.fillers.per_min * 10) / 10) + ' filled pauses / min'));   // de-word r2: the sort's metric shows on its row
   return c;
 }
 function row(L) {
@@ -1053,7 +1065,14 @@ function renderMedi() {
   box.textContent = '';
   box.hidden = !items.length && !amal;
   if (!items.length) {
-    if (amal) box.appendChild(el('p', 'ab-mini', 'Waiting for the tutor · ' + amal + (amal === 1 ? ' moment' : ' moments') + ' where two judges disagree about a word are on her Tutor hub. Counted as before until she answers.'));
+    if (amal) {   // de-word r2: one line, the number in bold and an action; the why opens in place
+      var wp = el('p', 'ab-mini dw-wait'); wp.appendChild(el('b', 'dw-waitn', String(amal)));
+      wp.appendChild(document.createTextNode(' ' + (amal === 1 ? 'word waits' : 'words wait') + ' for the tutor '));
+      var wa = el('a', 'dw-act', 'Open on the Tutor page →'); wa.href = 'tutor.html'; wp.appendChild(wa);
+      var wd = el('details', 'dw-info'), ws = el('summary', '', 'ⓘ'); ws.setAttribute('aria-label', 'Why they wait'); wd.appendChild(ws);
+      wd.appendChild(el('div', '', 'Waiting for the tutor · ' + amal + (amal === 1 ? ' moment' : ' moments') + ' where two judges disagree about a word are on her Tutor hub. Counted as before until she answers.'));
+      wp.appendChild(document.createTextNode(' ')); wp.appendChild(wd); box.appendChild(wp);
+    }
     return;
   }
   if (amal) box.appendChild(el('p', 'ab-mini', 'Also waiting for the tutor: ' + amal + ' word ' + (amal === 1 ? 'moment' : 'moments') + ' on her Tutor hub.'));
@@ -1159,4 +1178,52 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     $('ls-notice').textContent = 'Could not load the lessons data: ' + err.message;
     $('ls-source').textContent = 'Failed to load';
   });
+  // De-word r2: a robot alert shows as one short warning chip; the exact error text opens in place behind (i).
+  function dwAlerts() {
+    var box = document.getElementById('lesson-alerts');
+    if (!box || box.dataset.dw === box.textContent.length + '') return;
+    [].slice.call(box.children).forEach(function (d) {
+      if (d.querySelector('details')) return;
+      var t = d.textContent, m = t.match(/not published since (.+?):\s/), short = m ? 'Robot stuck since ' + m[1] : t.split(/[:.]/)[0];
+      if (short === t) return;
+      d.textContent = '';
+      d.appendChild(el('span', 'dw-chip bad', short)); d.appendChild(document.createTextNode(' '));
+      var det = el('details', 'dw-info'), sm = el('summary', '', 'ⓘ'); sm.setAttribute('aria-label', 'The exact error');
+      det.appendChild(sm); det.appendChild(el('div', '', t)); d.appendChild(det);
+    });
+    box.dataset.dw = box.textContent.length + '';
+  }
+  // the header's one-line explanation opens in place behind (i)
+  function dwHead() {
+    var sub = document.querySelector('#anees-bank .ab-header .ab-sub'); if (!sub || sub.closest('details')) return;
+    var h = document.querySelector('#anees-bank .ab-header h1'), d = el('details', 'dw-info'), sm = el('summary', '', 'ⓘ');
+    sm.setAttribute('aria-label', 'About this page'); d.appendChild(sm); var dv = el('div', ''); d.appendChild(dv); dv.appendChild(sub);
+    h.appendChild(document.createTextNode(' ')); h.appendChild(d);
+  }
+  // the five sort choices as chips (the select stays for keyboards and old links)
+  function dwSort() {
+    var sel = $('ls-sort'); if (!sel || document.querySelector('.dw-sortchips')) return;
+    var box = el('div', 'dw-sortchips'); box.setAttribute('aria-label', 'Sort lessons');
+    [].slice.call(sel.options).forEach(function (o) {
+      var b = el('button', '', o.textContent); b.type = 'button'; b.setAttribute('aria-pressed', String(sel.value === o.value));
+      b.addEventListener('click', function () { sel.value = o.value; sel.dispatchEvent(new Event('change', { bubbles: true }));
+        [].slice.call(box.children).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); });
+      box.appendChild(b);
+    });
+    sel.closest('.ab-controls').after(box);
+  }
+  dwHead(); dwAlerts(); dwSort();
+  // the three share tiles get a bar under their number (the number and its caption stay)
+  function dwTileBars() {
+    [].slice.call(document.querySelectorAll('#ls-metrics .ab-metric')).forEach(function (m) {
+      if (m.querySelector('.ls-herobar')) return;
+      var lab = (m.querySelector('.ab-metric-label') || {}).textContent || '', nEl = m.querySelector('.ab-number');
+      if (!nEl || !/^(Words right|Grammar right|Speaking share)/.test(lab.trim())) return;
+      var v = parseFloat(nEl.textContent.replace(/[^\d.]/g, '')); if (isNaN(v)) return;
+      var hb = el('div', 'dw-split ls-herobar'); hb.setAttribute('aria-hidden', 'true'); var hi = el('i', 'ls-wok'); hi.style.width = v + '%'; hb.appendChild(hi);
+      nEl.after(hb);
+    });
+  }
+  dwTileBars();
+  new MutationObserver(function () { dwAlerts(); dwTileBars(); }).observe(document.querySelector('main') || document.body, { childList: true, subtree: true });
 })();

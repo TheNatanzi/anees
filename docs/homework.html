@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Homework</title><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/anees-page.css"><script src="js/theme.js"></script>
+<title>Homework</title><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/anees-page.css"><link rel="stylesheet" href="css/dw-people.css?v=r3l"><script src="js/theme.js"></script>
 <style>
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere}
 main{max-width:640px;margin:0 auto;padding:14px 14px 40px}
@@ -19,10 +19,12 @@ button[disabled]{opacity:.5;cursor:default}
 .amalv{margin-top:6px;font-size:15px} .amalv b{color:var(--teal)}
 .err{color:var(--red);font-size:14px;margin-top:6px}
 </style></head><body><main>
-<h1>Homework</h1>
+<div class="hw-head"><h1>Homework</h1><span id="hw-state"></span></div>
 <p class="sub" id="sub">Loading…</p>
+<!-- de-word 2026-10-22: how it works as 3 numbered steps; the Arabizi number key as chips -->
+<ol class="dw-flow hw-flow" aria-label="How homework works"><li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>You type</li><li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="3"/><path d="M12 3v4M9 12h.01M15 12h.01"/></svg>Anees checks</li><li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Tutor confirms</li></ol>
+<p class="hw-kcap">Arabizi numbers</p><ul class="hw-keys" aria-label="Arabizi number key"><li><b>6</b><i>=</i><span lang="ar">ط</span></li><li><b>7</b><i>=</i><span lang="ar">ح</span></li><li><b>3</b><i>=</i><span lang="ar">ع</span></li><li><b>2</b><i>=</i><span lang="ar">ء</span></li><li><b>5</b><i>=</i><span lang="ar">خ</span></li></ul>
 <div id="root"></div>
-<p class="mute">Type your answer in Arabizi (6=ط 7=ح 3=ع 2=ء 5=خ). Anees checks it on the spot; the tutor gives the final word on her next link. Voice answers are on the <a href="index.html#future">Future projects</a> list.</p>
 </main>
 <script src="js/config.js"></script>
 <script>
@@ -34,22 +36,25 @@ const root=document.getElementById('root'), sub=document.getElementById('sub');
 const KEY=new URLSearchParams(location.search).get('date');
 let items=[], answers={};
 function promptText(it){ return (it.status==='edit'||it.status==='amal')&&it.edited_english ? it.edited_english : it.english; }
-function badge(it){ if(it.status==='suggested') return '<span class="badge wait">The tutor has not reviewed yet</span>'; if(it.status==='amal') return '<span class="badge amal">The tutor\'s own line</span>'; if(it.status==='edit') return '<span class="badge amal">edited by the tutor</span>'; return '<span class="badge amal">kept by the tutor</span>'; }
+function badge(it){ if(it.status==='suggested') return '<span class="dw-chip muted">not reviewed</span>'; if(it.status==='amal') return '<span class="dw-chip">tutor\'s line</span>'; if(it.status==='edit') return '<span class="dw-chip">tutor edited</span>'; return '<span class="dw-chip">tutor kept</span>'; }
 function gradeHtml(a){ if(!a) return ''; const g=a.grade; let h='<div class="grade">';
   if(!g) h+='<span class="pill">checking…</span>'; else { const v=g.verdict||'ungraded'; h+=`<span class="pill ${esc(v)}">${v==='right'?'Right':v==='close'?'Close':v==='wrong'?'Not yet':'Ungraded'}</span> <span class="mute">Anees</span>`;
     (g.notes||[]).forEach(n=>{ h+=`<div class="note"><b>${esc(n.kind||'')}</b> ${esc(n.say||'')}</div>`; });
     if(g.fixed&&v!=='right') h+=`<div class="fixed">→ ${esc(g.fixed)}</div>`; }
-  if(a.amal_verdict) h+=`<div class="amalv"><b>Tutor:</b> ${a.amal_verdict==='right'?'correct ✓':a.amal_verdict==='fix'?('fix → '+esc(a.amal_fix||'')):'skipped'}</div>`; else h+='<div class="mute" style="margin-top:6px">The tutor will confirm on her next link.</div>';
+  if(a.amal_verdict) h+=`<div class="amalv"><b>Tutor:</b> ${a.amal_verdict==='right'?'correct ✓':a.amal_verdict==='fix'?('fix → '+esc(a.amal_fix||'')):'skipped'}</div>`; else h+='<div style="margin-top:6px"><span class="dw-chip warn">tutor to confirm</span></div>';
   return h+'</div>'; }
 function card(it){ const mine=(answers[it.id]||[]); const last=mine[0]; const id='i'+it.id;
-  return `<div class="card" id="${id}"><div class="n">${it.n}${badge(it)}</div><div class="en">${esc(promptText(it))}</div>
+  return `<div class="card" id="${id}"><div class="n"><span class="hw-num">${it.n}</span>${badge(it)}</div><div class="en">${esc(promptText(it))}</div>
    ${last?`<div class="prev">Your answer: <b style="color:var(--ink)">${esc(last.answer)}</b>${gradeHtml(last)}</div>`:''}
    <textarea id="${id}t" placeholder="${last?'try again…':'your Arabic, in Arabizi'}"></textarea><button id="${id}b">Check</button><div class="err" id="${id}e"></div>
    ${mine.length>1?`<details class="mute" style="margin-top:6px"><summary>${mine.length-1} earlier ${mine.length-1===1?'try':'tries'}</summary>${mine.slice(1).map(a=>`<div class="prev">${esc(a.answer)}${gradeHtml(a)}</div>`).join('')}</details>`:''}</div>`; }
 function render(){ if(!items.length){ root.innerHTML='<div class="card">No homework sheet yet. It appears after the next lesson.</div>'; return; }
   const date=items[0].lesson_date; const approved=items.filter(i=>i.status!=='suggested').length;
-  sub.textContent=`Sheet from the ${date} lesson · ${items.length} lines · ${approved} reviewed by the tutor`;
+  sub.textContent=`${date} lesson · ${items.length} lines · ${approved} tutor-checked`;
+  sub.insertAdjacentHTML('beforeend',`<span class="hw-dots" role="img" aria-label="one dot per line: green = tutor confirmed, amber = answered, empty = not answered">${items.map(i=>{ const l=(answers[i.id]||[])[0]; return `<i class="${l&&l.amal_verdict?'ok':l?'ai':''}" title="${l&&l.amal_verdict?'tutor confirmed':l?'answered, Anees checked':'not answered yet'}"></i>`; }).join('')}</span><span class="hw-key"><i class="ok"></i>tutor confirmed <i class="ai"></i>answered <i></i>not yet</span>`);
+  { const done=items.filter(i=>(answers[i.id]||[]).length).length; const hs=document.getElementById('hw-state'); hs.innerHTML=`<span class="hw-big"><b>${done} / ${items.length}</b> answered</span>`; const dots=sub.querySelector('.hw-dots'); if(dots) hs.appendChild(dots); }
   root.innerHTML=items.map(card).join('');
+  const nx=items.find(i=>!(answers[i.id]||[]).length); if(nx){ const c=document.getElementById('i'+nx.id); c.classList.add('hw-next'); c.querySelector('.n').insertAdjacentHTML('beforeend','<span class="dw-chip">start here</span>'); }
   items.forEach(it=>{ const id='i'+it.id; document.getElementById(id+'b').onclick=()=>submit(it); document.getElementById(id+'t').onkeydown=e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); submit(it);} }; }); }
 async function submit(it){ const id='i'+it.id; const t=document.getElementById(id+'t'), b=document.getElementById(id+'b'), err=document.getElementById(id+'e'); const v=t.value.trim(); if(!v) return; b.disabled=true; err.textContent='';
   const row={id:uuid(),item_id:it.id,lesson_date:it.lesson_date,answer:v};
@@ -61,7 +66,7 @@ async function submit(it){ const id='i'+it.id; const t=document.getElementById(i
     else answers[it.id][0].grade=j.grade;
     render(); document.getElementById(id).scrollIntoView({block:'nearest'});
   }catch(e){ b.disabled=false; err.textContent='Could not save: '+(e.message||e)+'. Check your connection and tap Check again.'; } }
-(async()=>{
+async function load(){ document.body.classList.remove('hw-is-off'); document.getElementById('hw-state').innerHTML=''; sub.textContent='Loading…'; root.innerHTML='';
   try{
     const all=await (await api('GET','homework_items?select=id,lesson_date,n,english,status,edited_english,keys,created_at&order=lesson_date.desc,created_at.desc,n.asc&limit=300')).json();
     if(!Array.isArray(all)) throw new Error('bad items');
@@ -73,6 +78,9 @@ async function submit(it){ const id='i'+it.id; const t=document.getElementById(i
     if(items.length){ const ids=items.map(i=>i.id).join(','); const ans=await (await api('GET','homework_answers?select=*&item_id=in.('+ids+')&order=ts.desc')).json();
       (Array.isArray(ans)?ans:[]).forEach(a=>{ (answers[a.item_id]=answers[a.item_id]||[]).push(a); }); }
     render();
-  }catch(e){ sub.textContent='Supabase is not reachable right now.'; root.innerHTML='<div class="card">Try again in a minute.</div>'; }
-})();
+  }catch(e){ sub.textContent=''; document.body.classList.add('hw-is-off'); document.getElementById('hw-state').innerHTML='<span class="dw-chip bad">offline</span>';
+    root.innerHTML='<div class="hw-off" role="alert"><svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 36h20a8 8 0 0 0 1-15.9A11 11 0 0 0 14.3 18 9 9 0 0 0 14 36z"/><path d="M8 8l32 32"/></svg><b>Can\'t load homework</b><button type="button" id="hw-retry">Retry</button></div>';
+    document.getElementById('hw-retry').onclick=load; }
+}
+load();
 </script><script src="js/build.js"></script></body></html>

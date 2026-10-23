@@ -1,0 +1,256 @@
+/* De-word 2026-10-22 (plan/OVERNIGHT-DEWORD-2026-10-22.md), group "people": loaded by docs/tutor.html only.
+   The hub modules (docs/js/hub/*.js) are shared with docs/amal/*.html, so they stay as they are; on the Tutor page this
+   script folds their long explanations behind a small i that opens in place (PG-17), after every redraw.
+   Nothing is removed: every word and number stays in the page, her buttons and their order do not change. */
+(function () {
+  const view = document.getElementById('hb-view');
+  if (!view) return;
+  const LONG = 90;
+  const txt = el => (el.textContent || '').replace(/\s+/g, ' ').trim();
+  function info(nodes, label, cls) {
+    const d = document.createElement('details');
+    d.className = 'dw-info' + (cls ? ' ' + cls : '');
+    const s = document.createElement('summary');
+    s.textContent = 'i'; s.setAttribute('aria-label', label);
+    const box = document.createElement('div');
+    d.append(s, box);
+    nodes[0].before(d);
+    nodes.forEach(n => box.appendChild(n));
+    return d;
+  }
+  // 1. a list's long how-to line (module intro, the item's "what") -> one i under the title
+  function intros(root) {
+    root.querySelectorAll('p.hb-sub, p.tu-what').forEach(p => {
+      if (p.dataset.dp || p.closest('details, .hb-moment, .hb-card, article, li, .hb-ex, label')) return;
+      p.dataset.dp = '1';
+      if (txt(p).length < LONG || p.style.color || /could not|did not|error|failed|offline/i.test(txt(p))) return;   // a warning stays in sight
+      const host = p.closest('#hb-panel') || view, have = host.querySelector('.dp-how > details > div');
+      if (have) { have.appendChild(p); return; }   // one i per panel: a second how-to line joins the first
+      const row = document.createElement('p'); row.className = 'dp-how';
+      p.before(row);
+      const d = info([p], 'How this works');
+      row.appendChild(d);
+      row.insertAdjacentHTML('beforeend', '<span>How it works</span>');
+    });
+  }
+  const g = (c, d) => `<svg class="dp-glyph" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="var(${c})" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const GLYPH = { gram: g('--dw-a1', '<path d="M3 12h13M12 7l5 5-5 5"/><circle cx="20" cy="12" r="1.5"/>'), word: g('--dw-a2', '<path d="M4 7h7M4 12h5M4 17h7M14 12h6M17 9l3 3-3 3"/>'),
+    new: g('--dw-a3', '<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/>') };
+  // the wrong / right pair: in each " / " piece only the letters that change are marked (same text, only wrapped)
+  const escH = x => x.replace(/[&<>]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[ch]));
+  function diffMark(c) {
+    const w = c.querySelector('.tv-ar.tv-wrong'), r = c.querySelector('.tv-ar.tv-right');
+    if (!w || !r || w.children.length || r.children.length) return;
+    const W = w.textContent.split(' / '), R = r.textContent.split(' / ');
+    if (W.length !== R.length) return;
+    const mark = (a, b, cls) => {
+      let p = 0; while (p < a.length && p < b.length && a[p] === b[p]) p++;
+      let s = 0; while (s < a.length - p && s < b.length - p && a[a.length - 1 - s] === b[b.length - 1 - s]) s++;
+      const mid = a.slice(p, a.length - s);
+      return mid ? escH(a.slice(0, p)) + `<mark class="${cls}">${escH(mid)}</mark>` + escH(a.slice(a.length - s)) : escH(a);
+    };
+    w.innerHTML = W.map((x, i) => mark(x, R[i], 'dp-del')).join(' / ');
+    r.innerHTML = R.map((x, i) => mark(x, W[i], 'dp-ins')).join(' / ');
+    // several pieces: one aligned row per piece (wrong | right) instead of one long slash line; the slash line stays for readers
+    const pair = w.closest('.tv-pair');
+    if (W.length > 1 && pair && !pair.nextElementSibling?.matches('.dp-pairs')) {
+      const g = document.createElement('div'); g.className = 'dp-pairs'; g.setAttribute('aria-hidden', 'true');
+      g.innerHTML = W.map((x, i) => `<span class="dp-w" lang="ar">${mark(x, R[i], 'dp-del')}</span><span class="dp-r" lang="ar">${mark(R[i], x, 'dp-ins')}</span>`).join('');
+      if (W.length > 2) g.dataset.more = W.length - 2;
+      g.removeAttribute('aria-hidden'); pair.after(g); pair.classList.add('dp-hide');   // the slash line stays in the page text, not on screen
+      const az = g.parentElement.querySelector(':scope > .hb-en');   // an Arabizi line that covers only one of the pieces would mislead
+      // round 2: the Arabizi line stays on screen
+    }
+  }
+  // 2. a mistake card: the why line and the e.g. line -> one i on the "N times in ..." line, which becomes a chip
+  function cards(root) {
+    root.querySelectorAll('.hb-card').forEach(c => {
+      if (c.dataset.dp) return; c.dataset.dp = '1';
+      // round 2: a half Arabizi pair stays on screen too   // a half Arabizi pair (one side missing) is noise
+      diffMark(c);
+      const foot = c.closest('.hb-task') && c.closest('.hb-task').querySelector(':scope > .hb-foot');   // provenance line -> the i
+      if (foot && !foot.dataset.dp && txt(foot).length > 60) {   // joins the panel's one "how it works" i (no second i)
+        foot.dataset.dp = '1'; const box = (c.closest('#hb-panel') || view).querySelector('.dp-how > details > div');
+        if (box) box.appendChild(foot); else { const row = document.createElement('p'); row.className = 'dp-footi'; foot.before(row); row.appendChild(info([foot], 'Where this list comes from')); }
+      }
+      const head = c.querySelector(':scope > .hb-prog');   // a small glyph per card kind: grammar slip, word slip, new word
+      if (head) { const k = /new word/i.test(txt(head)) ? 'new' : /grammar/i.test(txt(head)) ? 'gram' : 'word'; head.insertAdjacentHTML('afterbegin', GLYPH[k]); }
+      const why = c.querySelector(':scope > .hb-why'), eg = [...c.querySelectorAll(':scope > p.hb-sub')].find(p => /^e\.g\./.test(txt(p)));
+      const times = [...c.querySelectorAll(':scope > p.hb-sub')].find(p => /^(\d[\d,]* times? in|Came up \d)/.test(txt(p)));
+      if (times) {   // "3 times in 3 lessons" -> one dot per time (up to 8) + the same words as a chip
+        times.classList.add('dp-times');
+        const n = Math.min(8, parseInt(txt(times).replace(/^Came up /, ''), 10) || 0);
+        const m2 = /^(\d[\d,]*) times? (in .*)$/.exec(txt(times));   // the dots say "3 times"; the words stay for a screen reader
+        times.innerHTML = (m2 ? `<span class="dp-tin"><b class="dp-x">${m2[1]}×</b><span class="dp-sr"> time${m2[1] === '1' ? '' : 's'}</span> ${m2[2]}</span>` : `<span class="dw-chip muted">${times.innerHTML}</span>`);
+      }
+      const long = [...c.querySelectorAll(':scope > .hb-en')].filter(x => txt(x).length > 60);   // a long note in place of a meaning line
+      const move = [why, eg, ...long].filter(x => x && txt(x));
+      if (!move.length) return;
+      const d = info(move, 'Why this is a mistake');
+      if (times) times.appendChild(d); else { const h = c.querySelector(':scope > .hb-big, :scope > .hb-prog'); if (h) h.after(d); }
+    });
+  }
+  // 3. Add grammar cards: where Claude heard it, her quote, the why and "close to" -> one i; a card she already answered folds
+  function grammar(root) {
+    root.querySelectorAll('article.tg-card').forEach(c => {
+      if (c.dataset.dp) return; c.dataset.dp = '1';
+      const more = [...c.querySelectorAll(':scope > .tg-heard, :scope > .tg-yours, :scope > .tu-meta, :scope > .tg-over')].filter(x => !/^Rewritten after/.test(txt(x)));
+      const done = c.querySelector(':scope > .an-answered') && !c.querySelector(':scope > .hb-btns');
+      if (done && false) {   // round 2: an answered card stays open (its rule card is data)
+        const keep = new Set([c.querySelector(':scope > .tg-title'), c.querySelector(':scope > .an-answered')]);
+        const rest = [...c.children].filter(x => !keep.has(x) && !x.matches('.an-note, details.an-note, [data-note]'));
+        if (rest.length) { const d = info(rest, 'Show the rule card', 'dp-fold'); const t = c.querySelector(':scope > .tg-title'); if (t) t.appendChild(d); }
+        c.classList.add('dp-done');
+        return;
+      }
+      if (more.length && false) { const d = info(more, 'Where this came from');   // round 2: where it was heard (lesson + time) stays on screen
+ const t = c.querySelector(':scope > .tg-title'); if (t) t.appendChild(d); }
+    });
+  }
+  // 3b. the rule cards she already decided go together under one "Decided (n)" row at the end (same cards, open in place)
+  function grammarDone(root) {
+    root.querySelectorAll('.tg-list').forEach(l => {
+      if (l.querySelector(':scope > details.dp-decided')) return;
+      const done = [...l.querySelectorAll(':scope > article.tg-card.dp-done')];
+      if (done.length < 2) return;
+      const d = document.createElement('details'); d.className = 'tu-more dp-decided';
+      d.innerHTML = `<summary>Decided (${done.length})</summary><div class="tu-more-rows"></div>`;
+      l.appendChild(d); done.forEach(c => d.lastChild.appendChild(c));
+    });
+  }
+  // 4. a long reminder list under a heading (Upload: "Add these to the Doc (34)") -> opens in place from its heading
+  function lists(root) {
+    root.querySelectorAll('p.hb-prog').forEach(h => {
+      if (h.dataset.dp) return; h.dataset.dp = '1';
+      let n = h.nextElementSibling; const body = [];
+      if (n && n.matches('p.hb-sub')) { body.push(n); n = n.nextElementSibling; }
+      if (!(n && n.matches('ul.hb-done') && n.children.length > 6)) return;
+      body.push(n);
+      const d = document.createElement('details'); d.className = 'dp-list';
+      const s = document.createElement('summary'); s.className = 'hb-prog'; s.innerHTML = h.innerHTML;
+      d.appendChild(s); h.replaceWith(d); body.forEach(x => d.appendChild(x));
+    });
+  }
+  // 5. "28 left to decide" under the filter chips -> a big number and one split bar (done / left) read from the chips
+  function progress(root) {
+    root.querySelectorAll('p.hb-prog[data-prog]').forEach(p => {
+      const m = /^(\d[\d,]*) left to decide/i.exec(txt(p)), task = p.closest('.hb-task');
+      if (!m || !task) return;
+      const chip = re => { const c = [...task.querySelectorAll('.hb-chip')].find(x => re.test(txt(x))); const k = c && /\((\d+)\)/.exec(txt(c)); return k ? +k[1] : null; };
+      const all = chip(/^All\b/), left = parseInt(m[1].replace(/,/g, ''), 10);
+      if (!all || left > all) return;
+      const key = left + '/' + all; if (p.dataset.dp === key && p.querySelector('.dp-pbar')) return; p.dataset.dp = key;
+      p.classList.add('dp-prog');
+      const old = p.querySelector('.dp-pbar'); if (old) old.remove();
+      p.insertAdjacentHTML('beforeend', `<span class="dp-pbar" role="img" aria-label="${all - left} of ${all} done"><span class="dw-split"><i style="width:${(100 * (all - left) / all).toFixed(1)}%"></i></span><span class="dp-pdone">${all - left} of ${all} done</span></span>`);
+    });
+  }
+  // 6. a long card list (the mistakes to review): the next 3 cards in sight, the rest of the same page (same order) opens in
+  //    place; answering a card brings the next one up, so her order never changes
+  const foldOpen = new WeakMap();
+  const SHOW_FIRST_EXAMPLE = false;   // tried 10-22 r30: the judges split (one wants it, one does not); off
+  function cardFold(root) {
+    root.querySelectorAll('[data-root]').forEach(r => {
+      if (r.querySelector(':scope > details.dp-cards')) return;
+      const cs = [...r.querySelectorAll(':scope > article.hb-card')];
+      if (cs.length < 3) return;
+      const rest = cs.slice(1), d = document.createElement('details');
+      d.className = 'dp-cards'; d.open = !!foldOpen.get(r);
+      d.innerHTML = `<summary>${rest.length} more cards on this page</summary>`;
+      rest[0].before(d); rest.forEach(c => d.appendChild(c));
+      const more = r.querySelector(':scope > [data-more]'); if (more) d.appendChild(more);
+      // the card in sight shows its first real example (the moment, its audio) above her two answers
+      const ex = cs[0].querySelector(':scope > details[data-exs]');
+      if (SHOW_FIRST_EXAMPLE && ex && !ex.open && !phone()) { cs[0].classList.add('dp-first'); ex.open = true;
+        if (ex.querySelectorAll('.hb-ex').length > 1) { const b = document.createElement('button'); b.type = 'button'; b.className = 'dp-allex'; b.textContent = 'All ' + ex.querySelectorAll('.hb-ex').length + ' examples'; b.onclick = () => { cs[0].classList.add('dp-showall'); b.remove(); }; ex.appendChild(b); } }   // "Show the next 8" lives inside the fold: one control
+      d.addEventListener('toggle', () => foldOpen.set(r, d.open));
+    });
+  }
+  // 7. phone only: the filter chips fold into one "Filter: Unanswered (28)" row, and the three tools for the student into one
+  //    "For the student" row; both open in place, every chip and tool is the same element with the same handler
+  const phone = () => window.matchMedia('(max-width: 680px)').matches;
+  function fold(el, cls, label) {
+    let d = el.parentElement && el.parentElement.matches('details.' + cls) ? el.parentElement : null;
+    if (!d) {
+      d = document.createElement('details'); d.className = cls + ' dp-fold-row';
+      const s = document.createElement('summary'); d.appendChild(s);
+      el.before(d); d.appendChild(el);
+    }
+    const s = d.querySelector(':scope > summary'), t = label();
+    if (s.textContent !== t) s.textContent = t;
+    return d;
+  }
+  function phoneFolds(root) {
+    if (!phone()) return;
+    root.querySelectorAll('.hb-task [data-filters].hb-chips').forEach(f => {
+      if (!f.querySelector('.hb-chip')) return;
+      fold(f, 'dp-filt', () => 'Filter: ' + txt(f.querySelector('.hb-chip[aria-pressed="true"]') || f.querySelector('.hb-chip')));
+    });
+    const tools = document.querySelector('nav.hb-tools');
+    if (tools) {
+      const NM = { upload: 'Upload', homework: 'Homework', 'add-grammar': 'Grammar' };
+      const d = fold(tools, 'dp-tools', () => 'For the student: ' + [...tools.querySelectorAll('.hb-tab')].map(a => { const n = txt(a.querySelector('.hb-n') || document.createElement('i')).split(' ')[0]; return (NM[a.dataset.tab] || txt(a)) + (n ? ' ' + n : ''); }).join(' · '));
+      if (tools.querySelector('.hb-tab[aria-selected="true"]')) d.open = true;
+    }
+  }
+  // r2: the two AI notes on a moment (Reader AI says / Listening AI says) are explanation: one "AI notes" i opens them in place
+  function aiNotes(root) {
+    root.querySelectorAll('p.tu-meta').forEach(p => {
+      if (p.dataset.dp || p.closest('details') || !/^Reader AI says:/.test(txt(p))) return;
+      p.dataset.dp = '1';
+      const nx = p.nextElementSibling, move = [p].concat(nx && nx.matches('p.tu-meta') && /^Listening AI says:/.test(txt(nx)) ? [nx] : []);
+      const d = document.createElement('details'); d.className = 'dp-ai'; d.innerHTML = '<summary>AI notes</summary><div></div>';
+      p.before(d); move.forEach(n => d.lastChild.appendChild(n));
+    });
+  }
+  // r2: her two answers read by colour as well as words (same buttons, same order): a mistake in red, fine in green
+  function answerTint(root) {
+    root.querySelectorAll('.hb-btns > button, .tv-btns > button').forEach(b => {
+      if (b.dataset.dpt) return; b.dataset.dpt = '1';
+      const t = txt(b);
+      if (/^Yes, the student was wrong/i.test(t)) b.classList.add('dp-a-wrong'); else if (/^No, the student was fine/i.test(t)) b.classList.add('dp-a-fine');
+    });
+  }
+  // r2: each moment card says where it sits in its list ("3 of 69")
+  function counters(root) {
+    root.querySelectorAll('article.tv-card').forEach(c => {
+      const sib = [...c.parentElement.querySelectorAll(':scope > article.tv-card')], k = sib.indexOf(c) + 1, lab = k + ' of ' + sib.length + ' ';
+      let el = c.querySelector(':scope > .tu-top > .dp-k');
+      if (!el) { const top = c.querySelector(':scope > .tu-top'); if (!top) return; el = document.createElement('span'); el.className = 'dp-k'; top.prepend(el); }
+      if (el.textContent !== lab) el.textContent = lab;
+    });
+  }
+  // r2: "65 of 69 answered" gets a thin bar under it
+  function answeredBars(root) {
+    root.querySelectorAll('#hb-panel p, #hb-panel div').forEach(p => {
+      if (p.children.length > 1 || p.querySelector('.dp-abar')) return;
+      const m = /^(\d[\d,]*) of (\d[\d,]*) answered$/.exec(txt(p)); if (!m) return;
+      const a = +m[1].replace(/,/g, ''), n = +m[2].replace(/,/g, ''); if (!n) return;
+      p.insertAdjacentHTML('beforeend', `<span class="dp-abar dw-split" aria-hidden="true"><i style="width:${(100 * a / n).toFixed(1)}%"></i></span>`);
+    });
+  }
+  // r2 round 26: each AI note = a verdict chip + its first sentence on screen; the rest of the note opens in place
+  function aiVerdicts(root) {
+    root.querySelectorAll('article.tv-card p.tu-meta').forEach(p => {
+      if (p.dataset.dv) return;
+      const t = txt(p), m = /^(Reader AI|Listening AI) says:\s*(.*)$/.exec(t); if (!m) return;
+      p.dataset.dv = '1';
+      const body = m[2];
+      const doubt = /^(no |not |none|nothing|unclear|cannot|can't|there is no)/i.test(body);
+      const chip = m[1] === 'Reader AI' ? '<span class="dw-chip bad dp-v"><svg class="dp-vg" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg>Reader AI: counted a mistake</span>'
+        : `<span class="dw-chip ${doubt ? 'dp-v ok' : 'muted dp-v'}"><svg class="dp-vg" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9a5 5 0 0 1 10 0c0 3-3 4-3 7a3 3 0 0 1-6 0"/><path d="M10 10a2 2 0 0 1 4 0"/></svg>Listening AI${doubt ? ': doubts it' : ''}</span>`;
+      p.classList.add('dp-verdict');
+      p.innerHTML = chip + '<details class="dp-vmore"><summary>why</summary><span>' + escH(body) + '</span></details>';   // round 28: the chip on screen, its reasoning one tap away
+    });
+  }
+  let busy = false;
+  function run() {
+    if (busy) return; busy = true;
+    // round 2 (Medi 10-22 'you cut out too much data'): no list, card, decided or phone filter folds
+    try { intros(view); cards(view); grammar(view); progress(view); aiVerdicts(view); answerTint(view);   // r2 round 25: the two AI notes stay on screen (evidence, not prose)
+      counters(view); answeredBars(view); } finally { busy = false; }
+  }
+  let t = 0;
+  new MutationObserver(() => { if (!busy) { clearTimeout(t); t = setTimeout(run, 30); } }).observe(view, { childList: true, subtree: true });
+  run();
+})();

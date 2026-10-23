@@ -79,38 +79,77 @@
   const mins = t => Math.max(1, Math.round(t.left * minEach(t)));
   const sub = t => t.subText ? t.subText : t.finished ? 'Done · thank you' : `${fmt(t.left)} ${t.unit} left · about ${mins(t)} min`;
   const bar = t => `<div class="hb-bar" aria-hidden="true"><i style="width:${t.total ? Math.round(100 * t.done / t.total) : 0}%"></i></div>`;
+  // de-word 2026-10-22: the row's count stands out, the time is a chip; the same words as sub(), only shorter
+  const subHtml = t => t.subText ? esc(t.subText) : t.finished ? '<span class="dw-chip">Done · thank you</span>'
+    : `<span class="tu-left">${fmt(t.left)}</span><span class="tu-unit"> ${esc(t.unit)} left </span><span class="dw-chip muted tu-min">${mins(t)} min</span>`;
+  const short = s => String(s || '').replace(/\s*\(about \d+ min(?:utes)?\)\s*$/, '')
+    .replace(/^\d[\d,]* moments to look at again, with the whole exchange$/, 'Moments to re-check')
+    .replace(/^\d[\d,]* moments we are unsure about$/, 'Unsure moments')
+    .replace(/^\d[\d,]* quick questions about (.*)$/, 'Quick questions: $1')
+    .replace(/did the student say this word\? - part (\d+) of (\d+)$/, 'was the word said? · $1 of $2')
+    .replace(/what did the student say\? - part (\d+)$/, 'what was said? · $1')
+    .replace(/the student’s own corrections$/, 'his own fixes');
+  const info = (txt, label) => `<details class="dw-info"><summary aria-label="${esc(label || 'More')}">i</summary><div>${txt}</div></details>`;
+  const hico = (c, d) => `<svg class="dw-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="var(${c})" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const HICO = { list: hico('--dw-a1', '<path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/>'),
+    clock: hico('--dw-a2', '<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>') };
+  // a small glyph per kind of task, so a row reads by its shape: cards, an ear, a magnifier, a loop, a speech bubble, a plus
+  const KG = { cards: '<rect x="3" y="7" width="13" height="14" rx="2"/><path d="M8 4h11a2 2 0 0 1 2 2v11"/>', ear: '<path d="M7 9a5 5 0 0 1 10 0c0 3-3 4-3 7a3 3 0 0 1-6 0"/><path d="M10 10a2 2 0 0 1 4 0"/>',
+    look: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>', loop: '<path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M20 4v5h-5M4 20v-5h5"/>',
+    talk: '<path d="M4 5h16v11H9l-5 4z"/>', plus: '<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/>', note: '<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/>' };
+  const kindIcon = t => { const k = t.kind === 'review' ? 'cards' : t.kind === 'listen' || /^Listen/i.test(t.title) ? 'ear' : t.kind === 'verb_check' ? 'loop'
+      : t.kind === 'word_review' ? 'talk' : t.kind === 'newwords' || t.kind === 'proposals' ? 'plus' : /notes/i.test(t.title) ? 'note' : 'look';
+    return `<svg class="tu-kind" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${KG[k]}</svg>`; };
+  const pctBar = v => `<div class="hb-bar tu-pct" aria-hidden="true"><i class="${v === null || v === undefined ? '' : v < 50 ? 'lo' : v < 80 ? 'mid' : 'hi'}" style="width:${v || 0}%"></i></div>`;
 
   // ---- the one list + panel every tab uses (PG-17) ----------------------------------------------------------------
   // rows: [{id, title, sub, bar}]; laptop: panel on the right; phone: the panel opens right under its row (accordion).
   const wide = () => window.matchMedia('(min-width:960px)').matches;
   function listPanel(tab, rows, selId, fill, o) {
     o = o || {};
-    const view = $('#hb-view'), sel = rows.find(r => r.id === selId) || (wide() && !o.noAuto ? rows[0] : null);
-    let shown = Math.max(PAGE, sel ? rows.indexOf(sel) + 1 : 0), q = '';
+    const view = $('#hb-view'), sel = rows.find(r => r.id === selId) || ((wide() || o.autoPhone) && !o.noAuto ? rows[0] : null);
+    let shown = Math.max(PAGE, sel ? rows.indexOf(sel) + 1 : 0), q = '', foldOpen = false;
     view.innerHTML = `<div class="hb-wrap">${o.head || ''}<div class="hb-list" role="list">${o.search ? `<input type="search" class="hb-search" placeholder="${esc(o.search)}" aria-label="${esc(o.search)}">` : ''}<div data-rows></div></div>
       <div class="hb-panel" id="hb-panel" hidden></div></div>`;
     const panelEl = $('#hb-panel'), $rows = view.querySelector('[data-rows]');
     function draw() {
       const ql = q.trim().toLowerCase(), list = rows.filter(r => !ql || (r.title + ' ' + (r.find || '')).toLowerCase().includes(ql)), page = list.slice(0, shown);
-      $rows.innerHTML = page.map(r => `<button type="button" class="hb-row" role="listitem" data-row="${esc(r.id)}" aria-expanded="${!!(sel && r.id === sel.id)}"${sel && r.id === sel.id ? ' aria-current="true"' : ''}><p class="hb-row-t">${esc(r.title)}</p>${r.sub ? `<p class="hb-row-s">${esc(r.sub)}</p>` : ''}${r.bar || ''}</button>`).join('')
+      $rows.innerHTML = page.map(r => `<button type="button" class="hb-row${r.subHtml ? ' tu-row' : ''}${r.next ? ' tu-next' : ''}" role="listitem" data-row="${esc(r.id)}" aria-expanded="${!!(sel && r.id === sel.id)}"${sel && r.id === sel.id ? ' aria-current="true"' : ''}><p class="hb-row-t">${r.icon || ''}${esc(r.title)}</p>${r.subHtml ? `<p class="hb-row-s tu-row-s">${r.sep ? ' ' : ''}${r.subHtml}</p>` : r.sub ? `<p class="hb-row-s">${esc(r.sub)}</p>` : ''}${r.bar || ''}</button>`).join('')
         + (list.length > shown ? `<button type="button" class="hb-ans" data-more>Next ${Math.min(PAGE, list.length - shown)} (${list.length - shown} more)</button>` : '')
         + (!list.length ? '<p class="hb-empty">Nothing matches.</p>' : '');
       $rows.querySelectorAll('[data-row]').forEach(b => b.onclick = () => { location.hash = tab + (sel && sel.id === b.dataset.row && !wide() ? '' : '/' + b.dataset.row); });
       const m = $rows.querySelector('[data-more]'); if (m) m.onclick = () => { shown += PAGE; draw(); };
+      // de-word 2026-10-22: the first few rows stay in sight, the rest of the same list (same order) opens in place
+      if (o.fold && !ql && page.length > o.fold + 1) {
+        const rest = [...$rows.querySelectorAll(':scope > [data-row]')].slice(o.fold), d = document.createElement('details');
+        d.className = 'tu-more'; d.open = foldOpen || !!(sel && page.indexOf(sel) >= o.fold);
+        d.innerHTML = `<summary>All tasks (${page.length}) · ${rest.length} more</summary><div class="tu-more-rows"></div>`;
+        rest[0].before(d); rest.forEach(b => d.lastChild.appendChild(b));
+        d.addEventListener('toggle', () => { foldOpen = d.open; });
+      }
       if (sel && !wide()) { const row = $rows.querySelector(`[data-row="${CSS.escape(sel.id)}"]`); if (row) row.insertAdjacentElement('afterend', panelEl); }
     }
     const s = view.querySelector('.hb-search'); if (s) s.oninput = () => { q = s.value; shown = PAGE; draw(); };
     draw();
-    if (sel) { panelEl.hidden = false; fill(sel, panelEl); if (!wide()) panelEl.scrollIntoView({ block: 'nearest' }); }
+    if (sel) { panelEl.hidden = false; fill(sel, panelEl); if (!wide() && selId) panelEl.scrollIntoView({ block: 'nearest' }); }
   }
 
   // ---- To do --------------------------------------------------------------------------------------------------
   function setTab(tab) { document.querySelectorAll('.hb-tab').forEach(a => a.setAttribute('aria-selected', String(a.dataset.tab === tab))); }
   function todo(openId) {
     setTab('todo');
-    const open = tasks.filter(t => !t.finished);
+    // r2: the quiet Student results row (nothing to answer) comes after the lists she answers; their order is unchanged
+    const open = tasks.filter(t => !t.finished).filter(t => t.kind !== 'results').concat(tasks.filter(t => !t.finished && t.kind === 'results'));
     if (!open.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing to check right now. Shukran!</p>'; return; }
-    listPanel('todo', open.map(t => ({ id: t.id, title: t.title, sub: sub(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p));
+    listPanel('todo', open.map((t, i, A) => ({ id: t.id, next: t === (A.find(x => x.kind !== 'results') || A[0]),   // r2: Up next = the first list with something to answer (the quiet results row keeps its place)
+       icon: kindIcon(t), title: short(t.title), sep: /\d$/.test(short(t.title)) && !/\d$/.test(t.title), subHtml: subHtml(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p), { autoPhone: !location.hash.slice(1), head: `<nav class="tu-strip" aria-label="All lists">${open.map(t => `<a href="#todo/${esc(t.id)}" class="dw-chip${t.kind === 'results' ? ' muted' : ''}${t.id === (openId || open[0].id) ? ' on' : ''}"><span>${esc(short(t.title))}</span><span class="tu-sn">${t.kind === 'results' ? esc(t.subText || '') : `<b>${fmt(t.left)}</b> ${esc(t.unit)} · ${mins(t)} min`}</span></a>`).join('')}</nav>` });   // phone: a strip of every list first; the Up next list opens under its row; the quiet results row is last
+    // r2 (Medi 10-22 'you cut out too much data'): every card-set try stays on screen under the lists, without a tap
+    const rt = open.find(t => t.kind === 'results'), cur = (location.hash.split('/')[1] || '');
+    if (rt && cur !== 'results' && window.AneesResultsTask && RS) {
+      const sec = document.createElement('section'); sec.className = 'hb-panel tu-results'; sec.setAttribute('aria-label', 'Student results');
+      sec.innerHTML = `<h2 class="hb-ptitle">Student results</h2><p class="hb-pnote">${esc(rt.subText || '')}</p><div></div>`;
+      $('#hb-view').appendChild(sec); AneesResultsTask.mount(sec.lastChild, RS);
+    }
   }
   // every kind of item opens here, with the same module as its old address (no link to another page)
   // AM-27 (Medi 2026-10-07 "lets add a place for notes for amal always"): a note box under every card and one per list.
@@ -139,10 +178,10 @@
     results: b => AneesResultsTask.mount(b, RS),                                      // PG-36 Medi 2026-10-08: his card-set scores, read here (never sent)
   };
   function panel(t, p) {
-    p.innerHTML = `<h2 class="hb-ptitle">${esc(t.title)}</h2><p class="hb-pnote">${esc(sub(t))}</p>${t.item && t.item.what ? `<p class="hb-sub">${esc(t.item.what)}</p>` : ''}<div id="hb-body"></div><div data-earlier></div>`;
+    p.innerHTML = `<h2 class="hb-ptitle">${esc(short(t.title))}</h2><p class="hb-pnote">${esc(sub(t))}</p>${t.item && t.item.what ? `<p class="hb-sub">${esc(t.item.what)}</p>` : ''}<div id="hb-body"></div><div data-earlier></div>`;
     const update = () => {
       const row = document.querySelector(`.hb-row[data-row="${CSS.escape(t.id)}"]`);
-      if (row) { row.querySelector('.hb-row-s').textContent = sub(t); row.querySelector('.hb-bar i').style.width = (t.total ? Math.round(100 * t.done / t.total) : 0) + '%'; }
+      if (row) { row.querySelector('.hb-row-s').innerHTML = subHtml(t); row.querySelector('.hb-bar i').style.width = (t.total ? Math.round(100 * t.done / t.total) : 0) + '%'; }
       p.querySelector('.hb-pnote').textContent = sub(t); count();
     };
     const on = s => { t.total = s.total; t.done = Math.min(s.done, s.total); t.left = s.total - t.done; t.finished = s.finished; update(); };
@@ -186,6 +225,10 @@
   let WEAK = null;
   async function weak() { if (!WEAK) WEAK = await (await fetch('data/tutor-weak.json', { cache: 'no-store' })).json(); return WEAK; }
   const notesToken = () => { const g = T.open.find(x => x.kind === 'grammar_notes'); return g ? g.token : ''; };
+  // 389 min reads as "6½ h"; the exact minutes stay in the text
+  const hrs = n => n < 90 ? `<b>${n}</b><span>min to go</span>` : `<b>${Math.floor(n / 60)}${(n % 60) >= 45 ? '¾' : (n % 60) >= 15 ? '½' : ''}</b><span>hours to go <span class="tu-mins">(${n} min)</span></span>`;
+  // a weak rule / word row: the % is the big number, then one short line; the counts stay in the text for a reader
+  const pctRow = (v, hid, line) => `<b title="${esc(hid)}" class="tu-pctn ${v === null || v === undefined ? '' : v < 50 ? 'lo' : v < 80 ? 'mid' : 'hi'}">${esc(pctTxt(v))}</b><span class="tu-cnt">${esc(hid)}</span> <span class="tu-pline">${esc(line)}</span>`;
   const pctTxt = v => (v === null || v === undefined) ? '—' : v + '%';
   function momentsHtml(ms, how) {
     if (!ms || !ms.length) return '<p class="hb-sub">No moment recorded yet.</p>';
@@ -199,40 +242,43 @@
   async function grammar(id) {
     setTab('grammar'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
     let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
-    const rows = D.rules.map(r => ({ id: r.id, title: `${r.id} · ${r.name}`, sub: `${pctTxt(r.pct)} right · ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections · last ${pretty(r.last_used)}`, find: r.family || '', r }));
+    const rows = D.rules.map(r => ({ id: r.id, title: `${r.id} · ${r.name}`, subHtml: pctRow(r.pct, `right · ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections`, `last ${pretty(r.last_used)}`), bar: pctBar(r.pct), find: r.family || '', r }));
     listPanel('grammar', rows, id, (row, p) => {
       const r = row.r;
       p.innerHTML = `<article id="${esc(r.id)}" class="hb-doc"><h3 class="hb-q">${esc(r.id)} · ${esc(r.name)}</h3><p class="hb-sub">${esc(r.one_line || '')}</p>
         <p class="hb-prog">${pctTxt(r.pct)} right over ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections · ${esc(r.status || '')}</p>
         <h4 class="hb-q">His last moments</h4>${momentsHtml(r.moments, m => (m.said || '') + (m.recast ? ' → ' + m.recast : ''))}</article>`;
       clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
-    }, { noAuto: false, head: `<p class="hb-sub hb-span">The student's ${D.rules.length} weakest grammar rules, lowest % first (3+ uses). Tap one: his numbers, his last moments, and a note box for you.</p>` });
+    }, { noAuto: false, head: `<div class="hb-sub hb-span dw-row"><span class="dw-chip bad">${D.rules.length} weakest rules</span> lowest % first ${info(`The student's ${D.rules.length} weakest grammar rules, lowest % first (3+ uses). Tap one: his numbers, his last moments, and a note box for you.`, 'About this list')}</div>` });
   }
   async function vocab(id) {
     setTab('vocab'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
     let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
-    const rows = D.words.map(w => ({ id: 'word:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · ${pctTxt(w.pct)} right · ${fmt(w.n)} uses · last ${pretty(w.last_date)}`, find: w.english || '', w }));
+    const rows = D.words.map(w => ({ id: 'word:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, subHtml: pctRow(w.pct, `right · ${fmt(w.n)} uses`, `${w.english || ''} · last ${pretty(w.last_date)}`), bar: pctBar(w.pct), find: w.english || '', w }));
     listPanel('vocab', rows, id, (row, p) => {
       const w = row.w;
       p.innerHTML = `<article id="${esc(row.id)}" class="hb-doc"><h3 class="hb-q">${esc(w.arabizi)} ${w.arabic ? `<span lang="ar" dir="rtl">${esc(w.arabic)}</span>` : ''}</h3><p class="hb-sub">${esc(w.english || '')}</p>
         <p class="hb-prog">${pctTxt(w.pct)} right · ${fmt(w.right)} right, ${fmt(w.partial)} partly, ${fmt(w.wrong)} wrong · ${esc(w.status || '')}</p>
         <h4 class="hb-q">His last moments</h4>${momentsHtml(w.moments, m => `he said «${m.said || '?'}»${m.fix ? ' → ' + m.fix : ''}${m.kind === 'asked' ? ' (asked you for the word)' : ''}`)}</article>`;
       clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
-    }, { search: 'Find a word', head: `<p class="hb-sub hb-span">The student's ${D.words.length} weakest Doc words, lowest % first (2+ scored uses). Tap one: his numbers, his last moments, and a note box for you.</p>` });
+    }, { search: 'Find a word', head: `<div class="hb-sub hb-span dw-row"><span class="dw-chip bad">${D.words.length} weakest words</span> lowest % first ${info(`The student's ${D.words.length} weakest Doc words, lowest % first (2+ scored uses). Tap one: his numbers, his last moments, and a note box for you.`, 'About this list')}</div>` });
   }
   async function decay(id) {
     setTab('decay'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
     let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
     const K = D.decay || { decaying: [], untested: [], days: 0 };
-    const rows = K.decaying.map(w => ({ id: 'decay:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · last said ${pretty(w.last_date)} (${w.days_ago} days) · was ${esc(w.status || '')}`, find: w.english || '', w, kind: 'decaying' }))
-      .concat(K.untested.map(w => ({ id: 'untested:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · never said in a recorded lesson · in the Doc since ${pretty(w.first_seen)}`, find: w.english || '', w, kind: 'untested' })));
+    const rows = K.decaying.map(w => ({ id: 'decay:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, subHtml: `<span class="tu-pline tu-dline">${esc(w.english || '')} · last said ${esc(pretty(w.last_date))} (${w.days_ago} days)${w.status ? ' · was ' + esc(w.status) : ''}</span>`, find: w.english || '', w, kind: 'decaying' }))
+      .concat(K.untested.map(w => ({ id: 'untested:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, subHtml: `<span class="tu-pline tu-dline">${esc(w.english || '')} · never said in a recorded lesson · in the Doc since ${esc(pretty(w.first_seen))}</span>`, find: w.english || '', w, kind: 'untested' })));
+    const maxAge = Math.max(1, ...K.decaying.map(w => w.days_ago || 0));
+    rows.forEach(r => { r.bar = r.kind === 'decaying' ? `<div class="hb-bar tu-age" aria-hidden="true"><i style="width:${Math.round(100 * (r.w.days_ago || 0) / maxAge)}%"></i></div>` : '<div class="hb-bar tu-age" aria-hidden="true"><i class="never" style="width:100%"></i></div>'; });
     listPanel('decay', rows, id, (row, p) => {
       const w = row.w;
       p.innerHTML = `<article id="${esc(row.id)}" class="hb-doc"><h3 class="hb-q">${esc(w.arabizi)} ${w.arabic ? `<span lang="ar" dir="rtl">${esc(w.arabic)}</span>` : ''}</h3><p class="hb-sub">${esc(w.english || '')}</p>
         <p class="hb-prog">${row.kind === 'decaying' ? `Last said ${esc(pretty(w.last_date))}, ${w.days_ago} days ago · was ${esc(w.status || '')} (${pctTxt(w.pct)} over ${fmt(w.n)} uses)` : `Never said in a recorded lesson · in the Doc since ${esc(pretty(w.first_seen))}`}</p>
         ${row.kind === 'decaying' ? `<h4 class="hb-q">His last moments</h4>${momentsHtml(w.moments, m => `he said «${m.said || '?'}»${m.fix ? ' → ' + m.fix : ''}`)}` : ''}</article>`;
       clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
-    }, { search: 'Find a word', noAuto: true, head: `<p class="hb-sub hb-span">Decay: ${fmt(K.decaying.length)} words the student knew but has not said for ${K.days}+ days (longest first), then ${fmt(K.untested.length)} Doc words never said in a recorded lesson. Tap one for its story and a note box.</p>` });
+    }, { search: 'Find a word', noAuto: true, head: `<div class="hb-span tu-decay"><div class="dw-row"><span class="dw-chip warn">${fmt(K.decaying.length)} fading · ${K.days}+ days</span><span class="dw-chip muted">${fmt(K.untested.length)} never said</span> ${info(`Decay: ${fmt(K.decaying.length)} words the student knew but has not said for ${K.days}+ days (longest first), then ${fmt(K.untested.length)} Doc words never said in a recorded lesson. Tap one for its story and a note box.`, 'About this list')}</div>
+      <div class="dw-split" role="img" aria-label="${fmt(K.decaying.length)} fading, ${fmt(K.untested.length)} never said"><i class="tu-fade" style="width:${(100 * K.decaying.length / Math.max(1, K.decaying.length + K.untested.length)).toFixed(1)}%"></i><i class="tu-never" style="width:${(100 * K.untested.length / Math.max(1, K.decaying.length + K.untested.length)).toFixed(1)}%"></i></div></div>` });
   }
   async function materials(id) {
     setTab('materials');
@@ -284,11 +330,14 @@
     setTab('done');
     const fin = tasks.filter(t => t.finished), C = T.closed || [];
     if (!fin.length && !C.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing finished yet.</p>'; return; }
-    const rows = fin.map(t => ({ key: 't:' + t.id, title: t.title, note: `${fmt(t.done)} of ${fmt(t.total)} ${t.unit} answered`, open: () => t }))
-      .concat(C.map(c => ({ key: 'c:' + c.id, title: c.title, note: `${c.why}${c.detail ? ` · ${fmt(c.detail.answered)} of ${fmt(c.detail.total)} answered` : ''}`, c })));
-    $('#hb-view').innerHTML = `<p class="hb-sub">Tap a row to see what was asked and every answer. Undo works while a list is still open.</p><div class="hb-accs">${rows.map((r, i) =>
-      `<details class="hb-acc" data-i="${i}"><summary><b>${esc(r.title)}</b> <span>· ${esc(r.note)}</span></summary><div class="hb-acc-body"></div><div data-earlier></div></details>`).join('')}</div>`;
-    document.querySelectorAll('.hb-accs > details').forEach(d => d.addEventListener('toggle', () => {
+    // de-word: one state per row (a closed link's reason only when it says more than "answered") + a small done bar
+    const rows = fin.map(t => ({ key: 't:' + t.id, title: t.title, note: `${fmt(t.done)} of ${fmt(t.total)} ${t.unit} answered`, frac: t.total ? t.done / t.total : 0, open: () => t }))
+      .concat(C.map(c => ({ key: 'c:' + c.id, title: c.title, note: `${c.why && c.why !== 'answered' ? c.why + (c.detail ? ' · ' : '') : ''}${c.detail ? `${fmt(c.detail.answered)} of ${fmt(c.detail.total)} answered` : (c.why === 'answered' ? 'answered' : '')}`, frac: c.detail && c.detail.total ? c.detail.answered / c.detail.total : 1, c })));
+    const acc = (r, i) => `<details class="hb-acc" data-i="${i}"><summary><b>${esc(r.title)}</b> <span>· ${esc(r.note)}</span><span class="tu-mini" aria-hidden="true"><i style="width:${Math.round(100 * Math.min(1, r.frac || 0))}%"></i></span></summary><div class="hb-acc-body"></div><div data-earlier></div></details>`;
+    const full = rows.map((r, i) => [r, i]).filter(([r]) => (r.frac || 0) >= 1), part = rows.map((r, i) => [r, i]).filter(([r]) => (r.frac || 0) < 1);
+    $('#hb-view').innerHTML = `<div class="hb-sub dw-row"><span class="dw-chip">${full.length} done</span>${part.length ? `<span class="dw-chip muted">${part.length} closed early</span>` : ''} ${info('Tap a row to see what was asked and every answer. Undo works while a list is still open. "Closed early" = the list closed before every question was answered.', 'How this works')}</div><div class="hb-accs">${full.map(([r, i]) => acc(r, i)).join('')}</div>`
+      + (part.length ? `<div class="tu-closed"><p class="hb-prog">Closed early (${part.length})</p><div class="hb-accs">${part.map(([r, i]) => acc(r, i)).join('')}</div></div>` : '');
+    document.querySelectorAll('.hb-accs > details.hb-acc').forEach(d => d.addEventListener('toggle', () => {
       if (!d.open || d.dataset.on) return; d.dataset.on = '1';
       const r = rows[+d.dataset.i], body = d.querySelector('.hb-acc-body');
       if (r.c) { accBody(body, r.c); earlier(d.querySelector('[data-earlier]'), r.c); return; }
@@ -412,7 +461,7 @@
     } catch (e) {}
     rankAll(tasks); count();
     const open = tasks.filter(t => !t.finished && !t.quiet), m = open.reduce((s, t) => s + t.left * minEach(t), 0);
-    $('#hb-hello').textContent = open.length ? `Marhaba · ${open.length} thing${open.length === 1 ? '' : 's'} to check, about ${Math.max(1, Math.round(m))} min` : 'Marhaba · nothing to check right now';
+    $('#hb-hello').innerHTML = open.length ? `<span class="tu-bigs"><span class="dw-big">${HICO.list}<b>${open.length}</b><span>list${open.length === 1 ? '' : 's'} to check</span></span><span class="dw-big">${HICO.clock}${hrs(Math.max(1, Math.round(m)))}</span></span>` : 'Marhaba · nothing to check right now';
     $('#ab-source').textContent = 'Live · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
     if (!wired) { wired = true; window.addEventListener('hashchange', route); route(); }
     else if (onList()) route();

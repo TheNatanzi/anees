@@ -20,7 +20,7 @@
   const day = s => new Date(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   const css = document.createElement('style');
   css.textContent = `.an-doc{border-left:3px solid var(--green);background:var(--greenbg);border-radius:0 6px 6px 0;padding:8px 12px;margin:12px 0 4px}
-.an-doc h4{color:var(--green);margin:0 0 4px}.an-doc ul{margin:0;padding-left:18px;display:grid;gap:3px}.an-doc p{margin:4px 0}.an-doc li.sub{list-style:none}
+.an-doc h4{color:var(--green);margin:0 0 4px}.an-fold>summary{cursor:pointer;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--green);font-weight:500}.an-fold[open]>summary{margin-bottom:4px}.an-doc ul{margin:0;padding-left:18px;display:grid;gap:3px}.an-doc p{margin:4px 0}.an-doc li.sub{list-style:none}
 .an-write{margin-top:10px}.an-write summary{cursor:pointer;color:var(--green);font-weight:500;font-size:14px;min-height:32px;display:flex;align-items:center}
 .an-write textarea{width:100%;min-height:84px;font:15px/1.5 inherit;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);margin:6px 0}
 .an-write button{font:600 14px system-ui;background:var(--green);color:#fff;border:0;border-radius:6px;padding:9px 16px;min-height:40px;cursor:pointer}
@@ -110,7 +110,7 @@
     for (const s of notes.sections || []) for (const id of s.rules) {
       const a = art(id); if (!a) continue;
       const also = s.rules.filter(x => x !== id);
-      a.insertAdjacentHTML('beforeend', `<div class="an-doc"><h4>The tutor&#39;s notes${also.length ? ' (also on ' + also.map(esc).join(', ') + ')' : ''} · from her Doc, ${esc(notes.source && notes.source.edited ? day(notes.source.edited + 'T12:00') : '')}</h4>${s.html}</div>`);
+      a.insertAdjacentHTML('beforeend', `<details class="an-doc an-fold"${SCOPE === document ? ' open' : ''}><summary>Your Doc notes${also.length ? ' (also on ' + also.map(esc).join(', ') + ')' : ''} · ${esc(notes.source && notes.source.edited ? day(notes.source.edited + 'T12:00') : '')}</summary><div>${s.html}</div></details>`);
     }
     // the ask box: where to write, and the materials page
     const ask = SCOPE.querySelector('.ask');
@@ -118,8 +118,8 @@
     // inside the Tutor hub the materials are a tab of the same page (PG-17), never another page
     const mat = SCOPE === document ? '<a href="materials.html">Your Arabic Materials &rarr;</a>' : '<a href="#materials">Your Arabic Materials &rarr;</a>';
     box.innerHTML = canWrite
-      ? `<b>Your notes now live here.</b> Write a note under any rule (✎) or below for anything general. Your notes from your Google Doc are shown under each rule. ${mat}${writer('general', 'A general note (anything not about one rule)')}`
-      : `<b>Your notes from your Google Doc are shown under each rule.</b> ${TOKEN ? 'This link has expired, so new notes cannot be saved; the student can send a new one.' : 'To write new notes here, open this page from the Grammar rules link the student sends you.'} ${mat}`;
+      ? `<b>Write a note</b> under any rule (✎), or below for anything general. ${mat}${writer('general', 'A general note (anything not about one rule)')}`
+      : `${TOKEN ? '<b>Link expired</b>: ask the student for a new one · ' : ''}${mat}`;
     if (ask) ask.insertAdjacentElement('afterend', box);
     else if (SCOPE.querySelector('[data-general]')) SCOPE.querySelector('[data-general]').appendChild(box);
     if (!canWrite) for (const id of Object.keys(rows)) {

@@ -20,10 +20,71 @@ OUT = os.path.join(REPO, "docs", "reports", "anees-flow.html")
 TITLE = "Anees: from lesson to grade"
 
 
+WORD = {'A': 'Record', 'B': 'Hear', 'C': 'Check', 'D': 'Count', 'E': 'Publish', 'F': 'Tutor', 'G': 'Study', 'H': 'Grade'}
+ICONS = {'A': '🎙️', 'B': '👂', 'C': '🔍', 'D': '📒', 'E': '🌐', 'F': '✍️', 'G': '📚', 'H': '🏆'}   # one picture per phase
+# the same pictures drawn as flat SVG (white strokes on the phase colour), so they look the same on every device
+_S = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">%s</svg>'
+SVG_ICONS = {
+    'A': _S % '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/>',
+    'B': _S % '<path d="M7 10a5 5 0 0 1 10 0c0 3-3 4-3 7a3 3 0 0 1-6 0"/><path d="M10 10a2 2 0 0 1 4 0"/>',
+    'C': _S % '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/>',
+    'D': _S % '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/>',
+    'E': _S % '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+    'F': _S % '<path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/>',
+    'G': _S % '<path d="M4 5h6v15H4zM10 5h5v15h-5zM15 6l4-1 2 14-4 1z"/>',
+    'H': _S % '<path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 20h8"/>',
+}
+ROBOT_ICON = _S % '<rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M10 16h4"/>'
+DONE_ICON = ('<svg class="fl-doneico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" '
+             'stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3L17 9"/></svg>')
+
+
+def dword(frag):
+    """De-word round 2 (Medi 2026-10-22: "I like look A but not how much data you cut"): every phase, step, study,
+    building block and the who-decides rule stay in view, as before. Only a step's how-it-works sentence that holds no
+    number opens behind a small (i); each phase gets its picture."""
+    def info(m):
+        txt = re.sub(r'<[^>]+>', '', m.group(1))
+        if re.search(r'\d', txt) or len(txt.split()) <= 60:
+            return m.group(0)   # a number in it is data, and a one-liner reads faster than a tap: it stays in view
+        return '<details class="dw-info fl-more"><summary aria-label="How this step works">ⓘ</summary><div>%s</div></details>' % m.group(1)
+    # step 6: the six readers as three plan groups (every model name and number stays), the merge rule as one line
+    frag = frag.replace('<p><b>Claude Opus 5.5</b> and <b>Claude Sonnet 5.5</b> (Claude plan), <b>GPT-5.6 Terra</b> and <b>GPT-6 Astra</b> through Codex (ChatGPT plan), '
+                        '<b>Gemini 3.7 Flash</b> and <b>Gemini 3.1 Pro (preview)</b> (paid Gemini key). Same reading instructions; flags of the same kind within 15 s become one candidate.</p>',
+                        '<div class="fl-plans"><span><em>Claude plan</em> Opus 5.5 · Sonnet 5.5</span><span><em>ChatGPT plan (Codex)</em> GPT-5.6 Terra · GPT-6 Astra</span>'
+                        '<span><em>Paid Gemini key</em> 3.7 Flash · 3.1 Pro (preview)</span></div><p>Same instructions; same-kind flags within 15 s → one candidate.</p>', 1)
+    frag = re.sub(r'<p>(.*?)</p>(?=<div class="chips">)', info, frag)
+
+    def phase(m):
+        code = m.group(2)
+        return m.group(0) + '<span class="fl-ico" aria-hidden="true">%s</span>' % (SVG_ICONS.get(code) or ICONS.get(code, ''))
+    frag = re.sub(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>', phase, frag)
+    # steps 3 + 4 as one picture: the first transcript alone vs after the second listen (the numbers stay in the text too)
+    acc = ('<div class="dw-bars fl-acc" role="img" aria-label="Words right: 61–69% from ElevenLabs alone, 94–95% after the second listen">'
+           '<div><span>ElevenLabs alone</span><div class="dw-track"><i style="width:65%"></i></div><b>61–69%</b></div>'
+           '<div><span>+ 3 listens, 2 agree</span><div class="dw-track"><i style="width:94.5%"></i></div><b>94–95%</b></div></div>'
+           + '<div class="fl-mini"><span>🎧 3 listens</span><i>→</i><span>✓ 2 agree</span><i>→</i><span><b>94–95%</b> right</span></div>')
+    frag = re.sub(r'(method A: 94–95%</b> right\.(?:(?!<div class="chips">).)*?)(<div class="chips">)', lambda m: m.group(1) + acc + m.group(2), frag, count=1, flags=re.S)
+    # one picture of the path on top: 8 coloured stops, icon + one word each, A to H; a tap jumps to that phase
+    stops = re.findall(r'<section class="phase" style="--pc:([^"]+)"><header><span class="pcode">(\w)</span>', frag)
+    if stops:
+        frag = re.sub(r'<section class="phase" style="--pc:[^"]+"><header><span class="pcode">(\w)</span>',
+                      lambda m: m.group(0).replace('<section class="phase"', '<section class="phase" id="fl-%s"' % m.group(1), 1), frag)
+        strip = ('<ol class="fl-path" aria-label="The %d stops from the call to the grade">' % len(stops) +
+                 ''.join('<li style="--pc:%s"><a href="#fl-%s"><span class="fl-dot">%s</span><b>%s</b></a></li>'
+                         % (c, k, SVG_ICONS.get(k, k), WORD.get(k, k)) for c, k in stops) + '</ol>')
+        i = frag.find('<section class="phase"')   # right above phase A (PG-56 test: the fragment's own opening stays exact)
+        frag = frag[:i] + strip + '\n  ' + frag[i:]
+    frag = frag.replace("<div class=\"done\"><b>✓ Done</b>", "<div class=\"done\">" + DONE_ICON + "<b>Done</b>", 1)
+    return frag
+
+
 def build():
-    frag = io.open(SRC, encoding="utf-8").read()
-    html = BR.page(TITLE, "", "ANEES-FLOW.fragment.html", "Claude", "2026-10-21", story=frag)
-    html = html.replace('<article class="ar-doc">\n\n</article>', "")
+    frag = dword(io.open(SRC, encoding="utf-8").read())
+    html = BR.page(TITLE, "", "ANEES-FLOW.fragment.html", "Claude", "2026-10-21", story=screen_roles(frag))
+    html = html.replace('<link rel="stylesheet" href="../css/ai-reports.css?v=20261022-study">',
+                        '<link rel="stylesheet" href="../css/ai-reports.css?v=20261022-study"><link rel="stylesheet" href="../css/dw-reports.css?v=2">')
+    html = html.replace('<article class="ar-doc">\n\n</article>', "").replace('<div class="ab-sub">Built from ANEES-FLOW.fragment.html</div>', "").replace('‹ All AI reports</a>', '‹ Reports</a>')
     io.open(OUT, "w", encoding="utf-8").write(html)
     print("built", os.path.relpath(OUT, REPO), "%d KB" % (len(html) // 1024))
     fill_tab(frag)
@@ -64,7 +125,7 @@ def fill_tab(frag):
     page = io.open(TAB, encoding="utf-8").read()
     a, b = page.index("<!-- FLOW:start -->") + len("<!-- FLOW:start -->"), page.index("<!-- FLOW:end -->")
     head = ('<div class="ov-head"><span class="vp-eyebrow">From the Meet call to the grade book</span><h2 class="ov-h2">How Anees works</h2>'
-            '<p class="ab-sub">Every step a lesson goes through, who does it and what it costs. Open a <b>Study</b> to see the test behind a step.</p></div>')
+            '<p class="ab-sub">Every step, who does it, what it costs.</p></div>')
     io.open(TAB, "w", encoding="utf-8").write(page[:a] + "\n" + head + "\n" + body + "\n" + page[b:])
     print("filled the How Anees works tab in", os.path.relpath(TAB, REPO))
 

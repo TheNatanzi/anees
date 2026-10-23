@@ -1,0 +1,411 @@
+/* De-word 2026-10-22, group "words": Word Bank, Grammar Console, Flashcards & Review.
+   Same markup in both looks; Look B specifics under html[data-look="kurz"]. Uses the picture-kit vars from look.css. */
+#anees-bank h1 details.dw-info { font-size: 13px; font-weight: 400; vertical-align: middle; }
+#anees-bank h1 details.dw-info > div { position: absolute; z-index: 5; max-width: min(64ch, 86vw); }
+#anees-bank details.dw-info > div { white-space: normal; text-align: left; }
+
+/* Word Bank: promised words */
+#ab-promised .dw-late { margin: 0 0 6px; }
+#ab-promised .ab-promised > summary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; cursor: pointer; }
+#ab-promised .dw-promised-bar { display: inline-flex; width: 140px; margin: 0; }
+#ab-promised .dw-promised-bar > i:nth-child(2) { background: var(--dw-warn); }
+/* Word Bank: level share bar over the status chips */
+#ab-statuses { flex-wrap: wrap; }
+#ab-statuses .dw-levels { flex: 1 0 100%; height: 12px; margin: 0 0 4px; }
+.dw-levels > .dw-lv-Wrong { background: var(--dw-bad) !important; }
+.dw-levels > .dw-lv-Shaky { background: var(--dw-warn) !important; }
+.dw-levels > .dw-lv-Good { background: var(--dw-a3) !important; }
+.dw-levels > .dw-lv-Mastered { background: var(--dw-a1) !important; }
+.dw-levels > .dw-lv-Untested { background: transparent !important; }
+#anees-bank .dw-wb-bigs { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+#anees-bank .dw-wb-bigs .rel-approx { cursor: help; }
+#anees-bank .ab-viewnote.dw-row { justify-content: flex-start; }
+#ab-rows .ab-seencell details.dw-info > div { position: absolute; right: 8px; z-index: 5; width: min(300px, 80vw); }
+#ab-rows .ab-seencell { position: relative; }
+@media (max-width: 680px) {
+  #anees-bank .dw-wb-bigs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #anees-bank .dw-wb-bigs .dw-big b { font-size: 30px; }
+}
+
+/* ---------- Look B ---------- */
+html[data-look="kurz"] #ab-promised .ab-promised > summary { padding: 10px 14px; border-radius: var(--dw-radius); background: var(--dw-card); }
+
+/* round 2 */
+#anees-bank .dw-wb-bigs .dw-big b { font-size: clamp(28px, 3.2vw, 40px); white-space: nowrap; }
+#ab-statuses .dw-levels { width: 100%; max-width: none; }
+#ab-rows .ab-seencell { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 4px 8px; }
+#ab-rows .ab-seencell .ab-seen { display: flex; flex-direction: column; }
+@media (max-width: 680px) {
+  #ab-rows .ab-seencell { grid-column: 1 / -1; align-items: center; }
+  #ab-rows .ab-seencell .ab-seen { flex-direction: row; gap: 8px; align-items: baseline; }
+}
+#ab-statuses { flex: 1 1 100%; }
+
+/* Grammar Console */
+#gc-rows .gc-oneline { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+#anees-bank .gc-chart-foot details.dw-info > div { position: absolute; z-index: 5; width: min(320px, 80vw); }
+#anees-bank .gc-chart { position: relative; }
+#gc-source.dw-chip { align-self: flex-start; }
+@media (max-width: 680px) { #gc-rows .gc-oneline { white-space: normal; } }
+
+/* Grammar Console: phone rule cards with labelled numbers */
+@media (max-width: 680px) {
+  #anees-bank #gc-rows .gc-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  #gc-rows .gc-rowhead > div:nth-child(1) { grid-column: 1 / -1; }
+  #gc-rows .gc-rowhead > div:nth-child(6), #gc-rows .gc-rowhead > div:nth-child(7) { grid-column: span 2; }
+  #gc-rows .gc-rowhead > div:nth-child(n+2):nth-child(-n+5) { text-align: left; }
+  #gc-rows .gc-rowhead > div:nth-child(n+2):nth-child(-n+5)::before { display: block; font: 700 10px/1.4 var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-muted); }
+  #gc-rows .gc-rowhead > div:nth-child(2)::before { content: "Uses"; }
+  #gc-rows .gc-rowhead > div:nth-child(3)::before { content: "Slips"; }
+  #gc-rows .gc-rowhead > div:nth-child(4)::before { content: "Hear it"; }
+  #gc-rows .gc-rowhead > div:nth-child(5)::before { content: "Score"; }
+  #gc-rows .gc-rowhead .gc-last { display: flex; gap: 6px; align-items: baseline; }
+}
+#gc-rows.dw-clip > .gc-row:not(.gc-row-Wrong) { display: none; }
+#gc-showall { display: block; margin: 10px auto; }
+
+/* Flashcards & Review */
+.fc.dw-fc > div { position: relative; overflow: hidden; padding-top: 30px; }
+.fc.dw-fc .dw-fcbar { position: absolute; left: 0; right: 0; bottom: 0; background: var(--dw-a1); opacity: .22; min-height: 3px; display: block; }
+.fc.dw-fc b, .fc.dw-fc span { position: relative; }
+h2 details.dw-info { font-size: 13px; font-weight: 400; }
+#sync:not(:empty) { display: table; margin: 14px auto; padding: 3px 12px; border-radius: 999px; background: var(--dw-warn-fill); color: var(--dw-warn); font-weight: 600; }
+#ab-rows.dw-clip > article:nth-child(n+21) { display: none; }
+
+/* Word Bank round 4: practice counts as icon + number, level words as coloured chips, age instead of date */
+#anees-bank .dw-practice > div::before { content: ""; display: block; width: 16px; height: 16px; margin: 0 auto 3px; background: var(--dw-muted);
+  -webkit-mask: var(--dw-ico) center / contain no-repeat; mask: var(--dw-ico) center / contain no-repeat; }
+#anees-bank .dw-practice > div:nth-child(1) { --dw-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H10l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z'/%3E%3C/svg%3E"); }
+#anees-bank .dw-practice > div:nth-child(2) { --dw-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a8 8 0 0 0-8 8v4a3 3 0 0 0 3 3h1v-7H6a6 6 0 0 1 12 0h-2v7h1a3 3 0 0 0 3-3v-4a8 8 0 0 0-8-8zM8 19h8v2H8z'/%3E%3C/svg%3E"); }
+#anees-bank .dw-practice > div:nth-child(3) { --dw-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 3h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-4 4v13a1 1 0 0 0 1 1h13v-2H5V7z'/%3E%3C/svg%3E"); }
+#anees-bank .dw-practice > div:nth-child(1)::before { background: var(--dw-a1); }
+#anees-bank .dw-practice > div:nth-child(2)::before { background: var(--dw-a2); }
+#anees-bank .dw-practice > div:nth-child(3)::before { background: var(--dw-a3); }
+#anees-bank .dw-practice { font-size: 15px; font-weight: 600; }
+#ab-rows .ab-badge strong[class^="ab-status-"] { padding: 1px 8px; border-radius: 999px; font-weight: 700; }
+#ab-rows .ab-badge strong.ab-status-Mastered { background: var(--dw-ok-fill); color: var(--dw-ok); }
+#ab-rows .ab-badge strong.ab-status-Good { background: color-mix(in srgb, var(--dw-a3) 22%, transparent); color: var(--dw-ink); }
+#ab-rows .ab-badge strong.ab-status-Shaky { background: var(--dw-warn-fill); color: var(--dw-warn); }
+#ab-rows .ab-badge strong.ab-status-Wrong { background: var(--dw-bad-fill); color: var(--dw-bad); }
+#ab-rows .ab-badge strong.ab-status-Untested { border: 1px dashed var(--dw-line); color: var(--dw-muted); }
+#ab-rows .dw-ago { font-size: 13px; font-weight: 600; color: var(--dw-ink); }
+#anees-bank .dw-wb-bigs .dw-big b { font-size: clamp(26px, 2.6vw, 36px); }
+#ab-rows .vp-memory-mini { white-space: nowrap; }
+@media (max-width: 680px) {
+  #anees-bank #ab-rows .ab-seencell { grid-column: auto !important; align-self: center; justify-content: flex-end; }
+  #anees-bank #ab-rows .dw-practice { max-width: 180px; }
+}
+#ab-rows .ab-badge { min-width: 0; gap: 4px; } #ab-rows .ab-badge > span:last-child { gap: 4px; }
+
+/* Flashcards round 4: tiles read as buttons, colour mix shows only the counts that are there */
+#anees-bank .stile { position: relative; }
+#anees-bank .stile:not(.empty)::after { content: "→"; position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font: 700 14px/1 var(--sabz-font-sans, system-ui); background: var(--dw-a1); color: var(--sabz-bg, #F5F2EA); }
+#anees-bank .stile:not(.empty) .vp-card-label { padding-right: 32px; }
+#anees-bank .fc-mixn span::after { font: 400 11px var(--sabz-font-sans, system-ui); color: var(--dw-muted); margin-left: 3px; }
+#anees-bank .fc-mixn .mx-mastered::after { content: "mastered"; } #anees-bank .fc-mixn .mx-good::after { content: "good"; }
+#anees-bank .fc-mixn .mx-shaky::after { content: "shaky"; } #anees-bank .fc-mixn .mx-wrong::after { content: "wrong"; }
+#anees-bank .fc-mixn .mx-untested::after { content: "not tried yet"; }
+
+/* Grammar round 4: "needs work" action row */
+#anees-bank .dw-needs { margin: 4px 0 12px; gap: 10px; }
+#anees-bank .dw-needbtn { display: inline-flex; align-items: baseline; gap: 6px; padding: 8px 16px; border-radius: 999px; border: 0;
+  font: 600 15px var(--sabz-font-sans, system-ui); cursor: pointer; }
+#anees-bank .dw-needbtn b { font: 700 24px/1 var(--sabz-font-serif, Georgia, serif); }
+#anees-bank .dw-need-Wrong { background: var(--dw-bad-fill); color: var(--dw-bad); }
+#anees-bank .dw-need-Shaky { background: var(--dw-warn-fill); color: var(--dw-warn); }
+@media (max-width: 680px) {
+  #anees-bank .gc-charts { grid-template-columns: 1fr 1fr !important; gap: 8px; }
+  #anees-bank .gc-chart { padding: 10px; min-width: 0; }
+  #anees-bank .gc-chart-foot { font-size: 11px; }
+  #anees-bank .gc-chart .gc-chart-value { font-size: 26px; }
+}
+
+/* round 5 */
+#anees-bank details.dw-more { margin-top: 18px; }
+#anees-bank details.dw-more > summary { cursor: pointer; display: inline-block; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--dw-line);
+  font: 600 14px var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
+#anees-bank .stile[data-t="shaky"] { grid-column: 1 / -1; background: var(--dw-warn-fill); border-color: transparent; }
+#anees-bank .stile[data-t="shaky"]::after { background: var(--dw-warn); content: "Practise →"; width: auto; padding: 0 12px; border-radius: 999px; }
+#anees-bank .stile[data-t="shaky"] .vp-num { font-size: 44px; }
+#gc-rows.dw-clip::before { content: "Wrong rules"; display: block; padding: 10px 12px 4px; font: 700 12px var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-bad); }
+#anees-bank details.dw-more { margin-bottom: 18px; }
+
+/* ---------- Look B (kurz) for the words pages: a small drawn scene by each title, bright rounded blocks ---------- */
+html[data-look="kurz"] #anees-bank h1::after { content: ""; display: inline-block; width: 92px; height: 46px; margin-left: 12px; vertical-align: middle;
+  background: center / contain no-repeat; }
+/* Word Bank: two speech bubbles and a star */
+html[data-look="kurz"] #anees-bank[aria-label="Anees Word Bank"] h1::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 46'%3E%3Crect x='4' y='6' width='42' height='26' rx='13' fill='%235AA9FF'/%3E%3Cpath d='M14 30l-4 10 12-8z' fill='%235AA9FF'/%3E%3Crect x='40' y='16' width='40' height='24' rx='12' fill='%23FF7A3D'/%3E%3Cpath d='M70 38l6 7 0-10z' fill='%23FF7A3D'/%3E%3Ccircle cx='18' cy='19' r='3' fill='%230E1A3A'/%3E%3Ccircle cx='26' cy='19' r='3' fill='%230E1A3A'/%3E%3Ccircle cx='34' cy='19' r='3' fill='%230E1A3A'/%3E%3Cpath d='M84 2l2 5 5 1-4 3 1 5-4-3-4 3 1-5-4-3 5-1z' fill='%23FFC93C'/%3E%3C/svg%3E"); }
+/* Grammar: three building blocks */
+html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 46'%3E%3Crect x='4' y='24' width='26' height='20' rx='5' fill='%232EE6B6'/%3E%3Crect x='32' y='24' width='26' height='20' rx='5' fill='%235AA9FF'/%3E%3Crect x='18' y='3' width='26' height='20' rx='5' fill='%23FF7A3D'/%3E%3Crect x='60' y='24' width='26' height='20' rx='5' fill='%23B28CFF'/%3E%3Ccircle cx='76' cy='10' r='7' fill='%23FFC93C'/%3E%3C/svg%3E"); }
+/* Cards: a fanned stack of cards */
+html[data-look="kurz"] #root h1::after, html[data-look="kurz"] .vp-header h1::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 46'%3E%3Crect x='14' y='8' width='28' height='36' rx='6' fill='%23B28CFF' transform='rotate(-14 28 26)'/%3E%3Crect x='32' y='5' width='28' height='36' rx='6' fill='%235AA9FF'/%3E%3Crect x='50' y='8' width='28' height='36' rx='6' fill='%23FF7A3D' transform='rotate(14 64 26)'/%3E%3Cpath d='M64 20l3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4 6-1z' fill='%23FFC93C'/%3E%3C/svg%3E"); }
+html[data-look="kurz"] #anees-bank :is(.stile, .gc-chart, .ab-row, .gc-row, .panel, .fc > div) { border-color: transparent; box-shadow: 0 2px 0 var(--kz-line); }
+html[data-look="kurz"] #anees-bank :is(.stile, .gc-chart) { border-radius: 20px; }
+html[data-look="kurz"] #anees-bank .fc-grid > .stile:nth-child(4n+1) { border-top: 5px solid var(--kz-blue); }
+html[data-look="kurz"] #anees-bank .fc-grid > .stile:nth-child(4n+2) { border-top: 5px solid var(--kz-orange); }
+html[data-look="kurz"] #anees-bank .fc-grid > .stile:nth-child(4n+3) { border-top: 5px solid var(--kz-teal); }
+html[data-look="kurz"] #anees-bank .fc-grid > .stile:nth-child(4n+4) { border-top: 5px solid var(--kz-purple); }
+html[data-look="kurz"] #anees-bank .stile[data-t="shaky"] { border-top: 0; background: var(--kz-yellow); color: #14204A; }
+html[data-look="kurz"] #anees-bank .stile[data-t="shaky"] :is(.vp-num, .vp-card-unit, .vp-card-sub, .vp-card-label span) { color: #14204A !important; }
+html[data-look="kurz"] #anees-bank .stile[data-t="shaky"]::after { background: #14204A; color: #FFC93C; }
+html[data-look="kurz"] #anees-bank .stile:not(.empty)::after { color: #fff; }
+html[data-look="kurz"] #anees-bank .dw-need-Wrong { background: var(--kz-pink); color: #fff; }
+html[data-look="kurz"] #anees-bank .dw-need-Shaky { background: var(--kz-yellow); color: #14204A; }
+html[data-look="kurz"] #anees-bank .gc-chart { border-top: 5px solid var(--kz-blue); }
+html[data-look="kurz"] #anees-bank .gc-chart:nth-child(2) { border-top-color: var(--kz-orange); }
+html[data-look="kurz"] #anees-bank .gc-chart:nth-child(3) { border-top-color: var(--kz-teal); }
+html[data-look="kurz"] #anees-bank .gc-chart:nth-child(4) { border-top-color: var(--kz-purple); }
+html[data-look="kurz"] #anees-bank .gc-chart-value { font-weight: 900; color: var(--kz-blue); }
+html[data-look="kurz"] #anees-bank .gc-chart:nth-child(2) .gc-chart-value { color: var(--kz-orange); }
+html[data-look="kurz"] #anees-bank .gc-chart:nth-child(3) .gc-chart-value { color: var(--kz-teal); }
+html[data-look="kurz"] #anees-bank .ab-row, html[data-look="kurz"] #anees-bank .gc-row { border-radius: 16px; margin-bottom: 6px; background: var(--kz-panel); }
+html[data-look="kurz"] #anees-bank .dw-practice > div { font-weight: 900; }
+html[data-look="kurz"] #ab-rows .ab-badge strong.ab-status-Mastered { background: var(--kz-teal); color: #0E1A3A; }
+html[data-look="kurz"] #ab-rows .ab-badge strong.ab-status-Shaky { background: var(--kz-yellow); color: #0E1A3A; }
+html[data-look="kurz"] #ab-rows .ab-badge strong.ab-status-Wrong { background: var(--kz-pink); color: #fff; }
+html[data-look="kurz"] #ab-rows .ab-badge strong.ab-status-Good { background: var(--kz-blue); color: #fff; }
+html[data-look="kurz"] .fc.dw-fc .dw-fcbar { background: var(--kz-yellow); opacity: .45; }
+@media (max-width: 680px) { html[data-look="kurz"] #anees-bank h1::after { width: 64px; height: 32px; } }
+#anees-bank .stile.wide.empty { min-height: 0; flex-direction: row; align-items: center; gap: 14px; }
+#anees-bank .stile.wide.empty .vp-card-value { order: -1; }
+#anees-bank .stile.wide.empty .vp-card-sub { color: var(--dw-ok); font-weight: 700; }
+#anees-bank .stile.wide.empty .vp-card-sub::before { content: "✓ "; }
+/* Look B round 2 */
+#anees-bank .ab-header h1 { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+#anees-bank button.stile.wide.empty { min-height: 0; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 4px 14px; padding: 12px 16px; }
+html[data-look="kurz"] .pn-bar { background: var(--kz-panel) !important; border-color: var(--kz-line) !important; }
+html[data-look="kurz"] .pn-tab { color: var(--kz-muted) !important; }
+html[data-look="kurz"] .pn-tab[aria-current="page"] { color: #14204A !important; background: #FFC93C !important; }
+html[data-look="kurz"] #anees-bank .stile[data-t="shaky"], html[data-look="kurz"] #anees-bank .dw-need-Shaky, html[data-look="kurz"] #dw-practice-cta { background: #FFC93C; color: #14204A; }
+html[data-look="kurz"] #anees-bank .dw-need-Wrong { background: #FF5C8A; color: #14204A; }
+/* Look B round 3 (same markup both looks) */
+#anees-bank .gc-chart-foot details.dw-info { display: inline-block; margin-top: 4px; }
+#anees-bank .dw-wb-bigs { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+#anees-bank .dw-wb-bigs .dw-big:nth-child(-n+2) { grid-column: span 2; }
+#anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) { padding: 10px; }
+#anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) b { font-size: 22px; }
+#anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) span { font-size: 10px; letter-spacing: .03em; }
+#anees-bank .dw-wb-bigs .dw-big:nth-child(-n+2) b { font-size: clamp(32px, 3.6vw, 46px); }
+@media (max-width: 680px) {
+  #anees-bank .dw-wb-bigs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  #anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) { padding: 8px 6px; }
+  #anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) b { font-size: 18px; }
+  #anees-bank .dw-wb-bigs .dw-big:nth-child(n+3) span { font-size: 9px; }
+}
+/* card tiles: a small glyph per randomized drill */
+#anees-bank .stile[data-t^="drill:"] .vp-card-value::after, #anees-bank .stile[data-t="never"] .vp-card-value::after { content: ""; width: 30px; height: 30px; margin-left: auto; background: var(--dw-a2);
+  -webkit-mask: var(--g) center / contain no-repeat; mask: var(--g) center / contain no-repeat; }
+#anees-bank .stile .vp-card-value { display: flex; align-items: baseline; gap: 6px; width: 100%; }
+#anees-bank .stile[data-t="drill:random"] { --g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3Cpath d='M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8z'/%3E%3C/svg%3E"); }
+#anees-bank .stile[data-t="drill:full"] { --g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='6' r='3.2'/%3E%3Ccircle cx='5' cy='9' r='2.6'/%3E%3Ccircle cx='19' cy='9' r='2.6'/%3E%3Cpath d='M6 21c0-3.9 2.7-7 6-7s6 3.1 6 7zM0 20c0-3 1.8-5.5 4.5-5.5 1 0 1.9.3 2.6.9C5.8 16.7 5 18.4 5 20.3zM24 20c0-3-1.8-5.5-4.5-5.5-1 0-1.9.3-2.6.9 1.3 1.3 2.1 3 2.1 4.9z'/%3E%3C/svg%3E"); }
+#anees-bank .stile[data-t="never"] { --g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 3h11l3 3v15H5zM8 8h8v2H8zm0 4h8v2H8zm0 4h5v2H8z'/%3E%3C/svg%3E"); }
+#anees-bank .stile[data-t="drill:full"] .vp-card-value::after { background: var(--dw-a3); }
+#anees-bank .stile[data-t="never"] .vp-card-value::after { background: var(--dw-a4); }
+details.dw-info > summary.dw-i::before { content: "ⓘ"; }
+html[data-look="kurz"] #anees-bank .fc-grid > .stile[data-t="shaky"] { border-top: 0 !important; }
+
+/* combined round 4 */
+#anees-bank details.dw-morestats { grid-column: 1 / -1; }
+#anees-bank details.dw-morestats > summary { cursor: pointer; display: inline-block; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line); font: 600 13px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+#anees-bank details.dw-morestats > .dw-bigs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+#anees-bank details.dw-morestats .dw-big b { font-size: 22px !important; }
+/* round 5 */
+#anees-bank .dw-morecharts > summary { cursor: pointer; display: inline-block; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line); font: 600 13px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+#anees-bank .dw-charts3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 10px; margin-top: 10px; }
+#anees-bank #gc-c1 .gc-chart-body svg { max-height: 120px; }
+@media (max-width: 680px) { #anees-bank .dw-charts3 { grid-template-columns: 1fr 1fr !important; } }
+#anees-bank .stile:not(.empty)::after { content: "Start →"; width: auto; padding: 0 10px; border-radius: 999px; height: 24px; font-size: 12px; }
+#anees-bank .stile:not(.empty) .vp-card-label { padding-right: 70px; }
+#anees-bank .stile[data-t^="cat:"]:not(.empty)::after { content: "Open →"; }
+/* round 6 */
+#anees-bank details.dw-filters > summary { cursor: pointer; display: inline-block; margin: 2px 0 8px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line); font: 600 13px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+#dw-levelbar .dw-levels { height: 12px; margin: 6px 0; }
+#anees-bank .dw-gclevels { flex: 1 0 100%; height: 12px; margin: 0 0 6px; }
+.dw-gclevels > .dw-lv-Wrong { background: var(--dw-bad) !important; } .dw-gclevels > .dw-lv-Shaky { background: var(--dw-warn) !important; }
+.dw-gclevels > .dw-lv-Good { background: var(--dw-a3) !important; } .dw-gclevels > .dw-lv-Mastered { background: var(--dw-a1) !important; }
+.dw-gclevels > .dw-lv-Unscored { background: var(--dw-muted) !important; } .dw-gclevels > :is(.dw-lv-NotTaught, .dw-lv-Untested) { background: transparent !important; }
+#anees-bank .ab-controls:has(> .dw-gclevels) { flex-wrap: wrap; }
+@media (max-width: 680px) {
+  #anees-bank #gc-tablehead { display: flex !important; flex-wrap: nowrap; overflow-x: auto; gap: 6px; }
+  #anees-bank #gc-tablehead > * { flex: none; }
+  #anees-bank .stile:not(.empty)::after { position: static; order: 9; margin-top: 8px; }
+  #anees-bank .stile:not(.empty) .vp-card-label { padding-right: 0; }
+  #anees-bank .stile .vp-card-label { overflow-wrap: normal; word-break: normal; hyphens: none; letter-spacing: .04em; }
+}
+#anees-bank .stile[data-t^="cat:"]:not([data-t="cat:due"]):not([data-t="cat:shaky"]):not([data-t="cat:wrong"]) .vp-card-value::after { content: ""; width: 28px; height: 28px; margin-left: auto; background: var(--dw-a1);
+  -webkit-mask: var(--g) center / contain no-repeat; mask: var(--g) center / contain no-repeat; }
+#anees-bank .stile[data-t="cat:sets"] { --g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 3h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-4 4v13a1 1 0 0 0 1 1h13v-2H5V7z'/%3E%3C/svg%3E"); }
+#anees-bank .stile[data-t="cat:uploads"] { --g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3l6 6h-4v6h-4V9H6zM4 17h16v4H4z'/%3E%3C/svg%3E"); }
+#anees-bank .stile[data-t="cat:colloc"] { --g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7H6a5 5 0 0 0 0 10h3v-3H6a2 2 0 0 1 0-4h3zm6 0v3h3a2 2 0 0 1 0 4h-3v3h3a5 5 0 0 0 0-10zM8 11h8v2H8z'/%3E%3C/svg%3E"); }
+#anees-bank .stile[data-t="cat:tenses"] { --g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-1 5v6l5 3 1-1.7-4-2.4V7z'/%3E%3C/svg%3E"); }
+#anees-bank .stile[data-t="cat:topics"] { --g: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3C/svg%3E"); }
+#anees-bank .stile[data-t="cat:uploads"] .vp-card-value::after { background: var(--dw-a2) !important; }
+#anees-bank .stile[data-t="cat:colloc"] .vp-card-value::after { background: var(--dw-a3) !important; }
+#anees-bank .stile[data-t="cat:tenses"] .vp-card-value::after { background: var(--dw-a4) !important; }
+/* round 7 */
+@media (max-width: 680px) {
+  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(2), #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(3) { display: block; grid-column: span 1; }
+  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(5) { grid-column: span 2; }
+  #gc-rows .gc-rowhead[aria-expanded="false"] > div:nth-child(6) { grid-column: 1 / -1; }
+}
+#anees-bank .stile[data-t="shaky"] .vp-num { font-size: 56px; }
+#anees-bank .dw-gclevels { margin: 4px 0 6px; }
+@media (max-width: 680px) { #gc-rows .gc-rowhead > div:nth-child(6) .gc-pill { display: inline-block; width: auto; padding: 2px 14px; } #gc-rows .gc-rowhead > div:nth-child(6) { justify-self: start; } }
+
+/* round 9: a closed Word Bank row = word, meaning, one level, last said; the rest opens in place with the row arrow */
+#ab-rows .dw-level { display: inline-block; padding: 2px 12px; border-radius: 999px; font: 700 12px/1.6 var(--sabz-font-sans, system-ui); }
+#ab-rows .dw-level.dw-lv-Mastered { background: var(--dw-ok-fill); color: var(--dw-ok); }
+#ab-rows .dw-level.dw-lv-Good { background: color-mix(in srgb, var(--dw-a3) 25%, transparent); color: var(--dw-ink); }
+#ab-rows .dw-level.dw-lv-Shaky { background: var(--dw-warn-fill); color: var(--dw-warn); }
+#ab-rows .dw-level.dw-lv-Wrong { background: var(--dw-bad-fill); color: var(--dw-bad); }
+#ab-rows .dw-level.dw-lv-Untested { border: 1px dashed var(--dw-line); color: var(--dw-muted); }
+#ab-rows .dw-closed .ab-rowhead { padding-top: 10px; padding-bottom: 10px; }
+html[data-look="kurz"] #ab-rows .dw-level.dw-lv-Mastered { background: var(--kz-teal); color: #0E1A3A; }
+html[data-look="kurz"] #ab-rows .dw-level.dw-lv-Good { background: var(--kz-blue); color: #fff; }
+html[data-look="kurz"] #ab-rows .dw-level.dw-lv-Shaky { background: var(--kz-yellow); color: #0E1A3A; }
+html[data-look="kurz"] #ab-rows .dw-level.dw-lv-Wrong { background: var(--kz-pink); color: #fff; }
+@media (max-width: 680px) {
+  #ab-rows .ab-rowhead { grid-template-columns: 1fr 1fr; }
+  #ab-rows .dw-closed .ab-badges { grid-column: auto; grid-row: auto; }
+  #ab-rows .dw-closed .ab-seencell { justify-content: flex-end; }
+}
+
+/* round 11: chips are the bar's legend (same colour dot), one Sort menu, plain card headings */
+#anees-bank :is(#ab-statuses .ab-chip, #gc-statuses .ab-chip)::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 0; background: transparent; border: 1px solid var(--dw-line); }
+#anees-bank :is(#ab-statuses .ab-status-Wrong, #gc-statuses .dw-st-Wrong)::before { background: var(--dw-bad); border: 0; }
+#anees-bank :is(#ab-statuses .ab-status-Shaky, #gc-statuses .dw-st-Shaky)::before { background: var(--dw-warn); border: 0; }
+#anees-bank :is(#ab-statuses .ab-status-Good, #gc-statuses .dw-st-Good)::before { background: var(--dw-a3); border: 0; }
+#anees-bank :is(#ab-statuses .ab-status-Mastered, #gc-statuses .dw-st-Mastered)::before { background: var(--dw-a1); border: 0; }
+#anees-bank #gc-statuses .dw-st-Unscored::before { background: var(--dw-muted); border: 0; }
+#dw-levelbar .dw-levels { margin-bottom: 4px; }
+#anees-bank .dw-sortlabel { font: 600 13px var(--sabz-font-sans, system-ui); color: var(--dw-muted); text-transform: none; letter-spacing: 0; }
+#anees-bank .dw-sortpick { margin-left: 6px; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--dw-line); background: var(--dw-card); color: var(--dw-ink); font: inherit; }
+#gc-rows.dw-clip::before { content: "Wrong rules · score = % right"; }
+html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after { display: none; }
+#anees-bank .stile .vp-card-label, #anees-bank .stile .vp-card-label span { text-transform: none !important; letter-spacing: 0 !important; font-size: 14px !important; font-weight: 700; }
+#anees-bank .stile .vp-card-sub { font-size: 13px; }
+/* round 12 */
+#anees-bank .dw-per100 { display: inline-block; margin-left: 10px; font: 600 14px var(--sabz-font-sans, system-ui); color: var(--dw-muted); vertical-align: middle; }
+#ab-promised .dw-muted { color: var(--dw-muted); }
+#gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] { grid-template-columns: minmax(0, 1fr) 64px 64px auto 170px !important; }
+#gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(2) { display: block !important; grid-column: 2; }
+#gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(3) { display: block !important; grid-column: 3; }
+#gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(4) { grid-column: 4; }
+#gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(5) { grid-column: 5; }
+#gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(6) { display: none; }
+#gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(2)::before, #gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(3)::before { display: block; font: 700 10px/1.4 var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-muted); }
+@media (max-width: 680px) {
+  #gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] { grid-template-columns: 56px 56px minmax(0, 1fr) !important; }
+  #gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(1), #gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(4) { grid-column: 1 / -1 !important; }
+  #gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(2) { grid-column: 1 !important; }
+  #gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(3) { grid-column: 2 !important; }
+  #gc-rows.dw-clip .gc-rowhead[aria-expanded="false"] > div:nth-child(5) { grid-column: 3 !important; }
+}
+
+/* round 2 (Medi 2026-10-22: "you cut out too much data"): every number shows again; six tiles in one row */
+#anees-bank #ab-metrics.dw-wb-bigs { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+#anees-bank #ab-metrics .dw-big { grid-column: auto !important; padding: 12px; }
+#anees-bank #ab-metrics .dw-big b { font-size: clamp(24px, 2.4vw, 34px) !important; }
+#anees-bank #ab-metrics .dw-big span { font-size: 11px; }
+#anees-bank #ab-metrics .dw-big small { display: block; font-size: 11px; color: var(--dw-muted); }
+#anees-bank .dw-practice > div > span { display: block; font: 400 10px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+@media (max-width: 680px) { #anees-bank #ab-metrics.dw-wb-bigs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; } }
+#ab-promised .dw-ptable { width: 100%; border-collapse: collapse; font-size: 13px; margin: 6px 0 14px; }
+#ab-promised .dw-ptable td { padding: 3px 8px; border-bottom: 1px solid var(--dw-line); vertical-align: middle; }
+#ab-promised .dw-ptable td:first-child { white-space: nowrap; }
+#ab-promised .dw-ptable .dw-chip { font-size: 11px; white-space: nowrap; }
+#ab-promised .dw-ptable tr:not([data-state="in_doc"]) .dw-chip { font-weight: 700; }
+#ab-promised .dw-ptable .dw-age { color: var(--dw-muted); font-size: 11px; }
+#ab-promised .ab-promised { max-height: none; }
+@media (max-width: 680px) { #ab-promised .dw-ptable tr { display: grid; grid-template-columns: 1fr auto; padding: 4px 0; border-bottom: 1px solid var(--dw-line); }
+  #ab-promised .dw-ptable td { border: 0; padding: 1px 4px; } #ab-promised .dw-ptable td:nth-child(3), #ab-promised .dw-ptable td:nth-child(5) { font-size: 11px; color: var(--dw-muted); } }
+/* grammar: the one-line meaning wraps instead of being cut with an ellipsis */
+#gc-rows .gc-oneline { white-space: normal !important; overflow: visible; text-overflow: clip; }
+/* round 2: memory timeline (green = fresh, then fading / at risk / high risk), dot = days since the last good recall */
+#ab-rows .dw-mtl { position: relative; display: flex; height: 6px; border-radius: 3px; overflow: visible; margin: 6px 0 2px; max-width: 160px; }
+#ab-rows .dw-mtl i { display: block; height: 100%; } #ab-rows .dw-mtl .z0 { background: var(--dw-ok); border-radius: 3px 0 0 3px; }
+#ab-rows .dw-mtl .z1 { background: var(--dw-a3); } #ab-rows .dw-mtl .z2 { background: var(--dw-warn); } #ab-rows .dw-mtl .z3 { background: var(--dw-bad); border-radius: 0 3px 3px 0; }
+#ab-rows .dw-mtl b { position: absolute; top: -3px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--dw-ink); border: 2px solid var(--dw-card); }
+#ab-rows .dw-mtk { position: relative; height: 12px; max-width: 160px; font-size: 10px; color: var(--dw-muted); }
+#ab-rows .dw-mtk span { position: absolute; transform: translateX(-50%); }
+/* round 2 grammar: donut counts big, small captions readable */
+#gc-c4 .gc-legend { font-size: 14px; gap: 2px; } #gc-c4 .gc-legend .dw-lgn { font: 700 20px/1.1 var(--sabz-font-serif, Georgia, serif); }
+#anees-bank .gc-chart-foot, #anees-bank .gc-chart-note { font-size: 13px; }
+#gc-rows .gc-num small, #gc-rows .gc-hear small, #gc-rows small { font-size: 12px; }
+/* round 2 cards: every mix count shows (zeros too); each count + label stays on one line */
+#anees-bank .fc-mixn { display: flex !important; flex-wrap: wrap; gap: 2px 10px; }
+#anees-bank .fc-mixn span { white-space: nowrap; flex: none; width: auto !important; }
+#ab-promised { margin-top: 22px; }
+/* round 3 grammar: the donut legend wraps and every count is readable */
+#gc-c4 .gc-legend .dw-lgn[style*="E6E1D6"], #gc-c4 .gc-legend .dw-lgn[style*="CFC9BC"] { color: var(--dw-ink) !important; }
+#gc-c4 .gc-legend > div { white-space: normal; }
+@media (max-width: 680px) { #anees-bank #gc-c4 { grid-column: 1 / -1; } #gc-c4 .gc-pie-body { flex-wrap: wrap; } #gc-c4 .gc-legend { display: grid; grid-template-columns: 1fr 1fr; } }
+/* round 3 cards: the five mix counts as a 5-column grid, label under its number */
+#anees-bank .fc-mixn { display: grid !important; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+#anees-bank .fc-mixn span { display: flex; flex-direction: column; align-items: flex-start; white-space: normal; }
+#anees-bank .fc-mixn span::after { margin-left: 0 !important; font-size: 10px !important; line-height: 1.2; white-space: nowrap; }
+#anees-bank .fc-mixn .mx-mastered::after { content: "mast."; } #anees-bank .fc-mixn .mx-untested::after { content: "new"; }
+/* round 4 cards: mix counts never break inside a number */
+#anees-bank .fc-mixn { grid-template-columns: repeat(5, auto) !important; justify-content: space-between; gap: 2px 6px; font-size: 12px; }
+#anees-bank .fc-mixn span { white-space: nowrap !important; }
+/* round 4 grammar: bold column heads on desktop; the generic per-cell label shows only where there is no head (phone) */
+#anees-bank #gc-tablehead { font-weight: 700; color: var(--dw-ink); font-size: 12px; }
+@media (min-width: 681px) { #gc-rows small.dw-sr, #gc-rows .dw-sr { display: none; } }
+#gc-rows small { color: var(--dw-muted); font-size: 13px; }
+/* round 4 word bank phone: the level is the loudest thing on a card, the three counts one quiet line */
+@media (max-width: 680px) {
+  #ab-rows .ab-badge strong[class^="ab-status-"] { font-size: 14px; padding: 2px 10px; }
+  #anees-bank #ab-rows .dw-practice { display: flex; gap: 12px; font-size: 13px; }
+  #anees-bank #ab-rows .dw-practice > div { display: flex; align-items: center; gap: 3px; }
+  #anees-bank #ab-rows .dw-practice > div::before { width: 12px; height: 12px; margin: 0; }
+  #ab-rows .dw-mtk, #ab-rows .ab-tiny { font-size: 12px; }
+}
+/* round 5 grammar phone: the sort buttons wrap */
+@media (max-width: 680px) { #anees-bank #gc-tablehead { flex-wrap: wrap !important; overflow: visible !important; } }
+/* round 5 word bank phone: counts on one full row, memory on the next */
+@media (max-width: 680px) { #anees-bank #ab-rows .ab-practice, #anees-bank #ab-rows .ab-seencell { grid-column: 1 / -1 !important; justify-content: flex-start; } }
+/* round 5 cards: a taller mix bar; on phone the five counts sit 3 + 2 */
+#anees-bank .fc-mixbar { height: 9px !important; }
+@media (max-width: 680px) { #anees-bank .fc-mixn { grid-template-columns: repeat(3, auto) !important; justify-content: start; gap: 2px 14px; } }
+@media (max-width: 680px) { #anees-bank #ab-rows .ab-seencell { display: flex; flex-direction: column; align-items: flex-start !important; gap: 4px; text-align: left; }
+  #anees-bank #ab-rows .ab-seencell .vp-memory-detail { width: 100%; } }
+/* round 6 cards: the 7-day strip is a bar chart you can see */
+.fc.dw-fc .dw-fcbar { opacity: .55 !important; }
+@media (max-width: 680px) { #anees-bank .fc-sec .fc-grid:has(.stile[data-t="cat:sets"]) { grid-template-columns: 1fr !important; } }
+/* round 6 grammar phone: mistakes + self-correction side by side, the other two full width */
+@media (max-width: 680px) { #anees-bank #gc-c3, #anees-bank #gc-c4 { grid-column: 1 / -1; } }
+/* round 7 grammar: you vs tutor split bar on the self-correction card */
+#anees-bank .dw-c2split { margin: 4px 0 8px; }
+#anees-bank .dw-c2split .dw-split { height: 12px; }
+#anees-bank .dw-c2split .dw-split > i:first-child { background: var(--dw-a1) !important; } #anees-bank .dw-c2split .dw-split > i:last-child { background: var(--dw-bad) !important; opacity: .75; }
+#anees-bank .dw-c2lab { display: flex; justify-content: space-between; font-size: 13px; margin-top: 3px; } #anees-bank .dw-c2lab b { font-size: 16px; }
+/* round 7 cards: the five mix counts stay on one row on phone too */
+@media (max-width: 680px) { #anees-bank .fc-mixn { grid-template-columns: repeat(5, auto) !important; justify-content: space-between; gap: 2px 4px; font-size: 11px; } }
+/* round 8 grammar phone: the self-correction card full width, its chart inside the card */
+@media (max-width: 680px) { #anees-bank #gc-c2 { grid-column: 1 / -1; } }
+#anees-bank .gc-chart-body svg { max-width: 100%; } #anees-bank .gc-chart { overflow: hidden; }
+#anees-bank .dw-c2lab { gap: 12px; }
+@media (max-width: 680px) { #anees-bank #gc-c1 { grid-column: 1 / -1; } }
+/* round 10 word bank: each % tile carries a small ring filled to its value (floats in its own space, never over the number) */
+#anees-bank #ab-metrics .dw-big.dw-ring { display: block; }
+#anees-bank #ab-metrics .dw-big.dw-ring::before { content: ""; float: right; width: 30px; height: 30px; margin: 2px 0 4px 6px; border-radius: 50%;
+  background: conic-gradient(var(--dw-a1) calc(var(--p) * 1%), var(--dw-line) 0); -webkit-mask: radial-gradient(circle, transparent 50%, #000 53%); mask: radial-gradient(circle, transparent 50%, #000 53%); }
+#anees-bank #ab-metrics .dw-big.dw-ring > b, #anees-bank #ab-metrics .dw-big.dw-ring > span, #anees-bank #ab-metrics .dw-big.dw-ring > small { display: block; }
+@media (max-width: 680px) { #anees-bank #ab-metrics .dw-big.dw-ring::before { float: none; display: block; width: 18px; height: 18px; margin: 0 0 3px; } }
+/* grammar phone: title and its (i) on one line */
+@media (max-width: 680px) { #anees-bank .ab-header h1 { font-size: 26px; } }
+/* round 12: rings above their number everywhere; secondary text a size up */
+#anees-bank #ab-metrics .dw-big.dw-ring::before { float: none !important; display: block; width: 22px; height: 22px; margin: 0 0 4px; }
+#anees-bank .gc-chart-foot { font-size: 14px !important; } #anees-bank .gc-chart-note { font-size: 13px !important; }
+#anees-bank .stile .vp-card-sub { font-size: 14px !important; } #anees-bank .fc-mixn span::after { font-size: 11px !important; }
+/* round 13: thicker rings; recall state as a coloured badge (strong / fading / at risk / high risk) */
+#anees-bank #ab-metrics .dw-big.dw-ring::before { width: 26px; height: 26px; -webkit-mask: radial-gradient(circle, transparent 38%, #000 41%); mask: radial-gradient(circle, transparent 38%, #000 41%); }
+#ab-rows :is(.vp-memory-badge, .vp-memory-mini) { display: inline-block; padding: 1px 8px; border-radius: 999px; font-weight: 700; font-size: 13px; }
+#ab-rows :is(.vp-memory-badge, .vp-memory-mini).vp-memory-strong { background: var(--dw-ok-fill); color: var(--dw-ok); }
+#ab-rows :is(.vp-memory-badge, .vp-memory-mini).vp-memory-fading { background: color-mix(in srgb, var(--dw-a3) 25%, transparent); color: var(--dw-ink); }
+#ab-rows :is(.vp-memory-badge, .vp-memory-mini).vp-memory-risk { background: var(--dw-warn-fill); color: var(--dw-warn); }
+#ab-rows :is(.vp-memory-badge, .vp-memory-mini).vp-memory-high { background: var(--dw-bad-fill); color: var(--dw-bad); }
+#ab-rows .vp-memory-detail .ab-tiny { white-space: nowrap; }
+#anees-bank .ab-tablehead, #ab-rows .ab-rowhead { grid-template-columns: minmax(130px, 1.2fr) minmax(110px, 1.1fr) minmax(170px, 1.6fr) 150px 200px; }
+@media (max-width: 680px) { #ab-rows .ab-rowhead { grid-template-columns: 1fr 1fr; } #ab-rows .vp-memory-detail .ab-tiny { white-space: normal; } }

@@ -1,0 +1,418 @@
+/* De-word pass for Progress & Stats only (plan/OVERNIGHT-DEWORD-2026-10-22.md).
+   The tab renderers write their panels; this file then keeps on screen only numbers, actions and warnings:
+   - a line under a heading goes behind a small ⓘ on the heading (opens in place),
+   - notes, sources and footers go behind a ⓘ where they stood (a caveat keeps a visible warning chip),
+   - the method-change box becomes one warning chip per tab (its words open from the chip),
+   Round 2 (Medi 2026-10-22: "you cut out too much data"): every number, row, card sub-line and chart stays ON
+   SCREEN. Only a line with no data in it (pure explanation, sources, method notes) goes behind a ⓘ.
+   Nothing is deleted: every word and number is still in the page, one tap away. Runs again whenever a
+   renderer redraws (period switch, live data), so the next hourly build keeps the same look. */
+(function () {
+  'use strict';
+  const ROOT_ID = 'vp-content';
+  // lines that sit right under a heading
+  const SUBS = '.ab-sub, .vp-panelhead .ab-sub';   // .ov2-sub is a small heading over data: it stays
+  // notes, sources, footers, long explanations: behind a ⓘ where they stand
+  const NOTES = ['.vp-card-sub', '.vp-foot', '.vp-footer', '.ov2-source', '.ov2-src', '.ov2-why',
+    '.ov2-notes', '.ov2-text', '.ov2-quote', '.va-foot', '.vu-foot', '.vl-foot', '.gp-foot', '.gu-foot', '.gu-src',
+    '.fu-foot', '.fu-do', '.fl-foot', '.fl-rule', '.fl-strict', '.vl-fwhy', '.vl-kpis + small',
+    '.vl-strip small', '.gp-strip small', '.rb-link', '.vp-empty-long'].join(',');
+  // explanation/source lines: behind ⓘ even when they hold a date or a file name
+  const SOURCE = 'p.vp-foot, .vp-footer, .ov2-source, .ov2-src, .gu-src, .rb-link, .vp-empty-long';
+  // a line that carries data (a percent, a decimal, a 2+ digit count) stays on screen
+  const DATA = /\d+(?:[.,]\d+)+|\d+\s*%|\b\d{2,}\b/g;
+  const nOfM = el => /\b\d+ of [\d,]+\b/.test(el.textContent || '');
+  const dataCount = el => ((el.textContent || '').replace(/\b20\d\d-\d\d-\d\d\b/g, '').match(DATA) || []).length;
+  const WARN = /not verified|caveat|hard to trust|\bearly\b|not comparable|machine gues|offline|stale/i;
+  let busy = false, queued = false;
+
+  function info(label, warn) {
+    const d = document.createElement('details');
+    d.className = 'dw-info dw-p' + (warn ? ' dw-pwarn' : '');
+    d.dataset.dw = '1';
+    const s = document.createElement('summary');
+    s.setAttribute('aria-label', 'More about this');
+    // no text in the summary: the ⓘ and the chip words are drawn by CSS from data-chip, so the page text
+    // (and every number in it) reads exactly as before
+    s.innerHTML = warn ? '<span class="dw-chip warn"></span><span class="dw-i"></span>' : '<span class="dw-i"></span>';
+    if (warn) s.firstChild.dataset.chip = label;
+    if (warn) s.setAttribute('aria-label', label + ': more');
+    d.append(s, document.createElement('div'));
+    return d;
+  }
+  const textOf = el => (el.textContent || '').trim();
+
+  // 1. the line under a heading → ⓘ at the end of that heading
+  function subs(root) {
+    for (const p of root.querySelectorAll(SUBS)) {
+      if (p.dataset.dw || p.closest('details.dw-p') || !textOf(p)) continue;
+      if (dataCount(p) >= 2 || nOfM(p) || p.querySelector('a[href]')) { p.dataset.dw = '1'; continue; }   // numbers and links stay
+      let h = p.previousElementSibling;
+      while (h && h.matches('.vp-eyebrow, .ov2-k, span.vp-eyebrow')) h = h.previousElementSibling;
+      if (!h || !/^H[1-4]$/.test(h.tagName)) h = null;
+      const d = info();
+      p.dataset.dw = '1';
+      if (h) { h.append(d); } else { p.before(d); }
+      d.lastChild.append(p);
+    }
+  }
+
+  // 0. a card's line can be wrapped while it still says "loading" and get its numbers later: put it back on screen
+  function unwrap(root) {
+    for (const d of root.querySelectorAll('details.dw-p:not(.dw-pwarn):not(.dw-trim)')) {
+      const body = d.lastElementChild;
+      if (!body || body.tagName !== 'DIV' || d.closest('.dw-notes')) continue;
+      const kids = [...body.children];
+      const stays = k => !k.matches(SOURCE) && (k.matches('.ov2-sub') || (k.matches(SUBS) ? dataCount(k) >= 2 || nOfM(k) || !!k.querySelector('a[href]') : dataCount(k) >= 1));
+      if (!kids.length || !kids.every(stays)) continue;
+      busy = true;
+      if (kids.some(k => k.matches(SUBS)) && /^H[1-4]$/.test(d.parentElement.tagName)) d.parentElement.after(...kids);
+      else d.before(...kids);
+      d.remove();
+    }
+  }
+
+  // 2. notes → ⓘ in place (a caveat keeps a visible warning chip)
+  function notes(root) {
+    for (const el of root.querySelectorAll(NOTES)) {
+      if (el.dataset.dw || el.closest('details.dw-p') || !textOf(el) || el.hidden) continue;
+      if (!el.matches(SOURCE) && dataCount(el) >= 1) { el.dataset.dw = '1'; continue; }   // numbers stay on screen
+      // the Good / Shaky / Wrong row of a card is a number to track: it stays out
+      const keep = el.querySelector(':scope > .vp-card-status');
+      const t = textOf(el);
+      const warn = WARN.test(t) ? (/not verified|"≈"/.test(t) ? '≈ not verified' : /\bearly\b/i.test(t) ? 'early' : 'caveat') : '';
+      el.dataset.dw = '1';
+      // links are actions: they stay on screen, right after the ⓘ
+      const links = [...el.querySelectorAll('a[href]')];
+      // two notes side by side share one ⓘ
+      const prev = el.previousElementSibling, gap = el.previousSibling;
+      let d;
+      if (!warn && !keep && prev && prev.matches('details.dw-p:not(.dw-pwarn)') && (gap === prev || !/\S/.test(gap.textContent || ''))) {
+        d = prev;
+      } else {
+        d = info(warn, !!warn);
+        el.before(d);
+      }
+      d.lastChild.append(el);
+      let at = d;
+      if (keep) { at.after(keep); at = keep; }
+      for (const a of links) { const w = document.createElement('span'); w.className = 'dw-link'; w.dataset.dw = '1'; w.append(a); at.after(w); at = w; }
+    }
+  }
+
+  // 3. method change: one chip per tab, words behind it
+  function method(root) {
+    for (const p of root.querySelectorAll('p.method-change')) {
+      if (p.dataset.dw) continue;
+      p.dataset.dw = '1';
+      const pane = p.closest('#' + ROOT_ID + ' > div') || root;
+      const first = pane.querySelector('details.dw-method');
+      const date = p.dataset.methodChange || '';
+      const d = info(`Method change · ${date}`, true);
+      d.classList.add('dw-method');
+      p.removeAttribute('style');
+      p.before(d);
+      d.lastChild.append(p);
+      if (first && first !== d) d.classList.add('dw-again');   // same tab already shows the chip
+    }
+  }
+
+  // 4. the lesson table (25 rows x 9 numbers) opens from one button
+  function tables(root) {
+    for (const tb of root.querySelectorAll('.ov-tbl > table')) {
+      const body = tb.tBodies && tb.tBodies[0];
+      if (!body || tb.dataset.dw || body.rows.length <= 8) continue;
+      tb.dataset.dw = '1';
+      tb.classList.add('dw-clip');
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'dw-more ab-control'; b.dataset.dw = '1';
+      const n = body.rows.length;
+      b.textContent = `Show all ${n} lessons`;
+      b.addEventListener('click', () => {
+        const open = tb.classList.toggle('dw-clip');
+        b.textContent = open ? `Show all ${n} lessons` : 'Hide the table';
+      });
+      (tb.closest('.ov-tbl') || tb).after(b);
+    }
+  }
+
+  // 3b. a card's small line keeps its numbers on screen; the "·" parts with no number in them (where it comes from,
+  //     how it is counted) go behind one ⓘ at the end of the line
+  function trim(root) {
+    for (const el of root.querySelectorAll('.vp-card-sub, #ov-metrics .ab-tiny')) {
+      if (el.dataset.dwt || el.closest('details') || !/\d/.test(el.textContent || '') || !/ · /.test(el.textContent || '')) continue;
+      el.dataset.dwt = '1';
+      // split the top-level nodes into "·" parts
+      const parts = [[]];
+      for (const n of [...el.childNodes]) {
+        if (n.nodeType === 3 && n.textContent.includes(' · ')) {
+          const bits = n.textContent.split(' · ');
+          bits.forEach((b, i) => { if (i) parts.push([]); if (b) parts[parts.length - 1].push(document.createTextNode(b)); });
+        } else parts[parts.length - 1].push(n);
+      }
+      const txt = ns => ns.map(n => n.textContent).join('');
+      // the first part names the number: it stays; a later part that only repeats numbers already shown steps behind the ⓘ
+      const nums = ns => (txt(ns).match(/\d[\d,.]*%?/g) || []).join(' ');
+      const seen = new Set();
+      const keep = parts.filter((ns, i) => {
+        if (!txt(ns).trim() || !(i === 0 || /\d|—/.test(txt(ns)))) return false;
+        const k = nums(ns); if (k && seen.has(k)) return false; seen.add(k); return true;
+      });
+      const move = parts.filter(ns => !keep.includes(ns) && txt(ns).trim());
+      if (!move.length || !keep.length) continue;
+      busy = true;
+      el.textContent = '';
+      keep.forEach((ns, i) => { if (i) el.append(' · '); el.append(...ns); });
+      const d = info(); d.classList.add('dw-trim');
+      move.forEach((ns, i) => { if (i) d.lastChild.append(' · '); d.lastChild.append(...ns); });
+      el.append(d, " ");
+    }
+  }
+
+  // 3c. an Overview "why" line: sentences with a number stay; sentences without one go behind a ⓘ at its end
+  function whySplit(root) {
+    for (const el of root.querySelectorAll('.ov2-why, .ov2-notes > div, .ov2-text')) {
+      if (el.dataset.dws || el.closest('details')) continue;
+      const t = el.textContent || '';
+      // a whole note with no number in it: behind one ⓘ where it stood
+      if (!/\d+(?:[.,]\d+)+|\d+\s*%|\b\d{2,}\b/.test(t)) { el.dataset.dws = '1'; busy = true; const d = info(); el.before(d); d.lastChild.append(el); continue; }
+      if (el.children.length) { el.dataset.dws = '1'; continue; }
+      const sent = t.match(/(?:[^.!?]|[.!?](?=\S))+(?:[.!?]+\s*|$)/g) || [t];
+      const num = x => /\d+(?:[.,]\d+)+|\d+\s*%|\b\d{2,}\b|\b\d+ of \d+/.test(x);
+      const keep = sent.filter(num), move = sent.filter(x => !num(x) && x.trim());
+      el.dataset.dws = '1';
+      if (!move.length || !keep.length) continue;
+      busy = true;
+      el.textContent = keep.join('').trim() + ' ';
+      const d = info(); d.classList.add('dw-trim'); d.lastChild.textContent = move.join('').trim();
+      el.append(d);
+    }
+  }
+
+  // 3d. Arabic words inside an English line (the "آآ" filler) get an Arabic font, so they never read as stray Latin marks
+  function arabic(root) {
+    for (const el of root.querySelectorAll('#ov-metrics .ab-tiny, #ov2 .ab-sub, #ov2 .ov2-big small')) {
+      const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      const hits = [];
+      for (let n = walk.nextNode(); n; n = walk.nextNode()) if (/[؀-ۿ]/.test(n.nodeValue) && !n.parentElement.closest('.dw-ar')) hits.push(n);
+      if (!hits.length) continue;
+      busy = true;
+      for (const n of hits) {
+        const f = document.createDocumentFragment();
+        for (const part of n.nodeValue.split(/([؀-ۿ]+)/)) {
+          if (!part) continue;
+          if (/[؀-ۿ]/.test(part)) { const sp = document.createElement('span'); sp.className = 'dw-ar'; sp.lang = 'ar'; sp.dir = 'rtl'; sp.textContent = part; f.append(sp); }
+          else f.append(part);
+        }
+        n.replaceWith(f);
+      }
+    }
+  }
+
+  // 3e. Talk time: a you / tutor split bar for the last lesson (a picture of the two numbers right under it)
+  function talkSplit() {
+    const card = document.querySelector('#vp-talk .vp-card');
+    const sub = card && card.querySelector('.vp-card-sub');
+    const m = sub && /you\s*([\d.]+)%\s*·\s*Tutor\s*([\d.]+)%/.exec(sub.textContent || '');
+    const old = card && card.querySelector('.dw-split');
+    if (!m) { if (old) old.remove(); return; }
+    const key = m[1] + '/' + m[2];
+    if (old && old.dataset.k === key) return;
+    busy = true;
+    const bar = old || document.createElement('div');
+    bar.className = 'dw-split dw-talk'; bar.dataset.k = key; bar.setAttribute('aria-hidden', 'true');
+    bar.innerHTML = `<i style="width:${+m[1]}%"></i><i style="width:${+m[2]}%"></i>`;
+    if (!old) sub.before(bar);
+  }
+
+  // 4. the lesson table: each cell knows its column name, so a phone can show every row as a small card
+  function labels(root) {
+    for (const tb of root.querySelectorAll('.ov-tbl > table')) {
+      const heads = [...tb.querySelectorAll('thead th')].map(th => (th.textContent || '').trim());
+      for (const tr of tb.querySelectorAll('tbody tr')) {
+        [...tr.cells].forEach((td, i) => { if (heads[i] && td.dataset.label !== heads[i]) td.dataset.label = heads[i]; });
+      }
+    }
+  }
+
+  // 5. the robot alert banner: one line ("… since 10-21 19:20"), the log behind ⓘ
+  function alerts() {
+    const box = document.getElementById('lesson-alerts');
+    if (!box) return;
+    for (const line of box.children) {
+      if (line.dataset.dw || line.matches('details, .dw-alert-head')) continue;
+      const t = line.textContent || '';
+      const m = /^([\s\S]*?\d{1,2}:\d{2})(:[\s\S]+)$/.exec(t);
+      if (!m || m[2].length < 30) continue;
+      line.dataset.dw = '1';
+      const head = document.createElement('span'); head.className = 'dw-alert-head'; head.textContent = m[1];
+      const d = info(); d.lastChild.textContent = m[2];
+      line.textContent = ''; line.append(head, d);
+    }
+    box.classList.add('dw-alerts');
+    // when the site-wide stall bar already says the robot stopped, this box folds to one small chip
+    const stall = document.getElementById('stall-bar') || document.getElementById('stale-bar');
+    if (stall && !box.querySelector(':scope > details.dw-alllog')) {
+      const d = info('robot log', true); d.classList.add('dw-alllog');
+      d.lastChild.append(...box.childNodes);
+      box.append(d);
+    }
+  }
+
+  // 9. the "saved data / loading" status line: a small chip, its words behind it
+  function notice() {
+    const n = document.getElementById('vp-notice');
+    if (!n || n.dataset.dw || !textOf(n)) return;
+    n.dataset.dw = '1';
+    const d = info('saved data', true); d.classList.add('dw-notice');
+    n.before(d); d.lastChild.append(n);
+  }
+
+  // 10. one "data notes" chip under the title holds the page's status chips (robot log, saved data, method
+  //     change, ≈ not verified): one warning to see, every note one tap away
+  function dataNotes() {
+    const main = document.querySelector('#anees-bank main');
+    const head = main && main.querySelector(':scope > .vp-header');
+    if (!head) return;
+    let box = main.querySelector(':scope > details.dw-notes');
+    if (!box) {
+      box = info('', true); box.classList.add('dw-notes');
+      head.after(box);
+    }
+    const body = box.lastChild;
+    const put = (key, el) => {
+      if (!el || el.parentElement === body) return;
+      const old = body.querySelector(`:scope > [data-dwkey="${key}"]`);
+      if (old && old !== el) old.remove();
+      el.dataset.dwkey = key; body.append(el);
+    };
+    const alerts = document.getElementById('lesson-alerts');
+    if (alerts && alerts.querySelector('details.dw-alllog')) put('alerts', alerts);
+    put('notice', main.querySelector(':scope > details.dw-notice'));
+    put('method', document.querySelector('#ov2 details.dw-method'));
+    put('nv-b', document.querySelector('#ov2 section[aria-labelledby="ov2-h-b"] details.dw-pwarn:not(.dw-method)'));
+    put('nv-t', document.querySelector('#vp-tab-overview > details.dw-pwarn:not(.dw-method)'));
+    put('source', document.querySelector('#ov2 > details.dw-p:last-child:not(.dw-pwarn)'));
+    const foot = document.getElementById('vp-footer');
+    put('status', foot && foot.closest('details.dw-p'));
+    const keys = [...body.children].map(c => c.dataset.dwkey);
+    const m = body.querySelector('[data-dwkey="method"] p.method-change');
+    const parts = [];
+    if (keys.some(k => /^nv-/.test(k))) parts.push('≈ not verified');
+    if (m) parts.push('method change ' + (m.dataset.methodChange || '').slice(5));
+    if (keys.includes('alerts')) parts.push('robot log');
+    if (keys.includes('notice')) parts.push('saved data');
+    box.querySelector('.dw-chip').dataset.chip = parts.length ? parts[0] + (parts.length > 1 ? ` · +${parts.length - 1} notes` : '') : 'data notes';
+    box.hidden = !keys.length;
+  }
+
+  // 6. a tile that repeats a top card (Lessons tracked = Lessons + Lesson hours) steps aside
+  function dups(root) {
+    for (const m of root.querySelectorAll('#ov-metrics .ab-metric:not(.dw-dup):not(.dw-tmore)')) {
+      const l = m.querySelector('.ab-metric-label');
+      if (l && /^\s*Lessons tracked/.test(l.textContent)) m.classList.add('dw-dup');
+      // speed, fillers and homework open with the lesson table
+      if (l && /^\s*(Words per minute|Fillers|Homework|Vocab right|Grammar right)/.test(l.textContent)) m.classList.add('dw-tmore');
+    }
+  }
+
+  // 7. the other tabs: every panel shows its title and headline number; the chart opens in place.
+  //    The first two panels of a tab stay open, and so does any panel you answer in (the swipe check).
+  const PANES = ['vp-tab-vocab', 'vp-tab-flash', 'vp-tab-lexicon', 'vp-tab-fluency', 'vp-tab-grammar'];
+  function charts() {
+    for (const id of PANES) {
+      const pane = document.getElementById(id);
+      if (!pane) continue;
+      const panels = [...pane.querySelectorAll('.vp-panel')].filter(p => !p.parentElement.closest('.vp-panel'));
+      panels.forEach((p, i) => {
+        if (p.dataset.dwc) return;
+        const kids = [...p.children];
+        const h = kids.findIndex(k => k.matches('h2, h3, .vp-panelhead') || k.querySelector('h2, h3'));
+        if (h < 0) return;
+        let cut = h + 1;
+        while (cut < kids.length && /big|side|kpi|-n\b|num/.test(kids[cut].className || '') && !kids[cut].querySelector('svg, table')) cut++;
+        const rest = kids.slice(cut).filter(k => !k.matches('details.dw-p, .dw-link'));
+        if (!rest.length || !rest.some(k => k.querySelector('svg, table, .gp-row, .vp-bar, [class*="row"], [class*="bar"]') || k.matches('svg, table'))) return;
+        p.dataset.dwc = '1';
+        const d = document.createElement('details');
+        d.className = 'dw-chart'; d.dataset.dw = '1';
+        if (i < 2 || p.matches('.fl-swipe-panel, .vu-panel') || p.querySelector('textarea, input[type=text]')) d.open = true;
+        const s = document.createElement('summary'); s.setAttribute('aria-label', 'Chart');
+        d.append(s);
+        kids[cut].before(d);
+        for (const k of kids.slice(cut)) d.append(k);
+      });
+      fold(pane, panels);
+    }
+  }
+
+  // 8. a tab shows its first two panels (and any you answer in); the rest wait behind one "more views" button.
+  //    Hidden by a class, not moved, so the page text keeps its order.
+  function fold(pane, panels) {
+    const extra = panels.filter((p, i) => i >= 2 && !p.matches('.fl-swipe-panel'));
+    if (extra.length < 2) return;
+    extra.forEach(p => p.classList.add('dw-extra'));
+    // a block of the tab (a section heading + its panels) that holds only extra panels folds with them
+    for (const c of pane.children) {
+      if (c.matches('.dw-morebtn, details.dw-p')) continue;
+      const ps = c.matches('.vp-panel') ? [c] : [...c.querySelectorAll('.vp-panel')];
+      if (ps.length && ps.every(p => p.classList.contains('dw-extra'))) c.classList.add('dw-extra');
+      else if (!ps.length && c.previousElementSibling && c.previousElementSibling.classList.contains('dw-extra')) c.classList.add('dw-extra');
+    }
+    let b = pane.querySelector(':scope > .dw-morebtn');
+    if (!b) {
+      b = document.createElement('button');
+      b.type = 'button'; b.className = 'dw-morebtn'; b.dataset.dw = '1';
+      b.addEventListener('click', () => { const open = pane.classList.toggle('dw-open'); b.dataset.open = open ? '1' : ''; b.setAttribute('aria-expanded', String(open)); });
+      b.setAttribute('aria-expanded', 'false');
+      // right after the block that holds the second panel
+      let at = panels[1]; while (at.parentElement !== pane) at = at.parentElement;
+      at.after(b);
+    }
+    b.dataset.n = String(extra.length);
+    b.setAttribute('aria-label', extra.length + ' more views');
+    pane.classList.add('dw-folded');
+  }
+
+  // 11. Flashcards before the first answer: one line and the way in; the all-zero stats wait behind a button
+  function flashEmpty() {
+    const pane = document.getElementById('vp-tab-flash');
+    if (!pane) return;
+    const t = pane.textContent || '';
+    const empty = /No cards studied today/.test(t) && !/\d+\s*cards? studied today/i.test(t);
+    pane.classList.toggle('dw-fempty', empty);
+    if (!empty || pane.querySelector(':scope > .dw-start')) return;
+    const box = document.createElement('div'); box.className = 'dw-start'; box.dataset.dw = '1';
+    box.innerHTML = '<b>No cards answered yet</b><a class="dw-startlink" href="cards.html">Start review →</a>';
+    pane.prepend(box);
+  }
+
+  function run() {
+    queued = false;
+    const root = document.getElementById(ROOT_ID);
+    if (!root) return;
+    busy = true;
+    try {
+      const head = document.querySelector('.vp-header');
+      unwrap(root); method(root); subs(root); notes(root); trim(root); whySplit(root); arabic(root); labels(root); alerts(); notice(); dataNotes(); flashEmpty(); talkSplit();   // round 2: no table clip, no folds
+      if (head) subs(head);
+    } finally { busy = false; }
+  }
+  function soon() { if (!queued) { queued = true; requestAnimationFrame(run); } }
+
+  // a ⓘ inside a card link opens in place instead of following the link
+  document.addEventListener('click', e => {
+    const s = e.target.closest && e.target.closest('details.dw-p > summary');
+    if (!s || !s.closest('a')) return;
+    e.preventDefault(); e.stopPropagation();
+    const d = s.parentElement; d.open = !d.open;
+  }, true);
+
+  function start() {
+    const root = document.getElementById(ROOT_ID);
+    if (!root) return;
+    new MutationObserver(() => { if (!busy) soon(); }).observe(root.closest('main') || root, { childList: true, subtree: true });
+    run();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();

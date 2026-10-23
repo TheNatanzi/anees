@@ -1,0 +1,605 @@
+/* De-word, group "reports" (plan/OVERNIGHT-DEWORD-2026-10-22.md): AI Reports (4 tabs), the flow page, Lessons, a lesson.
+   Same markup in both looks; html[data-look="kurz"] rules below only restyle. Kit classes (.dw-*) live in css/look.css. */
+
+/* ---------- ⓘ that sits on its own line ---------- */
+#anees-bank details.dw-info-line { display: block; margin: 2px 0 6px; }
+#anees-bank h2 details.dw-info, #anees-bank h3 details.dw-info, #anees-bank h4 details.dw-info { font-family: var(--sabz-font-sans, system-ui); font-weight: 400; letter-spacing: 0; text-transform: none; }
+#anees-bank :is(h2, h3, h4) details.dw-info[open] > div { font-size: 13px; }
+#anees-bank .ar-verdict details.dw-info > div p { margin: 0 0 6px; }
+
+/* ---------- AI Reports · Robot blind spots: a row shows its count; the example and the why open with the row ---------- */
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+#ar-tab-unknowns .vu-sub { letter-spacing: .08em; }
+#ar-tab-research .ar-legend { margin: 0 0 12px; }
+#ar-tab-research .ar-verdict { font-size: 15px; font-weight: 600; }
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+
+/* ---------- Flow: the 8 phases as one numbered strip; steps keep title, who and cost ---------- */
+#anees-bank .fl-phases { margin: 4px 0 10px; }
+#anees-bank .fl-phases > li { flex: 1 1 140px; padding: 6px 10px; font-size: 13px; font-weight: 600; }
+#anees-bank .fl-phases > li::before { content: counter(dw, upper-alpha); background: var(--pc); color: #fff; border-radius: 7px; }
+#anees-bank .fl-phases a { color: inherit; text-decoration: none; }
+#anees-bank .fl-phases a:hover { text-decoration: underline; }
+#anees-bank .fl .phase { scroll-margin-top: 12px; }
+#anees-bank .fl .box > details.fl-more { display: inline-block; margin: 8px 6px 0 0; vertical-align: middle; }
+#anees-bank .fl .box > details.fl-more[open] { display: block; }
+#anees-bank .fl .box > details.fl-more > div { color: var(--ab-muted); font-size: 14px; }
+#anees-bank .fl .box > details.fl-more > div b { color: var(--ab-text); }
+#anees-bank .fl .box > .chips { display: inline-flex; vertical-align: middle; }
+/* studies: one small pill each, side by side; the finding opens below */
+#anees-bank .fl details.study:not([open]) { display: inline-block; margin: 8px 6px 0 0; }
+#anees-bank .fl details.study:not([open]) + details.study { margin-top: 8px; }
+#anees-bank .fl details.study:not([open]) summary { padding: 4px 10px; font-size: 12.5px; font-weight: 500; }
+#anees-bank .fl details.study:not([open]) summary::after { content: ''; margin: 0; }
+#anees-bank .fl .kit { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 6px; }
+#anees-bank .fl .kit div { padding: 7px 10px; font-size: 13px; }
+@media (max-width: 600px) {
+  #anees-bank .fl-phases > li { flex: 1 1 42%; }
+  #anees-bank .fl .kit { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- Look B "kurz": navy + bright accents, rounded ---------- */
+html[data-look="kurz"] #anees-bank .fl .box, html[data-look="kurz"] #anees-bank .ar-rep,
+html[data-look="kurz"] #anees-bank .fl .kit div { border-radius: 20px; }
+html[data-look="kurz"] #anees-bank .fl-phases > li { border-radius: 999px; }
+html[data-look="kurz"] #anees-bank .fl-phases > li::before { border-radius: 50%; }
+html[data-look="kurz"] #anees-bank .fl .num { box-shadow: 0 0 0 4px var(--kz-bg), 0 0 0 6px var(--pc); }
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+#anees-bank details.dw-info > div > :is(p, ol) { margin: 0 0 6px; }
+#anees-bank details.dw-info > div > :is(p, ol):last-child { margin-bottom: 0; }
+#anees-bank .fl .key { align-items: center; }
+#anees-bank .fl .key details.fl-kit[open] { flex-basis: 100%; }
+#anees-bank .fl .key details.fl-kit > div.kit { max-width: none; padding: 0; border: 0; background: none; margin: 8px 0 0; }
+
+/* ---------- Lessons & Audio ---------- */
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+#anees-bank .ls-wsplit { height: 7px; margin: 4px 0 3px; max-width: 150px; }
+#anees-bank :is(.ls-wsplit, .ls-key) .ls-wok { background: var(--dw-ok); }
+#anees-bank :is(.ls-wsplit, .ls-key) .ls-wbad { background: var(--dw-bad); }
+#anees-bank :is(.ls-wsplit, .ls-key) .ls-wpart { background: var(--dw-warn); }
+#anees-bank .ls-key { display: inline-flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+#anees-bank .ls-key > i { display: inline-block; width: 12px; height: 7px; border-radius: 4px; margin-left: 6px; }
+#anees-bank #ls-metrics .ab-metric-label details.dw-info > div { position: absolute; z-index: 5; max-width: 240px; text-transform: none; letter-spacing: 0; }
+
+/* ---------- AI Reports round 2 ---------- */
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+#anees-bank .dw-more { display: block; margin: 6px 0 4px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line);
+  background: var(--dw-card); color: var(--dw-ink); font: 600 12.5px/1.5 var(--sabz-font-sans, system-ui); cursor: pointer; }
+#anees-bank #dw-unk-bigs { margin: 4px 0 18px; }
+#anees-bank #dw-unk-bigs a.dw-big { text-decoration: none; color: inherit; }
+#anees-bank #dw-unk-bigs a.dw-big:hover { border-color: var(--dw-a1); }
+#anees-bank #dw-unk-bigs .dw-warnbig b { color: var(--dw-warn); }
+/* flow: studies in one pill per step; automatic-only steps read quieter */
+#anees-bank .fl details.fl-studies { display: inline-block; margin: 8px 6px 0 0; vertical-align: middle; }
+#anees-bank .fl details.fl-studies[open] { display: block; }
+#anees-bank .fl details.fl-studies > summary { list-style: none; cursor: pointer; display: inline-flex; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--ab-line); background: var(--ab-bg); }
+#anees-bank .fl details.fl-studies > summary::-webkit-details-marker { display: none; }
+#anees-bank .fl details.fl-studies > summary::before { content: "📄"; margin-right: 6px; font-size: 12px; }
+#anees-bank .fl details.fl-studies[open] details.study { display: block; margin: 6px 0 0; }
+#anees-bank .fl .node.fl-quiet .box { padding: 8px 12px; background: transparent; }
+#anees-bank .fl .node.fl-quiet .box h3 { font-size: 14.5px; font-weight: 500; }
+#anees-bank .fl .node.fl-quiet .num { transform: scale(.8); }
+@media (max-width: 600px) {
+  #anees-bank .fl .icons { flex-wrap: wrap; max-width: 100%; }
+  #anees-bank .fl .ico { width: 48px; }
+  #anees-bank .fl .top { flex-direction: column; }
+}
+
+/* ---------- A lesson page (docs/lessons/<date>.html, scripts/build_lesson_page.py): chrome only, every line stays ---------- */
+html.lsn-page body { background: var(--sabz-bg); color: var(--sabz-text); }
+html.lsn-page .bar { background: var(--sabz-bg); }
+html.lsn-page p { border-color: var(--dw-line); }
+html.lsn-page a, html.lsn-page button.t { color: var(--dw-a1); }
+html.lsn-page small { color: var(--dw-muted); }
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+html.lsn-page .lsn-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0 0; flex-wrap: wrap; }
+html.lsn-page .lsn-top > a { font-size: 15px; font-weight: 600; text-decoration: none; }
+html.lsn-page .lsn-switch { display: flex; gap: 8px; align-items: center; }
+html.lsn-page .lsn-switch .sabz-theme, html.lsn-page .lsn-switch .anees-look { margin: 0; width: 120px; }
+html.lsn-page h1 { margin: 10px 0 6px; font-family: var(--sabz-font-serif, Georgia, serif); font-weight: 500; }
+html.lsn-page .lsn-bigs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+html.lsn-page .lsn-bigs b { font-size: clamp(26px, 6vw, 40px); }
+html.lsn-page .lsn-note { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 4px 0 10px; }
+html.lsn-page .lsn-note details.dw-info[open] { flex-basis: 100%; }
+html.lsn-page .lsn-note details.dw-info > div { font-size: 14px; }
+html.lsn-page details.rehear > summary { opacity: 1 !important; }
+html.lsn-page p.on { background: var(--dw-ok-fill); }
+html.lsn-page p.chat { background: var(--dw-card); border-left-color: var(--dw-a3); }
+html.lsn-page p.chat b, html.lsn-page p.chat b::after { color: var(--dw-a3); }
+html.lsn-page .note { background: var(--dw-warn-fill); }
+@media (max-width: 600px) { html.lsn-page body { font-size: 16px; } html.lsn-page .lsn-bigs { gap: 6px; } html.lsn-page .lsn-bigs .dw-big { padding: 8px 10px; } }
+html.lsn-page .context-listen { background: var(--dw-card); color: var(--dw-ink); border: 1px solid var(--dw-line); border-radius: 999px; padding: 2px 12px; font-size: 14px; cursor: pointer; }
+#anees-bank details.dw-fold { margin: 8px 0 2px; }
+#anees-bank details.dw-fold > summary { display: inline-block; list-style: none; cursor: pointer; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line);
+  background: var(--dw-card); font: 600 12.5px/1.5 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
+#anees-bank details.dw-fold > summary::-webkit-details-marker { display: none; }
+#anees-bank details.dw-fold > summary::before { content: "+ "; }
+#anees-bank details.dw-fold[open] > summary::before { content: "− "; }
+@media (max-width: 600px) {
+  #anees-bank .fl .top > h3 { flex: none; }
+  #anees-bank .fl .top { gap: 6px; }
+}
+#anees-bank .dw-more { justify-self: start; width: auto; }
+/* small drawn scenes: quiet in Look A, bigger and brighter in Look B */
+#anees-bank .ov-head { position: relative; }
+#anees-bank .dw-scene.dw-robot { position: absolute; right: 0; top: 0; width: 64px; opacity: .55; }
+html[data-look="kurz"] #anees-bank .dw-scene.dw-robot { width: 96px; opacity: 1; }
+@media (max-width: 600px) { #anees-bank .dw-scene.dw-robot { width: 48px; } html[data-look="kurz"] #anees-bank .dw-scene.dw-robot { width: 64px; } }
+html.lsn-page .lsn-map { margin: 2px 0 10px; }
+html.lsn-page .lsn-map svg { height: 22px; border-radius: 999px; overflow: hidden; background: var(--dw-line); }
+html.lsn-page .tm-you { fill: var(--dw-a1); background: var(--dw-a1); }
+html.lsn-page .tm-tutor { fill: var(--dw-a2); background: var(--dw-a2); }
+html.lsn-page .tm-chat { fill: var(--dw-a3); background: var(--dw-a3); }
+html.lsn-page .lsn-map figcaption { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--dw-muted); margin-top: 4px; }
+html.lsn-page .lsn-map figcaption i { display: inline-block; width: 12px; height: 8px; border-radius: 4px; margin-left: 6px; }
+html.lsn-page .lsn-map figcaption i:first-child { margin-left: 0; }
+html.lsn-page .lsn-map figcaption span { margin-left: auto; }
+
+/* phone: the tab bar sits at the top and never covers content (same as the other de-word pages) */
+@media (max-width: 680px) {
+  body { display: flex; flex-direction: column; }
+  body > * { min-width: 0; }
+  body > .pn-bar { order: -1; position: sticky !important; top: 0; bottom: auto !important; border-top: 0 !important; border-bottom: 1px solid var(--ab-line, #33423c); padding-bottom: 6px !important; }
+  #anees-bank main { padding-bottom: 18px !important; }
+  html.lsn-page body > .pn-bar { position: static !important; background: var(--dw-card); border-bottom-color: var(--dw-line); }
+}
+#anees-bank #lesson-alerts { padding: 8px 12px !important; font-weight: 400 !important; }
+#anees-bank #lesson-alerts details.dw-info > div { font-size: 13px; max-width: none; }
+/* flow round 4: the 8 phases are 8 rows; tap one to open its steps */
+#anees-bank .fl details.phase { margin-top: 8px; border-radius: 14px; background: var(--ab-panel); border: 1px solid var(--ab-line); border-left: 6px solid var(--pc); }
+#anees-bank .fl details.phase > summary { list-style: none; cursor: pointer; padding: 10px 14px; }
+#anees-bank .fl details.phase > summary::-webkit-details-marker { display: none; }
+#anees-bank .fl details.phase > summary header { margin: 0; }
+#anees-bank .fl details.phase > summary header::after { content: "›"; font-size: 22px; line-height: 1; color: var(--ab-muted); transition: transform .15s; }
+#anees-bank .fl details.phase[open] > summary header::after { transform: rotate(90deg); }
+#anees-bank .fl details.phase[open] > summary { border-bottom: 1px dashed var(--ab-line); margin-bottom: 10px; }
+#anees-bank .fl details.phase > ol.flow { padding: 0 12px 4px; }
+#anees-bank .fl details.phase > ol.flow::before { left: 31px; }
+#anees-bank .fl .fl-sum { display: inline-flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+#anees-bank .fl .fl-n { font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: var(--ab-raised); color: var(--ab-text); }
+#anees-bank .fl .phase h2 { flex: 0 1 auto; }
+#anees-bank .fl .phase .when { margin-left: auto; }
+#anees-bank .fl > .done { margin-top: 12px; }
+@media (max-width: 600px) {
+  #anees-bank .fl details.phase > summary header { display: grid; grid-template-columns: 28px 1fr auto; row-gap: 4px; }
+  #anees-bank .fl details.phase > summary .fl-sum { grid-column: 2 / 4; }
+  #anees-bank .fl details.phase > summary .when { grid-column: 2 / 4; margin: 0; }
+  #anees-bank .fl details.phase > summary header::after { grid-column: 3; grid-row: 1; }
+}
+html[data-look="kurz"] #anees-bank .fl details.phase { border-radius: 22px; border-left-width: 0; box-shadow: inset 6px 0 0 var(--pc); }
+html[data-look="kurz"] #anees-bank .fl .pcode { border-radius: 50%; }
+/* Robot blind spots round 5: each section is one row under the big numbers; it opens in place */
+#ar-tab-unknowns .ar-unk { margin: 0 0 8px; }
+#ar-tab-unknowns details.ar-unk-d > summary { list-style: none; cursor: pointer; }
+#ar-tab-unknowns details.ar-unk-d > summary::-webkit-details-marker { display: none; }
+#ar-tab-unknowns details.ar-unk-d > summary .ar-unk-h { display: flex; align-items: center; gap: 8px; margin: 0; padding: 12px 14px; border: 1px solid var(--dw-line);
+  border-radius: var(--dw-radius); background: var(--dw-card); font-size: 18px; }
+#ar-tab-unknowns details.ar-unk-d > summary .ar-unk-h::after { content: "›"; margin-left: auto; font-size: 22px; color: var(--dw-muted); transition: transform .15s; }
+#ar-tab-unknowns details.ar-unk-d[open] > summary .ar-unk-h::after { transform: rotate(90deg); }
+#ar-tab-unknowns details.ar-unk-d[open] > summary { margin-bottom: 12px; }
+/* flow round 5: rows joined by a line (one chain), one picture per phase, cost chip in the money colour */
+#anees-bank .fl details.phase { position: relative; margin-top: 16px; }
+#anees-bank .fl details.phase + details.phase::before, #anees-bank .fl details.phase + .done::before { content: ""; position: absolute; left: 22px; top: -17px; width: 3px; height: 16px; background: var(--pc, var(--ab-line)); opacity: .6; }
+#anees-bank .fl > .done { position: relative; margin-top: 16px; }
+#anees-bank .fl .fl-ico { font-size: 20px; line-height: 1; }
+#anees-bank .fl .fl-sum .chip.money { background: var(--fl-moneyBg); color: var(--fl-money); }
+@media (max-width: 600px) {
+  #anees-bank .fl details.phase > summary header { grid-template-columns: 28px 26px 1fr auto; }
+  #anees-bank .fl details.phase > summary .fl-sum, #anees-bank .fl details.phase > summary .when { grid-column: 3 / 5; }
+  #anees-bank .fl details.phase > summary header::after { grid-column: 4; }
+}
+/* Lessons round 2: search & filters fold into one row; summary tiles go compact on a phone */
+#anees-bank details.ls-filters { margin: 4px 0 8px; }
+#anees-bank details.ls-filters > summary { display: inline-block; list-style: none; cursor: pointer; padding: 5px 14px; border-radius: 999px; border: 1px solid var(--dw-line); background: var(--dw-card); font-weight: 600; font-size: 13px; }
+#anees-bank details.ls-filters > summary::-webkit-details-marker { display: none; }
+#anees-bank details.ls-filters > summary::before { content: "⌕ "; }
+#anees-bank details.ls-filters[open] > summary { margin-bottom: 8px; }
+@media (max-width: 680px) {
+  #anees-bank #ls-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 6px !important; }
+  #anees-bank #ls-metrics .ab-metric { padding: 8px !important; min-height: 0 !important; }
+  #anees-bank #ls-metrics .ab-number { font-size: 22px !important; margin: 2px 0 0 !important; }
+  #anees-bank #ls-metrics .ab-metric-label { font-size: 10.5px !important; }
+}
+/* round 6: research history folds; flow icon column fixed; lesson rows show the two big numbers + bars */
+#anees-bank details.ar-past > summary { list-style: none; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; padding: 8px 16px; border-radius: 999px;
+  border: 1px solid var(--dw-line); background: var(--dw-card); font-weight: 600; font-size: 14px; margin: 6px 0 12px; }
+#anees-bank details.ar-past > summary::-webkit-details-marker { display: none; }
+#anees-bank details.ar-past > summary::before { content: "+"; font-weight: 700; }
+#anees-bank details.ar-past[open] > summary::before { content: "−"; }
+#anees-bank .fl .fl-ico { display: inline-grid; place-items: center; width: 26px; flex: none; }
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+#anees-bank .ls-row .ls-rowhead[aria-expanded="true"] .ls-cell .ls-small { display: block; }
+#anees-bank .ls-row .ls-rowhead .ls-cell .ls-wsplit { margin-top: 6px; }
+
+/* ---------- scenes (same markup both looks) ---------- */
+#anees-bank .ab-header h1 { position: relative; }
+#anees-bank .dw-scene.dw-mic { display: inline-block; width: 54px; vertical-align: middle; margin-left: 10px; opacity: .55; }
+html.lsn-page .dw-scene.dw-mic { width: 64px; float: right; margin: 14px 0 0 10px; opacity: .55; }
+#anees-bank .fl .fl-road { margin: 4px 0 6px; max-height: 120px; }
+#anees-bank .fl .fl-road a { cursor: pointer; }
+
+/* ---------- Look B "kurz": bright scenes, rounded cards, navy/blue panels ---------- */
+html[data-look="kurz"] .dw-scene.dw-mic { opacity: 1; width: 80px; }
+html[data-look="kurz"] html.lsn-page .dw-scene.dw-mic { width: 90px; }
+html[data-look="kurz"] #anees-bank #lesson-alerts, html[data-look="kurz"] #anees-bank #ls-notice:not(:empty) { background: var(--dw-bad-fill) !important; border-radius: 18px !important; border: 0 !important; }
+html[data-look="kurz"] #anees-bank .lg-medi, html[data-look="kurz"] #anees-bank .ls-notice { border-radius: 18px; }
+html[data-look="kurz"] #anees-bank #ls-rows { display: grid; gap: 10px; }
+html[data-look="kurz"] #anees-bank .ls-row { border-radius: 20px; overflow: hidden; background: var(--kz-panel); }
+html[data-look="kurz"] #anees-bank .ab-tablehead { border-radius: 999px; }
+html[data-look="kurz"] #anees-bank .ls-big { font-weight: 900; }
+html[data-look="kurz"] #anees-bank .ls-wsplit { height: 9px; }
+html[data-look="kurz"] #anees-bank .ar-rep, html[data-look="kurz"] #anees-bank .vp-panel { border: 0; }
+html[data-look="kurz"] #ar-tab-unknowns details.ar-unk-d > summary .ar-unk-h { border: 0; border-radius: 22px; background: var(--kz-panel); }
+html[data-look="kurz"] #anees-bank .fl .fl-n { background: var(--kz-raised); }
+html[data-look="kurz"] #anees-bank .fl details.phase { border: 0; background: var(--kz-panel); }
+html[data-look="kurz"] #anees-bank .fl .fl-road path:first-child { stroke: var(--kz-raised); }
+html[data-look="kurz"] #anees-bank .fl .warn { border-radius: 20px; }
+html[data-look="kurz"] #anees-bank .fl > .done { border-radius: 22px; border-color: var(--kz-teal); }
+/* lesson page in Look B: rounded transcript lines on the navy / pale-blue ground */
+html[data-look="kurz"].lsn-page p.turn, html[data-look="kurz"].lsn-page p.chat { border: 0; border-radius: 16px; margin: 6px 0; background: var(--kz-panel); }
+html[data-look="kurz"].lsn-page p.chat { box-shadow: inset 5px 0 0 var(--kz-teal); }
+html[data-look="kurz"].lsn-page h1 { font-family: var(--sabz-font-serif); font-weight: 900; }
+html[data-look="kurz"].lsn-page button.t { border-radius: 999px; border-color: var(--kz-line); }
+html[data-look="kurz"].lsn-page .bar { border-radius: 0 0 18px 18px; }
+html[data-look="kurz"].lsn-page .dw-scene.dw-mic { opacity: 1; width: 90px; }
+@media (max-width: 600px) { #anees-bank .dw-scene.dw-mic { width: 40px; } html[data-look="kurz"] #anees-bank .dw-scene.dw-mic { width: 54px; } html.lsn-page .dw-scene.dw-mic { width: 48px; } }
+/* Look B round 2 (same markup both looks) */
+#anees-bank .dw-big .dw-bigbar { display: flex; height: 8px; margin: 8px 0 0; }
+#anees-bank .dw-warnbig .dw-bigbar > i { background: var(--dw-warn); }
+html.lsn-page .bar { border-bottom: 0; }
+html[data-look="kurz"].lsn-page .bar { border-radius: 0; box-shadow: none; outline: 0; }
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+@media (max-width: 680px) {
+  #anees-bank .ls-wcell::before, #anees-bank .ls-gcell::before, #anees-bank .ls-tcell::before { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--dw-muted); margin-bottom: 2px; }
+  #anees-bank .ls-wcell::before { content: "Words"; }
+  #anees-bank .ls-gcell::before { content: "Grammar"; }
+  #anees-bank .ls-tcell::before { content: "You speak · you listen"; }
+}
+/* Look B round 3 (same markup both looks) */
+#anees-bank #dw-unk-bigs:empty { display: none; }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig { display: grid; grid-template-columns: auto; min-width: 118px; margin-right: 6px; font-family: var(--sabz-font-sans, system-ui); }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig b { font: 600 30px/1 var(--sabz-font-serif, Georgia, serif); color: var(--dw-ink); }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig.dw-warnbig b { color: var(--dw-warn); }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig small { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--dw-muted); margin-top: 3px; }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig .dw-bigbar { margin-top: 5px; height: 6px; }
+html[data-look="kurz"] #ar-tab-unknowns .ar-unk-h .dw-sumbig b { font-weight: 900; color: var(--kz-blue); }
+html[data-look="kurz"] #ar-tab-unknowns .ar-unk-h .dw-sumbig.dw-warnbig b { color: var(--kz-orange); }
+@media (max-width: 600px) { #ar-tab-unknowns .ar-unk-h { flex-wrap: wrap; } #ar-tab-unknowns .ar-unk-h .dw-sumbig { flex-basis: 100%; } #anees-bank .fl .fl-road { display: none; } }
+#anees-bank .dw-wait { font-size: 15px !important; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+#anees-bank .dw-wait .dw-waitn { font: 700 26px/1 var(--sabz-font-serif, Georgia, serif); color: var(--dw-warn); }
+#anees-bank .dw-method { margin: 10px 0; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+#anees-bank .dw-method details.dw-info[open] { flex-basis: 100%; }
+#anees-bank .dw-method details.dw-info p.method-change { margin: 0; border: 0; padding: 0; }
+/* round 8: Lessons hero numbers = words + grammar right; the rest sit small */
+@media (min-width: 681px) {
+  #anees-bank #ls-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  #anees-bank #ls-metrics .ab-metric:nth-child(3), #anees-bank #ls-metrics .ab-metric:nth-child(4) { grid-row: 1; }
+  #anees-bank #ls-metrics .ab-metric:nth-child(3) { grid-column: 1 / 3; }
+  #anees-bank #ls-metrics .ab-metric:nth-child(4) { grid-column: 3 / 5; }
+  #anees-bank #ls-metrics .ab-metric:nth-child(3) .ab-number, #anees-bank #ls-metrics .ab-metric:nth-child(4) .ab-number { font-size: 44px !important; }
+  #anees-bank #ls-metrics .ab-metric:not(:nth-child(3)):not(:nth-child(4)) { padding: 8px 12px !important; min-height: 0 !important; }
+  #anees-bank #ls-metrics .ab-metric:not(:nth-child(3)):not(:nth-child(4)) .ab-number { font-size: 22px !important; margin: 0 !important; }
+}
+@media (max-width: 680px) {
+  #anees-bank #ls-metrics .ab-metric:nth-child(3), #anees-bank #ls-metrics .ab-metric:nth-child(4) { order: -1; }
+  #anees-bank #ls-metrics .ab-metric:nth-child(3) .ab-number, #anees-bank #ls-metrics .ab-metric:nth-child(4) .ab-number { font-size: 28px !important; }
+}
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+#anees-bank .ab-header h1:has(.dw-mic) { display: flex; align-items: center; gap: 4px; }
+/* round 9 */
+#anees-bank .dw-method .dw-chip, #anees-bank #lesson-alerts .dw-chip, html.lsn-page .lsn-note .dw-chip { white-space: normal; max-width: 100%; }
+#anees-bank .fl .fl-path { list-style: none; margin: 6px 0 12px; padding: 0; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; position: relative; }
+#anees-bank .fl .fl-path::before { content: ""; position: absolute; left: 6%; right: 6%; top: 21px; height: 3px; background: var(--ab-line); border-radius: 2px; }
+#anees-bank .fl .fl-path li { position: relative; text-align: center; }
+#anees-bank .fl .fl-path a { display: grid; justify-items: center; gap: 4px; text-decoration: none; color: var(--ab-text); }
+#anees-bank .fl .fl-path .fl-dot { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 20px; background: var(--pc); box-shadow: 0 0 0 4px var(--ab-bg); }
+#anees-bank .fl .fl-path b { font-size: 12.5px; font-weight: 700; }
+html[data-look="kurz"] #anees-bank .fl .fl-path .fl-dot { border-radius: 50%; width: 50px; height: 50px; font-size: 22px; box-shadow: 0 0 0 4px var(--kz-bg), 0 6px 0 rgb(0 0 0 / .15); }
+html[data-look="kurz"] #anees-bank .fl .fl-path::before { top: 24px; height: 4px; background: var(--kz-raised); }
+@media (max-width: 600px) {
+  #anees-bank .fl .fl-path { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 10px; }
+  #anees-bank .fl .fl-path::before { display: none; }
+  #anees-bank .fl .fl-path .fl-dot { width: 40px; height: 40px; }
+}
+#anees-bank .fl > .warn { margin-top: 10px; font-size: 13px; }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig { min-width: 230px; } @media (max-width: 600px) { #ar-tab-unknowns .ar-unk-h .dw-sumbig { min-width: 0; } }
+/* round 10 */
+@media (max-width: 600px) {
+  #anees-bank .fl details.phase > summary header { grid-template-columns: 28px minmax(0, 1fr) auto !important; }
+  #anees-bank .fl details.phase > summary header h2 { grid-column: 2; min-width: 0; }
+  #anees-bank .fl details.phase > summary .fl-sum, #anees-bank .fl details.phase > summary .when { grid-column: 2 / 4 !important; }
+  #anees-bank .fl details.phase > summary header::after { grid-column: 3 !important; grid-row: 1; }
+}
+#anees-bank #ls-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+#anees-bank #ls-metrics > .ab-metric { grid-column: auto !important; grid-row: auto !important; }
+#anees-bank #ls-metrics > .ab-metric .ab-number { font-size: clamp(30px, 6vw, 44px) !important; }
+#anees-bank #ls-metrics > details.ls-more { grid-column: 1 / -1; }
+#anees-bank details.ls-more > summary { display: inline-block; list-style: none; cursor: pointer; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line); background: var(--dw-card); font-size: 12.5px; font-weight: 600; }
+#anees-bank details.ls-more > summary::-webkit-details-marker { display: none; }
+#anees-bank details.ls-more > summary::before { content: "+ "; }
+#anees-bank details.ls-more[open] > summary::before { content: "− "; }
+#anees-bank .ls-moregrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
+#anees-bank .ls-moregrid .ab-metric { padding: 8px 12px !important; min-height: 0 !important; }
+#anees-bank .ls-moregrid .ab-number { font-size: 22px !important; margin: 0 !important; }
+@media (max-width: 680px) { #anees-bank .ls-moregrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+#anees-bank #ls-source { white-space: nowrap; }
+@media (max-width: 600px) { #anees-bank .ab-header .dw-scene.dw-mic { display: none; } }
+html[data-look="kurz"] body > .pn-bar { background: var(--kz-panel) !important; border-color: var(--kz-line) !important; color: var(--kz-ink); }
+html[data-look="kurz"] body > .pn-bar .pn-tab { color: var(--kz-muted); border-radius: 16px; }
+html[data-look="kurz"] body > .pn-bar .pn-tab[aria-current="page"] { background: var(--kz-yellow); color: #14204A; }
+/* round 11 */
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+#anees-bank .ar-verdict-min { border-left: 0; padding-left: 0; margin: 0 0 8px; }
+#anees-bank details.ar-chap { margin: 4px 0 6px; }
+/* round 12 */
+#anees-bank .dw-bigbar.dw-bad { background: var(--dw-bad-fill); }
+#anees-bank .dw-bigbar.dw-bad > i { background: var(--dw-ok) !important; }
+#anees-bank .fl .fl-band { margin: 18px 0 -2px; font: 700 12px/1.3 var(--sabz-font-sans, system-ui); letter-spacing: .1em; text-transform: uppercase; color: var(--ab-muted); }
+#anees-bank .fl .fl-band:first-of-type { margin-top: 8px; }
+#anees-bank .fl details.phase > summary .fl-ico { width: 38px; height: 38px; border-radius: 10px; background: var(--pc); display: inline-grid; place-items: center; font-size: 20px; }
+#anees-bank .fl details.phase > summary .pcode { display: none; }
+html[data-look="kurz"] #anees-bank .fl details.phase > summary .fl-ico { border-radius: 50%; width: 42px; height: 42px; }
+@media (max-width: 600px) {
+  #anees-bank .fl details.phase > summary { padding: 8px 10px; }
+  #anees-bank .fl details.phase > summary header { grid-template-columns: 40px minmax(0, 1fr) auto !important; }
+  #anees-bank .fl details.phase > summary header .fl-ico { grid-row: 1 / 3; width: 34px; height: 34px; font-size: 17px; }
+  #anees-bank .fl details.phase > summary .phase h2, #anees-bank .fl details.phase h2 { font-size: 16px; }
+  #anees-bank .fl details.phase > summary .when { display: none; }
+}
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+#anees-bank .ls-row .ls-rowhead[aria-expanded="true"] .ls-tcell { display: block; }
+#anees-bank details.ls-filters #ls-tabs { margin-bottom: 8px; }
+#anees-bank details.ar-counts { margin: 0 0 10px; }
+/* round 13: bar colours mean the same everywhere: teal/green = right or caught, pink/red = missed or to review */
+#anees-bank .dw-bigbar.dw-good { background: var(--dw-line); } #anees-bank .dw-bigbar.dw-good > i { background: var(--dw-ok) !important; }
+#anees-bank .dw-bigbar.dw-caught { background: var(--dw-bad); } #anees-bank .dw-bigbar.dw-caught > i { background: var(--dw-ok) !important; }
+#anees-bank .dw-bigbar.dw-need { background: var(--dw-line); } #anees-bank .dw-bigbar.dw-need > i { background: var(--dw-bad) !important; }
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+@media (max-width: 600px) { #anees-bank .fl details.phase > summary .when { display: block; grid-column: 2 / 4 !important; font-size: 12px; } }
+/* round 14 */
+#anees-bank .fl .fl-rule { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; background: transparent; padding: 6px 0; }
+#anees-bank .fl .fl-rule > i { font-style: normal; color: var(--ab-muted); font-weight: 700; }
+#anees-bank .fl .fl-rule details.dw-info[open] { flex-basis: 100%; }
+/* the page-top robot banner (js/stale.js) reads as one slim status line on these pages */
+body:has(#anees-bank) > #stall-bar { padding: 4px 12px !important; font: 600 12.5px/1.4 system-ui !important; }
+html[data-look="kurz"] body > #stall-bar { background: var(--kz-orange) !important; color: #14204A !important; }
+/* round 15 */
+#anees-bank .fl details.phase + details.phase::before, #anees-bank .fl details.phase + .done::before { display: none; }
+#anees-bank .fl .fl-ico svg { width: 22px; height: 22px; display: block; }
+#anees-bank .fl > .done { display: flex; align-items: center; gap: 10px; }
+#anees-bank .fl .fl-doneico { width: 30px; height: 30px; flex: none; color: var(--fl-medi); }
+html[data-look="kurz"] #anees-bank .fl .fl-doneico { color: var(--kz-teal); width: 36px; height: 36px; }
+#anees-bank .dw-wait .dw-act { margin-left: auto; padding: 6px 14px; border-radius: 999px; background: var(--dw-warn); color: var(--sabz-bg, #fff); font-weight: 700; font-size: 13px; text-decoration: none; }
+html[data-look="kurz"] #anees-bank .dw-wait .dw-act { background: var(--kz-orange); color: #fff; }
+#anees-bank .ls-herobar { height: 8px; margin-top: 8px; background: var(--dw-bad); }
+#anees-bank .ls-herobar > .ls-wok { background: var(--dw-ok); }
+/* round 16: red part = missed, green rest = right/caught; amber = still to review */
+#anees-bank .dw-bigbar.dw-miss { background: var(--dw-ok); } #anees-bank .dw-bigbar.dw-miss > i { background: var(--dw-bad) !important; }
+#anees-bank .dw-bigbar.dw-todo { background: var(--dw-line); } #anees-bank .dw-bigbar.dw-todo > i { background: var(--dw-warn) !important; }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig.dw-warnbig b { color: var(--dw-bad); }
+html[data-look="kurz"] #ar-tab-unknowns .ar-unk-h .dw-sumbig.dw-warnbig b { color: var(--kz-pink); }
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+#anees-bank .fl .fl-chain { font-size: 13px; font-weight: 600; color: var(--ab-muted); }
+#anees-bank .fl .fl-inner { padding: 0 10px 8px; }
+#anees-bank .fl .fl-inner details.phase { margin-top: 8px; border-left-width: 4px; }
+/* lesson round 3: every line stays; Arabic lines get a colour band, tiny English/filler lines read small and faint */
+html.lsn-page p.turn:has(i[data-k="ar"]) { border-left: 4px solid var(--dw-a1); }
+html.lsn-page p.turn:has(i[data-k="lite"]) { }   /* round 2: short lines full size, full contrast */
+html.lsn-page .lsn-jump { display: inline-block; margin: 2px 0 10px; padding: 8px 16px; border-radius: 999px; background: var(--dw-a1); color: var(--sabz-bg, #fff) !important;
+  font-weight: 700; font-size: 15px; text-decoration: none; }
+html.lsn-page #arabic-start { scroll-margin-top: 70px; }
+html[data-look="kurz"].lsn-page p.turn:has(i[data-k="ar"]) { border-left: 0; box-shadow: inset 5px 0 0 var(--kz-teal); }
+html[data-look="kurz"].lsn-page .lsn-jump { background: var(--kz-yellow); color: #14204A !important; }
+html.lsn-page details.lsn-before > summary { cursor: pointer; list-style: none; padding: 10px 14px; margin: 6px 0; border-radius: 12px; border: 1px dashed var(--dw-line);
+  background: var(--dw-card); color: var(--dw-muted); font-size: 15px; font-weight: 600; }
+html.lsn-page details.lsn-before > summary::-webkit-details-marker { display: none; }
+html.lsn-page details.lsn-before > summary::before { content: "+ "; }
+html.lsn-page details.lsn-before[open] > summary::before { content: "− "; }
+html.lsn-page p.lsn-start { border: 0; padding: 10px 0 4px; font-weight: 700; color: var(--dw-a1); }
+html[data-look="kurz"].lsn-page details.lsn-before > summary { border-radius: 18px; border-color: var(--kz-line); }
+html[data-look="kurz"].lsn-page details.lsn-before > p.turn, html[data-look="kurz"].lsn-page details.lsn-before > p.chat { border: 0; border-radius: 16px; margin: 6px 0; background: var(--kz-panel); }
+@media (max-width: 600px) { html.lsn-page h1 { font-size: 26px; white-space: nowrap; } }
+html.lsn-page .lsn-map { position: relative; padding-top: 22px; }
+html.lsn-page .lsn-mark { position: absolute; top: 0; transform: translateX(-50%); font-size: 12px; font-weight: 700; white-space: nowrap; text-decoration: none; color: var(--dw-a1); }
+html.lsn-page .lsn-mark::after { content: ""; position: absolute; left: 50%; top: 18px; width: 3px; height: 26px; background: var(--dw-ink); border-radius: 2px; }
+html.lsn-page .lsn-bigs .dw-big { color: var(--dw-muted); }
+html[data-look="kurz"].lsn-page .lsn-mark { color: var(--kz-yellow); }
+@media (max-width: 600px) { html.lsn-page .lsn-bigs .dw-ico { display: none; } }
+html.lsn-page details.lsn-lite > summary { cursor: pointer; list-style: none; padding: 3px 12px; font-size: 13px; color: var(--dw-muted); opacity: .75; border-bottom: 1px dotted var(--dw-line); }
+html.lsn-page details.lsn-lite > summary::-webkit-details-marker { display: none; }
+html.lsn-page details.lsn-lite > summary::before { content: "··· " attr(data-n); }
+html.lsn-page details.lsn-lite[open] > summary::before { content: "− " attr(data-n); }
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+html[data-look="kurz"].lsn-page .lsn-bigs .dw-big::after { display: none; }
+/* final round: flow steps numbered on the icon tile, joined by arrows; Look B cards washed in their colour */
+#anees-bank .fl { counter-reset: st; }
+#anees-bank .fl > details.phase { counter-increment: st; }
+#anees-bank .fl > details.phase > summary .fl-ico { position: relative; }
+#anees-bank .fl > details.phase > summary .fl-ico::after { content: counter(st); position: absolute; right: -7px; bottom: -7px; width: 20px; height: 20px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--ab-text); color: var(--ab-bg); font: 700 11.5px/1 var(--sabz-font-sans, system-ui); box-shadow: 0 0 0 2px var(--ab-panel); }
+#anees-bank .fl > details.phase + details.phase { margin-top: 26px; }
+#anees-bank .fl > details.phase + details.phase::before, #anees-bank .fl > details.phase + .done::before { display: block !important; content: "↓"; position: absolute; top: -24px; left: 24px;
+  width: auto; height: auto; background: none; opacity: 1; font: 700 18px/1 var(--sabz-font-sans, system-ui); color: var(--ab-muted); }
+#anees-bank .fl > .done { margin-top: 26px; }
+html[data-look="kurz"] #anees-bank .fl > details.phase { background: color-mix(in srgb, var(--pc) 13%, var(--kz-panel)); }
+html[data-look="kurz"] #anees-bank .fl > details.phase > summary .fl-ico::after { background: var(--kz-yellow); color: #14204A; box-shadow: 0 0 0 2px var(--kz-bg); }
+/* Lessons: each row says "Open" (lesson + audio) */
+#anees-bank .ls-row .ls-rowhead { position: relative; }
+#anees-bank .ls-row .ls-rowhead[aria-expanded="false"]::after { content: "Open ›"; position: absolute; right: 12px; top: 12px; padding: 2px 10px; border-radius: 999px;
+  border: 1px solid var(--dw-line); font-size: 12px; font-weight: 700; color: var(--dw-ink); background: var(--dw-card); }
+html[data-look="kurz"] #anees-bank #ls-metrics > .ab-metric .ab-metric-label::before { margin-right: 6px; font-size: 16px; }
+html[data-look="kurz"] #anees-bank #ls-metrics > .ab-metric:nth-of-type(1) .ab-metric-label::before { content: "💬"; }
+html[data-look="kurz"] #anees-bank #ls-metrics > .ab-metric:nth-of-type(2) .ab-metric-label::before { content: "📘"; }
+/* round 22 */
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+#anees-bank .ar-kpis-1 { grid-template-columns: minmax(0, 260px); }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig .dw-bigbar { width: 100%; min-width: 140px; }
+@media (max-width: 480px) { #anees-bank .fl .fl-rule { flex-direction: column; align-items: flex-start; } #anees-bank .fl .fl-rule > i { transform: rotate(90deg); margin-left: 14px; } }
+html[data-look="kurz"] #anees-bank .fl > details.phase { background: color-mix(in srgb, var(--pc) 24%, var(--kz-panel)); }
+html[data-look="kurz"] #anees-bank .ls-type { border-style: solid !important; }
+#anees-bank .ls-type { border-style: solid !important; }
+html[data-look="kurz"] #anees-bank main, html[data-look="kurz"] #anees-bank .ab-shell { background: transparent; }
+/* lesson page: minutes is the hero; the other two counts sit smaller beside it */
+html.lsn-page .lsn-bigs { grid-template-columns: 2fr 1fr 1fr; }
+html.lsn-page .lsn-bigs .dw-big:not(:first-child) b { font-size: clamp(20px, 4vw, 26px); }
+html.lsn-page .lsn-bigs .dw-big:first-child b { font-size: clamp(34px, 7vw, 50px); }
+#anees-bank .ls-row { border-left-style: solid !important; }
+#anees-bank .dw-src { border: 0 !important; background: none !important; padding: 0 !important; }
+/* round 23 */
+#ar-tab-unknowns .ar-unk-h .dw-sumline { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+#ar-tab-unknowns .ar-unk-h .dw-sumline em { font: 700 15px/1.2 var(--sabz-font-sans, system-ui); font-style: normal; color: var(--dw-ink); text-transform: none; letter-spacing: 0; }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig { min-width: 300px; }
+#anees-bank .dw-bigbar.dw-miss0 { background: var(--dw-line); } #anees-bank .dw-bigbar.dw-miss0 > i { background: var(--dw-bad) !important; }
+@media (max-width: 600px) { #ar-tab-unknowns .ar-unk-h .dw-sumbig { min-width: 0; } }
+@media (max-width: 440px) { #anees-bank .dw-scene.dw-robot { display: none; } }
+/* round 2 (Medi: "you cut out too much data"): a rule that hid data was removed here */
+#anees-bank .fl .fl-chain { display: inline-flex; gap: 6px; align-items: center; }
+#anees-bank .fl .fl-mini { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
+#anees-bank .fl .fl-mini svg { width: 26px; height: 26px; padding: 5px; border-radius: 8px; background: var(--pc); }
+#anees-bank .fl .fl-mini em { font-style: normal; font-size: 10.5px; font-weight: 700; color: var(--ab-muted); }
+html[data-look="kurz"] #anees-bank .fl .fl-mini svg { border-radius: 50%; }
+#anees-bank .dw-wait { padding: 6px 10px !important; }
+body:has(#anees-bank, .lsn-top) > #stall-bar::before { content: "⚠ "; }
+html.lsn-page body > #stall-bar { padding: 4px 12px !important; font: 600 12.5px/1.4 system-ui !important; }
+/* round 24 */
+#ar-tab-unknowns .ar-unk-h .dw-cat { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+#ar-tab-unknowns .ar-unk-h .dw-catico { font-size: 22px; align-self: center; }
+#ar-tab-unknowns .ar-unk-h .dw-sumbig { flex: 1 1 auto; max-width: 560px; }
+#anees-bank .ls-small, #anees-bank .ls-barlab { font-size: 13.5px; }
+
+/* ---------- round 2 (look A): data back in view ---------- */
+#ar-tab-unknowns .vu-grid { grid-template-columns: minmax(0, 1fr); }      /* each vocabulary card is full width: rows and labels never squeeze */
+#ar-tab-unknowns .dw-clip { font-size: 0 !important; }                  /* a bar slice too thin for its label: the legend underneath carries it */
+html.lsn-page .lsn-mark { padding: 2px 9px; border-radius: 999px; background: var(--dw-a1); color: var(--dw-card) !important; }   /* the practice start: a pill */
+html.lsn-page .lsn-map { position: relative; padding-top: 24px; }
+#ar-tab-unknowns #dw-v1-bigs { margin: 8px 0 10px; }
+#ar-tab-unknowns #dw-v1-bigs .dw-warnbig b { color: var(--dw-warn); }
+/* Lessons on a phone: tighter top so the first lesson shows sooner (every number stays) */
+@media (max-width: 600px) {
+  #anees-bank .dw-wait { padding: 4px 10px !important; margin: 6px 0 !important; }
+  #anees-bank #ls-metrics .ab-metric { padding: 8px 10px; min-height: 0; }
+  #anees-bank #ls-metrics .ab-number { font-size: 30px; margin: 2px 0; }
+  #anees-bank .ls-rehearnote { font-size: 10.5px; padding: 0 6px; opacity: .85; }
+}
+#anees-bank .fl .fl-acc { margin: 8px 0 6px; max-width: 520px; }
+html.lsn-page .tm-chat { fill: var(--dw-a4); background: var(--dw-a4); }   /* chat: its own colour, far from "you" */
+/* flow round 3: the tool logos sit in the card's corner, so the step line follows its title with no gap */
+@media (min-width: 601px) {
+  #anees-bank .fl .node .box { position: relative; padding-right: 140px; }
+  #anees-bank .fl .node .box > .top { display: block; min-height: 0; }
+  #anees-bank .fl .node .box > .top .icons { position: absolute; top: 12px; right: 12px; }
+  #anees-bank .fl .node .box > p { margin-top: 6px; }
+}
+#anees-bank .fl section.phase .fl-ico { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 9px; background: var(--pc); margin: 0 8px 0 2px; flex: none; }
+#anees-bank .fl section.phase .fl-ico svg { width: 18px; height: 18px; }
+#anees-bank .fl .box > p { color: var(--dw-ink); }
+/* lesson round 3: the practice start is a big jump button with a tick into the bar */
+html.lsn-page .lsn-mark { font-size: 14px; padding: 4px 12px; }
+html.lsn-page .lsn-mark::after { top: 100%; height: 14px; width: 3px; background: var(--dw-a1); }
+html.lsn-page .lsn-map { padding-top: 34px; }
+/* lessons round 3: counts and captions larger, full contrast */
+#anees-bank .ls-row .ls-small { font-size: 13.5px; color: var(--dw-ink); }
+#anees-bank #ls-metrics .ab-tiny { font-size: 12.5px; color: var(--dw-ink); opacity: .8; }
+#anees-bank .dw-sortchips { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+#anees-bank .dw-sortchips button { padding: 4px 12px; border-radius: 999px; border: 1px solid var(--dw-line); background: var(--dw-card); color: var(--dw-ink); font: 600 13px/1.4 var(--sabz-font-sans, system-ui); cursor: pointer; }
+#anees-bank .dw-sortchips button[aria-pressed="true"] { background: var(--dw-a1); color: var(--dw-card); border-color: var(--dw-a1); }
+#ar-tab-unknowns .dw-pcts { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 2px 0 6px; font: 700 13px/1.4 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
+/* round 4 */
+html.lsn-page .az-arabic { font-size: 1em !important; opacity: 1 !important; color: var(--dw-ink); }   /* the recorded Arabic: same size and contrast as the line */
+html.lsn-page .lsn-bigs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+html.lsn-page .lsn-bigs .dw-big b, html.lsn-page .lsn-bigs .dw-big:first-child b, html.lsn-page .lsn-bigs .dw-big:not(:first-child) b { font-size: clamp(24px, 5vw, 38px); }
+@media (min-width: 601px) { #anees-bank .fl .node .box:has(.icons > .ico:nth-child(4)) { padding-right: 16px; }
+  #anees-bank .fl .node .box:has(.icons > .ico:nth-child(4)) > .top .icons { position: static; display: flex; flex-wrap: wrap; margin: 6px 0 0; } }
+#ar-tab-unknowns .vu-track > i { min-width: 3px; }
+#anees-bank #ls-sort { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }   /* the sort chips below do this job */
+#ar-tab-unknowns .dw-l1bar { margin: 6px 0 2px; max-width: 420px; height: 10px; }
+#ar-tab-unknowns .dw-l1bar > i:first-child { background: var(--dw-ok); }
+#ar-tab-unknowns .dw-l1bar > i + i { background: var(--dw-warn); }
+#anees-bank .fl .fl-path .fl-dot svg { width: 22px; height: 22px; }
+html.lsn-page .lsn-note .dw-chip.warn { font-size: 15px; font-weight: 700; padding: 6px 14px; }   /* the one risk on the page */
+html.lsn-page button.t small { font-size: 13px; color: var(--dw-ink); }
+html.lsn-page .lsn-map figcaption { font-size: 14px; color: var(--dw-ink); }
+#ar-tab-unknowns #dw-v1-bigs .dw-bigbar { display: flex; height: 6px; margin-top: 6px; }
+#ar-tab-unknowns #dw-v1-bigs .dw-bigbar > i { background: var(--dw-warn); }
+/* round 6 (r2): the six Lessons tiles are equal, same order on every width */
+#anees-bank #ls-metrics { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 8px !important; }
+#anees-bank #ls-metrics .ab-metric { grid-row: auto !important; grid-column: auto !important; order: 0 !important; padding: 10px 12px !important; min-height: 0 !important; }
+#anees-bank #ls-metrics .ab-number, #anees-bank #ls-metrics .ab-metric .ab-number { font-size: 32px !important; margin: 2px 0 !important; }
+@media (max-width: 680px) { #anees-bank #ls-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } #anees-bank #ls-metrics .ab-number, #anees-bank #ls-metrics .ab-metric .ab-number { font-size: 26px !important; } }
+/* V1 rows: the count and share read big next to each bar */
+#ar-tab-unknowns .vu-v { font-size: 17px; font-weight: 700; color: var(--dw-ink); }
+#ar-tab-unknowns .vu-v small { font-size: 13px; font-weight: 700; color: var(--dw-ink); }
+html.lsn-page a.lsn-jump { display: block; text-align: center; margin: 4px 0 10px; padding: 10px 14px; border-radius: 12px; background: var(--dw-a1); color: var(--dw-card) !important; font-weight: 700; text-decoration: none; font-size: 16px; }
+html.lsn-page .lsn-playkey { margin-left: 10px; font-weight: 600; }
+html.lsn-page .lsn-map figcaption { flex-wrap: wrap; }
+html.lsn-page .lsn-map figcaption span { white-space: nowrap; }
+html.lsn-page .lsn-playkey { flex-basis: 100%; order: 9; margin: 4px 0 0 !important; }
+#anees-bank #ls-metrics .ab-metric-label { font-size: 12.5px !important; color: var(--dw-ink); }
+/* round 8 (r2) */
+#anees-bank #ls-metrics .ab-metric:nth-child(n):nth-child(n) .ab-number { font-size: 32px !important; margin: 2px 0 !important; }
+#anees-bank #ls-metrics .ab-metric:nth-child(n):nth-child(n) { padding: 10px 12px !important; min-height: 0 !important; grid-row: auto !important; grid-column: auto !important; }
+@media (max-width: 680px) { #anees-bank #ls-metrics .ab-metric:nth-child(n):nth-child(n) .ab-number { font-size: 26px !important; } }
+@media (min-width: 681px) { #anees-bank .ls-row .ls-rowhead .ls-tcell { padding-top: 30px; } }
+html.lsn-page .lsn-playkey { flex-basis: auto; order: 0; margin: 0 0 0 10px !important; }
+#ar-tab-unknowns .dw-stat { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 4px 0 6px; font: 700 14px/1.4 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
+#ar-tab-unknowns .dw-stat b { font-size: 18px; }
+body:has(#stall-bar) #anees-bank #lesson-alerts { display: none; }   /* the same robot warning already sits in the page-top bar */
+#anees-bank .fl .ico em { font-size: 12px; color: var(--dw-ink); }
+#ar-tab-unknowns .dw-share { color: var(--dw-ink); }
+#ar-tab-unknowns #dw-top-bigs { margin: 8px 0 14px; }
+#ar-tab-unknowns #dw-top-bigs a.dw-big { text-decoration: none; color: inherit; }
+#ar-tab-unknowns #dw-top-bigs .dw-warnbig b { color: var(--dw-warn); }
+html.lsn-page .az-arabic { line-height: 1.8 !important; padding-bottom: 2px; }
+#anees-bank .fl .fl-mini { margin: 4px 0 8px; font-size: 13px; }
+html.lsn-page .lsn-map { padding-top: 0; }
+html.lsn-page .lsn-map { position: relative; padding-top: 22px; }
+html.lsn-page .lsn-flag { position: absolute; top: 0; transform: translateX(-50%); font-size: 12px; font-weight: 700; color: var(--dw-a2) !important; text-decoration: none; white-space: nowrap; }
+html.lsn-page .lsn-flag::after { content: ""; position: absolute; left: 50%; top: 17px; width: 3px; height: 26px; margin-left: -1px; background: var(--dw-a2); border-radius: 2px; }
+@media (max-width: 600px) { #ar-tab-unknowns #dw-top-bigs { grid-template-columns: 1fr; } }
+#anees-bank .fl ol.fl-mini { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; list-style: none; padding: 0; counter-reset: none; }
+#anees-bank .fl ol.fl-mini > li { display: inline-flex; min-height: 0; padding: 4px 12px; border-radius: 999px; background: var(--dw-card); border: 1px solid var(--dw-line); font-weight: 700; }
+#anees-bank .fl ol.fl-mini > li::before { content: none; }
+#anees-bank .fl ol.fl-mini > li + li::after { content: none; }
+#anees-bank .fl ol.fl-mini > li:not(:last-child)::after { content: "→"; margin-left: 10px; color: var(--dw-muted); position: static; }
+#anees-bank .ab-chips button, #anees-bank .ls-tabs button { font-size: 13.5px; }
+html.lsn-page .lsn-map figcaption .lk-i { white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; margin-left: 0; }
+html.lsn-page .lsn-map figcaption .lk-i i { margin-left: 0 !important; }
+#anees-bank .fl .fl-mini { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 6px 0 8px; }
+#anees-bank .fl .fl-mini > span { padding: 4px 12px; border-radius: 999px; background: var(--dw-card); border: 1px solid var(--dw-line); font-weight: 600; font-size: 13.5px; }
+#anees-bank .fl .fl-mini > span b { font-size: 16px; color: var(--dw-a1); }
+#anees-bank .fl .fl-mini > i { font-style: normal; color: var(--dw-muted); }
+#anees-bank .fl .box > .fl-mini { flex-direction: row !important; align-items: center !important; }
+html.lsn-page .lsn-bigs { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+@media (max-width: 600px) { html.lsn-page .lsn-bigs { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+html.lsn-page .lsn-arbig b { color: var(--dw-a1); }
+html.lsn-page .lsn-flag { font-size: 13px; padding: 1px 8px; border-radius: 999px; background: var(--dw-a2); color: #fff !important; }
+#anees-bank #ls-metrics .ls-herobar { background: var(--dw-line); margin: 4px 0 6px; }
+@media (max-width: 600px) {
+  #anees-bank .dw-sortchips { display: none; }
+  #anees-bank #ls-sort { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+}
+#anees-bank .ls-row .ls-small { font-size: 14px; }
+#anees-bank #ls-metrics .ab-metric-label { font-size: 13.5px !important; }
+#anees-bank #ls-metrics .ab-tiny { font-size: 13px; }
+html.lsn-page .lsn-map figcaption { font-size: 15px; font-weight: 600; }
+#anees-bank .fl .fl-plans { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 4px; }
+#anees-bank .fl .fl-plans > span { padding: 4px 10px; border-radius: 8px; background: var(--dw-card); border: 1px solid var(--dw-line); font-size: 13.5px; font-weight: 600; }
+#anees-bank .fl .fl-plans em { display: block; font-style: normal; font-size: 11.5px; font-weight: 700; color: var(--dw-muted); text-transform: uppercase; letter-spacing: .05em; }
+html.lsn-page .lsn-share { display: flex; height: 24px; border-radius: 999px; overflow: hidden; margin: 4px 0 10px; }
+html.lsn-page .lsn-share > i { display: flex; align-items: center; justify-content: center; font: 700 13px/1 var(--sabz-font-sans, system-ui); font-style: normal; color: #fff; white-space: nowrap; overflow: hidden; }
+html.lsn-page .lsn-flag { z-index: 2; }
+html.lsn-page .lsn-flag::after { height: 30px; width: 4px; background: var(--dw-ink); }
+@media (max-width: 600px) {
+  #ar-tab-unknowns #dw-top-bigs { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 6px; }
+  #ar-tab-unknowns #dw-top-bigs .dw-big { padding: 8px; }
+  #ar-tab-unknowns #dw-top-bigs .dw-big b { font-size: 22px; white-space: nowrap; }
+  #ar-tab-unknowns #dw-top-bigs .dw-big span { font-size: 10.5px; letter-spacing: .02em; }
+  #anees-bank .ab-header h1 { font-size: 30px; }
+}
+@media (max-width: 600px) { #ar-tab-unknowns #dw-v1-bigs { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 6px; }
+  #ar-tab-unknowns #dw-v1-bigs .dw-big { padding: 8px; } #ar-tab-unknowns #dw-v1-bigs .dw-big b { font-size: 22px; }
+  #ar-tab-unknowns #dw-v1-bigs .dw-big span { font-size: 10.5px; letter-spacing: .02em; } }
+#ar-tab-unknowns .vu-ex, #ar-tab-unknowns .vu-lab small { font-size: 14px; color: var(--dw-ink); }
+@media (max-width: 600px) { html.lsn-page .lsn-map figcaption > span:last-child { flex-basis: 100%; text-align: right; margin-left: 0; }
+  #anees-bank #ls-metrics .ab-metric:nth-child(n):nth-child(n) { padding: 6px 10px !important; } #anees-bank #ls-metrics .ab-tiny { font-size: 12px; line-height: 1.3; } }

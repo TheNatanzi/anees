@@ -16,18 +16,27 @@
   // (nothing is sent to Amal by the app, ai_rules A1 - Medi decides whether to remind her)
   function note(P) {
     const late = (P || []).filter(p => p.state === 'waiting' && p.still_waiting);
-    return late.length ? `<p class="ab-sub" data-still-waiting>${late.length} word${late.length > 1 ? 's' : ''} the tutor said she'd add still not in the Doc after 7 days: ${late.map(p => esc(p.arabizi || p.arabic)).join(', ')}.</p>` : '';
+    if (!late.length) return '';
+    const names = late.map(p => esc(p.arabizi || p.arabic)).join(', ');
+    // de-word 2026-10-22: the warning is a chip; the full sentence opens in place (ⓘ)
+    return `<div class="dw-row dw-late" data-still-waiting><span class="dw-chip warn">${late.length} late</span> ${late.length} word${late.length > 1 ? 's' : ''} the tutor said she'd add still not in the Doc after 7 days: ${names}.</div>`;
   }
   function html(data) {
     const P = (data && data.promised) || [];
     if (!P.length) return '';
-    const waiting = P.filter(p => p.state !== 'in_doc').length;
-    return note(P) + `<details class="ab-promised" data-promised ${waiting ? 'open' : ''}><summary class="ab-sub"><b>The tutor said she will add (${P.length})</b> · ${waiting} waiting · words from our lessons, not on her Doc yet</summary>
-      <ul>${P.map(p => `<li data-state="${esc(p.state)}"><b>${esc(p.arabizi || p.arabic)}</b>${p.arabizi && p.arabic ? ` <span lang="ar">${esc(p.arabic)}</span>` : ''} <span>· ${esc(p.english || '')} · ${esc(pretty(p.date))} lesson · ${esc(label(p))}</span></li>`).join('')}</ul></details>`;
+    const waiting = P.filter(p => p.state !== 'in_doc').length, inDoc = P.length - waiting;
+    // round 2: every promised word stays on screen as one compact table row with a status chip (waiting first)
+    const chip = p => p.state === 'in_doc' ? `<span class="dw-chip">In the Doc${p.in_doc_since ? ' · ' + esc(pretty(p.in_doc_since)) : ''}</span>`
+      : `<span class="dw-chip warn">${esc(label(p))}</span>`;
+    const order = [...P].sort((x, y) => (x.state === 'in_doc') - (y.state === 'in_doc'));
+    return note(P) + `<details class="ab-promised" data-promised open><summary class="ab-sub"><b>The tutor said she will add (${P.length})</b> · <span class="dw-chip${waiting ? ' warn' : ' muted'}">${waiting} waiting</span> · <span class="dw-chip">${inDoc} in the Doc</span></summary>
+      <table class="dw-ptable"><tbody>${order.map(p => `<tr data-state="${esc(p.state)}"><td><b>${esc(p.arabizi || p.arabic)}</b>${p.arabizi && p.arabic ? ` <span lang="ar">${esc(p.arabic)}</span>` : ''}</td><td>${esc(p.english || '')}</td><td>${esc(pretty(p.date))} lesson</td><td>${chip(p)}</td><td class="dw-age">${esc(p.age || '')}</td></tr>`).join('')}</tbody></table></details>`;
   }
   async function mount(el) {
     if (!el) return;
-    try { const D = await (await fetch('data/amal-new-words.json', { cache: 'no-store' })).json(); el.innerHTML = html(D); } catch (e) { el.innerHTML = ''; }
+    try { const D = await (await fetch('data/amal-new-words.json', { cache: 'no-store' })).json(); const late = typeof document !== 'undefined' && document.getElementById('ab-late');
+      // round 2: the late warning stays at the top; the full promised table sits under the word list
+      if (late) { late.innerHTML = note((D && D.promised) || []); el.innerHTML = html(D).replace(note((D && D.promised) || []), ''); } else el.innerHTML = html(D); } catch (e) { el.innerHTML = ''; }
   }
   root.AneesPromised = { html, label, mount, note };
   if (typeof document !== 'undefined') document.addEventListener('DOMContentLoaded', () => mount(document.getElementById('ab-promised')));

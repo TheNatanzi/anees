@@ -1,0 +1,690 @@
+/* De-word 2026-10-22, group "people": Student, Homework, Tutor.
+   Same markup in both looks; Look B specifics under html[data-look="kurz"]. Uses the picture-kit vars from look.css. */
+#anees-bank details.dw-info > div { white-space: normal; text-align: left; text-transform: none; letter-spacing: 0; font-weight: 400; }
+#anees-bank .dw-big span details.dw-info > div { position: absolute; left: 8px; right: 8px; z-index: 6; }
+#anees-bank .ab-sub:empty { display: none; }
+
+/* ---------- Student ---------- */
+#anees-bank .st-score.dw-bigs, #anees-bank #st-score { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+#anees-bank .st-big b { font-size: clamp(32px, 4.4vw, 44px); }
+#anees-bank .st-big svg.dw-ico { width: 24px; height: 24px; }
+#anees-bank a.st-task.st-cards { display: grid; grid-template-columns: minmax(0, 1fr) auto 18px; gap: 6px 16px; align-items: center;
+  text-decoration: none; color: inherit; }
+#anees-bank a.st-task.st-cards:hover { border-color: var(--ab-muted); }
+#anees-bank .st-cmain { min-width: 0; }
+#anees-bank .st-chips2 { margin: 0 0 6px; gap: 6px; }
+#anees-bank .st-cards .st-prompt { margin: 0 0 8px; font-size: 21px; }
+#anees-bank .st-count { text-align: right; min-width: 74px; }
+#anees-bank .st-count b { display: block; font: 600 30px/1 var(--sabz-font-serif, Georgia, serif); font-variant-numeric: tabular-nums; }
+#anees-bank .st-count b em { font-style: normal; font-size: 17px; color: var(--dw-muted); }
+#anees-bank .st-count span { display: block; font: 600 11px/1.3 var(--sabz-font-sans, system-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--dw-muted); margin-top: 4px; }
+#anees-bank .st-go2 { font-size: 26px; color: var(--dw-muted); line-height: 1; }
+#anees-bank .st-shead { display: grid; grid-template-columns: minmax(160px, 220px) minmax(0, 1fr); gap: 14px; align-items: center; margin: 0 0 14px; }
+#anees-bank .st-sbar .dw-split { height: 16px; }
+#anees-bank .st-sbar .dw-row { margin: 6px 0 10px; }
+#anees-bank .st-k-wrong { background: var(--dw-bad) !important; }
+#anees-bank .st-k-partial { background: var(--dw-warn) !important; }
+#anees-bank .st-k-asked { background: var(--dw-muted) !important; }
+#anees-bank .st-practice { width: auto; display: inline-flex; align-items: center; text-decoration: none; }
+#anees-bank .st-day { font: 600 13px/1.3 var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-muted); margin: 16px 0 8px; }
+#anees-bank .st-words { grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); }
+#anees-bank .st-words li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+#anees-bank .st-words li b { font-size: 16px; }
+#anees-bank .st-words li span[lang] { color: var(--dw-ink); font-size: 16px; }
+#anees-bank .st-words li i { font-style: normal; color: var(--dw-muted); flex: 1 1 auto; min-width: 0; }
+#anees-bank .st-words li .dw-chip { margin-left: auto; }
+@media (max-width: 680px) {
+  #anees-bank #st-score { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #anees-bank .st-shead { grid-template-columns: 1fr; }
+  #anees-bank .st-cards .st-prompt { font-size: 19px; }
+  #anees-bank .st-count b { font-size: 24px; }
+}
+
+/* ---------- Homework (static page, no sidebar) ---------- */
+.hw-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.hw-flow { flex-wrap: nowrap; }
+.hw-flow > li { font-size: 14px; flex: 1 1 0; min-width: 0; }
+.hw-flow > li svg { flex: none; width: 20px; height: 20px; color: var(--dw-a1); }
+.hw-keys { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 4px 0 14px; padding: 0; list-style: none; }
+.hw-keys li { display: flex; align-items: baseline; justify-content: center; gap: 8px; padding: 8px 4px; border-radius: var(--dw-radius); background: var(--dw-card); border: 1px solid var(--dw-line); }
+.hw-keys li b { font: 700 26px/1 var(--sabz-font-sans, system-ui); font-variant-numeric: tabular-nums; color: var(--dw-a2); }
+.hw-keys li span { font-size: 28px; line-height: 1; color: var(--dw-ink); }
+.hw-is-off .hw-flow, .hw-is-off .hw-keys { display: none; }
+.hw-off { display: grid; justify-items: center; text-align: center; gap: 8px; padding: 28px 18px; border-radius: var(--dw-radius);
+  background: var(--dw-bad-fill); color: var(--dw-bad); }
+.hw-off svg { width: 64px; height: 64px; }
+.hw-off b { font-size: 24px; color: var(--dw-ink); }
+.hw-off span { font-size: 15px; color: var(--dw-muted); }
+.hw-off button { min-width: 160px; background: var(--dw-bad); border-color: var(--dw-bad); color: var(--dw-bad-fill); font-size: 18px; }
+@media (max-width: 680px) { .hw-flow > li { flex-direction: column; text-align: center; font-size: 13px; padding: 8px 4px; } .hw-flow > li::before { display: none; } }
+
+/* ---------- Tutor ---------- */
+#anees-bank .tu-bigs { display: flex; flex-wrap: wrap; gap: 10px; margin: 2px 0 0; }
+#anees-bank .tu-bigs .dw-big { min-width: 130px; padding: 8px 14px; }
+#anees-bank .tu-bigs .dw-big b { font-size: 34px; }
+#anees-bank .tu-intro { margin: 0 0 12px; }
+#anees-bank .hb-row .tu-row-s { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+#anees-bank .hb-row .tu-left { font: 600 15px/1 var(--sabz-font-sans, system-ui); color: var(--dw-ink); font-variant-numeric: tabular-nums; }
+#anees-bank .hb-row .tu-min { margin-left: auto; }
+#anees-bank .hb-span.dw-row { gap: 8px; }
+
+/* ---------- Look B ---------- */
+html[data-look="kurz"] #anees-bank a.st-task.st-cards { border-radius: var(--dw-radius); border: 0; background: var(--dw-card); }
+html[data-look="kurz"] #anees-bank .st-count b { color: var(--dw-a1); }
+html[data-look="kurz"] #anees-bank .st-words li { border: 0; border-radius: 16px; }
+html[data-look="kurz"] .hw-keys li { border: 0; }
+.dp-sr { display: inline-block; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; vertical-align: top; }
+
+#anees-bank .st-calm { grid-column: span 3; display: flex; flex-direction: column; justify-content: center; background: var(--dw-ok-fill); border-left-color: var(--dw-ok) !important; }
+#anees-bank .st-calm b { font-size: 28px; color: var(--dw-ok); }
+#anees-bank .st-calm span { text-transform: none; letter-spacing: 0; font-weight: 500; font-size: 13px; }
+@media (max-width: 680px) { #anees-bank .st-calm { grid-column: auto; } #anees-bank .st-calm b { font-size: 22px; } }
+
+/* ---------- Tutor (round 1) ---------- */
+#anees-bank #hb-hello .tu-bigs { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 0; }
+#anees-bank #hb-hello .tu-bigs > .dw-big { display: block; min-width: 120px; padding: 8px 14px; }
+#anees-bank #hb-hello .tu-bigs > .dw-big b { font-size: 34px; }
+#anees-bank #hb-hello .tu-bigs > .dw-big:nth-child(2) { border-left-color: var(--dw-a2); }
+#anees-bank .hb-row .tu-row-s { font-size: 13px; }
+#anees-bank .tu-pct i.lo { background: var(--dw-bad); } #anees-bank .tu-pct i.mid { background: var(--dw-warn); } #anees-bank .tu-pct i.hi { background: var(--dw-ok); }
+#anees-bank .tu-decay { display: grid; gap: 6px; margin: 0; }
+#anees-bank .tu-decay .dw-split { height: 12px; margin: 0; }
+#anees-bank .tu-decay .tu-fade { background: var(--dw-warn) !important; } #anees-bank .tu-decay .tu-never { background: var(--dw-muted) !important; }
+#anees-bank .hb-span.dw-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+#anees-bank .dp-how { display: flex; align-items: flex-start; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; font-size: 13px; color: var(--dw-muted); }
+#anees-bank .dp-how > details.dw-info { display: contents; }
+#anees-bank .dp-how > details.dw-info > div { order: 3; flex: 1 0 100%; margin: 0; }
+#anees-bank .dp-how > details.dw-info > div > p { margin: 0; }
+#anees-bank .dp-times { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 4px 0; }
+#anees-bank .dp-times > details.dw-info > div, #anees-bank .tg-title details.dw-info > div { margin-top: 6px; }
+#anees-bank .tg-title details.dw-info { font-size: 13px; font-family: var(--sabz-font-sans, system-ui); font-weight: 400; margin-left: 6px; }
+#anees-bank .tg-title details.dw-info[open] { display: block; margin: 6px 0 0; }
+#anees-bank .tg-card.dp-done { opacity: .85; }
+#anees-bank details.dp-list > summary { cursor: pointer; list-style: none; margin-top: 14px; }
+#anees-bank details.dp-list > summary::-webkit-details-marker { display: none; }
+#anees-bank details.dp-list > summary::before { content: '▸ '; } #anees-bank details.dp-list[open] > summary::before { content: '▾ '; }
+/* round 2: compact To do rows (one line each; the first one is "up next"); the order and the paging stay as they are */
+#anees-bank .hb-row.tu-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; align-items: center; padding: 9px 12px; }
+#anees-bank .hb-row.tu-row .hb-row-t { font-size: 15px; line-height: 1.3; }
+#anees-bank .hb-row.tu-row .hb-row-s { margin: 0; white-space: nowrap; }
+#anees-bank .hb-row.tu-row .hb-row-s .tu-unit { display: none; }
+#anees-bank .hb-row.tu-row .hb-bar { grid-column: 1 / -1; height: 3px; margin-top: 4px; }
+#anees-bank .hb-list [data-rows] { gap: 6px; }
+#anees-bank .hb-row.tu-next { border-left: 5px solid var(--dw-a2); }
+#anees-bank .hb-row.tu-next .hb-row-t::before { content: "Up next"; display: block; font: 700 11px/1.4 var(--sabz-font-sans, system-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--dw-a2); }
+#anees-bank .hb-row.tu-row .hb-row-s.tu-row-s { display: grid; justify-items: end; gap: 3px; }
+#anees-bank .hb-row.tu-row .hb-row-s .tu-unit { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; display: block; }
+#anees-bank .hb-row.tu-row .tu-left { font-size: 18px; }
+#anees-bank .hb-row.tu-row { position: relative; }
+@media (min-width: 960px) { #anees-bank .hb-wrap { grid-template-columns: 360px minmax(0, 1fr); } }
+
+/* ---------- Look B round 1 ---------- */
+html[data-look="kurz"] #anees-bank .hb-row.tu-row { border: 0; background: var(--dw-card); border-radius: 18px; }
+html[data-look="kurz"] #anees-bank .hb-row.tu-next { border: 0; box-shadow: inset 0 0 0 3px var(--dw-a2); }
+html[data-look="kurz"] #anees-bank .hb-row.tu-row .hb-bar { height: 5px; }
+html[data-look="kurz"] #anees-bank .hb-row.tu-row .tu-left { color: var(--dw-a1); font-size: 20px; }
+html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big { padding-right: 40px; }
+html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big b { color: var(--dw-a1); }
+html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big:nth-child(2) b { color: var(--dw-a2); }
+html[data-look="kurz"] #anees-bank .hb-panel, html[data-look="kurz"] #anees-bank .hb-card { border: 0; border-radius: var(--dw-radius); }
+html[data-look="kurz"] #anees-bank .st-task { border: 0; border-radius: var(--dw-radius); }
+html[data-look="kurz"] .hw-flow > li svg { color: var(--dw-a2); }
+html[data-look="kurz"] .hw-off { border-radius: 24px; }
+/* round 4: rows 6+ fold under "All tasks (N)" (same order, opens in place) */
+#anees-bank details.tu-more > summary { cursor: pointer; list-style: none; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 6px;
+  border: 1px dashed var(--dw-line); border-radius: 12px; font: 600 14px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+#anees-bank details.tu-more > summary::-webkit-details-marker { display: none; }
+#anees-bank details.tu-more > summary::after { content: '▾'; } #anees-bank details.tu-more[open] > summary::after { content: '▴'; }
+#anees-bank .tu-more-rows { display: grid; gap: 6px; margin-top: 6px; }
+html[data-look="kurz"] #anees-bank details.tu-more > summary { border-radius: 18px; border-color: var(--dw-a1); color: var(--dw-a1); }
+
+/* phone app shell (PG-31's bottom bar kept): the page scrolls above the bar, so the bar never covers a card */
+@media (max-width: 680px) {
+  html:has(body > .pn-bar), html:has(body > .pn-bar) body { height: 100%; }
+  body:has(> .pn-bar) { display: flex; flex-direction: column; overflow: hidden; margin: 0; }
+  body:has(> .pn-bar) > #anees-bank { flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  body:has(> .pn-bar) > .pn-bar { position: static !important; flex: none; }
+  body:has(> .pn-bar) #anees-bank main { padding-bottom: 18px !important; }
+}
+@media (max-width: 680px) {
+  #anees-bank .hb-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  #anees-bank .hb-tabs > * { flex: none; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big { flex: 1 1 0; min-width: 0; }
+}
+/* round 6 */
+#anees-bank .st-now { grid-column: span 2; display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 14px; background: var(--dw-card); }
+#anees-bank .st-now > b { grid-row: span 2; font-size: 52px; }
+#anees-bank .st-now > span { align-self: end; }
+#anees-bank .st-now .st-start { width: auto; min-height: 44px; margin-top: 8px; justify-self: start; display: inline-flex; align-items: center; text-decoration: none; font-size: 15px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#anees-bank .st-zero { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+#anees-bank .st-cards .hb-bar { display: none; }
+#anees-bank .st-count { display: grid; grid-template-columns: auto auto; column-gap: 10px; align-items: center; justify-items: end; }
+#anees-bank .st-count .st-ring { grid-row: span 2; width: 40px; height: 40px; }
+#anees-bank #hb-hello .tu-bigs > .dw-big { position: relative; padding-right: 44px; }
+@media (max-width: 680px) {
+  #anees-bank .st-now { grid-column: 1 / -1; }
+  #anees-bank .st-now > b { font-size: 40px; }
+  #anees-bank .st-count .st-ring { width: 32px; height: 32px; }
+}
+/* round 7 */
+#anees-bank .st-now { grid-column: 1 / -1; }
+#anees-bank .st-now .st-start { white-space: normal; }
+#anees-bank .st-hwline { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0; font-size: 14px; color: var(--dw-muted); position: relative; }
+#anees-bank .st-hwline svg.dw-ico { position: static; width: 20px; height: 20px; }
+#anees-bank .st-hwline b { color: var(--dw-ink); font-size: 15px; }
+#anees-bank .st-hwline details.dw-info > div { position: absolute; left: 0; top: 100%; z-index: 6; }
+@media (max-width: 680px) {
+  /* Tutor phone: a compact head so the first card shows sooner; the panel's title repeats its row, so it is not shown twice */
+  #anees-bank #hb-hello .tu-bigs { flex-wrap: nowrap; gap: 8px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big { padding: 6px 36px 6px 10px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big b { font-size: 26px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big span { font-size: 10px; }
+  #anees-bank .hb-tools-l { display: none; }
+  #anees-bank .hb-tabs { margin: 2px 0 10px; -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 24px; }
+  #anees-bank .hb-tab { min-height: 36px; padding: 6px 12px; font-size: 13px; }
+  #anees-bank .hb-list .hb-panel > .hb-ptitle, #anees-bank .hb-list .hb-panel > .hb-pnote { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  #anees-bank .hb-list .hb-panel { position: relative; }
+  #anees-bank .hb-panel .hb-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  #anees-bank .hb-panel .hb-chip { flex: none; }
+  #anees-bank .ab-header { gap: 6px; }
+}
+#anees-bank .st-hwline { flex-wrap: nowrap; }
+#anees-bank .st-hwline details.dw-info { display: inline-block; flex: none; width: auto; }
+/* round 8: one "0 / 22 cards done" line under the title (the bar shows it too); chip rows wrap on a phone */
+#anees-bank a.st-task.st-cards { grid-template-columns: minmax(0, 1fr) 18px; }
+#anees-bank .st-cards .hb-bar { display: block; height: 8px; }
+#anees-bank .st-of { display: flex; align-items: baseline; gap: 4px; margin: 0 0 8px; color: var(--dw-muted); font-size: 13px; }
+#anees-bank .st-of b { font: 700 20px/1 var(--sabz-font-sans, system-ui); font-variant-numeric: tabular-nums; color: var(--dw-ink); }
+#anees-bank .st-of .st-d { order: -1; color: var(--dw-a1); }
+#anees-bank .st-of .st-n::before { content: "/ "; color: var(--dw-muted); font-weight: 500; }
+#anees-bank .st-of span { margin-left: 4px; }
+@media (max-width: 680px) {
+  #anees-bank .hb-tabs { flex-wrap: wrap; overflow: visible; -webkit-mask-image: none; mask-image: none; padding-right: 0; gap: 5px; }
+  #anees-bank .hb-panel .hb-chips { flex-wrap: wrap; }
+  #anees-bank .hb-panel .tv-ar { font-size: 17px; }
+}
+/* round 9: card-stack picture on the Start card; phone menu icons (drawn here, same links and labels as phone-nav.js) */
+#anees-bank .st-now { position: relative; overflow: hidden; padding-right: 130px; }
+#anees-bank .st-now .st-stack { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 110px; height: 84px; }
+#anees-bank .hb-card > details { display: inline-block; margin-right: 18px; }
+#anees-bank .hb-card > details[open] { display: block; }
+@media (max-width: 680px) {
+  #anees-bank .st-now { padding-right: 14px; }
+  #anees-bank .st-now .st-stack { width: 64px; height: 50px; top: 12px; transform: none; right: 10px; }
+  #anees-bank .st-now .st-start { margin-right: 0; }
+  body > .pn-bar .pn-tab i { border: 0 !important; border-radius: 0 !important; background: currentColor !important;
+    -webkit-mask: var(--pn-ico) center / contain no-repeat; mask: var(--pn-ico) center / contain no-repeat; }
+  body > .pn-bar .pn-tab:nth-child(1) { --pn-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M4 20V10M10 20V4M16 20v-7M22 20H2'/%3E%3C/svg%3E"); }
+  body > .pn-bar .pn-tab:nth-child(2) { --pn-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M4 15v-3a8 8 0 0 1 16 0v3'/%3E%3Crect x='3' y='14' width='5' height='7' rx='2'/%3E%3Crect x='16' y='14' width='5' height='7' rx='2'/%3E%3C/svg%3E"); }
+  body > .pn-bar .pn-tab:nth-child(3) { --pn-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linejoin='round'%3E%3Crect x='3' y='7' width='13' height='14' rx='2'/%3E%3Cpath d='M8 4h11a2 2 0 0 1 2 2v11'/%3E%3C/svg%3E"); }
+  body > .pn-bar .pn-tab:nth-child(4) { --pn-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21a8 8 0 0 1 16 0'/%3E%3C/svg%3E"); }
+  body > .pn-bar .pn-tab:nth-child(5) { --pn-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Ccircle cx='5' cy='12' r='2.2'/%3E%3Ccircle cx='12' cy='12' r='2.2'/%3E%3Ccircle cx='19' cy='12' r='2.2'/%3E%3C/svg%3E"); }
+  body > .pn-bar .pn-tab[aria-current="page"] i { background: currentColor !important; }
+  html[data-look="kurz"] body > .pn-bar { background: var(--dw-card); border-top-color: var(--dw-line); }
+  html[data-look="kurz"] body > .pn-bar .pn-tab[aria-current="page"] { color: var(--dw-a1); }
+}
+@media (max-width: 680px) { #anees-bank .st-now .st-stack { display: none; } }
+/* round 10 */
+#anees-bank details.st-wlist > summary { cursor: pointer; list-style: none; min-height: 44px; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--dw-a1); }
+#anees-bank details.st-wlist > summary::-webkit-details-marker { display: none; }
+#anees-bank details.st-wlist > summary::before { content: '▸'; } #anees-bank details.st-wlist[open] > summary::before { content: '▾'; }
+#anees-bank .st-cards .hb-bar { height: 6px; }
+#anees-bank .hb-card > .hb-prog { display: flex; align-items: center; gap: 6px; }
+#anees-bank .dp-glyph { width: 20px; height: 20px; flex: none; }
+#anees-bank .hb-card > .hb-prog { display: block; }
+#anees-bank .dp-glyph { display: inline-block; vertical-align: -5px; margin-right: 6px; }
+/* round 11: the panel's "how it works" i sits in its top-right corner; on a phone the filter chips are one sliding row */
+#anees-bank .hb-panel { position: relative; }
+#anees-bank .hb-panel .dp-how { position: absolute; top: 12px; right: 12px; margin: 0; z-index: 2; }
+#anees-bank .hb-panel .dp-how > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+#anees-bank .hb-panel .dp-how:has(details[open]) { position: static; margin: 0 0 10px; }
+#anees-bank .hb-panel .dp-how > details.dw-info > summary { width: 26px; height: 26px; font-size: 13px; }
+#anees-bank .hb-panel > .hb-ptitle { padding-right: 34px; }
+@media (max-width: 680px) {
+  #anees-bank .hb-panel .hb-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); padding-right: 20px; }
+  #anees-bank .hb-panel .hb-chip { min-height: 32px; padding: 4px 10px; font-size: 12px; }
+  #anees-bank .hb-tools .hb-tab { font-size: 12.5px; padding: 5px 10px; min-height: 34px; }
+  #anees-bank .hb-tabs + .hb-tabs, #anees-bank .hb-tools { margin-bottom: 8px; }
+}
+@media (max-width: 680px) { #anees-bank .hb-panel .hb-task > .hb-chips:first-of-type, #anees-bank .hb-panel .hb-chips { margin-right: 34px; } }
+/* round 12, Tutor phone: title and the two numbers share one line; the tool row and the tabs each slide in one line */
+@media (max-width: 680px) {
+  #anees-bank[aria-label="Anees tutor"] .vp-eyebrow { display: none; }
+  #anees-bank[aria-label="Anees tutor"] .ab-header > div { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; }
+  #anees-bank[aria-label="Anees tutor"] .ab-header h1 { margin: 0; }
+  #anees-bank[aria-label="Anees tutor"] #hb-hello { margin: 0; }
+  #anees-bank #hb-hello .tu-bigs { margin: 0; gap: 6px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big { padding: 4px 30px 4px 8px; min-width: 0; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big b { font-size: 22px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big span { font-size: 9px; letter-spacing: .04em; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big svg.dw-ico { width: 16px; height: 16px; top: 6px; right: 6px; }
+  #anees-bank[aria-label="Anees tutor"] .hb-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 86%, transparent); mask-image: linear-gradient(90deg, #000 86%, transparent); padding-right: 22px; }
+  #anees-bank[aria-label="Anees tutor"] .hb-tab { flex: none; }
+  #anees-bank[aria-label="Anees tutor"] .hb-tools { padding-bottom: 8px; }
+}
+/* round 13 */
+@media (max-width: 680px) {
+  #anees-bank[aria-label="Anees tutor"] #hb-hello { flex: 1 1 auto; min-width: 0; }
+  #anees-bank #hb-hello .tu-bigs { justify-content: flex-end; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big { flex: 0 1 auto; }
+  #anees-bank .hb-card .tv-pair { flex-direction: column; align-items: stretch; gap: 4px; }
+  #anees-bank .hb-card .tv-pair .tv-arrow { display: none; }
+  #anees-bank .hb-card .tv-pair .tv-wrong { border-right: 4px solid var(--dw-bad); padding-right: 8px; }
+  #anees-bank .hb-card .tv-pair .tv-right { border-right: 4px solid var(--dw-ok); padding-right: 8px; }
+}
+/* round 14, phone: the open card's buttons come up sooner */
+@media (max-width: 680px) {
+  #anees-bank .hb-panel .hb-chips { margin-right: 46px !important; }
+  #anees-bank .hb-row.tu-row[aria-current="true"] { padding: 6px 12px; }
+  #anees-bank .hb-row.tu-row[aria-current="true"] .hb-bar { display: none; }
+  #anees-bank .hb-list .hb-panel { padding: 10px 10px 12px; }
+  #anees-bank .hb-card { padding: 10px 12px; gap: 2px; }
+  #anees-bank .hb-card > .hb-prog { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0 0 2px; }
+  #anees-bank .hb-card .tv-ar { font-size: 16px; line-height: 1.35; }
+  #anees-bank .hb-card .dp-times { margin: 2px 0; }
+  #anees-bank .hb-card .tv-wrong::before { content: "✗ "; color: var(--dw-bad); }
+  #anees-bank .hb-card .tv-right::before { content: "✓ "; color: var(--dw-ok); }
+}
+/* Homework page: its own "button" style (teal, 48 px) also hit the A/B look switch; give the switch back its own small style */
+body .anees-look button { min-height: 0; margin: 0; padding: 0 8px; height: 24px; border: 0; background: transparent; color: inherit; font: 600 12px/1 var(--sabz-font-sans, system-ui); cursor: pointer; }
+body .anees-look button[aria-pressed="true"] { background: var(--dw-knob, light-dark(#FFFDF6, #2C3B34)); box-shadow: 0 1px 2px rgb(0 0 0 / .2); }
+body > .anees-look:not(.anees-look-float) { position: fixed; left: 12px; bottom: 18px; width: 96px; margin: 0; z-index: 50; }
+/* round 15: dots per time, the list's progress as one split bar, wrong / right marked ✗ / ✓ at every width */
+#anees-bank .dp-dots { display: inline-flex; gap: 3px; }
+#anees-bank .dp-dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--dw-a2); display: block; }
+#anees-bank .dp-prog { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; }
+#anees-bank .dp-pbar { display: inline-flex; align-items: center; gap: 8px; flex: 1 1 160px; text-transform: none; letter-spacing: 0; font-weight: 600; color: var(--dw-muted); }
+#anees-bank .dp-pbar .dw-split { flex: 1; height: 10px; margin: 0; }
+#anees-bank .dp-pbar .dw-split > i { background: var(--dw-ok); }
+#anees-bank .hb-card .tv-pair { flex-direction: column; align-items: stretch; gap: 4px; }
+#anees-bank .hb-card .tv-pair .tv-arrow { display: none; }
+#anees-bank .hb-card .tv-pair .tv-wrong { border-right: 4px solid var(--dw-bad); padding-right: 8px; }
+#anees-bank .hb-card .tv-pair .tv-right { border-right: 4px solid var(--dw-ok); padding-right: 8px; }
+#anees-bank .hb-card .tv-wrong::before { content: "✗ "; color: var(--dw-bad); }
+#anees-bank .hb-card .tv-right::before { content: "✓ "; color: var(--dw-ok); }
+@media (min-width: 960px) { #anees-bank .hb-panel > .hb-pnote { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); } }
+/* round 16, phone: every chip row wraps (nothing cut), chips are smaller; the panel i floats at the right of the filter row */
+@media (max-width: 680px) {
+  #anees-bank[aria-label="Anees tutor"] .hb-tabs, #anees-bank .hb-panel .hb-chips { flex-wrap: wrap !important; overflow: visible !important; -webkit-mask-image: none !important; mask-image: none !important; padding-right: 0 !important; gap: 4px; }
+  #anees-bank[aria-label="Anees tutor"] .hb-tab { min-height: 32px; padding: 4px 9px; font-size: 12px; gap: 4px; }
+  #anees-bank .hb-panel .hb-chip { min-height: 30px; padding: 3px 9px; font-size: 11.5px; }
+  #anees-bank .hb-panel .hb-chips { margin-right: 0 !important; }
+  #anees-bank .hb-panel .dp-how { position: static; float: right; margin: 0 0 4px 6px; }
+}
+/* round 17: the list head is the bar alone ("39 of 67 done"); "28 left to decide" stays in the text, the chip and the row say 28 */
+#anees-bank .dp-prog { font-size: 0 !important; margin: 4px 0 10px; }
+#anees-bank .dp-prog .dp-pbar { font-size: 13px; }
+/* round 18: Look B's round blob stays in the tile's right corner, never under a caption */
+html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big { padding-right: 48px; }
+html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big::after { width: 38px; height: 38px; right: -12px; bottom: -12px; }
+html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big span { position: relative; z-index: 1; }
+@media (max-width: 680px) { html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big { padding-right: 30px; } html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big::after { width: 26px; height: 26px; } }
+/* round 19, phone: short tool labels, the tool row and the tabs in one line each when they fit */
+#anees-bank .tu-short { display: none; }
+@media (max-width: 680px) {
+  #anees-bank .tu-long { display: none; }
+  #anees-bank .tu-short { display: inline; }
+  #anees-bank[aria-label="Anees tutor"] .hb-tab { padding: 4px 8px; font-size: 11.5px; }
+  #anees-bank[aria-label="Anees tutor"] .ab-header { margin-bottom: 4px; }
+  #anees-bank[aria-label="Anees tutor"] .ab-header .ab-preview { align-self: flex-start; }
+  #anees-bank .hb-list .hb-panel .dp-prog { margin: 2px 0 6px; }
+}
+@media (max-width: 680px) { #anees-bank .hb-card .tv-ar { font-size: 15px; } #anees-bank .hb-card .hb-moment { padding: 8px 10px; } }
+/* student round 13: all the open sets as one bar on the Start card; no "Learner" eyebrow */
+#anees-bank[aria-label="Anees student"] .vp-eyebrow { display: none; }
+#anees-bank .st-now .st-tot { display: flex !important; align-items: center; gap: 8px; margin: 6px 0 0; text-transform: none; letter-spacing: 0; font-weight: 600; max-width: 420px; }
+#anees-bank .st-now .st-tot .dw-split { flex: 1; height: 10px; margin: 0; }
+#anees-bank .st-now .st-tot em { font-style: normal; font-size: 12px; color: var(--dw-muted); white-space: nowrap; }
+#anees-bank .st-now > b { grid-row: span 3; }
+/* student round 14: a set with nothing done shows only its size; a late set gets an amber edge and a clock */
+#anees-bank .st-zero-of { margin: 0; }
+#anees-bank .st-zero-of b { font: 700 16px/1 var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+#anees-bank a.st-task.st-cards.st-late { border-left: 6px solid var(--dw-warn); }
+#anees-bank .st-late .dw-chip.warn::before { display: none; }
+#anees-bank .st-clock { width: 13px; height: 13px; }
+html[data-look] #anees-bank a.st-task.st-cards.st-late { box-shadow: inset 6px 0 0 var(--dw-warn); }
+html[data-look="flat"] #anees-bank a.st-task.st-cards.st-late { border-left: 1px solid var(--ab-line); }
+#anees-bank .st-now .st-stack { width: 150px; height: 64px; }
+@media (max-width: 680px) { #anees-bank .st-now .st-stack { display: block; position: static; transform: none; width: 110px; height: 46px; grid-column: 2; } #anees-bank .st-now { padding-right: 14px; } }
+@media (max-width: 680px) { #anees-bank .st-now .st-stack { position: absolute; top: 10px; right: 10px; width: 84px; height: 36px; } }
+@media (max-width: 680px) { #anees-bank .st-now .st-stack { display: none; } }
+/* the late cards in the picture read amber in Look A too */
+html[data-look="flat"] #anees-bank .st-stack rect[fill="var(--dw-warn)"] { fill: #D9962B; }
+/* round 20: the card list shows the next 3, the rest opens in place */
+#anees-bank details.dp-cards { display: grid; gap: 12px; }
+#anees-bank details.dp-cards > summary { cursor: pointer; list-style: none; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 6px;
+  border: 1px dashed var(--dw-line); border-radius: 12px; font: 600 14px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+#anees-bank details.dp-cards > summary::-webkit-details-marker { display: none; }
+#anees-bank details.dp-cards > summary::after { content: '▾'; } #anees-bank details.dp-cards[open] > summary::after { content: '▴'; }
+#anees-bank details.dp-cards[open] > summary { margin-bottom: 12px; }
+html[data-look="kurz"] #anees-bank details.dp-cards > summary { border-radius: 18px; border-color: var(--dw-a1); color: var(--dw-a1); }
+/* round 21: dots + "in 3 lessons"; wrong / right in the kit's bright colours; dark text on Look B's bright buttons */
+#anees-bank .dp-tin { font-size: 12.5px; color: var(--dw-muted); font-weight: 600; }
+#anees-bank .hb-card .tv-ar.tv-wrong { color: var(--dw-bad); }
+#anees-bank .hb-card .tv-ar.tv-right { color: var(--dw-ok); }
+html[data-look="kurz"] #anees-bank .hb-ans.primary, html[data-look="kurz"] #anees-bank .hb-ans.primary small { color: light-dark(#FFFFFF, #0B1638); }
+/* round 22: one card in sight at a time; her answers carry a big ✗ / ✓ (same buttons, same words, same order);
+   "3×" next to the dots; in the wrong / right pair only the changed letters are marked */
+#anees-bank .dp-x { font: 800 14px/1 var(--sabz-font-sans, system-ui); color: var(--dw-ink); margin-right: 4px; }
+#anees-bank .hb-card .tv-ar mark { color: inherit; border-radius: 4px; padding: 0 1px; }
+#anees-bank .hb-card .tv-ar mark.dp-del { background: var(--dw-bad-fill); text-decoration: line-through 2px; text-decoration-color: var(--dw-bad); }
+#anees-bank .hb-card .tv-ar mark.dp-ins { background: var(--dw-ok-fill); text-decoration: underline 3px; text-decoration-color: var(--dw-ok); text-underline-offset: 6px; }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv] { position: relative; padding-left: 54px; }
+#anees-bank .hb-card .hb-btns .hb-ans:is([data-rv="confirm"], [data-rv="skip"], [data-rv="sheet_add"], [data-rv="sheet_skip"])::before {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+  font: 800 18px/1 var(--sabz-font-sans, system-ui); color: #fff; }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"]::before { content: "✗"; background: var(--dw-bad); }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="skip"]::before { content: "✓"; background: var(--dw-ok); }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="sheet_add"]::before { content: "+"; background: var(--dw-a1); }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="sheet_skip"]::before { content: "–"; background: var(--dw-muted); }
+html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv]::before { color: light-dark(#fff, #0B1638); }
+/* round 23: Look-matched answer buttons (red = the student was wrong, green = fine); phone folds for filters and tools */
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"] { background: var(--dw-bad-fill); color: var(--dw-ink); border: 2px solid var(--dw-bad); }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"] small { color: var(--dw-muted); opacity: 1; }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="skip"] { background: var(--dw-ok-fill); color: var(--dw-ink); border: 2px solid var(--dw-ok); }
+#anees-bank .hb-card .hb-btns .hb-ans[data-rv="skip"] small { color: var(--dw-muted); opacity: 1; }
+html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"], html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv="skip"],
+html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv="confirm"] small, html[data-look="kurz"] #anees-bank .hb-card .hb-btns .hb-ans[data-rv="skip"] small { color: var(--dw-ink); }
+#anees-bank details.dp-fold-row { margin: 0 0 8px; }
+#anees-bank details.dp-fold-row > summary { cursor: pointer; list-style: none; min-height: 40px; display: flex; align-items: center; gap: 6px; padding: 6px 12px;
+  border: 1px solid var(--dw-line); border-radius: 999px; font: 600 13px var(--sabz-font-sans, system-ui); color: var(--dw-ink); background: var(--dw-card); }
+#anees-bank details.dp-fold-row > summary::-webkit-details-marker { display: none; }
+#anees-bank details.dp-fold-row > summary::after { content: '▾'; margin-left: auto; color: var(--dw-muted); }
+#anees-bank details.dp-fold-row[open] > summary::after { content: '▴'; }
+#anees-bank details.dp-fold-row[open] > summary { margin-bottom: 8px; }
+#anees-bank details.dp-tools > nav.hb-tools { border-bottom: 0; margin: 0; padding: 0; }
+@media (max-width: 680px) { #anees-bank[aria-label="Anees tutor"] .hb-tabs:not(.hb-tools) { gap: 3px; } #anees-bank[aria-label="Anees tutor"] .hb-tabs:not(.hb-tools) .hb-tab { padding: 4px 7px; font-size: 11px; gap: 3px; } }
+/* round 24: one aligned row per piece of the pair (wrong | right), right-to-left */
+#anees-bank .dp-pairs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px; direction: rtl; font-size: 19px; line-height: 1.4; }
+#anees-bank .dp-pairs .dp-w { color: var(--dw-bad); }
+#anees-bank .dp-pairs .dp-r { color: var(--dw-ok); }
+#anees-bank .dp-pairs .dp-w::before { content: "✗ "; } #anees-bank .dp-pairs .dp-r::before { content: "✓ "; }
+#anees-bank .dp-pairs mark { color: inherit; border-radius: 4px; padding: 0 1px; }
+#anees-bank .dp-pairs mark.dp-del { background: var(--dw-bad-fill); text-decoration: line-through 2px; }
+#anees-bank .dp-pairs mark.dp-ins { background: var(--dw-ok-fill); text-decoration: underline 3px; text-underline-offset: 6px; }
+#anees-bank .dp-footi { margin: 8px 0 0; }
+@media (max-width: 680px) { #anees-bank .dp-pairs { font-size: 16px; gap: 2px 10px; } }
+#anees-bank .dp-pairs { grid-template-columns: max-content max-content; justify-content: start; column-gap: 28px; }
+@media (max-width: 680px) { #anees-bank .dp-pairs { grid-template-columns: 1fr 1fr; column-gap: 10px; } }
+/* round 26: Completed rows get a small done bar; Decay rows an age bar; the header totals are quieter so "Up next" leads */
+#anees-bank .tu-mini { display: inline-block; width: 70px; height: 6px; border-radius: 999px; background: var(--dw-line); overflow: hidden; margin-left: auto; align-self: center; }
+#anees-bank .tu-mini > i { display: block; height: 100%; background: var(--dw-ok); }
+#anees-bank .tu-age > i { background: var(--dw-warn); } #anees-bank .tu-age > i.never { background: var(--dw-line); }
+@media (min-width: 681px) {
+  #anees-bank #hb-hello .tu-bigs > .dw-big { padding: 4px 40px 4px 10px; display: flex; align-items: baseline; gap: 8px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big b { font-size: 24px; }
+  #anees-bank #hb-hello .tu-bigs > .dw-big svg.dw-ico { width: 18px; height: 18px; top: 8px; }
+  #anees-bank .hb-row.tu-next { padding: 14px 14px; }
+  #anees-bank .hb-row.tu-next .hb-row-t { font-size: 18px; }
+}
+/* round 27: kept in the page text, not drawn (a duplicate of a picture next to it) */
+#anees-bank .dp-hide { display: none !important; }
+/* the "3×" dots sit right under the card's heading, before the pair */
+#anees-bank .hb-card > .hb-prog { order: -2; }
+#anees-bank .hb-card > .dp-times { order: -1; margin: 0 0 4px; }
+#anees-bank details.tu-closed, #anees-bank details.dp-decided { margin-top: 10px; }
+#anees-bank details.tu-closed > .hb-accs { margin-top: 8px; }
+/* round 29: weak rules / words: the % is the big number (coloured), one short line under it; the open item's title is the row
+   itself, so the panel does not repeat it (still in the text) */
+#anees-bank .tu-pctn { font: 700 20px/1 var(--sabz-font-sans, system-ui); font-variant-numeric: tabular-nums; }
+#anees-bank .tu-pctn.lo { color: var(--dw-bad); } #anees-bank .tu-pctn.mid { color: var(--dw-warn); } #anees-bank .tu-pctn.hi { color: var(--dw-ok); }
+#anees-bank .tu-pline { font-size: 11.5px; color: var(--dw-muted); white-space: normal; text-align: right; max-width: 140px; }
+#anees-bank .hb-panel > .hb-ptitle { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+#anees-bank .hb-panel .dp-how { top: 10px; }
+#anees-bank .hb-panel > #hb-body > .hb-task > details.dp-fold-row:first-child, #anees-bank .hb-panel .hb-task > [data-filters] { margin-right: 40px; }
+/* round 30: the card in sight: its first example sits above her answers (order only); "3×" without dots; clean header pills in B */
+#anees-bank .hb-card.dp-first > details[data-exs] { order: 1; }
+#anees-bank .hb-card.dp-first > .hb-btns, #anees-bank .hb-card.dp-first > .an-answered { order: 2; }
+#anees-bank .hb-card.dp-first > :is(.an-note, details:not([data-exs]), [data-note]) { order: 3; }
+#anees-bank .hb-card.dp-first > details[data-exs] > summary { display: none; }
+#anees-bank .hb-card.dp-first:not(.dp-showall) .hb-ex ~ .hb-ex { display: none; }
+#anees-bank .hb-card.dp-first .hb-ex { border: 1px solid var(--dw-line); border-radius: 12px; padding: 8px 12px; background: var(--dw-card); }
+#anees-bank .dp-allex { border: 0; background: none; color: var(--dw-a1); font: 600 13px var(--sabz-font-sans, system-ui); padding: 6px 0; min-height: 36px; cursor: pointer; }
+#anees-bank .dp-x { font-size: 16px; }
+html[data-look="kurz"] #anees-bank #hb-hello .tu-bigs > .dw-big::after { display: none; }
+/* round 31, phone: two pairs in sight (the rest: "+2 more", all of them in the examples); the first example stays folded */
+@media (max-width: 680px) {
+  #anees-bank .dp-pairs:not(.dp-open) > :nth-child(n+5) { display: none; }
+  #anees-bank .dp-pairs[data-more]:not(.dp-open)::after { content: "+" attr(data-more) " more"; grid-column: 1 / -1; direction: ltr; text-align: left; font: 600 12px var(--sabz-font-sans, system-ui); color: var(--dw-muted); }
+}
+/* round 33: a glyph per kind of task on each To do row */
+#anees-bank .hb-row .tu-kind { width: 18px; height: 18px; vertical-align: -3px; margin-right: 7px; color: var(--dw-a1); flex: none; }
+#anees-bank .hb-row.tu-next .tu-kind { color: var(--dw-a2); }
+html[data-look="kurz"] #anees-bank .hb-row .tu-kind { width: 22px; height: 22px; padding: 3px; border-radius: 8px; background: var(--dw-ok-fill); color: var(--dw-a3); vertical-align: -6px; }
+@media (min-width: 681px) { #anees-bank .dp-pairs { justify-content: center; column-gap: 40px; } }
+/* round 35: the unit sits small under each To do row's big number */
+#anees-bank .hb-row.tu-row .hb-row-s .tu-unit { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: nowrap; display: block;
+  font: 600 10.5px/1.1 var(--sabz-font-sans, system-ui); color: var(--dw-muted); text-transform: uppercase; letter-spacing: .04em; }
+#anees-bank .hb-card > .hb-prog { text-transform: none; letter-spacing: 0; font: 600 14px/1.35 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
+/* ===== round 2 (Medi 2026-10-22: "you cut out too much data"): every number, row and list the page had is on screen again ===== */
+#anees-bank .hb-panel > .hb-ptitle, #anees-bank .hb-list .hb-panel > .hb-ptitle { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; clip-path: none !important; }
+#anees-bank .hb-panel > .hb-pnote, #anees-bank .hb-list .hb-panel > .hb-pnote { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; clip-path: none !important; }
+#anees-bank .tu-mins { font-size: .9em; color: var(--dw-muted); text-transform: none; letter-spacing: 0; }
+#anees-bank .tu-cnt { display: block; font-size: 11.5px; color: var(--dw-muted); white-space: normal; text-align: right; }
+#anees-bank .tu-pline.tu-dline { max-width: 220px; }
+#anees-bank .dp-pairs > :nth-child(n+5) { display: revert !important; }
+#anees-bank .dp-pairs[data-more]::after { content: none !important; }
+#anees-bank div.tu-closed { margin-top: 14px; }
+@media (max-width: 680px) {
+  #anees-bank .hb-card > .hb-prog { white-space: normal; overflow: visible; }
+  #anees-bank .hb-row.tu-row[aria-current="true"] .hb-bar { display: block; }
+  #anees-bank .hb-tools-l { display: inline; }
+}
+#anees-bank .st-when { font-size: 12px; color: var(--dw-muted); }
+#anees-bank .st-zline { display: inline-flex; flex-wrap: wrap; gap: 6px; margin-left: 8px; }
+/* r2 round 2: the Homework line wraps: title + reason on one line, the three zero chips in one row under it */
+#anees-bank .st-hwline { flex-wrap: wrap !important; }
+#anees-bank .st-hwline > b, #anees-bank .st-hwline > span:not(.st-zline) { white-space: nowrap; }
+@media (max-width: 680px) { #anees-bank .st-hwline .st-zline { flex-basis: 100%; margin-left: 28px; } }
+/* r2 round 2: card-set tries on the Tutor page: one row per try, two small bars (first pass / retry) with their numbers */
+#anees-bank ul.hb-done > li.rt-try { display: grid; grid-template-columns: minmax(150px, 230px) 1fr 1fr; gap: 6px 18px; align-items: center; }
+#anees-bank .rt-h { font-size: 13.5px; }
+#anees-bank .rt-m { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; align-items: center; min-width: 0; }
+#anees-bank .rt-l { grid-column: 1 / -1; font: 600 10.5px/1.2 var(--sabz-font-sans, system-ui); text-transform: uppercase; letter-spacing: .05em; color: var(--dw-muted); }
+#anees-bank .rt-bar { display: block; width: 70px; height: 7px; border-radius: 999px; background: var(--dw-line); overflow: hidden; }
+#anees-bank .rt-bar > i { display: block; height: 100%; background: var(--dw-muted); }
+#anees-bank .rt-bar > i.hi { background: var(--dw-ok); } #anees-bank .rt-bar > i.mid { background: var(--dw-warn); } #anees-bank .rt-bar > i.lo { background: var(--dw-bad); }
+#anees-bank .rt-v { font-size: 14px; font-variant-numeric: tabular-nums; } #anees-bank .rt-v.lo { color: var(--dw-bad); }
+#anees-bank .rt-x { grid-column: 1 / -1; font-size: 12px; color: var(--dw-muted); }
+#anees-bank .rt-m .dw-chip { justify-self: start; }
+@media (max-width: 900px) { #anees-bank ul.hb-done > li.rt-try { grid-template-columns: 1fr 1fr; } #anees-bank .rt-h { grid-column: 1 / -1; } }
+#anees-bank .rt-v { white-space: nowrap; }
+/* r2 round 3: tries: the heading on its own line, the two bars side by side with room (stacked on a phone); set columns on the phone too */
+#anees-bank ul.hb-done > li.rt-try { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+#anees-bank ul.hb-done > li.rt-try > .rt-h { grid-column: 1 / -1; }
+#anees-bank .rt-m { grid-template-columns: 70px auto; justify-content: start; }
+@media (max-width: 680px) { #anees-bank ul.hb-done > li.rt-try { grid-template-columns: 1fr; } }
+#anees-bank .st-now .st-stack.st-cols { width: 150px; height: 64px; }
+@media (max-width: 680px) { #anees-bank .st-now .st-stack.st-cols { display: block !important; position: static; transform: none; grid-column: 1 / -1; width: 100%; height: 40px; margin-top: 8px; } }
+@media (max-width: 680px) { #anees-bank .st-now .st-stack.st-cols { order: 9; width: 140px; justify-self: start; } }
+/* r2 round 4: a row without a count (Student results) puts its line under the title; the glyph sits inline with the title */
+#anees-bank .hb-row.tu-row .hb-row-t { display: flex; flex-wrap: wrap; align-items: center; }
+#anees-bank .hb-row.tu-row .hb-row-t::before { flex-basis: 100%; }
+#anees-bank .hb-row.tu-row .hb-row-s.tu-row-s:not(:has(.tu-left)):not(:has(.dw-chip)) { grid-column: 1 / -1; white-space: normal; justify-items: start; font-size: 13px; color: var(--dw-muted); }
+#anees-bank .st-now .st-stack.st-cols { height: 74px; width: 170px; }
+@media (max-width: 680px) { #anees-bank .st-now .st-stack.st-cols { height: 56px; width: 160px; } }
+/* r2 round 5: a roll-up line per card set (tries, best, last, first-pass line) above its tries */
+#anees-bank .rt-sum { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin: 4px 0 8px; font-size: 13px; color: var(--dw-muted); }
+#anees-bank .rt-sum b { color: var(--dw-ink); font-size: 15px; }
+#anees-bank .rt-spark { width: 126px; height: 28px; flex: none; }
+#anees-bank .rt-k { font-size: 11.5px; }
+#anees-bank .st-now { padding-right: 18px; }
+/* r2 round 6: the per-set chart is one bar per try against a labelled 80% line; student captions read larger */
+#anees-bank .rt-sum { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px 14px; }
+#anees-bank .rt-chart { height: 44px; max-width: 100%; flex: none; }
+#anees-bank .rt-nums { font-size: 13.5px; color: var(--dw-ink); white-space: nowrap; }
+#anees-bank .rt-k { flex-basis: 100%; }
+#anees-bank .st-when { font-size: 14px; color: var(--dw-ink); opacity: .78; }
+#anees-bank .st-of span, #anees-bank .st-now .st-tot em { font-size: 14px; color: var(--dw-ink); opacity: .78; }
+#anees-bank .st-hwline, #anees-bank .st-hwline .dw-chip { font-size: 14px; }
+#anees-bank a.st-task.st-cards.st-late .hb-bar i { background: var(--dw-warn); }
+html[data-look="flat"] #anees-bank a.st-task.st-cards.st-late .hb-bar i { background: #D9962B; }
+#anees-bank .rt-chart { height: 75px; }
+/* r2 round 8: the four homework tiles fill the row (2 x 2 and compact on a phone); on a phone the open panel sits under its row,
+   so it does not repeat the row's title and count (the row shows them) */
+@media (min-width: 681px) { #anees-bank #st-score.dw-bigs { grid-template-columns: repeat(4, minmax(0, 1fr)); } #anees-bank #st-score .st-now { grid-column: 1 / -1; } }
+@media (max-width: 680px) {
+  #anees-bank #st-score.dw-bigs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  #anees-bank #st-score .st-big:not(.st-now) { padding: 8px 10px; min-height: 0; }
+  #anees-bank #st-score .st-big:not(.st-now) b { font-size: 26px; }
+  #anees-bank .hb-list .hb-panel > .hb-ptitle, #anees-bank .hb-list .hb-panel > .hb-pnote { display: none !important; }
+}
+/* r2 round 9: homework: the number key says what it is; phone steps are one slim row. Tutor: Student results under the lists */
+.hw-kcap { margin: 6px 0 2px; font: 600 11px/1.3 var(--sabz-font-sans, system-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--dw-muted); }
+.hw-keys li i { font-style: normal; color: var(--dw-muted); font-size: 18px; }
+@media (max-width: 680px) { .hw-flow > li { flex-direction: row !important; font-size: 12px !important; padding: 6px 6px !important; gap: 4px; } .hw-flow > li svg { width: 16px; height: 16px; } .hw-keys li b, .hw-keys li span { font-size: 20px; } .hw-keys li { gap: 3px; } }
+#anees-bank .hb-panel.tu-results { margin-top: 16px; }
+#anees-bank p.dp-ai { display: flex; align-items: center; gap: 6px; margin: 4px 0; font-size: 12px; color: var(--dw-muted); }
+#anees-bank p.dp-ai:has(details[open]) { display: block; }
+.hw-row textarea::placeholder, textarea::placeholder { color: var(--dw-muted); opacity: 1; }
+.hw-dots { display: inline-flex; gap: 4px; margin-left: 10px; vertical-align: middle; }
+.hw-dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--dw-line); border: 1px solid var(--dw-muted); }
+.hw-dots i.ok { background: var(--dw-ok); border-color: var(--dw-ok); }
+@media (max-width: 680px) { ol.hw-flow { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; } .hw-flow > li { white-space: nowrap; } }
+/* r2 round 11: her answers tinted by meaning (order and wording unchanged); homework phone steps stack */
+#anees-bank .dp-a-wrong { background: var(--dw-bad-fill, rgba(180,60,50,.14)) !important; border-color: var(--dw-bad) !important; color: var(--dw-ink) !important; }
+#anees-bank .dp-a-wrong::before { content: "✗ "; color: var(--dw-bad); font-weight: 700; }
+#anees-bank .dp-a-fine { background: var(--dw-ok-fill, rgba(60,120,80,.14)) !important; border-color: var(--dw-ok) !important; color: var(--dw-ink) !important; }
+#anees-bank .dp-a-fine::before { content: "✓ "; color: var(--dw-ok); font-weight: 700; }
+@media (max-width: 680px) { ol.hw-flow { grid-template-columns: 1fr !important; gap: 4px; } .hw-flow > li { padding: 4px 8px !important; } }
+/* r2 round 12: a "3 of 69" mark on each moment card; brighter wrong/right Arabic in dark mode; homework dots by state */
+#anees-bank .tv-card .dp-k { display: inline-block; margin-right: 8px; padding: 1px 8px; border-radius: 999px; background: var(--dw-line); font: 700 11px/1.6 var(--sabz-font-sans, system-ui); color: var(--dw-ink); }
+html[data-sabz-theme="dark"] #anees-bank .tv-wrong, html[data-sabz-theme="dark"] #anees-bank .dp-del { color: #FF8A7A !important; }
+html[data-sabz-theme="dark"] #anees-bank .tv-right, html[data-sabz-theme="dark"] #anees-bank .dp-ins { color: #8FE0A8 !important; }
+@media (prefers-color-scheme: dark) { html:not([data-sabz-theme="light"]) #anees-bank .tv-wrong { color: #FF8A7A !important; } html:not([data-sabz-theme="light"]) #anees-bank .tv-right { color: #8FE0A8 !important; } }
+html[data-sabz-theme="dark"] #anees-bank .tu-meta, html[data-sabz-theme="dark"] #anees-bank .hb-en { opacity: 1; color: #C9D3CC; }
+.hw-dots { gap: 5px; } .hw-dots i { width: 13px; height: 13px; } .hw-dots i.ai { background: var(--dw-warn); border-color: var(--dw-warn); }
+.hw-dots i:not(.ok):not(.ai) { background: transparent; }
+.hw-row.hw-next, .card.hw-next { outline: 2px solid var(--dw-ok); }
+/* r2 round 13: phone: every To do list as one chip row above the open list; homework counter + dot key */
+#anees-bank .tu-strip { display: none; }
+@media (max-width: 959px) { #anees-bank .tu-strip { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; grid-column: 1 / -1; }
+  #anees-bank .tu-strip a { text-decoration: none; font-size: 12.5px; padding: 5px 10px; min-height: 32px; display: inline-flex; align-items: center; gap: 4px; } }
+.hw-key { display: inline-flex; align-items: center; gap: 4px; margin-left: 10px; font-size: 11.5px; color: var(--dw-muted); }
+.hw-key i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--dw-muted); margin-left: 6px; } .hw-key i.ok { background: var(--dw-ok); border-color: var(--dw-ok); } .hw-key i.ai { background: var(--dw-warn); border-color: var(--dw-warn); }
+.hw-big { font-size: 13px; color: var(--dw-muted); } .hw-big b { font: 700 26px/1 var(--sabz-font-sans, system-ui); color: var(--dw-ink); margin-right: 4px; }
+/* r2 round 14: phone: the chip row IS the list (the same rows stay in the page, not drawn twice); homework dots under the counter */
+@media (max-width: 680px) {
+  #anees-bank .hb-list [data-rows] > .hb-row { display: none; }
+  #anees-bank .tu-strip a.on { background: var(--dw-a2); color: #fff; border-color: var(--dw-a2); }
+  #anees-bank .tu-strip a.on b { color: #fff; }
+}
+#hw-state { display: grid; justify-items: end; gap: 6px; }
+#hw-state .hw-dots { margin: 0; gap: 6px; } #hw-state .hw-dots i { width: 16px; height: 16px; }
+#sub { font-size: 14px; color: var(--dw-ink); opacity: .85; } .hw-key { font-size: 13px; color: var(--dw-ink); opacity: .85; }
+.hw-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+@media (max-width: 680px) { #anees-bank .hb-list .hb-panel > .hb-ptitle, #anees-bank .hb-list .hb-panel > .hb-pnote { display: block !important; } #anees-bank .hb-list .hb-panel > .hb-ptitle { margin: 0 40px 2px 0; font-size: 18px; } }
+/* r2 round 15: phone list = compact rows (name left, count + minutes right); a bar under "N of M answered" */
+@media (max-width: 959px) {
+  #anees-bank .tu-strip { display: grid; grid-template-columns: 1fr; gap: 4px; }
+  #anees-bank .tu-strip a.dw-chip { display: flex; justify-content: space-between; gap: 10px; border-radius: 10px; padding: 7px 10px; font-size: 13.5px; font-weight: 600; }
+  #anees-bank .tu-strip a.dw-chip::before { display: none; }
+  #anees-bank .tu-strip .tu-sn { font-weight: 400; white-space: nowrap; font-size: 12.5px; }
+  #anees-bank .tu-strip .tu-sn b { font-size: 15px; }
+}
+#anees-bank .dp-abar { display: block; height: 6px; margin-top: 4px; max-width: 260px; }
+#anees-bank .dp-abar > i { background: var(--dw-ok); }
+.hw-dots i:not(.ok):not(.ai) { background: var(--dw-line); }
+/* r2 round 16: contrast: captions and the right-hand Arabic read darker in light mode; answered moment cards sit quieter (still shown) */
+html:not([data-sabz-theme="dark"]) #anees-bank .tv-card .tu-meta, html:not([data-sabz-theme="dark"]) #anees-bank .tv-card .hb-en { color: #3E4A43; }
+html:not([data-sabz-theme="dark"]) #anees-bank .tv-right { color: #1F5A3C !important; }
+html:not([data-sabz-theme="dark"]) #anees-bank .tv-wrong { color: #A3201A !important; }
+@media (prefers-color-scheme: dark) { html:not([data-sabz-theme="light"]) #anees-bank .tv-card .tu-meta, html:not([data-sabz-theme="light"]) #anees-bank .tv-card .hb-en { color: #C9D3CC; } html:not([data-sabz-theme="light"]) #anees-bank .tv-right { color: #8FE0A8 !important; } html:not([data-sabz-theme="light"]) #anees-bank .tv-wrong { color: #FF8A7A !important; } }
+html[data-sabz-theme="dark"] #anees-bank .tu-strip a.on, html[data-sabz-theme="dark"] #anees-bank .tu-strip a.on b { color: #10241A; }
+#anees-bank .tv-card.tv-done { padding-top: 8px; padding-bottom: 8px; opacity: .8; }
+#sub { font-size: 15px; } .hw-key { font-size: 14px; } .hw-key i { width: 11px; height: 11px; }
+@media (max-width: 680px) { #anees-bank .dw-chip, .card .dw-chip { font-size: 12.5px; } }
+/* r2 round 17: the wrong -> right pair as two swatches; homework: number badge, hollow dot for "not reviewed" */
+#anees-bank .tv-card .tv-pair .tv-ar { padding: 2px 10px; border-radius: 8px; }
+#anees-bank .tv-card .tv-pair .tv-wrong { background: var(--dw-bad-fill, rgba(180,60,50,.12)); border-right: 0 !important; }
+#anees-bank .tv-card .tv-pair .tv-right { background: var(--dw-ok-fill, rgba(60,120,80,.12)); border-right: 0 !important; }
+.card > .n { display: flex; align-items: center; gap: 8px; }
+.card > .n::first-letter { font-weight: 700; }
+.card .dw-chip.muted::before { background: transparent !important; border: 1.5px solid currentColor; box-sizing: border-box; }
+.hw-num { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 999px; background: var(--dw-a1); color: var(--sabz-bg, #F5F2EA); font: 700 13px/1 var(--sabz-font-sans, system-ui); }
+.hw-dots i:not(.ok):not(.ai) { background: transparent !important; border: 2px solid var(--dw-muted); }
+/* r2 round 18: phone: the open list's row is the same green family with a thick left edge; tighter header */
+@media (max-width: 959px) {
+  #anees-bank .tu-strip a.on, html[data-sabz-theme="dark"] #anees-bank .tu-strip a.on { background: var(--dw-ok-fill, rgba(60,120,80,.18)); color: var(--dw-ink); border-color: var(--dw-ok); box-shadow: inset 5px 0 0 var(--dw-ok); }
+  #anees-bank .tu-strip a.on b, html[data-sabz-theme="dark"] #anees-bank .tu-strip a.on b { color: var(--dw-ink); }
+  #anees-bank .tu-strip { gap: 3px; } #anees-bank .tu-strip a.dw-chip { padding: 5px 10px; min-height: 30px; }
+}
+@media (max-width: 680px) {
+  #anees-bank[aria-label="Anees tutor"] .ab-header { margin-bottom: 0; }
+  #anees-bank .hb-tools { margin: 4px 0 4px; } #anees-bank .hb-tabs { margin: 2px 0 6px; }
+  #anees-bank .tv-card { padding: 10px 12px; } #anees-bank .tv-card .tu-meta { margin: 2px 0; }
+  #anees-bank .hb-list .hb-panel > .hb-pnote { margin: 0 0 4px; }
+}
+@media (prefers-color-scheme: dark) { html:not([data-sabz-theme="light"]) .hw-key, html:not([data-sabz-theme="light"]) #sub { opacity: 1; } }
+html[data-sabz-theme="dark"] .hw-key, html[data-sabz-theme="dark"] #sub { opacity: 1; }
+.card .dw-chip { font-size: 12.5px; }
+/* r2 round 19: student tiles: a zero (or no score yet) is grey, a real count is amber; tutor counts and captions larger */
+#anees-bank .st-big.st-nil > b { color: var(--dw-muted); }
+#anees-bank #st-score .st-big.st-has:not(.st-now) > b { color: var(--dw-warn); }
+#anees-bank .hb-row.tu-row .tu-left { font-size: 20px; }
+#anees-bank .hb-row.tu-row .hb-row-s .tu-unit { font-size: 12px !important; color: var(--dw-ink) !important; opacity: .8; }
+#anees-bank .hb-row.tu-row .tu-min { font-size: 13px; }
+#anees-bank .tv-card .hb-en, #anees-bank .hb-card .hb-en { font-size: 13.5px; }
+#anees-bank .tu-strip .tu-sn { font-size: 13.5px !important; }
+/* r2 round 20: "AI notes" is a small button that opens in place; phone: the four homework numbers in one row */
+#anees-bank details.dp-ai { margin: 6px 0; }
+#anees-bank details.dp-ai > summary { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 4px 12px; border: 1px solid var(--dw-line); border-radius: 999px; font: 600 12.5px var(--sabz-font-sans, system-ui); color: var(--dw-ink); cursor: pointer; list-style: none; }
+#anees-bank details.dp-ai > summary::-webkit-details-marker { display: none; }
+#anees-bank details.dp-ai > summary::before { content: "▸"; color: var(--dw-muted); } #anees-bank details.dp-ai[open] > summary::before { content: "▾"; }
+/* r2 round 21: tutor secondary text at 14px (counts' units, minutes, translations, notes) */
+#anees-bank .hb-row.tu-row .hb-row-s .tu-unit { font-size: 13px !important; }
+#anees-bank .hb-row.tu-row .tu-min, #anees-bank .hb-panel > .hb-pnote, #anees-bank .tv-card .hb-en, #anees-bank .hb-card .hb-en, #anees-bank .tv-card .tu-meta, #anees-bank .rt-x, #anees-bank .tu-pline, #anees-bank .tu-cnt { font-size: 14px !important; }
+#anees-bank .hb-row .hb-row-s { font-size: 14px; }
+/* r2 round 22: shaky word rows carry their kind as a left colour edge */
+#anees-bank ul.st-words > li { border-left: 5px solid var(--dw-line); padding-left: 10px; }
+#anees-bank ul.st-words > li:has(.dw-chip.bad) { border-left-color: var(--dw-bad); }
+#anees-bank ul.st-words > li:has(.dw-chip.warn) { border-left-color: var(--dw-warn); }
+#anees-bank ul.st-words > li:has(.dw-chip.muted) { border-left-color: var(--dw-a3); }
+/* r2 round 22b: Grammar / Vocab / Decay rows: the line under the title runs full width, left-aligned (no narrow right column) */
+#anees-bank .hb-row.tu-row .hb-row-s.tu-row-s:has(.tu-pline) { grid-column: 1 / -1; justify-items: start; text-align: left; white-space: normal; }
+#anees-bank .hb-row.tu-row .tu-pline, #anees-bank .hb-row.tu-row .tu-cnt { max-width: none !important; text-align: left; }
+#anees-bank .hb-row.tu-row .hb-row-s.tu-row-s:has(.tu-pctn) { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
+/* r2 round 23: Tutor + Student: stronger muted text (page-local); the Live chip sits beside the two header numbers */
+#anees-bank[aria-label="Anees tutor"], #anees-bank[aria-label="Anees student"] { --dw-muted: #4F5B54; }
+html[data-sabz-theme="dark"] #anees-bank[aria-label="Anees tutor"], html[data-sabz-theme="dark"] #anees-bank[aria-label="Anees student"] { --dw-muted: #B9C4BD; }
+@media (prefers-color-scheme: dark) { html:not([data-sabz-theme="light"]) #anees-bank[aria-label="Anees tutor"], html:not([data-sabz-theme="light"]) #anees-bank[aria-label="Anees student"] { --dw-muted: #B9C4BD; } }
+@media (min-width: 681px) { #anees-bank[aria-label="Anees tutor"] .ab-header { justify-content: flex-start; align-items: flex-end; gap: 20px; } #anees-bank[aria-label="Anees tutor"] .ab-header .ab-preview { align-self: flex-end; margin-bottom: 6px; } }
+#anees-bank .hb-line-en { font-size: 14px !important; color: var(--dw-muted) !important; opacity: 1 !important; }
+/* r2 round 24: Live chip on the tiles' line; phone: tool label off (a label, not data), tighter chips and list rows */
+@media (min-width: 681px) { #anees-bank[aria-label="Anees tutor"] .ab-header { align-items: center; } #anees-bank[aria-label="Anees tutor"] .ab-header .ab-preview { align-self: center; margin: 52px 0 0; } }
+@media (max-width: 680px) {
+  #anees-bank .hb-tools-l { display: none !important; }
+  #anees-bank .tu-strip a.dw-chip { min-height: 28px; padding: 3px 10px; }
+  #anees-bank[aria-label="Anees tutor"] .ab-header .ab-preview { margin: 0; }
+  #anees-bank .tv-card .tv-pair { margin: 2px 0; }
+}
+/* r2 round 25: on a moment card the Play button sits right under the wrong/right pair (her answers keep their place) */
+#anees-bank article.tv-card { display: flex; flex-direction: column; }
+#anees-bank article.tv-card > * { order: 2; }
+#anees-bank article.tv-card > .tu-top, #anees-bank article.tv-card > .tv-pair, #anees-bank article.tv-card > .dp-pairs { order: 0; }
+#anees-bank article.tv-card > div:has(> .tv-play), #anees-bank article.tv-card > .tv-play { order: 1; align-self: flex-start; margin: 6px 0; }
+#anees-bank article.tv-card > .tv-btns, #anees-bank article.tv-card > .an-answered { order: 3; }
+#anees-bank article.tv-card > :is(.an-note, details.an-note, [data-note]) { order: 4; }
+#anees-bank article.tv-card > .tv-reason { order: 3; }
+/* r2 round 26: AI verdict chips on the moment cards */
+#anees-bank p.dp-verdict { display: block; margin: 4px 0; }
+#anees-bank p.dp-verdict .dp-v { margin-right: 6px; font-size: 12.5px; }
+#anees-bank p.dp-verdict .dp-v.ok { background: var(--dw-ok-fill, rgba(60,120,80,.14)); color: var(--dw-ink); }
+#anees-bank details.dp-vmore { display: inline; } #anees-bank details.dp-vmore > summary { display: inline; cursor: pointer; color: var(--dw-a1); font-weight: 600; font-size: 13px; margin-left: 4px; }
+#anees-bank details.dp-vmore[open] > span { display: inline; }
+/* r2 round 27: the pair reads left to right: wrong (red) -> right (green) */
+#anees-bank article.tv-card .tv-pair { direction: ltr; display: flex; flex-direction: row !important; align-items: center; justify-content: flex-start; gap: 8px; flex-wrap: wrap; }
+#anees-bank article.tv-card .tv-pair .tv-arrow { display: inline !important; color: var(--dw-muted); }
+#anees-bank article.tv-card .tv-pair .tv-ar { direction: rtl; unicode-bidi: isolate; }
+#anees-bank article.tv-card .tv-pair .tv-wrong::before, #anees-bank article.tv-card .tv-pair .tv-right::before { content: none; }
+#anees-bank article.tv-card .tv-pair .tv-arrow { font-size: 0 !important; } #anees-bank article.tv-card .tv-pair .tv-arrow::after { content: "\2192"; font-size: 20px; color: var(--dw-muted); }
+#anees-bank article.tv-card .tv-pair .tv-arrow { transform: none !important; }
+/* r2 round 28: the two AI chips share one line; phone: 'Upload flashcards' in full */
+#anees-bank article.tv-card p.dp-verdict { display: inline-block; margin: 2px 8px 2px 0; }
+#anees-bank details.dp-vmore[open] { display: block; margin-top: 4px; font-size: 14px; }
+@media (max-width: 680px) { #anees-bank .hb-tab[data-tab="upload"] .tu-long { display: inline; } }
+#anees-bank .dp-v .dp-vg { width: 15px; height: 15px; vertical-align: -3px; margin-right: 4px; }
+#anees-bank p.dp-verdict .dp-v::before { display: none; }
+/* r2 round 30: a zero tile is grey all over (edge too); homework phone steps in one row, words wrap inside each step */
+#anees-bank #st-score .st-big.st-nil { border-left-color: var(--dw-line) !important; box-shadow: none !important; }
+@media (max-width: 680px) { ol.hw-flow { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } .hw-flow > li { white-space: normal !important; font-size: 11.5px !important; line-height: 1.2; padding: 5px 6px !important; } .hw-flow > li svg { display: none; } }

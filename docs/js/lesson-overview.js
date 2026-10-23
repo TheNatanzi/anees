@@ -72,7 +72,7 @@ ${LM.why(W)}`],
 ${LM.why(G)}`],
       // Was "Medi speaking" - the Talk time card one row up already shows it. Words per minute is not shown anywhere else.
       ['Words per minute', approx(last, last.test || last.partial) + num(last.wpm, 0), `Last lesson · pooled avg ${num(wpmAvg, 0)} · ${F.length} of ${rows.length} lessons`, `Arabic words inside your Arabic turns, per minute of those turns. Pooled = Σ Arabic words ÷ Σ minutes (${fW} ÷ ${num(fMin, 1)}).${last.partial ? ' Last lesson: ' + last.winTitle : ''}${last.test ? ' Last lesson: ' + last.testTitle : ''}`],
-      ['Fillers / min', approx(last, last.test || last.fcmp === false) + num(last.fillers, 1), `"uh", "um", "آآ" per minute you spoke · pooled avg ${num(fillAvg, 1)} · ${P.length} comparable lessons`, `Pooled = Σ filled pauses ÷ Σ minutes you spoke, over the lessons whose page turns keep the fillers.${last.fcmp === false ? ' Last lesson: ' + last.fTitle : ''}`]
+      ['Fillers / min', approx(last, last.test || last.fcmp === false) + num(last.fillers, 1), `"uh", "um", "aa" per minute you spoke · pooled avg ${num(fillAvg, 1)} · ${P.length} comparable lessons`, `Pooled = Σ filled pauses ÷ Σ minutes you spoke, over the lessons whose page turns keep the fillers.${last.fcmp === false ? ' Last lesson: ' + last.fTitle : ''}`]
     ];
     // Homework (Medi 2026-10-05, grill Q5): its own number, from Amal's verdicts on his typed homework only (docs/data/homework.json,
     // hourly mirror of Supabase); the lesson Words % / Grammar % above are untouched. No verdict yet -> "—" and why (PG-05).

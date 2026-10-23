@@ -60,5 +60,8 @@
   root.AneesTheme = { read, set, apply, mount };
 })(typeof window !== 'undefined' ? window : globalThis);
 
+/* Look A (flat) on every page: js/look.js loads css/look.css once (Medi picked Look A 2026-10-22). */
+(function(){try{if(typeof document==='undefined'||window.AneesLook||document.querySelector('script[data-anees-look]'))return;var me=document.currentScript||{};var src=(me.src||'').replace(/[^/]*$/,'');if(!src)return;document.documentElement.setAttribute('data-look','flat');var s=document.createElement('script');s.src=src+'look.js?v=dw3';s.setAttribute('data-anees-look','');(document.head||document.documentElement).appendChild(s);}catch(e){}})();
+
 /* Play / pause / stop bar on every page that plays sound (Medi 2026-10-01): js/play-bar.js, loaded once. */
 (function(){try{if(typeof document==='undefined'||window.AneesPlayBar||document.querySelector('script[data-apb]'))return;var me=document.currentScript||{};var src=(me.src||'').replace(/[^/]*$/,'');if(!src)return;var s=document.createElement('script');s.src=src+'play-bar.js?v=20261002-1';s.setAttribute('data-apb','');(document.head||document.documentElement).appendChild(s);}catch(e){}})();

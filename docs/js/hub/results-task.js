@@ -53,17 +53,32 @@
     return out.sort((a, b) => String(b.last).localeCompare(String(a.last)));
   }
   function count(v) { const n = (v || []).reduce((s, x) => s + x.tries.length, 0); return { total: n, done: n, left: 0 }; }
+  // de-word r2 (2026-10-22): each try is one row of two small bars (first pass, retry) with the same numbers beside them
+  const tone = p => p == null ? '' : p >= 80 ? 'hi' : p >= 50 ? 'mid' : 'lo';
+  const meter = (label, got, n, pct, extra) => '<span class="rt-m"><span class="rt-l">' + label + '</span><span class="rt-bar" aria-hidden="true"><i class="' + tone(pct) + '" style="width:' + (pct == null ? 0 : pct) + '%"></i></span>'
+    + '<b class="rt-v ' + tone(pct) + '">' + got + ' of ' + n + ' right' + (pct == null ? '' : ' (' + pct + '%)') + '</b>' + (extra ? '<span class="rt-x">' + extra + '</span>' : '') + '</span>';
   function tryHtml(t, i, setN) {
     const head = i === 0 ? 'Try 1 · ' + esc(when(t.at)) : 'Try ' + (i + 1) + ' · ' + esc(gap(t.after_min)) + ' after try ' + i + ' · ' + esc(when(t.at));
     const f = t.first, x = t.fix;
-    const first = 'first pass ' + f.got + ' of ' + f.n + ' right' + (f.pct == null ? '' : ' (' + f.pct + '%)') + (setN && f.n < setN ? ' · ' + f.n + ' of ' + setN + ' cards dealt' : '');
-    const fix = x ? 'fixed mistakes: ' + x.got + ' of ' + x.n + ' right on the retry' + (x.pct == null ? '' : ' (' + x.pct + '%)') : f.got < f.n ? 'mistakes not retried' : 'nothing to fix';
-    return '<li><b>' + head + '</b><span> · ' + first + ' · ' + fix + '</span></li>';
+    const first = meter('first pass', f.got, f.n, f.pct, setN && f.n < setN ? f.n + ' of ' + setN + ' cards dealt' : '');
+    const fix = x ? meter('retry of mistakes', x.got, x.n, x.pct, '') : '<span class="rt-m"><span class="rt-l">retry of mistakes</span><span class="dw-chip muted">' + (f.got < f.n ? 'mistakes not retried' : 'nothing to fix') + '</span></span>';
+    return '<li class="rt-try"><b class="rt-h">' + head + '</b>' + first + fix + '</li>';
+  }
+  // r2: one roll-up line per set: tries, best and last first-pass %, and a small line of the first-pass % try by try
+  function trend(s) {
+    const P = s.tries.map(t => t.first.pct);
+    if (!P.some(p => p != null)) return '';
+    const K = P.filter(p => p != null), bw = 26, gp = 6, Hh = 60, W = P.length * (bw + gp), y80 = Hh - 0.8 * (Hh - 4);
+    const bars = P.map((p, i) => p == null ? '' : '<rect x="' + (i * (bw + gp)) + '" y="' + (Hh - Math.max(2, (Hh - 4) * p / 100)).toFixed(1) + '" width="' + bw + '" height="' + Math.max(2, (Hh - 4) * p / 100).toFixed(1) + '" rx="2" fill="var(' + (p >= 80 ? '--dw-ok' : p >= 50 ? '--dw-warn' : '--dw-bad') + ')"/>').join('');
+    const lab = P.map((p, i) => p == null ? '' : '<text x="' + (i * (bw + gp) + bw / 2) + '" y="' + (Hh + 12) + '" text-anchor="middle" font-size="10" font-weight="700" fill="var(--dw-ink)">' + p + '</text>').join('');
+    const svg = '<svg class="rt-chart" viewBox="0 0 ' + (W + 30) + ' ' + (Hh + 15) + '" style="width:' + (W + 30) + 'px" aria-hidden="true">' + bars + lab
+      + '<line x1="0" x2="' + W + '" y1="' + y80.toFixed(1) + '" y2="' + y80.toFixed(1) + '" stroke="var(--dw-warn)" stroke-width="2" stroke-dasharray="5 3"/><text x="' + (W + 3) + '" y="' + (y80 + 4).toFixed(1) + '" font-size="11" font-weight="700" fill="var(--dw-warn)">80%</text></svg>';
+    return '<div class="rt-sum">' + svg + '<span class="rt-nums"><span><b>' + s.tries.length + '</b> ' + (s.tries.length === 1 ? 'try' : 'tries') + '</span> · <span>best <b>' + Math.max(...K) + '%</b></span> · <span>last <b>' + K[K.length - 1] + '%</b></span></span><span class="rt-k">first pass % per try</span></div>';
   }
   function mount(el, ctx) {
     const v = (ctx && ctx.view) || [];
     el.innerHTML = '<p class="hb-sub">What the student did on the card sets, by himself on Flashcards. One line per try: the first pass through the set, then how the retry of his mistakes went; a later try says how long after the one before.</p>'
-      + (v.length ? v.map(s => '<p class="hb-prog" style="margin-top:14px">' + esc(s.title) + ' · ' + s.n + ' cards</p><ul class="hb-done">' + s.tries.map((t, i) => tryHtml(t, i, s.n)).join('') + '</ul>').join('') : '<p class="hb-empty">No card set done yet.</p>');
+      + (v.length ? v.map(s => '<p class="hb-prog" style="margin-top:14px">' + esc(s.title) + ' · ' + s.n + ' cards</p>' + trend(s) + '<ul class="hb-done">' + s.tries.map((t, i) => tryHtml(t, i, s.n)).join('') + '</ul>').join('') : '<p class="hb-empty">No card set done yet.</p>');
   }
   root.AneesResultsTask = { view, count, mount, gap };
 })(typeof self !== 'undefined' ? self : this);

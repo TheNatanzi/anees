@@ -73,13 +73,25 @@ function perLesson(l,J){
 
 /* ---------- SVG helpers (same frame as the Grammar tab) ---------- */
 const W=640;
+// de-word r2: on a phone the two top charts draw at phone width (readable labels, nothing cut at the card edge)
+let TOP={};   // de-word r2: the takeaway numbers of A and B, for the one-line strip on top
+const PHONE=()=>typeof matchMedia==='function'&&matchMedia('(max-width: 680px)').matches;
 const frame=(inner,label,h,w=W)=>`<svg class="vp-chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}">${inner}</svg>`;
 const hline=(x1,x2,y)=>`<line class="vp-gridline" x1="${x1}" x2="${x2}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}"/>`;
 const tx=(x,y,t,a='',cls='')=>`<text${cls?` class="${cls}"`:''} x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}"${a?` text-anchor="${a}"`:''}>${esc(t)}</text>`;
 const empty=t=>`<div class="vp-empty">${esc(t)}</div>`;
 const big=(v,s)=>`<div class="ov2-big">${esc(v)}<small>${s}</small></div>`;
-const panel=(key,title,sub,body,{wide=false,head='',why='',src=''}={})=>`<section class="vp-panel ${wide?'ov2-wide':''}" aria-labelledby="ov2-h-${key}"><div class="vp-panelhead"><div><span class="ov2-key">${key.toUpperCase()}</span><h2 id="ov2-h-${key}">${esc(title)}</h2>${sub?`<p class="ab-sub">${sub}</p>`:''}</div></div>${head}${body}${why||src?`<p class="ov2-foot"><span class="ov2-why">${why}</span>${src?`<span class="ov2-src">${esc(src)}</span>`:''}</p>`:''}</section>`;
+const panel=(key,title,sub,body,{wide=false,head='',why='',src=''}={})=>{
+ // the one big number always shows; when a panel keeps it inside its body (C, H) it moves up, out of the chart
+ if(!head){const m=/<div class="ov2-big">.*?<\/small><\/div>/.exec(body);if(m&&body.indexOf(m[0])<body.search(/<svg|<p /)){head=m[0];body=body.replace(m[0],'');}}
+ return `<section class="vp-panel ${wide?'ov2-wide':''}" aria-labelledby="ov2-h-${key}"><div class="vp-panelhead"><div><span class="ov2-key">${key.toUpperCase()}</span><h2 id="ov2-h-${key}">${esc(title)}</h2>${sub?`<p class="ab-sub">${sub}</p>`:''}</div></div>${head}${body}${why||src?`<p class="ov2-foot"><span class="ov2-why">${why}</span>${src?`<span class="ov2-src">${esc(src)}</span>`:''}</p>`:''}</section>`;};
+// de-word round 2 (Medi 2026-10-22, "you cut out too much data"): all eight angles and their charts show, no folds.
 const loadingTurns=()=>turnFail?empty('The turn files could not load. Refresh to retry.'):empty('Loading the turn files…');
+
+
+// de-word mini pictures (no text inside, so the page text is unchanged): a gauge with the target band, and one dot per week
+const gauge=(v,[a,b],max)=>{const X=t=>(8+Math.min(max,Math.max(0,t))/max*284).toFixed(1);return `<span class="dw-capt" data-cap="goal ${a}–${b} a week"><svg class="dw-mini" viewBox="0 0 300 26" role="img" aria-label="${f1(v)} a week against the ${a} to ${b} target"><rect x="8" y="9" width="284" height="8" rx="4" class="dw-mini-track"/><rect x="${X(a)}" y="5" width="${(X(b)-X(a)).toFixed(1)}" height="16" rx="4" class="dw-mini-band"/><circle cx="${X(v)}" cy="13" r="8" class="dw-mini-dot ${v>=a&&v<=b?'dw-in':'dw-out'}"/></svg></span>`;};
+const dots=flags=>`<span class="dw-capt dw-dotcap" data-cap="□ baseline · ● above · ○ below"><svg class="dw-mini" viewBox="0 0 ${flags.length*26+4} 26" role="img" aria-label="${flags.filter(f=>f===true).length} of ${flags.filter(f=>f!==null).length} weeks above the baseline, after two baseline weeks">${flags.map((f,i)=>f===null?`<rect x="${i*26+7}" y="5" width="16" height="16" rx="3" class="dw-mini-base"/>`:`<circle cx="${i*26+15}" cy="13" r="9" class="${f?'dw-mini-on':'dw-mini-off'}"/>`).join('')}</svg></span>`;   // squares = the two baseline weeks
 
 /* ---------- A: lessons per week ---------- */
 function panelA(ls){
@@ -92,7 +104,8 @@ function panelA(ls){
  const full=weeks.filter(w=>!w.open),base=full.length?full:weeks,avg=sum(base,w=>w.n)/base.length;
  const inBand=full.filter(w=>w.n>=TARGET[0]&&w.n<=TARGET[1]).length,top=weeks.reduce((a,w)=>w.n>a.n?w:a);
  let gap={d:0};for(let i=1;i<ls.length;i++){const d=dayDiff(ls[i-1].date,ls[i].date);if(d>gap.d)gap={d,a:ls[i-1].date,b:ls[i].date};}
- const show=weeks.slice(-10),L=58,T=26,cell=20,gc=4,cal=7*(cell+gc),bx=L+cal+28,bw=W-bx-60,maxN=Math.max(7,...show.map(w=>w.n)),h=T+show.length*(cell+gc)+22;
+ const ph_=PHONE(),W=ph_?360:640;
+ const show=weeks.slice(-10),L=ph_?56:58,T=28,cell=ph_?16:20,gc=4,cal=7*(cell+gc),bx=L+cal+(ph_?14:28),bw=W-bx-(ph_?28:60),maxN=Math.max(7,...show.map(w=>w.n)),h=T+show.length*(cell+gc)+22;
  let s='';['M','T','W','T','F','S','S'].forEach((d,i)=>s+=tx(L+i*(cell+gc)+cell/2,T-9,d,'middle'));
  const x0=bx+TARGET[0]/maxN*bw,x1=bx+TARGET[1]/maxN*bw;
  s+=`<rect class="ov2-band" x="${x0.toFixed(1)}" y="${T-5}" width="${(x1-x0).toFixed(1)}" height="${show.length*(cell+gc)+1}"/>`+tx((x0+x1)/2,T-9,`${TARGET[0]} to ${TARGET[1]}`,'middle');
@@ -104,7 +117,8 @@ function panelA(ls){
  });
  s+=tx(bx,h-4,'lessons that week');
  const why=`${inBand} of ${plural(full.length,'full week')} landed in the band. Most in one week: ${top.n} (week of ${dm(top.key)}).${gap.d?` Longest break: ${gap.d} days (${dm(gap.a)} to ${dm(gap.b)}).`:''}${weeks.length>show.length?` Showing the last ${show.length} of ${weeks.length} weeks.`:''}${weeks[weeks.length-1].open?' The current week is still running and is left out of the average.':''}`;
- return panel('a',title,sub,frame(s,'Lessons per week calendar',h),{head:big(f1(avg),`lessons a week on average over ${plural(base.length,full.length?'full week':'week')} · target ${TARGET[0]} to ${TARGET[1]}`),why,src:'lessons.json dates'});
+ TOP.a={avg,inBand,full:full.length};
+ return panel('a',title,sub,frame(s,'Lessons per week calendar',h,W),{head:big(f1(avg),`lessons a week on average over ${plural(base.length,full.length?'full week':'week')}<span class="dw-tail"> · target ${TARGET[0]} to ${TARGET[1]}</span>`)+gauge(avg,TARGET,7),why,src:'lessons.json dates'});
 }
 
 /* ---------- B: weekly pooled words vs baseline ---------- */
@@ -115,21 +129,39 @@ function panelB(ls){
  if(wk.length<3)return panel('b',title,sub,empty('Needs a third week of lessons after the two baseline weeks.'),{head:big('—','needs three weeks with scored words')});
  const base=pooledWords(wk[0].g.concat(wk[1].g)),after=wk.slice(2),above=after.filter(w=>w.pct>base+2).length;
  const called=after.length>=3&&after.slice(-3).every(w=>w.pct>base+2);
+ const ph_=PHONE(),W=ph_?360:640;   // phone: one row per week (below), desktop: line + bars
  const H=220,L=40,R=78,T=18,B=30,pw=W-L-R,ph=H-T-B;
  const vals=wk.map(w=>w.pct).concat([base]),lo=Math.max(0,Math.floor((Math.min(...vals)-6)/10)*10),hi=Math.min(100,Math.ceil((Math.max(...vals)+6)/10)*10);
  const y=v=>T+ph-(v-lo)/(hi-lo)*ph,x=i=>L+pw*(i+.5)/wk.length,maxS=niceMax(Math.max(...wk.map(w=>w.slips||0),1));
  let s='';for(let v=lo;v<=hi;v+=10)s+=hline(L,W-R,y(v))+tx(L-6,y(v)+4,v+'%','end');
  const bt=y(Math.min(hi,base+2)),bb=y(Math.max(lo,base-2));
  s+=`<rect class="ov2-band" x="${L}" y="${bt.toFixed(1)}" width="${pw}" height="${(bb-bt).toFixed(1)}"/><line class="ov2-base" x1="${L}" x2="${W-R}" y1="${y(base).toFixed(1)}" y2="${y(base).toFixed(1)}"/>`+tx(W-R+5,y(base)+4,`baseline ${f1(base)}`);
- wk.forEach((w,i)=>{if(w.slips===null)return;const h=w.slips/maxS*ph*.5;s+=`<rect class="ov2-f-sage" fill-opacity=".45" x="${(x(i)-9).toFixed(1)}" y="${(T+ph-h).toFixed(1)}" width="18" height="${h.toFixed(1)}" rx="3"><title>Week of ${dm(w.k)}: ${f1(w.slips)} grammar slips per 10 min</title></rect>`;});
+ // de-word r2: grammar slips get their own small chart under this one (own scale, a value on every bar)
+ const SH=96,ST=16,SB=24,sph=SH-ST-SB;let s2=hline(L,W-R,ST+sph)+tx(L-6,ST+sph+4,'0','end')+tx(L-6,ST+4,f1(maxS),'end')+hline(L,W-R,ST);
+ wk.forEach((w,i)=>{if(w.slips===null)return;const h=w.slips/maxS*sph;s2+=`<rect class="ov2-f-sage" x="${(x(i)-10).toFixed(1)}" y="${(ST+sph-h).toFixed(1)}" width="20" height="${h.toFixed(1)}" rx="3"><title>Week of ${dm(w.k)}: ${f1(w.slips)} grammar slips per 10 min</title></rect>`+tx(x(i),ST+sph-h-4,f1(w.slips),'middle','ov2-lbl')+(ph_&&i%2?'':tx(x(i),SH-6,dm(w.k),'middle'));});
+ s+=`<rect class="dw-basebox" x="${(x(0)-16).toFixed(1)}" y="${T}" width="${(x(1)-x(0)+32).toFixed(1)}" height="${ph}" rx="8"/>`+tx((x(0)+x(1))/2,T+ph-6,'baseline weeks','middle','dw-cap-svg');   // the two baseline weeks, set apart
  s+=`<polyline class="ov2-line" points="${wk.map((w,i)=>x(i).toFixed(1)+','+y(w.pct).toFixed(1)).join(' ')}"/>`;
- wk.forEach((w,i)=>{s+=`<circle class="ov2-pt ${w.pct>base+2?'ov2-f-good':'ov2-f-accent'}" cx="${x(i).toFixed(1)}" cy="${y(w.pct).toFixed(1)}" r="${i>=2?6:5}"><title>Week of ${dm(w.k)}: ${f1(w.pct)}% of ${w.scored} scored uses · ${plural(w.g.length,'lesson')}${i<2?' · baseline week':''}</title></circle>`+tx(x(i),y(w.pct)-10,f1(w.pct),'middle','ov2-lbl')+tx(x(i),H-10,dm(w.k),'middle');});
- s+=tx(L+4,T+ph-4,'bars: grammar slips / 10 min');
+ wk.forEach((w,i)=>{s+=`<circle class="ov2-pt ${i<2?'dw-baseweek ':''}${w.pct>base+2?'ov2-f-good':'ov2-f-accent'}" cx="${x(i).toFixed(1)}" cy="${y(w.pct).toFixed(1)}" r="${i>=2?6:5}"><title>Week of ${dm(w.k)}: ${f1(w.pct)}% of ${w.scored} scored uses · ${plural(w.g.length,'lesson')}${i<2?' · baseline week':''}</title></circle>`+tx(x(i),y(w.pct)-10,f1(w.pct),'middle','ov2-lbl')+tx(x(i),H-10,dm(w.k),'middle');});
+    // swatch = the grey bars
+ let HH=H,cap1='Words right, % per week',cap2='Grammar slips per 10 min, per week';
+ if(ph_){   // de-word r2 (phone): one row per week, words right as a bar against the baseline, slips at the right
+  const rowH=28,top=26,bx0=58,bx1=232,sx0=270,sx1=356,X=v=>bx0+(Math.max(lo,v)-lo)/(hi-lo)*(bx1-bx0);
+  s=tx(bx0,14,`words right · ${lo}–${hi}%`)+tx(sx0,14,'slips/10m');
+  s+=`<rect class="ov2-band" x="${X(base-2).toFixed(1)}" y="${top-4}" width="${(X(base+2)-X(base-2)).toFixed(1)}" height="${wk.length*rowH+4}"/>`;
+  wk.forEach((w,i)=>{const yy=top+i*rowH;
+   s+=tx(bx0-6,yy+15,dm(w.k),'end')+`<rect class="${i<2?'dw-baseweek ':''}${w.pct>base+2?'ov2-f-good':'ov2-f-accent'}" x="${bx0}" y="${yy+3}" width="${(X(w.pct)-bx0).toFixed(1)}" height="16" rx="3"><title>Week of ${dm(w.k)}: ${f1(w.pct)}% of ${w.scored} scored uses</title></rect>`+tx(X(w.pct)+4,yy+16,f1(w.pct),'','ov2-lbl');
+   if(w.slips!==null)s+=`<rect class="ov2-f-sage" x="${sx0}" y="${yy+5}" width="${Math.max(2,w.slips/maxS*(sx1-sx0-26)).toFixed(1)}" height="12" rx="2"/>`+tx(sx0+Math.max(2,w.slips/maxS*(sx1-sx0-26))+3,yy+16,f1(w.slips),'','ov2-lbl');});
+  const bxl=X(base);s+=`<line class="ov2-base" x1="${bxl.toFixed(1)}" x2="${bxl.toFixed(1)}" y1="${top-6}" y2="${top+wk.length*rowH}"/>`+tx(bxl,top+wk.length*rowH+16,`baseline ${f1(base)}`,'middle');
+  HH=top+wk.length*rowH+24;s2='';cap1='Each week: words right (bar) and grammar slips per 10 min';cap2='';
+ }
  const allP=pooledWords(ls),wl=ls.filter(l=>l.words&&ok(l.words.pct)),mean=wl.length?sum(wl,l=>l.words.pct)/wl.length:null;
  const small=wl.slice().sort((a,b)=>a.words.scored-b.words.scored)[0];
  const AX=(window.AneesLessonMath&&window.AneesLessonMath.approx(ls))?'≈':'';   // Medi's decision 4 (2026-09-29): unverified lessons -> "≈"
- const why=`${AX?'Every number here is "≈": it comes from lessons that are not verified yet (hover a lesson score on the table above for why). ':''}Pooled over every scored use: ${AX}${f1(allP)}%. A plain mean of the lesson percentages, ${f1(mean)}%, would weight every lesson the same${small&&mean!==null&&allP!==null&&mean<allP&&small.words.pct<mean?`, so a small lesson (${dm(small.date)}: ${small.words.scored} uses, ${f1(small.words.pct)}%) pulls it down`:''}.${called?' Progress called: the last three weeks all sit above the band.':''}`;
- return panel('b',title,sub,frame(s,'Weekly pooled words right with baseline',H),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`),why,src:'words.right, partial, scored by ISO week'});
+ const why=`${AX?'Every number here is "≈": it comes from lessons that are not verified yet (hover a lesson score on the table above for why). ':''}Pooled over every scored use: ${AX}${f1(allP)}% · plain mean of the lessons: ${f1(mean)}%.${called?' Progress called: the last three weeks all sit above the band.':''}`;
+ // de-word r2: why the two differ is explanation, so it sits with the source note (behind the ⓘ)
+ const whyMean=`A plain mean weights every lesson the same${small&&mean!==null&&allP!==null&&mean<allP&&small.words.pct<mean?`, so a small lesson (${dm(small.date)}: ${small.words.scored} uses, ${f1(small.words.pct)}%) pulls it down`:''}. `;
+ TOP.b={above,n:after.length,last:wk[wk.length-1],AX};
+ return panel('b',title,sub,`<div class="dw-chartcap">${cap1}</div>`+frame(s,'Weekly pooled words right with baseline',HH,W)+(s2?`<div class="dw-chartcap">${cap2}</div>`+frame(s2,'Weekly grammar slips per 10 minutes',SH,W):''),{head:big(`${above} of ${after.length}`,`weeks more than 2 points above the ${AX}${f1(base)}% baseline (above the band)`)+dots(wk.map((w,i)=>i<2?null:w.pct>base+2)),why,src:whyMean+'Source: words.right, partial, scored by ISO week'});
 }
 
 /* ---------- C: time of day ---------- */
@@ -146,7 +178,8 @@ function panelC(ls){
  const rows=slots.map(s=>`<div class="ov2-row"><b>${esc(s.label)}</b><span class="ov2-track"><i style="width:${s.words===null?0:Math.max(2,s.words)}%"></i></span><span class="ov2-n">${s.n?`${plural(s.n,'lesson')} · ${r0(s.words)}% words · ${f1(s.slips)} slips/10 min`:'no lessons'}</span></div>`).join('');
  const early=slots[0],others=slots.slice(1).filter(s=>s.n&&s.words!==null);
  const earlyWins=!!(early.n&&others.length&&others.every(s=>early.words>s.words&&early.slips!==null&&s.slips!==null&&early.slips<s.slips));
- const verdict=filled.map(s=>`${s.label} (${plural(s.n,'lesson')}): ${r0(s.words)}% words right, ${f1(s.slips)} slips per 10 min.`).join(' ')+' '
+ // de-word: the verdict no longer repeats the slot rows beside it (same numbers, shown once)
+ const verdict=''
   +(span<180?(earlyWins?`The earliest slot leads on both, but with ${pts.length} lessons inside ${span} minutes treat it as a hint, not a finding.`:`With ${pts.length} lessons all inside ${span} minutes, nothing here supports "earlier is better" yet.`)+` One lesson two hours either side of ${hm(lo)} to ${hm(hi)} would test it.`
    :(earlyWins?'Earlier lessons lead on both words and grammar.':'Earlier lessons do not lead on both words and grammar.'));
  // quote: Medi's own words about the lesson time, if a turn file carries them
@@ -250,7 +283,7 @@ function panelG(){
  const title='Longest stretch with no English',sub='Per lesson, the longest run of your turns without a single English turn, in minutes. Where it happened is on hover.';
  if(!TURNS)return panel('g',title,sub,loadingTurns());
  const P=TURNS,H=210,L=40,R=10,T=14,B=30,pw=W-L-R,ph=H-T-B,max=Math.max(STRETCH_TARGET+2,Math.ceil(Math.max(...P.map(p=>p.stretch.s/60))+1)),gap=6,bw=(pw-gap*(P.length-1))/P.length;
- let s='';for(let v=0;v<=max;v+=2){const yy=T+ph-v/max*ph;s+=hline(L,W-R,yy)+tx(L-6,yy+4,v+' min','end');}
+ let s='';for(let v=0;v<=max;v+=2){const yy=T+ph-v/max*ph;s+=hline(L,W-R,yy)+tx(L-6,yy+4,v+' min','end',max>12&&v%10?'dw-minor':'');}   // de-word r2: a long axis shows every 10 min (the 2-min ticks stay as gridlines)
  const ty=T+ph-STRETCH_TARGET/max*ph;s+=`<line class="ov2-target" x1="${L}" x2="${W-R}" y1="${ty.toFixed(1)}" y2="${ty.toFixed(1)}"/>`+tx(W-R,ty-4,`${STRETCH_TARGET}-minute target`,'end');
  const rec=P.reduce((a,p)=>p.stretch.s>a.stretch.s?p:a),ri=P.indexOf(rec),stepL=Math.ceil(P.length/7);
  P.forEach((p,i)=>{
@@ -269,12 +302,12 @@ function panelG(){
 /* ---------- H: filled pauses by block ---------- */
 function panelH(ls){
  const title='Filled pauses through the hour';
- if(!TURNS)return panel('h',title,'Your "uh", "um", "آآ" per minute of your own talking, by ten-minute block.',loadingTurns(),{wide:true});
+ if(!TURNS)return panel('h',title,'Your "uh", "um", "aa" per minute of your own talking, by ten-minute block.',loadingTurns(),{wide:true});
  const meta=new Map(ls.map(l=>[l.date,l])),cnt=p=>{const f=(meta.get(p.date)||{}).fillers;return f&&ok(f.count)?f.count:null;};
  // keep lessons whose turn files carry at least half the fillers the hourly job counted: fillers.comparable when the
  // hourly job wrote it (build_lessons_page_data.py, 2026-09-27), the same ratio computed here otherwise
  const inc=TURNS.filter(p=>{const c=cnt(p),f=(meta.get(p.date)||{}).fillers;return c&&(typeof f.comparable==='boolean'?f.comparable:p.turnFill/c>=.5);}),exc=TURNS.filter(p=>!inc.includes(p)&&cnt(p));
- const sub=`Your "uh", "um", "آآ" per minute of your own talking, by ten-minute block, over the ${inc.length} lessons${inc.length?` from ${dm(inc[0].date)}`:''} whose turn files keep the fillers.`;
+ const sub=`Your "uh", "um", "aa" per minute of your own talking, by ten-minute block, over the ${inc.length} lessons${inc.length?` from ${dm(inc[0].date)}`:''} whose turn files keep the fillers.`;
  const perMin=ls.filter(l=>l.fillers&&ok(l.fillers.per_min)),hiL=perMin.length?perMin.reduce((a,l)=>l.fillers.per_min>a.fillers.per_min?l:a):null;
  const notes=[];
  if(hiL)notes.push(`The card shows <b>${f1(hiL.fillers.per_min)} / min</b> for ${dm(hiL.date)}, the highest of ${perMin.length} lessons. How clearly the recording catches you changes the count, so a jump can mean more was heard, not necessarily more was said.`);
@@ -310,9 +343,19 @@ function render(){
  if(!LJ){h.innerHTML='<div class="vp-notice">Loading the new angles…</div>';return;}
  const ls=(LJ.lessons||[]).slice().sort((a,b)=>a.date<b.date?-1:1);
  const one=f=>{try{return f();}catch(e){console.error('overview-angles',e);return `<section class="vp-panel">${empty('This panel could not be drawn ('+e.message+').')}</section>`;}};
+ TOP={};const topHtml=[()=>panelA(ls),()=>panelB(ls)].map(one).join('');
+ const A=TOP.a,B=TOP.b,big2=(v,l,t='')=>`<div class="dw-big${t?' dw-'+t:''}"><b>${v}</b><span>${l}</span></div>`;   // t: ok / warn tints the tile
+ const strip=A||B?`<div class="dw-bigs ov2-verdict">${A?big2(f1(A.avg),`lessons a week · goal ${TARGET[0]}–${TARGET[1]}`)+big2(`${A.inBand} of ${A.full}`,'weeks on goal',A.full?(A.inBand*2>=A.full?'ok':'warn'):''):''}${B?big2(`${B.above} of ${B.n}`,'weeks above the baseline band',B.n?(B.above*2>B.n?'ok':'warn'):'')+big2(`${B.AX}${f1(B.last.pct)}%`,`words right, week of ${dm(B.last.k)}`):''}</div>`:'';
+ // one plain-words line over the strip: where the lessons-a-week and the words-right numbers stand
+ const sayA=A&&A.full?(A.inBand*2>=A.full?'lessons a week: on the goal most weeks':'lessons a week: off the goal most weeks'):'';
+ const sayB=B?(B.n&&B.above*2>B.n?'words right: above your baseline':B.n?'words right: not yet above your baseline':''):'';
+ const say=[sayB,sayA].filter(Boolean).join(' · ');
+ const sayHtml=say?`<p class="ov2-say">${esc(say[0].toUpperCase()+say.slice(1))}</p>`:'';
  h.innerHTML=`<div class="ov-head ov2-head"><span class="vp-eyebrow">Across lessons</span><h2 class="ov-h2">What the lesson numbers add up to</h2><p class="ab-sub">Eight views the table cannot show: cadence, weekly baseline, time of day, rest days, talk shape, language mix, Arabic stretches and hesitation. Hover any mark for its numbers.</p></div>
  ${(window.AneesLessonMath&&window.AneesLessonMath.methodHtml(LJ))||''}
- <div class="vp-grid">${[()=>panelA(ls),()=>panelB(ls),()=>panelC(ls),()=>panelD(ls),panelE,panelF,panelG,()=>panelH(ls)].map(one).join('')}</div>
+ ${sayHtml}${strip}<div class="vp-grid ov2-top">${topHtml}</div>
+ <h2 class="ov-h2 ov2-more-h">Six more views across lessons</h2>
+ <div class="vp-grid ov2-rest">${[()=>panelC(ls),()=>panelD(ls),panelE,panelF,panelG,()=>panelH(ls)].map(one).join('')}</div>
  <p class="ov2-source">Source: data/lessons.json${TURNS?` + ${TURNS.length} turn files (data/lessons/&lt;date&gt;.json)`:''} · updated ${esc(String(LJ.updated||'').replace('T',' ').slice(0,16))}</p>`;
 }
 async function json(url){const r=await fetch(url+(url.includes('?')?'&':'?')+'v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status+' '+url);return r.json();}

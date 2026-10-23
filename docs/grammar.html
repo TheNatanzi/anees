@@ -1,12 +1,12 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Grammar Console · Anees</title><script src="js/theme.js"></script><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/word-bank.css?v=menu1"><link rel="stylesheet" href="css/grammar.css?v=11"></head><body><div id="anees-bank" aria-label="Anees Grammar Console">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Grammar Console · Anees</title><script src="js/theme.js"></script><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/word-bank.css?v=menu1"><link rel="stylesheet" href="css/grammar.css?v=11"><link rel="stylesheet" href="css/dw-words.css"></head><body><div id="anees-bank" aria-label="Anees Grammar Console">
 
 <div class="ab-shell">
 <aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="progress.html">Progress &amp; Stats</a><a class="ab-nav" href="lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="word-bank.html">Word Bank</a><button class="ab-nav" aria-current="page">Grammar Rules</button><a class="ab-nav" href="cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="tutor.html">Tutor</a><a class="ab-nav" href="student.html">Student</a><a class="ab-nav" href="ai-reports.html">AI Reports</a><a class="ab-nav" href="big-picture.html">Big Picture</a><a class="ab-nav" href="settings.html">System Settings</a></nav></aside>
 
 <main>
-<header class="ab-header"><div><h1>Grammar Console</h1><div class="ab-sub">Every rule you have, how often you use it, and where you slipped.</div></div><span class="ab-preview" id="gc-source">Loading…</span></header>
+<header class="ab-header"><div><h1>Grammar Console <details class="dw-info" id="gc-noticeinfo"><summary aria-label="How this is scored">ⓘ</summary><div id="gc-notice" role="status"></div></details></h1></div><span class="dw-chip" id="gc-source">Loading…</span></header>
 
-<p id="gc-notice" class="ab-sub" role="status"></p>
+<div class="dw-row dw-needs" id="gc-needs" aria-label="Rules that need work"></div>
 
 <div class="gc-periods" role="group" aria-label="Time range"><button class="gc-period" data-period="week" aria-pressed="false">Week</button><button class="gc-period" data-period="month" aria-pressed="false">Month</button><button class="gc-period" data-period="all" aria-pressed="true">All</button></div>
 
@@ -14,7 +14,7 @@
   <figure class="gc-chart" id="gc-c1"><figcaption><span class="gc-chart-title">Grammar mistakes per sentence</span><span class="gc-chart-note">Lower is better</span></figcaption><div class="gc-chart-value ab-number" id="gc-c1-value">—</div><div class="gc-chart-body" id="gc-c1-body"></div><div class="gc-chart-foot" id="gc-c1-foot"></div></figure>
   <figure class="gc-chart" id="gc-c2"><figcaption><span class="gc-chart-title">Self-correction rate</span><span class="gc-chart-note">You asked or caught it, not the tutor</span></figcaption><div class="gc-chart-value ab-number" id="gc-c2-value">—</div><div class="gc-chart-body" id="gc-c2-body"></div><div class="gc-chart-foot" id="gc-c2-foot"></div></figure>
   <figure class="gc-chart" id="gc-c3"><figcaption><span class="gc-chart-title">Unique rules used</span><span class="gc-chart-note">Per lesson</span></figcaption><div class="gc-chart-value ab-number" id="gc-c3-value">—</div><div class="gc-chart-body" id="gc-c3-body"></div><div class="gc-chart-foot" id="gc-c3-foot"></div></figure>
-  <figure class="gc-chart" id="gc-c4"><figcaption><span class="gc-chart-title">Where your rules sit</span><span class="gc-chart-note">All 60 buckets</span></figcaption><div class="gc-chart-body gc-pie-body" id="gc-c4-body"></div><div class="gc-chart-foot" id="gc-c4-foot"></div></figure>
+  <figure class="gc-chart" id="gc-c4"><figcaption><span class="gc-chart-title">Where your rules sit</span><span class="gc-chart-note">All 73 rules</span></figcaption><div class="gc-chart-body gc-pie-body" id="gc-c4-body"></div><div class="gc-chart-foot" id="gc-c4-foot"></div></figure>
 </section>
 
 <div class="ab-controls">
@@ -31,14 +31,14 @@
 </div>
 <div class="ab-controls"><div class="ab-chips" id="gc-statuses" aria-label="Status filters"></div><button class="ab-clear" id="gc-reset" hidden>Clear filters</button></div>
 
-<div class="ab-viewnote"><span id="gc-results" aria-live="polite"></span><span>Green = correct · Red = the tutor had to correct you · Blue = you asked / caught it yourself</span></div>
+<div class="ab-viewnote dw-row"><span id="gc-results" aria-live="polite"></span><details class="dw-info"><summary aria-label="Colours">ⓘ</summary><div>Green = correct · Red = the tutor had to correct you · Blue = you asked / caught it yourself</div></details></div>
 
 <div class="gc-grid gc-tablehead" id="gc-tablehead" role="row" aria-label="Sort the rules"></div>
 <section id="gc-rows" aria-label="Grammar rules"></section>
 
-<details class="gc-doc" id="gc-propose" hidden><summary class="ab-control" id="gc-propose-sum">Proposed new rules</summary><div id="gc-propose-body" class="gc-doc-body"></div></details>
+<details class="gc-doc" id="gc-propose" open hidden><summary class="ab-control" id="gc-propose-sum">Proposed new rules</summary><div id="gc-propose-body" class="gc-doc-body"></div></details>
 
-<details class="gc-doc" id="gc-check" hidden><summary class="ab-control" id="gc-check-sum">Words to check</summary><div id="gc-check-body" class="gc-doc-body"></div></details>
+<details class="gc-doc" id="gc-check" open hidden><summary class="ab-control" id="gc-check-sum">Words to check</summary><div id="gc-check-body" class="gc-doc-body"></div></details>
 
 <details class="gc-doc"><summary class="ab-control">The tutor's own grammar notes, straight from her Doc</summary><div id="gc-doc-body" class="gc-doc-body">Loading…</div></details>
 

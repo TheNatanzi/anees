@@ -12,7 +12,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
-import re
+import collections, re
 import subprocess
 from pathlib import Path
 
@@ -106,11 +106,135 @@ def render(date, merged, *, minutes, words, note, audio=None):
     player = (f'<div class="bar"><audio id="lesson-audio" controls preload="none" src="{html.escape(audio)}"></audio>'
               '<small>Tap a time to hear that line.</small></div>') if audio else ''
     typed = sum(x['kind'] == 'chat' for x in merged)
-    return ('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+    return dword('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             f'<title>Anees lesson {date}</title><style>{STYLE}</style><main><p style="border:0;padding:16px 0 0"><a href="../index.html#lessons">← Lessons</a></p>'
             f'<h1>Lesson · {date}</h1>{player}<div class="note">{html.escape(note)}</div>'
             f'<p>{minutes} minutes · {words:,} transcribed words · {typed} lines Amal typed in chat</p>'
             + ''.join(lines) + '</main>' + (SCRIPT if audio else '') + REVIEW + '</html>')
+
+
+# De-word (plan/OVERNIGHT-DEWORD-2026-10-22.md): only the chrome around the transcript changes; every transcript line stays.
+# The 3 counts become big numbers, the note becomes one warning chip with the full text behind a small (i) that opens in
+# place, and the page gets the app's theme + look switch (js/theme.js) and css/dw-reports.css. Works on a fresh render and
+# on an already published page (python scripts/build_lesson_page.py --dword <date>|--dword-all); running it twice is a no-op.
+DW_HEAD = ('<meta name="color-scheme" content="light dark"><script src="../js/theme.js"></script>'
+           '<link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/dw-reports.css?v=2">')
+DW_STATS = re.compile(r'<div class="note">(.*?)</div><p>([\d.]+) minutes · ([\d,]+) transcribed words · (\d+) lines Amal typed in chat</p>', re.S)
+
+
+MIC = '<svg class="dw-pic dw-scene dw-mic" viewBox="0 0 120 80" aria-hidden="true" focusable="false"><circle cx="100" cy="16" r="10" fill="var(--dw-a4)" opacity=".35"/><rect x="10" y="10" width="44" height="26" rx="13" fill="var(--dw-a1)"/><path d="M22 36l-6 10 14-10z" fill="var(--dw-a1)"/><circle cx="24" cy="23" r="3" fill="var(--dw-card)"/><circle cx="32" cy="23" r="3" fill="var(--dw-card)"/><circle cx="40" cy="23" r="3" fill="var(--dw-card)"/><rect x="66" y="30" width="44" height="24" rx="12" fill="var(--dw-a2)"/><path d="M98 54l6 10-14-10z" fill="var(--dw-a2)"/><path d="M76 42h24" stroke="var(--dw-card)" stroke-width="4" stroke-linecap="round"/><rect x="50" y="44" width="16" height="26" rx="8" fill="var(--dw-a3)"/><path d="M45 60a13 13 0 0 0 26 0" fill="none" stroke="var(--dw-ink)" stroke-width="3" stroke-linecap="round"/><line x1="58" y1="73" x2="58" y2="79" stroke="var(--dw-ink)" stroke-width="3"/></svg>'   # a small drawn scene (two speech bubbles + a mic); quiet in Look A, bright in Look B
+
+
+def dword(page):
+    if 'lsn-page' in page:
+        return page
+    page = page.replace('<html lang="en">', '<html lang="en" class="lsn-page">', 1)
+    page = page.replace('<style>', DW_HEAD + '<style>', 1)
+    page = page.replace('<main><p style="border:0;padding:16px 0 0"><a href="../index.html#lessons">← Lessons</a></p>',
+                        '<main><div class="lsn-top"><a href="../index.html#lessons">← Lessons</a><div class="lsn-switch" data-theme-slot></div></div>' + MIC, 1)
+    page = page.replace('<small>Tap a time to hear that line.</small>', '', 1)
+
+    def stats(m):
+        note, mins, words, typed = m.groups()
+        ico = lambda d: ('<svg class="dw-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+                         'stroke-linejoin="round" aria-hidden="true">%s</svg>' % d)
+        clk, ear, msg = (ico('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+                         ico('<path d="M3 12h2l2-5 3 10 3-14 3 12 2-3h3"/>'),
+                         ico('<path d="M4 5h16v11H9l-5 4z"/>'))
+        return ('<div class="dw-bigs lsn-bigs"><div class="dw-big">{CLK}<b>%s</b><span>minutes</span></div>'
+                '<div class="dw-big">{EAR}<b>%s</b><span>words heard</span></div><div class="dw-big">{MSG}<b>%s</b><span>typed in chat</span></div></div>'
+                '<div class="lsn-note"><span class="dw-chip warn">Not checked by a person</span> <details class="dw-info">'
+                '<summary aria-label="About this transcript">ⓘ</summary><div>%s '
+                '(%s minutes · %s transcribed words · %s lines Amal typed in chat)</div></details></div>'
+                % (mins, words, typed, note + ('' if 'Tap a time' in note else ' Tap a time to hear that line.'), mins, words, typed)
+                ).replace('{CLK}', clk, 1).replace('{EAR}', ear, 1).replace('{MSG}', msg, 1)
+    page = DW_STATS.sub(stats, page, count=1)
+    page = page.replace('<div class="lsn-note">', talk_map(page) + '<div class="lsn-note">', 1)
+    return mark_turns(page)
+
+
+ARABIC = re.compile(r'[؀-ۿ]')
+TURN = re.compile(r'<p dir="auto" class="turn">(<button class="t" data-t="([\d.]+)"[^>]*>.*?</button>)<b>([^<]+)</b>: <span class="words">(.*?)</span></p>')
+
+
+def mark_turns(page):
+    """Every line stays. A line with Arabic gets a colour band ("ar"); a short line with no Arabic (um, mm-hmm, ok) is drawn
+    small and faint ("lite"). A button on top jumps to where the Arabic practice starts: the first line from which most of
+    the next 10 lines hold Arabic."""
+    rows = TURN.findall(page)
+    if not rows:
+        return page
+    aw = [sum(1 for w in r[3].split() if ARABIC.search(w)) for r in rows]   # Arabic words on the line
+    has = [n >= 2 for n in aw]
+    rich = [n >= 3 for n in aw]
+    start = next((i for i in range(len(rows)) if rich[i] and sum(rich[i:i + 10]) >= 6), None)
+    k = {'i': -1}
+
+    def sub(m):
+        k['i'] += 1
+        i, text = k['i'], m.group(4)
+        kind = ' data-k="ar"' if has[i] else (' data-k="lite"' if len(text.split()) <= 4 else '')   # <p class="turn"> stays exact (JS hooks, tests)
+        rid = ' id="arabic-start"' if i == start else ''
+        mark = '<i class="lk"%s%s></i>' % (kind, rid) if (kind or rid) else ''   # an empty marker INSIDE the time button: the row
+        # format build_lessons_page_data.page_turns reads (<p class="turn"><button ...>...</button><b>Who</b>: <span class="words">) stays exact
+        btn = m.group(1)[:-len('</button>')] + mark + '</button>' if mark else m.group(1)
+        return '<p dir="auto" class="turn">%s<b>%s</b>: <span class="words">%s</span></p>' % (btn, m.group(3), text)
+    page = TURN.sub(sub, page)
+    # a 4th headline number: the share of lines that hold Arabic (2+ Arabic words), the one share the learner tracks
+    arp = round(100.0 * sum(has) / len(has))
+    page = page.replace('<span>typed in chat</span></div>', '<span>typed in chat</span></div><div class="dw-big lsn-arbig"><b>%d%%</b><span>lines in Arabic</span><small>%d of %d lines</small></div>' % (arp, sum(has), len(has)), 1)
+    # Round 2 (Medi 2026-10-22: "you cut out too much data"): no line folds away any more. Filler lines stay in view
+    # (drawn small), the talk before the Arabic practice stays in view, and a divider marks where the practice starts.
+    if start is not None and start > 0:
+        b = page.find('id="arabic-start"')
+        b = page.rfind('<p dir="auto"', 0, b)
+        if b > 0:
+            page = page[:b] + '<p class="lsn-start">▶ The Arabic practice starts · %s </p>' % clock(float(rows[start][1])) + page[b:]
+        # the talk map gets a marker where the practice starts (a tap jumps there)
+        # round 2: the start is one big button under the strip (the bubble on the strip was a repeat)
+        end = max(float(r[1]) for r in rows) or 1.0
+        flag = '<a class="lsn-flag" href="#arabic-start" style="left:%.1f%%" aria-label="Arabic practice starts">▶ Practice starts %s</a>' % (100 * float(rows[start][1]) / end, clock(float(rows[start][1])))
+        page = page.replace('</svg><figcaption>', '</svg>' + flag + '<figcaption>', 1)
+        jump = '<a class="lsn-jump" href="#arabic-start">▶ Start Arabic practice · %s</a>' % clock(float(rows[start][1]))
+        page = page.replace('</figcaption></figure>', '</figcaption></figure>' + jump, 1)
+    return page
+
+
+def talk_map(page, bins=60):
+    """A picture of the lesson: one strip, left = start, right = end; each slice is coloured by who spoke most in it
+    (the student, the tutor, or typed chat). Read from the page's own rows, so it matches the transcript below."""
+    rows = re.findall(r'<p dir="auto" class="(turn|chat)"><button class="t" data-t="([\d.]+)"[^>]*>.*?</button><b>([^<]+)</b>', page)
+    if not rows:
+        return ''
+    end = max(float(t) for _, t, _ in rows) or 1.0
+    tally = [dict() for _ in range(bins)]
+    for kind, t, who in rows:
+        k = 'chat' if kind == 'chat' else ('you' if who.strip().lower() in LEARNER else 'tutor')
+        b = min(bins - 1, int(float(t) / end * bins))
+        tally[b][k] = tally[b].get(k, 0) + 1
+    n_all = collections.Counter('chat' if kind == 'chat' else ('you' if who.strip().lower() in LEARNER else 'tutor') for kind, _, who in rows)
+    share = lambda k: '%d%% of lines' % round(100.0 * n_all[k] / max(1, sum(n_all.values())))   # each colour's share, on its legend entry
+    w = 100.0 / bins
+    rects = ''.join('<rect x="%.2f" y="0" width="%.2f" height="10" class="tm-%s"/>' % (i * w, w + .05, max(c, key=c.get))
+                    for i, c in enumerate(tally) if c)
+    return ('<figure class="lsn-map"><svg class="dw-pic" viewBox="0 0 100 10" preserveAspectRatio="none" role="img" '
+            'aria-label="Who spoke when, start to end">' + rects + '</svg><figcaption><i class="tm-you"></i>you '
+            '<i class="tm-tutor"></i>tutor <i class="tm-chat"></i>chat <b class="lsn-playkey">▶ Play = his line</b><span>00:00 → %s</span></figcaption></figure>' % clock(end)
+            ).replace('<i class="tm-you"></i>you ', '<span class="lk-i"><i class="tm-you"></i>you %s</span> ' % share('you'), 1
+            ).replace('<i class="tm-tutor"></i>tutor ', '<span class="lk-i"><i class="tm-tutor"></i>tutor %s</span> ' % share('tutor'), 1
+            ).replace('<i class="tm-chat"></i>chat ', '<span class="lk-i"><i class="tm-chat"></i>chat %s</span> ' % share('chat'), 1)
+
+
+def dword_dates(dates):
+    out = []
+    for d in dates:
+        f = DOCS / f'{d}.html'
+        old = f.read_text(encoding='utf-8')
+        new = dword(old)
+        if new != old:
+            f.write_text(new, encoding='utf-8')
+            out.append(d)
+    return out
 
 
 def mix_tracks(tracks, out, bitrate='32k'):
@@ -160,6 +284,9 @@ def write_page(date, data, *, chat=(), chat_offset=0.0, note, audio_rel=None, mi
 
 if __name__ == '__main__':
     import sys
+    if sys.argv[1:2] == ['--dword']:      # de-word the chrome of published pages: --dword 2026-10-14 [more dates]
+        print(json.dumps({'deworded': dword_dates(sys.argv[2:])}))
+        raise SystemExit(0)
     if sys.argv[1:] == ['--restyle-all']:
         print(json.dumps({'restyled': restyle_all()}))
         raise SystemExit(0)

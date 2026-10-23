@@ -254,6 +254,8 @@ function renderCharts() {
   function fill(box, value, node, foot) {
     var v = $('gc-' + box + '-value'), b = $('gc-' + box + '-body'), f = $('gc-' + box + '-foot');
     if (v) v.textContent = value;
+    // de-word 2026-10-22: the mistakes rate also as a plain "per 100 sentences"
+    if (v && box === 'c1' && /^\d/.test(value)) v.appendChild(el('small', 'dw-per100', '≈ ' + Math.round(parseFloat(value) * 100) + ' per 100 sentences'));
     b.textContent = '';
     b.appendChild(node || blank('No lessons scored in this range'));
     f.textContent = '';
@@ -277,7 +279,7 @@ function renderCharts() {
   var mps = L.map(function (x) { return x.mistakes_per_sentence; });
   var sentences = sum('medi_sentences');
   var rate = sentences ? sum('slips_counted') / sentences : null;
-  fill('c1', rate == null ? '—' : rate.toFixed(3),
+  fill('c1', rate == null ? '—' : rate.toFixed(3) + ' ',
     L.length ? sparkline(mps, { label: 'Mistakes per sentence by lesson', dates: L.map(function (x) { return x.date; }), fmt: function (v) { return v.toFixed(3); } }) : null,
     L.length ? foot(sum('slips_counted') + ' slips in ' + sentences + ' sentences · ' +
       L.length + ' lessons · latest ' + latest) : null);
@@ -292,6 +294,12 @@ function renderCharts() {
   fill('c2', scPct == null ? '—' : scPct + '%',
     L.length ? sparkline(sc, { bars: true, max: 100, label: 'Self-correction rate by lesson' }) : null,
     L.length ? foot(caught + ' asked or caught by you · ' + missed + ' corrected by the tutor') : null);
+  // round 6: who caught it, as one labelled split bar (you vs the tutor) above the per-lesson bars
+  if (L.length && caught + missed) {
+    var sb = el('div', 'dw-c2split'), yp = Math.round(100 * caught / (caught + missed));
+    sb.innerHTML = '<div class="dw-split"><i style="width:' + yp + '%"></i><i style="width:' + (100 - yp) + '%"></i></div><div class="dw-c2lab"><span><b>' + caught + '</b> you</span><span><b>' + missed + '</b> tutor</span></div>';
+    var c2b = $('gc-c2-body'); c2b.insertBefore(sb, c2b.firstChild);
+  }
 
   // 3 - unique rules per lesson, averaged over the range
   var uq = L.map(function (x) { return x.unique_rules; });
@@ -318,17 +326,21 @@ function renderCharts() {
   var d = donut(slices);
   if (d) body.appendChild(d);
   var legend = el('div', 'gc-legend');
-  slices.forEach(function (s) {
+  slices.forEach(function (s, i) {
     var row = el('div');
     var sw = el('span', 'gc-swatch'); sw.style.background = s.color;
     row.appendChild(sw);
-    row.appendChild(el('span', null, s.value + ' ' + s.label));
+    // round 2: the count as a big coloured number beside its label
+    var t = el('span', null, ''); var nb = el('b', 'dw-lgn', String(s.value)); if (STATUSES[i] !== 'NotTaught' && STATUSES[i] !== 'Untested') nb.style.color = s.color; t.appendChild(nb); t.appendChild(document.createTextNode(' ' + s.label));
+    row.appendChild(t);
     legend.appendChild(row);
   });
   body.appendChild(legend);
   // eng audit 2026-09-29: the cut-offs the statuses use (scripts/build_grammar_console.py status()) were not written
   // anywhere on the page; scripts/check_numbers.py checks every rule against exactly these.
-  $('gc-c4-foot').textContent = 'Score = (uses − mistakes) ÷ uses, rounded. Mastered = 95%+ on 10+ uses · Good = 85%+ · Shaky = 65%+ · Wrong = under 65%. Unscored = no counter for his right uses. Status never moves on its own — it needs a recorded use.';
+  // de-word 2026-10-22: the cut-offs open in place (ⓘ) instead of a paragraph under the donut
+  var c4n = document.querySelector('#gc-c4 .gc-chart-note'); if (c4n) c4n.textContent = 'All ' + DATA.rules.length + ' rules';
+  $('gc-c4-foot').innerHTML = '<details class="dw-info"><summary aria-label="How a rule gets its level">ⓘ</summary><div>All 60 buckets. Score = (uses − mistakes) ÷ uses, rounded. Mastered = 95%+ on 10+ uses · Good = 85%+ · Shaky = 65%+ · Wrong = under 65%. Unscored = no counter for his right uses. Status never moves on its own — it needs a recorded use.</div></details>';
 }
 
 /* ---------- rule rows ---------- */
@@ -765,7 +777,7 @@ function hearCell(r) {
     cell.title = window.AneesEarly.title(n, FLOOR) + ' ' + h.understood + ' understood, ' + h.breakdown + ' missed, ' + h.unknown + ' unclear (not counted).';
   } else {
     cell.appendChild(document.createTextNode(h.pct + '%'));
-    cell.appendChild(el('small', null, 'understood · n ' + n));
+    var sm = el('small', null, 'n ' + n); sm.insertBefore(el('span', 'dw-sr', 'understood · '), sm.firstChild); cell.appendChild(sm);
     cell.title = h.understood + ' understood, ' + h.breakdown + ' missed, ' + h.unknown + ' unclear (not counted), all lessons.';
   }
   var f = hearFlag(r);
@@ -789,11 +801,12 @@ function row(r) {
   head.appendChild(c1);
 
   var used = el('div', 'gc-num', r.uses ? String(r.uses) : '—');
-  used.appendChild(el('small', null, r.not_taught ? 'not counted' : r.uses ? 'times used' : 'never used'));
+  // de-word 2026-10-22: the column head already says "times used"; only the exceptions keep a sub-label
+  used.appendChild(el('small', r.not_taught || !r.uses ? null : 'dw-sr', r.not_taught ? 'not counted' : r.uses ? 'times used' : 'never used'));
   head.appendChild(used);
 
   var miss = el('div', 'gc-num', r.uses ? String(r.mistakes) : '—');
-  miss.appendChild(el('small', null, r.not_taught
+  miss.appendChild(el('small', r.not_taught || (r.verified_slips && r.verified_slips !== r.mistakes) ? null : 'dw-sr', r.not_taught
     ? (r.not_counted_count || 0) + ' not counted' : r.verified_slips
     ? r.verified_slips + ' confirmed' : 'corrections'));
   head.appendChild(miss);
@@ -831,6 +844,7 @@ function row(r) {
 }
 
 /* ---------- render ---------- */
+var SHOW_ALL = false;
 function render() {
   renderCharts();
   buildHeaders();
@@ -844,6 +858,13 @@ function render() {
   }
   $('gc-results').textContent = list.length + ' of ' + DATA.rules.length + ' rules';
   var filtered = QUERY || FAMILY !== 'all' || STATUSES.some(function (s) { return STATUS_ON[s]; });
+  // de-word 2026-10-22: with no filter only the Wrong rules show; the rest open in place (every row stays on the page)
+  rows.classList.remove('dw-clip'); // round 2 (Medi: too much cut): every rule row shows
+  var more = $('gc-showall');
+  if (!more) { more = el('button', 'ab-control', ''); more.id = 'gc-showall'; more.type = 'button';
+    more.addEventListener('click', function () { SHOW_ALL = true; render(); }); rows.after(more); }
+  more.textContent = 'Show all ' + list.length + ' rules';
+  more.hidden = !rows.classList.contains('dw-clip');
   $('gc-reset').hidden = !filtered;
 }
 
@@ -851,18 +872,42 @@ function buildStatusChips() {
   var box = $('gc-statuses');
   var counts = {};
   DATA.rules.forEach(function (r) { counts[r.status] = (counts[r.status] || 0) + 1; });
+  // de-word 2026-10-22: one stacked bar of the statuses above the chips
+  var bar = el('div', 'dw-split dw-gclevels'); bar.setAttribute('aria-hidden', 'true');
+  STATUSES.forEach(function (s) { if (!counts[s]) return; var i = el('i', 'dw-lv-' + s); i.style.width = (100 * counts[s] / DATA.rules.length).toFixed(2) + '%'; bar.appendChild(i); });
+  var anchor = box.closest('details.dw-filters') || box; anchor.parentNode.insertBefore(bar, anchor);
   STATUSES.forEach(function (s) {
-    var b = el('button', 'ab-chip', statusLabel(s) + ' ' + (counts[s] || 0));
+    var b = el('button', 'ab-chip dw-st-' + s, statusLabel(s) + ' ' + (counts[s] || 0));
     b.type = 'button';
     b.setAttribute('aria-pressed', 'false');
     b.addEventListener('click', function () {
       STATUS_ON[s] = !STATUS_ON[s];
+      var fold = b.closest('details.dw-filters'); if (fold && STATUS_ON[s]) fold.open = true;
       b.setAttribute('aria-pressed', STATUS_ON[s] ? 'true' : 'false');
       render();
     });
     box.appendChild(b);
+    CHIP[s] = b;
   });
+  // de-word 2026-10-22: the rules that need work, as one action row at the top (same filter as the chips below)
+  var needs = $('gc-needs');
+  if (needs) {
+    needs.textContent = '';
+    ['Wrong', 'Shaky'].forEach(function (s) {
+      if (!counts[s]) return;
+      var b = el('button', 'dw-needbtn dw-need-' + s, '');
+      b.type = 'button';
+      b.appendChild(el('b', null, String(counts[s])));
+      b.appendChild(document.createTextNode(' ' + statusLabel(s).toLowerCase() + ' rules →'));
+      b.addEventListener('click', function () {
+        if (!STATUS_ON[s]) CHIP[s].click();
+        $('gc-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      needs.appendChild(b);
+    });
+  }
 }
+var CHIP = {};
 
 function wire() {
   Array.prototype.forEach.call(document.querySelectorAll('.gc-period'), function (b) {
@@ -939,7 +984,7 @@ function renderProposals(doc) {
   var box = $('gc-propose'), body = $('gc-propose-body');
   if (!box || !P.length) return;
   box.hidden = false;
-  $('gc-propose-sum').textContent = 'Proposed new rules (' + P.length + ') · fixes the tutor made that fit no rule yet · not scored until you say yes';
+  $('gc-propose-sum').textContent = 'Proposed new rules (' + P.length + ') · not scored until you say yes';
   body.textContent = '';
   P.forEach(function (p) {
     body.appendChild(el('div', 'gc-doc-head', (p.name || 'New rule') + (p.medi === 'yes' && p.bucket ? ' · you said yes: now rule ' + p.bucket + ', scored' : p.medi ? ' · your answer: ' + p.medi : ' · waiting for your yes or no')));
@@ -1002,6 +1047,7 @@ Promise.all([optional('data/words.json'), optional('data/house_spelling.json'), 
   })
   .catch(function (err) {
     $('gc-notice').textContent = 'Could not load the grammar data: ' + err.message;
+    if ($('gc-noticeinfo')) $('gc-noticeinfo').open = true;
     $('gc-source').textContent = 'Failed to load';
   });
 })();
