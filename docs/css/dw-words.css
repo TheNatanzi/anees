@@ -409,3 +409,35 @@ html[data-look="kurz"] #anees-bank[aria-label="Anees Grammar Console"] h1::after
 #ab-rows .vp-memory-detail .ab-tiny { white-space: nowrap; }
 #anees-bank .ab-tablehead, #ab-rows .ab-rowhead { grid-template-columns: minmax(130px, 1.2fr) minmax(110px, 1.1fr) minmax(170px, 1.6fr) 150px 200px; }
 @media (max-width: 680px) { #ab-rows .ab-rowhead { grid-template-columns: 1fr 1fr; } #ab-rows .vp-memory-detail .ab-tiny { white-space: normal; } }
+/* Medi 2026-10-23 ("the numbers should all be on one line"): every Word Bank tile has the same layout - number, label,
+   note - from the same top edge. The % ring sits in the top-right corner, out of the text flow, so it never pushes a
+   number down. */
+#anees-bank #ab-metrics.dw-wb-bigs { align-items: stretch; }
+#anees-bank #ab-metrics .dw-big, #anees-bank #ab-metrics .dw-big.dw-ring { position: relative; display: flex; flex-direction: column; justify-content: flex-start; gap: 4px; padding: 14px 14px 12px; min-width: 0; }
+#anees-bank #ab-metrics .dw-big > b { display: block; line-height: 1.05; font-size: clamp(22px, 2.2vw, 32px) !important; white-space: nowrap; }
+#anees-bank #ab-metrics .dw-big > span { display: block; line-height: 1.25; }
+#anees-bank #ab-metrics .dw-big > small { display: block; margin-top: auto; line-height: 1.3; }
+#anees-bank #ab-metrics .dw-big.dw-ring::before { position: absolute; top: 12px; right: 12px; float: none !important; margin: 0 !important; width: 22px !important; height: 22px !important; }
+@media (max-width: 680px) {
+  #anees-bank #ab-metrics .dw-big, #anees-bank #ab-metrics .dw-big.dw-ring { padding: 10px 8px 8px; }
+  #anees-bank #ab-metrics .dw-big > b { font-size: 20px !important; }
+  #anees-bank #ab-metrics .dw-big.dw-ring::before { top: 6px; right: 6px; width: 12px !important; height: 12px !important; }
+}
+/* Medi 2026-10-23 ("the numbers should all be on one line"): Flashcards tiles read number -> label -> note like the
+   Word Bank tiles, so a long label (1-3 lines) never pushes its number below its neighbours'. */
+#anees-bank .fc-grid > .stile { display: flex; flex-direction: column; justify-content: flex-start; gap: 4px; }
+#anees-bank .fc-grid > .stile > .vp-card-value { order: -1 !important; margin: 0; line-height: 1.05; }
+#anees-bank .fc-grid > .stile > .vp-card-label { order: 0 !important; }
+#anees-bank .fc-grid > .stile > .vp-card-sub { order: 1 !important; }
+#anees-bank .fc-grid > .stile > .fc-mix { order: 2 !important; }
+#anees-bank .fc-grid > .stile > .vp-card-label { margin: 0; }
+#anees-bank .fc-grid > .stile > .vp-card-sub { margin-top: 2px; }
+#anees-bank .fc-grid > .stile > .vp-card-value { display: flex; align-items: baseline; gap: 6px; min-height: 32px; }
+#anees-bank .fc-grid > .stile > .vp-card-value > .vp-num { line-height: 1; }
+#anees-bank .fc-grid > .stile > .vp-card-value { height: 32px; min-height: 0; align-items: flex-end; overflow: visible; }
+#anees-bank .fc-grid > .stile > .vp-card-value > * { line-height: 1 !important; margin: 0 !important; padding: 0 !important; }
+#anees-bank .fc-grid > .stile { position: relative; }
+#anees-bank .stile[data-t^="drill:"] .vp-card-value::after, #anees-bank .stile[data-t="never"] .vp-card-value::after { position: absolute; top: 12px; right: 12px; margin: 0 !important; width: 26px; height: 26px; }
+/* the Start / Open pill sits at the foot of the tile (it used to share the top line with the number) */
+#anees-bank .fc-grid > .stile:not(.empty)::after { position: static !important; order: 9 !important; align-self: flex-start; margin-top: auto !important; display: inline-flex; align-items: center; }
+#anees-bank .fc-grid > .stile:not(.empty) .vp-card-label { padding-right: 0 !important; }

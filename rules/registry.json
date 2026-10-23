@@ -12347,6 +12347,42 @@
     "note": "test_m5_cards had kept the Sets tiles and card settings open on the menu"
    },
    "aliases": []
+  },
+  {
+   "id": "PG-61",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "In a row of tiles every number starts on the same line: each tile reads number, label, note (then its button), and any ring or icon sits in the tile's corner, out of the text flow (docs/css/dw-words.css: Word Bank #ab-metrics, Flashcards .fc-grid).",
+   "plain": "In a row of tiles, every number sits on the same line; rings and icons go in the corner.",
+   "plain_for": "02869838",
+   "topic": "pages",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-23",
+     "quote": "The numbers should all be on one line"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/css/dw-words.css",
+     "contains": "#anees-bank #ab-metrics .dw-big.dw-ring::before { position: absolute;"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_tiles_keep_numbers_on_one_line"
+    }
+   ],
+   "example": {
+    "date": "2026-10-23",
+    "note": "Word Bank: 3 of 6 numbers sat a line lower under their % ring; Flashcards: labels of 1-3 lines pushed numbers down"
+   },
+   "aliases": []
   }
  ]
 }

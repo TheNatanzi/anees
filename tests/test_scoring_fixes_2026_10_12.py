@@ -426,3 +426,14 @@ def test_pg_60_sets_and_card_settings_fold_away():
     assert '<details class="fc-fold" id="fold-sets"' in src and '<details class="fc-fold" id="fold-settings"' in src
     assert "const FOLD={sets:false,settings:false}" in src and "addEventListener('toggle'" in src
     i = src.index('id="fold-settings"'); assert src.index('id="m-en"', i) > i   # the card-front choice is inside the fold
+
+
+
+def test_tiles_keep_numbers_on_one_line():
+    """Medi 2026-10-23 ("The numbers should all be on one line"): rings and icons sit in the tile corner, Flashcards tiles put
+    the number first, so no tile's number is pushed below its neighbours'."""
+    import io, os
+    css = io.open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "css", "dw-words.css"), encoding="utf-8").read()
+    assert "#anees-bank #ab-metrics .dw-big.dw-ring::before { position: absolute;" in css
+    assert "#anees-bank .fc-grid > .stile > .vp-card-value { order: -1 !important;" in css
+    assert "position: absolute; top: 12px; right: 12px; margin: 0 !important; width: 26px" in css
