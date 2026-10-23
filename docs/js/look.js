@@ -8,7 +8,8 @@
   const KEY = 'anees-look';
   const LOOKS = [['flat', 'A', 'Look A · flat'], ['kurz', 'B', 'Look B · bright']];
   const HERE = (document.currentScript && document.currentScript.src) || '';
-  function read() { try { const v = localStorage.getItem(KEY); return v === 'kurz' ? 'kurz' : 'flat'; } catch (e) { return 'flat'; } }
+  // Medi 2026-10-22 picked Look A for every page: the switch is gone and every page is flat (Look B CSS stays unused).
+  function read() { return 'flat'; }
   function apply(look) { document.documentElement.setAttribute('data-look', look); }
   function paint() {
     const now = read();
@@ -19,10 +20,12 @@
     if (document.querySelector('link[data-anees-look-css]')) return;
     const base = HERE.replace(/js\/look\.js.*$/, '');
     const link = document.createElement('link');
-    link.rel = 'stylesheet'; link.href = base + 'css/look.css?v=dw2'; link.setAttribute('data-anees-look-css', '');
+    link.rel = 'stylesheet'; link.href = base + 'css/look.css?v=dw3'; link.setAttribute('data-anees-look-css', '');
     (document.head || document.documentElement).appendChild(link);
   }
+  const SWITCH = false;
   function mount(tries) {
+    if (!SWITCH) return;
     if (document.querySelector('.anees-look')) return paint();
     // wait (up to 2 s) for js/theme.js to mount its switch, so the look switch sits next to it instead of floating
     if (!document.querySelector('.sabz-theme') && (tries || 0) < 20) return setTimeout(() => mount((tries || 0) + 1), 100);
