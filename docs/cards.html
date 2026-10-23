@@ -108,6 +108,13 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 .stamp{background:var(--sabz-bg)} .donut i{background:var(--sabz-bg)}
 /* listening boost chip: this word sank a sentence he missed in a lesson (data/sentence-ladder.json boost) */
 .face .boost{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);font:600 12px var(--sans);padding:3px 10px;border-radius:999px;background:var(--learnbg);color:var(--learn);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fc-fold{margin:14px 0 0;border:1px solid var(--ab-line);border-radius:10px;background:var(--ab-panel)}
+.fc-fold>summary{cursor:pointer;list-style:none;padding:12px 14px;font:600 16px/1.3 var(--sabz-font-serif,Georgia,serif);display:flex;gap:6px;align-items:baseline;flex-wrap:wrap}
+.fc-fold>summary::-webkit-details-marker{display:none}
+.fc-fold>summary::before{content:"▸";font-size:13px;color:var(--ab-muted);transition:transform .15s}
+.fc-fold[open]>summary::before{transform:rotate(90deg)}
+.fc-fold>summary .mute{font:400 13px var(--sabz-font-sans,system-ui)}
+.fc-fold>.fc-sec,.fc-fold>.panel{margin:0;padding:0 14px 14px;border:0;background:transparent}
 </style></head><body><div id="anees-bank" class="vp-sabz"><div class="ab-shell">
 <aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="progress.html">Progress &amp; Stats</a><a class="ab-nav" href="lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="word-bank.html">Word Bank</a><a class="ab-nav" href="grammar.html">Grammar Rules</a><a class="ab-nav" aria-current="page" href="cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="tutor.html">Tutor</a><a class="ab-nav" href="student.html">Student</a><a class="ab-nav" href="ai-reports.html">AI Reports</a><a class="ab-nav" href="big-picture.html">Big Picture</a><a class="ab-nav" href="settings.html">System Settings</a></nav></aside>
 <main>
@@ -388,6 +395,9 @@ function openRef(ref){ const S=selection(); lastSel=S; let t=null;
   if(!t||!t.words.length){ home(); return; } opts(t,home); }
 // Home = the category menu (Medi 2026-09-22): pick a category first, including the randomized ones.
 let lastSel=null;
+/* PG-60 (Medi 2026-10-22, "Ok make all 4 changes"): the Sets tiles and the card settings fold away; one tap opens each,
+   and a fold stays open while you change a setting (home() re-draws the menu). */
+const FOLD={sets:false,settings:false};
 function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.scrollTo(0,0); const q=dueQueue(), n=q.counts, S=selection(); lastSel=S;
   const f=F.forecast([...cards.values()],new Date(),7), qs=set=>S.qcards.get(set.id)||[];
   const both=st=>union([S.split[st+'|speaking|All'],S.split[st+'|flashcards|All']]), named=S.groups.flatMap(g=>g.sets), namedWords=union(named.map(qs)), collocWords=union(S.colloc.map(qs));
@@ -407,21 +417,22 @@ function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.s
       tileHtml({id:'never-new',label:'New untested words',title:'New untested words',words:S.never.filter(w=>CUR.newKeys.has(w.key)),unit:'words',note:capRound(S.never.filter(w=>CUR.newKeys.has(w.key))).cards.length?`added by the tutor · ${capRound(S.never.filter(w=>CUR.newKeys.has(w.key))).cards.length} open today`:`added by the tutor · today's ${NEWDAY()} are started`,reason:'No new words from the tutor waiting'}),
       tileHtml({id:'never',label:'Old untested words',title:'Old untested words',words:oldUntested(S),shown:Math.min(20,oldUntested(S).length),note:`retest: 20 at random from ${fmt(oldUntested(S).length)} · verbs: 1 present, 1 past, 1 command each`,reason:'Every old word has been answered on cards'})])}
     ${askList().length?`<section class="fc-sec sec"><div class="fc-grid"><button class="vp-card stile wide" id="asktile"><div class="vp-card-label"><span class="fc-shaky">Questions for the tutor</span></div><div class="vp-card-value"><span class="vp-num">${askList().length}</span><span class="vp-card-unit">cards</span></div><div class="vp-card-sub">tap to see the list and send it to her</div></button></div></section>`:''}
-    ${group('Sets',[
+    <details class="fc-fold" id="fold-sets"${FOLD.sets?' open':''}><summary>Sets <span class="mute">· 5 kinds of set</span></summary>${group('Sets',[
       cat('sets','The tutor’s card sets',namedWords,{unit:'cards',note:`${named.length} named sets`,mix:mixOf(namedWords),reason:'Quizlet sets did not load'}),
       cat('uploads','From the tutor · uploads',union(S.usets.map(u=>u.words)),{shown:S.usets.length,unit:'sets',note:S.usets.length?`${S.usets.filter(u=>u.keep==='permanent').length} permanent · ${S.usets.filter(u=>u.keep!=='permanent').length} temporary`:'',mix:mixOf(union(S.usets.map(u=>u.words))),reason:'The tutor has not uploaded a list yet (Tutor page, top)'}),
       cat('colloc','Verbs + prepositions',collocWords,{unit:'cards',note:`${S.colloc.length} sets`,mix:mixOf(collocWords),reason:'Quizlet sets did not load'}),
       cat('tenses','Verb tenses',union(S.tenses.map(t=>t.words)),{unit:'forms',note:S.tenses.map(t=>t.name).join(' · '),reason:'No tense forms in the Doc'}),
-      cat('topics','The tutor’s Doc categories',S.topics.flatMap(t=>t.words),{shown:S.topics.length,unit:'topics',note:`${S.topics.reduce((a,t)=>a+t.subs.length,0)} sub-topics`,reason:'No Doc topics'})])}
+      cat('topics','The tutor’s Doc categories',S.topics.flatMap(t=>t.words),{shown:S.topics.length,unit:'topics',note:`${S.topics.reduce((a,t)=>a+t.subs.length,0)} sub-topics`,reason:'No Doc topics'})])}</details>
     <h2${f.every(d=>!d.due)?' class="dw-allzero-h"':''}>Next 7 days</h2><div class="fc dw-fc${f.every(d=>!d.due)?' dw-allzero':''}">${f.map((d,i)=>`<div><i class="dw-fcbar" style="height:${Math.round(100*d.due/Math.max(1,...f.map(x=>x.due)))}%"></i><b>${d.due}</b><span>${i===0?'Today':new Date(d.date+'T12:00').toLocaleDateString(undefined,{weekday:'short'})}</span></div>`).join('')}</div>
-    <div class="panel"><h2 style="margin-top:0">Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
+    <details class="fc-fold" id="fold-settings"${FOLD.settings?' open':''}><summary>Card settings <span class="mute">· front: ${pref.mode==='en_first'?'English':'Arabic'} · ${Math.round(pref.retention*100)}% retention</span></summary><div class="panel"><h2 style="margin-top:0">Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
     <h2>Desired retention</h2><div class="toggle">${F.RETENTIONS.map(r=>`<button data-r="${r}" class="${pref.retention===r?'sel':''}">${Math.round(r*100)}%</button>`).join('')}</div>
     <p class="mute">FSRS scheduler · default parameters, not fitted to you. Higher retention means more reviews. ${CUR.batch?`New untested words (only words the tutor adds to the Doc from Oct 1 on) open ${NEWDAY()} a day, the size of her latest batch (${CUR.batches.map(([d,c])=>c+' on '+new Date(d+'T12:00').toLocaleDateString(undefined,{month:'short',day:'numeric'})).join(', ')}).`:`No new words yet: only words the tutor adds to the Doc from Oct 1 on are new.`} Every word already in the Doc is an old word to retest, with no daily limit.</p>
-</div>`;
+</div></details>`;
   root.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{pref.retention=Number(b.dataset.r); savePref(); home();});
   document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first'; savePref(); home();};
   document.getElementById('m-en').onclick=()=>{pref.mode='en_first'; savePref(); home();};
   bindTiles(t=>openTile(t,home)); const at=document.getElementById('asktile'); if(at) at.onclick=askView;
+  [['sets','fold-sets'],['settings','fold-settings']].forEach(([k,id])=>{ const d=document.getElementById(id); if(d) d.addEventListener('toggle',()=>{FOLD[k]=d.open;}); });
 }
 // One category screen; its tiles come back here, and ‹ Flashcards returns to the menu.
 function catView(id){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.scrollTo(0,0); const S=lastSel||selection(), q=dueQueue(), n=q.counts, qs=set=>S.qcards.get(set.id)||[], back=()=>catView(id);

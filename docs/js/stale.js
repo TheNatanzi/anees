@@ -9,6 +9,10 @@
 // when the robot last published and why it is blocked; while it is stalled every page shows one line at the top:
 // "The hourly robot has not published for N h: <reason>". The hours count on from last_publish_utc in the viewer's clock
 // (a stalled robot cannot publish a new file). Fails quiet: no file or a bad file shows nothing.
+// PG-58 (Medi 2026-10-22, "Ok make all 4 changes" on the de-word report's clash list): the stall line shows ONCE, on
+// Progress & Stats only (the home page), as one warning line above the page title - not a full-width bar on every page.
+// The publish guard's warnings and the Windows pop-up (scripts/publish_guard.py) are unchanged.
+function stallHere(path) { return /(^|\/)(progress|index)\.html$/.test(path || '') || /\/$/.test(path || ''); }
 function stallText(h, now) {
   if (!h || !h.last_publish_utc && !h.stalled) return null;
   const t = h.last_publish_utc ? new Date(h.last_publish_utc) : null;
@@ -20,7 +24,7 @@ function stallText(h, now) {
     .replace(/\s+/g, ' ').trim();
   return 'The hourly robot has not published for ' + Math.round(hrs) + ' h: ' + (why.length > 220 ? why.slice(0, 217) + '...' : why);
 }
-if (typeof module !== 'undefined' && module.exports) module.exports = { stallText };
+if (typeof module !== 'undefined' && module.exports) module.exports = { stallText, stallHere };
 (function () {
   if (typeof window === 'undefined') return;
   let mine = '';                                   // set from a fresh read of data/build.json on load (see above)
@@ -58,14 +62,16 @@ if (typeof module !== 'undefined' && module.exports) module.exports = { stallTex
   async function checkStall() {
     try {
       const r = await fetch(base + 'data/pipeline-health.json?t=' + Date.now(), { cache: 'no-store' });
+      if (!stallHere(location.pathname)) return null;
       const line = r.ok ? stallText(await r.json()) : null;
       let el = document.getElementById('stall-bar');
       if (!line) { if (el) el.remove(); return null; }
       if (!el) {
         el = document.createElement('div');
         el.id = 'stall-bar'; el.setAttribute('role', 'alert');
-        el.style.cssText = 'margin:0;padding:10px 14px;background:#B26F0E;color:#fff;font:600 14px/1.4 system-ui;text-align:center';
-        document.body.insertBefore(el, document.body.firstChild);
+        el.style.cssText = 'display:inline-flex;gap:6px;align-items:center;margin:0 0 10px;padding:4px 12px;border-radius:999px;background:var(--dw-warn-fill,#F4E6C8);color:var(--dw-warn,#8A5A12);font:600 13px/1.4 system-ui;max-width:100%';
+        const head = document.querySelector('#anees-bank main .ab-header') || document.querySelector('#anees-bank main');
+        if (head && head.parentNode) head.parentNode.insertBefore(el, head); else document.body.insertBefore(el, document.body.firstChild);
       }
       el.textContent = line;
       return line;

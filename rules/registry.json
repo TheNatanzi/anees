@@ -12165,15 +12165,21 @@
    "scope": "pages",
    "status": "enforced",
    "change": "new",
-   "statement": "AI Reports carries the whole Anees process as one flowchart page, docs/reports/anees-flow.html (built by scripts/build_flow_page.py from plan/ANEES-FLOW.fragment.html into the AI Reports page shell; styled by css/ai-reports.css .fl in the app's own colours, so it follows Light / Dark), with its card first in the Research section of AI Reports.",
-   "plain": "AI Reports has a flowchart of every step a lesson goes through, from the Meet call to the grade book.",
-   "plain_for": "c5cbf7f3",
+   "statement": "AI Reports carries the whole Anees process as one flowchart page, docs/reports/anees-flow.html (built by scripts/build_flow_page.py from plan/ANEES-FLOW.fragment.html into the AI Reports page shell; styled by css/ai-reports.css .fl in the app's own colours, so it follows Light / Dark), with its card first in the Research section of AI Reports. The 8-stop picture of the path is the very first thing on the page and the tab.",
+   "plain": "AI Reports has a flowchart of every step a lesson goes through, from the Meet call to the grade book, with the 8-stop picture at the very top.",
+   "plain_for": "22b14957",
    "topic": "pages",
    "source": [
     {
      "by": "medi",
      "date": "2026-10-21",
      "quote": "add the flowchart to the ai reports"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-22",
+     "quote": "Ok make all 4 changes",
+     "note": "his yes to the 4 rule clashes in plan/DEWORD-REPORT-2026-10-23.md"
     }
    ],
    "enforcement": [
@@ -12228,6 +12234,117 @@
    "example": {
     "date": "2026-10-22",
     "note": "first de-word pass cut rows and charts; round 2 put the data back (all 15 pages, a6d81ce)"
+   },
+   "aliases": []
+  },
+  {
+   "id": "PG-58",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The robot-stall line (docs/js/stale.js, PG-01's silent-stall alarm) shows once, on Progress & Stats (the home page), as one warning line above the page title - not a full-width bar on every page. The out-of-date banner still shows on every page; the publish guard's warnings and the Windows pop-up are unchanged.",
+   "plain": "The 'robot has not published' warning shows once, on Progress & Stats, not as a bar on every page.",
+   "plain_for": "232a0827",
+   "topic": "out of date",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-22",
+     "quote": "Ok make all 4 changes",
+     "note": "his yes to the 4 rule clashes in plan/DEWORD-REPORT-2026-10-23.md"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/stale.js",
+     "contains": "if (!stallHere(location.pathname)) return null;"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_stale_banner.py",
+     "contains": "def test_pg_58_the_stall_line_shows_once_on_progress_only"
+    }
+   ],
+   "example": {
+    "date": "2026-10-22",
+    "note": "the full-width 'The hourly robot has not published for N h' bar sat on top of every page"
+   },
+   "aliases": []
+  },
+  {
+   "id": "PG-59",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "On the Tutor hub the tutor's two answer buttons (Yes, the student was wrong / No, the student was fine; Add / Skip on the sheet) sit side by side, Yes on the left, half the row each, on a laptop and a phone. Her flow order and PG-17 (everything opens in place) are unchanged.",
+   "plain": "On the Tutor page the tutor's two answer buttons sit side by side, Yes on the left.",
+   "plain_for": "59f2c907",
+   "topic": "pages",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-22",
+     "quote": "Ok make all 4 changes",
+     "note": "his yes to the 4 rule clashes in plan/DEWORD-REPORT-2026-10-23.md"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/css/dw-people.css",
+     "contains": "PG-59 (Medi 2026-10-22"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_pg_59_tutor_answer_buttons_side_by_side"
+    }
+   ],
+   "example": {
+    "date": "2026-10-22",
+    "note": "the two buttons were stacked; both judges asked for them side by side"
+   },
+   "aliases": []
+  },
+  {
+   "id": "PG-60",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "On the Flashcards menu the Sets tiles and the card settings (front of the card, desired retention) sit in folds, closed by default, one tap to open each; a fold stays open while a setting is changed. Every number in them stays in the page (PG-57).",
+   "plain": "On Flashcards the Sets and the card settings are folded; one tap opens each.",
+   "plain_for": "6859df0b",
+   "topic": "flashcards",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-22",
+     "quote": "Ok make all 4 changes",
+     "note": "his yes to the 4 rule clashes in plan/DEWORD-REPORT-2026-10-23.md"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/cards.html",
+     "contains": "const FOLD={sets:false,settings:false};"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_pg_60_sets_and_card_settings_fold_away"
+    }
+   ],
+   "example": {
+    "date": "2026-10-22",
+    "note": "test_m5_cards had kept the Sets tiles and card settings open on the menu"
    },
    "aliases": []
   }

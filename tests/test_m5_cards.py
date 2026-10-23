@@ -174,8 +174,10 @@ def test_flip_toggle_shuffle_replay_end_to_end(viewport, rest_stub):
     url = (ROOT / 'docs' / 'cards.html').resolve().as_uri()
     with sync_playwright() as pw:
         b = pw.chromium.launch(); ctx = b.new_context(viewport=viewport); rest_stub.attach(ctx); pg = ctx.new_page(); pg.goto(url)
-        pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000)   # home is the category menu (Medi 2026-09-22); card front choice lives there too
-        pg.click('#m-en'); pg.wait_for_selector('#m-en.sel'); pg.click('[data-t="cat:topics"]'); pg.click('[data-t="topic:Animals"]')
+        pg.wait_for_selector('[data-t="cat:topics"]', state='attached', timeout=20000)   # home is the category menu (Medi 2026-09-22); card front choice lives there too
+        # PG-60 (Medi 2026-10-22): Sets and the card settings are folded; one tap opens each, and they stay open across re-draws
+        pg.click('#fold-settings > summary'); pg.click('#m-en'); pg.wait_for_selector('#m-en.sel')
+        pg.click('#fold-sets > summary'); pg.click('[data-t="cat:topics"]'); pg.click('[data-t="topic:Animals"]')
         pg.click('[data-t="all:topic:Animals"]'); pg.wait_for_selector('#start')
         pg.click('#sh'); pg.wait_for_timeout(100); sh1 = pg.text_content('#sh'); pg.click('#sh'); pg.wait_for_timeout(100); sh2 = pg.text_content('#sh')
         assert sh1 != sh2 and 'Shuffle' in sh1
@@ -224,7 +226,7 @@ def test_offline_20_answers_then_sync_no_duplicates(rest_stub):
     url = (ROOT / 'docs' / 'cards.html').resolve().as_uri()
     with sync_playwright() as pw:
         b = pw.chromium.launch(); ctx = b.new_context(viewport={'width': 375, 'height': 812}); rest_stub.attach(ctx); pg = ctx.new_page(); pg.goto(url)
-        pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000); pg.click('[data-t="cat:topics"]'); pg.click('[data-t="topic:Numbers"]')   # home is the category menu
+        pg.wait_for_selector('[data-t="cat:topics"]', state='attached', timeout=20000); pg.click('#fold-sets > summary'); pg.click('[data-t="cat:topics"]'); pg.click('[data-t="topic:Numbers"]')   # home is the category menu; Sets fold (PG-60)
         pg.click('[data-t="all:topic:Numbers"]'); pg.wait_for_selector('#start')
         pg.click('#n20'); pg.click('#start'); pg.wait_for_function("document.querySelector('#card') || /new cards are in play/.test(document.body.innerText)")
         if not pg.locator('#card').count():
@@ -264,3 +266,4 @@ def test_no_attribute_injection_in_cards():
         src = (ROOT / 'docs' / page).read_text(encoding='utf-8')
         line = next(l for l in src.splitlines() if 'esc=s=>' in l.replace(' ', ''))
         assert '&quot;' in line and '&#39;' in line, page
+

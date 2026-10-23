@@ -73,8 +73,9 @@ def dword(frag):
         strip = ('<ol class="fl-path" aria-label="The %d stops from the call to the grade">' % len(stops) +
                  ''.join('<li style="--pc:%s"><a href="#fl-%s"><span class="fl-dot">%s</span><b>%s</b></a></li>'
                          % (c, k, SVG_ICONS.get(k, k), WORD.get(k, k)) for c, k in stops) + '</ol>')
-        i = frag.find('<section class="phase"')   # right above phase A (PG-56 test: the fragment's own opening stays exact)
-        frag = frag[:i] + strip + '\n  ' + frag[i:]
+        # PG-56 (Medi 2026-10-22, "Ok make all 4 changes"): the 8-stop picture is the very first thing on the page
+        i = frag.find('<div class="fl">') + len('<div class="fl">')
+        frag = frag[:i] + '\n  ' + strip + frag[i:]
     frag = frag.replace("<div class=\"done\"><b>✓ Done</b>", "<div class=\"done\">" + DONE_ICON + "<b>Done</b>", 1)
     return frag
 

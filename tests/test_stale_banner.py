@@ -28,7 +28,7 @@ def test_banner_appears_when_build_changes(tmp_path, rest_stub):
     threading.Thread(target=srv.serve_forever, daemon=True).start()
     with sync_playwright() as pw:
         b = pw.chromium.launch(); pg = b.new_page(viewport={'width': 375, 'height': 812}); rest_stub.attach(pg.context)   # FC-08
-        pg.goto(f'http://127.0.0.1:{port}/cards.html'); pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000)   # home is the category menu since 4facdef (2026-09-22); #start only appears inside a set
+        pg.goto(f'http://127.0.0.1:{port}/cards.html'); pg.wait_for_selector('[data-t="cat:topics"]', state='attached', timeout=20000)   # home is the category menu since 4facdef (2026-09-22); #start only appears inside a set
         assert pg.evaluate('AneesStale.check()') is not None and pg.locator('#stale-bar').count() == 0
         (site / 'data' / 'build.json').write_text('{"build": "20991231-000000-newer"}', encoding='utf-8')
         pg.evaluate('AneesStale.check()'); pg.wait_for_selector('#stale-bar', timeout=5000)
@@ -97,3 +97,15 @@ def test_pr_24_every_page_with_the_shared_menu_gets_the_stall_banner():
     assert "document.querySelector('script[src*=\"js/stale.js\"]')" in nav and "js/stale.js?v=fresh1" in nav
     pages = [p for p in glob.glob(os.path.join(root, '*.html')) if 'js/phone-nav.js' in open(p, encoding='utf-8').read()]
     assert len(pages) >= 10
+
+
+def test_pg_58_the_stall_line_shows_once_on_progress_only():
+    """PG-58 (Medi 2026-10-22, "Ok make all 4 changes" on the de-word report): the stall line shows once, on Progress & Stats
+    (the home page), as one warning line - not a full-width bar on every page. The out-of-date banner stays on every page."""
+    import subprocess
+    s = (DOCS / 'js' / 'stale.js').read_text(encoding='utf-8')
+    assert "if (!stallHere(location.pathname)) return null;" in s and "display:inline-flex" in s
+    out = subprocess.run(['node', '-e', "const s=require('./docs/js/stale.js');console.log([s.stallHere('/anees/progress.html'),"
+                          "s.stallHere('/anees/'),s.stallHere('/anees/tutor.html'),s.stallHere('/anees/cards.html')].join(','))"],
+                         capture_output=True, text=True, cwd=str(DOCS.parent)).stdout.strip()
+    assert out == 'true,true,false,false'

@@ -361,7 +361,12 @@ def test_pg_56_flowchart_page_in_ai_reports():
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     page = io.open(os.path.join(root, "docs", "reports", "anees-flow.html"), encoding="utf-8").read()
     frag = io.open(os.path.join(root, "plan", "ANEES-FLOW.fragment.html"), encoding="utf-8").read()
-    assert 'class="fl"' in page and "Claude Opus 5.5 + Gemini 4 Argon" in page and "GPT-5.6 Terra" in page and frag.split("-->", 1)[1].strip()[:60] in page
+    assert 'class="fl"' in page and "Claude Opus 5.5 + Gemini 4 Argon" in page and "GPT-5.6 Terra" in page
+    # Medi 2026-10-22 ("Ok make all 4 changes"): the 8-stop picture opens the page, then the fragment's own key follows unchanged
+    body = page.split('<div class="fl">', 1)[1]
+    assert body.lstrip().startswith('<ol class="fl-path"') and body.count('<span class="fl-dot">') == 8
+    key = frag.split('<div class="fl">', 1)[1].strip()[:60]
+    assert key in body and body.index('<ol class="fl-path"') < body.index(key)
     css = io.open(os.path.join(root, "docs", "css", "ai-reports.css"), encoding="utf-8").read()
     assert "#anees-bank .fl .box{background:var(--ab-panel)" in css
     # Medi 2026-10-22: a step with a study behind it has a dropdown: a one-line summary, the result, and a link
@@ -399,3 +404,25 @@ def test_pg_57_shorter_pages_keep_every_number(tmp_path):
     assert DC.compare(before, after, ["progress"]) == {}          # moved to another tab: still on the page
     (after / "progress.numbers.json").write_text(json.dumps({"overview": ["94%", "25"]}), encoding="utf-8")
     assert DC.compare(before, after, ["progress"]) == {"progress": ["128"]}
+
+
+def test_pg_59_tutor_answer_buttons_side_by_side():
+    """PG-59 (Medi 2026-10-22, "Ok make all 4 changes" on the de-word report): the tutor's two answer buttons sit side by side,
+    Yes left and No right (same order), half the row each; the buttons' markup and her flow are unchanged."""
+    import io, os
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    css = io.open(os.path.join(root, "docs", "css", "dw-people.css"), encoding="utf-8").read()
+    js = io.open(os.path.join(root, "docs", "js", "hub", "review-task.js"), encoding="utf-8").read()
+    assert '.hb-btns:has(> .hb-ans[data-rv="confirm"], > .hb-ans[data-rv="sheet_add"])' in css
+    assert "grid-template-columns: repeat(2, minmax(0, 1fr))" in css.split("PG-59", 1)[1]
+    assert js.index('data-rv="confirm"') < js.index('data-rv="skip"')   # Yes stays first (left)
+
+
+def test_pg_60_sets_and_card_settings_fold_away():
+    """PG-60 (Medi 2026-10-22, "Ok make all 4 changes" on the de-word report): on the Flashcards menu the Sets tiles and the
+    card settings sit in folds, closed by default, one tap to open; the open state survives the menu re-drawing."""
+    import io, os
+    src = io.open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'docs', 'cards.html'), encoding='utf-8').read()
+    assert '<details class="fc-fold" id="fold-sets"' in src and '<details class="fc-fold" id="fold-settings"' in src
+    assert "const FOLD={sets:false,settings:false}" in src and "addEventListener('toggle'" in src
+    i = src.index('id="fold-settings"'); assert src.index('id="m-en"', i) > i   # the card-front choice is inside the fold
