@@ -430,7 +430,7 @@ def test_pg_60_sets_and_card_settings_fold_away():
 
 
 def test_tiles_keep_numbers_on_one_line():
-    """Medi 2026-10-23 ("The numbers should all be on one line"): rings and icons sit in the tile corner, Flashcards tiles put
+    """PG-61 (Medi 2026-10-23 "The numbers should all be on one line"): rings and icons sit in the tile corner, Flashcards tiles put
     the number first, so no tile's number is pushed below its neighbours'."""
     import io, os
     css = io.open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "css", "dw-words.css"), encoding="utf-8").read()
