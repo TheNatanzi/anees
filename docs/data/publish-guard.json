@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-25T05:20:42-07:00",
+ "updated": "2026-10-25T06:18:04-07:00",
  "result": "pass",
- "source": "hourly: 1 local commit(s)",
- "checked_commit": "9b7358f2cf2d",
- "secs": 135.2,
+ "source": "hourly: tutor refresh",
+ "checked_commit": "e25a8ed52a00",
+ "secs": 143.1,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.4,
+   "secs": 1.5,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "162 JSON files parse"
   },
@@ -33,7 +33,7 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 0.2,
+   "secs": 0.3,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
    "detail": "rule_registry: OK - 282 rules: enforced 190 (code 181, brief 9), written 72, moment-only 12, needs Medi 0, superseded 8"
   },
@@ -41,7 +41,7 @@
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.6,
+   "secs": 0.8,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 25 lessons reach every page"
   },
@@ -65,7 +65,7 @@
    "id": "taught_words_cross_check",
    "required": true,
    "ok": true,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "every Tutor new word of a lesson is in its taught words (or says why not); no off-lesson window hides Amal teaching",
    "detail": "15 lesson type read(s) cover their Tutor new words; no off-lesson window has Amal teaching"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.3,
+   "secs": 1.2,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 2.4,
+   "secs": 2.7,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 975 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 4.5,
+   "secs": 4.8,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...5 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 6.2,
+   "secs": 6.8,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 79 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 1.7,
+   "secs": 2.0,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.6,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,9 +129,9 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 99.4,
+   "secs": 104.6,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": ".............................. [ 97%] | .........................                                                [100%] | 958 passed, 3 xfailed in 95.00s (0:01:35)"
+   "detail": ".............................. [ 97%] | .........................                                                [100%] | 958 passed, 3 xfailed in 99.56s (0:01:39)"
   },
   {
    "id": "tests_node",
@@ -139,13 +139,13 @@
    "ok": true,
    "secs": 6.2,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6157.0312"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6086.3911"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 6.5,
+   "secs": 6.8,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -161,7 +161,7 @@
    "id": "data_freshness",
    "required": false,
    "ok": true,
-   "secs": 0.0,
+   "secs": 0.5,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
    "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
   },
