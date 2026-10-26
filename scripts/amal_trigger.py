@@ -87,9 +87,14 @@ def _db():
     return db
 
 
+_RULES_CACHE = {}   # one amal_rules download per detect() run, shared by every source (2026-10-26: ~10 full downloads every
+                    # 15 min used 14.9 GB of the free plan's 5 GB egress and Supabase blocked the project)
+
+
 def _amal_rules(pred):
-    rows = _db().select("amal_rules", {"select": "id,token,source,kind,word_key,payload,created_at,lesson_date", "order": "id.asc"}, undo=False)   # AM-17: every row, undo rows too - an undo is a change that fires a rebuild
-    return [r for r in rows if pred(r) and not str(r.get("source") or "").startswith("test")]
+    if "rows" not in _RULES_CACHE:
+        _RULES_CACHE["rows"] = _db().select("amal_rules", {"select": "id,token,source,kind,word_key,payload,created_at,lesson_date", "order": "id.asc"}, undo=False)   # AM-17: every row, undo rows too - an undo is a change that fires a rebuild
+    return [r for r in _RULES_CACHE["rows"] if pred(r) and not str(r.get("source") or "").startswith("test")]
 
 
 def fetch_tutor_verify():
@@ -385,6 +390,7 @@ def _write(p, obj):
 def detect(state, sources=None):
     """-> (changed [(src, fp)], status {id: {...}}). Pure apart from each source's fetch."""
     changed, status = [], {}
+    _RULES_CACHE.clear()
     for s in sources or SOURCES:
         prev = (state.get("sources") or {}).get(s["id"]) or {}
         try:
