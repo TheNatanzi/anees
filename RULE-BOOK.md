@@ -442,6 +442,8 @@ _What the tutor decides: her Doc, her pages, her rulings, and the words she prom
   <br><sub>Medi, 2026-10-18: “Put in the tutor hub for her to answer”</sub>
 - When Amal is not sure, asks something, or says a clip is too short, the card goes back to her with the whole conversation around it, and her answer counts only after she answers it again. `AM-36` _Automatic_
   <br><sub>Medi, 2026-10-20: “make a rule when she's asking for more info like adding more recording send it back to her before grading” · Medi, 2026-10-20: “Not just too short. Anything that needs clarification” · Medi, 2026-10-21: “follow amals directions and send it back. Try and problem solved what she's asking for. Is the clip showing parts needed for full context”</sub>
+- Amal's review link renews itself before it runs out, so her Tutor page never loses its lists. `AM-37` _Automatic_
+  <br><sub>Medi, 2026-10-26: “fix so I never get these”</sub>
 
 <details><summary>Old rules (replaced)</summary>
 
@@ -681,8 +683,6 @@ _Rules for the AI helpers that build Anees._
 
 - Each AI reader's answer file is checked against its own expected shape (the third reader writes rulings, not rows). `LS-07` _Automatic_
   <br><sub>Medi, 2026-10-02: “Let's also do an audit of every report and ensure the data is getting populated as soon as it's available.”</sub>
-- Amal's review link renews itself before it runs out, so her Tutor page never loses its lists. `AM-37` _Automatic_
-  <br><sub>Medi, 2026-10-26: “fix so I never get these”</sub>
 - Before a big task, ask you questions, one at a time. `PR-03` _Written down_
   <br><sub>Medi, 2026-09-05: “grill me”</sub>
 - When a request clashes with what already exists, ask you one question before building. `PR-05` _Written down_
@@ -697,10 +697,10 @@ _Rules for the AI helpers that build Anees._
   <br><sub>Medi, 2026-10-01: “please dont cut any stepts” · Medi, 2026-09-27: “you didnt do all the tasks I just asked you”</sub>
 - A trustworthy transcript comes first; everything else is built on it. `PR-07` _Written down_
   <br><sub>Medi, 2026-09-07: “first produce a trustworthy transcript”</sub>
-- The lesson job runs only from 12:15 to 9:15 pm, around lesson time; Amal's answers are still picked up all day. `PR-30` _Automatic_
-  <br><sub>Medi, 2026-10-26: “we can turn off the hourly, amal and I always have our lessons between noon-5pm”</sub>
 - A panel of two AI judges (Claude Opus and Gemini Argon) now decides which of your mistakes count, after six AI readers flag them. `PR-29` _Automatic_
   <br><sub>Medi, 2026-10-21: “Switch now” · Medi, 2026-10-21: “Yes, use the paid Gemini key for Argon with a 20 dollar per month cap.”</sub>
+- The lesson job runs only from 12:15 to 9:15 pm, around lesson time; Amal's answers are still picked up all day. `PR-30` _Automatic_
+  <br><sub>Medi, 2026-10-26: “we can turn off the hourly, amal and I always have our lessons between noon-5pm”</sub>
 - The AI helpers put work on the live site themselves when the publish check passes and nothing gets overwritten; never forced. `PR-06` _Written down_
   <br><sub>Medi, 2026-09-30: “Push it yourself”</sub>
 - Built files are rebuilt, never hand-merged: when two versions clash, the live copy is kept and the build runs again; only hand-written files wait for a person. `PR-13` _Automatic_

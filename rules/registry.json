@@ -11691,8 +11691,8 @@
   {
    "id": "PR-30",
    "kind": "process",
-   "scope": "pipeline",
-   "topic": "pipeline",
+   "scope": "process",
+   "topic": "process",
    "status": "enforced",
    "change": "new",
    "statement": "The lesson job (Windows task \"Anees lesson pipeline\") runs every hour from 12:15 to 21:15 only: lessons are between noon and 5 pm, plus 4 hours for late recordings (scripts/set_lesson_window.ps1). The Amal trigger keeps running every 15 minutes all day.",
@@ -12131,8 +12131,8 @@
   {
    "id": "AM-37",
    "kind": "process",
-   "scope": "pipeline",
-   "topic": "amal",
+   "scope": "amal-data",
+   "topic": "tutor",
    "status": "enforced",
    "change": "new",
    "statement": "The tutor's review link never runs out under her: every Amal-trigger run and every lesson run calls scripts/amal_review_link.py --renew, which moves the newest review link's expiry to 30 days out (same token) once it has 7 days or less left, or ran out in the last 14 days.",
