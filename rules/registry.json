@@ -7901,6 +7901,42 @@
    "aliases": []
   },
   {
+   "id": "FC-15",
+   "kind": "process",
+   "scope": "flashcards",
+   "topic": "card faces",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The end-of-round screen always offers \"↻ Restart the whole set\" (round.restart: the same set and settings from the top), also when it offers \"Review the ones I got wrong\".",
+   "plain": "When a round ends you can restart the whole set, not only review the ones you got wrong.",
+   "plain_for": "fbca3649",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-26",
+     "quote": "for the flashcards lets add a restart whole set button when you finish"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/cards.html",
+     "contains": "<button id=\"again\">↻ Restart the whole set</button>"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_scoring_fixes_2026_10_12.py",
+     "contains": "def test_fc_restart_whole_set_after_a_round"
+    }
+   ],
+   "example": {
+    "date": "2026-10-26",
+    "note": "Shaky words, 10 cards, 1 missed: Review (1) and Restart both show; Restart deals 10 cards again"
+   },
+   "aliases": []
+  },
+  {
    "id": "PG-31",
    "kind": "display",
    "scope": "pages",

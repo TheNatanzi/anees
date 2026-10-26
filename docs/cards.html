@@ -601,6 +601,8 @@ function undoRound(){ const row=C.undo(round); if(!row) return;
   undoRows(row.id);
   if(row.result!=='got'&&sessionMissed[row.word_key]) sessionMissed[row.word_key]--; roundMs.pop();
   rebuild(); stats=C.mergeLocal(stats,[]); showCard(); }
+// Medi 2026-10-26 ("lets add a restart whole set button when you finish"): next to "Review the ones I got wrong", a
+// Restart button starts the same set from the top with the same settings (round.restart), every card again.
 function showSummary(){ const s=C.summary(round); document.onkeydown=null; const ms=roundMs; roundMs=[];
   root.innerHTML=`<div class="qtop"><button id="close" aria-label="Back to sets">✕</button><div class="count">${round.attempt>1?'Review round '+round.attempt:'Round'} done</div><span></span></div><div class="prog"><i style="width:100%"></i></div>
     <h1>${s.wrong.length?'Keep going — you\'re getting there.':'You know every card in this round.'}</h1>
@@ -608,7 +610,7 @@ function showSummary(){ const s=C.summary(round); document.onkeydown=null; const
     <p class="mute">${s.n} cards · ${esc(round.title||(C.subjects(words,stats).buckets.find(b=>b.id===round.subject)||{}).name||round.subject)}${round.held?` · ${fmt(round.held)} new untested ${round.held===1?'word waits':'words wait'} for another day (${NEWDAY()} a day, the tutor's latest batch)`:''}</p>
     ${s.history.map(h=>`<div class="mute">round ${h.attempt}: ${h.got}/${h.n} known</div>`).join('')}
     ${keepRow()}
-    <div class="row">${s.wrong.length?`<button id="replay" class="primary study">Review the ones I got wrong (${s.wrong.length})</button>`:(round.chunk&&chunkLeft(round.chunk).length?`<button id="again">Start the set over</button>`:`<button id="again" class="primary study">Pile empty — new round</button>`)}</div>
+    <div class="row">${s.wrong.length?`<button id="replay" class="primary study">Review the ones I got wrong (${s.wrong.length})</button><button id="again">↻ Restart the whole set</button>`:(round.chunk&&chunkLeft(round.chunk).length?`<button id="again">Start the set over</button>`:`<button id="again" class="primary study">Pile empty — new round</button>`)}</div>
     <div class="row"><button id="back">‹ Back</button><button id="home">All flashcards</button></div><p class="mute" id="wrongs">${s.wrong.length?'Still learning: '+s.wrong.map(k=>esc((round.cards.find(w=>w.key===k)||words.find(w=>w.key===k)||{}).arabizi||k)).join(', '):''}</p>`;
   const rp=document.getElementById('replay'); if(rp) rp.onclick=()=>{ const {title,back,restart,held,chunk}=round; round=Object.assign(C.replayWrong(round),{title,back,restart,held,chunk}); showCard(); };
   root.querySelectorAll('[data-keep]').forEach(b=>b.onclick=()=>keepGoing(Number(b.dataset.keep)));

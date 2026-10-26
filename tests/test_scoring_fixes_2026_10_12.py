@@ -437,3 +437,14 @@ def test_tiles_keep_numbers_on_one_line():
     assert "#anees-bank #ab-metrics .dw-big.dw-ring::before { position: absolute;" in css
     assert "#anees-bank .fc-grid > .stile > .vp-card-value { order: -1 !important;" in css
     assert "position: absolute; top: 12px; right: 12px; margin: 0 !important; width: 26px" in css
+
+
+
+def test_fc_restart_whole_set_after_a_round():
+    """FC-15 (Medi 2026-10-26 "lets add a restart whole set button when you finish"): the summary offers Restart next to Review
+    the ones I got wrong, wired to round.restart."""
+    import io, os
+    html = io.open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "cards.html"), encoding="utf-8").read()
+    i = html.index("Review the ones I got wrong (${s.wrong.length})</button>")
+    assert html[i:i + 120].count('<button id="again">↻ Restart the whole set</button>') == 1
+    assert "ag.onclick=round.restart||start" in html
