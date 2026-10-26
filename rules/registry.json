@@ -11500,15 +11500,20 @@
    "scope": "process",
    "status": "enforced",
    "change": "new",
-   "statement": "The hourly job's publish never waits on a clash it can settle itself. (1) Job-owned files (publish_guard REGENERATE_DEFAULT job_owned: data/lesson-work/review-grades/*.first.json) are written only by the hourly job: on a clash the hourly job's copy wins, and a push from any other source that changes one is blocked with the file named. (2) When replaying the local commits onto master stops, the guard aborts and joins master in ONE merge (publish_guard.merge_with_master): generated files take master's copy and are rebuilt, job-owned files keep the hourly copy, a hand-made file still stops for a person. (3) freeze_first never rewrites a first page that is already on master. (4) A stall (no hourly publish for 2+ h while work waits) shows a Windows pop-up on the PC (msg *), at most every 6 h. Cause 2026-10-14 -> 10-16: a session committed its own 2026-10-12.first.json to master; 481 hourly pushes stopped at 'a person merges' with 431 commits waiting, unseen.",
-   "plain": "The hourly job can no longer get stuck on a file only it writes, settles clashes with the live site in one step, and pops up a warning on the PC if publishing stops for 2 hours.",
-   "plain_for": "29638459",
+   "statement": "The hourly job's publish never waits on a clash it can settle itself. (1) Job-owned files (publish_guard REGENERATE_DEFAULT job_owned: data/lesson-work/review-grades/*.first.json) are written only by the hourly job: on a clash the hourly job's copy wins, and a push from any other source that changes one is blocked with the file named. (2) When replaying the local commits onto master stops, the guard aborts and joins master in ONE merge (publish_guard.merge_with_master): generated files take master's copy and are rebuilt, job-owned files keep the hourly copy, a hand-made file still stops for a person. (3) freeze_first never rewrites a first page that is already on master. (4) A stall (no hourly publish for 2+ h while work waits) shows a Windows pop-up on the PC (msg *), at most every 6 h. Cause 2026-10-14 -> 10-16: a session committed its own 2026-10-12.first.json to master; 481 hourly pushes stopped at 'a person merges' with 431 commits waiting, unseen. Since 2026-10-26 the stall pop-up is OFF by default (Medi: \"fix so I never get these\"); a stall shows only as the line on Progress (PG-58), and ANEES_POPUP=1 brings the pop-up back.",
+   "plain": "The hourly job can no longer get stuck on a file only it writes and settles clashes with the live site in one step; a stall shows as a line on Progress, never as a pop-up.",
+   "plain_for": "b10eb08c",
    "topic": "testing engines",
    "source": [
     {
      "by": "medi",
      "date": "2026-10-16",
      "quote": "dude fix the hourly once and for all"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-26",
+     "quote": "fix so I never get these"
     }
    ],
    "enforcement": [
@@ -11552,7 +11557,7 @@
     },
     {
      "path": "tests/test_publish_guard.py",
-     "contains": "def test_a_stall_shows_a_windows_popup_at_most_every_6_hours"
+     "contains": "def test_a_stall_shows_a_windows_popup_only_when_turned_on"
     }
    ],
    "example": {
@@ -11680,6 +11685,42 @@
    "example": {
     "date": "2026-10-21",
     "note": "key v4 re-score: Opus + Argon 87.9 F0.5 vs 76.3 (research/evidence/r90-43fa688/replay_v4.py)"
+   },
+   "aliases": []
+  },
+  {
+   "id": "PR-30",
+   "kind": "process",
+   "scope": "pipeline",
+   "topic": "pipeline",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The lesson job (Windows task \"Anees lesson pipeline\") runs every hour from 12:15 to 21:15 only: lessons are between noon and 5 pm, plus 4 hours for late recordings (scripts/set_lesson_window.ps1). The Amal trigger keeps running every 15 minutes all day.",
+   "plain": "The lesson job runs only from 12:15 to 9:15 pm, around lesson time; Amal's answers are still picked up all day.",
+   "plain_for": "6e2723bd",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-26",
+     "quote": "we can turn off the hourly, amal and I always have our lessons between noon-5pm"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/set_lesson_window.ps1",
+     "contains": "-RepetitionDuration (New-TimeSpan -Hours 9 -Minutes 1)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_lesson_job_runs_in_the_lesson_window"
+    }
+   ],
+   "example": {
+    "date": "2026-10-26",
+    "note": "was every hour all day since 2026-10-16"
    },
    "aliases": []
   },
@@ -12084,6 +12125,47 @@
    "example": {
     "date": "2026-10-20",
     "note": "2026-10-21: the 40 s window started mid-exchange (10-09 1:01:04: her task 'this is my first game' was 60 s earlier); re-asked with the whole exchange (3 min), 2 cards in round 2"
+   },
+   "aliases": []
+  },
+  {
+   "id": "AM-37",
+   "kind": "process",
+   "scope": "pipeline",
+   "topic": "amal",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The tutor's review link never runs out under her: every Amal-trigger run and every lesson run calls scripts/amal_review_link.py --renew, which moves the newest review link's expiry to 30 days out (same token) once it has 7 days or less left, or ran out in the last 14 days.",
+   "plain": "Amal's review link renews itself before it runs out, so her Tutor page never loses its lists.",
+   "plain_for": "ef9fc074",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-26",
+     "quote": "fix so I never get these"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/amal_review_link.py",
+     "contains": "def renew(now=None, select=None, patch=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_trigger.py",
+     "contains": "(\"renew_review_link\", [sys.executable, \"scripts/amal_review_link.py\", \"--renew\"]),"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_review_link_renews_before_it_runs_out"
+    }
+   ],
+   "example": {
+    "date": "2026-10-26",
+    "note": "the 09-26 review link ran out 10-26 12:15: 17 of her 18 lists vanished and the lesson job stalled 10 h"
    },
    "aliases": []
   },

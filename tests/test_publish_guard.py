@@ -665,12 +665,16 @@ def test_real_git_a_clash_that_only_replaying_hits_is_joined_in_one_merge(tmp_pa
     assert any('one merge' in l for l in lines)
 
 
-def test_a_stall_shows_a_windows_popup_at_most_every_6_hours(tmp_path):
+def test_a_stall_shows_a_windows_popup_only_when_turned_on(tmp_path, monkeypatch):
+    """PR-26 (Medi 2026-10-26 "fix so I never get these"): no pop-up by default; ANEES_POPUP=1 brings back the old one (6 h apart)."""
     import datetime as dt
     shown = []
     now = dt.datetime(2026, 10, 16, 8, 0, tzinfo=dt.timezone.utc)
     h = {'stalled': True, 'hours_since_publish': 40.5, 'reason': 'conflict in a hand-made file'}
     kw = dict(log=lambda *p: None, popen=lambda cmd: shown.append(cmd), system='win32')
+    monkeypatch.delenv('ANEES_POPUP', raising=False)
+    assert not G.stall_popup(tmp_path, h, now=now, **kw) and not shown          # off: never shown
+    monkeypatch.setenv('ANEES_POPUP', '1')
     assert G.stall_popup(tmp_path, h, now=now, **kw)
     assert shown[0][:2] == ['msg', '*'] and '40.5 hours' in shown[0][-1]
     assert not G.stall_popup(tmp_path, h, now=now + dt.timedelta(hours=2), **kw)        # not again within 6 h
@@ -701,3 +705,32 @@ def test_reannotate_after_joining_master_commits_only_a_change(tmp_path):
     same = Run(staged=False)
     assert not G.reannotate(tmp_path, run=same, log=lambda *a: None)
     assert not any(c[:2] == ['git', 'commit'] for c in same.calls)
+
+
+
+def test_review_link_renews_before_it_runs_out():
+    """AM-37 (Medi 2026-10-26 "fix so I never get these"): the review link ran out under Amal (17 of 18 lists gone, 10 h publish stall). --renew keeps the same
+    token alive: renewed with 7 days or less left or up to 14 days after it ran out, never otherwise."""
+    import datetime as dt
+    import amal_review_link as R
+    now = dt.datetime(2026, 10, 26, 21, 0, tzinfo=dt.timezone.utc)
+    def run(exp, done=None):
+        patched = []
+        new = R.renew(now=now, select=lambda *a, **k: [{'token': 'T', 'expires_at': exp.isoformat(), 'done_at': done}],
+                      patch=lambda tok, body: patched.append((tok, body)))
+        return new, patched
+    new, p = run(now - dt.timedelta(hours=9))                       # ran out this morning: renewed, same token
+    assert p == [('T', {'expires_at': (now + dt.timedelta(days=30)).isoformat()})] and new
+    assert run(now + dt.timedelta(days=3))[1]                       # 3 days left: renewed
+    assert not run(now + dt.timedelta(days=20))[1]                  # plenty left: untouched
+    assert not run(now - dt.timedelta(days=30))[1]                  # long dead: left alone
+    assert not run(now - dt.timedelta(hours=1), done='2026-10-20')[1]   # finished links stay finished
+
+
+
+def test_lesson_job_runs_in_the_lesson_window():
+    """PR-30 (Medi 2026-10-26 "amal and I always have our lessons between noon-5pm"): the task trigger starts 12:15 and repeats
+    hourly for 9 h (last run 21:15)."""
+    ps = (Path(__file__).resolve().parents[1] / 'scripts' / 'set_lesson_window.ps1').read_text(encoding='utf-8')
+    assert 'New-ScheduledTaskTrigger -Daily -At "12:15"' in ps and '-RepetitionInterval (New-TimeSpan -Hours 1)' in ps
+    assert '-RepetitionDuration (New-TimeSpan -Hours 9 -Minutes 1)' in ps

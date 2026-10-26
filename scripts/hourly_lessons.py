@@ -404,6 +404,7 @@ def tutor_refresh(no_push=False, rebuild_all=False):
         for s in ('build_grammar_buckets.py', 'build_grammar_console.py', 'build_amal_grammar_rules.py'):
             run_step(s, [sys.executable, str(HERE / s)], failures, timeout=600)
         run_step('build_tutor_more_check.py', [sys.executable, str(HERE / 'build_tutor_more_check.py')], failures, timeout=120)   # AM-36: 'clip too short' cards go back to her first
+        run_step('amal_review_link.py --renew', [sys.executable, str(HERE / 'amal_review_link.py'), '--renew'], failures, timeout=120)   # her review link never runs out under her (10-26)
         run_step('build_tutor_data.py', [sys.executable, str(HERE / 'build_tutor_data.py')], failures, timeout=300)
         run_step('translate_lines.py tutor', [sys.executable, str(HERE / 'translate_lines.py'), 'tutor'], failures, timeout=900)   # PG-48: English under every line on her cards (new lines only)
         run_step('build_student_data.py', [sys.executable, str(HERE / 'build_student_data.py')], failures, timeout=300)   # Student tab + her uploads (Medi 2026-10-05)

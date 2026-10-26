@@ -240,6 +240,8 @@ STEPS = [
     ("amal_new_words", [sys.executable, "scripts/amal_new_words.py"]),
     # AM-36: cards she said were too short go back to her with more of the recording, before any grading uses them
     ("tutor_more_check", [sys.executable, "scripts/build_tutor_more_check.py"]),
+    # Medi 2026-10-26: her review link is renewed before her page is rebuilt, so it never runs out under her (10-26 outage)
+    ("renew_review_link", [sys.executable, "scripts/amal_review_link.py", "--renew"]),
     ("build_tutor_data", [sys.executable, "scripts/build_tutor_data.py"]),
     # AM-29: her key-check taps mirrored read-only into data/, then the grade book's tutor-vs-student agreement
     ("tutor_key_check_pull", [sys.executable, "scripts/build_tutor_key_check.py", "pull"]),

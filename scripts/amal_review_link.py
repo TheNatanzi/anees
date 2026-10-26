@@ -4,6 +4,12 @@ carries her other open links, and prints the review URL (the Tutor Hub page was 
   python scripts/amal_review_link.py            -> prints the review URL
   python scripts/amal_review_link.py --new      -> mints a fresh token even if one is open
   python scripts/amal_review_link.py --days 30  -> validity (default 30 days: the backfill review is long)
+  python scripts/amal_review_link.py --renew    -> keep her newest review link alive (run by the Amal trigger)
+
+Medi 2026-10-26 ("fix so I never get these"): the review link minted 09-26 ran out on 10-26 12:15; her Tutor page lost 17
+of 18 lists and the hourly publish stalled 10 h on the tests that expect them. --renew moves the newest review link's
+expiry to 30 days from now whenever it has 7 days or less left (or ran out in the last 14 days), keeping the same token,
+so her page and her saved answers carry on with no new URL.
 """
 import argparse, datetime, io, json, secrets, sys
 from pathlib import Path
@@ -35,11 +41,35 @@ def open_links():
     return links
 
 
+RENEW_WHEN_DAYS, RENEW_GRACE_DAYS, RENEW_TO_DAYS = 7, 14, 30
+
+
+def renew(now=None, select=None, patch=None):
+    """Extend the newest review link (same token) when it is close to running out. Returns the new expiry or None."""
+    now = now or datetime.datetime.now(datetime.timezone.utc)
+    select = select or db.select
+    patch = patch or (lambda token, body: db.rest('PATCH', 'amal_links', params={'token': f'eq.{token}'}, body=body, prefer='return=minimal'))
+    rows = select('amal_links', {'select': 'token,expires_at,done_at', 'kind': 'eq.review', 'order': 'created_at.desc', 'limit': 1})
+    if not rows or rows[0].get('done_at'):
+        return None
+    exp = datetime.datetime.fromisoformat(str(rows[0]['expires_at']).replace('Z', '+00:00'))
+    if exp - now > datetime.timedelta(days=RENEW_WHEN_DAYS) or now - exp > datetime.timedelta(days=RENEW_GRACE_DAYS):
+        return None
+    new = (now + datetime.timedelta(days=RENEW_TO_DAYS)).isoformat()
+    patch(rows[0]['token'], {'expires_at': new})
+    return new
+
+
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument('--renew', action='store_true')
     ap.add_argument('--new', action='store_true')
     ap.add_argument('--days', type=int, default=30)
     a = ap.parse_args()
+    if a.renew:
+        new = renew()
+        print('review link renewed to ' + new if new else 'review link: nothing to renew')
+        return
     now = datetime.datetime.now(datetime.timezone.utc)
     links = open_links()
     existing = [] if a.new else db.select('amal_links', {'select': 'token,expires_at', 'kind': 'eq.review', 'expires_at': f'gt.{now.isoformat()}', 'order': 'created_at.desc', 'limit': 1})

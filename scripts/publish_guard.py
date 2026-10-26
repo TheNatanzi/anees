@@ -687,7 +687,9 @@ def stall_popup(root, h, log=_log, popen=subprocess.Popen, now=None, system=sys.
     hourly job is stalled, show a Windows pop-up on this PC, at most once every POPUP_EVERY_H hours. Never raises; tests
     and other systems (or ANEES_NO_POPUP=1) skip it. Returns True when a pop-up was shown."""
     try:
-        if not system.startswith('win') or os.environ.get('ANEES_NO_POPUP') or (popen is subprocess.Popen and 'pytest' in sys.modules):
+        # Medi 2026-10-26 ("fix so I never get these"): the pop-up is OFF. A stall shows only as the line on Progress (PG-58);
+        # ANEES_POPUP=1 turns the old pop-up back on for one run.
+        if not os.environ.get('ANEES_POPUP') or not system.startswith('win') or (popen is subprocess.Popen and 'pytest' in sys.modules):
             return False
         now = now or datetime.datetime.now(datetime.timezone.utc)
         p = Path(root) / POPUP_P

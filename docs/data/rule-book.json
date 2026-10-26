@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-26",
- "total": 275,
+ "total": 277,
  "replaced": 8,
  "counts": {
-  "Automatic": 191,
+  "Automatic": 193,
   "Written down": 72,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -4433,7 +4433,7 @@
    "key": "process",
    "title": "How Claude and Codex must work",
    "intro": "Rules for the AI helpers that build Anees.",
-   "count": 28,
+   "count": 30,
    "sections": [
     {
      "kind": "data",
@@ -4470,6 +4470,20 @@
          "who": "Medi",
          "date": "2026-10-02",
          "quote": "Let's also do an audit of every report and ensure the data is getting populated as soon as it's available."
+        }
+       ]
+      },
+      {
+       "id": "AM-37",
+       "text": "Amal's review link renews itself before it runs out, so her Tutor page never loses its lists.",
+       "status": "enforced",
+       "topic": "amal",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-26",
+         "quote": "fix so I never get these"
         }
        ]
       },
@@ -4561,6 +4575,20 @@
          "who": "Medi",
          "date": "2026-09-07",
          "quote": "first produce a trustworthy transcript"
+        }
+       ]
+      },
+      {
+       "id": "PR-30",
+       "text": "The lesson job runs only from 12:15 to 9:15 pm, around lesson time; Amal's answers are still picked up all day.",
+       "status": "enforced",
+       "topic": "pipeline",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-26",
+         "quote": "we can turn off the hourly, amal and I always have our lessons between noon-5pm"
         }
        ]
       },
@@ -4733,7 +4761,7 @@
       },
       {
        "id": "PR-26",
-       "text": "The hourly job can no longer get stuck on a file only it writes, settles clashes with the live site in one step, and pops up a warning on the PC if publishing stops for 2 hours.",
+       "text": "The hourly job can no longer get stuck on a file only it writes and settles clashes with the live site in one step; a stall shows as a line on Progress, never as a pop-up.",
        "status": "enforced",
        "topic": "testing engines",
        "badge": "Automatic",
@@ -4742,6 +4770,11 @@
          "who": "Medi",
          "date": "2026-10-16",
          "quote": "dude fix the hourly once and for all"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-26",
+         "quote": "fix so I never get these"
         }
        ]
       },
