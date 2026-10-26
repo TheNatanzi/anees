@@ -2,11 +2,12 @@
  "about": "Problems the hourly lesson job hit (rule LS-04). Written by scripts/hourly_lessons.py, shown on Progress and Lessons by js/lesson-behind.js; empty = every recorded lesson loaded.",
  "problems": [
   {
-   "key": "stalled",
-   "kind": "stalled",
-   "since": "2026-10-26T11:22:55Z",
-   "cause": "tests_py: exit 1: ..._rows_follow_the_index_right_after_the_first_listening_check | FAILED tests/test_amal_checks.py::test_builder_writes_the_same_rows - Ass...",
-   "text": "The hourly robot has not published since {since}: tests_py: exit 1: ..._rows_follow_the_index_right_after_the_first_listening_check | FAILED tests/test_amal_checks.py::test_builder_writes_the_same_rows - Ass..."
+   "key": "load:2026-10-26",
+   "kind": "not-loaded",
+   "date": "2026-10-26",
+   "cause": "loading failed",
+   "since": "2026-10-26T14:40:20-07:00",
+   "text": "10-26 lesson not loaded: loading failed"
   }
  ]
 }
