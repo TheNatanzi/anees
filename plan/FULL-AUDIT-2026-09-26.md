@@ -17,6 +17,8 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
+**Not settled yet:** 2026-10-27
+
 ## Per lesson
 
 | lesson | grammar A | grammar B | vocab A | vocab B | listening | sweep grammar before | sweep vocab before | reader agreement |
@@ -46,6 +48,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-10 | 24 | 3 | 4 | 11 | 0 | 0 | 0 | 62.5 % |
 | 2026-10-12 | 32 | 5 | 8 | 0 | 3 | 0 | 0 | 63.5 % |
 | 2026-10-14 | 17 | 0 | 17 | 0 | 0 | 0 | 0 | 58.9 % |
+| 2026-10-27 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | - % |
 
 ## Reader passes (the loop)
 
