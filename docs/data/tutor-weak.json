@@ -1,5 +1,5 @@
 {
- "built": "2026-10-26T14:36:15-07:00",
+ "built": "2026-10-27T13:04:03-07:00",
  "rule": "PG-30 2026-10-05: Medi's weakest 20 Doc words (2+ scored uses, lowest % first) and 10 grammar rules (3+ uses, lowest % first), for Amal's Tutor page",
  "words": [
   {
@@ -196,6 +196,39 @@
      "said": "So what, what makes you sad at this time?",
      "fix": "بتعبك = makes you tired",
      "english": "what tires you most these days",
+     "clip": null
+    }
+   ]
+  },
+  {
+   "key": "ba2Im",
+   "arabizi": "Ba2eem",
+   "arabic": "بقيم",
+   "english": "I remove / take away",
+   "status": "Shaky",
+   "pct": 25,
+   "n": 2,
+   "right": 0,
+   "partial": 1,
+   "wrong": 1,
+   "last_date": "2026-09-11",
+   "moments": [
+    {
+     "date": "2026-09-11",
+     "mmss": "11:25",
+     "kind": "wrong",
+     "said": "n3eed, bne3eed el.",
+     "fix": "بزيد / بنزيد",
+     "english": "we add (the b-)",
+     "clip": null
+    },
+    {
+     "date": "2026-09-10",
+     "mmss": "26:49",
+     "kind": "asked",
+     "said": "uh, Shu el-fi3el?",
+     "fix": "بقيم",
+     "english": "I remove",
      "clip": null
     }
    ]
@@ -574,30 +607,6 @@
      "clip": null
     }
    ]
-  },
-  {
-   "key": "5iar",
-   "arabizi": "5iar",
-   "arabic": "خيار",
-   "english": "Cucumber",
-   "status": "Shaky",
-   "pct": 50,
-   "n": 2,
-   "right": 1,
-   "partial": 0,
-   "wrong": 1,
-   "last_date": "2026-10-06",
-   "moments": [
-    {
-     "date": "2026-10-06",
-     "mmss": "51:56",
-     "kind": "wrong",
-     "said": "mu5taar or something like that? mu5taar? mu5t-mu5taar.",
-     "fix": "خيار",
-     "english": "choice",
-     "clip": null
-    }
-   ]
   }
  ],
  "rules": [
@@ -614,6 +623,18 @@
    "moments": []
   },
   {
+   "id": "B1",
+   "family": "B",
+   "name": "present with b-",
+   "one_line": "Every ordinary present verb starts with b-.",
+   "status": "Wrong",
+   "pct": 6,
+   "uses": 32,
+   "mistakes": 30,
+   "last_used": "2026-10-08",
+   "moments": []
+  },
+  {
    "id": "C10",
    "family": "C",
    "name": "preposition goes in front",
@@ -623,6 +644,18 @@
    "uses": 7,
    "mistakes": 6,
    "last_used": "2026-09-15",
+   "moments": []
+  },
+  {
+   "id": "B10",
+   "family": "B",
+   "name": "commands",
+   "one_line": "Telling someone to do something.",
+   "status": "Wrong",
+   "pct": 21,
+   "uses": 14,
+   "mistakes": 11,
+   "last_used": "2026-10-09",
    "moments": []
   },
   {
@@ -650,15 +683,35 @@
    "moments": []
   },
   {
-   "id": "A5",
-   "family": "A",
-   "name": "chain possession",
-   "one_line": "Stack three or more nouns; only the last can take `el-`.",
+   "id": "C2",
+   "family": "C",
+   "name": "the pointer rule",
+   "one_line": "Move the object to the front and the verb grows an ending pointing back.",
    "status": "Wrong",
-   "pct": 43,
-   "uses": 7,
-   "mistakes": 4,
+   "pct": 36,
+   "uses": 25,
+   "mistakes": 16,
    "last_used": "2026-10-05",
+   "moments": [
+    {
+     "date": "2026-09-04",
+     "mmss": "61:29",
+     "said": "and then I have to say إلي right?",
+     "recast": "إلـ … then Medi: أكتر إشي بيبسطني ✓ [61:50]",
+     "clip": "2026-09-04/clips/2026-09-04_036814_036997.mp3"
+    }
+   ]
+  },
+  {
+   "id": "A8",
+   "family": "A",
+   "name": "gender on adjectives",
+   "one_line": "Feminine noun takes a feminine adjective.",
+   "status": "Wrong",
+   "pct": 39,
+   "uses": 74,
+   "mistakes": 45,
+   "last_used": "2026-10-14",
    "moments": []
   },
   {
@@ -674,75 +727,16 @@
    "moments": []
   },
   {
-   "id": "C2",
-   "family": "C",
-   "name": "the pointer rule",
-   "one_line": "Move the object to the front and the verb grows an ending pointing back.",
-   "status": "Wrong",
-   "pct": 57,
-   "uses": 37,
-   "mistakes": 16,
-   "last_used": "2026-10-10",
-   "moments": [
-    {
-     "date": "2026-09-04",
-     "mmss": "61:29",
-     "said": "and then I have to say إلي right?",
-     "recast": "إلـ … then Medi: أكتر إشي بيبسطني ✓ [61:50]",
-     "clip": "2026-09-04/clips/2026-09-04_036814_036997.mp3"
-    }
-   ]
-  },
-  {
-   "id": "A15",
+   "id": "A7",
    "family": "A",
-   "name": "aa5er / a5eer: before or after the noun",
-   "one_line": "aa5er + noun = last; aa5er + el- + noun = the end of; after the noun the adjective a5eer / a5eera / a5eeraat.",
+   "name": "noun + adjective",
+   "one_line": "Adjective goes AFTER. Where `el-` sits changes sentence vs phrase.",
    "status": "Wrong",
-   "pct": 58,
-   "uses": 31,
-   "mistakes": 13,
-   "last_used": "2026-10-10",
-   "moments": []
-  },
-  {
-   "id": "B12",
-   "family": "B",
-   "name": "make-X vs get-X",
-   "one_line": "Doubling the middle letter turns 'I become' into 'I make someone'.",
-   "status": "Wrong",
-   "pct": 62,
-   "uses": 129,
-   "mistakes": 49,
+   "pct": 51,
+   "uses": 72,
+   "mistakes": 35,
    "last_used": "2026-10-14",
    "moments": []
-  },
-  {
-   "id": "B2",
-   "family": "B",
-   "name": "b-drop after modals",
-   "one_line": "A verb followed by another verb: the second one loses its b-. Same after want/must/can words.",
-   "status": "Wrong",
-   "pct": 62,
-   "uses": 56,
-   "mistakes": 21,
-   "last_used": "2026-10-14",
-   "moments": [
-    {
-     "date": "2026-09-05",
-     "mmss": "39:53",
-     "said": "بيزعجني لما أنسى أكلي … قبل ما أروح على شغلي",
-     "recast": "✓ ممتاز (bare verbs after lamma and abel-ma)",
-     "clip": "2026-09-05/clips/tally_2026-09-05_2393.mp3"
-    },
-    {
-     "date": "2026-09-05",
-     "mmss": "59:17",
-     "said": "لما أتعب … باتعب … باتعب، أتعب، أتعبها",
-     "recast": "Amal confirms أتعبها [59:38] (self-caught: b- crept in after lamma, then removed)",
-     "clip": "2026-09-05/clips/tally_2026-09-05_3557.mp3"
-    }
-   ]
   }
  ],
  "decay": {
@@ -775,8 +769,8 @@
     "arabic": "أنا بخطط",
     "english": "I plan",
     "status": "Good",
-    "pct": 83,
-    "n": 21,
+    "pct": 86,
+    "n": 7,
     "last_date": "2026-08-25",
     "days_ago": 50,
     "moments": [
@@ -786,6 +780,26 @@
       "kind": "wrong",
       "said": "i7na, i7na bn5--- bn5a6. Ben-- it's just bn5a6, right?",
       "fix": "بنخطط"
+     }
+    ]
+   },
+   {
+    "key": "ana babse6",
+    "arabizi": "Ana babse6",
+    "arabic": "أنا ببسط",
+    "english": "I cause happiness",
+    "status": "Good",
+    "pct": 75,
+    "n": 4,
+    "last_date": "2026-08-25",
+    "days_ago": 50,
+    "moments": [
+     {
+      "date": "2026-08-25",
+      "mmss": "26:16",
+      "kind": "wrong",
+      "said": "it's Ana Bi bnzabbe6. Is it b- bnzabbe6ha?",
+      "fix": "ببسطها"
      }
     ]
    },
@@ -997,33 +1011,13 @@
     ]
    },
    {
-    "key": "ana balA2i",
-    "arabizi": "Ana balaaqi",
-    "arabic": "أنا بلاقي",
-    "english": "I find",
-    "status": "Mastered",
-    "pct": 93,
-    "n": 7,
-    "last_date": "2026-09-04",
-    "days_ago": 40,
-    "moments": [
-     {
-      "date": "2026-09-04",
-      "mmss": "41:29",
-      "kind": "asked",
-      "said": "Laeti? Laeti ... hold on. These words are jumbling together now this is problem. Laeit, laeit mal",
-      "fix": "لقيتي = you (f) found (بلاقي)"
-     }
-    ]
-   },
-   {
     "key": "ana la2ait",
     "arabizi": "Ana la2ait",
     "arabic": "أنا لقيت",
     "english": "I found",
-    "status": "Mastered",
-    "pct": 93,
-    "n": 7,
+    "status": "Shaky",
+    "pct": 50,
+    "n": 1,
     "last_date": "2026-09-04",
     "days_ago": 40,
     "moments": [
@@ -1033,6 +1027,26 @@
       "kind": "asked",
       "said": "Ya3ni ,Shu Ya3ni Shu laa-- what...",
       "fix": "لقيت = you found (بلاقي)"
+     }
+    ]
+   },
+   {
+    "key": "inti la2aiti",
+    "arabizi": "inti la2aiti",
+    "arabic": "إنتي لقيتي",
+    "english": "You (f) found",
+    "status": null,
+    "pct": null,
+    "n": null,
+    "last_date": "2026-09-04",
+    "days_ago": 40,
+    "moments": [
+     {
+      "date": "2026-09-04",
+      "mmss": "41:29",
+      "kind": "asked",
+      "said": "Laeti? Laeti ... hold on. These words are jumbling together now this is problem. Laeit, laeit mal",
+      "fix": "لقيتي = you (f) found (بلاقي)"
      }
     ]
    },
@@ -1189,18 +1203,11 @@
     "arabic": "أنا بكسر",
     "english": "I break something(physically)",
     "status": "Mastered",
-    "pct": 87,
-    "n": 30,
+    "pct": 85,
+    "n": 20,
     "last_date": "2026-09-10",
     "days_ago": 34,
     "moments": [
-     {
-      "date": "2026-09-10",
-      "mmss": "52:36",
-      "kind": "wrong",
-      "said": "maa sakkeret uh, Wla eshi.",
-      "fix": "كسرت"
-     },
      {
       "date": "2026-09-10",
       "mmss": "34:14",
@@ -1214,26 +1221,13 @@
       "kind": "wrong",
       "said": "Is it ysakker and ysakkri? eskaru? eskar.",
       "fix": "اكسر"
-     }
-    ]
-   },
-   {
-    "key": "ana bankeser",
-    "arabizi": "Ana bankeser",
-    "arabic": "أنا بنكسر",
-    "english": "I get broken",
-    "status": "Mastered",
-    "pct": 94,
-    "n": 18,
-    "last_date": "2026-09-10",
-    "days_ago": 34,
-    "moments": [
+     },
      {
       "date": "2026-09-10",
-      "mmss": "43:00",
+      "mmss": "27:50",
       "kind": "wrong",
-      "said": "eedha, uh, nsakarat.",
-      "fix": "انكسرت"
+      "said": "is it ba5sar. ba5sar.",
+      "fix": "بكسر"
      }
     ]
    },
@@ -1243,8 +1237,8 @@
     "arabic": "أنا بساعد",
     "english": "I help",
     "status": "Shaky",
-    "pct": 70,
-    "n": 5,
+    "pct": 0,
+    "n": 1,
     "last_date": "2026-09-10",
     "days_ago": 34,
     "moments": [
@@ -1262,9 +1256,9 @@
     "arabizi": "Bazeed",
     "arabic": "بزيد",
     "english": "I add",
-    "status": "Good",
-    "pct": 89,
-    "n": 9,
+    "status": "Shaky",
+    "pct": 0,
+    "n": 1,
     "last_date": "2026-09-10",
     "days_ago": 34,
     "moments": [
@@ -1332,7 +1326,7 @@
       "date": "2026-09-10",
       "mmss": "48:41",
       "kind": "wrong",
-      "said": "el air conditioning tab3i ... enkeser enkeser?",
+      "said": "el air conditioning tab3i ... nkasar nkasar?",
       "fix": "خرب"
      }
     ]
@@ -1358,13 +1352,33 @@
     ]
    },
    {
+    "key": "ana ba7ut",
+    "arabizi": "Ana ba7ut",
+    "arabic": "أنا بحط",
+    "english": "I put",
+    "status": "Good",
+    "pct": 75,
+    "n": 4,
+    "last_date": "2026-09-11",
+    "days_ago": 33,
+    "moments": [
+     {
+      "date": "2026-09-11",
+      "mmss": "26:12",
+      "kind": "wrong",
+      "said": "Iza maa btefta7i,",
+      "fix": "بتحطي"
+     }
+    ]
+   },
+   {
     "key": "ba2Im",
     "arabizi": "Ba2eem",
     "arabic": "بقيم",
     "english": "I remove / take away",
     "status": "Shaky",
-    "pct": 70,
-    "n": 5,
+    "pct": 25,
+    "n": 2,
     "last_date": "2026-09-11",
     "days_ago": 33,
     "moments": [
@@ -1389,9 +1403,9 @@
     "arabizi": "Baz3ej",
     "arabic": "بزعج",
     "english": "I annoy",
-    "status": "Mastered",
-    "pct": 98,
-    "n": 44,
+    "status": "Shaky",
+    "pct": 0,
+    "n": 1,
     "last_date": "2026-09-11",
     "days_ago": 33,
     "moments": [
@@ -1576,9 +1590,9 @@
     "arabizi": "inta 7abbait",
     "arabic": "إنت حبيت",
     "english": "You (m) liked",
-    "status": "Mastered",
-    "pct": 95,
-    "n": 33,
+    "status": "Shaky",
+    "pct": 0,
+    "n": 1,
     "last_date": "2026-09-15",
     "days_ago": 29,
     "moments": [
@@ -1672,13 +1686,13 @@
     ]
    },
    {
-    "key": "ana bawaje3",
-    "arabizi": "Ana bawajje3",
-    "arabic": "أنا بوجع",
+    "key": "ana waja3et",
+    "arabizi": "Ana wajja3et",
+    "arabic": "أنا وجعت",
     "english": "I hurt",
-    "status": "Mastered",
+    "status": "Good",
     "pct": 100,
-    "n": 21,
+    "n": 2,
     "last_date": "2026-09-16",
     "days_ago": 28,
     "moments": [
@@ -1940,7 +1954,7 @@
     "english": "I see",
     "status": "Mastered",
     "pct": 97,
-    "n": 36,
+    "n": 19,
     "last_date": "2026-09-18",
     "days_ago": 26,
     "moments": [
@@ -2133,8 +2147,8 @@
     "arabic": "أنا بنزعج",
     "english": "I get annoyed",
     "status": "Mastered",
-    "pct": 95,
-    "n": 30,
+    "pct": 88,
+    "n": 13,
     "last_date": "2026-09-19",
     "days_ago": 25,
     "moments": [
@@ -2144,13 +2158,6 @@
       "kind": "wrong",
       "said": "Were you sad from what happened?",
       "fix": "annoyed (انزعجتي)"
-     },
-     {
-      "date": "2026-09-10",
-      "mmss": "15:37",
-      "kind": "asked",
-      "said": "You got annoyed. hmm.",
-      "fix": "انزعجتي"
      },
      {
       "date": "2026-09-04",
@@ -2186,9 +2193,9 @@
     "arabizi": "Ana bazahheq",
     "arabic": "أنا بزهق",
     "english": "I make someone bored / boring / I bore / make people bored",
-    "status": "Mastered",
-    "pct": 95,
-    "n": 10,
+    "status": "Shaky",
+    "pct": 75,
+    "n": 2,
     "last_date": "2026-09-19",
     "days_ago": 25,
     "moments": [
@@ -2226,9 +2233,9 @@
     "arabizi": "beyza33el",
     "arabic": "بيزعل",
     "english": "Saddening",
-    "status": "Shaky",
-    "pct": 50,
-    "n": 2,
+    "status": "Good",
+    "pct": 75,
+    "n": 4,
     "last_date": "2026-09-19",
     "days_ago": 25,
     "moments": [
@@ -2333,9 +2340,9 @@
     "arabizi": "Ana bafta7",
     "arabic": "أنا بفتح",
     "english": "I open",
-    "status": "Good",
-    "pct": 75,
-    "n": 4,
+    "status": "Shaky",
+    "pct": 0,
+    "n": 1,
     "last_date": "2026-09-21",
     "days_ago": 23,
     "moments": [
@@ -2727,6 +2734,13 @@
       "kind": "wrong",
       "said": "It's Tazkara? It's ticket, isn't it?",
       "fix": "حجز"
+     },
+     {
+      "date": "2026-09-23",
+      "mmss": "20:00",
+      "kind": "wrong",
+      "said": "Ana beddi etlob 8urfa, shufet?",
+      "fix": "أحجز"
      }
     ]
    },
@@ -2771,33 +2785,13 @@
     ]
    },
    {
-    "key": "ana ba7jez",
-    "arabizi": "Ana ba7jez",
-    "arabic": "أنا بحجز",
-    "english": "I book",
-    "status": "Good",
-    "pct": 75,
-    "n": 4,
-    "last_date": "2026-09-23",
-    "days_ago": 21,
-    "moments": [
-     {
-      "date": "2026-09-23",
-      "mmss": "20:00",
-      "kind": "wrong",
-      "said": "Ana beddi etlob 8urfa, shufet?",
-      "fix": "أحجز"
-     }
-    ]
-   },
-   {
     "key": "ana bedi",
     "arabizi": "Ana beddi",
     "arabic": "أنا بدي",
     "english": "I want",
-    "status": "Mastered",
-    "pct": 91,
-    "n": 16,
+    "status": "Good",
+    "pct": 88,
+    "n": 13,
     "last_date": "2026-09-23",
     "days_ago": 21,
     "moments": [
@@ -2855,9 +2849,9 @@
     "arabizi": "i7na nseena",
     "arabic": "إحنا نسينا",
     "english": "We forgot",
-    "status": "Mastered",
-    "pct": 98,
-    "n": 20,
+    "status": "Good",
+    "pct": 83,
+    "n": 3,
     "last_date": "2026-09-23",
     "days_ago": 21,
     "moments": [
@@ -3066,6 +3060,13 @@
     "arabizi": "Shahar 3asal",
     "arabic": "شهر عسل",
     "english": "Honeymoon",
+    "first_seen": ""
+   },
+   {
+    "key": "ana batjawaz",
+    "arabizi": "Ana batjawwaz",
+    "arabic": "أنا بتجوز",
+    "english": "I get married",
     "first_seen": ""
    },
    {
@@ -8014,7 +8015,7 @@
     "key": "kul",
     "arabizi": "Kul",
     "arabic": "كل",
-    "english": "All / Every / Every / All",
+    "english": "All / Every / Every / All / Eat",
     "first_seen": ""
    },
    {
@@ -8109,6 +8110,13 @@
     "first_seen": ""
    },
    {
+    "key": "ana bafaker",
+    "arabizi": "Ana bafakker",
+    "arabic": "أنا بفكر",
+    "english": "I think",
+    "first_seen": ""
+   },
+   {
     "key": "ana bamshi",
     "arabizi": "Ana bamshi",
     "arabic": "أنا بمشي",
@@ -8176,6 +8184,27 @@
     "arabizi": "Ana ba8assel",
     "arabic": "أنا بغسل",
     "english": "I wash",
+    "first_seen": ""
+   },
+   {
+    "key": "ana ba3mal",
+    "arabizi": "Ana ba3mal",
+    "arabic": "أنا بعمل",
+    "english": "I do/make",
+    "first_seen": ""
+   },
+   {
+    "key": "ana bas7a",
+    "arabizi": "Ana bas7a",
+    "arabic": "أنا بصحى",
+    "english": "I wake up",
+    "first_seen": ""
+   },
+   {
+    "key": "ana ba23ud",
+    "arabizi": "Ana baq3ud",
+    "arabic": "أنا بقعد",
+    "english": "I sit",
     "first_seen": ""
    },
    {
@@ -8298,6 +8327,13 @@
     "first_seen": ""
    },
    {
+    "key": "ana balA2i",
+    "arabizi": "Ana balaaqi",
+    "arabic": "أنا بلاقي",
+    "english": "I find",
+    "first_seen": ""
+   },
+   {
     "key": "ana babalesh",
     "arabizi": "Ana baballesh",
     "arabic": "أنا ببلش",
@@ -8316,6 +8352,13 @@
     "arabizi": "Ana ba5alles",
     "arabic": "أنا بخلص",
     "english": "I finish / I be done",
+    "first_seen": ""
+   },
+   {
+    "key": "ana bawaje3",
+    "arabizi": "Ana bawajje3",
+    "arabic": "أنا بوجع",
+    "english": "I hurt",
     "first_seen": ""
    },
    {
@@ -8428,6 +8471,13 @@
     "arabizi": "Ana ba8ayyer",
     "arabic": "أنا بغير",
     "english": "I change",
+    "first_seen": ""
+   },
+   {
+    "key": "ana ba6la3",
+    "arabizi": "Ana ba6la3",
+    "arabic": "أنا بطلع",
+    "english": "I go out / up",
     "first_seen": ""
    },
    {
@@ -8753,6 +8803,20 @@
     "first_seen": ""
    },
    {
+    "key": "ana bawsal",
+    "arabizi": "Ana bawsal",
+    "arabic": "أنا بوصل",
+    "english": "I arrive",
+    "first_seen": ""
+   },
+   {
+    "key": "ana ba7jez",
+    "arabizi": "Ana ba7jez",
+    "arabic": "أنا بحجز",
+    "english": "I book",
+    "first_seen": ""
+   },
+   {
     "key": "ana ba6Ir",
     "arabizi": "Ana ba6eer",
     "arabic": "أنا بطير",
@@ -8834,6 +8898,13 @@
     "arabizi": "Ana ba5awwef",
     "arabic": "أنا بخوف",
     "english": "I scare (someone) / I scare / make people scared",
+    "first_seen": ""
+   },
+   {
+    "key": "ana bazaker",
+    "arabizi": "Ana bazakker",
+    "arabic": "أنا بذكر",
+    "english": "I remind",
     "first_seen": ""
    },
    {
@@ -8939,6 +9010,13 @@
     "arabizi": "Ana ba7faz",
     "arabic": "أنا بحفظ",
     "english": "I memorize",
+    "first_seen": ""
+   },
+   {
+    "key": "ana bankeser",
+    "arabizi": "Ana bankeser",
+    "arabic": "أنا بنكسر",
+    "english": "I get broken",
     "first_seen": ""
    },
    {
@@ -9429,13 +9507,6 @@
     "arabizi": "Aktar …",
     "arabic": "أكثر …",
     "english": "The most",
-    "first_seen": ""
-   },
-   {
-    "key": "kul~eat",
-    "arabizi": "Kul",
-    "arabic": "كل",
-    "english": "Eat",
     "first_seen": ""
    },
    {
@@ -10318,13 +10389,6 @@
     "arabizi": "humme shta8alu",
     "arabic": "هم اشتغلوا",
     "english": "They worked",
-    "first_seen": ""
-   },
-   {
-    "key": "ana 2a3adet",
-    "arabizi": "Ana 2a3adet",
-    "arabic": "أنا قعدت",
-    "english": "I sat",
     "first_seen": ""
    },
    {
@@ -12365,13 +12429,6 @@
     "first_seen": ""
    },
    {
-    "key": "ana waja3et",
-    "arabizi": "Ana wajja3et",
-    "arabic": "أنا وجعت",
-    "english": "I hurt",
-    "first_seen": ""
-   },
-   {
     "key": "inta waja3et",
     "arabizi": "inta wajja3et",
     "arabic": "إنت وجعت",
@@ -12747,13 +12804,6 @@
     "arabizi": "Humme t3allamu",
     "arabic": "هم تعلموا",
     "english": "They learned",
-    "first_seen": ""
-   },
-   {
-    "key": "ana 3melet",
-    "arabizi": "Ana 3melet",
-    "arabic": "أنا عملت",
-    "english": "I did/made",
     "first_seen": ""
    },
    {
@@ -15137,13 +15187,6 @@
     "first_seen": ""
    },
    {
-    "key": "inti la2aiti",
-    "arabizi": "inti la2aiti",
-    "arabic": "إنتي لقيتي",
-    "english": "You (f) found",
-    "first_seen": ""
-   },
-   {
     "key": "intu la2aitu",
     "arabizi": "intu la2aitu",
     "arabic": "إنتو لقيتو",
@@ -15463,13 +15506,6 @@
     "arabizi": "inta 7attait",
     "arabic": "إنت حطيت",
     "english": "You (m) put",
-    "first_seen": ""
-   },
-   {
-    "key": "inti 7ataiti",
-    "arabizi": "inti 7attaiti",
-    "arabic": "إنتي حطيتي",
-    "english": "You (f) put",
     "first_seen": ""
    },
    {
@@ -15834,13 +15870,6 @@
     "arabizi": "humme nisu",
     "arabic": "هم نسيوا",
     "english": "They forgot",
-    "first_seen": ""
-   },
-   {
-    "key": "ana s7It",
-    "arabizi": "Ana s7eet",
-    "arabic": "أنا صحيت",
-    "english": "I woke up",
     "first_seen": ""
    },
    {
@@ -17332,13 +17361,6 @@
     "arabizi": "Ana bastanna (X)",
     "arabic": "أنا بستنى",
     "english": "I wait for",
-    "first_seen": ""
-   },
-   {
-    "key": "ana bat6ala3 3ala~2",
-    "arabizi": "Ana bat6alla3 3ala",
-    "arabic": "أنا بتطلع على",
-    "english": "I look at",
     "first_seen": ""
    },
    {

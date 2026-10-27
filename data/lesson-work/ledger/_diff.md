@@ -4,31 +4,31 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 
 | Lesson | Words % | Words scored | Grammar % | Slips | Uses | Conflicts (settled / Medi?) |
 |---|---|---|---|---|---|---|
-| 2026-08-25 | 89.9 | 232 | 85.9 | 33 | 213 | 3 / 1 |
-| 2026-09-04 | 92.2 | 77 | 66.4 | 43 | 128 | 0 / 0 |
-| 2026-09-05 | 92.3 | 123 | 76.6 | 37 | 154 | 1 / 1 |
-| 2026-09-10 | 91.7 | 212 | 80.5 | 43 | 221 | 2 / 2 |
-| 2026-09-11 | 93.5 | 186 | 79.1 | 42 | 201 | 3 / 0 |
-| 2026-09-14 | 97.2 | 232 | 79.0 | 44 | 210 | 1 / 1 |
-| 2026-09-15 | 96.0 | 211 | 78.2 | 44 | 202 | 1 / 0 |
-| 2026-09-16 | 93.9 | 189 | 85.7 | 35 | 238 | 1 / 0 |
-| 2026-09-17 | 95.3 | 148 | 82.1 | 37 | 207 | 0 / 0 |
-| 2026-09-18 | 89.6 | 72 | 74.4 | 33 | 125 | 1 / 1 |
-| 2026-09-19 | 87.1 | 85 | 94.2 | 3 | 52 | 0 / 1 |
-| 2026-09-21 | 94.5 | 480 | 83.9 | 64 | 385 | 3 / 0 |
-| 2026-09-23 | 89.7 | 175 | 83.3 | 39 | 234 | 1 / 1 |
-| 2026-09-26 | 93.7 | 374 | 86.7 | 35 | 264 | 8 / 2 |
-| 2026-09-28 | 93.3 | 270 | 88.9 | 25 | 225 | 1 / 0 |
-| 2026-09-30 | 94.3 | 228 | 90.1 | 21 | 212 | 1 / 2 |
-| 2026-10-01 | 96.5 | 216 | 91.8 | 15 | 170 | 1 / 0 |
-| 2026-10-02 | 95.6 | 214 | 86.6 | 27 | 201 | 3 / 1 |
-| 2026-10-05 | 95.1 | 285 | 88.8 | 24 | 215 | 3 / 1 |
-| 2026-10-06 | 92.7 | 220 | 81.6 | 33 | 179 | 1 / 1 |
-| 2026-10-08 | 96.3 | 254 | 86.6 | 27 | 202 | 1 / 0 |
-| 2026-10-09 | 97.8 | 320 | 87.1 | 37 | 287 | 1 / 1 |
-| 2026-10-10 | 96.6 | 290 | 90.4 | 26 | 272 | 1 / 0 |
-| 2026-10-12 | 96.6 | 194 | 85.7 | 32 | 224 | 0 / 0 |
-| 2026-10-14 | 93.0 | 263 | 91.1 | 17 | 169 | 1 / 0 |
+| 2026-08-25 | 89.9 -> **89.4** | 232 -> **222** | 85.9 -> **82.5** | 33 | 213 -> **171** | 3 / 1 |
+| 2026-09-04 | 92.2 -> **92.1** | 77 -> **76** | 66.4 -> **59.0** | 43 | 128 -> **105** | 0 / 0 |
+| 2026-09-05 | 92.3 | 123 | 76.6 -> **74.1** | 37 | 154 -> **139** | 1 / 1 |
+| 2026-09-10 | 91.7 -> **93.3** | 212 -> **201** | 80.5 -> **77.0** | 43 | 221 -> **187** | 2 / 2 |
+| 2026-09-11 | 93.5 -> **93.4** | 186 -> **183** | 79.1 -> **75.7** | 42 | 201 -> **173** | 3 / 0 |
+| 2026-09-14 | 97.2 | 232 -> **231** | 79.0 -> **74.6** | 44 | 210 -> **173** | 1 / 1 |
+| 2026-09-15 | 96.0 | 211 -> **210** | 78.2 -> **74.7** | 44 | 202 -> **174** | 1 / 0 |
+| 2026-09-16 | 93.9 | 189 -> **188** | 85.7 -> **83.3** | 35 | 238 -> **204** | 1 / 0 |
+| 2026-09-17 | 95.3 -> **95.2** | 148 -> **147** | 82.1 -> **79.7** | 37 | 207 -> **182** | 0 / 0 |
+| 2026-09-18 | 89.6 | 72 | 74.4 -> **69.2** | 33 | 125 -> **104** | 1 / 1 |
+| 2026-09-19 | 87.1 | 85 | 94.2 -> **92.9** | 3 | 52 -> **42** | 0 / 1 |
+| 2026-09-21 | 94.5 -> **94.7** | 480 -> **479** | 83.9 -> **79.7** | 64 | 385 -> **306** | 3 / 0 |
+| 2026-09-23 | 89.7 | 175 | 83.3 -> **80.4** | 39 | 234 -> **189** | 0 / 1 |
+| 2026-09-26 | 93.7 | 374 | 86.7 -> **82.1** | 35 | 264 -> **195** | 8 / 2 |
+| 2026-09-28 | 93.3 | 270 | 88.9 -> **85.5** | 25 | 225 -> **172** | 1 / 0 |
+| 2026-09-30 | 94.3 -> **95.1** | 228 -> **226** | 90.1 -> **87.7** | 21 | 212 -> **171** | 1 / 2 |
+| 2026-10-01 | 96.5 | 216 | 91.8 -> **89.8** | 15 | 170 -> **137** | 1 / 0 |
+| 2026-10-02 | 95.6 | 214 | 86.6 -> **85.2** | 27 | 201 -> **183** | 3 / 1 |
+| 2026-10-05 | 95.1 | 285 | 88.8 -> **88.0** | 24 | 215 -> **184** | 3 / 1 |
+| 2026-10-06 | 92.7 | 220 | 81.6 -> **79.1** | 33 | 179 -> **158** | 1 / 1 |
+| 2026-10-08 | 96.3 | 254 | 86.6 -> **84.6** | 27 | 202 -> **175** | 1 / 0 |
+| 2026-10-09 | 97.8 | 320 | 87.1 -> **85.7** | 37 | 287 -> **259** | 1 / 1 |
+| 2026-10-10 | 96.6 | 290 | 90.4 -> **88.3** | 26 | 272 -> **223** | 1 / 0 |
+| 2026-10-12 | 96.6 | 194 | 85.7 -> **82.6** | 32 | 224 -> **184** | 0 / 0 |
+| 2026-10-14 | 93.0 -> **93.7** | 263 -> **262** | 91.1 -> **89.5** | 17 | 169 -> **143** | 0 / 0 |
 
 
 ## Conflicts
@@ -52,7 +52,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-09-10 07:08 C1p both stand: إلا (word-bank right) vs تلات إلا تلت -> تنتين إلا تلت (readers not-scored) - slip elsewhere in the phrase: the word stays right
 - 2026-09-10 15:52 C3 settled: نزعجتي معي (use-counter use) vs معي -> مني (readers slip D2) - one turn was both a use and a slip of the same rule: one attempt, wrong
 - 2026-09-10 17:01 C1a both stand: واحد (word-bank right) vs واحد أكتر -> كمان واحد (readers asked) - he asked for another word: both stand
-- 2026-09-10 29:46 C1 settled: سكرتي (word-bank right) vs سكرتي -> كسرتي (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-09-10 29:46 C1 settled: سكرتي (word-bank right) vs سكرتي -> كسرتي (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
 - 2026-09-10 34:14 C1q Medi?: يسكر (word-bank right) vs يسكر -> اكسر (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-09-11 06:30 C1 settled: مغني (word-bank right) vs مغني -> مغيمة (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-09-11 09:30 C2 settled: أنجم (readers wrong) vs أنجم -> نجوم (readers slip A9) - one slip was counted twice (word + grammar): counted once, as grammar
@@ -85,7 +85,6 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-09-21 50:29 C1 settled: قصير (word-bank right) vs قصير -> واطية (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-09-21 1:06:35 C1 settled: بيدفع (word-bank right) vs بيدفع -> بيفتح (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-09-21 1:11:15 C1p both stand: حق (word-bank right) vs منك حق -> معك حق (readers wrong) - slip elsewhere in the phrase: the word stays right
-- 2026-09-23 23:56 C2 settled: بتتسأليني (readers wrong) vs بتتسأليني -> بتسأليني (readers slip B12) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-09-23 34:07 C1r both stand: سألت، (word-bank right) vs سألت -> طلبت (readers wrong) - the Word Bank's context review already settled it: unchanged
 - 2026-09-23 40:39 C1a both stand: بتذكّر (word-bank right) vs بتذكّر -> تذاكر = tickets (readers asked) - he asked for another word: both stand
 - 2026-09-23 50:24 C1q Medi?: الأسنان (word-bank right) vs الأسنان -> السنان (readers wrong) - which word of the phrase was wrong: Medi
@@ -138,7 +137,6 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-10 08:45 C1a both stand: يوم الخميس. (word-bank right) vs يوم الخميس -> الخميس الجاي (readers asked) - he asked for another word: both stand
 - 2026-10-10 21:45 C1 settled: كليًا (word-bank right) vs كليًا -> بشكل عام (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-10-12 58:52 C1a both stand: بطلب (word-bank right) vs بطلب = go out -> بطلب = request / ask for (readers asked) - he asked for another word: both stand
-- 2026-10-14 1:05:53 C5 settled: أنا ظنيت، (word-bank right) vs ظنيت -> فكرت (readers wrong) - one word counted right and wrong at once: counted once, as the slip
 
 ## Medi's corrections (PR-15)
 
