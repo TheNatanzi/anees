@@ -1,30 +1,8 @@
 {
  "about": "Rows two AIs disagree on (Claude readers: a mistake Amal signalled; Codex, listening to an independent transcription of the audio: not so, or cannot tell). Built by scripts/codex_rejudge.py. Amal answers on the Tutor page; her 'Correction is correct' makes the row a scored mistake, her reason drops it (scripts/apply_amal_audit_rulings.py).",
- "built": "2026-10-25T17:35:22-07:00",
- "count": 1,
- "items": [
-  {
-   "id": "verify:FA-7ad77653",
-   "uid": "FA-7ad77653",
-   "date": "2026-10-12",
-   "t": "06:01",
-   "t_amal": null,
-   "kind": "grammar",
-   "bucket": "D5",
-   "tier": null,
-   "medi_said": "عشان الـ، ولاد دايمًا في مدرسة،",
-   "amal_said": "دايمًا فيه.",
-   "chat": null,
-   "wrong": "في مدرسة",
-   "right": "في المدرسة",
-   "english": "because the kids are always in school",
-   "readers_say": "After في the place 'school' keeps el- (fi el-madrase); the tutor's دايمًا فيه does not fix it, so it is let-pass.",
-   "codex_says": "No correction: the tutor's «دايمًا فيه» neither supplies «المدرسة» nor signals a missing article. The claimed article repair is absent from all supplied evidence.",
-   "codex_verdict": "rejected",
-   "audio": "lessons/2026-10-12/audio/lesson.mp3#t=351,382",
-   "sec": 361.0
-  }
- ],
+ "built": "2026-10-27T15:16:53-07:00",
+ "count": 0,
+ "items": [],
  "answered": [
   {
    "id": "verify:FA-6350dadb",
@@ -1714,6 +1692,32 @@
     "kind": "audit_confirm",
     "reason": null,
     "at": "2026-10-12T11:58:58.137958+00:00"
+   }
+  },
+  {
+   "id": "verify:FA-7ad77653",
+   "uid": "FA-7ad77653",
+   "date": "2026-10-12",
+   "t": "06:01",
+   "t_amal": null,
+   "kind": "grammar",
+   "bucket": "D5",
+   "tier": null,
+   "medi_said": "عشان الـ، ولاد دايمًا في مدرسة،",
+   "amal_said": "دايمًا فيه.",
+   "chat": null,
+   "wrong": "في مدرسة",
+   "right": "في المدرسة",
+   "english": "because the kids are always in school",
+   "readers_say": "After في the place 'school' keeps el- (fi el-madrase); the tutor's دايمًا فيه does not fix it, so it is let-pass.",
+   "codex_says": "No correction: the tutor's «دايمًا فيه» neither supplies «المدرسة» nor signals a missing article. The claimed article repair is absent from all supplied evidence.",
+   "codex_verdict": "rejected",
+   "audio": "lessons/2026-10-12/audio/lesson.mp3#t=351,382",
+   "sec": 361.0,
+   "answered": {
+    "kind": "audit_confirm",
+    "reason": null,
+    "at": "2026-10-27T22:08:13.410228+00:00"
    }
   }
  ],
