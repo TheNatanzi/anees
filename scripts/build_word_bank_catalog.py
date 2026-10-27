@@ -315,6 +315,12 @@ def main():
                        'topic':r['topic'],'type':'Adjective','entries':entries,'display_forms':display_forms,'root':'','pattern':''})
     # Preserve form-key ambiguity rather than assigning duplicate source keys twice.
     target=a.output or root/'docs/data/word-bank-catalog.json';target.parent.mkdir(parents=True,exist_ok=True)
+    # Medi 2026-10-27: a Doc copy the reader could not place (tab titles gone) wrote a catalog with 0 groups, which orphaned
+    # 26 scored verb forms and blocked every publish. Never replace a catalog with one that lost more than a third of it.
+    try:prev=len(json.loads(target.read_text(encoding='utf-8')).get('groups') or [])
+    except (OSError,ValueError):prev=0
+    if prev and len(groups)<prev*2/3:
+        raise SystemExit(f'word-bank catalog NOT written: {len(groups)} groups from {document.name}, the current one has {prev} (Doc layout changed? see data/vocab/doc_topic_map.json)')
     target.write_text(json.dumps({'version':2,'source':document.name,'source_exported':vocabulary.get('exported'),'groups':groups},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'verb_groups':sum(g['type']=='Verb' for g in groups),'adjective_groups':sum(g['type']=='Adjective' for g in groups),'entries':sum(len(g['entries']) for g in groups),'source_forms':sum(len(f['persons']) for g in groups for f in g['entries'])}))
 if __name__=='__main__':main()

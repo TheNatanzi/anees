@@ -734,3 +734,27 @@ def test_lesson_job_runs_in_the_lesson_window():
     ps = (Path(__file__).resolve().parents[1] / 'scripts' / 'set_lesson_window.ps1').read_text(encoding='utf-8')
     assert 'New-ScheduledTaskTrigger -Daily -At "12:15"' in ps and '-RepetitionInterval (New-TimeSpan -Hours 1)' in ps
     assert '-RepetitionDuration (New-TimeSpan -Hours 9 -Minutes 1)' in ps
+
+
+
+def test_doc_sections_keep_their_topics_and_the_catalog_never_empties(tmp_path):
+    """Medi 2026-10-27 ("10-27 too"): Amal's Doc lost its per-topic tab titles, so "## Verbs List" sat inside another tab,
+    the import lost every verb topic and the Word Bank catalog was rewritten with 0 groups. Known section headings keep
+    their old [tab, topic] wherever they sit, and the catalog is never replaced by one that lost a third of its groups."""
+    import json, subprocess, sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
+    import import_vocab as I
+    doc = "\n".join(["# Introductions, greetings , and Pleasantries", "## Verbs List", "", "| Arabic | Transliteration | English |",
+                     "| ----- | ----- | :---- |", "| أنا بطبخ | Ana Batbu5 | I cook |", "### Household", "",
+                     "| Arabic | Transliteration | English |", "| ----- | ----- | :---- |", "| كرسي | Kursi | Chair |", ""])
+    rows = I.parse_markdown(doc)
+    assert [(r['tab'], r['topic']) for r in rows] == [('Verbs List', 'Verbs List'), ('Household Items', 'Household Items')]
+    root = Path(__file__).resolve().parents[1]
+    out = tmp_path / 'catalog.json'
+    out.write_text(json.dumps({'groups': [{'id': str(i)} for i in range(30)]}), encoding='utf-8')
+    empty = tmp_path / 'empty.md'
+    empty.write_text('# Nothing here' + chr(10), encoding='utf-8')
+    r = subprocess.run([sys.executable, str(root / 'scripts' / 'build_word_bank_catalog.py'), '--document', str(empty), '--output', str(out)],
+                       capture_output=True, text=True)
+    assert r.returncode != 0 and 'NOT written' in (r.stderr + r.stdout)
+    assert len(json.loads(out.read_text(encoding='utf-8'))['groups']) == 30          # the good catalog stays

@@ -123,6 +123,24 @@ def arabizi_forms(s):
     return out
 
 
+# Medi 2026-10-27: Amal's Doc export dropped its per-topic tab titles ("# Numbers", "# Verbs List", "# Command Tense" ...);
+# the sections now sit as "## Numbers" etc. inside a few big tabs, and the import put 1,108 words under one topic and 0 verbs
+# in the Word Bank catalog. data/vocab/doc_topic_map.json maps each known section heading to the [tab, topic] it had in the
+# last good import, wherever it sits now, so topics, verb groups and flashcard categories stay the same.
+def _topic_norm(s):
+    return re.sub(r'[^a-z0-9]+', ' ', s.lower().replace('&', ' and ')).strip()
+
+
+def _load_topic_map():
+    try:
+        return json.loads((Path(__file__).resolve().parent.parent / 'data' / 'vocab' / 'doc_topic_map.json').read_text(encoding='utf-8'))['map']
+    except (OSError, ValueError, KeyError):
+        return {}
+
+
+TOPIC_MAP = _load_topic_map()
+
+
 def parse_markdown(text):
     lines = text.split('\n')
     tab = topic = sub = ''
@@ -133,6 +151,14 @@ def parse_markdown(text):
         m = HEAD_RE.match(line)
         if m:
             level, title = len(m.group(1)), clean(re.sub(r'\s*\{#[^}]+\}\s*$', '', m.group(2)))
+            known = TOPIC_MAP.get(_topic_norm(title))
+            if known:
+                # a known section keeps the tab/topic it had before Amal's Doc lost its per-topic tabs (2026-10-27)
+                tab, topic = known
+                sub = title if level >= 2 else ''
+                last_h1_had_rows = True
+                roles = None
+                continue
             if level == 1:
                 if not last_h1_had_rows and topic:
                     tab = topic                       # previous H1 was only a tab name
