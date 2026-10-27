@@ -114,7 +114,7 @@
     const panelEl = $('#hb-panel'), $rows = view.querySelector('[data-rows]');
     function draw() {
       const ql = q.trim().toLowerCase(), list = rows.filter(r => !ql || (r.title + ' ' + (r.find || '')).toLowerCase().includes(ql)), page = list.slice(0, shown);
-      $rows.innerHTML = page.map(r => `<button type="button" class="hb-row${r.subHtml ? ' tu-row' : ''}${r.next ? ' tu-next' : ''}" role="listitem" data-row="${esc(r.id)}" aria-expanded="${!!(sel && r.id === sel.id)}"${sel && r.id === sel.id ? ' aria-current="true"' : ''}><p class="hb-row-t">${r.icon || ''}${esc(r.title)}</p>${r.subHtml ? `<p class="hb-row-s tu-row-s">${r.sep ? ' ' : ''}${r.subHtml}</p>` : r.sub ? `<p class="hb-row-s">${esc(r.sub)}</p>` : ''}${r.bar || ''}</button>`).join('')
+      $rows.innerHTML = page.map(r => `<button type="button" class="hb-row${r.subHtml ? ' tu-row' : ''}${r.next ? ' tu-next' : ''}" role="listitem" data-row="${esc(r.id)}" aria-expanded="${!!(sel && r.id === sel.id)}"${sel && r.id === sel.id ? ' aria-current="true"' : ''}><p class="hb-row-t">${r.icon || ''}<span class="hb-row-tt">${esc(r.title)}</span></p>${r.subHtml ? `<p class="hb-row-s tu-row-s">${r.sep ? ' ' : ''}${r.subHtml}</p>` : r.sub ? `<p class="hb-row-s">${esc(r.sub)}</p>` : ''}${r.bar || ''}</button>`).join('')
         + (list.length > shown ? `<button type="button" class="hb-ans" data-more>Next ${Math.min(PAGE, list.length - shown)} (${list.length - shown} more)</button>` : '')
         + (!list.length ? '<p class="hb-empty">Nothing matches.</p>' : '');
       $rows.querySelectorAll('[data-row]').forEach(b => b.onclick = () => { location.hash = tab + (sel && sel.id === b.dataset.row && !wide() ? '' : '/' + b.dataset.row); });
