@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T15:31:57-07:00",
+ "updated": "2026-10-27T15:50:12-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -920,11 +920,11 @@
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
     "unique": 118,
-    "right": 184,
+    "right": 186,
     "wrong": 5,
     "partial": 3,
     "pct": 96.6,
-    "scored": 192,
+    "scored": 194,
     "audit_wrong": 3,
     "audit_partial": 1,
     "not_on_sheet": 5,
@@ -1032,7 +1032,7 @@
     "turns": 996,
     "chat_lines": 45,
     "vocab_errors": 11,
-    "vocab_correct": 186,
+    "vocab_correct": 188,
     "grammar_errors": 44,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -1043,7 +1043,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-14.json",
-    "marks": 428,
+    "marks": 430,
     "conflicts": 5,
     "resolved": 1,
     "needs_medi": 1,
@@ -2226,11 +2226,11 @@
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
     "unique": 194,
-    "right": 431,
+    "right": 441,
     "wrong": 20,
     "partial": 11,
-    "pct": 94.5,
-    "scored": 462,
+    "pct": 94.6,
+    "scored": 472,
     "audit_wrong": 14,
     "audit_partial": 5,
     "not_an_error": 1,
@@ -2327,7 +2327,7 @@
     "turns": 1274,
     "chat_lines": 57,
     "vocab_errors": 35,
-    "vocab_correct": 437,
+    "vocab_correct": 447,
     "grammar_errors": 64,
     "grammar_not_counted": 2,
     "vocab_errors_split": {
@@ -2372,7 +2372,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-21.json",
-    "marks": 886,
+    "marks": 896,
     "conflicts": 9,
     "resolved": 2,
     "needs_medi": 0,
@@ -2443,11 +2443,11 @@
    },
    "words": {
     "unique": 89,
-    "right": 142,
+    "right": 147,
     "wrong": 14,
     "partial": 8,
-    "pct": 89.0,
-    "scored": 164,
+    "pct": 89.3,
+    "scored": 169,
     "audit_wrong": 14,
     "audit_partial": 7,
     "not_an_error": 1,
@@ -2597,7 +2597,7 @@
     "gap_fill": 266,
     "from_meet": 0,
     "vocab_errors": 23,
-    "vocab_correct": 143,
+    "vocab_correct": 148,
     "grammar_errors": 39,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -2608,7 +2608,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-23.json",
-    "marks": 424,
+    "marks": 429,
     "conflicts": 4,
     "resolved": 0,
     "needs_medi": 1,
@@ -2702,11 +2702,11 @@
    },
    "words": {
     "unique": 173,
-    "right": 321,
+    "right": 333,
     "wrong": 16,
     "partial": 15,
-    "pct": 93.3,
-    "scored": 352,
+    "pct": 93.5,
+    "scored": 364,
     "audit_wrong": 14,
     "audit_partial": 1,
     "not_on_sheet": 10,
@@ -2957,7 +2957,7 @@
     "turns": 1218,
     "chat_lines": 74,
     "vocab_errors": 27,
-    "vocab_correct": 335,
+    "vocab_correct": 347,
     "grammar_errors": 35,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -2978,7 +2978,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-26.json",
-    "marks": 630,
+    "marks": 642,
     "conflicts": 15,
     "resolved": 8,
     "needs_medi": 2,
@@ -3135,11 +3135,11 @@
    },
    "words": {
     "unique": 112,
-    "right": 216,
+    "right": 227,
     "wrong": 14,
     "partial": 8,
-    "pct": 92.4,
-    "scored": 238,
+    "pct": 92.8,
+    "scored": 249,
     "audit_wrong": 14,
     "audit_partial": 4,
     "not_an_error": 2,
@@ -3355,7 +3355,7 @@
     "turns": 1082,
     "chat_lines": 28,
     "vocab_errors": 21,
-    "vocab_correct": 220,
+    "vocab_correct": 231,
     "grammar_errors": 25,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -3366,7 +3366,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-28.json",
-    "marks": 500,
+    "marks": 511,
     "conflicts": 3,
     "resolved": 0,
     "needs_medi": 0,
@@ -3519,18 +3519,18 @@
     ]
    },
    "words": {
-    "unique": 116,
-    "right": 194,
+    "unique": 115,
+    "right": 204,
     "wrong": 8,
     "partial": 6,
-    "pct": 94.7,
-    "scored": 208,
+    "pct": 95.0,
+    "scored": 218,
     "audit_wrong": 8,
     "audit_partial": 2,
     "not_on_sheet": 5,
     "first_read_cards": 3,
-    "rehear_word_conflicts": 0,
-    "unique_rows": 116
+    "rehear_word_conflicts": 1,
+    "unique_rows": 115
    },
    "grammar": {
     "uses": 171,
@@ -3642,6 +3642,7 @@
    "coverage": "Long English stretches 02:08-05:45 (app talk), 16:32-17:34, 35:00-36:30, 45:21-56:07 (rule discussion, mostly English with Arabic examples). Echo candidates checked: all are real English, no sound-alikes. Engine notes: 07:34 Amal 'سألت' = su2et (سقت, drove; her chat 'ana su2et la-saa3tain'); 33:05 'سوالونا' is most likely وصلونا (he then asks 'Is it وصل'); 08:17/08:49 متهمس/تهمس = mit7ammes with h for 7 (S4). Left out: 12:57 'من أسبوع ماضي' (repeat within 30 s of her fix, GR-28); 10:47 ساعة->ساعات (his own fix); 31:38 واطية->قصيرة (self-fix before her comment); 24:05 هاديين vs هاديات (Amal agreed both work); 38:36 الدرس العربي (Amal: both valid); 59:28 هادي الشنتة (rephrase only, Medi 10-01 ruling); 1:02:30 صديقة/House (help on the way); 1:01:25 يصلوا->يوصلوا (self-fix); 22:25/22:54 صغار->غاليين (self-fix); 53:38 kundara el Chanel (self-fix). Few vocab-B/grammar-B: Amal caught almost every slip in this drill-heavy lesson. / Long English-only stretches (00:00-05:45 app talk; 17:00-20:30, 34:49-36:30, 38:42-41:07, 45:21-56:13 rule discussion). Some Medi Arabic in Latin letters (benet jari, walad al ayan, pantalon el riada, kundara el Chanel, bahal al-sajjad). Echo candidates (1219 'Okay. Well, um,', 1581 'these.', 2676 'uh,') are real English, no engine sound-alikes. Engine wrote سألت for su2et (07:32/07:38). Self-fixes left out: 10:39 ثلاث ساعة->ساعات, 22:08 فساتين->الفساتين, 22:25 صغار->غاليين, 31:38 واطية->قصيرة, 53:38 kunda->kundara, 57:50 أكل الـ->أكل إمي, 1:01:25 يصلوا->يوصلوا. Not slips: 24:05 هاديين/هاديات (both work), 38:36 الدرس العربي (both valid), 59:28 هادي الـ شنتة (re-phrase), 1:02:30 House prompt, 12:57 من أسبوع ماضي (repeat of fixed line, GR-28).",
    "notes": [
     "3 slip(s) here come from the first read only (0 grammar, 3 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
+    "1 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (09:29).",
     "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 37:24 Word Bank said right, Amal said no to that word: her no counts.",
     "1 moment(s) wait for Medi (counted as before until he picks): 58:55."
    ],
@@ -3658,7 +3659,7 @@
     "turns": 1067,
     "chat_lines": 30,
     "vocab_errors": 15,
-    "vocab_correct": 198,
+    "vocab_correct": 208,
     "grammar_errors": 21,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -3669,8 +3670,8 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-30.json",
-    "marks": 444,
-    "conflicts": 2,
+    "marks": 455,
+    "conflicts": 4,
     "resolved": 1,
     "needs_medi": 1,
     "mode": "on",
@@ -3875,11 +3876,11 @@
    },
    "words": {
     "unique": 97,
-    "right": 187,
+    "right": 196,
     "wrong": 1,
     "partial": 13,
-    "pct": 96.3,
-    "scored": 201,
+    "pct": 96.4,
+    "scored": 210,
     "audit_wrong": 1,
     "audit_partial": 0,
     "not_on_sheet": 1,
@@ -3989,7 +3990,7 @@
     "turns": 936,
     "chat_lines": 32,
     "vocab_errors": 2,
-    "vocab_correct": 200,
+    "vocab_correct": 209,
     "grammar_errors": 15,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -4000,7 +4001,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-01.json",
-    "marks": 382,
+    "marks": 391,
     "conflicts": 2,
     "resolved": 1,
     "needs_medi": 0,
@@ -4223,11 +4224,11 @@
    },
    "words": {
     "unique": 73,
-    "right": 201,
+    "right": 202,
     "wrong": 7,
     "partial": 5,
-    "pct": 95.5,
-    "scored": 213,
+    "pct": 95.6,
+    "scored": 214,
     "audit_wrong": 7,
     "audit_partial": 1,
     "not_on_sheet": 1,
@@ -4380,7 +4381,7 @@
     "turns": 1003,
     "chat_lines": 44,
     "vocab_errors": 9,
-    "vocab_correct": 205,
+    "vocab_correct": 206,
     "grammar_errors": 27,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -4391,7 +4392,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-02.json",
-    "marks": 485,
+    "marks": 486,
     "conflicts": 5,
     "resolved": 3,
     "needs_medi": 1,
@@ -4588,11 +4589,11 @@
    },
    "words": {
     "unique": 116,
-    "right": 256,
+    "right": 259,
     "wrong": 9,
     "partial": 9,
     "pct": 95.1,
-    "scored": 274,
+    "scored": 277,
     "audit_wrong": 9,
     "audit_partial": 1,
     "not_on_sheet": 2,
@@ -4775,7 +4776,7 @@
     "turns": 1051,
     "chat_lines": 36,
     "vocab_errors": 12,
-    "vocab_correct": 264,
+    "vocab_correct": 267,
     "grammar_errors": 24,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -4786,7 +4787,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-05.json",
-    "marks": 541,
+    "marks": 544,
     "conflicts": 5,
     "resolved": 3,
     "needs_medi": 1,
@@ -4970,11 +4971,11 @@
    },
    "words": {
     "unique": 93,
-    "right": 191,
+    "right": 195,
     "wrong": 12,
     "partial": 8,
-    "pct": 92.4,
-    "scored": 211,
+    "pct": 92.6,
+    "scored": 215,
     "audit_wrong": 12,
     "audit_partial": 0,
     "not_on_sheet": 5,
@@ -5146,7 +5147,7 @@
     "turns": 1008,
     "chat_lines": 27,
     "vocab_errors": 17,
-    "vocab_correct": 199,
+    "vocab_correct": 203,
     "grammar_errors": 33,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -5157,7 +5158,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-06.json",
-    "marks": 431,
+    "marks": 435,
     "conflicts": 4,
     "resolved": 1,
     "needs_medi": 1,
@@ -5329,11 +5330,11 @@
    },
    "words": {
     "unique": 110,
-    "right": 236,
+    "right": 237,
     "wrong": 6,
     "partial": 7,
     "pct": 96.2,
-    "scored": 249,
+    "scored": 250,
     "audit_wrong": 6,
     "audit_partial": 6,
     "not_on_sheet": 5,
@@ -5571,7 +5572,7 @@
     "turns": 1159,
     "chat_lines": 64,
     "vocab_errors": 17,
-    "vocab_correct": 237,
+    "vocab_correct": 238,
     "grammar_errors": 27,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -5582,7 +5583,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-08.json",
-    "marks": 535,
+    "marks": 536,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -6966,17 +6967,17 @@
     ]
    },
    "words": {
-    "unique": 107,
-    "right": 220,
+    "unique": 108,
+    "right": 224,
     "wrong": 13,
     "partial": 6,
-    "pct": 93.3,
-    "scored": 239,
+    "pct": 93.4,
+    "scored": 243,
     "audit_wrong": 13,
     "audit_partial": 0,
     "not_on_sheet": 4,
-    "rehear_word_conflicts": 2,
-    "unique_rows": 107
+    "rehear_word_conflicts": 1,
+    "unique_rows": 108
    },
    "grammar": {
     "uses": 143,
@@ -7219,7 +7220,7 @@
    "coverage": "Hole 57:44-1:00:17: no Medi lines (queen / badat, 'biddak tjeeb wlaad' answer, tnein) - Amal's 58:01 'You said it right the first time' and 59:21/59:31 'No. بدك إنت تجيب' fixes cannot be quoted, not rowed. Many [speaking foreign language] / [غير مسموع] lines at 17:57-18:02, 26:46, 29:20-29:42, 33:04-33:57 (send/notification sentence lost), 35:24. 03:16 'الـ مهاجرة ... بزاح' unclear, skipped. 00:02-17:07 and 24:49-26:08 mostly English meta talk. Not rowed: 22:06 دايب for ضرايب (S4, new word), 45:02 Europa -> أوروبا (pronunciation), 49:56 بفرشي/بفشك (question about form; 'i show | bafarji' is on sheet, likely ج/ش sound), 37:40 همي self-fixed to قصدي before her joke, 54:31 بعد بتلبس self-fixed to بعد ما تلبس via his own question, 39:10 / 1:10:25 / 1:08:33 rule questions, 1:02:42 ولبنات (unclear). Echo: 'Tanin' (1:00:18) = تنين (accepted by Amal); 'Mashrooha?' = مشروعة (28:23, repeat attempt of the new word). Sheet rows for ضريبة / مشروع / حرب / خطبة exist but were taught as new in this lesson, so filed tier 0. / Large English stretches (3:00-17:00 tech talk about the app, 25:41-26:04 phone call, 1:07-1:13 names). Medi turns 58:44-1:00:13 are missing from the transcript (Amal's تجيب / بدك تجيب أولاد teaching has no Medi line, so no row). Engine hid his line at 17:57 (آخر اليوم per 18:25 and 19:13), 27:11, 35:24 (inaudible; سيء taken from Amal's echo). 1:08:17-1:09:01 نفس الـ سيده vs نفس اسم سيده not filed: Amal said both are fine (نفس اسم سيده better). 38:29 هادي السنة, 37:40 همي (self-fixed to قصدي), 54:31 does بعد remove b? (question, self-fixed), 39:10 بأخلص or أخلص (question), 22:03 دايب (pronunciation of ضرايب) not filed. Echo candidates file read: engine readings there differ from this transcript, nothing added. Names (Mehdi, Lebanon, Palestine, Iran, Egyptian, Palestinian) not flagged.",
    "notes": [
     "grammar: 2 of the 17 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
-    "2 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (1:13:40, 1:13:45)."
+    "1 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (1:13:40)."
    ],
    "page": "lessons/2026-10-14.html",
    "detail": "data/lessons/2026-10-14.json",
@@ -7234,7 +7235,7 @@
     "turns": 1142,
     "chat_lines": 45,
     "vocab_errors": 17,
-    "vocab_correct": 226,
+    "vocab_correct": 230,
     "grammar_errors": 17,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -7245,7 +7246,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-14.json",
-    "marks": 459,
+    "marks": 462,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
@@ -7262,22 +7263,281 @@
     "timing": "engine"
    },
    "duration_min": 64.5,
-   "type": "free-speak",
-   "review_mode": null,
-   "type_why": "Not read yet: default until the same-day reader (review_lesson.py, scripts/lesson_type_read.py) reads this lesson. The publish guard blocks while this shows.",
+   "type": "review-grammar",
+   "review_mode": "speaking",
+   "type_why": "08:39-57:32 (~49 of 64 min) is a review of which preposition each verb takes (verb collocations): give, wait, look at, call/answer, send, plan, meet, worry, say/tell, pay, lie (49:03 'Do you remember? We had like a set just for it'; 20:10 فترة was learned 'Yesterday'; 63:52 she assigns the 'All verb collocations' set from بنتبه on). Mostly he says English prompts in Arabic, with a short flip 51:42-52:52 where she says قال forms and he gives the meaning; 02:33-08:39 and 57:37-63:47 are warm-up talk (date, clothes colours, getting sick, the family rug business, his old insurance job), and 03:17-05:15 is English talk about her to-do list.",
    "type_source": "claude-read",
-   "type_read_by": null,
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Review of verb + preposition pairs: which little word (لـ, على, من, مع, بـ, none) each verb takes",
+    "rules": [
+     {
+      "title": "بستنى never takes a preposition; بعطي takes لـ only before a noun",
+      "pattern": "استناني / اعطيني  vs  اعطي هاد لـ + noun",
+      "bullets": [
+       "wait = بستنى, no preposition ever",
+       "give me = اعطيني (pronoun glued on)",
+       "give this to Mahdi = لـ before the name",
+       "لفترة belongs to 'for a while', not to wait"
+      ],
+      "examples": [
+       {
+        "t": "09:51",
+        "line": "هاد إشي لـ ماكس - give this to Max"
+       },
+       {
+        "t": "13:05",
+        "line": "استناني - wait for me (wait doesn't take)"
+       },
+       {
+        "t": "25:05",
+        "line": "نستناه لفترة - let's wait for him for a while"
+       },
+       {
+        "t": "25:58",
+        "line": "بستنى never takes any preposition"
+       }
+      ]
+     },
+     {
+      "title": "على verbs: برن على, برد على, بطلع على, بكذب على",
+      "pattern": "verb + على + person",
+      "bullets": [
+       "call me = رن علي (برن can also go without)",
+       "answer / pick up = رد علي (برد is only على)",
+       "look at me = اطلع علي",
+       "don't lie to me = ما تكذب علي"
+      ],
+      "examples": [
+       {
+        "t": "15:18",
+        "line": "رن علي - call me"
+       },
+       {
+        "t": "15:46",
+        "line": "رنّوا عليكي - they called you"
+       },
+       {
+        "t": "16:20",
+        "line": "رد علي - برن could be both، بس برد is only على"
+       },
+       {
+        "t": "17:13",
+        "line": "ما رديتي علي - you didn't answer me"
+       },
+       {
+        "t": "13:39",
+        "line": "اطلع علي - look at me"
+       },
+       {
+        "t": "55:53",
+        "line": "ما تكذب علي - don't lie to me"
+       }
+      ]
+     },
+     {
+      "title": "صار لـ + a time = has been (doing); صار لك / صار معك = what happened to you",
+      "pattern": "صار لي + فترة + present verb",
+      "bullets": [
+       "صار لي فترة = I have been ... for a while",
+       "it needs a time word (فترة, a while)",
+       "the verb after keeps its b- or not, both fine",
+       "شو صار لك = شو صار معك = what happened to you"
+      ],
+      "examples": [
+       {
+        "t": "18:06",
+        "line": "صار لك أو صار معك - what happened to you"
+       },
+       {
+        "t": "21:12",
+        "line": "صار لي فترة أدرس عربي - I've been studying Arabic for a while"
+       },
+       {
+        "t": "23:39",
+        "line": "صار لها فترة طويلة - she's been sick for a long while"
+       },
+       {
+        "t": "27:36",
+        "line": "بياخد وقت طويل / بياخد فترة طويلة - it takes a long time"
+       }
+      ]
+     },
+     {
+      "title": "ببعت لـ and بخطط لـ + a noun (بخطط + verb takes nothing)",
+      "pattern": "ابعتلي / بخطط لـ + noun / بخطط + verb",
+      "bullets": [
+       "send it to me = ابعتيلي إياه",
+       "you didn't send them = ما بعتيلهم",
+       "I plan for a trip = بخطط لسفرة",
+       "I plan to go = بخطط أروح (nothing)"
+      ],
+      "examples": [
+       {
+        "t": "28:53",
+        "line": "ابعتيلي - send to me"
+       },
+       {
+        "t": "30:08",
+        "line": "ما بعتيلهم رسالة - you didn't send them a message"
+       },
+       {
+        "t": "31:30",
+        "line": "أنا بخطط أروح - I plan to go"
+       },
+       {
+        "t": "31:35",
+        "line": "أنا بخطط لسفرة - I plan for a trip"
+       },
+       {
+        "t": "33:09",
+        "line": "نخطط للعرس - we plan for the wedding"
+       }
+      ]
+     },
+     {
+      "title": "بلتقي بـ or مع: two options",
+      "pattern": "التقي + بـ / مع",
+      "bullets": [
+       "meet = بلتقي, command التقي",
+       "with a person it takes بـ or مع",
+       "both are fine"
+      ],
+      "examples": [
+       {
+        "t": "34:13",
+        "line": "التقي - meet (command)"
+       },
+       {
+        "t": "35:41",
+        "line": "التقيتي بالزباين الجداد - did you meet the new customers"
+       },
+       {
+        "t": "35:52",
+        "line": "مع الزباين الجداد - with the new customers"
+       },
+       {
+        "t": "36:07",
+        "line": "راح نلتقي معهم بعدين - we'll meet them later"
+       }
+      ]
+     },
+     {
+      "title": "بقلق على / من and بخاف على / من: worried for someone, worried from something",
+      "pattern": "بقلق على + person / من + thing",
+      "bullets": [
+       "على = worried / scared for someone",
+       "من = worried / scared of something",
+       "'worries that ...' needs no من",
+       "past of بقلق is an internal flip: هو قلق (إله)"
+      ],
+      "examples": [
+       {
+        "t": "38:37",
+        "line": "من إنه ما يكون عندها أحفاد - you don't need من here"
+       },
+       {
+        "t": "40:30",
+        "line": "من الحرب - (worried) because of the war"
+       },
+       {
+        "t": "40:47",
+        "line": "عشان الحرب - because of the war"
+       },
+       {
+        "t": "43:17",
+        "line": "بخاف على - scared for"
+       },
+       {
+        "t": "46:26",
+        "line": "إله - he worried (internal flip)"
+       }
+      ]
+     },
+     {
+      "title": "بقول لـ: the لـ gets smashed into the verb",
+      "pattern": "قال + لي / لك / له / لهم",
+      "bullets": [
+       "he told me = قال لي",
+       "the a of قال shortens to u before -t: قلت له",
+       "tell me = قل لي, tell them = قلهم",
+       "I tell you = بقولك"
+      ],
+      "examples": [
+       {
+        "t": "48:45",
+        "line": "قال لي - he told me"
+       },
+       {
+        "t": "49:43",
+        "line": "قلت له - I told him"
+       },
+       {
+        "t": "50:21",
+        "line": "قالك - he told you"
+       },
+       {
+        "t": "50:51",
+        "line": "قالهم - he told them"
+       },
+       {
+        "t": "51:31",
+        "line": "بقولك - I tell you"
+       },
+       {
+        "t": "51:49",
+        "line": "قالت لي - she told me"
+       }
+      ]
+     },
+     {
+      "title": "بدفع: لـ = pay someone, عن = pay for someone, بـ = pay with, none = push",
+      "pattern": "ادفع لنا / ادفع عني / بالبطاقة / ادفع الباب",
+      "bullets": [
+       "pay us = ادفع لنا",
+       "pay for me = تدفعي عني",
+       "pay with a card = بـ",
+       "push the door = يدفع الباب, never على"
+      ],
+      "examples": [
+       {
+        "t": "54:07",
+        "line": "يدفع الباب - push the door"
+       },
+       {
+        "t": "54:23",
+        "line": "ادفع لنا - pay us"
+       },
+       {
+        "t": "54:56",
+        "line": "تدفعي عني - pay for me"
+       },
+       {
+        "t": "53:41",
+        "line": "بـ - with (a credit card)"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up 02:33-08:39: his day, coffee, the date and time, clothes colours (غامق = dark)",
+     "03:17-05:15 English talk about old to-do items in her list (off-lesson)",
+     "Short listening flip 51:42-52:52: she says قال forms, he gives the meaning",
+     "Talk 57:37-63:47: getting sick from the weather, the family rug business, his old insurance job",
+     "Homework: study the 'All verb collocations' set from بنتبه on"
+    ]
+   },
    "words": {
-    "unique": 80,
-    "right": 57,
+    "unique": 78,
+    "right": 139,
     "wrong": 0,
-    "partial": 10,
-    "pct": 92.5,
-    "scored": 67,
+    "partial": 8,
+    "pct": 97.3,
+    "scored": 147,
     "audit_wrong": 0,
     "audit_partial": 0,
     "rehear_word_conflicts": 0,
-    "unique_rows": 80
+    "unique_rows": 78
    },
    "grammar": {
     "uses": 80,
@@ -7340,8 +7600,74 @@
     "arabic_words": 304
    },
    "new_words": [],
-   "taught": [],
-   "taught_words": [],
+   "taught": [
+    {
+     "latin": "Ana ba2la2 (3ala / min)",
+     "arabic": "أنا بقلق (على / من)",
+     "review": true
+    },
+    {
+     "latin": "Ana ba2ul (la-)",
+     "arabic": "أنا بقول (لـ)",
+     "review": true
+    }
+   ],
+   "taught_words": [
+    {
+     "latin": "8aameq",
+     "arabic": "غامق",
+     "english": "dark (colour)",
+     "t": "07:47"
+    },
+    {
+     "latin": "Lu3beh",
+     "arabic": "لعبة",
+     "english": "doll / toy / game",
+     "t": "12:30"
+    },
+    {
+     "latin": null,
+     "arabic": "صاحبتي",
+     "english": "my (female) friend",
+     "t": "22:36"
+    },
+    {
+     "latin": "A7faad",
+     "arabic": "أحفاد",
+     "english": "grandchildren",
+     "t": "38:18"
+    },
+    {
+     "latin": "Kezbe",
+     "arabic": "كذبة",
+     "english": "a lie",
+     "t": "56:11"
+    },
+    {
+     "latin": "kazzaab",
+     "arabic": "كذاب",
+     "english": "liar",
+     "t": "56:26"
+    },
+    {
+     "latin": null,
+     "arabic": "كلكم",
+     "english": "all of you",
+     "t": "59:04"
+    },
+    {
+     "latin": null,
+     "arabic": "سيده",
+     "english": "grandfather (ست = grandmother)",
+     "t": "59:34"
+    },
+    {
+     "latin": null,
+     "arabic": "تأمين",
+     "english": "insurance (شركة تأمين = insurance company)",
+     "t": "1:01:09"
+    }
+   ],
    "coverage": null,
    "notes": [
     "timings: anees-20261027-recall-amal-seg2145: page/engine offset spread 193.22s; anees-20261027-recall-amal-seg2560: page/engine offset spread 226.54s"
@@ -7349,16 +7675,17 @@
    "page": "lessons/2026-10-27.html",
    "detail": "data/lessons/2026-10-27.json",
    "rehear": {
-    "status": "pending",
+    "status": "submitted",
     "since": "2026-10-27",
-    "label": "Second listen: pending",
-    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+    "label": "Second listen: sent, waiting",
+    "tip": "A second AI listen of your microphone (Gemini) was sent for this lesson and its answers are not back yet. The transcript is still ElevenLabs only.",
+    "note": "Sent to Gemini (Batch) on 2026-10-27; not all of its answers are back yet."
    },
    "counts": {
     "turns": 1067,
     "chat_lines": 0,
     "vocab_errors": 0,
-    "vocab_correct": 67,
+    "vocab_correct": 147,
     "grammar_errors": 0,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -7369,7 +7696,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-27.json",
-    "marks": 183,
+    "marks": 263,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
