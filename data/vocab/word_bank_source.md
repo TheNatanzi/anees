@@ -1,5 +1,3 @@
-# Latest Topic
-
 # Newest Nouns 
 
 ## Wedding \+ Marriage 
@@ -113,8 +111,6 @@
 | 3ala el-a8lab | — | على الأغلب | Most likely |
 | shofeer | shofeereyeh | شوفير | Driver / Chauffeur |
 
-# Introductions and Pleasantries
-
 # Introductions, greetings , and Pleasantries 
 
 ## Introductions
@@ -203,8 +199,6 @@
 | الله يعافيك | Allah y'afik | ya'tik al'afyah response |
 | الله يعافيكي | Allah Y'afiki | ya'tiki al'afyah response |
 
-# Numbers
-
 ## Numbers
 
 | Arabic | Transliteration | English |
@@ -266,8 +260,6 @@
 | ألفين و خمسة و عشرين | alfein u 5amsa u 3eshrin | twenty-twenty-five |
 | ميتين | metein | two hundred |
 | ألفين | alfein | two thousand |
-
-# Food and Drink 
 
 ## Food & Drink 
 
@@ -387,8 +379,6 @@ Meat & Other Food Items
 | جمبري | Gambari | Shrimp |
 | شوربة | Shoraba | Soup |
 | حبش | 7abash | Turkey |
-
-# Adjectives
 
 ## Adjectives
 
@@ -596,8 +586,6 @@ Meat & Other Food Items
 | Faate7 / Faat7a | فاتح / فاتحة | Light (Color) |
 | 8aameq / 8aam2a | غامق / غامقة | Dark (Color) |
 
-# Household Items
-
 ### Household 
 
 | Transliteration | Plural  | Arabic (S / Pl) | English |
@@ -663,8 +651,6 @@ Meat & Other Food Items
 | Bri2 | Abaaree2 | **بريق / أباريق** | Kettle |
 | Sallet zbaale | Silaal zbaale | **سلة زبالة / سلال** | Trash can |
 | Zbaale | — | **زبالة** | Trash |
-
-# People, Family, and Professions 
 
 ## People 
 
@@ -741,8 +727,6 @@ Meat & Other Food Items
 | Mu8anni / ye | Mu8anneen | **مغني/ة / مغنين** | Singer |
 | 6aaleb / a | 6ullaab | **طالب/ة / طلاب** | Student |
 
-# Body Parts and Clothing
-
 ## Body Parts
 
 | Transliteration | Plural | Arabic (S / Pl) | English |
@@ -803,8 +787,6 @@ Meat & Other Food Items
 | Balbes | — | **بلبس** | I wear / I'm putting on |
 | Ba8ayyer | — | **بغير** | I change |
 | Bashla7 | — | **بشلح** | I undress |
-
-# Nature and Places
 
 ## Nature 
 
@@ -879,8 +861,6 @@ Meat & Other Food Items
 | Bank | Bnook  | **بنك / بنوك** | Bank |
 | Balkoane | Balkoanaat | **بلكونة / بلكونات** | Balcony |
 | Manzar | Manaazer  | **منظر / مناظر** | View |
-
-# Time and Calendar
 
 ## Adverbs of Time
 
@@ -994,8 +974,6 @@ Meat & Other Food Items
 | Mumken / yemken | ممكن / يمكن | Maybe / Might / May |
 | 3aadatan / Bil3aade | عادةً / بالعادة | Usually |
 
-# Location and Directions
-
 ##  & Directions
 
 | Transliteration | Arabic | English |
@@ -1037,8 +1015,6 @@ Meat & Other Food Items
 | Hayy | هي | Here’s |
 | 7awalain | حوالين | Around / surrounding |
 
-# Quantity / Degree
-
 ## Quantity / Degree Words
 
 | Transliteration | Arabic | English |
@@ -1066,8 +1042,6 @@ Meat & Other Food Items
 | Noss | نص | half |
 | Tult | تلت | Third |
 | illa | إلا | Except |
-
-# Verbs List
 
 ## Verbs List
 
@@ -1241,8 +1215,6 @@ Meat & Other Food Items
 
 	
 
-# Random Nouns 
-
 ## Random Nouns 
 
 | Transliteration | Plural | Arabic (S / Pl) | English |
@@ -1289,8 +1261,6 @@ Meat & Other Food Items
 | daafe3  | Dawaafe3 | **دافع** | Motivation |
 | ser | asraar | **سر** | Secret  |
 | Sbaa7a |  | **سباحة** | Swimming (noun) |
-
-# Sentence Toolbox
 
 ## Sentence Toolbox 
 
@@ -1365,8 +1335,6 @@ Meat & Other Food Items
 | 7awaalain | حوالين | Around / surrounding  |
 | Aktar … | أكثر … | The most |
 | Haada hu | هذا هو | That’s it  |
-
-# Command Tense
 
 ## Command Tense 
 
@@ -1481,8 +1449,6 @@ Meat & Other Food Items
 | Haat / haati / haatu | هات/ي/وا | Give me |
 | Shwai shwai | شوي شوي | Slowly |
 | Jahhez / jahhzi / jahhzu 7aalak/ek/kom | جهز حالك | Get ready  |
-
-#  Tense
 
 # Past Tense  {#past-tense}
 
@@ -2473,8 +2439,6 @@ This small group has a unique conjugation style:
 | heyye ajat | هي إجت | She came |
 | humme aju | هم إجوا | They came |
 
-# Travel and Weather
-
 # Travel and Weather 
 
 ## Travel 
@@ -2581,8 +2545,6 @@ This small group has a unique conjugation style:
 | **Re6eb** | — | رطب | Humid / moist |
 | **Daafi** | — | دافي | Warm |
 
-# Everyday Expressions
-
 ## Everyday Expressions 
 
 | Transliteration | Arabic | English |
@@ -2631,8 +2593,6 @@ This small group has a unique conjugation style:
 | **ree7a**  | ريحة | Smell  |
 | **Bishakel 3aam** | بشكل عام | In general  |
 
-# Animals
-
 ## Animals
 
 | Transliteration | Plural | Arabic | English |
@@ -2669,8 +2629,6 @@ This small group has a unique conjugation style:
 | **8azaal** | 8uzlaan | غزال | Deer |
 | **Albaan** |  | ألبان | Dairy |
 
-# Tab 21
-
 ## Grammar Terminology 
 
 ## Grammar Termonology 
@@ -2705,8 +2663,6 @@ This small group has a unique conjugation style:
 | Ana 7aafez | — | أنا حافظ | I have something memorized / know it by heart |
 | Daafe3 | dawaafe3 | دافع | Motivation |
 | Mu7aadase/a | mu7aadasaat | محادثة | Conversation practice  |
-
-# Tab 22
 
 ## Causative Verbs
 
@@ -2773,8 +2729,6 @@ This small group has a unique conjugation style:
 | Bankeser | بنكسر | I get broken |
 | Ma tekser | ما تكسر | Don't break (command) |
 | El-s7oon enkasaru bil8ala6 | الصحون انكسروا بالغلط | The plates broke by accident |
-
-# Tab 23
 
 ## Verb \+ Prepositions Collocations 
 
@@ -2853,8 +2807,6 @@ This small group has a unique conjugation style:
 | Ana batDaaya2 min | أنا بتضايق من | I get annoyed / upset by something |
 | Ana baz3al 3ala | أنا بزعل على | I feel sad for someone / feel upset about a loss |
 | Ana batDaaya2 3ala | أنا بتضايق على | I feel upset about / for someone, depending on context |
-
-# Tab 24
 
 ## Function (tool) words
 
