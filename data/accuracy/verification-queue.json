@@ -1,10 +1,9 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 3,
+ "count": 2,
  "by_date": {
   "2026-09-10": 1,
-  "2026-09-26": 1,
-  "2026-10-12": 1
+  "2026-09-26": 1
  },
  "rows": [
   {
@@ -52,31 +51,6 @@
    },
    "listen_from": "00:47",
    "listen_to": "01:21"
-  },
-  {
-   "uid": "FA-7ad77653",
-   "date": "2026-10-12",
-   "t": "06:01",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D5",
-   "medi_said": "عشان الـ، ولاد دايمًا في مدرسة،",
-   "amal_said": "دايمًا فيه.",
-   "wrong": "في مدرسة",
-   "right": "في المدرسة",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-6-astra",
-    "verdict": "rejected",
-    "reason": "No correction: Amal's «دايمًا فيه» neither supplies «المدرسة» nor signals a missing article. The claimed article repair is absent from all supplied evidence."
-   },
-   "listen_from": "05:51",
-   "listen_to": "06:21"
   }
  ]
 }
