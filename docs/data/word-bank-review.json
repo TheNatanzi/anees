@@ -103383,6 +103383,29 @@
         "audit_kind": "repeat"
       }
     },
+    "b68d08776dc658b1b30e569d2de4c672d30e24ec116a3254152ed37c40b92a5a": {
+      "expected": {
+        "source_sha256": "ffa1e21151af22f121d271205eb6392bcfc9c9614b65be2b410a3e08ddbffa9a",
+        "row_id": "anees-20261014-recall-medi:row:7471",
+        "word_key": "shukran",
+        "text": "Shukran.",
+        "t_start": 4425.271768672,
+        "t_end": 4425.751768672,
+        "assessment": "independent",
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
+      },
+      "changes": {
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "ignored": true,
+        "classification": "ignored",
+        "reason": "said again right after his own شكراً at 73:38 with nothing from the tutor between: one try, counted once (WS-36)",
+        "by": "word-coverage",
+        "rule": "WS-36",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
+      }
+    },
     "be0944f23b2a0e456c272ccd5087e26f9264495b4e9e8fb6de78c1cafe4b9f14": {
       "expected": {
         "source_sha256": "ffa1e21151af22f121d271205eb6392bcfc9c9614b65be2b410a3e08ddbffa9a",
@@ -334959,57 +334982,6 @@
         "classification": "lexical",
         "coverage": true,
         "vocab_points": 1
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "44b8560bde2bc11ce2ff14263b15ccdf7d8a2e65a7bb3cee9b16dba84a970fb1",
-      "expected_source": "c38eca6e7a7b10ed2bc4c1c5c39eaf47bac856f74bd3c6b20ab245b47692920d",
-      "event": {
-        "id": "10f8fb5d97d74ffcb51ccc64cd61fe66882346cf30514f27e125de6b85f5167f",
-        "lesson_date": "2026-10-26",
-        "word_key": "mudIr",
-        "local_start": 913.712,
-        "local_end": 914.732,
-        "candidate_keys": [
-          "mudIr"
-        ],
-        "source_id": "anees-20261026-recall-medi-seg0",
-        "source_sha256": "c38eca6e7a7b10ed2bc4c1c5c39eaf47bac856f74bd3c6b20ab245b47692920d",
-        "row_id": "cover:2026-10-26:913.8",
-        "item_ids": [],
-        "t_start": 913.8,
-        "t_end": 914.82,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "مديري",
-        "original_text": "So do, do you say مديري or مديرية?",
-        "match_method": "word_coverage",
-        "assessment": "helped",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-10-26:913.8",
-            "speaker": "Medi",
-            "text": "So do, do you say مديري or مديرية?",
-            "timeline_start": 913.8,
-            "timeline_end": 914.82
-          }
-        ],
-        "reason": "Repeat of the tutor's recast of his line at 15:09 («مديرية is like could be anything governmental يعني.»): not credited, not a mistake (WS-31)",
-        "rule": "WS-31",
-        "classification": "lexical",
-        "coverage": true,
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 909.62,
-          "text": "مديرية is like could be anything governmental يعني."
-        }
       },
       "by": "word-coverage"
     },

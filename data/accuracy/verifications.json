@@ -30556,6 +30556,60 @@
    "at": "2026-10-27T22:08:13.410228+00:00",
    "rule_id": 38961,
    "source": "amal_rules review (Tutor page)"
+  },
+  {
+   "uid": "FA-3cb14d5d",
+   "date": "2026-10-26",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "high",
+   "reason": "Medi said «بتكون، بتكوني عيانة؟», not «كنت» as the readers interpreted it. Amal explicitly corrected «بتكوني» to past-tense «كنتي» with «لأ، كنتي. You were».",
+   "evidence": {
+    "t_start": 178.0,
+    "t_end": 212.0,
+    "quote": "Medi: «إنتي بتكون، بتكوني عيانة؟» Amal: «لأ، كنتي. You were.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-26/FA-3cb14d5d_Medi_Medi_Natanzi-fe2c3dab9d8.mp3",
+      "sha256": "88ffef2fd1cdbb0b2a7532fdf08e0b6e16a3620fd755713a9c2bbadfcf195646",
+      "source": "Medi_Natanzi-fe2c3dab9d8dc27e.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-26/FA-3cb14d5d_Amal_Amal-5ec6d73acf9929e8.mp3",
+      "sha256": "eaffa72111009b341701c761d1297cb4ddbdbfa825f2fd179631f93e3fdb4457",
+      "source": "Amal-5ec6d73acf9929e8.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-26/FA-3cb14d5d_mixed_lesson.mp3",
+      "sha256": "bb821d108b1c31e67cfe6c14120e9c26590c7b195cc5c46799b557887e312607",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اه انتي ايانا انا يجب ان اقول انتي بيتكون بيتكوني ايانا اه انتي ايانا اه انتي بيتكون بيتكوني ايانا اه انتي بيتكون بيتكوني ايانا اه انتي بيتكون بيتكوني ايانا اه انتي بيتكون بيتكوني ايانا اه انتي بيتكون بيتكوني ايانا اه انتي بيتكون بيتكوني ايانا اه انتي بيتكون بيتكوني ايانا اه انتي بيتكون بيتكوني ايانا اه انتي بيتكون بيتكوني ايانا اه انتي بيتكون بيتكوني ايانا لقد فعلت ذلك ، لقد فعلت ذلك ، لقد فعلت ذ",
+     "Amal": "كنت عيانة هلأ أحسن كنت I said I was yes I answered with words صوتي غريب كان أسوأ",
+     "mixed": "اه انتي ايانا? اه كنت ايانا هلا احسن. I have to say انتي بتكون بتكوني ايانا? لا كنتي. You work? I said I was. Yeah. How you work got it. So you answered you work. You're not anymore. Yes I answered yeah. With words. هل أنت جاهز؟"
+    }
+   },
+   "claim": {
+    "wrong": "bitcoin, bitcoini",
+    "right": "كنتي",
+    "bucket": "B6",
+    "tier": null
+   },
+   "at": "2026-10-27T17:05:43-07:00",
+   "run_id": "e0f5a8f5ce47431bb247a43ace98332a",
+   "changed_to": {
+    "wrong": "بتكوني",
+    "right": "كنتي"
+   }
   }
  ]
 }
