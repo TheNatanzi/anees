@@ -24,8 +24,7 @@
     "review_freshness",
     "data_freshness",
     "medi_corrections",
-    "foreign_script",
-    "upload_cards"
+    "foreign_script"
   ],
   "total_timeout_s": 300,
   "clean_paths": [
@@ -282,14 +281,6 @@
       ],
       "timeout_s": 60,
       "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)"
-    },
-    "upload_cards": {
-      "cmd": [
-        "{node}",
-        "scripts/check_upload_cards.cjs"
-      ],
-      "timeout_s": 60,
-      "what": "every card of the tutor's uploaded sets has an Arabic side and an English side that match up - no blank side, no scripts mixed up (Medi 2026-10-28; her upload screen runs the same check before saving; a failing card is hidden on Flashcards)"
     },
     "rehear_rows": {
       "cmd": [

@@ -65,9 +65,9 @@
     return Object.assign({}, c, { arabic: t.slice(0, i).join(' '), english: t.slice(i).join(' '), arabizi: lat[0] });
   }
   // Medi 2026-10-28: "create a check system everytime a card set is uploaded to make sure the english and arabic sides
-  // coinside and there are no blanks". One check, used on her upload screen before she saves (docs/js/hub/upload-task.js)
-  // and on every saved set by the publish guard (scripts/check_upload_cards.cjs). It reads the cards exactly as Flashcards
-  // will show them (after uploadSets splits a pasted box). -> [{i, arabizi, arabic, english, why: [...]}], empty = all good.
+  // coinside and there are no blanks"; "lets just have it done once upfront"). Run once, on her upload screen before she
+  // saves (docs/js/hub/upload-task.js). It reads the cards exactly as Flashcards will show them (after uploadSets splits a
+  // pasted box). -> [{i, arabizi, arabic, english, why: [...]}], empty = all good.
   const LAT_WORD = /[A-Za-z]/, PLACEHOLDER = /^[XY]$/;
   const DIGIT_LETTER = /(^|[^0-9])([A-Za-z]+[235789][A-Za-z]*|[235789][A-Za-z]+)/;
   function checkCards(cards) {
