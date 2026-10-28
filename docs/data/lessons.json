@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T16:12:07-07:00",
+ "updated": "2026-10-27T17:14:02-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -862,21 +862,21 @@
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
     "unique": 107,
-    "right": 189,
+    "right": 193,
     "wrong": 15,
     "partial": 5,
-    "pct": 91.6,
-    "scored": 209,
+    "pct": 91.8,
+    "scored": 213,
     "audit_wrong": 9,
     "audit_partial": 4,
     "not_on_sheet": 5,
     "first_read_cards": 1,
     "rehear_word_conflicts": 0,
     "unique_rows": 95,
-    "eligible": 209,
+    "eligible": 213,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 91.6,
+    "eligible_pct": 91.8,
     "excluded_why": {},
     "verified_pct": null
    },
@@ -1004,7 +1004,7 @@
     "turns": 970,
     "chat_lines": 0,
     "vocab_errors": 24,
-    "vocab_correct": 190,
+    "vocab_correct": 194,
     "grammar_errors": 43,
     "grammar_not_counted": 1,
     "vocab_errors_split": {
@@ -1033,7 +1033,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-10.json",
-    "marks": 483,
+    "marks": 487,
     "conflicts": 7,
     "resolved": 2,
     "needs_medi": 2,
@@ -1551,18 +1551,18 @@
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
     "unique": 128,
-    "right": 222,
+    "right": 224,
     "wrong": 5,
     "partial": 3,
     "pct": 97.2,
-    "scored": 230,
+    "scored": 232,
     "audit_wrong": 3,
     "audit_partial": 1,
     "not_on_sheet": 5,
     "first_read_cards": 2,
     "rehear_word_conflicts": 0,
     "unique_rows": 117,
-    "eligible": 230,
+    "eligible": 232,
     "excluded": 0,
     "pending": 0,
     "eligible_pct": 97.2,
@@ -1696,7 +1696,7 @@
     "turns": 996,
     "chat_lines": 45,
     "vocab_errors": 11,
-    "vocab_correct": 224,
+    "vocab_correct": 226,
     "grammar_errors": 44,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -1707,7 +1707,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-14.json",
-    "marks": 466,
+    "marks": 468,
     "conflicts": 5,
     "resolved": 1,
     "needs_medi": 1,
@@ -2627,21 +2627,21 @@
    },
    "words": {
     "unique": 100,
-    "right": 142,
+    "right": 143,
     "wrong": 6,
     "partial": 2,
-    "pct": 95.3,
-    "scored": 150,
+    "pct": 95.4,
+    "scored": 151,
     "audit_wrong": 6,
     "audit_partial": 1,
     "not_on_sheet": 1,
     "first_read_cards": 2,
     "rehear_word_conflicts": 0,
     "unique_rows": 96,
-    "eligible": 150,
+    "eligible": 151,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 95.3,
+    "eligible_pct": 95.4,
     "excluded_why": {},
     "verified_pct": null
    },
@@ -2855,7 +2855,7 @@
     "turns": 958,
     "chat_lines": 41,
     "vocab_errors": 8,
-    "vocab_correct": 143,
+    "vocab_correct": 144,
     "grammar_errors": 37,
     "grammar_not_counted": 1,
     "vocab_errors_split": {
@@ -2866,7 +2866,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-17.json",
-    "marks": 382,
+    "marks": 383,
     "conflicts": 1,
     "resolved": 0,
     "needs_medi": 0,
@@ -4404,21 +4404,21 @@
    },
    "words": {
     "unique": 179,
-    "right": 345,
+    "right": 346,
     "wrong": 16,
     "partial": 15,
     "pct": 93.8,
-    "scored": 376,
+    "scored": 377,
     "audit_wrong": 14,
     "audit_partial": 1,
     "not_on_sheet": 10,
     "first_read_cards": 1,
     "rehear_word_conflicts": 0,
     "unique_rows": 172,
-    "eligible": 375,
+    "eligible": 376,
     "excluded": 1,
     "pending": 1,
-    "eligible_pct": 93.7,
+    "eligible_pct": 93.8,
     "excluded_why": {
      "Amal not transcribed": 1
     },
@@ -4691,7 +4691,7 @@
     "turns": 1218,
     "chat_lines": 74,
     "vocab_errors": 27,
-    "vocab_correct": 359,
+    "vocab_correct": 360,
     "grammar_errors": 35,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -4712,7 +4712,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-26.json",
-    "marks": 654,
+    "marks": 655,
     "conflicts": 15,
     "resolved": 8,
     "needs_medi": 2,
@@ -8739,17 +8739,17 @@
    },
    "words": {
     "unique": 111,
-    "right": 278,
+    "right": 277,
     "wrong": 5,
     "partial": 10,
     "pct": 96.6,
-    "scored": 293,
+    "scored": 292,
     "audit_wrong": 5,
     "audit_partial": 2,
     "not_on_sheet": 3,
     "rehear_word_conflicts": 1,
     "unique_rows": 106,
-    "eligible": 293,
+    "eligible": 292,
     "excluded": 0,
     "pending": 0,
     "eligible_pct": 96.6,
@@ -8905,7 +8905,7 @@
     "turns": 1060,
     "chat_lines": 41,
     "vocab_errors": 10,
-    "vocab_correct": 286,
+    "vocab_correct": 285,
     "grammar_errors": 26,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -8916,7 +8916,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-10.json",
-    "marks": 582,
+    "marks": 581,
     "conflicts": 3,
     "resolved": 1,
     "needs_medi": 0,
@@ -9715,17 +9715,17 @@
    },
    "words": {
     "unique": 118,
-    "right": 242,
+    "right": 243,
     "wrong": 15,
     "partial": 8,
-    "pct": 92.8,
-    "scored": 265,
+    "pct": 92.9,
+    "scored": 266,
     "audit_wrong": 15,
     "audit_partial": 0,
     "not_on_sheet": 2,
     "rehear_word_conflicts": 1,
     "unique_rows": 110,
-    "eligible": 263,
+    "eligible": 264,
     "excluded": 2,
     "pending": 0,
     "eligible_pct": 93.2,
@@ -10014,7 +10014,7 @@
     "turns": 1142,
     "chat_lines": 45,
     "vocab_errors": 17,
-    "vocab_correct": 250,
+    "vocab_correct": 251,
     "grammar_errors": 17,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -10025,7 +10025,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-14.json",
-    "marks": 482,
+    "marks": 483,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
@@ -10148,6 +10148,420 @@
      "missing_s": 0,
      "hole_s": 0,
      "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-10-26",
+   "start_local": "2026-10-26T14:34:10-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 69.0,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "Mixed: 01:18-31:24 and 59:10-1:02:07 (~33 min) is conversation about his trip, the shop remodel, the date, clothes and the war, with words given as he gets stuck (19:29 'بتمنى' for hope, 21:08 'Front is قدام'); 31:55-59:10 and 1:05:15-1:07:35 (~30 min) review the last lesson's cards (31:55 'شو الكلمات، آخر كلمات أخذناهم؟': wedding words, project, tax, clear, favorite, war), plus 1:02:07-1:05:10 where he talks in person to visitors (1:03:20-1:05:04 Amal silent).",
+   "type_source": "claude-read",
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Talk about his trip and shop remodel, then a review of last lesson's cards: wedding, project, tax, war",
+    "rules": [
+     {
+      "title": "Plural of mashroo3 / dareebe: mashaaree3, daraayeb",
+      "pattern": "CaCCuC / CaCiiCe -> CaCaaCiC",
+      "bullets": [
+       "mashroo3 = project, mashaaree3 = projects",
+       "dareebe = tax, daraayeb = taxes",
+       "5aatem -> 5awaatem, 7aafez -> 7awaafez follow the same shape"
+      ],
+      "examples": [
+       {
+        "t": "43:14",
+        "line": "mashroo3 - mashaaree3 = project - projects"
+       },
+       {
+        "t": "48:23",
+        "line": "ضرايب - taxes"
+       },
+       {
+        "t": "1:06:04",
+        "line": "شو plural حافظ؟ The same as خاتم"
+       }
+      ]
+     },
+     {
+      "title": "My favorite X: mashroo3i el-mufaddal or el-mashroo3 el-mufaddal 3indi",
+      "pattern": "noun+i + el-mufaddal / el-noun el-mufaddal 3indi",
+      "bullets": [
+       "no el- on a noun that has -i (my)",
+       "without -i, both words take el- and add 3indi"
+      ],
+      "examples": [
+       {
+        "t": "53:41",
+        "line": "مشروعي المفضل - my favorite project"
+       },
+       {
+        "t": "54:39",
+        "line": "المشروع المفضل عندي - my favorite project"
+       },
+       {
+        "t": "55:40",
+        "line": "فصلي المفضل - my favorite season"
+       }
+      ]
+     },
+     {
+      "title": "2uddaam / wara take no el-: 2uddaam el-ma7al",
+      "pattern": "2uddaam / wara + el- + noun",
+      "bullets": [
+       "2uddaam = in front of, wara = behind",
+       "they are tool words, not full nouns, so no el- on them (idafa)"
+      ],
+      "examples": [
+       {
+        "t": "22:41",
+        "line": "قدام المحل - the front of the shop"
+       },
+       {
+        "t": "24:35",
+        "line": "ورا المحل - the back of the shop"
+       }
+      ]
+     },
+     {
+      "title": "7arb (war) is feminine",
+      "bullets": [
+       "7arb - f",
+       "so the verb is feminine: t5alles el-7arb"
+      ],
+      "examples": [
+       {
+        "t": "59:03",
+        "line": "It's feminine"
+       },
+       {
+        "t": "1:02:33",
+        "line": "abel ma t5alless el-7arb - before the war ends"
+       }
+      ]
+     },
+     {
+      "title": "Plural with possessive: kul daraaybi = all my taxes",
+      "bullets": [
+       "kul el-daraayeb = all the taxes",
+       "kul daraaybi = all my taxes"
+      ],
+      "examples": [
+       {
+        "t": "49:53",
+        "line": "كل الضرايب بس كل ضرايبي - all the taxes, all my taxes"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up 01:18-31:24: his trip with his uncle, the shop remodel, permit, the date, clothes, weather",
+     "Review of last lesson's cards 31:55-59:10 and 1:05:15-1:07:35: wedding words, ring, honeymoon, project, tax, clear, war",
+     "Next lessons: finish the verb collocations, then adjective collocations (1:07:38)",
+     "Off-lesson 1:02:07-1:05:10: he talks in person to visitors at the shop"
+    ]
+   },
+   "words": {
+    "unique": 130,
+    "right": 281,
+    "wrong": 11,
+    "partial": 6,
+    "pct": 95.3,
+    "scored": 298,
+    "audit_wrong": 11,
+    "audit_partial": 0,
+    "not_on_sheet": 3,
+    "rehear_word_conflicts": 0,
+    "unique_rows": 125,
+    "eligible": 298,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 95.3,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 210,
+    "mistakes": 23,
+    "pct": 91.0,
+    "estimate": false,
+    "scored_mistakes": 19,
+    "unscored_mistakes": 4,
+    "eligible": 23,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "6 slips are in rules the counter found 0 uses of in this lesson",
+      "6 rules have more slips than counted uses (A18, A21, A23, B12, C12, E1)"
+     ],
+     "uses": 194,
+     "slips": 23,
+     "slips_latin": 6,
+     "slips_in_zero_use_rules": 6,
+     "rules_slips_over_uses": [
+      "A18",
+      "A21",
+      "A23",
+      "B12",
+      "C12",
+      "E1"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1857.0,
+    "amal_s": 715.7,
+    "speak_pct": 72.2,
+    "listen_pct": 27.8,
+    "window": [
+     0.0,
+     4138.7
+    ]
+   },
+   "fillers": {
+    "count": 390,
+    "per_min": 12.6,
+    "top": [
+     [
+      "uh",
+      260
+     ],
+     [
+      "um",
+      102
+     ],
+     [
+      "آآ",
+      8
+     ],
+     [
+      "اه",
+      8
+     ],
+     [
+      "mm",
+      6
+     ],
+     [
+      "ممم",
+      4
+     ]
+    ],
+    "in_turns": 244,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.35,
+    "p75_s": 2.49,
+    "n": 234
+   },
+   "flow": {
+    "wpm": 49.6,
+    "n_turns": 235,
+    "arabic_words": 890
+   },
+   "new_words": [],
+   "taught": [],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "زمان عنك",
+     "english": "long time no see",
+     "t": "02:17"
+    },
+    {
+     "latin": "e5aret",
+     "arabic": "اخترت",
+     "english": "I chose",
+     "t": "06:34"
+    },
+    {
+     "latin": "haadi el-marra",
+     "arabic": "هاي المرة",
+     "english": "this time",
+     "t": "07:48"
+    },
+    {
+     "latin": "mashaaree3",
+     "arabic": "مشاريع",
+     "english": "projects (mashroo3 - mashaaree3)",
+     "t": "08:48"
+    },
+    {
+     "latin": "daafe3",
+     "arabic": "دافع",
+     "english": "motive / motivation",
+     "t": "13:10"
+    },
+    {
+     "latin": "mitshaje3",
+     "arabic": "متشجع",
+     "english": "motivated",
+     "t": "13:54"
+    },
+    {
+     "latin": null,
+     "arabic": "بلدية",
+     "english": "municipality",
+     "t": "15:21"
+    },
+    {
+     "latin": "batmanna",
+     "arabic": "بتمنى",
+     "english": "I hope / I wish",
+     "t": "19:29"
+    },
+    {
+     "latin": "nwa22ef",
+     "arabic": "نوقف",
+     "english": "we stop",
+     "t": "22:18"
+    },
+    {
+     "latin": "2uddaam",
+     "arabic": "قدام",
+     "english": "front / in front of",
+     "t": "21:08"
+    },
+    {
+     "latin": "wara",
+     "arabic": "ورا",
+     "english": "behind / back",
+     "t": "24:27"
+    },
+    {
+     "latin": "fatra",
+     "arabic": "فترة",
+     "english": "period of time",
+     "t": "29:54"
+    },
+    {
+     "latin": "hawa",
+     "arabic": "هوا",
+     "english": "wind / air",
+     "t": "32:18"
+    },
+    {
+     "latin": null,
+     "arabic": "عرسان",
+     "english": "bride and groom (newlyweds)",
+     "t": "34:04"
+    },
+    {
+     "latin": "8eir",
+     "arabic": "غير",
+     "english": "a different (8eir dawle = a different country)",
+     "t": "41:06"
+    },
+    {
+     "latin": "dareebe",
+     "arabic": "ضريبة",
+     "english": "tax (plural daraayeb)",
+     "t": "48:08"
+    }
+   ],
+   "coverage": "Hole 04:10-06:04: only Amal's lines survive (ميحة, حططنا, 'الـ WhatsApp شو جمع إشي؟'); Medi's trip sentence (chat 05:43 re7leti mnee7a ... 5a66atna la-ashyaa2) is missing, so 04:10 is filed low. 48:35-52:22 and 1:05:21-1:08:49 are Latin-transliterated by the engine. 1:02:07-1:05:04 is an English side conversation with visitors (not lesson). echo: 'book for' (15:57) = بكرا bukra (chat 'ana 3indi maw3ed bukra'). engine wrote قطرت (06:15) = his 5tart (chose); مشربية (08:39) = mashaaree3; حافظ (12:38) = 7aafez; للرمادة (14:14) = la el-remodel; 'is a صار' (27:45) = iza saar; آدي السترة (29:48) = haadi el-fatra; 'Arab' (1:06:59) = 7arb; 'half is' (1:06:10) = 7aafez; مش شجاع (13:22/13:53) is the mitshajje3/shuja3 confusable. Skipped as S4: أدام/قدام, أرسان/عرسان, basboot/mabsut, wadfeen/waade7, dropped initial e- on شتريت. Tier-3 skipped: pantalon / jacket are the loanwords on her sheet (Ban6aloan, Jakait), pronunciation only; permit / remodel / construction / elections / cards / retired are not on her sheet. Names (Italia, إسبانيا, Ramallah, Israel, أمريكا, Adam=قدام echo) not flagged. / Lines 1:02:07-1:05:04 are an English side conversation with other people (wedding venue, not the lesson) - skipped. Latin-transliterated Medi stretches: 47:51-52:17 (taxes), 1:05:21-1:08:49 (word review at the end). Chat lines lag the voice, used only for context/spelling. No echo-candidates file for this date. Engine noise: 'bitcoin, bitcoini' = kunt/kunti (03:08); 'هاديل وايت' = hadi el-marra (07:45); 'آدي السترة' = hadi el-fatra (29:48); 'آدي الدرس' = hadi el-dars (31:48); 'مكير'/'مشربية' unclear; 'أرسنا/أرسان' = 3irsaan with dropped ع (S4, not filed); 'أدام' = 2uddaam (hamza for ق is dialect, not filed); 'السيف' = el-saif (S4); 'Arab' = 7arb (S4); 'atmadran' = atmarran (engine). Names ignored (Italia, إسبانيا, Israel, أمريكا, Adam = Amsterdam/قدام echo at 21:10 is Medi repeating 'qudam'). English 'retired', 'cards', 'elections', 'midterms', 'permit', 'remodel', 'construction' are not on her sheet (jacket/permit/remodel/construction Amal uses herself) - no tier 3 rows. 'project' at 08:34 is a word search ('I know this is a new word') - not filed.",
+   "notes": [
+    "timings: anees-20261026-recall-medi-seg0: page/engine offset spread 241.80s; anees-20261026-recall-amal-seg3909: page/engine offset spread 172.67s",
+    "grammar: 4 of the 23 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+   ],
+   "page": "lessons/2026-10-26.html",
+   "detail": "data/lessons/2026-10-26.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-27",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 1236,
+    "chat_lines": 48,
+    "vocab_errors": 14,
+    "vocab_correct": 287,
+    "grammar_errors": 23,
+    "grammar_not_counted": 1,
+    "vocab_errors_split": {
+     "wrong": 11,
+     "half": 0,
+     "off_list": 3
+    }
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-10-26.json",
+    "marks": 548,
+    "conflicts": 2,
+    "resolved": 0,
+    "needs_medi": 0,
+    "mode": "on",
+    "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 44.3 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: Amal not transcribed 1:02:09-1:05:10 while the other person talks",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4140 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 51,
+       "r2": 46,
+       "agreed": 27,
+       "disputed": 34,
+       "agreement_pct": 44.3
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4140.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 7597.75,
+     "first_t": 16.87,
+     "last_t": 4131.39,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 7597.75,
+     "first_t": 11.27,
+     "last_t": 4131.03,
+     "missing": [
+      [
+       3728.55,
+       3910.35,
+       "no transcript for Amal while the other person talks"
+      ]
+     ],
+     "holes": [],
+     "missing_s": 181.8,
+     "hole_s": 0,
+     "covered_pct": 97.6
     }
    }
   },
@@ -10426,19 +10840,19 @@
    },
    "words": {
     "unique": 78,
-    "right": 141,
+    "right": 138,
     "wrong": 0,
-    "partial": 8,
-    "pct": 97.3,
-    "scored": 149,
+    "partial": 7,
+    "pct": 97.6,
+    "scored": 145,
     "audit_wrong": 0,
     "audit_partial": 0,
     "rehear_word_conflicts": 0,
     "unique_rows": 76,
-    "eligible": 149,
+    "eligible": 145,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 97.3,
+    "eligible_pct": 97.6,
     "excluded_why": {},
     "verified_pct": null
    },
@@ -10601,7 +11015,7 @@
     "turns": 1067,
     "chat_lines": 0,
     "vocab_errors": 0,
-    "vocab_correct": 149,
+    "vocab_correct": 145,
     "grammar_errors": 0,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -10612,7 +11026,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-27.json",
-    "marks": 265,
+    "marks": 261,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,

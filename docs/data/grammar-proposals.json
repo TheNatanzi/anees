@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T16:01:13-07:00",
+ "updated": "2026-10-27T16:54:21-07:00",
  "rule": "GR-18",
  "about": "Grammar corrections Amal made that fit no existing rule. Each is a proposed new rule for Medi's yes or no; nothing here is scored until he says yes. Built by scripts/full_audit_build.py from the audit rows and data/lesson-work/full-audit/proposed-buckets.json.",
  "proposals": [
@@ -1137,6 +1137,58 @@
      "bucket": "PROPOSE",
      "confidence": "high",
      "why": "Right after her fix he said ishi heik; Amal fixed it again: heik goes before the noun (heik ishi) or use ishi zayy heik. Wrong again after her fix = its own slip.",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
+   "id": "P-FA-b35e2602",
+   "name": null,
+   "proposed_rule": "'One of the X' is waa7ad (matching the noun's gender) + min + el- + the PLURAL noun, never an idafa with a singular: waa7ad min el-ayyam.",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-b35e2602 (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-b35e2602",
+     "date": "2026-10-26",
+     "t": "10:01",
+     "t_amal": "10:12",
+     "medi_said": "وحدة اليوم. One of the days. وحدة... Is it وحدة اليوم أو",
+     "amal_said": "No. ... Or without any ands or ons. What's one؟ ... واحد. What's of؟ ... من. What's the days؟",
+     "chat": "e7na mashaina fi el-6abi3a waa7ad min el-ayyam",
+     "wrong": "وحدة اليوم",
+     "right": "واحد من الأيام",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "high",
+     "why": "He built an idafa (wa7de el-yoam); Amal said No and walked him word by word to واحد من الأيام; no bucket covers 'one of + plural'.",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
+   "id": "P-FA-0a2b5d04",
+   "name": null,
+   "proposed_rule": "'Would (not) have' in the past = kaan + ra7 + bare verb: ma kaanat ra7 tetjawwazni (she wouldn't have married me).",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-0a2b5d04 (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-0a2b5d04",
+     "date": "2026-10-26",
+     "t": "38:27",
+     "t_amal": "38:33",
+     "medi_said": "ما كانت تجوزني.",
+     "amal_said": "كانت راح تتجوزني.",
+     "chat": "5atibti 7akatli enno heyye ma kaanat ra7 tetjawwazni abel 3ashar sneen",
+     "wrong": "ما كانت تجوزني",
+     "right": "ما كانت راح تتجوزني",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "high",
+     "why": "He meant 'wouldn't have married me'; Amal recast كانت راح تتجوزني (adds ra7 and the t- form), he took it ('Oh, wait, yeah').",
      "also_counted_as": []
     }
    ]

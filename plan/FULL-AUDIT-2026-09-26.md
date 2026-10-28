@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **784** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **808** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 120 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 31 |
-| Vocab fixes Amal voiced (A) | **382** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 182, '0': 145, '2': 88, '3': 4} |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 33 |
+| Vocab fixes Amal voiced (A) | **395** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 192, '0': 145, '2': 92, '3': 4} |
 | Vocab she let pass (B, to Amal) | **41** by tier {'1': 32, '2': 8, '3': 1} |
-| Listening-drill misreads (kept apart) | 68 |
-| Rows the readers found that the sweep did not have | 989 |
+| Listening-drill misreads (kept apart) | 69 |
+| Rows the readers found that the sweep did not have | 1029 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -48,6 +48,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-10 | 24 | 3 | 4 | 11 | 0 | 0 | 0 | 62.5 % |
 | 2026-10-12 | 32 | 5 | 8 | 0 | 3 | 0 | 0 | 63.5 % |
 | 2026-10-14 | 17 | 0 | 17 | 0 | 0 | 0 | 0 | 58.9 % |
+| 2026-10-26 | 24 | 0 | 13 | 0 | 1 | 0 | 0 | 44.3 % |
 | 2026-10-27 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | - % |
 
 ## Reader passes (the loop)
@@ -77,51 +78,52 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-10-10**: pass 1: r1 30 r2 37 agreed 25 disputed 15 (62.5 %), r3 kept 10 dropped 5 -> 35 rows
 - **2026-10-12**: pass 1: r1 47 r2 46 agreed 33 disputed 19 (63.5 %), r3 kept 15 dropped 4 -> 48 rows
 - **2026-10-14**: pass 1: r1 49 r2 47 agreed 33 disputed 23 (58.9 %), r3 kept 17 dropped 6 -> 40 rows
+- **2026-10-26**: pass 1: r1 51 r2 46 agreed 27 disputed 34 (44.3 %), r3 kept 21 dropped 13 -> 34 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
 | B18 | verb matches its subject | 72 |
+| A8 | gender on adjectives | 56 |
 | D2 | verb + its fixed preposition | 56 |
-| A8 | gender on adjectives | 55 |
-| B5 | past tense | 54 |
-| B12 | make-X vs get-X | 52 |
+| B5 | past tense | 55 |
+| B12 | make-X vs get-X | 53 |
 | A7 | noun + adjective | 42 |
 | D4 | endings on verbs | 41 |
-| A9 | plurals | 40 |
+| A9 | plurals | 41 |
 | B1 | present with b- | 37 |
 | D1 | prepositions | 36 |
-| A2 | idafa (possession) | 32 |
-| PROPOSE | ? | 31 |
-| A1 | el- (the) | 29 |
-| A4 | possessive endings | 26 |
+| A2 | idafa (possession) | 34 |
+| PROPOSE | ? | 33 |
+| A1 | el- (the) | 30 |
+| A4 | possessive endings | 29 |
 | B2 | b-drop after modals | 21 |
-| E1 | number + noun | 19 |
-| D3 | endings on prepositions | 17 |
+| E1 | number + noun | 20 |
+| D3 | endings on prepositions | 18 |
 | C2 | the pointer rule | 17 |
+| C4 | saying no | 16 |
 | C7 | illi | 15 |
-| C4 | saying no | 14 |
-| B6 | kaan = was / were | 14 |
+| B6 | kaan = was / were | 15 |
 | A15 | aa5er / a5eer: before or after the noun | 14 |
+| B15 | participles | 13 |
 | B11 | negative commands | 13 |
-| B15 | participles | 12 |
+| A10 | hada / hadi | 12 |
 | E2 | clock time | 11 |
 | B10 | commands | 11 |
-| A10 | hada / hadi | 11 |
 | B3 | b-drop after time words | 9 |
 | C3 | comparatives | 9 |
 | B8 | bakoon / ykoon | 9 |
 | A3 | feminine -t in idafa | 9 |
+| A11 | kul: all vs every | 8 |
 | A13 | awal / oola: before or after the noun | 8 |
 | A14 | taani: before or after the noun | 8 |
-| A11 | kul: all vs every | 7 |
 | A12 | pronoun matches who you mean | 7 |
 | E4 | calendar | 7 |
+| B13 | future with ra7 | 7 |
 | C10 | preposition goes in front | 6 |
 | C9 | word order | 6 |
 | B16 | kan laazem | 5 |
-| B13 | future with ra7 | 5 |
 | C1 | no word for 'to be' | 4 |
 | D5 | preposition keeps el- | 4 |
 | E3 | time units, two-of and many-of | 4 |
@@ -132,18 +134,20 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A9b | broken plurals are patterns | 3 |
 | B7 | kaan + verb = used to / was doing | 3 |
 | E5 | kam + singular | 3 |
+| C12 | a doing verb says what was done | 2 |
 | A6 | professions | 2 |
+| A18 | hidden gender nouns | 2 |
 | B9 | person on ykoon | 1 |
 | C5 | u / aw / willa / wala | 1 |
-| C12 | a doing verb says what was done | 1 |
 | B14 | 3am = right now | 1 |
 | F3 | causative verbs: 3 forms | 1 |
 | D6 | iyyaa - the second object | 1 |
 | C11 | noun, not verb, after a preposition | 1 |
 | C4b | words that drag a ma along | 1 |
 | A17 | nafs + el-: the same | 1 |
-| A18 | hidden gender nouns | 1 |
 | A22 | a8lab and nafs + definite noun | 1 |
+| A21 | taani and 8eir | 1 |
+| A23 | mufaddal + 3ind | 1 |
 
 ## Sweep rows the readers did not list (kept, not dropped)
 
@@ -1917,3 +1921,50 @@ _Hole 57:44-1:00:17: no Medi lines (queen / badat, 'biddak tjeeb wlaad' answer, 
 | FA-11186909 | 1:07:59 | grammar | A2 | أخا خطيبتي، | أخوه. | أخا خطيبتي -> أخو خطيبتي | Wrong idafa form of أخ; Amal gave أخوه and he said أخو خطيبتي. | high | judge panel (Opus + Argon, p 0.82) |
 | FA-86448069 | 1:08:17 | grammar | A22 | نفس الـ / uh, نفس الـ / uh, سيده. سيده؟ | نفس، نفس اسم سيده. | نفس الـ سيده -> نفس اسم سيده | After nafs a noun with a possessive ending takes no el-, and the thing compared (esem) was missing; Amal recast نفس اسم سيده and explained the idafa. | high | judge panel (Opus + Argon, p 0.85) |
 | FA-9d0d734c | 1:08:45 | grammar | C9 | نفس سيده / اسمه؟ | اسمه نفس اسم سيده. His name is the same as his grandfather's name. | نفس سيده اسمه -> اسمه نفس اسم سيده | After her fix he put the subject اسمه last; Amal recast with اسمه first. | medium | judge panel (Opus + Argon, p 0.68) |
+
+### 2026-10-26
+
+_Hole 04:10-06:04: only Amal's lines survive (ميحة, حططنا, 'الـ WhatsApp شو جمع إشي؟'); Medi's trip sentence (chat 05:43 re7leti mnee7a ... 5a66atna la-ashyaa2) is missing, so 04:10 is filed low. 48:35-52:22 and 1:05:21-1:08:49 are Latin-transliterated by the engine. 1:02:07-1:05:04 is an English side conversation with visitors (not lesson). echo: 'book for' (15:57) = بكرا bukra (chat 'ana 3indi maw3ed bukra'). engine wrote قطرت (06:15) = his 5tart (chose); مشربية (08:39) = mashaaree3; حافظ (12:38) = 7aafez; للرمادة (14:14) = la el-remodel; 'is a صار' (27:45) = iza saar; آدي السترة (29:48) = haadi el-fatra; 'Arab' (1:06:59) = 7arb; 'half is' (1:06:10) = 7aafez; مش شجاع (13:22/13:53) is the mitshajje3/shuja3 confusable. Skipped as S4: أدام/قدام, أرسان/عرسان, basboot/mabsut, wadfeen/waade7, dropped initial e- on شتريت. Tier-3 skipped: pantalon / jacket are the loanwords on her sheet (Ban6aloan, Jakait), pronunciation only; permit / remodel / construction / elections / cards / retired are not on her sheet. Names (Italia, إسبانيا, Ramallah, Israel, أمريكا, Adam=قدام echo) not flagged. / Lines 1:02:07-1:05:04 are an English side conversation with other people (wedding venue, not the lesson) - skipped. Latin-transliterated Medi stretches: 47:51-52:17 (taxes), 1:05:21-1:08:49 (word review at the end). Chat lines lag the voice, used only for context/spelling. No echo-candidates file for this date. Engine noise: 'bitcoin, bitcoini' = kunt/kunti (03:08); 'هاديل وايت' = hadi el-marra (07:45); 'آدي السترة' = hadi el-fatra (29:48); 'آدي الدرس' = hadi el-dars (31:48); 'مكير'/'مشربية' unclear; 'أرسنا/أرسان' = 3irsaan with dropped ع (S4, not filed); 'أدام' = 2uddaam (hamza for ق is dialect, not filed); 'السيف' = el-saif (S4); 'Arab' = 7arb (S4); 'atmadran' = atmarran (engine). Names ignored (Italia, إسبانيا, Israel, أمريكا, Adam = Amsterdam/قدام echo at 21:10 is Medi repeating 'qudam'). English 'retired', 'cards', 'elections', 'midterms', 'permit', 'remodel', 'construction' are not on her sheet (jacket/permit/remodel/construction Amal uses herself) - no tier 3 rows. 'project' at 08:34 is a word search ('I know this is a new word') - not filed._
+
+| id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
+|---|---|---|---|---|---|---|---|---|---|
+| FA-3cb14d5d | 03:08 | grammar | B6 | inti bitcoin, bitcoini ayana? | لا، كنتي. You were. I said I was. | bitcoin, bitcoini -> كنتي | He asks 'were you sick?' with kunt (my form, engine wrote bitcoin) and Amal says no, the you-feminine form is كنتي; I said 'I was' so I use kunt. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-6480eb2d | 06:15 | vocab-A | tier 2 | شتريت أو، أم، قـ-ق-قطرت. ... قطرت أو اشتريت. I chose and bought. | اشتريت. Or you could put an "e" in the beginning، اختارت. | قطرت -> اختارت | Engine wrote قطرت for his 5tart (I chose); Amal kept giving اشتريت then said put an e at the start: اختارت (sheet: choose / E5tar); 'you could' makes it soft. | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-ada3c636 | 07:09 | vocab-A | tier 1 | ما يـال-- ما بيعلموا كتير ... بيعمل ... كتير. | What do you mean ما بيعمل كتير؟ ... كتير what؟ ... فما بيشتغل كتير؟ | ما بيعمل كتير -> ما بيشتغل كتير | He used 3amal (do) for 'work'; Amal asked what he meant and gave بيشتغل (sheet: i work / ana bashte8el). | high | judge panel (Opus + Argon, p 0.85) |
+| FA-4059683f | 07:45 | vocab-A | tier 1 | this time هاديل وايت. Do you guys say this? | هذي المرة. | هاديل وايت -> هذي المرة | He said haadi el-wa2t for 'this time' (occasion); Amal replaced it with هذي المرة and he repeated هاديل مرة. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-39aa0b1f | 08:22 | grammar | C12 | خلصنا كتير. | كتير إيش؟ | خلصنا كتير -> خلصنا كتير مشاريع | Doing verb with no object; Amal asked 'a lot of what?' and he supplied projects (engine مشربية = mashaaree3). | medium | judge panel (Opus + Argon, p 0.65) |
+| FA-41e58a43 | 09:01 | grammar | B5 | انبستي، انبس-- انبسط. أنا، أنا انبسط. | إن... | أنا انبسط -> أنا انبسطت | Past 'I' ending -t missing; Amal prompted 'إن...', he tried انبسطت؟ and she confirmed انبسطت. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-b35e2602 | 10:01 | grammar-propose | PROPOSE | وحدة اليوم. One of the days. وحدة... Is it وحدة اليوم أو | No. ... Or without any ands or ons. What's one؟ ... واحد. What's of؟ ... من. What's the days؟ | وحدة اليوم -> واحد من الأيام | He built an idafa (wa7de el-yoam); Amal said No and walked him word by word to واحد من الأيام; no bucket covers 'one of + plural'. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-96a19a6a | 10:33 | grammar | A1 | واحد من أيام. | الأيام. | من أيام -> من الأيام | el- missing on 'the days'; Amal said الأيام and he repeated واحد من الأيام (could be read as part of row 1026-7's walk-through). | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-a81cdde6 | 11:31 | grammar | A11 | yeah. كل اليوم. | كل. | كل اليوم -> كل يوم | He meant every day (Amal: 'Every day?') but said kul el-yoam (all day); Amal said كل and he fixed to كل يوم. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-71d90605 | 13:09 | vocab-A | tier 1 | the other word was هدف. | دافع. | هدف -> دافع | Recalling the second word for motivation he said هدف (goal); Amal gave دافع (sheet: motive / motivation / Daafe3). | medium | judge panel (Opus + Argon, p 0.75) |
+| FA-6d92f785 | 13:53 | vocab-A | tier 2 | أنا مشتاق، مشتاق، مش شجاع. | mm-hmm. متشجع. | مش شجاع -> متشجع | Engine wrote مش شجاع (shuja3, brave) — the known mitshajje3/shuja3 swap; Amal recast متشجع (sheet: motivated / Mitshajje3); may be the engine, not him. | medium | judge panel (Opus + Argon, p 0.66) |
+| FA-d3591dd2 | 17:46 | vocab-A | tier 1 | إحنا، اه، بنستعمل ... بنستعمل صديق من العيلة. | بس فـ- شو، شو قصدك بنستعمل؟ ... So تستعمل is to use. ... We're working with. | بنستعمل -> بنشتغل مع | 'Use' (esta3mal) is not said of hiring people; Amal questioned it and gave 'working with', he said بنشتغل مع. | high | judge panel (Opus + Argon, p 0.86) |
+| FA-817d83b5 | 18:37 | grammar | A2 | احنا نشتغل، بنشتغل مع صديق عيل- عيلة، | صديق. عائلة who? ... Or the family. ... صديق العائلة. ... Or صديق عائلتي. | صديق عيلة -> صديق العيلة | Idafa owner left bare; Amal asked 'family who? or the family' and he said صديق العيلة / صديق عيلتي. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-6b5d24b5 | 20:20 | grammar | B13 | ما بنوّف... | ما want. | ما بنوّف -> ما راح نوقف | Answering 'will your work stop?' he used the present; Amal's 'ما want' (engine for ما راح) prompted ra7, and at 22:18 she gave ما راح نوقف شغلنا. | medium | judge panel (Opus + Argon, p 0.76) |
+| FA-e5f24b7b | 22:22 | grammar | B12 | راح نتغير. ... راح-- what? راح نت-نتغير. | راح نـ ... We will change. We will be changed. | راح نتغير -> راح نغير | t- form (get changed) for 'we will change the front'; Amal prompted 'راح نـ' and explained 'we will be changed', he said راح نغير. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-51339c26 | 22:38 | grammar | A2 | الـ-- أ-أدام الـ محل | قدام المحل. No الـ first. | الـ-- أدام الـ محل -> قدام المحل | He put el- before 2uddaam; Amal: 'No الـ first', قدام المحل (she later says it's إضافة). | high | judge panel (Opus + Argon, p 0.94) |
+| FA-dcd9ac59 | 24:15 | vocab-A | tier 1 | راح نستعمل تحت الـ محل، | تحت is under. What's behind؟ أو ورا. ... ورا. | تحت -> ورا | He used تحت (under) for 'the back'; Amal said 'تحت is under' and gave ورا (sheet: behind / Wara). | high | judge panel (Opus + Argon, p 0.92) |
+| FA-f13c386b | 25:12 | grammar | B15 | أنا، أنا بحمس. | No. أنا متحمس. | أنا بحمس -> أنا متحمس | Verb form for the state 'I am excited'; Amal said No, أنا متحمس (sheet: excited / mit7ammes); he said بحمس لـ again at 25:31 (same slip, one row). | high | judge panel (Opus + Argon, p 0.94) |
+| FA-57b7eef2 | 29:00 | vocab-A | tier 1 | قامة ... Is it قامة؟ Is that قام؟ | غام. غامقة. | قامة -> غامقة | He means 'dark green' and says قامة; Amal gives غام / غامقة (sheet: dark (color) / 8aameq); could be only the hard-غ sound slip (S4), but he asks whether it is a word and she supplies it. | medium | judge panel (Opus + Argon, p 0.72) |
+| FA-66c47c08 | 31:05 | grammar | C4 | مش بنحتاج jacket. | ما. | مش بنحتاج -> ما بنحتاج | mish before a verb; Amal said ما and he said ما بنحتاج jacket. | high | judge panel (Opus + Argon, p 0.94) |
+| FA-e5ba8e51 | 31:48 | grammar | A10 | الـ، uh, قبل الـ آدي الدرس. | هذا. | آدي الدرس -> هذا الدرس | haadi (fem) with masculine dars; Amal said هذا and he said هذا الدرس. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-0a2b5d04 | 38:27 | grammar-propose | PROPOSE | ما كانت تجوزني. | كانت راح تتجوزني. | ما كانت تجوزني -> ما كانت راح تتجوزني | He meant 'wouldn't have married me'; Amal recast كانت راح تتجوزني (adds ra7 and the t- form), he took it ('Oh, wait, yeah'). | high | judge panel (Opus + Argon, p 0.89) |
+| FA-66c8341b | 40:36 | vocab-A | tier 2 | دولات، دولات | No, do you wanna say one country or countries؟ ... صح معناها دول. ... دول. | دولات -> دول | Invented plural دولات for countries (sheet: country / Dawle); Amal said No and gave دول. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-abbcb339 | 41:24 | grammar | A21 | غير دول، | دولة. | غير دول -> غير دولة | 8eir + plural for 'a different country (every year)'; Amal said دولة and he said غير دولة (her own 41:06 line was engine-written غير دول, likely dawle). | high | judge panel (Opus + Argon, p 0.80) |
+| FA-06c3e3b8 | 43:05 | grammar | E1 | راح أزيد، um، هنين غرفة، غرفة نوم. | No. غرفتين. | هنين غرفة -> غرفتين | Two + noun instead of the dual; Amal said No, غرفتين and he said غرفتين نوم. | high | judge panel (Opus + Argon, p 0.94) |
+| FA-fb9582fc | 43:56 | grammar | B13 | أنا بمنى، أنا راح، أنا راح بتمنى. I will wish now. | بتمنى. No. ... I asked you قبل ... you said أنا بتمنى, so it works. | أنا راح بتمنى -> أنا بتمنى | ra7 with a b- verb (and not needed); Amal said بتمنى. No — plain أنا بتمنى works. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-c9330819 | 44:47 | grammar | A4 | عندي ثلاث مشاري AI لـ محل، | لا. | لـ محل -> لـ محلي | Meant 'for my store'; Amal said لا and he fixed to لـ محلي, she said Yes. | medium | judge panel (Opus + Argon, p 0.76) |
+| FA-c09a465f | 45:40 | grammar | D3 | إحنا بدي، بد-- إحنا بدي، | جد؟ | إحنا بدي -> بدنا | He pairs 'e7na' with 'biddi', she prompts his attention with 'jad?' and he self-corrects to 'bedna'. | medium | judge panel (Opus + Argon, p 0.67) |
+| FA-d4bdc0a9 | 48:03 | vocab-A | tier 2 | Is it darib? | Yes، بس make it feminine. ... ضريبة. | darib -> ضريبة | Masculine form of the noun (sheet: tax / Dareebe); Amal said make it feminine, ضريبة. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-e2335616 | 48:38 | vocab-A | tier 1 | I am happy. Ana basboot. Ana | No. ... أبـ، أبصم. | Ana basboot -> أنا مبسوط | He means 'I am happy' and says basboot, then mazboot; Amal says No and hints 'mab-', he lands on mabsut (her chat writes mabsoot). | high | judge panel (Opus + Argon, p 0.84) |
+| FA-b8cd4dd4 | 48:58 | grammar | A9 | Ana mabsut, uh, enno khalasit, um, dari batni. | م، fix it. ... First it has its plural. | dari batni -> darayibi | Singular 'my tax' for 'my taxes'; Amal said fix it, first the plural, and he moved to darayib-. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-b1eef738 | 49:21 | grammar | A4 | uh, darayibni, darayibni. | No n, ضرايب. | darayibni -> darayibi | Verb-object -ni on a noun for 'my'; Amal said 'No n' and he said Darayibi, that's right. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-17b94976 | 49:44 | grammar | A4 | Uh, kul il darayib. Ibi kul il, right? | All my. ... كل الضرايب بس كل ضرايبي. | kul il darayib -> كل ضرايبي | Asked for 'all my taxes' he says kul il darayib (all the taxes); Amal gives كل ضرايبي (kul + owner ending, no el-) and he repeats kul darayibi. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-9e10b4d4 | 51:39 | grammar | C4 | so mishfi or mafi ashia, uh, ashia wadfeen. | واضحين. بس you're saying not clear. ... So what do I say before واضحين؟ | ashia wadfeen -> أشياء مش واضحين | He meant 'nothing unclear' but dropped mish before the adjective; Amal asked what goes before واضحين and he said Mish wadfeen. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-f0be5e2b | 53:18 | grammar | A23 | مشروع المفضل. | Did you put ال first or no؟ ... No. ... You would say مشروعي المفضل that would work. | مشروع المفضل -> مشروعي المفضل | Noun bare before el-mufaddal; Amal asked about the el-, said No, gave مشروعي المفضل; he later built المشروع المفضل عندي. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-6979542c | 56:27 | vocab-A | tier 1 | ربيعي. ربيعي؟ ... ربيع؟ | No. ... No، ربيع is spring. | ربيع -> خريف | For Fall he said ربيع (spring); Amal said No, ربيع is spring, and he said خريف (sheet: autumn / fall / 5areef). | high | judge panel (Opus + Argon, p 0.89) |
+| FA-51fb72dc | 59:51 | grammar | A18 | قبل ما يخلص. ... إذا ما يخل... | ما؟ ... حربز؟ | قبل ما يخلص -> قبل ما تخلص الحرب | Masculine verb for 7arb, which Amal had just stressed is feminine; she prompted (engine حربز = el-7arb?) and he said ما تخلص الحرب. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-a91eb2ac | 1:05:49 | vocab-A | tier 1 | So mid-- Are you saying mid-shadja, right? | لا، لا motivation the thing. مش adjective. | mid-shadja -> حافز / دافع | Review quiz for the noun 'motivation'; he answers the adjective متشجع, Amal says no, the thing not the adjective (sheet: incentive / motivation / 7aafez; motive / Daafe3). | high | judge panel (Opus + Argon, p 0.81) |
+| FA-89276e91 | 1:07:16 | vocab-A (listening) | tier 1 | qulyan. This is also in general ... We say qulyan for in general. | No, it's like completely, fully هيك. ... لا، كليًا is like completely. | qulyan = in general -> كليًا = completely | He gave the wrong meaning for كليًا; Amal said No, it means completely (sheet: completely / fully / Kulliyyan). | high | judge panel (Opus + Argon, p 0.81) |
+| FA-451e3e69 | 1:08:25 | grammar | A8 | khut tat meni, khut tat meni. ... the sign is good. Khut tat meni. | الخطة منيحة. | khut tat meni -> الخطة منيحة | Masculine mnee7 with feminine 5u66a and no el-; Amal recast الخطة منيحة and he said El khut tat menia (she then repeated الخطة). | high | judge panel (Opus + Argon, p 0.85) |
