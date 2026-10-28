@@ -2,8 +2,8 @@
   "version": "2026-09-21-reliability-v1+silence+zibdeh-wrong-form+azra2-gender-form+ustaaz-vocab-miss+context-sweep-0925+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+lessons-1026-1027+vocab-unresolved-audit-0928",
   "checks": {
     "learner_occurrences": 9965,
-    "initial_pending": 2381,
-    "extra_checked": 2448,
+    "initial_pending": 2385,
+    "extra_checked": 2452,
     "integrity_failures": 0
   },
   "ledger": [
@@ -335185,7 +335185,27 @@
           "grouping_lossless": true
         }
       },
-      "status": "Not scored",
+      "extra": {
+        "pass4": {
+          "method": "wider available source context",
+          "rows": 29,
+          "context_sha256": "38d8149b48266fe37b254d275bc42cb3b4138001cae389dd0d506f0362f16aa0"
+        },
+        "pass5": {
+          "method": "catalog identity and alternative transcript check",
+          "catalog_candidates": [
+            "ana 2ulet"
+          ],
+          "transcript_status": "asr",
+          "raw_source_preserved": true
+        },
+        "pass6": {
+          "method": "final counterexample check: repetition, grammar, prompt versus supplied answer, self-correction, false ASR binding",
+          "outcome": "Needs review",
+          "remaining_reason": "Isolated production; insufficient evidence of independent contextual success"
+        }
+      },
+      "status": "Needs review",
       "reason": "Isolated production; insufficient evidence of independent contextual success"
     },
     {
@@ -335330,7 +335350,27 @@
           "grouping_lossless": true
         }
       },
-      "status": "Not scored",
+      "extra": {
+        "pass4": {
+          "method": "wider available source context",
+          "rows": 31,
+          "context_sha256": "a9472f869c33c071df20788d9ee0a73360807e1de9693fba03c924cfcafa31c6"
+        },
+        "pass5": {
+          "method": "catalog identity and alternative transcript check",
+          "catalog_candidates": [
+            "3alem"
+          ],
+          "transcript_status": "asr",
+          "raw_source_preserved": true
+        },
+        "pass6": {
+          "method": "final counterexample check: repetition, grammar, prompt versus supplied answer, self-correction, false ASR binding",
+          "outcome": "Needs review",
+          "remaining_reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
+        }
+      },
+      "status": "Needs review",
       "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
     },
     {
@@ -335446,7 +335486,27 @@
           "grouping_lossless": true
         }
       },
-      "status": "Not scored",
+      "extra": {
+        "pass4": {
+          "method": "wider available source context",
+          "rows": 28,
+          "context_sha256": "b1b2f66dd127c85d3c41a66a8ec1f76151ec6c82c237e289540d30c048be66e6"
+        },
+        "pass5": {
+          "method": "catalog identity and alternative transcript check",
+          "catalog_candidates": [
+            "ila"
+          ],
+          "transcript_status": "asr",
+          "raw_source_preserved": true
+        },
+        "pass6": {
+          "method": "final counterexample check: repetition, grammar, prompt versus supplied answer, self-correction, false ASR binding",
+          "outcome": "Needs review",
+          "remaining_reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
+        }
+      },
+      "status": "Needs review",
       "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
     },
     {
@@ -335669,7 +335729,27 @@
           "grouping_lossless": true
         }
       },
-      "status": "Not scored",
+      "extra": {
+        "pass4": {
+          "method": "wider available source context",
+          "rows": 39,
+          "context_sha256": "4300edc66af7faac71092cfa14faca641deb4b827b091d1b3f20a804ca23737f"
+        },
+        "pass5": {
+          "method": "catalog identity and alternative transcript check",
+          "catalog_candidates": [
+            "ila"
+          ],
+          "transcript_status": "asr",
+          "raw_source_preserved": true
+        },
+        "pass6": {
+          "method": "final counterexample check: repetition, grammar, prompt versus supplied answer, self-correction, false ASR binding",
+          "outcome": "Needs review",
+          "remaining_reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
+        }
+      },
+      "status": "Needs review",
       "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
     },
     {
