@@ -54,8 +54,9 @@ def normalise(text):
         if _DIA.match(c):
             i += 1
             continue
-        out.append(_norm_char(c))
-        idx.append(i)
+        n = _norm_char(c)
+        out.append(n)
+        idx.extend([i] * len(n))    # a few letters lower-case to 2 characters ('İ' -> 'i̇'); every output char keeps its source index
         i += 1
     s = "".join(out)
     # "ال " (el- written apart) -> "ال": remove the space after a standalone ال

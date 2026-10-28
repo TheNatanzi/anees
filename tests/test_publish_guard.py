@@ -758,3 +758,14 @@ def test_doc_sections_keep_their_topics_and_the_catalog_never_empties(tmp_path):
                        capture_output=True, text=True)
     assert r.returncode != 0 and 'NOT written' in (r.stderr + r.stdout)
     assert len(json.loads(out.read_text(encoding='utf-8'))['groups']) == 30          # the good catalog stays
+
+
+
+def test_normalise_survives_letters_that_lowercase_to_two_characters():
+    """2026-10-27: a 'İ' in the 10-27 transcript lowercases to two characters; normalise's index map came up short and
+    the lesson's review crashed (IndexError), which blocked publishing."""
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
+    import transcript_marks as TM
+    s, idx = TM.normalise("بتقدر İ ال بيت")
+    assert len(s) == len(idx) and idx == sorted(idx)
