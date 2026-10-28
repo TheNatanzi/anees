@@ -51,9 +51,22 @@
     const ar = parts.filter(p => AR.test(p) && !/[A-Za-z]/.test(p)), lat = parts.filter(p => !AR.test(p));
     return ar.length === 1 && lat.length === 1 ? { arabizi: lat[0], arabic: ar[0] } : null;
   }
+  // A pasted line can also lose the gap between the Arabic and the English: "أنا بنتبه على I pay attention to" in the Arabic
+  // box, the Arabizi alone in the Arabizi OR the English box (Medi 2026-10-28: "Ana banbaset min" on the English side of
+  // Collocations PT2; "...meone / because of something" cut off on the Arabic side). The Latin tail is the English; the one
+  // other Latin box is the Arabizi. Her text is kept as written in the table (S1); only the card's sides are named.
+  function unglue(c) {
+    const t = String(c.arabic || '').trim().split(/\s+/);
+    // the English starts at the first Latin word after the Arabic; a lone X / Y is her placeholder ("أنا بفضل X على Y")
+    const i = t.findIndex((w, k) => /[A-Za-z]/.test(w) && !/^[XY]$/.test(w) && t.slice(0, k).some(x => AR.test(x)));
+    if (i < 1 || t.slice(i).some(w => AR.test(w))) return c;
+    const lat = [c.arabizi, c.english].map(s => String(s || '').trim()).filter(Boolean);
+    if (lat.length !== 1 || AR.test(lat[0])) return c;
+    return Object.assign({}, c, { arabic: t.slice(0, i).join(' '), english: t.slice(i).join(' '), arabizi: lat[0] });
+  }
   function uploadSets(rows) {
     return effective(rows).filter(r => r.kind === 'upload').map(u => {
-      const cards = (Array.isArray(u.rows) ? u.rows : []).map(c => (!c.arabizi && splitBox(c.arabic)) ? Object.assign({}, c, splitBox(c.arabic)) : c).map((c, i) => ({
+      const cards = (Array.isArray(u.rows) ? u.rows : []).map(c => (!c.arabizi && splitBox(c.arabic)) ? Object.assign({}, c, splitBox(c.arabic)) : unglue(c)).map((c, i) => ({
         key: 'u:' + u.id + ':' + (i + 1), arabizi: String(c.arabizi || c.arabic || ''), arabic: c.arabizi ? String(c.arabic || '') : '',
         english: String(c.english || ''), plural: String(c.plural || ''), notes: String(c.notes || ''), topic: u.title || 'From the tutor', upload: u.id,
       })).filter(c => (c.arabizi || c.arabic) && (c.english || (c.arabizi && c.arabic)));

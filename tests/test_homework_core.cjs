@@ -103,3 +103,17 @@ test('a pasted "Latin | Arabic" box becomes two fields (Medi 2026-10-16: 7arb (f
   assert.deepEqual([c[3].arabizi, c[3].arabic], ['a | b', '']);
   assert.deepEqual([c[4].arabizi, c[4].arabic], ['7arb', 'حرب']);
 });
+
+test('a pasted "Arabic English" box is split, the Arabizi found in either box (Medi 2026-10-28: Arabizi on the English side of Collocations PT2)', () => {
+  const HW = require('../docs/js/homework-core.js');
+  const up = [{ id: 'y', kind: 'upload', title: 'T', rows: [
+    { arabic: 'أنا بنتبه على I pay attention to', arabizi: 'Ana bantebeh 3ala', english: '' },
+    { arabic: 'أنا بجيب لـ I bring something to someone', arabizi: '', english: 'Ana bajeeb la-' },
+    { arabic: 'أنا بفضل X على Y I prefer X over Y', arabizi: 'Ana bafaddel X 3ala Y', english: '' },
+    { arabic: 'أنا بعرف', arabizi: 'Ana ba3raf', english: 'I know' }] }];
+  const c = HW.uploadSets(up)[0].cards.map(x => [x.arabizi, x.arabic, x.english]);
+  assert.deepEqual(c[0], ['Ana bantebeh 3ala', 'أنا بنتبه على', 'I pay attention to']);
+  assert.deepEqual(c[1], ['Ana bajeeb la-', 'أنا بجيب لـ', 'I bring something to someone']);
+  assert.deepEqual(c[2], ['Ana bafaddel X 3ala Y', 'أنا بفضل X على Y', 'I prefer X over Y']);
+  assert.deepEqual(c[3], ['Ana ba3raf', 'أنا بعرف', 'I know']);
+});
