@@ -70,8 +70,10 @@
 
     // ---- her choice: PERMANENT / TEMPORARY ------------------------------------------------------------------------
     function commit(keep) {
-      const cards = SI.toCards(draft.rows, draft.cols);
-      if (!cards.length) { note('No usable rows: each needs the word and its meaning. Check the column names above.'); return; }
+      // Medi 2026-10-28: a card with a blank or mixed-up side is never saved; she fixes the columns, or saves only the good ones
+      const all = SI.toCards(draft.rows, draft.cols), bad = new Set(H.checkCards(H.draftCards(all)).filter(p => !p.soft).map(p => p.i));
+      const cards = all.filter((_, i) => !bad.has(i));
+      if (!cards.length) { note('No card passed the check: each needs the word and its meaning on the right sides. Check the column names above.'); return; }
       const title = (el.querySelector('[data-title]') || {}).value || draft.title;
       const body = { id: uuid(), kind: 'upload', title: String(title || draft.title).trim().slice(0, 200), source: draft.source, source_ref: String(draft.source_ref || '').slice(0, 500), keep,
                      columns: { arabizi: draft.cols.arabizi, arabic: draft.cols.arabic, english: draft.cols.english, plural: draft.cols.plural, notes: draft.cols.notes, header: !!draft.cols.header },
@@ -87,6 +89,13 @@
     // ---- the view ---------------------------------------------------------------------------------------------------
     function previewHtml() {
       const d = draft, width = Math.max(...d.rows.map(r => r.length)), cards = SI.toCards(d.rows, d.cols);
+      const found = H.checkCards(H.draftCards(cards)), probs = found.filter(p => !p.soft), soft = found.filter(p => p.soft), good = cards.length - probs.length, left = (d.cols.header ? d.rows.length - 1 : d.rows.length) - cards.length;
+      const check = probs.length
+        ? `<div class="up-check bad"><p class="hb-prog">⚠ ${probs.length} card${probs.length === 1 ? '' : 's'} would show wrong - not saved</p><p class="hb-sub">A blank side or the two sides mixed up. If a column is named wrong above, fix it and this list clears.</p>
+           <ul class="hb-done">${probs.slice(0, 10).map(p => `<li><b>Card ${p.i + 1}</b> <span>${esc([p.arabizi, p.arabic, p.english].filter(Boolean).join(' · ') || '(empty)')}</span><br><span>${esc(p.why.join('; '))}</span></li>`).join('')}${probs.length > 10 ? `<li><span>… and ${probs.length - 10} more</span></li>` : ''}</ul></div>`
+        : `<p class="up-check ok hb-sub">✓ Check: all ${cards.length} cards have an Arabic side and an English side that match up.</p>`
+        + (soft.length ? `<div class="up-check"><p class="hb-sub">Please look at ${soft.length === 1 ? 'this one' : 'these ' + soft.length} (saved as written):</p><ul class="hb-done">${soft.slice(0, 6).map(p => `<li><b>Card ${p.i + 1}</b> <span>${esc([p.arabizi, p.arabic, p.english].filter(Boolean).join(' · '))}</span><br><span>${esc(p.why.join('; '))}</span></li>`).join('')}</ul></div>` : '');
+      const n = probs.length ? `the ${good} good card${good === 1 ? '' : 's'} ` : '';
       const head = [...Array(width)].map((_, c) => { const role = Object.keys(d.cols).find(k => k !== 'header' && d.cols[k] === c) || '';
         return `<th><select data-col="${c}" aria-label="Column ${c + 1}">${ROLES.map(([v, l]) => `<option value="${v}"${v === role ? ' selected' : ''}>${l}</option>`).join('')}</select></th>`; }).join('');
       const body = (d.cols.header ? d.rows.slice(1) : d.rows).slice(0, 12).map(r => `<tr>${[...Array(width)].map((_, c) => `<td${/[؀-ۿ]/.test(r[c] || '') ? ' lang="ar" dir="rtl"' : ''}>${esc(r[c] || '')}</td>`).join('')}</tr>`).join('');
@@ -96,9 +105,10 @@
         <p class="hb-sub">Each column: what it holds (change it if I guessed wrong).</p>
         <div class="up-table"><table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>
         ${d.rows.length > 13 ? `<p class="hb-sub">… and ${d.rows.length - 12 - (d.cols.header ? 1 : 0)} more rows</p>` : ''}
+        ${check}${left > 0 ? `<p class="hb-sub">${left} row${left === 1 ? '' : 's'} left out: no word or no meaning.</p>` : ''}
         <div class="hb-btns">
-          <button type="button" class="hb-ans primary" data-keep="permanent">Save as PERMANENT<small>these words join the full list - a reminder to add them to the Doc stays here until they are in it</small></button>
-          <button type="button" class="hb-ans" data-keep="temporary">Save as TEMPORARY<small>cards only, for the next lessons</small></button>
+          <button type="button" class="hb-ans primary" data-keep="permanent"${good ? '' : ' disabled'}>Save ${n}as PERMANENT<small>these words join the full list - a reminder to add them to the Doc stays here until they are in it</small></button>
+          <button type="button" class="hb-ans" data-keep="temporary"${good ? '' : ' disabled'}>Save ${n}as TEMPORARY<small>cards only, for the next lessons</small></button>
           <button type="button" class="hb-ans drop" data-cancel>Cancel</button>
         </div></div>`;
     }
@@ -133,6 +143,7 @@
       c.textContent = `#anees-bank .up-row{display:flex;gap:8px;align-items:flex-start}#anees-bank .up-row .hb-input{flex:1}#anees-bank .up-go{width:auto;min-height:48px;flex:0 0 auto}
 #anees-bank .up-table{overflow:auto;border:1px solid var(--ab-line);border-radius:10px;margin:0 0 10px}#anees-bank .up-table table{border-collapse:collapse;width:100%;font-size:14px}
 #anees-bank .up-table th,#anees-bank .up-table td{padding:6px 8px;border-bottom:1px solid var(--ab-line);text-align:left;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}
+#anees-bank .up-check{margin:0 0 10px}#anees-bank .up-check.ok{color:var(--sabz-success,#1E7B4A)}#anees-bank .up-check.bad{border:1px solid var(--sabz-danger,#B3261E);border-radius:10px;padding:8px 12px}#anees-bank .up-check.bad .hb-prog{color:var(--sabz-danger,#B3261E)}
 #anees-bank .up-table select{font:600 13px var(--sabz-font-sans);padding:6px 8px;border-radius:8px;border:1px solid var(--ab-line);background:var(--ab-bg);color:var(--ab-text);min-height:36px}`;
       document.head.appendChild(c); }
     render(); flush();

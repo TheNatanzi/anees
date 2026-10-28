@@ -64,12 +64,42 @@
     if (lat.length !== 1 || AR.test(lat[0])) return c;
     return Object.assign({}, c, { arabic: t.slice(0, i).join(' '), english: t.slice(i).join(' '), arabizi: lat[0] });
   }
+  // Medi 2026-10-28: "create a check system everytime a card set is uploaded to make sure the english and arabic sides
+  // coinside and there are no blanks". One check, used on her upload screen before she saves (docs/js/hub/upload-task.js)
+  // and on every saved set by the publish guard (scripts/check_upload_cards.cjs). It reads the cards exactly as Flashcards
+  // will show them (after uploadSets splits a pasted box). -> [{i, arabizi, arabic, english, why: [...]}], empty = all good.
+  const LAT_WORD = /[A-Za-z]/, PLACEHOLDER = /^[XY]$/;
+  const DIGIT_LETTER = /(^|[^0-9])([A-Za-z]+[235789][A-Za-z]*|[235789][A-Za-z]+)/;
+  function checkCards(cards) {
+    const out = [];
+    (cards || []).forEach((c, i) => {
+      const lat = String(c.arabizi || '').trim(), ar = String(c.arabic || '').trim(), en = String(c.english || '').trim(), why = [];
+      if (!lat && !ar) why.push('the Arabic side is blank');
+      if (!en) why.push('the English side is blank');
+      if (ar && ar.split(/\s+/).some(w => LAT_WORD.test(w) && !PLACEHOLDER.test(w))) why.push('English or Arabizi letters are mixed into the Arabic');
+      if (lat && AR.test(lat)) why.push(ar ? 'Arabic letters are mixed into the Arabizi' : 'the Arabic and its Arabizi sit in one box');
+      if (en && AR.test(en)) why.push('Arabic letters are on the English side');
+      const enWords = en.replace(/\b\d+(st|nd|rd|th|s)\b/gi, ' ');      // 2nd, 3rd, 1990s are English
+      if (en && DIGIT_LETTER.test(enWords)) why.push('the English side looks like Arabizi (' + enWords.match(DIGIT_LETTER)[2] + ')');
+      // soft: only the 'looks like Arabizi' guess (an English 'MP3' can look like it) - shown to her, never blocks or hides
+      if (why.length) out.push({ i, arabizi: lat, arabic: ar, english: en, why, soft: why.every(w => /looks like Arabizi/.test(w)) });
+    });
+    return out;
+  }
+  // a draft list (her rows before saving) as the cards Flashcards will show
+  function draftCards(rows) { return (uploadCardsRaw([{ id: 'draft', kind: 'upload', title: 'draft', rows }])[0] || {}).cards || []; }
+  // every card of the saved sets as Flashcards shows them, unfiltered: a card with a blank side is checked, not hidden
+  function uploadCardsRaw(rows) {
+    return effective(rows).filter(r => r.kind === 'upload').map(u => ({ id: u.id, title: u.title || 'From the tutor',
+      cards: (Array.isArray(u.rows) ? u.rows : []).map(c => (!c.arabizi && splitBox(c.arabic)) ? Object.assign({}, c, splitBox(c.arabic)) : unglue(c))
+        .map(c => ({ arabizi: String(c.arabizi || c.arabic || ''), arabic: c.arabizi ? String(c.arabic || '') : '', english: String(c.english || '') })) }));
+  }
   function uploadSets(rows) {
     return effective(rows).filter(r => r.kind === 'upload').map(u => {
       const cards = (Array.isArray(u.rows) ? u.rows : []).map(c => (!c.arabizi && splitBox(c.arabic)) ? Object.assign({}, c, splitBox(c.arabic)) : unglue(c)).map((c, i) => ({
         key: 'u:' + u.id + ':' + (i + 1), arabizi: String(c.arabizi || c.arabic || ''), arabic: c.arabizi ? String(c.arabic || '') : '',
         english: String(c.english || ''), plural: String(c.plural || ''), notes: String(c.notes || ''), topic: u.title || 'From the tutor', upload: u.id,
-      })).filter(c => (c.arabizi || c.arabic) && (c.english || (c.arabizi && c.arabic)));
+      })).filter(c => (c.arabizi || c.arabic) && (c.english || (c.arabizi && c.arabic)) && !checkCards([c]).some(p => !p.soft));   // a card with a blank or mixed-up side never shows (2026-10-28)
       return { id: 'u:' + u.id, uploadId: u.id, title: u.title || 'From the tutor', keep: u.keep || 'temporary', source: u.source || 'file', source_ref: u.source_ref || '',
                created_at: u.created_at || '', cards, n: cards.length };
     }).sort((a, b) => ts(b).localeCompare(ts(a)));
@@ -147,5 +177,5 @@
   }
   const scriptOf = s => { const t = String(s || ''); const ar = AR.test(t), lat = /[A-Za-z]/.test(t); return ar && lat ? 'mixed' : ar ? 'arabic' : /[235678]/.test(t) ? 'arabizi' : 'english'; };
 
-  return { KINDS, DIRECTIONS, VERDICTS, POINTS, effective, uploadSets, permanentReminder, docIndex, inDoc, shakyCards, latestReply, latestVerdict, taskState, score, cardsDone, unassignedUploads, scriptOf, norm };
+  return { KINDS, DIRECTIONS, VERDICTS, POINTS, effective, uploadSets, checkCards, draftCards, uploadCardsRaw, permanentReminder, docIndex, inDoc, shakyCards, latestReply, latestVerdict, taskState, score, cardsDone, unassignedUploads, scriptOf, norm };
 });

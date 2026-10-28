@@ -117,3 +117,30 @@ test('a pasted "Arabic English" box is split, the Arabizi found in either box (M
   assert.deepEqual(c[2], ['Ana bafaddel X 3ala Y', 'أنا بفضل X على Y', 'I prefer X over Y']);
   assert.deepEqual(c[3], ['Ana ba3raf', 'أنا بعرف', 'I know']);
 });
+
+test('the upload check: no blank side, no mixed-up sides (Medi 2026-10-28: "make sure the english and arabic sides coinside and there are no blanks")', () => {
+  const HW = require('../docs/js/homework-core.js');
+  const why = c => (HW.checkCards([c])[0] || { why: [] }).why;
+  assert.deepEqual(why({ arabizi: 'Mar7aba', arabic: 'مرحبا', english: 'hello' }), []);
+  assert.deepEqual(why({ arabizi: 'Ana bafaddel X 3ala Y', arabic: 'أنا بفضل X على Y', english: 'I prefer X over Y' }), []);
+  assert.deepEqual(why({ arabizi: 'Tani', arabic: 'تاني', english: 'the 2nd one' }), []);
+  assert.deepEqual(why({ arabizi: 'Ana bajeeb la-', arabic: 'أنا بجيب لـ', english: '' }), ['the English side is blank']);
+  assert.deepEqual(why({ arabizi: '', arabic: '', english: 'first' }), ['the Arabic side is blank']);
+  assert.match(why({ arabizi: 'Ana ba3raf', arabic: 'أنا بعرف', english: 'Ana ba3raf' })[0], /looks like Arabizi/);
+  assert.match(why({ arabizi: 'Ana', arabic: 'أنا بعرف I know', english: 'x' })[0], /mixed into the Arabic/);
+  assert.match(why({ arabizi: 'Awal', arabic: 'أول', english: 'أول' })[0], /Arabic letters are on the English side/);
+  // the 10-27 Collocations PT2 rows as they were saved: the check passes only because the reader splits them first
+  const saved = [{ id: 'z', kind: 'upload', title: 'T', rows: [
+    { arabic: 'أنا بجيب لـ I bring something to someone', arabizi: '', english: 'Ana bajeeb la-' },
+    { arabic: 'Ana ba3raf', arabizi: '', english: '' }] }];
+  assert.deepEqual(HW.checkCards(HW.uploadCardsRaw(saved)[0].cards).map(p => p.i), [1]);
+  assert.equal(HW.uploadSets(saved)[0].cards.length, 1);          // the failing card never reaches Flashcards
+  assert.deepEqual(HW.checkCards(HW.draftCards([{ arabizi: 'Ana', arabic: 'أنا', english: '' }])).map(p => p.why[0]), ['the English side is blank']);
+});
+
+test('the "looks like Arabizi" guess only warns: an English word like MP3 is never hidden', () => {
+  const HW = require('../docs/js/homework-core.js');
+  const up = [{ id: 'm', kind: 'upload', title: 'T', rows: [{ arabizi: 'Mp3', arabic: 'إم بي ثري', english: 'MP3' }] }];
+  assert.equal(HW.checkCards(HW.uploadCardsRaw(up)[0].cards)[0].soft, true);
+  assert.equal(HW.uploadSets(up)[0].cards.length, 1);
+});
