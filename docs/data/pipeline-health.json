@@ -2,18 +2,18 @@
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-10-27T19:27:10Z",
  "last_publish_sha": "ca1f61228dc1e2edd00ac843f5f4fa93c92e7f35",
- "last_block_reason": "lesson_ledger: exit 1: 2026-10-14: Word Bank audit has 243 Correct, the ledger 242 | ledger: FAIL 1 problem(s); accuracy_gates: exit 1: PROBLEM 2026-10-14: Lessons words.right=242 but the Word Bank audit has 243 Correct | accuracy check: 1 problem(s) - do not publish. First: 2026-10-14: Lessons words.right=242 but the Word Bank audit has 243 Correct; check_numbers: exit 1: numbers: FAIL 2026-10...",
- "last_block_utc": "2026-10-28T03:51:04Z",
+ "last_block_reason": "tests_py: exit 1: ...ws_30_10_08_08_36_every_word_of_his_outfit_line_is_credited | FAILED tests/test_repeats_coverage.py::test_gr_34_the_counter_reads_her_grammar_the_way_a_teacher_does | FAILED tests/test_repeats_coverage.py::test_gr_34_10_08_moments - assert False | 3 failed, 962 passed, 3 xfailed in 100.91s (0:01:40); rehear_rows: exit 1: {\"t\": 2686.5, \"why\": \"the row lands on 0 lines\", \"lin...",
+ "last_block_utc": "2026-10-28T04:20:52Z",
  "first_block_reason": "step_failures: build_lessons_page_data.py exit 1: ]; lesson_ledger: exit 1: override b8ef7a119140: no such Word Bank event | override c2586507f109: no such Word Bank event | ledger: FAIL 38 problem(s); accuracy_gates: exit 1: ...OBLEM 2026-10-12: Lessons words.right=185 but the Word Bank audit has 175 Correct | PROBLEM 2026-10-14: Lessons words.right=242 but the Word Bank audit has 228 Correct ...",
  "blocked_since_utc": "2026-10-27T20:06:28Z",
  "open_failures": [],
  "pending": [
   "lesson day (2026-10-27)",
-  "23 blocked push(es) since the last publish",
+  "24 blocked push(es) since the last publish",
   "second listen not applied: 2026-10-26"
  ],
- "hours_since_publish": 8.4,
+ "hours_since_publish": 8.9,
  "stalled": true,
- "generated_at": "2026-10-28T03:51:04Z",
- "plain_reason": "the lesson ledger check failed"
+ "generated_at": "2026-10-28T04:20:52Z",
+ "plain_reason": "a test failed"
 }
