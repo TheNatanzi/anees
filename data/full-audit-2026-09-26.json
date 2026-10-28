@@ -1,5 +1,5 @@
 {
- "built": "2026-10-27T23:46:35-07:00",
+ "built": "2026-10-28T04:16:14-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -20857,6 +20857,34 @@
     "bucket": "A8",
     "bucket2": "A1",
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-976ce8f8",
+    "date": "2026-10-27",
+    "t": "02:59",
+    "t_amal": null,
+    "medi_said": "آسف لـ شغل اللي أنا أعطيتك",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "آسف لـ شغل",
+    "right": "آسف على الشغل",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-976ce8f8",
+    "sweep_id": null,
+    "mistake": "aasef takes 3ala (sorry for = aasef 3ala) and the known work needs el-; Amal let it pass (my reading, she gave no form).",
+    "bucket": "D2",
+    "bucket2": "A1",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-10-28T11:13:29.017154+00:00",
+     "pattern": "p-aasef-la-for-3ala",
+     "rule_id": 84138
+    }
    },
    {
     "id": "FA-0cf99a7f",
@@ -89882,13 +89910,13 @@
    "chat": null,
    "wrong": "آسف لـ شغل",
    "right": "آسف على الشغل",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "D2",
    "bucket2": "A1",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "aasef takes 3ala (sorry for = aasef 3ala) and the known work needs el-; Amal let it pass (my reading, she gave no form).",
    "english": "Sorry for the work that I gave you.",
    "ids": [
@@ -89905,7 +89933,18 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-976ce8f8",
-   "n": 1517
+   "n": 1517,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-aasef-la-for-3ala",
+    "at": "2026-10-28T11:13:29.017154+00:00",
+    "rule_id": 84138,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A2",
@@ -90993,7 +91032,7 @@
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-28T06:46:37.451571+00:00",
+   "at": "2026-10-28T11:16:16.396073+00:00",
    "rules": [
     1928,
     1929,
@@ -91063,6 +91102,7 @@
     38611,
     38612,
     38618,
+    84138,
     2026,
     2027,
     2028,

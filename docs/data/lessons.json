@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T23:54:37-07:00",
+ "updated": "2026-10-28T04:20:19-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -10829,13 +10829,13 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 191,
-    "mistakes": 22,
-    "pct": 89.0,
+    "uses": 192,
+    "mistakes": 23,
+    "pct": 88.5,
     "estimate": false,
-    "scored_mistakes": 21,
+    "scored_mistakes": 22,
     "unscored_mistakes": 1,
-    "eligible": 22,
+    "eligible": 23,
     "excluded": 0,
     "pending": 0,
     "denominator": {
@@ -10845,7 +10845,7 @@
       "3 rules have more slips than counted uses (B18, E1, E6)"
      ],
      "uses": 170,
-     "slips": 22,
+     "slips": 23,
      "slips_latin": 0,
      "slips_in_zero_use_rules": 3,
      "rules_slips_over_uses": [
@@ -10986,7 +10986,7 @@
    "coverage": "Echo: engine wrote Turkish/Latin for the opening greetings (Merhaba / İyilik / Aman / Ana kemel = مرحبا / كيفك / كمان / أنا كمان) - shown in Arabic in the txt. Holes: 39:32 and 40:01 '[يتحدث العربية]' (his worry-about-family-in-Iran sentence; chat 40:50 'ana ba2la2 3ala 3ailti fi Iran 3ashaan min/el-7arb') not transcribed; 19:42 فاروق and 42:05 بالجديد look like engine noise; 58:17 / 59:12 أمي is likely the engine for عمي (her chat: 3ammi u abuy u sido). 09:47-09:51 'هاد إشي لمهدي' has no verb (give) - she said Nice, probably the engine dropped أعطي; not filed. Not filed, S4: 37:19-37:33 بتلق / بتتلق for بتقلق and 43:56-44:05 بلأ / بألق (dropped / moved ق). 1:01:41 najih recalled himself after her hint 'N' - not filed. 47:48-53:00 is a preposition / conjugation quiz; guesses phrased as rule questions (14:51 la?, 31:10 من?, 33:26 stenna takes la, 34:44 la?, 56:48 ما كذب?) left out as rule questions. 55:29 ما تكذب بي -> he asked 'Is this علي?' himself before her: self-fix. 03:17-06:30 mostly English meta-talk. / Whole file read. Engine blurs: 17:18 Amal رنتس unclear (no row); 18:43/22:29 fine; 40:01 and 42:15-42:44 chunks of his Arabic are [يتحدث العربية] so not judged; 54:17 engine يدفع لي for ادفع لنا (he said it was the ع, S4 pronunciation, no row); 44:46 engine إنت for إنتو (no row); 59:12 engine أمي likely عمي (Amal chat bas 3ammi) so the 58:17 أمي عنده is not a slip; 21:12-21:47 صار لي ... أدرس is accepted by Amal (b- optional), no row; 43:43 engine ألا for ألق. Echo candidates: echo: Merhaba = مرحبا, İyilik = تمام, Aman = ?, Ana kemel = أنا كمان (greeting, no slip); 11:39 اطلبي engine also wrote أسألك in the echo file. Tier 3: insurance is not on her sheet, so tier 0.",
    "notes": [
     "timings: anees-20261027-recall-amal-seg2145: page/engine offset spread 193.22s; anees-20261027-recall-amal-seg2560: page/engine offset spread 226.54s",
-    "grammar: 1 of the 22 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "grammar: 1 of the 23 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "1 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (32:38)."
    ],
    "page": "lessons/2026-10-27.html",
@@ -11003,7 +11003,7 @@
     "chat_lines": 52,
     "vocab_errors": 7,
     "vocab_correct": 219,
-    "grammar_errors": 22,
+    "grammar_errors": 23,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
      "wrong": 4,
@@ -11013,7 +11013,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-27.json",
-    "marks": 494,
+    "marks": 495,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
