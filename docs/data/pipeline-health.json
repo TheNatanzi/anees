@@ -2,25 +2,22 @@
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-10-27T19:27:10Z",
  "last_publish_sha": "ca1f61228dc1e2edd00ac843f5f4fa93c92e7f35",
- "last_block_reason": "step_failures: build_lessons_page_data exit 1: , \"pass\": \"rules\", \"check\": \"form_attributed\" }, { \"id\": \"20f532e4ce3beda94ac09ae73054eeb41f9d0810560e31106aa6ebbfd1a234fe\", \"pass\": \"rules\", \"check\": \"form_attributed\" } ] (open since 2026-10-27T15:27, amal); audit_word_bank_reliability.cjs exit 1: ] (open since 2026-10-27T15:46, refresh:2026-10-27); build_lessons_page_data.py exit 1: ] (open sinc...",
- "last_block_utc": "2026-10-27T23:16:16Z",
+ "last_block_reason": "step_failures: review_lesson.py 2026-10-27 exit 1; review_done: no finished review (settled audit) for 2026-10-27; check_rules: exit 1: ...; pinned runs use the pinned model (946 checked) | PASS block AI-paid-logged 0 Every paid AI call since 2026-09-28 has a run line (649 checked) | PASS block AMAL-onsite 0 Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive ...",
+ "last_block_utc": "2026-10-28T00:33:36Z",
  "first_block_reason": "step_failures: build_lessons_page_data.py exit 1: ]; lesson_ledger: exit 1: override b8ef7a119140: no such Word Bank event | override c2586507f109: no such Word Bank event | ledger: FAIL 38 problem(s); accuracy_gates: exit 1: ...OBLEM 2026-10-12: Lessons words.right=185 but the Word Bank audit has 175 Correct | PROBLEM 2026-10-14: Lessons words.right=242 but the Word Bank audit has 228 Correct ...",
  "blocked_since_utc": "2026-10-27T20:06:28Z",
  "open_failures": [
-  "amal: build_lessons_page_data exit 1: ,\n    \"pass\": \"rules\",\n    \"check\": \"form_attributed\"\n  },\n  {\n    \"id\": \"20f532e4ce3beda94ac09ae73054eeb41f9d0810560e31106aa6eb",
-  "refresh:2026-10-27: audit_word_bank_reliability.cjs exit 1: ]; build_lessons_page_data.py exit 1: ]; review_lesson.py 2026-10-27 exit 1",
-  "rehear-pages: build_lessons_page_data.py (second listen status) exit 1: ]",
-  "tutor: build_lessons_page_data.py exit 1: ]"
+  "refresh:2026-10-26: review_lesson.py 2026-10-27 exit 1",
+  "refresh:2026-10-27: review_lesson.py 2026-10-27 exit 1"
  ],
  "pending": [
   "lesson day (2026-10-27)",
-  "lesson 2026-10-26 recorded, not on the site",
-  "4 open failure(s): amal, refresh:2026-10-27, rehear-pages, tutor",
-  "10 blocked push(es) since the last publish",
-  "second listen not applied: 2026-10-27"
+  "2 open failure(s): refresh:2026-10-26, refresh:2026-10-27",
+  "11 blocked push(es) since the last publish",
+  "second listen not applied: 2026-10-26, 2026-10-27"
  ],
- "hours_since_publish": 3.8,
+ "hours_since_publish": 5.1,
  "stalled": true,
- "generated_at": "2026-10-27T23:16:16Z",
- "plain_reason": "the step \"build lessons page data\" failed"
+ "generated_at": "2026-10-28T00:33:36Z",
+ "plain_reason": "step_failures: review_lesson.py 2026-10-27 exit 1; review_done: no finished review (set..."
 }
