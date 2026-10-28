@@ -187,6 +187,10 @@ def check_s2_raw(root, raw):
         got = sha(f)
         if got != want:
             bad.append(f"{p.parent.name}/{f.name}: sha {got[:12]} != provenance {want[:12]}")
+    # 2026-10-27: a path can be transcribed again on purpose (10-26: the first bot caught a 7-min side call, kept aside in
+    # short-call-<bot>/, and the real lesson's recording was transcribed into the same path). The NEWEST ingest run of a
+    # path is the one its bytes must match; older runs of that path describe a file that was moved, not edited.
+    latest = {}
     for rp in sorted((root / "data" / "runs").glob("*.jsonl")):
         for line in open(rp, encoding="utf-8"):
             try:
@@ -199,9 +203,11 @@ def check_s2_raw(root, raw):
                 pth, want = o.get("path") or "", o.get("sha256")
                 if not want or not re.search(r"scribe[^/]*\.json$", pth) or not os.path.exists(pth):
                     continue
-                n += 1
-                if sha(pth) != want:
-                    bad.append(f"{pth}: sha changed since run {r.get('run_id', '')[:8]}")
+                latest[os.path.normcase(os.path.abspath(pth))] = (pth, want, r.get("run_id", ""))
+    for pth, want, run_id in latest.values():
+        n += 1
+        if sha(pth) != want:
+            bad.append(f"{pth}: sha changed since run {run_id[:8]}")
     return res("S2-raw", "block", rule, src, bad, total=n,
                note=None if n else "no hashed raw transcript found")
 
