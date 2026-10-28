@@ -30,7 +30,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-12 | 96.6 | 194 | 85.7 -> **82.6** | 32 | 224 -> **184** | 0 / 0 |
 | 2026-10-14 | 93.0 -> **92.8** | 263 -> **265** | 91.1 -> **89.5** | 17 | 169 -> **143** | 0 / 0 |
 | 2026-10-26 | None -> **95.3** | None -> **295** | None -> **90.0** | None -> **23** | None -> **190** | 0 / 0 |
-| 2026-10-27 | None -> **96.3** | None -> **219** | None -> **84.9** | None -> **24** | None -> **152** | 1 / 0 |
+| 2026-10-27 | None -> **96.4** | None -> **224** | None -> **85.9** | None -> **22** | None -> **149** | 0 / 0 |
 
 
 ## Conflicts
@@ -142,8 +142,6 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-12 58:52 C1a both stand: بطلب (word-bank right) vs بطلب = go out -> بطلب = request / ask for (readers asked) - he asked for another word: both stand
 - 2026-10-26 07:09 C1p both stand: كتير (word-bank right) vs ما بيعمل كتير -> ما بيشتغل كتير (readers not-scored) - slip elsewhere in the phrase: the word stays right
 - 2026-10-26 07:12 C1p both stand: كتير (word-bank right) vs ما بيعمل كتير -> ما بيشتغل كتير (readers not-scored) - slip elsewhere in the phrase: the word stays right
-- 2026-10-27 10:44 C1 settled: بسأل (word-bank right) vs بسأل -> بطلب (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
-- 2026-10-27 34:01 C2b both stand: Etlaini (readers wrong) vs Etlaini -> التقي بـ / مع (readers slip D2) - a different word and a wrong form in one word: both count
 
 ## Medi's corrections (PR-15)
 

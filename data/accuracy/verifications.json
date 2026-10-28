@@ -30610,6 +30610,56 @@
     "wrong": "بتكوني",
     "right": "كنتي"
    }
+  },
+  {
+   "uid": "FA-012757f5",
+   "date": "2026-10-27",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi answers «مع؟» to the credit-card prompt; Amal explicitly rejects it, and he changes to «بـ». Independent transcriptions support his «ما» then «بي» and her “No” followed by «أها».",
+   "evidence": {
+    "t_start": 3208.0,
+    "t_end": 3239.0,
+    "quote": "Amal: “What if you pay with like a credit card?” Medi: «مع؟» Amal: “No.” Medi: «بـ». Amal: «أها».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-27/FA-012757f5_Medi_Medi_Natanzi-bafd4d1c458.mp3",
+      "sha256": "5259001da44aca8c179b5c7d18dfa1929d401772ff050f4cbcb45d45e5da99b5",
+      "source": "Medi_Natanzi-bafd4d1c458bdd19.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-27/FA-012757f5_Amal_Amal-7dd73e5e33231966.mp3",
+      "sha256": "4ed9c5632fc5e987780d7a6ceebb431be5b18a79be0c24dc3260f021ca231e2e",
+      "source": "Amal-7dd73e5e33231966.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-27/FA-012757f5_mixed_lesson.mp3",
+      "sha256": "03054340900c99efdc0c4e0136c562afbea85a1b360bfe4da77084d1708d009b",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أن تدفع لشخص آه حسنا ما بي لذا فلا يأخذ باتفا إلا إذا إلا إذا تدفع على شيء لا أعلم لا لا هذا لا يجعل اشتركوا في القناة",
+     "Amal": "بس what if you pay with like a credit card no no never no افتح الباب",
+     "mixed": "يجب أن تدفع لشخص ما حسنا ماذا لو أنك تدفع مع كارثة كارثة لا لذا فلا تأخذ باتفا أبدا لا لا إلا إذا قمت بمشاركة شيء لا لا قم بمشاركة"
+    }
+   },
+   "claim": {
+    "wrong": "مع",
+    "right": "بـ",
+    "bucket": "D1",
+    "tier": null
+   },
+   "at": "2026-10-27T20:40:49-07:00",
+   "run_id": "a4e9c5187ee54b4aa9995ebf69ad9913"
   }
  ]
 }
