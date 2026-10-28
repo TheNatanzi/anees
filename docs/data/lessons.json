@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T19:19:55-07:00",
+ "updated": "2026-10-27T20:43:27-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -9714,7 +9714,7 @@
     ]
    },
    "words": {
-    "unique": 117,
+    "unique": 118,
     "right": 242,
     "wrong": 15,
     "partial": 8,
@@ -9723,8 +9723,8 @@
     "audit_wrong": 15,
     "audit_partial": 0,
     "not_on_sheet": 2,
-    "rehear_word_conflicts": 2,
-    "unique_rows": 109,
+    "rehear_word_conflicts": 1,
+    "unique_rows": 110,
     "eligible": 263,
     "excluded": 2,
     "pending": 0,
@@ -9999,7 +9999,7 @@
    "coverage": "Hole 57:44-1:00:17: no Medi lines (queen / badat, 'biddak tjeeb wlaad' answer, tnein) - Amal's 58:01 'You said it right the first time' and 59:21/59:31 'No. بدك إنت تجيب' fixes cannot be quoted, not rowed. Many [speaking foreign language] / [غير مسموع] lines at 17:57-18:02, 26:46, 29:20-29:42, 33:04-33:57 (send/notification sentence lost), 35:24. 03:16 'الـ مهاجرة ... بزاح' unclear, skipped. 00:02-17:07 and 24:49-26:08 mostly English meta talk. Not rowed: 22:06 دايب for ضرايب (S4, new word), 45:02 Europa -> أوروبا (pronunciation), 49:56 بفرشي/بفشك (question about form; 'i show | bafarji' is on sheet, likely ج/ش sound), 37:40 همي self-fixed to قصدي before her joke, 54:31 بعد بتلبس self-fixed to بعد ما تلبس via his own question, 39:10 / 1:10:25 / 1:08:33 rule questions, 1:02:42 ولبنات (unclear). Echo: 'Tanin' (1:00:18) = تنين (accepted by Amal); 'Mashrooha?' = مشروعة (28:23, repeat attempt of the new word). Sheet rows for ضريبة / مشروع / حرب / خطبة exist but were taught as new in this lesson, so filed tier 0. / Large English stretches (3:00-17:00 tech talk about the app, 25:41-26:04 phone call, 1:07-1:13 names). Medi turns 58:44-1:00:13 are missing from the transcript (Amal's تجيب / بدك تجيب أولاد teaching has no Medi line, so no row). Engine hid his line at 17:57 (آخر اليوم per 18:25 and 19:13), 27:11, 35:24 (inaudible; سيء taken from Amal's echo). 1:08:17-1:09:01 نفس الـ سيده vs نفس اسم سيده not filed: Amal said both are fine (نفس اسم سيده better). 38:29 هادي السنة, 37:40 همي (self-fixed to قصدي), 54:31 does بعد remove b? (question, self-fixed), 39:10 بأخلص or أخلص (question), 22:03 دايب (pronunciation of ضرايب) not filed. Echo candidates file read: engine readings there differ from this transcript, nothing added. Names (Mehdi, Lebanon, Palestine, Iran, Egyptian, Palestinian) not flagged.",
    "notes": [
     "grammar: 2 of the 17 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
-    "2 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (1:13:40, 1:13:45)."
+    "1 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (1:13:40)."
    ],
    "page": "lessons/2026-10-14.html",
    "detail": "data/lessons/2026-10-14.json",
@@ -10025,7 +10025,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-14.json",
-    "marks": 483,
+    "marks": 482,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
@@ -10859,46 +10859,46 @@
     ]
    },
    "words": {
-    "unique": 126,
-    "right": 207,
+    "unique": 128,
+    "right": 212,
     "wrong": 4,
     "partial": 8,
-    "pct": 96.3,
-    "scored": 219,
+    "pct": 96.4,
+    "scored": 224,
     "audit_wrong": 4,
     "audit_partial": 0,
-    "not_on_sheet": 4,
+    "not_on_sheet": 3,
     "rehear_word_conflicts": 1,
-    "unique_rows": 119,
-    "eligible": 219,
+    "unique_rows": 121,
+    "eligible": 224,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 96.3,
+    "eligible_pct": 96.4,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 152,
-    "mistakes": 24,
-    "pct": 84.9,
+    "uses": 149,
+    "mistakes": 22,
+    "pct": 85.9,
     "estimate": false,
-    "scored_mistakes": 23,
+    "scored_mistakes": 21,
     "unscored_mistakes": 1,
-    "eligible": 24,
+    "eligible": 22,
     "excluded": 0,
     "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
       "4 slips are in rules the counter found 0 uses of in this lesson",
-      "3 rules have more slips than counted uses (B12, B18, E6)"
+      "3 rules have more slips than counted uses (B10, B18, E6)"
      ],
      "uses": 129,
-     "slips": 24,
-     "slips_latin": 11,
+     "slips": 22,
+     "slips_latin": 0,
      "slips_in_zero_use_rules": 4,
      "rules_slips_over_uses": [
-      "B12",
+      "B10",
       "B18",
       "E6"
      ]
@@ -11032,12 +11032,11 @@
      "t": "1:01:09"
     }
    ],
-   "coverage": "Many Medi turns are Latin-transliterated by the engine (02:44-05:57, 12:55-17:16, 32:21-36:09, 1:02:19-1:04:23), so forms there are low-confidence. 36:49-42:51 Medi's Arabic is lost as '[يتحدث العربية]' (the قلق/حرب/بعزم stretch, incl. 39:18 بأى -> بألقى which Amal called No: a dropped root letter, S4 pronunciation, not filed). 12:04 عروسك/عريس is Amal's joke on her own 'your bride' prompt, not filed. 29:59 ما بعتلهم: Amal conceded his masculine 'you' was fine. Engine: 18:27 شي قريب = شي غريب, 18:34 'صار my مبارة' = صار معي مبارح, 1:03:22 kana = kamaan likely. No echo-candidates file for 10-27. Proper names (Mahdi, برن) not glossed. medi_turns = 232 Arabic-script Medi lines + ~58 Latin-Arabic ones. / Very Latin-transliterated and heavily garbled by the engine. Hidden-Arabic stretches ([يتحدث العربية]) at 36:49-42:15 and 44-47 are not readable; the conjugation drills of the verb بقلق/بقلأ (43:56-47:20) show dropped ق (S4, skipped). Skipped as engine/S4: شي قريب/مبارة 18:27 (غريب, البارحة), أولي/ألهت 47:59-49:30 (قول dropped ق), سودا vs سودة 07:40. Names: Mahdi, برن (Bern, 16:20), Utah (58:04) not counted. 52:22 'he told us' for قلنا left out as unclear. No echo-candidates file for this date.",
+   "coverage": "Echo: engine wrote Turkish/Latin for the opening greetings (Merhaba / İyilik / Aman / Ana kemel = مرحبا / كيفك / كمان / أنا كمان) - shown in Arabic in the txt. Holes: 39:32 and 40:01 '[يتحدث العربية]' (his worry-about-family-in-Iran sentence; chat 40:50 'ana ba2la2 3ala 3ailti fi Iran 3ashaan min/el-7arb') not transcribed; 19:42 فاروق and 42:05 بالجديد look like engine noise; 58:17 / 59:12 أمي is likely the engine for عمي (her chat: 3ammi u abuy u sido). 09:47-09:51 'هاد إشي لمهدي' has no verb (give) - she said Nice, probably the engine dropped أعطي; not filed. Not filed, S4: 37:19-37:33 بتلق / بتتلق for بتقلق and 43:56-44:05 بلأ / بألق (dropped / moved ق). 1:01:41 najih recalled himself after her hint 'N' - not filed. 47:48-53:00 is a preposition / conjugation quiz; guesses phrased as rule questions (14:51 la?, 31:10 من?, 33:26 stenna takes la, 34:44 la?, 56:48 ما كذب?) left out as rule questions. 55:29 ما تكذب بي -> he asked 'Is this علي?' himself before her: self-fix. 03:17-06:30 mostly English meta-talk. / Whole file read. Engine blurs: 17:18 Amal رنتس unclear (no row); 18:43/22:29 fine; 40:01 and 42:15-42:44 chunks of his Arabic are [يتحدث العربية] so not judged; 54:17 engine يدفع لي for ادفع لنا (he said it was the ع, S4 pronunciation, no row); 44:46 engine إنت for إنتو (no row); 59:12 engine أمي likely عمي (Amal chat bas 3ammi) so the 58:17 أمي عنده is not a slip; 21:12-21:47 صار لي ... أدرس is accepted by Amal (b- optional), no row; 43:43 engine ألا for ألق. Echo candidates: echo: Merhaba = مرحبا, İyilik = تمام, Aman = ?, Ana kemel = أنا كمان (greeting, no slip); 11:39 اطلبي engine also wrote أسألك in the echo file. Tier 3: insurance is not on her sheet, so tier 0.",
    "notes": [
     "timings: anees-20261027-recall-amal-seg2145: page/engine offset spread 193.22s; anees-20261027-recall-amal-seg2560: page/engine offset spread 226.54s",
-    "grammar: 1 of the 24 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
-    "1 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (32:38).",
-    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 10:44 Word Bank said right, Amal said no to that word: her no counts."
+    "grammar: 1 of the 22 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "1 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (32:38)."
    ],
    "page": "lessons/2026-10-27.html",
    "detail": "data/lessons/2026-10-27.json",
@@ -11050,22 +11049,22 @@
    },
    "counts": {
     "turns": 1067,
-    "chat_lines": 0,
-    "vocab_errors": 8,
-    "vocab_correct": 215,
-    "grammar_errors": 24,
+    "chat_lines": 52,
+    "vocab_errors": 7,
+    "vocab_correct": 220,
+    "grammar_errors": 22,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
      "wrong": 4,
      "half": 0,
-     "off_list": 4
+     "off_list": 3
     }
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-27.json",
     "marks": 445,
-    "conflicts": 2,
-    "resolved": 1,
+    "conflicts": 0,
+    "resolved": 0,
     "needs_medi": 0,
     "mode": "on",
     "items": []
@@ -11073,7 +11072,7 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 39.6 %; 2 consecutive passes at >= 95 % are needed",
+     "reader agreement: pass 1 61.2 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: speaker labels agree with an independent check on only 89.2 % of 923 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3870 s) compared with a second model"
     ],
@@ -11082,11 +11081,11 @@
      "passes": [
       {
        "pass": 1,
-       "r1": 43,
-       "r2": 38,
-       "agreed": 21,
-       "disputed": 32,
-       "agreement_pct": 39.6
+       "r1": 42,
+       "r2": 40,
+       "agreed": 30,
+       "disputed": 19,
+       "agreement_pct": 61.2
       }
      ],
      "between": [],

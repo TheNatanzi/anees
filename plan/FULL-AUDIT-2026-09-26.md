@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **832** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 120 |
+| Grammar fixes Amal voiced (A) | **830** (sweep had 312) |
+| Grammar she let pass (B, to Amal) | 122 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 33 |
-| Vocab fixes Amal voiced (A) | **403** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 197, '0': 145, '2': 95, '3': 4} |
-| Vocab she let pass (B, to Amal) | **42** by tier {'1': 32, '2': 8, '3': 2} |
-| Listening-drill misreads (kept apart) | 69 |
-| Rows the readers found that the sweep did not have | 1063 |
+| Vocab fixes Amal voiced (A) | **402** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 194, '0': 147, '2': 95, '3': 4} |
+| Vocab she let pass (B, to Amal) | **41** by tier {'1': 32, '2': 8, '3': 1} |
+| Listening-drill misreads (kept apart) | 71 |
+| Rows the readers found that the sweep did not have | 1062 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -47,7 +47,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-12 | 32 | 5 | 8 | 0 | 3 | 0 | 0 | 63.5 % |
 | 2026-10-14 | 17 | 0 | 17 | 0 | 0 | 0 | 0 | 58.9 % |
 | 2026-10-26 | 24 | 0 | 13 | 0 | 1 | 0 | 0 | 44.3 % |
-| 2026-10-27 | 24 | 0 | 8 | 1 | 0 | 0 | 0 | 39.6 % |
+| 2026-10-27 | 22 | 2 | 7 | 0 | 2 | 0 | 0 | 61.2 % |
 
 ## Reader passes (the loop)
 
@@ -77,39 +77,39 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-10-12**: pass 1: r1 47 r2 46 agreed 33 disputed 19 (63.5 %), r3 kept 15 dropped 4 -> 48 rows
 - **2026-10-14**: pass 1: r1 49 r2 47 agreed 33 disputed 23 (58.9 %), r3 kept 17 dropped 6 -> 40 rows
 - **2026-10-26**: pass 1: r1 51 r2 46 agreed 27 disputed 34 (44.3 %), r3 kept 21 dropped 13 -> 34 rows
-- **2026-10-27**: pass 1: r1 43 r2 38 agreed 21 disputed 32 (39.6 %), r3 kept 23 dropped 9 -> 30 rows
+- **2026-10-27**: pass 1: r1 42 r2 40 agreed 30 disputed 19 (61.2 %), r3 kept 13 dropped 6 -> 33 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
-| B18 | verb matches its subject | 74 |
-| D2 | verb + its fixed preposition | 66 |
-| B5 | past tense | 59 |
+| B18 | verb matches its subject | 73 |
+| D2 | verb + its fixed preposition | 65 |
+| B5 | past tense | 60 |
 | A8 | gender on adjectives | 56 |
-| B12 | make-X vs get-X | 54 |
-| A7 | noun + adjective | 42 |
-| D4 | endings on verbs | 42 |
+| B12 | make-X vs get-X | 53 |
+| A7 | noun + adjective | 43 |
+| D4 | endings on verbs | 41 |
 | A9 | plurals | 41 |
+| D1 | prepositions | 38 |
 | B1 | present with b- | 37 |
-| D1 | prepositions | 37 |
 | A2 | idafa (possession) | 34 |
 | PROPOSE | ? | 33 |
-| A1 | el- (the) | 31 |
-| A4 | possessive endings | 30 |
+| A4 | possessive endings | 31 |
+| A1 | el- (the) | 30 |
+| E1 | number + noun | 21 |
 | B2 | b-drop after modals | 21 |
-| E1 | number + noun | 20 |
-| D3 | endings on prepositions | 19 |
+| D3 | endings on prepositions | 18 |
 | C2 | the pointer rule | 17 |
 | C4 | saying no | 16 |
 | C7 | illi | 15 |
 | B6 | kaan = was / were | 15 |
 | A15 | aa5er / a5eer: before or after the noun | 14 |
 | B15 | participles | 13 |
+| B10 | commands | 13 |
 | B11 | negative commands | 13 |
 | A10 | hada / hadi | 12 |
 | E2 | clock time | 11 |
-| B10 | commands | 11 |
 | B3 | b-drop after time words | 9 |
 | C3 | comparatives | 9 |
 | B8 | bakoon / ykoon | 9 |
@@ -147,7 +147,6 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A22 | a8lab and nafs + definite noun | 1 |
 | A21 | taani and 8eir | 1 |
 | A23 | mufaddal + 3ind | 1 |
-| B17 | sarli | 1 |
 | E6 | ago = qabel + number + noun | 1 |
 
 ## Sweep rows the readers did not list (kept, not dropped)
@@ -1972,41 +1971,40 @@ _Hole 04:10-06:04: only Amal's lines survive (ميحة, حططنا, 'الـ What
 
 ### 2026-10-27
 
-_Many Medi turns are Latin-transliterated by the engine (02:44-05:57, 12:55-17:16, 32:21-36:09, 1:02:19-1:04:23), so forms there are low-confidence. 36:49-42:51 Medi's Arabic is lost as '[يتحدث العربية]' (the قلق/حرب/بعزم stretch, incl. 39:18 بأى -> بألقى which Amal called No: a dropped root letter, S4 pronunciation, not filed). 12:04 عروسك/عريس is Amal's joke on her own 'your bride' prompt, not filed. 29:59 ما بعتلهم: Amal conceded his masculine 'you' was fine. Engine: 18:27 شي قريب = شي غريب, 18:34 'صار my مبارة' = صار معي مبارح, 1:03:22 kana = kamaan likely. No echo-candidates file for 10-27. Proper names (Mahdi, برن) not glossed. medi_turns = 232 Arabic-script Medi lines + ~58 Latin-Arabic ones. / Very Latin-transliterated and heavily garbled by the engine. Hidden-Arabic stretches ([يتحدث العربية]) at 36:49-42:15 and 44-47 are not readable; the conjugation drills of the verb بقلق/بقلأ (43:56-47:20) show dropped ق (S4, skipped). Skipped as engine/S4: شي قريب/مبارة 18:27 (غريب, البارحة), أولي/ألهت 47:59-49:30 (قول dropped ق), سودا vs سودة 07:40. Names: Mahdi, برن (Bern, 16:20), Utah (58:04) not counted. 52:22 'he told us' for قلنا left out as unclear. No echo-candidates file for this date._
+_Echo: engine wrote Turkish/Latin for the opening greetings (Merhaba / İyilik / Aman / Ana kemel = مرحبا / كيفك / كمان / أنا كمان) - shown in Arabic in the txt. Holes: 39:32 and 40:01 '[يتحدث العربية]' (his worry-about-family-in-Iran sentence; chat 40:50 'ana ba2la2 3ala 3ailti fi Iran 3ashaan min/el-7arb') not transcribed; 19:42 فاروق and 42:05 بالجديد look like engine noise; 58:17 / 59:12 أمي is likely the engine for عمي (her chat: 3ammi u abuy u sido). 09:47-09:51 'هاد إشي لمهدي' has no verb (give) - she said Nice, probably the engine dropped أعطي; not filed. Not filed, S4: 37:19-37:33 بتلق / بتتلق for بتقلق and 43:56-44:05 بلأ / بألق (dropped / moved ق). 1:01:41 najih recalled himself after her hint 'N' - not filed. 47:48-53:00 is a preposition / conjugation quiz; guesses phrased as rule questions (14:51 la?, 31:10 من?, 33:26 stenna takes la, 34:44 la?, 56:48 ما كذب?) left out as rule questions. 55:29 ما تكذب بي -> he asked 'Is this علي?' himself before her: self-fix. 03:17-06:30 mostly English meta-talk. / Whole file read. Engine blurs: 17:18 Amal رنتس unclear (no row); 18:43/22:29 fine; 40:01 and 42:15-42:44 chunks of his Arabic are [يتحدث العربية] so not judged; 54:17 engine يدفع لي for ادفع لنا (he said it was the ع, S4 pronunciation, no row); 44:46 engine إنت for إنتو (no row); 59:12 engine أمي likely عمي (Amal chat bas 3ammi) so the 58:17 أمي عنده is not a slip; 21:12-21:47 صار لي ... أدرس is accepted by Amal (b- optional), no row; 43:43 engine ألا for ألق. Echo candidates: echo: Merhaba = مرحبا, İyilik = تمام, Aman = ?, Ana kemel = أنا كمان (greeting, no slip); 11:39 اطلبي engine also wrote أسألك in the echo file. Tier 3: insurance is not on her sheet, so tier 0._
 
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
-| FA-9edc7e01 | 05:57 | vocab-B | tier 3 | ahwe ma crema wu maye keteer, | منيح. | crema -> كريمة | English/Italian 'crema' inside an Arabic sentence; sheet row 'cream / Kraima / كريمة / kraima'. Pre-ruled AR-1933 (ok to switch) - never scored or sent again. | medium | r3 |
-| FA-0a63c0e7 | 07:44 | vocab-A | tier 1 | سيكني، uh، سيكني فامي. | غامق. | فامي -> غامق | فامي is not the Arabic word for dark; Amal supplied غامق, explained غميق is 'deep', and repeated 'غامق. Deep'; sheet: 'dark (color) / 8aameq / غامق'. | high | judge panel (Opus + Argon, p 0.80) |
-| FA-086ee1b6 | 10:44 | vocab-A | tier 1 | Um, بسأل. | بطلب. | بسأل -> بطلب | Asked how to say 'ask something of someone' he said بسأل (ask a question); Amal replaced it with بطلب; sheet: 'i ask / request something from someone / Ana ba6lob min'. | high | judge panel (Opus + Argon, p 0.82) |
-| FA-18b7fbc5 | 10:55 | grammar | D2 | so I ask you would be أسألك. | No. ... No. | أسألك -> بطلب منك | طلب takes من, not an object ending; Amal said No twice and he moved to منك (from you). | high | judge panel (Opus + Argon, p 0.80) |
-| FA-c0f53217 | 12:55 | grammar | D4 | estenaki? | That I wait for you. | estenaki -> estenani | For 'wait for me' he put -ki (you) on the verb; Amal said in English what his form meant ('That I wait for you') and he fixed it to estenani. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-a6ad688a | 13:17 | rejected | tier 1 | Shuf-shufni? | شوفني. شوفني is see me. Look at me. | Shufni -> اطلع علي | Asked for 'look at me' he said شوفني; Amal pointed out شوفني is 'see me' and repeated 'Look at me', and he moved to itala (اطلع); she first said mm-hmm, so low. | medium | judge panel (Opus + Argon, p 0.77) |
-| FA-608054a0 | 13:33 | grammar | D2 | itala ni. | Preposition. | itala ni -> itala alay | اطلع takes على, not an object ending; Amal said 'Preposition.' and he fixed it to itala alay; sheet: 'i look at / bat6alla3 3ala'. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-8230caa3 | 13:57 | grammar | B18 | layesh batala. | He is. | layesh batala -> layesh bitala alayk | 'Why is he looking at you' needs the he-form bit6alla3; he used the I-form batala; Amal prompted 'He is.' and he fixed to bitala alayk. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-327e663a | 15:32 | grammar | B5 | Irinno alayki? | Did they call you؟ | Irinno alayki -> ranno alayki | 'Did they call you' needs the past rannu; he used a non-past form; Amal repeated the English prompt and he said 'Oh, past tense... ranno alayki'. | high | judge panel (Opus + Argon, p 0.88) |
-| FA-2c4f36d1 | 20:17 | vocab-A | tier 1 | A period of time. Oh, زمان. | No. زمان is like long time ago ... or long time. Long, long time. فترة. | زمان -> فترة | For 'a while / period of time' he gave زمان (long ago); Amal said No and supplied فترة. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-66e1e953 | 20:54 | grammar | B17 | أنا صار لي أدرس عربي، لا فاتحة-- لا فاتحة. | And the verb after it doesn't, it doesn't have to lose the be. عادي. ... Yes. | صار لي أدرس -> صار لي بدرس | After sarli the verb keeps b-; Amal said the verb doesn't have to lose the b- and answered 'Yes' to his 'So I did it wrong the last time'; her own 21:12 example used أدرس, so low. | medium | judge panel (Opus + Argon, p 0.62) |
-| FA-1106cb6d | 22:12 | grammar | A4 | صار له فترة، uh، صديق. And he's been my friend for a while. | مهم. مهم. My friend. | صديق -> صديقي | 'my friend' needs the -i ending; Amal said 'My friend.' and he fixed to صديقي. | high | judge panel (Opus + Argon, p 0.88) |
-| FA-9369152c | 23:36 | vocab-A | tier 2 | So صار لها فاتحة-- | فترة. | فاتحة -> فترة | He said a distorted فترة (engine wrote فاتحة here and at 21:06); Amal supplied فترة and he repeated it; may be mid-sentence help or the engine mishearing, so low. | medium | judge panel (Opus + Argon, p 0.65) |
-| FA-0ac019d8 | 24:33 | vocab-A | tier 2 | Paulina نستنى شوية فترة إلك. | Mm، you said نستنى شوي. شوي is not. Either شوي or فترة. | شوية فترة -> فترة قصيرة | Medi combined شوية and فترة ('شوية فترة'); Amal corrected that you say either شوي alone or فترة قصيرة. | medium | judge panel (Opus + Argon, p 0.78) |
-| FA-e28e8822 | 24:42 | grammar | D2 | نستنى شوية فترة إلك. | Does مستـ، does بستنى take a preposition؟ ... نستناه لفترة. | نستنى ... إلك -> نستناه | استنى takes no preposition, the person rides on the verb; Amal asked if it takes one, he said 'it doesn't. So just نستنى', she gave نستناه لفترة. | high | judge panel (Opus + Argon, p 0.85) |
-| FA-5b19acde | 28:34 | grammar | D2 | بعتيني. | What does ببعت take؟ ... ابعتيلي. | بعتيني -> ابعتيلي | بعت takes la- for the person (ابعتلي); he put -ni on the verb; Amal asked what ببعت takes, he said بعتلي and she recast the command ابعتيلي. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-595f79ac | 31:10 | grammar | D2 | Is it always min? | La. Yes. | من -> لـ | Amal rejected من and confirmed لـ for planning for a trip or project. | medium | judge panel (Opus + Argon, p 0.60) |
-| FA-c08ffa08 | 32:45 | grammar | A1 | nekhatat la o- nekhatat la oros. | لا. ... A wedding. | la oros -> لعرسنا / لا العرس | He meant their own wedding but said 'a wedding' (no el- / no -na); Amal said 'A wedding.' and he fixed to erosna, then she confirmed لا العرس. | high | judge panel (Opus + Argon, p 0.80) |
-| FA-d356b20c | 33:26 | grammar | D2 | usually it doesn't take anything, but it can take la. | Doesn't take anything. | لـ -> no preposition | Amal explicitly said بستنى does not take a preposition. | medium | judge panel (Opus + Argon, p 0.65) |
-| FA-1dadf7b6 | 34:01 | grammar | D2 | Etlaini ... etlai mai. | لا ... التقي ... مع or شو كمان؟ ... Be. | Etlaini -> التقي بـ / مع | Meet takes مع or بـ, not a direct pronoun; Amal asked which prepositions and gave Be. | medium | judge panel (Opus + Argon, p 0.65) |
-| FA-d4dc1c6b | 34:01 | vocab-A | tier 1 | Etlaini. | لا. ... التقي. | Etlaini -> التقي | For 'meet me' he used etla3 (look / go out); Amal said لا and supplied التقي twice, he said 'You're right, iltei'; sheet: 'i meet / Ana balte2i'. | high | judge panel (Opus + Argon, p 0.82) |
-| FA-7263d0dc | 34:44 | grammar | D2 | So mai and then is it la? | No. ... Be. | لـ -> بـ | Amal rejected لـ and supplied بـ as the second option with التقي. | medium | judge panel (Opus + Argon, p 0.62) |
-| FA-524949a9 | 35:22 | grammar | D2 | ilteiti, il zibayan j-j-jadad. | Where is the preposition؟ You have two. | ilteiti il zibayan -> ilteiti bi il zibayan / mai il zibayan | التقى takes ma3 or bi; he left it out; Amal asked 'Where is the preposition?' and he said bi il / mai il. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-8ee7ab68 | 37:42 | grammar | D2 | min, | So you don't need from here ما، ما بتحتاج من. | min -> إنه ما يكون عندها أحفاد | Although much of the Arabic is missing, his surviving min and English explanation establish worry from not having grandchildren, and she explicitly removes من before the clause. | medium | judge panel (Opus + Argon, p 0.65) |
-| FA-0b249c83 | 43:10 | grammar | B12 | اه تخوف. | شو؟ No. بخوف is-- مهم. | تخوف -> تخاف | خوّف is 'to scare someone', خاف is 'to be scared'; Amal said No and he fixed to تخاف; sheet: 'i worry about / fear for / bakhaaf 3ala'. | high | judge panel (Opus + Argon, p 0.88) |
-| FA-5aa02922 | 46:06 | grammar | B5 | So هو، هو-- Is it أأل؟ أألأ؟ | Internal flip. ... إله. | أأل -> إلق (إله) | Past of قلق for he is 2ele2 (sheet: 'he worried / huwwe 2ele2'); he tried أأل / أألأ, Amal prompted 'Internal flip' and gave إله. | medium | judge panel (Opus + Argon, p 0.73) |
-| FA-9ca1dda2 | 49:23 | grammar | B5 | باقول. | قلت. | باقول -> قلت | Asked for I told him, he starts with a present form and unsuccessfully searches for the past until she supplies قلت. | medium | judge panel (Opus + Argon, p 0.68) |
-| FA-7dc85094 | 50:03 | grammar | B18 | قلت لك. | He told. | قلت لك -> قالك | 'He told you' needs the he-form قال; he used قلت (I told); Amal said 'He told.' and gave قالك, he said قال. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-2098e5e8 | 50:49 | grammar | B5 | قلهم. | قالهم. ... What's قلهم؟ | قلهم -> قالهم | 'He told them' is قالهم; his قلهم is the command 'tell them'; Amal recast قالهم and asked what قلهم means, he said 'command tense'. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-b063b29d | 53:38 | grammar | D1 | ما؟ | No. | ما -> بي | Paying with a card takes bi, not ma3 (engine ما = ma3); Amal said No and he said بي. | high | judge panel (Opus + Argon, p 0.82) |
-| FA-67e8ca11 | 54:21 | grammar | D3 | يدفع لي. | ادفع لنا. | يدفع لي -> ادفع لنا | 'Pay us' needs the command ادفع and لنا (us); he said يدفع لي (he pays me); Amal recast ادفع لنا and he repeated يدفع لنا. | medium | judge panel (Opus + Argon, p 0.78) |
-| FA-a87d1413 | 56:10 | vocab-A | tier 2 | Is it كذب؟ كذبي؟ | كـ- كذبة. | كذبي -> كذبة | For 'one lie' he tried كذب / كذبي; Amal gave كذبة. | medium | judge panel (Opus + Argon, p 0.65) |
-| FA-3dc6336a | 59:20 | vocab-A | tier 1 | Who, uh, fit-- um, si- sido-- سيتي، سيتي? ... My grandfather would be si-- Is it سيتي or sido? | ستك؟ ... سيده، ست your grandmother. | سيتي -> سيدي | For grandfather he said سيتي (my grandmother); Amal asked ستك؟ and explained سيده vs ست = grandmother; sheet: 'grandfather / Seed' / 'grandmother / Sit'. | medium | judge panel (Opus + Argon, p 0.77) |
-| FA-6043e397 | 1:00:12 | grammar | E6 | أنا بدأت، um، أشتغل مع أبوي أقل من خمس، uh، سنين. | So ago. | أقل من خمس سنين -> قبل أقل من خمس سنين | 'less than five years ago' needs قبل in front; Amal said 'So ago.' and he added قبل, she gave قبل أقل من خمس سنين. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-976ce8f8 | 02:59 | grammar-B | D2 | آسف لـ شغل اللي أنا أعطيتك |  | آسف لـ شغل -> آسف على الشغل | aasef takes 3ala (sorry for = aasef 3ala) and the known work needs el-; Amal let it pass (my reading, she gave no form). | low | r1+r2 |
+| FA-0a63c0e7 | 07:44 | vocab-A | tier 1 | uh، سيكني فامي. | غامق. | فامي -> غامق | He used فامي (then غميقة 'deep') for 'dark'; Amal recast غامق and at 07:59 explained غميق is deep; sheet: dark (color) / 8aameq / غامق. | medium | r1+r2 |
+| FA-0cf99a7f | 10:55 | grammar | D2 | so I ask you would be أطلبك | No. | أطلبك -> أطلب منك | talab takes min + person (ask something of someone); she said No twice and he fixed to منك. | high | r1+r2 |
+| FA-0b6c340b | 11:39 | grammar | B10 | اطلبي هدية من عروس، عروسك. | عريس. ... Yeah, you made them lesbian. | اطلبي -> اطلب | Her prompt 'ask your bride' was to a man; he used the feminine command اطلبي, she joked 'you made them lesbian' / 'عريس' and typed e6lub (masc). | medium | r1+r2 |
+| FA-4ad6e801 | 12:55 | grammar | B10 | أستناكِ؟ | That I wait for you. | أستناكِ -> استناني | For 'wait for me' he said 'I wait for you'; she translated it back and he fixed to estenani. | medium | r1+r2 |
+| FA-3196a05b | 13:33 | grammar | D2 | إتطلعني | أممم. Preposition. | إتطلعني -> اتطلع علي | et6alla3 takes 3ala, not a pronoun on the verb; she said 'Preposition' and he gave itala alay. | high | r1+r2 |
+| FA-fa1fa5d9 | 13:57 | grammar | B18 | ليش بتطلع ... عليك | He is. | بتطلع -> بيتطلع | Subject is 'he' but he used the you/she form بتطلع; she prompted 'He is.' and typed byet6alla3 (he kept بتطلع). | high | r1+r2 |
+| FA-5a540c92 | 15:32 | grammar | B5 | بيرنوا عليكي؟ | Did they call you؟ | بيرنوا -> رنوا | 'Did they call you' is past; he used present بيرنوا, she repeated the English and he fixed to رنوا. | high | r1+r2 |
+| FA-1106cb6d | 22:12 | grammar | A4 | صار له فترة، uh، صديق. | مهم. مهم. My friend. | صديق -> صديقي | He meant 'he's been my friend' but left the owner ending off; she prompted 'My friend' and he said صديقي. | high | r1+r2 |
+| FA-d11dd16d | 23:36 | vocab-A | tier 1 | So صار لها فتحة-- | فترة. | فتحة -> فترة | He said فتحة (opening) for the new word فترة and Amal supplied فترة; could be a sound slip or the engine. | low | r1+r2 |
+| FA-ef5fb2a7 | 24:39 | grammar | D2 | خلينا نستنى شوي فترة إلك. | Does مستـ، does بستنى take a preposition؟ ... نستناه لفترة. | نستنى شوي فترة إلك -> نستناه لفترة | bistanna takes no preposition (the object rides on the verb: نستناه); she asked and he said 'it doesn't'. | high | r1+r2 |
+| FA-63f412ee | 24:39 | grammar | D1 | خلينا نستنى شوي فترة | you said نستنى شوي. شوي is not. Either شوي or فترة. ... No، لفترة. | شوي فترة -> لفترة | 'For a while' is la-fatra; شوي + فترة together is wrong - she said 'Either شوي or فترة' and 'No, لفترة'. | medium | r1+r2 |
+| FA-5b19acde | 28:34 | grammar | D2 | بعتيني. | Mm. What does ببعت take؟ ... ابعتيلي. | بعتيني -> ابعتيلي | ba3at takes la- (send to me = eb3atili), not an object ending; she asked what it takes, he fixed to بعتيلي and she recast ابعتيلي. | high | r1+r2 |
+| FA-e5bdc094 | 32:45 | grammar | A4 | نخطط لـ عـ نخطط لـ عرس | لا. ... A wedding. | لـ عرس -> لعرسنا | Bare عرس means 'a wedding'; she prompted 'A wedding' and he added the owner ending عرسنا. | high | r1+r2 |
+| FA-267d94c9 | 34:01 | grammar | D2 | إتلاقيني | لا. | إتلاقيني -> التقي معي | 'Meet me' takes ma3 / fi, not a pronoun on the verb; she said لا and he moved to معي. | high | r1+r2 |
+| FA-cc895cbc | 35:22 | grammar | D2 | التقيتي الزبان، الزباين، جـ- جداد. | Where is the preposition؟ You have two. | التقيتي الزبان، الزباين، جـ- جداد -> التقيتي مع الزباين الجداد | iltaqa needs ma3 or fi; she asked for the preposition and he added بـ then مع. | high | r1+r2 |
+| FA-cc83fcac | 35:44 | grammar-B | A7 | التقيتي بِـ الـ زباين جداد | أو. | زباين جداد -> الزباين الجداد | The known customers need el- on the adjective too (el-zabaayen el-jdaad, her chat); she voiced nothing on it, chat alone. | medium | r1+r2 |
+| FA-209a1207 | 37:55 | grammar | D2 | إمي بتتلق من مش عندها أحفاد | You don't need من إنه ما يكون عندها أحفاد. ... So you don't need from here | من مش عندها -> إنه ما يكون عندها | Before a whole clause ('that she won't have') 2ele2 takes enno, not min, and 3ind is negated with ma (ma ykoon 3indha), not mish; she said you don't need من. | high | r1+r2 |
+| FA-5bcb3233 | 39:18 | vocab-A | tier 2 | أنا بأ- بأى... I said it right? | أنا بألقى. | بأى -> بقلق | He tried the verb I worry and got بأى; Amal said No and gave بألقى (sheet: ana ba2la2). | medium | r1+r2 |
+| FA-5aa02922 | 46:06 | grammar | B5 | So هو، هو-- Is it أأل؟ أ- ألأ؟ | Internal flip. ... إله. | أأل -> إله | Past 'he worried' is 2ele2 (vowel flip); he tried أأل / ألأ, she prompted 'Internal flip' and gave إله. | medium | r1+r2 |
+| FA-53fb1768 | 49:23 | grammar | B5 | بقول أله. Is it قالت؟ | قلت. | بقول أله -> قلت له | 'I told him' is past قلت له; he said present بقول then قالت (she said), Amal gave قلت. | medium | r1+r2 |
+| FA-f123f15c | 50:03 | grammar | B5 | قل لك. | He told. | قل لك -> قالك | 'He told you' is قالك; he used the command shape قل, she prompted 'He told' and recast قالك. | high | r1+r2 |
+| FA-2098e5e8 | 50:49 | grammar | B5 | قلهم. | قالهم. | قلهم -> قالهم | 'He told them' is قالهم; he said the command قلهم again and she recast, then asked what قلهم means. | high | r1+r2 |
+| FA-c7135b1c | 50:58 | grammar (listening) | B10 | Uh, I told, | No. | I told -> tell them (command) | Asked what قلهم means he said 'I told'; she said No and he got the command 'tell them'. | medium | r3 |
+| FA-c857eab6 | 52:22 | grammar (listening) | B10 | No، قال لـ... Uh, he told us. | Mm-hmm. We told this. [laughs] Yes. And it could also mean... لا it could not mean that. | he told us -> tell us (قل لنا) | She asked for the second meaning of قلنا; he read it as 'he told us' (قال لنا); she said it could not mean that and he then gave قل لنا = tell us, which she accepted (52:44-52:52). | medium | r3 |
+| FA-b73abfa8 | 53:09 | grammar | D2 | So بدفع على is to pay, uh, pay someone, right? ... بدفع على؟ | لا. | بدفع على -> بدفع لـ | 'Pay someone' is bidfa3 la-; she said لا and he gave بدفع لـ, then 'never takes على'. | medium | r1+r2 |
+| FA-012757f5 | 53:38 | grammar | D1 | مع؟ | No. | مع -> بـ | Paying WITH a card uses instrument bi-, a general preposition meaning (D1), not the verb's fixed partner (that was لـ / عن, A24); she said No and he gave بـ. | medium | r3 |
+| FA-5b8184eb | 56:07 | vocab-A | tier 2 | Is it كذاب or كذب؟ كذبي؟ | كـ- كذبة. | كذاب -> كذبة | For 'a lie' he offered كذاب (liar) / كذب; she gave كذبة (sheet: a lie / Kezbe / كذبة). | medium | r1+r2 |
+| FA-14d448f5 | 56:24 | vocab-A | tier 2 | I forget, is it كذب؟ | كذاب. | كذب -> كذاب | For 'liar' he guessed كذب; she gave كذاب (sheet: liar / kazzaab / كذاب). | medium | r1+r2 |
+| FA-6043e397 | 1:00:12 | grammar | E6 | أنا بديت، أشتغل مع أبوي أقل من خمس، سنين. | So ago. | أقل من خمس سنين -> قبل أقل من خمس سنين | 'Ago' needs 2abel in front of the number; she prompted 'So ago' and he added قبل. | high | r1+r2 |
+| FA-ac38a542 | 1:00:43 | grammar | E1 | قبل أقل من خمسة سنين | خمس. | خمسة سنين -> خمس سنين | Before a plural noun 3-10 take the short form (5ames saneen); she recast خمس. | high | r1+r2 |
+| FA-44d11fe6 | 1:01:04 | vocab-A | tier 0 | شركة كـ- كبيرة، uh, insurance ... What is it? | تأمين. ... شركة تأمين. | insurance -> تأمين | He did not know 'insurance' (not on her sheet) and asked; she supplied تأمين - a didn't-know. | high | r1+r2 |
+| FA-4cfb44c6 | 1:02:31 | vocab-A | tier 0 | الشغل، uh, I don't know how to say evil. | Not good. ... Wasn't good. | evil -> ما كان منيح | He said he didn't know 'evil' (not on her sheet); she supplied 'wasn't good' (ma kaan mnee7). | medium | r1+r2 |
