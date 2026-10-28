@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T17:51:25-07:00",
+ "updated": "2026-10-27T18:26:37-07:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -4125,6 +4125,63 @@
    "reason": "He gave the wrong meaning for كليًا; Amal said No, it means completely (sheet: completely / fully | Kulliyyan).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-89276e91"
+  },
+  {
+   "id": "audit:FA-0a63c0e7",
+   "word_key": "8Ame2",
+   "entry_id": "8Ame2:singular",
+   "lesson_date": "2026-10-27",
+   "t_start": 464,
+   "t_end": 464,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "فامي",
+   "said": "سيكني، uh، سيكني فامي.",
+   "reason": "فامي is not the Arabic word for dark; Amal supplied غامق, explained غميق is 'deep', and repeated 'غامق. Deep'; sheet: 'dark (color) | 8aameq | غامق'.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-0a63c0e7"
+  },
+  {
+   "id": "audit:FA-d4dc1c6b",
+   "word_key": "ana balte2",
+   "entry_id": "ana balte2:present",
+   "lesson_date": "2026-10-27",
+   "t_start": 2041,
+   "t_end": 2041,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "Etlaini",
+   "said": "Etlaini.",
+   "reason": "For 'meet me' he used etla3 (look / go out); Amal said لا and supplied التقي twice, he said 'You're right, iltei'; sheet: 'i meet | Ana balte2i'.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-d4dc1c6b"
+  },
+  {
+   "id": "audit:FA-a87d1413",
+   "word_key": "kezbe",
+   "entry_id": "kezbe:singular",
+   "lesson_date": "2026-10-27",
+   "t_start": 3370,
+   "t_end": 3370,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "كذبي",
+   "said": "Is it كذب؟ كذبي؟",
+   "reason": "For 'one lie' he tried كذب / كذبي; Amal gave كذبة.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-a87d1413"
   }
  ],
  "unplaced": [
@@ -4798,6 +4855,17 @@
    "wrong": "Ana basboot",
    "why": "which list word it is waits for a reader (the automatic match was latin)",
    "keyed_by": "auto-latin"
+  },
+  {
+   "uid": "FA-086ee1b6",
+   "date": "2026-10-27",
+   "t": 644,
+   "key": "ana ba6lub min",
+   "kind": "wrong",
+   "said": "Um, بسأل.",
+   "wrong": "بسأل",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
   }
  ],
  "overrides": [
@@ -7547,21 +7615,6 @@
    }
   },
   {
-   "event_id": "b68d08776dc658b1b30e569d2de4c672d30e24ec116a3254152ed37c40b92a5a",
-   "date": "2026-10-14",
-   "mark": "wb:b68d08776dc658b1b30e569d2de4c672d30e24ec116a3254152ed37c40b92a5a",
-   "was": "right",
-   "changes": {
-    "rehear_hold": true,
-    "ledger": "wb:b68d08776dc658b1b30e569d2de4c672d30e24ec116a3254152ed37c40b92a5a",
-    "ledger_reason": "credited by an earlier review; the second listen no longer hears this word - needs a look"
-   },
-   "expected": {
-    "word_key": "shukran",
-    "t_start": 4425.271768672
-   }
-  },
-  {
    "event_id": "0405c625199354ebda0a01c6d88863978e429e3394f489b05b6d5f2f03b96449",
    "date": "2026-10-26",
    "mark": "wb:0405c625199354ebda0a01c6d88863978e429e3394f489b05b6d5f2f03b96449",
@@ -7574,6 +7627,21 @@
    "expected": {
     "word_key": "mara~time",
     "t_start": 1781.54
+   }
+  },
+  {
+   "event_id": "d6d30e1fa2d5b3b2a47fc957da25a269a3afc87fc304dbc64ad2dd80545c0272",
+   "date": "2026-10-27",
+   "mark": "ra:FA-086ee1b6",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "ra:FA-086ee1b6",
+    "ledger_reason": "Said here, another word intended: Amal repeats it right (بطلب)"
+   },
+   "expected": {
+    "word_key": "ana bas2al",
+    "t_start": 644.35
    }
   }
  ]
