@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T18:26:52-07:00",
+ "updated": "2026-10-27T18:34:35-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -9714,7 +9714,7 @@
     ]
    },
    "words": {
-    "unique": 118,
+    "unique": 117,
     "right": 243,
     "wrong": 15,
     "partial": 8,
@@ -9723,8 +9723,8 @@
     "audit_wrong": 15,
     "audit_partial": 0,
     "not_on_sheet": 2,
-    "rehear_word_conflicts": 1,
-    "unique_rows": 110,
+    "rehear_word_conflicts": 2,
+    "unique_rows": 109,
     "eligible": 264,
     "excluded": 2,
     "pending": 0,
@@ -9999,7 +9999,7 @@
    "coverage": "Hole 57:44-1:00:17: no Medi lines (queen / badat, 'biddak tjeeb wlaad' answer, tnein) - Amal's 58:01 'You said it right the first time' and 59:21/59:31 'No. بدك إنت تجيب' fixes cannot be quoted, not rowed. Many [speaking foreign language] / [غير مسموع] lines at 17:57-18:02, 26:46, 29:20-29:42, 33:04-33:57 (send/notification sentence lost), 35:24. 03:16 'الـ مهاجرة ... بزاح' unclear, skipped. 00:02-17:07 and 24:49-26:08 mostly English meta talk. Not rowed: 22:06 دايب for ضرايب (S4, new word), 45:02 Europa -> أوروبا (pronunciation), 49:56 بفرشي/بفشك (question about form; 'i show | bafarji' is on sheet, likely ج/ش sound), 37:40 همي self-fixed to قصدي before her joke, 54:31 بعد بتلبس self-fixed to بعد ما تلبس via his own question, 39:10 / 1:10:25 / 1:08:33 rule questions, 1:02:42 ولبنات (unclear). Echo: 'Tanin' (1:00:18) = تنين (accepted by Amal); 'Mashrooha?' = مشروعة (28:23, repeat attempt of the new word). Sheet rows for ضريبة / مشروع / حرب / خطبة exist but were taught as new in this lesson, so filed tier 0. / Large English stretches (3:00-17:00 tech talk about the app, 25:41-26:04 phone call, 1:07-1:13 names). Medi turns 58:44-1:00:13 are missing from the transcript (Amal's تجيب / بدك تجيب أولاد teaching has no Medi line, so no row). Engine hid his line at 17:57 (آخر اليوم per 18:25 and 19:13), 27:11, 35:24 (inaudible; سيء taken from Amal's echo). 1:08:17-1:09:01 نفس الـ سيده vs نفس اسم سيده not filed: Amal said both are fine (نفس اسم سيده better). 38:29 هادي السنة, 37:40 همي (self-fixed to قصدي), 54:31 does بعد remove b? (question, self-fixed), 39:10 بأخلص or أخلص (question), 22:03 دايب (pronunciation of ضرايب) not filed. Echo candidates file read: engine readings there differ from this transcript, nothing added. Names (Mehdi, Lebanon, Palestine, Iran, Egyptian, Palestinian) not flagged.",
    "notes": [
     "grammar: 2 of the 17 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
-    "1 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (1:13:40)."
+    "2 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (1:13:40, 1:13:45)."
    ],
    "page": "lessons/2026-10-14.html",
    "detail": "data/lessons/2026-10-14.json",
@@ -10025,7 +10025,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-14.json",
-    "marks": 483,
+    "marks": 484,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
@@ -10859,21 +10859,21 @@
     ]
    },
    "words": {
-    "unique": 79,
-    "right": 128,
+    "unique": 126,
+    "right": 96,
     "wrong": 4,
-    "partial": 7,
-    "pct": 94.6,
-    "scored": 139,
+    "partial": 6,
+    "pct": 93.4,
+    "scored": 106,
     "audit_wrong": 4,
     "audit_partial": 0,
     "not_on_sheet": 4,
-    "rehear_word_conflicts": 0,
-    "unique_rows": 78,
-    "eligible": 139,
+    "rehear_word_conflicts": 1,
+    "unique_rows": 119,
+    "eligible": 106,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 94.6,
+    "eligible_pct": 93.4,
     "excluded_why": {},
     "verified_pct": null
    },
@@ -10945,7 +10945,7 @@
       1
      ]
     ],
-    "in_turns": 205,
+    "in_turns": 207,
     "comparable": true
    },
    "latency": {
@@ -10983,6 +10983,12 @@
      "arabic": "لعبة",
      "english": "doll / toy / game",
      "t": "12:30"
+    },
+    {
+     "latin": null,
+     "arabic": "فترة",
+     "english": "a while / period of time (فترة قصيرة = a short while)",
+     "t": "20:27"
     },
     {
      "latin": null,
@@ -11031,22 +11037,23 @@
    "notes": [
     "timings: anees-20261027-recall-amal-seg2145: page/engine offset spread 193.22s; anees-20261027-recall-amal-seg2560: page/engine offset spread 226.54s",
     "grammar: 1 of the 24 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "1 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (32:38).",
     "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 10:44 Word Bank said right, Amal said no to that word: her no counts."
    ],
    "page": "lessons/2026-10-27.html",
    "detail": "data/lessons/2026-10-27.json",
    "rehear": {
-    "status": "submitted",
-    "since": "2026-10-27",
-    "label": "Second listen: sent, waiting",
-    "tip": "A second AI listen of your microphone (Gemini) was sent for this lesson and its answers are not back yet. The transcript is still ElevenLabs only.",
-    "note": "Sent to Gemini (Batch) on 2026-10-27; not all of its answers are back yet."
+    "status": "applied",
+    "since": "2026-10-28",
+    "label": "Second listen: applied",
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "228 of your lines changed (126 with a different word, 102 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 19 lines wait: 1 held for a check, 14 where the 3 runs did not agree. 4 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word)."
    },
    "counts": {
     "turns": 1067,
     "chat_lines": 0,
     "vocab_errors": 8,
-    "vocab_correct": 135,
+    "vocab_correct": 102,
     "grammar_errors": 24,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
