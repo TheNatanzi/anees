@@ -126,7 +126,7 @@
         ${msg ? `<p class="hb-sub" style="color:var(--sabz-danger,#B3261E)">${esc(msg)}</p>` : ''}
         ${open.length ? `<p class="hb-prog" style="margin-top:14px">Add these to the Doc (${open.length})</p><p class="hb-sub">From your PERMANENT uploads, not yet on the vocabulary Doc. They count as on the list once the Doc has them.</p>
           <ul class="hb-done">${open.slice(0, 60).map(c => `<li><b>${esc(c.arabizi)}</b>${c.arabic ? ` <span lang="ar">${esc(c.arabic)}</span>` : ''} <span>· ${esc(c.english)} · ${esc(c.set)}</span></li>`).join('')}${open.length > 60 ? `<li><span>… and ${open.length - 60} more</span></li>` : ''}</ul>` : ''}
-        ${sets.length ? `<p class="hb-prog" style="margin-top:14px">Your uploads (${sets.length})</p><ul class="hb-done">${sets.map(s => `<li data-answered="${esc(s.uploadId)}"><b>${esc(s.title)}</b> <span>· ${s.n} cards · ${s.keep === 'permanent' ? 'PERMANENT' : 'TEMPORARY'} · ${esc(pretty(s.created_at))}${pending.has(s.uploadId) ? ' · saving…' : ''} · on Flashcards as its own tile</span>${AneesUndo.button({ 'data-upundo': s.uploadId })}</li>`).join('')}</ul>` : ''}
+        ${sets.length ? `<p class="hb-prog" style="margin-top:14px">Your uploads (${sets.length})</p><ul class="hb-done">${sets.map(s => `<li data-answered="${esc(s.uploadId)}"><b>${esc(s.title)}</b> <span>· ${s.n} cards · ${s.keep === 'permanent' ? 'PERMANENT' : 'TEMPORARY'} · ${esc(pretty(s.created_at))}${pending.has(s.uploadId) ? ' · saving…' : ''} · on Flashcards as its own tile${s.edited_at ? ' · edited ' + esc(pretty(s.edited_at)) : ''}</span>${root.AneesSetView ? `<button type="button" class="hb-ans up-view" data-upview="${esc(s.uploadId)}">View / edit cards</button>` : ''}${AneesUndo.button({ 'data-upundo': s.uploadId })}</li>`).join('')}</ul>` : ''}
         <p class="hb-foot">Saved as you tap · nothing changes the Doc by itself</p></div>`;
       const link = el.querySelector('[data-link]'), rd = el.querySelector('[data-read]'), f = el.querySelector('[data-file]'), rp = el.querySelector('[data-readpaste]');
       if (rd) rd.onclick = () => readLink(link.value);
@@ -137,13 +137,17 @@
       el.querySelectorAll('[data-keep]').forEach(b => b.onclick = () => commit(b.dataset.keep));
       const cn = el.querySelector('[data-cancel]'); if (cn) cn.onclick = () => { draft = null; render(); };
       el.querySelectorAll('[data-upundo]').forEach(b => b.onclick = () => undo(b.dataset.upundo));
+      // Medi 2026-10-28: every card of a set, front and back side by side; change, add or remove cards (docs/js/set-view.js)
+      el.querySelectorAll('[data-upview]').forEach(b => b.onclick = () => { const s = sets.find(x => x.uploadId === b.dataset.upview); if (!s) return;
+        root.AneesSetView.open(el, { title: s.title, back: 'Back to your uploads', cards: H.currentRows(rows, s.uploadId), edit: { uploadId: s.uploadId, by: 'tutor', token: TOKEN || null },
+          onSaved: row => { rows.push(row); opt.onChange && opt.onChange({ total: H.uploadSets(rows).length, done: 0, finished: false }); }, onClose: () => render() }); });
       opt.onChange && opt.onChange({ total: sets.length, done: sets.length, finished: false });
     }
     if (!document.getElementById('up-css')) { const c = document.createElement('style'); c.id = 'up-css';
       c.textContent = `#anees-bank .up-row{display:flex;gap:8px;align-items:flex-start}#anees-bank .up-row .hb-input{flex:1}#anees-bank .up-go{width:auto;min-height:48px;flex:0 0 auto}
 #anees-bank .up-table{overflow:auto;border:1px solid var(--ab-line);border-radius:10px;margin:0 0 10px}#anees-bank .up-table table{border-collapse:collapse;width:100%;font-size:14px}
 #anees-bank .up-table th,#anees-bank .up-table td{padding:6px 8px;border-bottom:1px solid var(--ab-line);text-align:left;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}
-#anees-bank .up-check{margin:0 0 10px}#anees-bank .up-check.ok{color:var(--sabz-success,#1E7B4A)}#anees-bank .up-check.bad{border:1px solid var(--sabz-danger,#B3261E);border-radius:10px;padding:8px 12px}#anees-bank .up-check.bad .hb-prog{color:var(--sabz-danger,#B3261E)}
+#anees-bank .up-view{width:auto;min-height:40px;margin:6px 8px 0 0;padding:6px 12px;font-size:14px}#anees-bank .up-check{margin:0 0 10px}#anees-bank .up-check.ok{color:var(--sabz-success,#1E7B4A)}#anees-bank .up-check.bad{border:1px solid var(--sabz-danger,#B3261E);border-radius:10px;padding:8px 12px}#anees-bank .up-check.bad .hb-prog{color:var(--sabz-danger,#B3261E)}
 #anees-bank .up-table select{font:600 13px var(--sabz-font-sans);padding:6px 8px;border-radius:8px;border:1px solid var(--ab-line);background:var(--ab-bg);color:var(--ab-text);min-height:36px}`;
       document.head.appendChild(c); }
     render(); flush();

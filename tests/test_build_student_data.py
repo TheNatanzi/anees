@@ -99,3 +99,15 @@ def test_PG_28_student_is_in_every_menu_right_under_tutor():
         src = open(p, encoding="utf-8").read()
         assert re.search(r'href="tutor.html">Tutor</a><a class="ab-nav"( aria-current="page")? href="student.html">Student</a>', src), os.path.basename(p)
     assert os.path.exists(os.path.join(REPO, "docs", "student.html")) and os.path.exists(os.path.join(REPO, "docs", "js", "student.js"))
+
+
+def test_a_set_edit_wins_and_keeps_each_cards_key():
+    """Medi 2026-10-28: the hourly mirror reads an edit row the same way as Flashcards (homework-core.js withEdits)."""
+    up = {"id": "abcd1234", "kind": "upload", "title": "T", "created_at": "2026-10-28T01:00:00Z",
+          "rows": [{"arabizi": "Awal", "arabic": "أول", "english": "first"}, {"arabizi": "Tani", "arabic": "تاني", "english": "second"}]}
+    edit = {"id": "edit0001", "kind": "edit", "undoes": "abcd1234", "title": "T2", "created_at": "2026-10-28T02:00:00Z",
+            "rows": [{"cid": "2", "arabizi": "Tani", "arabic": "تاني", "english": "the second"}, {"cid": "nx1", "arabizi": "Rabe3", "arabic": "رابع", "english": "fourth"}]}
+    s = B.upload_sets([up, edit])[0]
+    assert [c["key"] for c in s["cards"]] == ["u:abcd1234:2", "u:abcd1234:nx1"] and s["title"] == "T2" and s["n"] == 2
+    undo = {"id": "undo0001", "kind": "undo", "undoes": "edit0001", "created_at": "2026-10-28T03:00:00Z"}
+    assert [c["key"] for c in B.upload_sets([up, edit, undo])[0]["cards"]] == ["u:abcd1234:1", "u:abcd1234:2"]

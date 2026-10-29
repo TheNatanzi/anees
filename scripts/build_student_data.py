@@ -63,11 +63,26 @@ def effective(rows):
     return [r for r in rows if r.get("kind") != "undo" and r["id"] not in gone]
 
 
-def upload_sets(rows):
+def with_edits(rows):
+    """Medi 2026-10-28: an edit row (kind 'edit', undoes = the upload) holds the set's whole new list; the newest live one
+    wins (same rule as homework-core.js withEdits). Each card keeps its place key (cid)."""
+    eff = effective(rows)
+    last = {}
+    for r in eff:
+        if r.get("kind") == "edit" and r.get("undoes") and isinstance(r.get("rows"), list):
+            last[r["undoes"]] = r
     out = []
-    for u in effective(rows):
+    for u in eff:
         if u.get("kind") != "upload":
             continue
+        e = last.get(u["id"])
+        out.append(dict(u, rows=e["rows"], title=e.get("title") or u.get("title"), edited_at=e.get("created_at") or "") if e else u)
+    return out
+
+
+def upload_sets(rows):
+    out = []
+    for u in with_edits(rows):
         cards = []
         for i, c in enumerate(u.get("rows") or []):
             if not isinstance(c, dict):
@@ -75,7 +90,7 @@ def upload_sets(rows):
             az, ar, en = str(c.get("arabizi") or c.get("arabic") or ""), str(c.get("arabic") or "") if c.get("arabizi") else "", str(c.get("english") or "")
             if not (az or ar) or not (en or (az and ar)):
                 continue
-            cards.append({"key": f"u:{u['id']}:{i + 1}", "arabizi": az, "arabic": ar, "english": en, "plural": str(c.get("plural") or ""), "notes": str(c.get("notes") or "")})
+            cards.append({"key": f"u:{u['id']}:{c.get('cid') or i + 1}", "arabizi": az, "arabic": ar, "english": en, "plural": str(c.get("plural") or ""), "notes": str(c.get("notes") or "")})
         out.append({"id": "u:" + u["id"], "upload_id": u["id"], "title": u.get("title") or "From the tutor", "keep": u.get("keep") or "temporary",
                     "source": u.get("source") or "file", "source_ref": u.get("source_ref") or "", "created_at": u.get("created_at") or "", "n": len(cards), "cards": cards})
     return sorted(out, key=lambda s: s["created_at"], reverse=True)

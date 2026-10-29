@@ -144,3 +144,24 @@ test('the "looks like Arabizi" guess only warns: an English word like MP3 is nev
   assert.equal(HW.checkCards(HW.uploadCardsRaw(up)[0].cards)[0].soft, true);
   assert.equal(HW.uploadSets(up)[0].cards.length, 1);
 });
+
+test('a set edit: the newest edit wins, each card keeps its key (its history), an undo takes the edit back (Medi 2026-10-28)', () => {
+  const HW = require('../docs/js/homework-core.js');
+  const up = { id: 'abcd1234', kind: 'upload', title: 'T', created_at: '2026-10-28T01:00:00Z', rows: [
+    { arabizi: 'Awal', arabic: 'أول', english: 'first' }, { arabizi: 'Tani', arabic: 'تاني', english: 'second' }, { arabizi: 'Talet', arabic: 'تالت', english: 'third' }] };
+  const before = HW.uploadSets([up])[0].cards.map(c => c.key);
+  assert.deepEqual(before, ['u:abcd1234:1', 'u:abcd1234:2', 'u:abcd1234:3']);
+  // remove card 2, change card 3, add a new one - the editor sends each card's place key (cid)
+  const rows = HW.currentRows([up], 'abcd1234').filter(c => c.cid !== '2');
+  rows[1] = Object.assign({}, rows[1], { english: 'the third' });
+  rows.push({ cid: 'nx1', arabizi: 'Rabe3', arabic: 'رابع', english: 'fourth' });
+  const edit = { id: 'edit0001', kind: 'edit', undoes: 'abcd1234', title: 'T', rows, by_who: 'student', created_at: '2026-10-28T02:00:00Z' };
+  const s = HW.uploadSets([up, edit])[0];
+  assert.deepEqual(s.cards.map(c => [c.key, c.english]), [['u:abcd1234:1', 'first'], ['u:abcd1234:3', 'the third'], ['u:abcd1234:nx1', 'fourth']]);
+  assert.equal(s.n, 3); assert.equal(s.edited_at, '2026-10-28T02:00:00Z');
+  const older = { id: 'edit0000', kind: 'edit', undoes: 'abcd1234', rows: [{ cid: '1', arabizi: 'x', arabic: 'س', english: 'old' }], created_at: '2026-10-28T01:30:00Z' };
+  assert.equal(HW.uploadSets([up, edit, older])[0].n, 3);                       // the newest edit wins
+  const undo = { id: 'undo0001', kind: 'undo', undoes: 'edit0001', created_at: '2026-10-28T03:00:00Z' };
+  assert.deepEqual(HW.uploadSets([up, edit, undo])[0].cards.map(c => c.key), before);   // undo = the list before the edit
+  assert.deepEqual(HW.uploadSets([up, edit, { id: 'undo0002', kind: 'undo', undoes: 'abcd1234', created_at: '2026-10-28T04:00:00Z' }]), []);   // undo of the set hides it, edits and all
+});

@@ -89,19 +89,37 @@
   // a draft list (her rows before saving) as the cards Flashcards will show
   function draftCards(rows) { return (uploadCardsRaw([{ id: 'draft', kind: 'upload', title: 'draft', rows }])[0] || {}).cards || []; }
   // every card of the saved sets as Flashcards shows them, unfiltered: a card with a blank side is checked, not hidden
+  // Medi 2026-10-28 ("a way to edit cards, add cards, remove cards"): an edit is a new row (kind 'edit', undoes = the upload
+  // it edits) holding the set's whole new list (docs/js/set-view.js); the newest live edit wins, an undo of it takes it back.
+  // Each card carries its place key (cid): the first list's cards are 1, 2, 3 ..., so a card keeps its history after an edit.
+  function withEdits(rows) {
+    const eff = effective(rows), last = new Map();
+    for (const r of eff) if (r.kind === 'edit' && r.undoes && Array.isArray(r.rows)) last.set(r.undoes, r);   // eff is oldest first
+    return eff.filter(r => r.kind === 'upload').map(u => { const e = last.get(u.id);
+      return e ? Object.assign({}, u, { rows: e.rows, title: e.title || u.title, edited_at: e.created_at || '', edited_by: e.by_who || '' }) : u; });
+  }
+  // her set's cards as the set editor shows them: both sides split, each with its place key
+  function currentRows(rows, uploadId) {
+    const u = withEdits(rows).find(x => x.id === uploadId); if (!u) return [];
+    return (Array.isArray(u.rows) ? u.rows : []).map((c, i) => {
+      const s = (!c.arabizi && splitBox(c.arabic)) ? Object.assign({}, c, splitBox(c.arabic)) : unglue(c);
+      return { cid: String(c.cid || i + 1), arabizi: String(s.arabizi || s.arabic || ''), arabic: s.arabizi ? String(s.arabic || '') : '', english: String(s.english || ''),
+               plural: String(s.plural || ''), notes: String(s.notes || '') };
+    });
+  }
   function uploadCardsRaw(rows) {
-    return effective(rows).filter(r => r.kind === 'upload').map(u => ({ id: u.id, title: u.title || 'From the tutor',
+    return withEdits(rows).map(u => ({ id: u.id, title: u.title || 'From the tutor',
       cards: (Array.isArray(u.rows) ? u.rows : []).map(c => (!c.arabizi && splitBox(c.arabic)) ? Object.assign({}, c, splitBox(c.arabic)) : unglue(c))
         .map(c => ({ arabizi: String(c.arabizi || c.arabic || ''), arabic: c.arabizi ? String(c.arabic || '') : '', english: String(c.english || '') })) }));
   }
   function uploadSets(rows) {
-    return effective(rows).filter(r => r.kind === 'upload').map(u => {
+    return withEdits(rows).map(u => {
       const cards = (Array.isArray(u.rows) ? u.rows : []).map(c => (!c.arabizi && splitBox(c.arabic)) ? Object.assign({}, c, splitBox(c.arabic)) : unglue(c)).map((c, i) => ({
-        key: 'u:' + u.id + ':' + (i + 1), arabizi: String(c.arabizi || c.arabic || ''), arabic: c.arabizi ? String(c.arabic || '') : '',
+        key: 'u:' + u.id + ':' + (c.cid || i + 1), arabizi: String(c.arabizi || c.arabic || ''), arabic: c.arabizi ? String(c.arabic || '') : '',
         english: String(c.english || ''), plural: String(c.plural || ''), notes: String(c.notes || ''), topic: u.title || 'From the tutor', upload: u.id,
       })).filter(c => (c.arabizi || c.arabic) && (c.english || (c.arabizi && c.arabic)) && !checkCards([c]).some(p => !p.soft));   // a card with a blank or mixed-up side never shows (2026-10-28)
       return { id: 'u:' + u.id, uploadId: u.id, title: u.title || 'From the tutor', keep: u.keep || 'temporary', source: u.source || 'file', source_ref: u.source_ref || '',
-               created_at: u.created_at || '', cards, n: cards.length };
+               created_at: u.created_at || '', edited_at: u.edited_at || '', edited_by: u.edited_by || '', cards, n: cards.length };
     }).sort((a, b) => ts(b).localeCompare(ts(a)));
   }
   // Q7: a permanent upload is a reminder "add these to the Doc"; a card counts as in the Doc only once the Doc import sees it
@@ -177,5 +195,5 @@
   }
   const scriptOf = s => { const t = String(s || ''); const ar = AR.test(t), lat = /[A-Za-z]/.test(t); return ar && lat ? 'mixed' : ar ? 'arabic' : /[235678]/.test(t) ? 'arabizi' : 'english'; };
 
-  return { KINDS, DIRECTIONS, VERDICTS, POINTS, effective, uploadSets, checkCards, draftCards, uploadCardsRaw, permanentReminder, docIndex, inDoc, shakyCards, latestReply, latestVerdict, taskState, score, cardsDone, unassignedUploads, scriptOf, norm };
+  return { KINDS, DIRECTIONS, VERDICTS, POINTS, effective, uploadSets, checkCards, draftCards, uploadCardsRaw, withEdits, currentRows, permanentReminder, docIndex, inDoc, shakyCards, latestReply, latestVerdict, taskState, score, cardsDone, unassignedUploads, scriptOf, norm };
 });
