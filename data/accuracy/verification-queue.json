@@ -1,8 +1,9 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 1,
+ "count": 2,
  "by_date": {
-  "2026-09-26": 1
+  "2026-09-26": 1,
+  "2026-10-28": 1
  },
  "rows": [
   {
@@ -29,6 +30,27 @@
    },
    "listen_from": "00:47",
    "listen_to": "01:21"
+  },
+  {
+   "uid": "FA-d9edd942",
+   "date": "2026-10-28",
+   "t": "02:31",
+   "t_amal": "02:36",
+   "kind": "vocab-A",
+   "tier": 2,
+   "bucket": null,
+   "medi_said": "I, I removed is إيديت? ... It's بعيد, right? بعيد.",
+   "amal_said": "إمت؟ ... بقيم.",
+   "wrong": "إيديت",
+   "right": "إمت",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "02:21",
+   "listen_to": "02:56"
   }
  ]
 }

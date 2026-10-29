@@ -30660,6 +30660,60 @@
    },
    "at": "2026-10-27T20:40:49-07:00",
    "run_id": "a4e9c5187ee54b4aa9995ebf69ad9913"
+  },
+  {
+   "uid": "FA-068296d5",
+   "date": "2026-10-28",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "medium",
+   "reason": "The independent transcriptions consistently give Medi’s phrase as «بكفي وقت». Amal recasts it as «وقت بكفي» within her follow-up question, supporting a word-order correction; «بكفي» is a verb here, not an adjective.",
+   "evidence": {
+    "t_start": 227.0,
+    "t_end": 260.0,
+    "quote": "Medi: «ما عندي بكفي وقت». Amal: «وقت بكفي لشو؟»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-28/FA-068296d5_Medi_Medi_Natanzi-9d0a1f97b88.mp3",
+      "sha256": "94f071109b68219fec2ea8d9b3795cdbb3dfa75db4531624070ab09bfec3112d",
+      "source": "Medi_Natanzi-9d0a1f97b88a98c9.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-28/FA-068296d5_Amal_Amal-d6eafee90f63ef95.mp3",
+      "sha256": "fcb9e9235b198cd944b947a2b965a06d1c7f9ee9f901b0f5fcb70e9736e7d148",
+      "source": "Amal-d6eafee90f63ef95.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-28/FA-068296d5_mixed_lesson.mp3",
+      "sha256": "5f4b9ab39fc39ee87857350eb60983402127c31de83ce2f08d824ee049d51e58",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "كل اليوم ما عندي بكافي وقت كل شي لا تمرين لا سؤال المم.",
+     "Amal": "وقت بكفي لشو شكرا",
+     "mixed": "كل اليوم ما عندي بكفي وقت وقت بكفي لشو؟ كل شي لتمرين لسؤال"
+    }
+   },
+   "claim": {
+    "wrong": "بكافية وقت",
+    "right": "وقت بكفي",
+    "bucket": "A7",
+    "tier": null
+   },
+   "at": "2026-10-28T16:55:28-07:00",
+   "run_id": "7127c0d0cdb2475e9a226356169dbffa",
+   "changed_to": {
+    "wrong": "بكفي وقت",
+    "right": "وقت بكفي"
+   }
   }
  ]
 }
