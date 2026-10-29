@@ -1,9 +1,74 @@
 {
  "rule": "AM-31",
- "updated": "2026-10-28T16:15:15-07:00",
+ "updated": "2026-10-28T17:05:52-07:00",
  "about": "Grammar the tutor added on her Tutor page: her words, Claude's rewrite as a rule with a letter-number, and her answer. Only her 'Yes, add it' adds the rule (scripts/tutor_grammar.py).",
- "waiting_for_tutor": 1,
+ "waiting_for_tutor": 2,
  "items": [
+  {
+   "sid": "heard-20261028-0811",
+   "text": "لا، بيت is you getting moved. So كل إشي gets moved.",
+   "example": "",
+   "at": "2026-10-29T00:05:25+00:00",
+   "state": "proposed",
+   "versions": [
+    {
+     "grammar": true,
+     "id": "B20",
+     "family": "B",
+     "name": "bit- verb means gets done",
+     "one_line": "A verb starting with bit- means the subject gets acted on (gets moved), whereas the plain b- form means you do it to something.",
+     "formula": "bit- + verb = subject gets X-ed (كل إشي بيت حرك = everything gets moved)",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "بيت حرك.",
+       "english": "bit-harrak (it gets moved).",
+       "hers": true,
+       "date": "2026-10-28",
+       "t": "07:58"
+      },
+      {
+       "arabizi": "",
+       "arabic": "So كل إشي gets moved.",
+       "english": "So everything gets moved.",
+       "hers": true,
+       "date": "2026-10-28",
+       "t": "08:11"
+      }
+     ],
+     "why": "The student said بيحرك, which would mean 'moves something', but she explained that for 'everything is moving' you need بيت, the 'getting moved' form.",
+     "overlaps": {
+      "id": "B12",
+      "name": "make-X vs get-X",
+      "why": "B12 also contrasts a 'make someone do' form with a 'get/become' form of the verb."
+     },
+     "checked": {
+      "new": true,
+      "covered_by": null,
+      "why": "No existing rule or proposal covers the bit- (passive/gets done) verb form versus the active b- form; B12 is about doubling the middle letter, which is a different choice.",
+      "her_examples": 2,
+      "cost_usd": 0.017868
+     },
+     "v": 1,
+     "made_at": "2026-10-29T00:05:25+00:00",
+     "model": "claude-sonnet-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-10-28",
+     "readers": [
+      "a",
+      "b"
+     ]
+    }
+   ],
+   "heard": {
+    "date": "2026-10-28",
+    "t": "08:11",
+    "quote": "لا، بيت is you getting moved. So كل إشي gets moved.",
+    "line": "لا، بيت is you getting moved. So كل إشي gets moved.",
+    "before": "You're moving something?"
+   }
+  },
   {
    "sid": "heard-20261014-2722",
    "text": "لا، لا، وحدة because she's feminine. وحدة. Cuz she's someone feminine.",
