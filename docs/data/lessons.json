@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T19:39:15-07:00",
+ "updated": "2026-10-29T21:55:16-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -11364,50 +11364,49 @@
     ]
    },
    "words": {
-    "unique": 84,
-    "right": 122,
-    "wrong": 4,
-    "partial": 4,
-    "pct": 95.4,
-    "scored": 130,
-    "audit_wrong": 4,
+    "unique": 112,
+    "right": 175,
+    "wrong": 5,
+    "partial": 3,
+    "pct": 96.4,
+    "scored": 183,
+    "audit_wrong": 5,
     "audit_partial": 0,
-    "not_on_sheet": 5,
     "rehear_word_conflicts": 0,
-    "unique_rows": 81,
-    "eligible": 118,
-    "excluded": 12,
+    "unique_rows": 104,
+    "eligible": 183,
+    "excluded": 0,
     "pending": 0,
-    "eligible_pct": 95.8,
-    "excluded_why": {
-     "Medi not transcribed": 12
-    },
+    "eligible_pct": 96.4,
+    "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 111,
-    "mistakes": 14,
-    "pct": 88.3,
+    "uses": 119,
+    "mistakes": 22,
+    "pct": 81.5,
     "estimate": false,
-    "scored_mistakes": 13,
-    "unscored_mistakes": 1,
-    "eligible": 13,
+    "scored_mistakes": 22,
+    "unscored_mistakes": 0,
+    "eligible": 21,
     "excluded": 1,
-    "pending": 0,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
-      "1 slips are in rules the counter found 0 uses of in this lesson",
-      "3 rules have more slips than counted uses (B10, B12, F2)"
+      "3 slips are in rules the counter found 0 uses of in this lesson",
+      "5 rules have more slips than counted uses (A9, B10, B12, B18, E4)"
      ],
      "uses": 99,
-     "slips": 14,
-     "slips_latin": 7,
-     "slips_in_zero_use_rules": 1,
+     "slips": 22,
+     "slips_latin": 2,
+     "slips_in_zero_use_rules": 3,
      "rules_slips_over_uses": [
+      "A9",
       "B10",
       "B12",
-      "F2"
+      "B18",
+      "E4"
      ]
     },
     "verified_pct": null
@@ -11451,7 +11450,7 @@
       2
      ]
     ],
-    "in_turns": 176,
+    "in_turns": 180,
     "comparable": true
    },
    "latency": {
@@ -11612,7 +11611,7 @@
      "t": "1:08:01"
     }
    ],
-   "coverage": "Echo: 'Kalamata?' (53:35) = kamaan marra (again?); 'Uruk.' (28:40) = his try at 7uruub; 'La.' (1:01:55) = لـ; 'Optional be.' (26:00) = optional بـ; 'Efek.' (00:27) unclear, pre-lesson. Speaker labels swapped or merged 44:31-47:22: Medi's command attempts for rawwa7 are missing, and some lines labeled Amal ('gif bahkiha command', 'Baraw-barawih. What do you think?', 'Rawahi sah early') read as Medi. [speaking foreign language] holes 55:01-57:51 (his Arabic not written). 04:28-04:34 'بعاد وقت مع عائلتي' unclear, not filed. 'بعيد/بعيم' at 02:22-05:08 = his ba2eem (engine). Latin-transliterated stretches 26:08-29:57, 39:00-49:54, 1:02:14-1:06:01. English-only stretches 06:07-12:53 (elections), 31:17-35:30, 48:33-55:00, 58:16-1:01:18, 1:06:13-end. Self-fixes not filed: 03:34 مش عندي -> 03:54 ما عندي; 08:27 زغير -> صغيرة; 28:21 jadeed -> jadeeda; 48:07 mafatihi -> mafatihik; 24:49 جب على -> جب لا. / Whole file read. Medi mic gap 44:57-47:22: lines labelled Amal include Medi's attempts (swapped labels). Names عمان, الفلسطينيين, Palestine not counted. Engine echoes: 'Efek' (00:27), 'Uruk' (28:40, likely 7urub), 'Waskut'/'Oskot' = uskut (pronunciation, skipped), 'safri'/'safi' = saafri, 'تيس' = tis3, 'لي' at 17:09 probably 3alayy (S4; Amal chat entebhi 3alayy only, no voiced fix), 'ديري بالك ... في' 18:20 treated as mid-sentence help. Skipped on purpose: 04:34 'بعاد وقت مع عائلتي' (meaning unclear), 21:20 'ستي/ست' (Arabized set), 'Kalamata?' at 53:35, 02:48 'لوب'. Echo candidates read: 'To break something' and 'Optional be' are real English; 'tehekna' joins the 27:25 row. Long English meta talk (49:00-54:50, 59:00-1:01:20) gave no rows. / Medi's side 44:31-47:21 filled from own recording (transcribed late) (23 lines).",
+   "coverage": "Long English-only stretches: 06:07-07:03 (meme), 09:53-12:53 (election talk), 23:49-24:36, 29:00-29:16, 30:03-36:22 and 48:33-55:00 (preposition explanations in English), 59:47-1:01:18 (Farsi haqq), 1:06:13-1:10:05 (Farsi script). 04:21-04:34 'لا وقت مع إل-- بعاد ما-- بعد وقت مع عائلتي' unclear, left out. Self-fixes left out: 03:07 لازم أشتغل, 03:54 ما عندي, 05:31 أساعدني->يساعدني, 08:27 زغيرة, 09:07 بينهم, 24:49 جيبي على->جيبي لـ, 27:49 حكى لنا, 28:21 جديد->جديدة, 48:12 مفاتيحك. Echo candidates checked: 'Efek.' already shows كيفك؟; 'tehekna' (27:25) = ضحكنا; others real English. Engine: 46:33 الراوي = rawwi7i; 40:26 جبال likely jabal; 1:05:49 خوفني said with an إ- (he confirmed 'I did'). 15:06 بنت به = بنتبه. / Whole file read. Most of 12:00-14:00 and 56:00-1:10:00 is English. Echo: 'Efek.' = Medi's كيفك at 00:27; engine wrote hadeekna/tehekna for ضحك at 27:25-27:29 (see row); the echo file shows 'خربوا' where the transcript shows 'خربه' at 13:21 (Amal's word is the past of خرب). Mixed-script stretches: 27:16-28:30 (Trump sentence), 1:05-1:06 vowel drills. Skipped as non-errors: self-fixes (لعب->ألعاب 02:48, بينو->بينهم 09:07, زغيرة 08:27, اسكت على->عن 57:39), questions about the rule (ضحكي/إضحكي 29:42, لا/مش 28:07, برجع عليك 50:18), unclear اقلقي attempts at 1:04:20 (likely pronunciation). Names not flagged: فلسطينيين, Palestine. Tier 3: no Medi English-in-Arabic word was on her sheet (set, cards, computer not found). / Medi's side 44:31-47:21 filled from own recording (transcribed late) (23 lines).",
    "gap_fill": [
     {
      "side": "Medi",
@@ -11639,69 +11638,67 @@
    "notes": [
     "gap fill: Medi's side 44:31-47:21 filled from own recording (transcribed late) (23 lines).",
     "timings: anees-20261028-recall-amal-seg23: page/engine offset spread 321.38s",
-    "grammar: 1 of the 14 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
-    "1 moment(s) wait for Medi (counted as before until he picks): 15:06."
+    "1 moment(s) wait for Medi (counted as before until he picks): 05:02."
    ],
    "page": "lessons/2026-10-28.html",
    "detail": "data/lessons/2026-10-28.json",
    "rehear": {
-    "status": "submitted",
+    "status": "applied",
     "since": "2026-10-30",
-    "label": "Second listen: sent, waiting",
-    "tip": "A second AI listen of your microphone (Gemini) was sent for this lesson and its answers are not back yet. The transcript is still ElevenLabs only.",
-    "note": "Sent to Gemini (Batch) on 2026-10-30; not all of its answers are back yet."
+    "label": "Second listen: applied",
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "180 of your lines changed (79 with a different word, 101 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 21 lines wait: 0 held for a check, 15 where the 3 runs did not agree. 6 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word)."
    },
    "counts": {
     "turns": 1140,
     "chat_lines": 24,
     "gap_fill": 23,
     "from_meet": 0,
-    "vocab_errors": 9,
-    "vocab_correct": 126,
-    "grammar_errors": 14,
+    "vocab_errors": 5,
+    "vocab_correct": 178,
+    "grammar_errors": 22,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
-     "wrong": 4,
+     "wrong": 5,
      "half": 0,
-     "off_list": 5
+     "off_list": 0
     }
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-28.json",
-    "marks": 270,
-    "conflicts": 3,
+    "marks": 336,
+    "conflicts": 1,
     "resolved": 0,
     "needs_medi": 1,
     "mode": "on",
     "items": [
      {
-      "id": "C1q-6cc342fe7a",
+      "id": "C1q-d8638e79f4",
       "kind": "C1q",
-      "t": 906.01,
-      "mmss": "15:06",
-      "line": "بنت به. Uh, بنت به. Yeah, بنت, بنت به",
-      "question": "Which of Medi's words was wrong here?",
+      "t": 301.64,
+      "mmss": "05:02",
+      "line": "uh، إذا بعيد اللعبة و Instagram.",
+      "question": "Was «بعيد» wrong here?",
       "options": [
-       "بنت",
-       "به",
+       "wrong",
        "other",
        "none"
       ],
-      "now": "both judgments count as before until Amal answers",
+      "now": "once, as the slip (one utterance, one judgment, WS-39), until Amal answers",
       "also": [],
       "a": {
        "by": "word-bank",
        "verdict": "right",
-       "word": "بنت",
-       "word_key": "benet"
+       "word": "بعيد",
+       "word_key": "ba3Id"
       },
       "b": {
        "by": "readers",
        "verdict": "wrong",
-       "wrong": "بنت به",
-       "fix": "بنتبه = pay attention (take care = ديري بالك)",
+       "wrong": "بعيد",
+       "fix": "بقيم",
        "bucket": null,
-       "signal": "explicit-no"
+       "signal": "recast"
       },
       "ask": "amal"
      }
@@ -11710,23 +11707,23 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 45.2 %; 2 consecutive passes at >= 95 % are needed",
-     "coverage: 7 stretches of Medi's speech written as '[speaking ...]' markers (00:45 in all)",
+     "reader agreement: pass 1 52.2 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 2 stretches of Medi's speech written as '[speaking ...]' markers (00:20 in all)",
      "coverage: 1 stretches of Amal's speech written as '[speaking ...]' markers (00:07 in all)",
-     "coverage: Medi talks 45:09-47:08 (32 s of speech on their own track) with no transcript line",
-     "coverage: speaker labels agree with an independent check on only 87.3 % of 923 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4212 s) compared with a second model"
+     "coverage: speaker labels agree with an independent check on only 87.6 % of 943 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4212 s) compared with a second model",
+     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
      "passes": [
       {
        "pass": 1,
-       "r1": 36,
-       "r2": 33,
-       "agreed": 19,
-       "disputed": 23,
-       "agreement_pct": 45.2
+       "r1": 34,
+       "r2": 41,
+       "agreed": 24,
+       "disputed": 22,
+       "agreement_pct": 52.2
       }
      ],
      "between": [],
@@ -11745,13 +11742,7 @@
      "_lesson_s": 4212.0,
      "first_t": 4.08,
      "last_t": 4204.74,
-     "missing": [
-      [
-       2708.9,
-       2827.7,
-       "Medi talks 45:09-47:08 (32 s of speech on their own track) with no transcript line"
-      ]
-     ],
+     "missing": [],
      "holes": [
       [
        335.36,
@@ -11759,39 +11750,14 @@
        "engine heard speech but wrote a marker, not words"
       ],
       [
-       3301.06,
-       3308.58,
-       "engine heard speech but wrote a marker, not words"
-      ],
-      [
-       3315.22,
-       3320.88,
-       "engine heard speech but wrote a marker, not words"
-      ],
-      [
        3407.6,
        3415.96,
        "engine heard speech but wrote a marker, not words"
-      ],
-      [
-       3424.16,
-       3425.28,
-       "engine heard speech but wrote a marker, not words"
-      ],
-      [
-       3459.26,
-       3468.78,
-       "engine heard speech but wrote a marker, not words"
-      ],
-      [
-       3470.6,
-       3471.88,
-       "engine heard speech but wrote a marker, not words"
       ]
      ],
-     "missing_s": 118.8,
-     "hole_s": 45.2,
-     "covered_pct": 97.2
+     "missing_s": 0,
+     "hole_s": 20.1,
+     "covered_pct": 100.0
     },
     "Amal": {
      "_lesson_s": 4212.0,

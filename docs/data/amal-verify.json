@@ -1,8 +1,30 @@
 {
  "about": "Rows two AIs disagree on (Claude readers: a mistake Amal signalled; Codex, listening to an independent transcription of the audio: not so, or cannot tell). Built by scripts/codex_rejudge.py. Amal answers on the Tutor page; her 'Correction is correct' makes the row a scored mistake, her reason drops it (scripts/apply_amal_audit_rulings.py).",
- "built": "2026-10-28T17:57:08-07:00",
- "count": 0,
- "items": [],
+ "built": "2026-10-29T21:52:10-07:00",
+ "count": 1,
+ "items": [
+  {
+   "id": "verify:FA-bea50373",
+   "uid": "FA-bea50373",
+   "date": "2026-10-28",
+   "t": "40:26",
+   "t_amal": "40:33",
+   "kind": "grammar",
+   "bucket": "A9",
+   "tier": null,
+   "medi_said": "uh, إذا بدك جبال",
+   "amal_said": "الجبال. ... جبال. جبال. جبل. جبل is one.",
+   "chat": "saafri 3ala hadik el-dawle iza biddek jbaal",
+   "wrong": "جبال",
+   "right": "جبال",
+   "english": "if you want mountains",
+   "readers_say": "He asked 'What did I say?' and then 'So jabal, jibal. It's plural' - the tutor's fix is the plural jbaal vs one jabal; engine wrote جبال, he likely said the singular/a wrong vowel.",
+   "codex_says": "The tutor explicitly contrasts «جبال» with «جبل is one», suggesting a singular/plural correction. However, the student’s initial word appears as «جبال», «إشابال», or «إجا بال»; this cannot establish whether he used the singular or merely pronounced the plural unclearly.",
+   "codex_verdict": "unsure",
+   "audio": "lessons/2026-10-28/audio/lesson.mp3#t=2416,2454",
+   "sec": 2426.0
+  }
+ ],
  "answered": [
   {
    "id": "verify:FA-6350dadb",

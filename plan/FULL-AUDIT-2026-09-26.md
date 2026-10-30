@@ -1,4 +1,4 @@
-# Full vocab + grammar audit - 2026-10-28
+# Full vocab + grammar audit - 2026-10-29
 
 Two independent readers per lesson, a third settles disagreements, reconciled with the 2026-09-24 hand sweep. A = Amal fixed it out loud (scored; a fix she only typed in the chat is not a correction - GR-19). B = she let it pass (unscored until she rules on her review page). Tier 0 = she supplied a word he asked for. Nothing the sweep verified was dropped.
 
@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **844** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 124 |
+| Grammar fixes Amal voiced (A) | **852** (sweep had 312) |
+| Grammar she let pass (B, to Amal) | 122 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 33 |
-| Vocab fixes Amal voiced (A) | **410** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 198, '0': 150, '2': 96, '3': 5} |
+| Vocab fixes Amal voiced (A) | **406** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 199, '0': 147, '2': 95, '3': 4} |
 | Vocab she let pass (B, to Amal) | **41** by tier {'1': 32, '2': 8, '3': 1} |
 | Listening-drill misreads (kept apart) | 72 |
-| Rows the readers found that the sweep did not have | 1087 |
+| Rows the readers found that the sweep did not have | 1090 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -48,7 +48,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-14 | 17 | 0 | 17 | 0 | 0 | 0 | 0 | 58.9 % |
 | 2026-10-26 | 24 | 0 | 13 | 0 | 1 | 0 | 0 | 44.3 % |
 | 2026-10-27 | 22 | 2 | 7 | 0 | 2 | 0 | 0 | 61.2 % |
-| 2026-10-28 | 14 | 2 | 8 | 0 | 1 | 0 | 0 | 45.2 % |
+| 2026-10-28 | 22 | 0 | 4 | 0 | 1 | 0 | 0 | 52.2 % |
 
 ## Reader passes (the loop)
 
@@ -79,21 +79,21 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-10-14**: pass 1: r1 49 r2 47 agreed 33 disputed 23 (58.9 %), r3 kept 17 dropped 6 -> 40 rows
 - **2026-10-26**: pass 1: r1 51 r2 46 agreed 27 disputed 34 (44.3 %), r3 kept 21 dropped 13 -> 34 rows
 - **2026-10-27**: pass 1: r1 42 r2 40 agreed 30 disputed 19 (61.2 %), r3 kept 13 dropped 6 -> 33 rows
-- **2026-10-28**: pass 1: r1 36 r2 33 agreed 19 disputed 23 (45.2 %), r3 kept 18 dropped 5 -> 25 rows
+- **2026-10-28**: pass 1: r1 34 r2 41 agreed 24 disputed 22 (52.2 %), r3 kept 12 dropped 10 -> 29 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
-| B18 | verb matches its subject | 75 |
-| D2 | verb + its fixed preposition | 69 |
-| B5 | past tense | 61 |
+| B18 | verb matches its subject | 74 |
+| D2 | verb + its fixed preposition | 71 |
+| B5 | past tense | 62 |
 | A8 | gender on adjectives | 56 |
 | B12 | make-X vs get-X | 55 |
 | A7 | noun + adjective | 43 |
+| A9 | plurals | 42 |
 | D4 | endings on verbs | 41 |
-| A9 | plurals | 41 |
-| D1 | prepositions | 38 |
+| D1 | prepositions | 39 |
 | B1 | present with b- | 37 |
 | A2 | idafa (possession) | 34 |
 | PROPOSE | ? | 33 |
@@ -117,16 +117,16 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | B8 | bakoon / ykoon | 9 |
 | A3 | feminine -t in idafa | 9 |
 | A11 | kul: all vs every | 8 |
+| E4 | calendar | 8 |
 | A13 | awal / oola: before or after the noun | 8 |
 | A14 | taani: before or after the noun | 8 |
 | A12 | pronoun matches who you mean | 7 |
-| E4 | calendar | 7 |
+| C9 | word order | 7 |
 | B13 | future with ra7 | 7 |
 | C10 | preposition goes in front | 6 |
-| C9 | word order | 6 |
 | B16 | kan laazem | 5 |
+| D5 | preposition keeps el- | 5 |
 | C1 | no word for 'to be' | 4 |
-| D5 | preposition keeps el- | 4 |
 | E3 | time units, two-of and many-of | 4 |
 | A5 | chain possession | 4 |
 | A16 | 8eir: other / different, no el- | 4 |
@@ -150,7 +150,6 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A21 | taani and 8eir | 1 |
 | A23 | mufaddal + 3ind | 1 |
 | E6 | ago = qabel + number + noun | 1 |
-| F2 | vowel length | 1 |
 
 ## Sweep rows the readers did not list (kept, not dropped)
 
@@ -2014,32 +2013,35 @@ _Echo: engine wrote Turkish/Latin for the opening greetings (Merhaba / İyilik /
 
 ### 2026-10-28
 
-_Echo: 'Kalamata?' (53:35) = kamaan marra (again?); 'Uruk.' (28:40) = his try at 7uruub; 'La.' (1:01:55) = لـ; 'Optional be.' (26:00) = optional بـ; 'Efek.' (00:27) unclear, pre-lesson. Speaker labels swapped or merged 44:31-47:22: Medi's command attempts for rawwa7 are missing, and some lines labeled Amal ('gif bahkiha command', 'Baraw-barawih. What do you think?', 'Rawahi sah early') read as Medi. [speaking foreign language] holes 55:01-57:51 (his Arabic not written). 04:28-04:34 'بعاد وقت مع عائلتي' unclear, not filed. 'بعيد/بعيم' at 02:22-05:08 = his ba2eem (engine). Latin-transliterated stretches 26:08-29:57, 39:00-49:54, 1:02:14-1:06:01. English-only stretches 06:07-12:53 (elections), 31:17-35:30, 48:33-55:00, 58:16-1:01:18, 1:06:13-end. Self-fixes not filed: 03:34 مش عندي -> 03:54 ما عندي; 08:27 زغير -> صغيرة; 28:21 jadeed -> jadeeda; 48:07 mafatihi -> mafatihik; 24:49 جب على -> جب لا. / Whole file read. Medi mic gap 44:57-47:22: lines labelled Amal include Medi's attempts (swapped labels). Names عمان, الفلسطينيين, Palestine not counted. Engine echoes: 'Efek' (00:27), 'Uruk' (28:40, likely 7urub), 'Waskut'/'Oskot' = uskut (pronunciation, skipped), 'safri'/'safi' = saafri, 'تيس' = tis3, 'لي' at 17:09 probably 3alayy (S4; Amal chat entebhi 3alayy only, no voiced fix), 'ديري بالك ... في' 18:20 treated as mid-sentence help. Skipped on purpose: 04:34 'بعاد وقت مع عائلتي' (meaning unclear), 21:20 'ستي/ست' (Arabized set), 'Kalamata?' at 53:35, 02:48 'لوب'. Echo candidates read: 'To break something' and 'Optional be' are real English; 'tehekna' joins the 27:25 row. Long English meta talk (49:00-54:50, 59:00-1:01:20) gave no rows._
+_Long English-only stretches: 06:07-07:03 (meme), 09:53-12:53 (election talk), 23:49-24:36, 29:00-29:16, 30:03-36:22 and 48:33-55:00 (preposition explanations in English), 59:47-1:01:18 (Farsi haqq), 1:06:13-1:10:05 (Farsi script). 04:21-04:34 'لا وقت مع إل-- بعاد ما-- بعد وقت مع عائلتي' unclear, left out. Self-fixes left out: 03:07 لازم أشتغل, 03:54 ما عندي, 05:31 أساعدني->يساعدني, 08:27 زغيرة, 09:07 بينهم, 24:49 جيبي على->جيبي لـ, 27:49 حكى لنا, 28:21 جديد->جديدة, 48:12 مفاتيحك. Echo candidates checked: 'Efek.' already shows كيفك؟; 'tehekna' (27:25) = ضحكنا; others real English. Engine: 46:33 الراوي = rawwi7i; 40:26 جبال likely jabal; 1:05:49 خوفني said with an إ- (he confirmed 'I did'). 15:06 بنت به = بنتبه. / Whole file read. Most of 12:00-14:00 and 56:00-1:10:00 is English. Echo: 'Efek.' = Medi's كيفك at 00:27; engine wrote hadeekna/tehekna for ضحك at 27:25-27:29 (see row); the echo file shows 'خربوا' where the transcript shows 'خربه' at 13:21 (Amal's word is the past of خرب). Mixed-script stretches: 27:16-28:30 (Trump sentence), 1:05-1:06 vowel drills. Skipped as non-errors: self-fixes (لعب->ألعاب 02:48, بينو->بينهم 09:07, زغيرة 08:27, اسكت على->عن 57:39), questions about the rule (ضحكي/إضحكي 29:42, لا/مش 28:07, برجع عليك 50:18), unclear اقلقي attempts at 1:04:20 (likely pronunciation). Names not flagged: فلسطينيين, Palestine. Tier 3: no Medi English-in-Arabic word was on her sheet (set, cards, computer not found)._
 
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
-| FA-e7cfe678 | 03:39 | vocab-A | tier 0 | Do you guys use enough كافية? Is, uh، is this an Arabic word or no? | We have بكفي. | كافية -> بكفي | He asked whether كافية is the word for 'enough'; she supplied بكفي (didn't-know). | high | r1+r2 |
-| FA-58bccc0c | 03:57 | vocab-A | tier 2 | كل اليوم مش-- uh، ما عندي بكافية وقت. | وقت بكفي لشو؟ | بكافية وقت -> وقت بكفي | He blended her بكفي with كافية into a made-up بكافية and put it before the noun; she recast it as وقت بكفي. | medium | r1+r2 |
-| FA-6bb9cad9 | 05:35 | vocab-A | tier 1 | Yeah، راح يسعد. Yeah، راح يسعدني. | راح يساعد. Mhm. يعني لسه ما ساعد. | يسعدني -> يساعدني | He wanted 'help' and said سعد (make happy); Amal recast يساعد and her chat types ysaa3edni. | high | r1+r2 |
-| FA-4b0ac588 | 07:51 | grammar | B12 | بفكر إنه كل إشي بيحر-- كل إشي بيحر-- بيحرك. | بيت حرك. ... لا، بيت is you getting moved. So كل إشي gets moved. | بيحرك -> بيتحرك | بيحرك = moves something; for 'everything is moving' it needs the t- form بيتحرك; she recast and explained, he repeated بيت حرك. | high | r1+r2 |
-| FA-8ca00fc6 | 09:28 | vocab-A | tier 1 | بدك، بدك المطر؟ | آه، أنا بحب المطر. | بدك المطر -> بتحب المطر | He meant 'do you like the rain'; Amal answered with بحب and he took it ('بتحب, yeah'). | high | r1+r2 |
-| FA-9930e460 | 09:32 | grammar-B | B18 | Yeah, بـ-بتحب، yeah. |  | بتحب -> بتحبي | Talking to Amal (she) he used the masculine you-form; feminine is بتحبي; she only laughed. Could be the engine dropping a final -i. | low | r3 |
-| FA-57accbe5 | 09:47 | grammar-B | B18 | الفلسطينيين، uh، ناخد المطر؟ المي؟ | كيف يعني؟ | ناخد -> بياخدوا | Subject is 'the Palestinians' (they) but he used the we-form ناخد (and no b-); her 'كيف يعني؟' only asks what he means, so not a voiced fix. Right is my reading. | low | r3 |
-| FA-3fbfcfa1 | 15:06 | vocab-A | tier 1 | بنت به. Uh, بنت به. ... is to, to take care of something. | Actually، بنتبه is more like pay attention. | بنت به -> بنتبه = pay attention (take care = ديري بالك) | He gave بنتبه as 'take care of'; she said it means pay attention, and he switched to ديري بالك for take care. | medium | r1+r2 |
-| FA-995e3ab6 | 16:42 | grammar | D2 | Is it لا? I don't remember this one. علا. Okay. Both. | على. So both of them، الاتنين بياخدوا على. | لا -> على | Asked what انتبه / ديري بالك take, he guessed لا; Amal supplied على. | medium | r1+r2 |
-| FA-b27f4df4 | 21:48 | grammar | D2 | بتدرب لا؟ | على. | لا -> على | Asked what بتدرب takes, he said لا; Amal gave على. | high | r1+r2 |
-| FA-997f8161 | 22:43 | grammar | B10 | Great. تمارنتي | أمر. ... مرة، ni. | تمارنتي -> تمارني | Asked for a command he said tmarranti; she prompted 'أمر.' and he gave تمارني. | medium | r1+r2 |
-| FA-26be4c4c | 25:05 | grammar | B10 | بيجيب اللي. ... بيجيب اللي أي. | جبيلي إياه. Why did you put be؟ | بيجيب -> جيبيلي إياه | Asked for 'bring it to me' as a command he used the present بيجيب; she gave جيبيلي إياه and asked why he put b-. | high | r1+r2 |
-| FA-ec10abaa | 27:25 | grammar | D2 | Trump hadeekna, | ضحك. ... ضحك. | hadeekna -> ضحك علينا | ضحك takes على for 'fool someone' (drilled at 26:08-27:03); he put the object on the verb (de7ekna / tehekna); after her two ضحك prompts he said tehekalayna. | medium | r3 |
-| FA-3a0a0b2f | 28:00 | grammar | C4 | la harb jadeed. ... Is it la or mish? Mish | No new words. How about you make there would, there won't be new words. | la harb jadeed -> ma fi 7arb jdeeda | 'No new wars' with la plus noun; Amal prompted 'there won't be' and her chat gives ma fi 7arb jdeeda (ma fi for existence). | medium | r1+r2 |
-| FA-e6ab52c1 | 28:40 | vocab-A | tier 0 | Uruk. | حروب. | Uruk -> حروب | She said 'We didn't learn the plural for حرب' and gave a pattern hint (درس -> دروس); his try (engine wrote Uruk, maybe 7urub) got حروب: a new form, tier 0. Low: he may have said it nearly right. | low | r3 |
-| FA-78a85ec5 | 39:44 | grammar | F2 | so sa, uh, safri | سافري. ... Yeah، cuz you said it سافري. You should say سافري. | safri -> سافري | Command of بسافر keeps the long aa (saafri); he said safri short and said 'I said it wrong'; vowel length. | medium | r1+r2 |
-| FA-e9850708 | 41:31 | vocab-A | tier 0 | I don't know how to say surprise. | مفاجأة. | (surprise) -> مفاجأة | He said he doesn't know how to say surprise; she supplied مفاجأة. | high | r1+r2 |
-| FA-df1b6d9b | 43:59 | vocab-A (listening) | tier 1 | imta barawe min safar, um, when are you gonna leave from your trip? | Gonna come back from your trip. | when are you gonna leave from your trip -> when did you come back (home) from the trip | Reading her إيمتى روّحت من السفر he took روّح as 'leave'; she said it is 'come back from your trip'. | medium | r3 |
-| FA-2ff3a117 | 45:15 | grammar | B10 | Baraw-barawih. What do you think? (labeled Amal; reads as Medi) | It's a double something, but not R. | barawih -> رَوّحي | Asked for 'go home' as a command he gave the present-based barawih; she hinted the doubled letter, leading to rawwi7i. Speaker labels are mixed here. | low | r1+r2 |
-| FA-c4ece924 | 45:45 | vocab-A | tier 3 | Rawahi sah early. (labeled Amal; reads as Medi) | Badri. | early -> بدري | English 'early' inside his Arabic command; she voiced Badri. Sheet: 'early / Badri / بدري / badri'. Low: 45:00-47:13 are all labeled Amal (swapped labels). | low | r3 |
-| FA-83a9cdc5 | 47:27 | grammar | B5 | Because you forgot your keys, so ashan nisti ma-- uh... | So you forgot. ... It's one of the irregulars. ... Nseeti | nisti -> nseeti | Past 'you (f) forgot' is irregular nseeti; he said nisti, she prompted the irregular and gave nseeti, he took it. | medium | r1+r2 |
-| FA-e7e1bf2e | 55:37 | grammar | E2 | حوالي، uh, uh, تيس-- لا تيس لا، no تيس. ... Would I say تيس على تيس؟ | على التسع. التسع. | تيس -> على التسع | Clock time needs el- (and 3ala): he said tis(3) bare; she gave على التسع and he repeated على التيس. | medium | r1+r2 |
-| FA-26ab2709 | 57:39 | grammar | D2 | على. And that one is logical. | عن. | على -> عن | Drill: 'keep quiet about' is بسكت عن; he said على and she gave عن. | high | r1+r2 |
-| FA-48c612e1 | 1:05:32 | grammar | B12 | Uh, khafi, khafi. | No. Scared. | khafi -> خوفني | She asked for 'scare me' (make someone scared); he repeated khafi (get scared); she said No and he moved to khawwafni. | medium | r1+r2 |
-| FA-63cd94dd | 1:05:46 | grammar | B10 | so khawaf, khawafni. | بلاش. خوفني، yes. مش إي. Did you put an إي؟ | إي + khawafni -> خوفني | Doubled-middle verbs take no i- in the command; she said 'مش إي. Did you put an إي?' and he said 'I did' (engine wrote khawafni without it). | medium | r3 |
+| FA-a5f83065 | 02:22 | vocab-A | tier 1 | أنا بعيد-- er، أنا إمت؟ ... It's بعيد, right? بعيد. | إمت؟ / بقيم. | بعيد -> إمت / بقيم | He used بعيد for 'remove'; Amal gave إمت (I removed) / بقيم and he said 'بقيم، that's right'. Sheet: 'i remove / take away / Ba2eem / بقيم'. | medium | judge panel (Opus + Argon, p 0.74) |
+| FA-068296d5 | 03:57 | grammar | C9 | ما عندي بكافية وقت. | وقت بكفي لشو؟ | بكافية وقت -> وقت بكفي | He put the 'enough' word before the noun; Amal's recast puts وقت first and بكفي after it. | medium | judge panel (Opus + Argon, p 0.62) |
+| FA-d047bac1 | 05:00 | vocab-A | tier 1 | uh، إذا بعيد اللعبة و Instagram. | بقيم. حسيت إنه، إنه تغير إشي لما إمت الـ Instagram والـ ألعاب؟ | بعيد -> بقيم | Same wrong word for 'remove' again after her 02:38 fix; she said بقيم and he repeated بقيم at 05:08. Sheet: 'i remove / take away / Ba2eem / بقيم'. | medium | judge panel (Opus + Argon, p 0.77) |
+| FA-6f940433 | 05:31 | grammar | B18 | راح أساعدني؟ راح، راح ساعد. | راح يساعد. | راح ساعد -> راح يساعد | The verb after ra7 needs the person prefix for 'it' (ي); he said bare ساعد / أساعدني (I help me); Amal recast راح يساعد. | medium | judge panel (Opus + Argon, p 0.62) |
+| FA-3cd3965c | 07:14 | grammar | E4 | تمانية وعشرين ألفين ستة وعشرين. | 28 شهر. | تمانية وعشرين ألفين -> تمانية وعشرين عشرة ألفين | He left the month out of the date; Amal prompted '28 شهر؟' and he added عشرة; her chat has the full date. | medium | judge panel (Opus + Argon, p 0.66) |
+| FA-4b0ac588 | 07:51 | grammar | B12 | كل إشي بيحر-- بيحرك. بيحرّك. | بيت حرك. ... لا، بيت is you getting moved. So كل إشي gets moved. | بيحرّك -> بيتحرك | He used the doubled 'move something' form for 'everything is moving'; Amal gave the t- form and explained it, he then said بيتحرك بسرعة. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-64b376d0 | 09:28 | vocab-A | tier 1 | بدك، بدك المطر؟ | آه، أنا بحب المطر. | بدك -> بتحب | He used 'want' for 'like'; she answered أنا بحب المطر and he took it ('بتحب، yeah'). Sheet: 'like / 7ebb / حب'. | medium | judge panel (Opus + Argon, p 0.77) |
+| FA-edd196cc | 13:08 | grammar | B5 | أنا جربت بس الـ set، uh, بخرب، uh, بخرب، بخرب-- بخرب؟ | خربه. ... Yes، خرب. | بخرب -> خرب / خربه | Present بخرب for something that already broke; Amal gave خربه, he argued, then at 13:48 said خرب and she said 'Yes، خرب'. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-6d6db69b | 15:06 | vocab-A | tier 1 | بنت به. Uh, بنت به ... is to, to take care of something. | Actually، بنتبه is more like pay attention. | بنتبه -> ديري بالك (take care) - بنتبه = pay attention | He gave بنتبه as 'take care of'; Amal said it means pay attention, and he moved to ديري بالك for take care. | medium | judge panel (Opus + Argon, p 0.76) |
+| FA-c871594a | 16:42 | grammar | D2 | Is it لـ؟ I don't remember this one. علا. Okay. Both. | على. | لـ -> على | Amal asked what بنتبه takes; he guessed لـ (as a question) and she gave على. | medium | judge panel (Opus + Argon, p 0.65) |
+| FA-975d1ecc | 18:15 | grammar | D5 | على الأكل في مطبخ | في. | في مطبخ -> في المطبخ | After في the known kitchen keeps el-; Amal repeated 'في' and he fixed it to المطبخ; her chat has fi el-matba5. | high | judge panel (Opus + Argon, p 0.87) |
+| FA-d884ed6f | 21:48 | grammar | D2 | بتدرب لـ؟ | على. | لـ؟ -> على. | He asked if the verb 'batdarrab' takes 'la', and she corrected it to '3ala'. | medium | judge panel (Opus + Argon, p 0.64) |
+| FA-997f8161 | 22:43 | grammar | B10 | Wait, تمارنتي ... I thought it was تمارني. | أمر. ... مرة، ni. | تمارنتي -> تمرني | She asked for a command and he gave a past-tense -ti form; she said أمر and gave the -i ending, he said تمرني. | high | judge panel (Opus + Argon, p 0.84) |
+| FA-ef89200f | 24:49 | grammar | D2 | Uh جيبي على. [laughs] جيبي لـ | لا، لا، لا. Bring it to me. | جيبي على -> جيبي لي | Bring takes ل + person (لي), not على; Amal said no three times (he moved to لـ in the same line). | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-c20e6d9d | 25:05 | grammar | B10 | بيجيبي إلي ... بيجيبلي إياه | جبيلي إياه. Why did you put be؟ | بيجيبي -> جيبيلي إياه | A command never takes b-; Amal recast جبيلي إياه and asked why he put b-. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-ec10abaa | 27:25 | grammar | D2 | Trump hadeekna, ... ضحكنا | ضحك. ... ضحك. | hadeekna -> ضحك علينا | 'Fool someone' is ضحك على; he put the object on the verb (ضحكنا), she repeated ضحك twice until he said ضحك علينا. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-76ede39a | 28:00 | grammar | C4 | لا حرب جديد. So how do you say no new wars? Is it la or مش؟ | How about you make there would, there won't be new wars. | لا حرب -> ما في حرب | He negated a noun with لا; Amal steered him to 'there won't be' and he said ما في (her chat: ma fi 7arb). | medium | judge panel (Opus + Argon, p 0.72) |
+| FA-93d05efe | 31:31 | grammar | D2 | Okay, but if you're like complaining to your mudir, it would be ala. | على؟ لا. The على is about someone، against someone. بشكي عليك | ala -> لـ المدير | He assigns على to the recipient of a complaint, and Amal rejects that assignment and supplies لـ المدير at 31:45. | medium | judge panel (Opus + Argon, p 0.75) |
+| FA-f4a2f18e | 39:00 | rejected | B10 | it's, إسّافري؟ ... so سـ، uh, سفّري | But what's, what's smack in the middle of it? ... سافري. ... You should say سافري. | إسّافري -> سافري | A long-vowel verb takes no إ- in the command; Amal prompted the long A and recast سافري, he took it at 39:57. | medium | judge panel (Opus + Argon, p 0.77) |
+| FA-bea50373 | 40:26 | grammar | A9 | uh, إذا بدك جبال | الجبال. ... جبال. جبال. جبل. جبل is one. | جبال -> جبال | He asked 'What did I say?' and then 'So jabal, jibal. It's plural' - Amal's fix is the plural jbaal vs one jabal; engine wrote جبال, he likely said the singular/a wrong vowel. | medium | judge panel (Opus + Argon, p 0.66) |
+| FA-475ebb97 | 45:25 | grammar | D1 | روحي بيت روحي من بيت no روحي بيت | If I want to say the beit, I would have to say to the home. So what's the to part? ... Ala el beit. | روحي بيت -> روّحي على البيت | He put بيت straight after the verb; Amal said to name the home it needs 'to' (على) and el-: rawahi ala el beit. | medium | judge panel (Opus + Argon, p 0.77) |
+| FA-361cac0b | 46:33 | grammar | B10 | الراوي هون ... الراوي على هون | it's a wrong form. ... Right verb, but wrong command form. ... it's a double W. So rawahi. | الراوي هون -> روّحي هون | Engine wrote الراوي; Amal said 'right verb, but wrong command form' and gave rawwi7i, he then said روحي هون. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-83a9cdc5 | 47:27 | grammar | B5 | Because you forgot your keys, so ashan nisti ma-- uh... | Mm. So you forgot. ... It's one of the irregulars. ... Nseeti | nisti -> نسيتي | Wrong you-fem past of نسي; Amal said it is irregular and gave nseeti, he said نسيتي at 47:55. | high | judge panel (Opus + Argon, p 0.83) |
+| FA-2c64a9f6 | 55:40 | grammar | E2 | لا تسعة، لا، no تسعة. ... Would I say تسعة؟ على تسعة؟ | على التسع. التسع. | تسعة -> على التسع | Clock time takes el-; he said تسعة, then asked, and Amal recast على التسع - partly a question, so medium. | medium | judge panel (Opus + Argon, p 0.69) |
+| FA-26ab2709 | 57:39 | grammar | D2 | [background noise] [speaking foreign language] على. And that one is logical. Oh my God. | عن. | على -> عن | In the recall drill for keeping quiet about something he answers على, and Amal immediately replaces it with عن. | medium | judge panel (Opus + Argon, p 0.69) |
+| FA-77460b94 | 58:16 | vocab-A (listening) | tier 1 | Uh, like quiet about how much it costs? | No, what's حق also mean? | حق = costs -> حق = rights | He read حق in ما بسكت عن حقي as 'costs'; Amal said No and steered him to 'rights'. | medium | judge panel (Opus + Argon, p 0.64) |
+| FA-4feb3582 | 1:05:32 | grammar | B12 | Uh, خافي خافي | No. Scared. ... خوفني، yes. | خافي -> خوّفني | She asked 'scare me' and he gave the get-scared form; Amal said No and he moved to the doubled make-scared خوّفني. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-58df993c | 1:05:49 | grammar | B10 | خوّف خوفني | بلاش. خوفني، yes. مش إي. Did you put an إي؟ | خوفني -> خوّفني | He put an إ- on a doubled-letter command; Amal asked 'Did you put an إي؟', he said 'I did' and repeated خوّفني without it (engine dropped the إ). | high | judge panel (Opus + Argon, p 0.84) |
