@@ -13,8 +13,8 @@
    "verified_avg_pct": null,
    "unverified_avg_pct": 94.4,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 6144,
-   "excluded": 28,
+   "eligible": 6145,
+   "excluded": 40,
    "pending": 1
   },
   "grammar": {
@@ -28,9 +28,9 @@
   },
   "verification_queue": 1,
   "word_bank": {
-   "occurrences": 10158,
-   "eligible": 5883,
-   "excluded_not_scored": 3715,
+   "occurrences": 10171,
+   "eligible": 5895,
+   "excluded_not_scored": 3716,
    "pending_needs_review": 560,
    "other": 0,
    "pct": 98.5,
@@ -1541,7 +1541,6 @@
    "release": "not verified",
    "reasons": [
     "reader agreement: pass 1 45.2 %; 2 consecutive passes at >= 95 % are needed",
-    "coverage: Medi not transcribed 44:32-47:22 while the other person talks",
     "coverage: 7 stretches of Medi's speech written as '[speaking ...]' markers (00:45 in all)",
     "coverage: 1 stretches of Amal's speech written as '[speaking ...]' markers (00:07 in all)",
     "coverage: Medi talks 45:09-47:08 (32 s of speech on their own track) with no transcript line",
@@ -1549,14 +1548,16 @@
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4212 s) compared with a second model"
    ],
    "words": {
-    "pct": 95.7,
-    "eligible_pct": 95.7,
+    "pct": 95.4,
+    "eligible_pct": 95.8,
     "verified_pct": null,
-    "scored": 117,
-    "eligible": 117,
-    "excluded": 0,
+    "scored": 130,
+    "eligible": 118,
+    "excluded": 12,
     "pending": 0,
-    "excluded_why": {}
+    "excluded_why": {
+     "Medi not transcribed": 12
+    }
    },
    "grammar": {
     "pct": 88.3,
@@ -1575,8 +1576,8 @@
    },
    "coverage": {
     "Medi": {
-     "covered_pct": 96.0,
-     "missing_s": 170.0,
+     "covered_pct": 97.2,
+     "missing_s": 118.8,
      "hole_s": 45.2
     },
     "Amal": {

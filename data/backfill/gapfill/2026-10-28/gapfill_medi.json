@@ -1,0 +1,592 @@
+{
+ "schema": 2,
+ "kind": "anees-gapfill-layer",
+ "date": "2026-10-28",
+ "side": "Medi",
+ "missing": "medi",
+ "source": "own_track",
+ "status": "machine_heard",
+ "about": "Medi's side of 44:31-47:21 (lesson clock): his own recording is loud there but the engine wrote no words. Line times are the speech bursts of the track (silencedetect); the words were heard by gemini-3.8-flash on the paid Gemini key, 3 listens per burst, vote (context_transcribe._gem) (scripts/hear_track_gap.py). A source layer: the raw per-person transcripts are unchanged (RULES.md S2).",
+ "window": {
+  "from_s": 2671.0,
+  "to_s": 2841.5,
+  "from": "44:31",
+  "to": "47:21",
+  "clock": "lesson clock (docs/lessons/<date>/audio)"
+ },
+ "summary": {
+  "lines": 23,
+  "words": 97,
+  "lines_by_source": {
+   "own_track": 23
+  },
+  "primary_source": "own_track",
+  "offset_s": 0.024,
+  "residual_s": null,
+  "anchors": null,
+  "diarization_confidence": null,
+  "clip_mode": "ffmpeg_cut",
+  "est_cost_usd": 0.3
+ },
+ "provenance": {
+  "parts": [
+   {
+    "source": "own_track",
+    "window": {
+     "from_s": 2671.0,
+     "to_s": 2841.5,
+     "from": "44:31",
+     "to": "47:21",
+     "clock": "lesson clock (docs/lessons/<date>/audio)"
+    },
+    "track_file": "Medi_Natanzi-9d0a1f97b88a98c9.mp3",
+    "track_sha256": "ab54a4af7631825818a93220c6bb1783938dd4194bce211c86cfa7983ae2fd4b",
+    "participant": "Medi",
+    "offset_s": 0.024,
+    "clock_map": "lesson_t = track_t + offset_s (tracks.json start.relative)",
+    "timing": "silencedetect noise=-38dB d=0.7s, glue 1.2s",
+    "engine": {
+     "how": "gemini-3.8-flash on the paid Gemini key, 3 listens per burst, vote (context_transcribe._gem)",
+     "model": "gemini-3.8-flash",
+     "prompt_sha256": "c96658a76a66d093b15c89bf2df10a2a505097f46204c05756d8f3b6b2890c5d",
+     "response_sha256": "4b7f2633e6b04c80b1396171bed3c512c5f8030ad252419c72e2ceb169ea054f"
+    },
+    "bursts": [
+     {
+      "t": 2672.64,
+      "end": 2673.68,
+      "heard": "",
+      "agreement": 0.0,
+      "listens": [
+       "I finished",
+       "أفيش",
+       "ما فيش؟"
+      ]
+     },
+     {
+      "t": 2675.54,
+      "end": 2676.0,
+      "heard": "Yeah",
+      "agreement": 1.0,
+      "listens": [
+       "Yeah",
+       "Yeah",
+       "Yeah."
+      ]
+     },
+     {
+      "t": 2694.41,
+      "end": 2695.74,
+      "heard": "go back from your house",
+      "agreement": 1.0,
+      "listens": [
+       "go back from your house",
+       "go back from your house",
+       "go back from your house"
+      ]
+     },
+     {
+      "t": 2712.44,
+      "end": 2713.84,
+      "heard": "Is this double R? No.",
+      "agreement": 1.0,
+      "listens": [
+       "Is this double R? No.",
+       "Is this double r no?",
+       "Is this double R or no"
+      ]
+     },
+     {
+      "t": 2717.72,
+      "end": 2718.74,
+      "heard": "Sounds like double R",
+      "agreement": 1.0,
+      "listens": [
+       "Sounds like double R",
+       "Sounds like double R",
+       "Sounds like double R"
+      ]
+     },
+     {
+      "t": 2721.9,
+      "end": 2723.84,
+      "heard": "Uh, W?",
+      "agreement": 1.0,
+      "listens": [
+       "Uh, W?",
+       "at www",
+       "uh W W"
+      ]
+     },
+     {
+      "t": 2725.2,
+      "end": 2734.6,
+      "heard": "Uh so روحي بيت روحي من بيت no روحي بيت",
+      "agreement": 1.0,
+      "listens": [
+       "Uh so روحي بيت أو روحي من بيت no روحي بيت",
+       "Uh so روحي بيت روحي من بيت no روحي بيت",
+       "Uh, so روحي بيت or روحي من بيت؟ No, روحي بيت."
+      ]
+     },
+     {
+      "t": 2736.92,
+      "end": 2739.88,
+      "heard": "Cuz you don't know where they're leaving from, so just رايح ع بيت",
+      "agreement": 0.87,
+      "listens": [
+       "Cuz you don't know where they're leaving from, so it's just روحة بيت",
+       "Cuz you don't know where they're leaving from, so just رايح ع بيت",
+       "Cuz you don't know where they're leaving from, so just روّح البيت"
+      ]
+     },
+     {
+      "t": 2742.12,
+      "end": 2743.84,
+      "heard": "Oh, just just how would he",
+      "agreement": 0.6,
+      "listens": [
+       "Oh, just just how would he",
+       "Oh, I just, I just draw with he",
+       "Oh, you just just roughly"
+      ]
+     },
+     {
+      "t": 2747.74,
+      "end": 2748.18,
+      "heard": "بدري",
+      "agreement": 1.0,
+      "listens": [
+       "بدري",
+       "بدري",
+       "بدري"
+      ]
+     },
+     {
+      "t": 2754.65,
+      "end": 2755.2,
+      "heard": "I love it.",
+      "agreement": 1.0,
+      "listens": [
+       "I love it.",
+       "I love it",
+       "I love it"
+      ]
+     },
+     {
+      "t": 2761.41,
+      "end": 2761.72,
+      "heard": "",
+      "agreement": 0.0,
+      "listens": [
+       "Okay.",
+       "أكثر",
+       "أفهم"
+      ]
+     },
+     {
+      "t": 2765.56,
+      "end": 2768.75,
+      "heard": "So if you don't specify to somewhere",
+      "agreement": 1.0,
+      "listens": [
+       "So if you don't specify to somewhere",
+       "So if you don't specify to somewhere",
+       "So if you don't specify to somewhere"
+      ]
+     },
+     {
+      "t": 2771.51,
+      "end": 2772.76,
+      "heard": "You you assume it's home.",
+      "agreement": 1.0,
+      "listens": [
+       "You you assume it's home.",
+       "You you assume it's home.",
+       "You you assume it's home."
+      ]
+     },
+     {
+      "t": 2778.95,
+      "end": 2781.57,
+      "heard": "Okay, sentence",
+      "agreement": 1.0,
+      "listens": [
+       "Okay. Intense.",
+       "Okay, sentence",
+       "Okay, sentence"
+      ]
+     },
+     {
+      "t": 2785.62,
+      "end": 2786.07,
+      "heard": "so",
+      "agreement": 1.0,
+      "listens": [
+       "so",
+       "So",
+       "So"
+      ]
+     },
+     {
+      "t": 2790.33,
+      "end": 2791.13,
+      "heard": "Uh",
+      "agreement": 1.0,
+      "listens": [
+       "Uh",
+       "uh",
+       "uh"
+      ]
+     },
+     {
+      "t": 2793.43,
+      "end": 2794.98,
+      "heard": "الراوي هون",
+      "agreement": 0.5,
+      "listens": [
+       "الراوي هون",
+       "إروي هون",
+       "اروي هون؟"
+      ]
+     },
+     {
+      "t": 2799.51,
+      "end": 2803.18,
+      "heard": "and you know, الراوي على هون",
+      "agreement": 1.0,
+      "listens": [
+       "and you know, الراوي على هون",
+       "And you know, الراوي على هون",
+       "And you know, er, روحي على هون؟"
+      ]
+     },
+     {
+      "t": 2809.76,
+      "end": 2810.85,
+      "heard": "Oh, everybody is, uh",
+      "agreement": 1.0,
+      "listens": [
+       "Oh, everybody is, uh",
+       "Oh, everybody is, uh",
+       "Oh, everybody's, uh"
+      ]
+     },
+     {
+      "t": 2818.3,
+      "end": 2819.76,
+      "heard": "wrong command form",
+      "agreement": 1.0,
+      "listens": [
+       "wrong command form",
+       "wrong command form?",
+       "wrong command form"
+      ]
+     },
+     {
+      "t": 2822.74,
+      "end": 2823.86,
+      "heard": "So come back here",
+      "agreement": 1.0,
+      "listens": [
+       "So come back here",
+       "So come back here,",
+       "So come back here"
+      ]
+     },
+     {
+      "t": 2827.41,
+      "end": 2831.9,
+      "heard": "أو رو إيه روحي هون روحي على هون",
+      "agreement": 1.0,
+      "listens": [
+       "أو رو إي روحي هون روحي على هون",
+       "أو رو إيه روحي هون روحي على هون",
+       "أو رو- إيه روحي هون روحي على هون"
+      ]
+     },
+     {
+      "t": 2834.53,
+      "end": 2835.81,
+      "heard": "Uh عشان",
+      "agreement": 1.0,
+      "listens": [
+       "Uh عشان",
+       "Uh عشان",
+       "Uh عشان"
+      ]
+     },
+     {
+      "t": 2837.31,
+      "end": 2837.81,
+      "heard": "I think",
+      "agreement": 0.5,
+      "listens": [
+       "",
+       "I think",
+       "I mean I mean"
+      ]
+     }
+    ],
+    "est_cost_usd": 0.3
+   }
+  ],
+  "built_at": "2026-10-30T01:55:07+00:00"
+ },
+ "lines": [
+  {
+   "t": 2675.54,
+   "end": 2676.0,
+   "who": "Medi",
+   "text": "Yeah",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 1
+  },
+  {
+   "t": 2694.41,
+   "end": 2695.74,
+   "who": "Medi",
+   "text": "go back from your house",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 5
+  },
+  {
+   "t": 2712.44,
+   "end": 2713.84,
+   "who": "Medi",
+   "text": "Is this double R? No.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 5
+  },
+  {
+   "t": 2717.72,
+   "end": 2718.74,
+   "who": "Medi",
+   "text": "Sounds like double R",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 4
+  },
+  {
+   "t": 2721.9,
+   "end": 2723.84,
+   "who": "Medi",
+   "text": "Uh, W?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 2
+  },
+  {
+   "t": 2725.2,
+   "end": 2734.6,
+   "who": "Medi",
+   "text": "Uh so روحي بيت روحي من بيت no روحي بيت",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 10
+  },
+  {
+   "t": 2736.92,
+   "end": 2739.88,
+   "who": "Medi",
+   "text": "Cuz you don't know where they're leaving from, so just رايح ع بيت",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.87,
+   "engine": "gemini-3.8-flash",
+   "n_words": 13
+  },
+  {
+   "t": 2742.12,
+   "end": 2743.84,
+   "who": "Medi",
+   "text": "Oh, just just how would he",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.6,
+   "engine": "gemini-3.8-flash",
+   "n_words": 6
+  },
+  {
+   "t": 2747.74,
+   "end": 2748.18,
+   "who": "Medi",
+   "text": "بدري",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 1
+  },
+  {
+   "t": 2754.65,
+   "end": 2755.2,
+   "who": "Medi",
+   "text": "I love it.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 3
+  },
+  {
+   "t": 2765.56,
+   "end": 2768.75,
+   "who": "Medi",
+   "text": "So if you don't specify to somewhere",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 7
+  },
+  {
+   "t": 2771.51,
+   "end": 2772.76,
+   "who": "Medi",
+   "text": "You you assume it's home.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 5
+  },
+  {
+   "t": 2778.95,
+   "end": 2781.57,
+   "who": "Medi",
+   "text": "Okay, sentence",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 2
+  },
+  {
+   "t": 2785.62,
+   "end": 2786.07,
+   "who": "Medi",
+   "text": "so",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 1
+  },
+  {
+   "t": 2790.33,
+   "end": 2791.13,
+   "who": "Medi",
+   "text": "Uh",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 1
+  },
+  {
+   "t": 2793.43,
+   "end": 2794.98,
+   "who": "Medi",
+   "text": "الراوي هون",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.5,
+   "engine": "gemini-3.8-flash",
+   "n_words": 2
+  },
+  {
+   "t": 2799.51,
+   "end": 2803.18,
+   "who": "Medi",
+   "text": "and you know, الراوي على هون",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 6
+  },
+  {
+   "t": 2809.76,
+   "end": 2810.85,
+   "who": "Medi",
+   "text": "Oh, everybody is, uh",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 4
+  },
+  {
+   "t": 2818.3,
+   "end": 2819.76,
+   "who": "Medi",
+   "text": "wrong command form",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 3
+  },
+  {
+   "t": 2822.74,
+   "end": 2823.86,
+   "who": "Medi",
+   "text": "So come back here",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 4
+  },
+  {
+   "t": 2827.41,
+   "end": 2831.9,
+   "who": "Medi",
+   "text": "أو رو إيه روحي هون روحي على هون",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 8
+  },
+  {
+   "t": 2834.53,
+   "end": 2835.81,
+   "who": "Medi",
+   "text": "Uh عشان",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "engine": "gemini-3.8-flash",
+   "n_words": 2
+  },
+  {
+   "t": 2837.31,
+   "end": 2837.81,
+   "who": "Medi",
+   "text": "I think",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.5,
+   "engine": "gemini-3.8-flash",
+   "n_words": 2
+  }
+ ],
+ "words": []
+}

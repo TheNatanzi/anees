@@ -1209,7 +1209,10 @@ def said_again(date, turns, rows, adds, patches, evs, window=10.0):
                     r["added"] = "again"
                     continue
                 e = by_ev.get(r["event"])
-                if e is None or e.get("review_locked") or e.get("medi_ruling") or e.get("id") in ledger_ids():
+                # our own WS-36 patch from the last build stays, as in _patch (2026-10-29: 10-14 73:41 شكراً flipped on every
+                # build - patch -> the ledger rules on it -> patch dropped -> no ruling -> patch - and check_numbers failed
+                # every other build: Word Bank 239 vs Lessons 238)
+                if e is None or e.get("review_locked") or e.get("medi_ruling") or (e.get("id") in ledger_ids() and e.get("id") not in OWN_PATCHED):
                     continue
                 exp = {k: e.get(k) for k in ["source_sha256", "row_id", "word_key", "text", "t_start", "t_end", "assessment", "reason"]}
                 patches[e["id"]] = {"expected": exp, "changes": {"assessment": "unresolved", "vocab_points": None, "ignored": True,

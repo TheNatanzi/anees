@@ -44,6 +44,7 @@ ONCE_OK = {
     'docs/js/fluency-ladder.js': "Medi's labels: re-read while queued writes sync; a re-read on return could drop an unsynced label",
     'docs/js/vocab-unknowns.js': 'AI Reports blind-spot tables: a report snapshot, read on open',
     'docs/js/possible-names.js': 'AI Reports names list: Medi labels names on it (see fluency-ladder.js)',
+    'docs/js/set-view.js': "writes only (an edit row through the upload queue), reads no live data: its cards come from the page that opens it (Flashcards / Tutor page re-read); a card being edited lives on the page",
 }
 
 
