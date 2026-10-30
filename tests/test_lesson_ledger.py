@@ -254,7 +254,7 @@ def test_LS_12_word_questions_go_to_amal_in_plain_words():
     c = next(c for c in led["conflicts"] if c["id"] in led["needs_medi"])
     item = LL.amal_item("2026-09-28", led, c)
     assert item["id"] == "ledger:" + c["id"] and item["audio"].startswith("lessons/2026-09-28/audio/lesson.mp3#t=")
-    assert [o["label"] for o in item["options"]] == ["Yes, it was wrong", "Another word was wrong (Amal typed it)", "Nothing was wrong"]
+    assert [o["label"] for o in item["options"]] == ["Yes, it was wrong", "Another word was wrong (the tutor typed it)", "Nothing was wrong"]
     assert not re.search(r"[A-F]\d+|C1q|ledger|Word Bank", item["question"])      # no rule ids, no app words
 
 

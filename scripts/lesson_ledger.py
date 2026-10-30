@@ -359,7 +359,7 @@ AMAL_WORDS = {   # the question and the choices in plain words, for her card (no
     "C2q": "Was this the wrong word, or the right word with a grammar mistake?",
     "CR": "Was «%s» wrong here?",
 }
-LABELS = {"none": "Nothing was wrong", "wrong": "Yes, it was wrong", "ledger": "Yes, it was wrong", "other": "Another word was wrong (Amal typed it)",
+LABELS = {"none": "Nothing was wrong", "wrong": "Yes, it was wrong", "ledger": "Yes, it was wrong", "other": "Another word was wrong (the tutor typed it)",
           "word": "Wrong word", "grammar": "Grammar mistake", "both": "Both"}
 
 
