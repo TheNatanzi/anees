@@ -32,6 +32,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-26 | 95.1 | 294 | 91.7 | 23 | 230 | 0 / 0 |
 | 2026-10-27 | 96.2 | 223 | 88.5 | 23 | 192 | 0 / 0 |
 | 2026-10-28 | 95.4 -> **96.4** | 130 -> **183** | 88.3 -> **87.4** | 14 -> **22** | 111 -> **174** | 0 / 1 |
+| 2026-10-30 | None -> **94.8** | None -> **233** | None -> **89.3** | None -> **27** | None -> **243** | 1 / 1 |
 
 
 ## Conflicts
@@ -144,6 +145,13 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-26 07:09 C1p both stand: كتير (word-bank right) vs ما بيعمل كتير -> ما بيشتغل كتير (readers not-scored) - slip elsewhere in the phrase: the word stays right
 - 2026-10-26 07:12 C1p both stand: كتير (word-bank right) vs ما بيعمل كتير -> ما بيشتغل كتير (readers not-scored) - slip elsewhere in the phrase: the word stays right
 - 2026-10-28 05:02 C1q Medi?: بعيد (word-bank right) vs بعيد -> بقيم (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-10-30 17:01 C1 settled: حدا (word-bank right) vs ولا حدا -> ولا إشي (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-10-30 17:01 C1p both stand: ولا (word-bank right) vs ولا حدا -> ولا إشي (readers wrong) - slip elsewhere in the phrase: the word stays right
+- 2026-10-30 24:40 C1p both stand: بنات (word-bank right) vs بنات خطيبتي -> بنات أخوي (readers not-scored) - slip elsewhere in the phrase: the word stays right
+- 2026-10-30 24:41 C1r both stand: خطيبتي (word-bank right) vs بنات خطيبتي -> بنات أخوي (readers not-scored) - the Word Bank's context review already settled it: unchanged
+- 2026-10-30 41:59 C1q Medi?: شهر (word-bank right) vs شهر الماضي -> الشهر الجاي (readers not-scored) - which word of the phrase was wrong: Medi
+- 2026-10-30 41:59 C1q Medi?: الماضي (word-bank right) vs شهر الماضي -> الشهر الجاي (readers not-scored) - which word of the phrase was wrong: Medi
+- 2026-10-30 56:40 C1r both stand: مزعوج. (word-bank right) vs مزعوج -> مزعج (readers wrong) - the Word Bank's context review already settled it: unchanged
 
 ## Medi's corrections (PR-15)
 

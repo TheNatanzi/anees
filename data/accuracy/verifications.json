@@ -30914,6 +30914,110 @@
    },
    "at": "2026-10-29T21:52:07-07:00",
    "run_id": "ac264982629846069861cf42e05c0a2e"
+  },
+  {
+   "uid": "FA-66cd81b5",
+   "date": "2026-10-30",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Amal echoes «عليك؟», says “No,” and subsequently models «أنا بشتاق لك». This establishes a preposition correction despite the unclear transcription of Medi’s retry.",
+   "evidence": {
+    "t_start": 2185.0,
+    "t_end": 2229.0,
+    "quote": "Medi: «أنا بشتاق عليك». Amal: «عليك؟» / “No” / «أنا بشتاق لك».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-30/FA-66cd81b5_Medi_Medi_Natanzi-9993ed4e99f.mp3",
+      "sha256": "417d7208f3761e5aee6e792e36581525bb426cbf544f6613343652adf842a09a",
+      "source": "Medi_Natanzi-9993ed4e99fe508f.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-30/FA-66cd81b5_Amal_Amal-25523abb8ba8da9e.mp3",
+      "sha256": "1ad38ba98640b80b69bc69067d61893a7a9c54d5225f67618c42c3a26354fccf",
+      "source": "Amal-25523abb8ba8da9e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-30/FA-66cd81b5_mixed_lesson.mp3",
+      "sha256": "5207f6a084351d510b5a55105b3d2876169464b96a005a6565d79fc157205d58",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "مش مشتاق I'm guessing there is a preposition because of this lesson أنا بشتاق عليك It's not like بشتاق عليك Okay اشتركوا في القناة",
+     "Amal": "مشتاة exactly so how do you say to someone I miss you yeah great observation عليك no nice yes now If you say to someone أنا بشتألك It would indicate that Like I usually miss you Like I miss you So how do you say I am actively Missing you",
+     "mixed": "مشتا مشتا exactly so how do you say to someone I miss you I'm guessing there is a preposition because of this lesson yeah good observation أنا بشتا عليك عليك is not عليك بشتا عليك nice yes now If you say to someone أنا بشتألك It would indicate that Like I usually miss you Like I miss you So how do you say I am actively missing you"
+    }
+   },
+   "claim": {
+    "wrong": "بشتا عليك",
+    "right": "بشتاق لك",
+    "bucket": "D2",
+    "tier": null
+   },
+   "at": "2026-10-30T16:09:13-07:00",
+   "run_id": "06f4ac8a07784ed29e0b53ec10ec1ab6"
+  },
+  {
+   "uid": "FA-9fc84431",
+   "date": "2026-10-30",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "medium",
+   "reason": "The recoverable wrong form is «أنا بزعج», not «أنا بأذ»: Amal repeats it and explains that it means “I annoy.” Her instruction to add something, followed by “it's an N verb,” supports the correction to «أنا بنزعج».",
+   "evidence": {
+    "t_start": 3112.0,
+    "t_end": 3146.0,
+    "quote": "Amal: «بزعج is I annoy. When you add what you're supposed to add, it gets to I get annoyed»; “No, no, no, it's an N verb.”",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-30/FA-9fc84431_Medi_Medi_Natanzi-9993ed4e99f.mp3",
+      "sha256": "407a83ff1dff333310529a87ffb56295a89c0dddb79c019a3ff923b4ebc2d35d",
+      "source": "Medi_Natanzi-9993ed4e99fe508f.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-30/FA-9fc84431_Amal_Amal-25523abb8ba8da9e.mp3",
+      "sha256": "a8104ee83425f57bb3ac1da8770ec6af73dd7915e9b2f8f7df3de60071d0c7b8",
+      "source": "Amal-25523abb8ba8da9e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-30/FA-9fc84431_mixed_lesson.mp3",
+      "sha256": "24f0c54701ee5ad3e5b482e0cfd1fa8c1b6606cef3f56dff68767b711e489260",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "بس ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه اي اشتركوا في القناة",
+     "Amal": "I annoy أنا بزعج بزعج is I annoy when you add what you're supposed to add it gets to I get annoyed شكرا",
+     "mixed": "بس ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه ايه اي اشتركوا في القناة"
+    }
+   },
+   "claim": {
+    "wrong": "أنا بأذ",
+    "right": "أنا بنزعج",
+    "bucket": "B12",
+    "tier": null
+   },
+   "at": "2026-10-30T16:09:13-07:00",
+   "run_id": "06f4ac8a07784ed29e0b53ec10ec1ab6",
+   "changed_to": {
+    "wrong": "أنا بزعج",
+    "right": "أنا بنزعج"
+   }
   }
  ]
 }
