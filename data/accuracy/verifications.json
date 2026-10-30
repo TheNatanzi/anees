@@ -30864,6 +30864,56 @@
    },
    "at": "2026-10-28T17:57:04-07:00",
    "run_id": "aee29756ecae47378faf7e72290f657c"
+  },
+  {
+   "uid": "FA-bea50373",
+   "date": "2026-10-28",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "unsure",
+   "confidence": "medium",
+   "reason": "Amal explicitly contrasts «جبال» with «جبل is one», suggesting a singular/plural correction. However, Medi’s initial word appears as «جبال», «إشابال», or «إجا بال»; this cannot establish whether he used the singular or merely pronounced the plural unclearly.",
+   "evidence": {
+    "t_start": 2416.0,
+    "t_end": 2453.0,
+    "quote": "Medi: «إذا بدك إشابال» / «إز بدك إجا بال». Amal: «جبال، جبال، جبل، جبل is one».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-28/FA-bea50373_Medi_Medi_Natanzi-9d0a1f97b88.mp3",
+      "sha256": "c2b3f3bf9edf771d7259a6d55e5ef14b8ee90f24baa78004315c4c762b8606e6",
+      "source": "Medi_Natanzi-9d0a1f97b88a98c9.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-28/FA-bea50373_Amal_Amal-c2e4f17332138e8f.mp3",
+      "sha256": "8c8728cb9972fb114c67dbbb5a3231ec14fd141b02ee5fc74236eb201a28a360",
+      "source": "Amal-c2e4f17332138e8f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-28/FA-bea50373_mixed_lesson.mp3",
+      "sha256": "9b341639cf4032e1efcdf97a0ccf83f77d2563a6895554cf446abdfe9565e379",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هل الدولة جنونية؟ حديك الدولة إذا بدك إشابال ماذا؟ ماذا قلت؟ جبال. جبال.",
+     "Amal": "المترجم للقناة جبال جبال جبل جبل is one",
+     "mixed": "هل الدولة سمينة؟ نعم حديك الدولة إذا بدك إجابال إجابال ماذا؟ إجابال ماذا قلت؟ جبال جبال جبال جبال جبال"
+    }
+   },
+   "claim": {
+    "wrong": "جبال",
+    "right": "جبال",
+    "bucket": "A9",
+    "tier": null
+   },
+   "at": "2026-10-29T21:52:07-07:00",
+   "run_id": "ac264982629846069861cf42e05c0a2e"
   }
  ]
 }

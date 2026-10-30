@@ -31,7 +31,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-14 | 92.9 | 260 | 91.1 | 17 | 169 | 0 / 0 |
 | 2026-10-26 | 95.1 | 294 | 91.7 | 23 | 230 | 0 / 0 |
 | 2026-10-27 | 96.2 | 223 | 88.5 | 23 | 192 | 0 / 0 |
-| 2026-10-28 | None -> **95.4** | None -> **130** | None -> **88.3** | None -> **14** | None -> **111** | 0 / 1 |
+| 2026-10-28 | 95.4 -> **96.4** | 130 -> **183** | 88.3 -> **81.5** | 14 -> **22** | 111 -> **119** | 0 / 1 |
 
 
 ## Conflicts
@@ -143,9 +143,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-12 58:52 C1a both stand: بطلب (word-bank right) vs بطلب = go out -> بطلب = request / ask for (readers asked) - he asked for another word: both stand
 - 2026-10-26 07:09 C1p both stand: كتير (word-bank right) vs ما بيعمل كتير -> ما بيشتغل كتير (readers not-scored) - slip elsewhere in the phrase: the word stays right
 - 2026-10-26 07:12 C1p both stand: كتير (word-bank right) vs ما بيعمل كتير -> ما بيشتغل كتير (readers not-scored) - slip elsewhere in the phrase: the word stays right
-- 2026-10-28 03:58 C1p both stand: وقت. (word-bank right) vs بكافية وقت -> وقت بكفي (readers not-scored) - slip elsewhere in the phrase: the word stays right
-- 2026-10-28 09:28 C1p both stand: المطر (word-bank right) vs بدك المطر -> بتحب المطر (readers wrong) - slip elsewhere in the phrase: the word stays right
-- 2026-10-28 15:06 C1q Medi?: بنت (word-bank right) vs بنت به -> بنتبه = pay attention (take care = ديري بالك) (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-10-28 05:02 C1q Medi?: بعيد (word-bank right) vs بعيد -> بقيم (readers wrong) - which word of the phrase was wrong: Medi
 
 ## Medi's corrections (PR-15)
 

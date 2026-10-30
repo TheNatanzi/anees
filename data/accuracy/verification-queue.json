@@ -1,8 +1,9 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 1,
+ "count": 2,
  "by_date": {
-  "2026-09-26": 1
+  "2026-09-26": 1,
+  "2026-10-28": 1
  },
  "rows": [
   {
@@ -29,6 +30,31 @@
    },
    "listen_from": "00:47",
    "listen_to": "01:21"
+  },
+  {
+   "uid": "FA-bea50373",
+   "date": "2026-10-28",
+   "t": "40:26",
+   "t_amal": "40:33",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A9",
+   "medi_said": "uh, إذا بدك جبال",
+   "amal_said": "الجبال. ... جبال. جبال. جبل. جبل is one.",
+   "wrong": "جبال",
+   "right": "جبال",
+   "why_check": [
+    "the transcript under it is disputed (engine wrote something else)"
+   ],
+   "check": "audio",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-6-astra",
+    "verdict": "unsure",
+    "reason": "Amal explicitly contrasts «جبال» with «جبل is one», suggesting a singular/plural correction. However, Medi’s initial word appears as «جبال», «إشابال», or «إجا بال»; this cannot establish whether he used the singular or merely pronounced the plural unclearly."
+   },
+   "listen_from": "40:16",
+   "listen_to": "40:53"
   }
  ]
 }
