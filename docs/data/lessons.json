@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T05:36:31-07:00",
+ "updated": "2026-10-30T16:14:28-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -11770,6 +11770,831 @@
      ],
      "missing_s": 0,
      "hole_s": 6.7,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-10-30",
+   "start_local": "2026-10-30T13:33:14-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 70.8,
+   "type": "review-grammar",
+   "review_mode": "speaking",
+   "type_why": "17:10-1:07:12 (~50 of 67 min) finishes the review of which preposition each verb takes, drilled on the set from بخاف من / على through بفضل على (17:10 'شو الفرق بين أنا بخاف من and أنا بخاف على؟', 48:19 'Last few verbs are one of the newer ones. Let's see if you still remember them', 1:03:33 'And the list is done'), with command forms on the same verbs. 03:39-17:05 is warm-up talk (Halloween costumes, the date, the homework feature, clothes); he stepped away 34:27-36:02 while she waited, and 1:07:35-1:09:43 is planning next week (adjectives + prepositions).",
+   "type_source": "claude-read",
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Finished the verb + preposition set: بنبسط, بشتاق, بتحمس, بعصب, بزعل, بفضل على, with commands",
+    "rules": [
+     {
+      "title": "بخاف من = afraid of; بخاف على = worried for",
+      "pattern": "بخاف من + thing / على + person",
+      "bullets": [
+       "من = the thing you fear",
+       "على = you fear for someone"
+      ],
+      "examples": [
+       {
+        "t": "17:16",
+        "line": "أنا بخاف من / أنا بخاف على - what's the difference?"
+       },
+       {
+        "t": "17:23",
+        "line": "على is when you're concerned for someone, من is afraid of"
+       }
+      ]
+     },
+     {
+      "title": "بشكي من = complain about; بشكي لـ = complain to",
+      "pattern": "بشكي من + thing / لـ + person",
+      "bullets": [
+       "من = what you complain about",
+       "لـ = who you complain to"
+      ],
+      "examples": [
+       {
+        "t": "17:34",
+        "line": "بشكي من / بشكي له"
+       },
+       {
+        "t": "17:55",
+        "line": "بشكي لـ - complain to someone"
+       }
+      ]
+     },
+     {
+      "title": "برجع على = go back to a place; برجع لـ = get back to someone",
+      "pattern": "برجع على + place / برجع لـ + person",
+      "bullets": [
+       "على = come back to a place",
+       "لـ = get back to someone (mostly a person)",
+       "برجعلك = I'll get back to you"
+      ],
+      "examples": [
+       {
+        "t": "18:40",
+        "line": "على is like you come back to a place"
+       },
+       {
+        "t": "19:09",
+        "line": "أنا برجعلك - I'll get back to you"
+       },
+       {
+        "t": "20:32",
+        "line": "برجعلك بعدين - I'll get back to you later"
+       },
+       {
+        "t": "21:06",
+        "line": "بكرة لازم برجع على بيتي - tomorrow I have to go back home"
+       }
+      ]
+     },
+     {
+      "title": "بعزم حدا على = invite someone to",
+      "pattern": "بعزم + person + على + event / meal",
+      "bullets": [
+       "invite to = على, not لـ",
+       "works for meals too: على الغدا"
+      ],
+      "examples": [
+       {
+        "t": "21:31",
+        "line": "على كباب - (invite) to kebab"
+       },
+       {
+        "t": "22:16",
+        "line": "بعزم حدا على - I invite someone to"
+       },
+       {
+        "t": "22:58",
+        "line": "بدي أعزمك على الغدا - I want to invite you to lunch"
+       }
+      ]
+     },
+     {
+      "title": "بنبسط من = happy because of; بنبسط لـ = happy for; بنبسط بـ = enjoy",
+      "pattern": "بنبسط من + cause / لـ + person / بـ + noun",
+      "bullets": [
+       "من = from / because of / by something",
+       "لـ = happy for someone",
+       "بـ = enjoy, only before a noun (التصوير), never a verb",
+       "command: انبسط"
+      ],
+      "examples": [
+       {
+        "t": "24:40",
+        "line": "أنا بنبسط من بنات أخوي لما بيلبسوا costumes"
+       },
+       {
+        "t": "25:16",
+        "line": "أنا بنبسط منك لما تحكي جملة صعبة"
+       },
+       {
+        "t": "28:57",
+        "line": "راح أنبسط لك - I will be happy for you"
+       },
+       {
+        "t": "29:52",
+        "line": "بنبسط لها - I'm happy for her"
+       },
+       {
+        "t": "30:58",
+        "line": "بالتصوير - (I enjoy) photography"
+       },
+       {
+        "t": "31:37",
+        "line": "انبسطت بالأكل - I enjoyed the food"
+       }
+      ]
+     },
+     {
+      "title": "بشتاق لـ = I miss; مشتاق لك = I miss you now; اشتقت لك = I missed you",
+      "pattern": "بشتاق لـ / مشتاق لـ / اشتقت لـ",
+      "bullets": [
+       "بشتاق لك = I (usually) miss you",
+       "مشتاق لك = I miss you right now (the adjective)",
+       "past: اشتقت (no ع in the middle)",
+       "command: اشتاق لي, ما تشتاقي"
+      ],
+      "examples": [
+       {
+        "t": "36:27",
+        "line": "مشتاق - missing"
+       },
+       {
+        "t": "36:56",
+        "line": "أنا بشتاق لك - I usually miss you"
+       },
+       {
+        "t": "38:30",
+        "line": "مشتاق لك - I miss you"
+       },
+       {
+        "t": "38:58",
+        "line": "اشتقت - I missed"
+       },
+       {
+        "t": "40:06",
+        "line": "اشتاق إلي - miss me"
+       },
+       {
+        "t": "1:05:07",
+        "line": "ما تشتاقي - don't miss"
+       }
+      ]
+     },
+     {
+      "title": "بتحمس لـ = get excited for; بحمس = I excite; متحمس = excited now",
+      "pattern": "بتحمس لـ + thing",
+      "bullets": [
+       "T verb = it happens to me: بتحمس",
+       "no T = I do it to someone: بحمس",
+       "now = متحمس; usually = بتحمس (add بالعادة)",
+       "past: تحمست لـ"
+      ],
+      "examples": [
+       {
+        "t": "41:04",
+        "line": "بتحمس له - I get excited for it"
+       },
+       {
+        "t": "41:26",
+        "line": "أنا بحمس، أنا بتحمس - I excite, I get excited"
+       },
+       {
+        "t": "43:08",
+        "line": "أنا متحمس للشهر الجاي - I'm excited for next month"
+       },
+       {
+        "t": "43:14",
+        "line": "أنا بتحمس بالعادة لشهر إحدعش - I usually get excited for November"
+       },
+       {
+        "t": "44:56",
+        "line": "تحمست لـ - I got excited for"
+       }
+      ]
+     },
+     {
+      "title": "بوصل على = arrive to; it also means reach",
+      "pattern": "بوصل على + place",
+      "bullets": [
+       "وصل = arrive / reach (home)",
+       "past is an internal flip: وصلت / وصلتِ",
+       "command: أوصل بدري"
+      ],
+      "examples": [
+       {
+        "t": "45:37",
+        "line": "أنا بوصل على - I arrive to"
+       },
+       {
+        "t": "46:15",
+        "line": "What time did you arrive home yesterday?"
+       },
+       {
+        "t": "46:57",
+        "line": "وصلتِ - you (f) arrived"
+       },
+       {
+        "t": "47:28",
+        "line": "أوصل بدري - arrive early"
+       }
+      ]
+     },
+     {
+      "title": "بتوجع من = get hurt from; بتعب من = get tired from",
+      "pattern": "بتوجع من / بتعب من + cause",
+      "bullets": [
+       "both take من (from / because of)",
+       "بتعب = I get tired, بتعّب = I make tired"
+      ],
+      "examples": [
+       {
+        "t": "48:56",
+        "line": "أنا بتوجع من - I get hurt from"
+       },
+       {
+        "t": "51:14",
+        "line": "بتوجع بالجيم - I get hurt at the gym"
+       },
+       {
+        "t": "54:15",
+        "line": "أنا بتعب من - I get tired from"
+       },
+       {
+        "t": "55:10",
+        "line": "بتعب زيادة لما أتمرن أو أشتغل بنفس اليوم"
+       }
+      ]
+     },
+     {
+      "title": "بنزعج من = get annoyed by; بزعج = I annoy (an N verb)",
+      "pattern": "بنزعج من + person / بزعج + person",
+      "bullets": [
+       "N added = it happens to me: بنزعج",
+       "بزعج = I annoy someone",
+       "ما تنزعج مني = don't get annoyed by me; ما تزعجني = don't annoy me"
+      ],
+      "examples": [
+       {
+        "t": "52:06",
+        "line": "أنا بزعج - I annoy"
+       },
+       {
+        "t": "52:27",
+        "line": "it's an N verb"
+       },
+       {
+        "t": "53:24",
+        "line": "ما تنزعج - don't get annoyed by me"
+       },
+       {
+        "t": "53:43",
+        "line": "ما تزعجني - don't annoy me"
+       }
+      ]
+     },
+     {
+      "title": "بعصب من = angry because of; بعصب على = angry at (you show it)",
+      "pattern": "بعصب من + cause / على + person",
+      "bullets": [
+       "على = angry at someone, you express it (you told him)",
+       "من = angry from / because of, like English",
+       "بعصب is both: I get angry and I make angry",
+       "ما تعصب / ما تعصبني / ما تعصب مني / ما تعصب علي"
+      ],
+      "examples": [
+       {
+        "t": "56:03",
+        "line": "أنا بعصب على أخوي عشان هو مزعج"
+       },
+       {
+        "t": "57:44",
+        "line": "if you're angry at him, then you're expressing this anger"
+       },
+       {
+        "t": "58:15",
+        "line": "من حالي - (angry) with myself"
+       },
+       {
+        "t": "59:03",
+        "line": "ما تعصبني - don't make me angry"
+       },
+       {
+        "t": "59:23",
+        "line": "ما تعصب علي - don't be angry at me"
+       }
+      ]
+     },
+     {
+      "title": "بزعل / بتضايق من = upset with; بزعل / بتضايق على = sad for",
+      "pattern": "بزعل / بتضايق + من / على",
+      "bullets": [
+       "same treatment, they're together",
+       "من = upset with someone (منك)",
+       "على = sad for someone, also 'I pity you'",
+       "بزعل is stronger than بتضايق"
+      ],
+      "examples": [
+       {
+        "t": "59:35",
+        "line": "بزعل وبتضايق same treatment. They can have من and على"
+       },
+       {
+        "t": "1:00:38",
+        "line": "أنا بزعل عليك - I'm sad for you / I pity you"
+       },
+       {
+        "t": "1:01:02",
+        "line": "أنا بزعل على الناس اللي ما عندهم بيت"
+       },
+       {
+        "t": "1:01:41",
+        "line": "بزعل is more intense than بتضايق"
+       }
+      ]
+     },
+     {
+      "title": "بفضل X على Y = I prefer X over Y (both with el-)",
+      "pattern": "بفضل + الـ X + على + الـ Y",
+      "bullets": [
+       "over = على (أكثر من = more than)",
+       "general nouns take el-: القهوة على الشاي"
+      ],
+      "examples": [
+       {
+        "t": "1:05:49",
+        "line": "That's more than (أكثر من)"
+       },
+       {
+        "t": "1:06:15",
+        "line": "القهوة على الشاي - coffee over tea"
+       },
+       {
+        "t": "1:07:12",
+        "line": "مع حليب على أسود - with milk over black"
+       }
+      ]
+     },
+     {
+      "title": "After a verb, the second verb is present: نسيت أخلصه",
+      "pattern": "verb + present verb",
+      "bullets": [
+       "I forgot to finish it = نسيت أخلصه",
+       "راح needs its verb: راح أحكي لك, not just راح"
+      ],
+      "examples": [
+       {
+        "t": "14:32",
+        "line": "نسيت أخلصه. Second verb present"
+       },
+       {
+        "t": "15:35",
+        "line": "أنا راح أحكي لك. We don't say just I will"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up 03:39-17:05: Halloween costumes, the date and clock change, the homework feature, today's clothes (غامق)",
+     "Words she gave: أخ (ouch) and يما (mom / startled) at 26:04-27:16; تصوير for photography at 30:49",
+     "لما takes the conditional: لما يكونوا متأخرين (1:02:39)",
+     "He stepped away 34:27-36:02 while she waited",
+     "She gave him a week off the T / N two-verb pairs; they come back next week (55:14)",
+     "Next week: adjectives + prepositions; later present progressive and comparatives (1:07:35-1:09:43)"
+    ]
+   },
+   "words": {
+    "unique": 117,
+    "right": 215,
+    "wrong": 6,
+    "partial": 12,
+    "pct": 94.8,
+    "scored": 233,
+    "audit_wrong": 6,
+    "audit_partial": 0,
+    "not_on_sheet": 3,
+    "rehear_word_conflicts": 0,
+    "unique_rows": 111,
+    "eligible": 233,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 94.8,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 243,
+    "mistakes": 27,
+    "pct": 89.3,
+    "estimate": false,
+    "scored_mistakes": 26,
+    "unscored_mistakes": 1,
+    "eligible": 27,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "7 slips are in rules the counter found 0 uses of in this lesson",
+      "4 rules have more slips than counted uses (B18, B9, C11, E1)"
+     ],
+     "uses": 226,
+     "slips": 27,
+     "slips_latin": 5,
+     "slips_in_zero_use_rules": 7,
+     "rules_slips_over_uses": [
+      "B18",
+      "B9",
+      "C11",
+      "E1"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1080.0,
+    "amal_s": 905.0,
+    "speak_pct": 54.4,
+    "listen_pct": 45.6,
+    "window": [
+     0.0,
+     4185.8
+    ]
+   },
+   "fillers": {
+    "count": 212,
+    "per_min": 11.78,
+    "top": [
+     [
+      "uh",
+      116
+     ],
+     [
+      "um",
+      58
+     ],
+     [
+      "امم",
+      20
+     ],
+     [
+      "اه",
+      10
+     ],
+     [
+      "mm",
+      6
+     ],
+     [
+      "ah",
+      2
+     ]
+    ],
+    "in_turns": 189,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.52,
+    "p75_s": 2.58,
+    "n": 239
+   },
+   "flow": {
+    "wpm": 69.0,
+    "n_turns": 168,
+    "arabic_words": 494
+   },
+   "new_words": [],
+   "taught": [
+    {
+     "latin": "Ana bakhaaf min / Ana bakhaaf 3ala",
+     "arabic": "أنا بخاف من / أنا بخاف على",
+     "review": true
+    },
+    {
+     "latin": "Ana bashki (min / la-)",
+     "arabic": "أنا بشكي (من / لـ)",
+     "review": true
+    },
+    {
+     "latin": "Ana barja3 3ala / Barja3 la-",
+     "arabic": "أنا برجع على / برجع لـ",
+     "review": true
+    },
+    {
+     "latin": "Ana ba3zem (3ala)",
+     "arabic": "أنا بعزم (على)",
+     "review": true
+    },
+    {
+     "latin": "Ana banbaset min / Ana banbaset la- / Ana banbaset bi",
+     "arabic": "أنا بنبسط من / أنا بنبسط لـ / أنا بنبسط بـ",
+     "review": true
+    },
+    {
+     "latin": "Ana bashtaa2 la-",
+     "arabic": "أنا بشتاق لـ",
+     "review": true
+    },
+    {
+     "latin": "Ana bat7ammas la- / Ana ba7ammes",
+     "arabic": "أنا بتحمس لـ / أنا بحمس",
+     "review": true
+    },
+    {
+     "latin": "Ana bawsal",
+     "arabic": "أنا بوصل",
+     "review": true
+    },
+    {
+     "latin": "Ana batwajja3 min",
+     "arabic": "أنا بتوجع من",
+     "review": true
+    },
+    {
+     "latin": "Ana banze3ej min / Ana baz3ej",
+     "arabic": "أنا بنزعج من / أنا بزعج",
+     "review": true
+    },
+    {
+     "latin": "Ana bat3ab min",
+     "arabic": "أنا بتعب من",
+     "review": true
+    },
+    {
+     "latin": "Ana ba3aSSeb min / Ana ba3aSSeb 3ala",
+     "arabic": "أنا بعصب من / أنا بعصب على",
+     "review": true
+    },
+    {
+     "latin": "Ana baz3al min / Ana baz3al 3ala",
+     "arabic": "أنا بزعل من / أنا بزعل على",
+     "review": true
+    },
+    {
+     "latin": "Ana batDaaya2 min / Ana batDaaya2 3ala",
+     "arabic": "أنا بتضايق من / أنا بتضايق على",
+     "review": true
+    },
+    {
+     "latin": "Ana bafaddel 3ala",
+     "arabic": "أنا بفضل على",
+     "review": true
+    }
+   ],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "بكون عنا",
+     "english": "we (usually) have - habitual, for 'every year we have a party'",
+     "t": "10:32"
+    },
+    {
+     "latin": null,
+     "arabic": "غامق",
+     "english": "dark (colour) - he was stuck at 'قمع'",
+     "t": "16:24"
+    },
+    {
+     "latin": null,
+     "arabic": "ولا إشي",
+     "english": "nothing - he reached for ولا حدا",
+     "t": "17:03"
+    },
+    {
+     "latin": null,
+     "arabic": "صعبة",
+     "english": "hard / difficult - he asked 'إيش جملة صادة؟'",
+     "t": "25:29"
+    },
+    {
+     "latin": null,
+     "arabic": "أخ",
+     "english": "ouch / ugh - for pain or frustration (also 'brother')",
+     "t": "26:21"
+    },
+    {
+     "latin": null,
+     "arabic": "يما",
+     "english": "mom (her family's word), also a cry of fear when startled",
+     "t": "26:45"
+    },
+    {
+     "latin": null,
+     "arabic": "تصوير",
+     "english": "photography - he couldn't remember the noun",
+     "t": "30:49"
+    },
+    {
+     "latin": null,
+     "arabic": "بشتاق",
+     "english": "I miss - he couldn't remember the verb",
+     "t": "34:18"
+    },
+    {
+     "latin": null,
+     "arabic": "مشتاق",
+     "english": "missing (I miss you right now) - he couldn't remember the adjective",
+     "t": "35:34"
+    },
+    {
+     "latin": null,
+     "arabic": "اشتقت",
+     "english": "I missed - he said شتعلت",
+     "t": "38:58"
+    },
+    {
+     "latin": null,
+     "arabic": "بحمس",
+     "english": "I excite (someone) - he said بتحمس",
+     "t": "41:13"
+    },
+    {
+     "latin": null,
+     "arabic": "متحمس",
+     "english": "excited (right now): أنا متحمس للشهر الجاي",
+     "t": "43:08"
+    },
+    {
+     "latin": null,
+     "arabic": "بالعادة",
+     "english": "usually",
+     "t": "43:14"
+    },
+    {
+     "latin": null,
+     "arabic": "مقص",
+     "english": "scissors (transcript 'مؤذ'): بقص is cutting with scissors",
+     "t": "50:24"
+    },
+    {
+     "latin": null,
+     "arabic": "بزعج",
+     "english": "I annoy - he confused it with I get annoyed",
+     "t": "52:06"
+    },
+    {
+     "latin": null,
+     "arabic": "ما تنزعج",
+     "english": "don't get annoyed (by me)",
+     "t": "53:24"
+    },
+    {
+     "latin": null,
+     "arabic": "بنفس اليوم",
+     "english": "on the same day - he said نفس اليوم",
+     "t": "55:06"
+    },
+    {
+     "latin": null,
+     "arabic": "محروج",
+     "english": "embarrassed (an example of the مبسوط / مزعوج pattern)",
+     "t": "57:05"
+    },
+    {
+     "latin": null,
+     "arabic": "ما تشتاقي",
+     "english": "don't miss (command, f) - he said ما تشتي",
+     "t": "1:05:07"
+    }
+   ],
+   "coverage": "No echo-candidates file for 2026-10-30. Engine: أمل at 11:08/11:14 is عمل (3amal), not the name; بنمسد=بنبسط; بتخمس=بتحمس; بأذ/بنذ=بأزعج/بنزعج; أؤذ=أقص; وافي=وقف; بسلّح=بصلّح (S4); 10:41 'بيكون أنا حفلة' likely engine for بيكون عنا (Amal's suggestion), not filed. 32:28-32:44 command answers are [foreign language]/garbled - not judged. 34:27-36:02 Medi away (Amal talking to herself). 59:19 عليني->علي was his own fix before hers (GR-22). 1:04:14-1:04:30 (إزعلني / إزعاج) too garbled to judge. Repeats not filed: 10:07 عيد ميلادو, 15:20 شوفوا, 22:40 على الكباب, 1:03:26 ما عند Halloween. / No CHAT lines in this transcript; no echo-candidates file for 10-30. Engine is noisy: several Medi lines are garbled (benent akhui, بسلّح, أما السوي شوي, رو بيير, على сода). Left out as S4 pronunciation: بسوال/بوصل (letter flip, 45:13-45:37), بنمسد for بنبسط (29:19-30:14), باسب/تأسب for بعصب (56:03-59:19), بنذ/تذأج for بنزعج (52:31-53:43), ما تشتي for ما تشتاقي (1:05:01, dropped ق; Amal echoes تشتعي), بشتا for بشتاق, صادة for صعبة (25:26), بيخد for بياخد (16:45/17:07), سورة for صورة (30:19). Left out as questions/meta: 08:53 how to say 'introduce', 58:09 'can I say مني', 27:18. Left out as pre-fixed by himself: 24:55 لما بلبس -> 25:03 بيلبسوا, 39:42 بعيد -> بعيدة, 53:40 ما تذأج -> ما تذأجني, 1:02:21 متأخر -> متأخرين. 'costume', 'Halloween', 'Thanksgiving' are not on Amal's sheet so not tier 3. 'أمل' at 10:30 is the name; at 11:08/11:14 the engine writes أمل where he most likely said 3amal (row 1030-5).",
+   "notes": [
+    "timings: anees-20261030-recall-medi-seg2160: page/engine offset spread 298.96s",
+    "grammar: 1 of the 27 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 17:01 Word Bank said right, Amal said no to that word: her no counts.",
+    "1 moment(s) wait for Medi (counted as before until he picks): 41:59."
+   ],
+   "page": "lessons/2026-10-30.html",
+   "detail": "data/lessons/2026-10-30.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-30",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 1127,
+    "chat_lines": 0,
+    "vocab_errors": 9,
+    "vocab_correct": 227,
+    "grammar_errors": 27,
+    "grammar_not_counted": 1,
+    "vocab_errors_split": {
+     "wrong": 6,
+     "half": 0,
+     "off_list": 3
+    }
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-10-30.json",
+    "marks": 510,
+    "conflicts": 7,
+    "resolved": 1,
+    "needs_medi": 1,
+    "mode": "on",
+    "items": [
+     {
+      "id": "C1q-27edab0d4a",
+      "kind": "C1q",
+      "t": 2519.1,
+      "mmss": "41:59",
+      "line": "شهر الماضي",
+      "question": "Which of Medi's words was wrong here?",
+      "options": [
+       "شهر",
+       "الماضي",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [
+       "41:59"
+      ],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "شهر",
+       "word_key": "shahar"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "not-scored",
+       "wrong": "شهر الماضي",
+       "fix": "الشهر الجاي",
+       "bucket": null,
+       "signal": "prompt-then-fix"
+      },
+      "ask": "amal"
+     }
+    ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 52.5 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 2 stretches of Medi's speech written as '[speaking ...]' markers (00:10 in all)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4248 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 50,
+       "r2": 42,
+       "agreed": 31,
+       "disputed": 28,
+       "agreement_pct": 52.5
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4248.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 4248.0,
+     "first_t": 181.32,
+     "last_t": 4183.22,
+     "missing": [],
+     "holes": [
+      [
+       1963.85,
+       1964.85,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2738.95,
+       2748.09,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 10.1,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 4248.0,
+     "first_t": 182.42,
+     "last_t": 4182.03,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
      "covered_pct": 100.0
     }
    }
