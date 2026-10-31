@@ -354,7 +354,7 @@ def load_rulings(path=RULINGS_P, amal_path=None):
 # question about the app itself (a process question, none yet) goes to Medi.
 ASK = {"C1q": "amal", "C2q": "amal", "CR": "amal"}
 AMAL_WORDS = {   # the question and the choices in plain words, for her card (no rule ids, no app words)
-    "C1q": "Which of Medi's words was wrong here?",
+    "C1q": "Which of the student's words was wrong here?",
     "C1q1": "Was «%s» wrong here?",
     "C2q": "Was this the wrong word, or the right word with a grammar mistake?",
     "CR": "Was «%s» wrong here?",
