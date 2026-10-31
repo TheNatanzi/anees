@@ -1,7 +1,7 @@
 {
  "about": "Rows two AIs disagree on (Claude readers: a mistake Amal signalled; Codex, listening to an independent transcription of the audio: not so, or cannot tell). Built by scripts/codex_rejudge.py. Amal answers on the Tutor page; her 'Correction is correct' makes the row a scored mistake, her reason drops it (scripts/apply_amal_audit_rulings.py).",
- "built": "2026-10-30T16:09:17-07:00",
- "count": 1,
+ "built": "2026-10-30T17:46:33-07:00",
+ "count": 3,
  "items": [
   {
    "id": "verify:FA-bea50373",
@@ -23,6 +23,48 @@
    "codex_verdict": "unsure",
    "audio": "lessons/2026-10-28/audio/lesson.mp3#t=2416,2454",
    "sec": 2426.0
+  },
+  {
+   "id": "verify:FA-6d5b6272",
+   "uid": "FA-6d5b6272",
+   "date": "2026-10-30",
+   "t": "1:04:08",
+   "t_amal": "1:04:14",
+   "kind": "grammar",
+   "bucket": "B10",
+   "tier": null,
+   "medi_said": "[laughs] uh, إتضايق.",
+   "amal_said": "الضياع إي.",
+   "chat": null,
+   "wrong": "إتضايق",
+   "right": "اتضايقي",
+   "english": "Be upset (to a woman).",
+   "readers_say": "Command to the tutor (a woman) takes -i; engine wrote her reply as الضياع إي, most likely اتضايقي; he echoed 'إتضايق إيه؟'.",
+   "codex_says": "The transcriptions are too garbled to establish whether the student omitted the feminine ending or whether the tutor corrected it. «إيه دايق إي» could represent «اتضايقي», but does not reliably distinguish a correction from an echo.",
+   "codex_verdict": "unsure",
+   "audio": "lessons/2026-10-30/audio/lesson.mp3#t=3838,3875",
+   "sec": 3848.0
+  },
+  {
+   "id": "verify:FA-873504b0",
+   "uid": "FA-873504b0",
+   "date": "2026-10-30",
+   "t": "1:04:24",
+   "t_amal": "1:04:25",
+   "kind": "grammar",
+   "bucket": "B10",
+   "tier": null,
+   "medi_said": "أصل. إزعلني.",
+   "amal_said": "إزعاج. ... اه، don't.",
+   "chat": null,
+   "wrong": "إزعلني",
+   "right": "ازعلي",
+   "english": "Be upset (command).",
+   "readers_say": "Command 'be upset' to a woman is iz3ali; he added -ni (upset me); engine wrote her recast as إزعاج; she then moved to 'don't' and he said ما تزعلي.",
+   "codex_says": "No correction is evident: both independent models hear the student say «إزعلي», and the tutor echoes «إزعلي» before moving to “don't.” Her matching echo supports a correct answer, not the claimed «إزعلني».",
+   "codex_verdict": "rejected",
+   "audio": "lessons/2026-10-30/audio/lesson.mp3#t=3854,3886",
+   "sec": 3864.0
   }
  ],
  "answered": [

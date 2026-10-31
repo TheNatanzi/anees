@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **880** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **883** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 122 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 33 |
 | Vocab fixes Amal voiced (A) | **415** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 203, '0': 147, '2': 100, '3': 4} |
-| Vocab she let pass (B, to Amal) | **43** by tier {'1': 32, '2': 8, '3': 3} |
-| Listening-drill misreads (kept apart) | 72 |
-| Rows the readers found that the sweep did not have | 1131 |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 206, '0': 147, '2': 99, '3': 4} |
+| Vocab she let pass (B, to Amal) | **42** by tier {'1': 32, '2': 8, '3': 2} |
+| Listening-drill misreads (kept apart) | 74 |
+| Rows the readers found that the sweep did not have | 1136 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -49,7 +49,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-26 | 24 | 0 | 13 | 0 | 1 | 0 | 0 | 44.3 % |
 | 2026-10-27 | 22 | 2 | 7 | 0 | 2 | 0 | 0 | 61.2 % |
 | 2026-10-28 | 22 | 0 | 4 | 0 | 1 | 0 | 0 | 52.2 % |
-| 2026-10-30 | 28 | 0 | 9 | 2 | 0 | 0 | 0 | 52.5 % |
+| 2026-10-30 | 31 | 0 | 9 | 1 | 2 | 0 | 0 | 53.3 % |
 
 ## Reader passes (the loop)
 
@@ -81,53 +81,53 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-10-26**: pass 1: r1 51 r2 46 agreed 27 disputed 34 (44.3 %), r3 kept 21 dropped 13 -> 34 rows
 - **2026-10-27**: pass 1: r1 42 r2 40 agreed 30 disputed 19 (61.2 %), r3 kept 13 dropped 6 -> 33 rows
 - **2026-10-28**: pass 1: r1 34 r2 41 agreed 24 disputed 22 (52.2 %), r3 kept 12 dropped 10 -> 29 rows
-- **2026-10-30**: pass 1: r1 50 r2 42 agreed 31 disputed 28 (52.5 %), r3 kept 23 dropped 5 -> 35 rows
+- **2026-10-30**: pass 1: r1 48 r2 46 agreed 32 disputed 28 (53.3 %), r3 kept 18 dropped 10 -> 35 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
-| B18 | verb matches its subject | 78 |
-| D2 | verb + its fixed preposition | 77 |
-| B5 | past tense | 62 |
-| B12 | make-X vs get-X | 58 |
+| B18 | verb matches its subject | 77 |
+| D2 | verb + its fixed preposition | 76 |
+| B5 | past tense | 63 |
+| B12 | make-X vs get-X | 59 |
 | A8 | gender on adjectives | 56 |
 | A7 | noun + adjective | 43 |
-| D4 | endings on verbs | 42 |
 | A9 | plurals | 42 |
+| D4 | endings on verbs | 41 |
 | D1 | prepositions | 39 |
 | B1 | present with b- | 37 |
 | A2 | idafa (possession) | 35 |
 | PROPOSE | ? | 33 |
-| A1 | el- (the) | 31 |
+| A1 | el- (the) | 32 |
 | A4 | possessive endings | 31 |
 | E1 | number + noun | 22 |
 | B2 | b-drop after modals | 22 |
 | D3 | endings on prepositions | 20 |
-| C4 | saying no | 20 |
-| B10 | commands | 17 |
+| B10 | commands | 19 |
+| C4 | saying no | 19 |
 | C2 | the pointer rule | 17 |
+| B6 | kaan = was / were | 16 |
 | C7 | illi | 15 |
-| B6 | kaan = was / were | 15 |
 | B15 | participles | 14 |
 | A15 | aa5er / a5eer: before or after the noun | 14 |
 | B11 | negative commands | 13 |
 | E2 | clock time | 12 |
 | A10 | hada / hadi | 12 |
-| B8 | bakoon / ykoon | 10 |
+| B8 | bakoon / ykoon | 11 |
 | B3 | b-drop after time words | 9 |
 | C3 | comparatives | 9 |
 | A3 | feminine -t in idafa | 9 |
 | A11 | kul: all vs every | 8 |
 | E4 | calendar | 8 |
 | A13 | awal / oola: before or after the noun | 8 |
+| B13 | future with ra7 | 8 |
 | A14 | taani: before or after the noun | 8 |
 | A12 | pronoun matches who you mean | 7 |
 | C9 | word order | 7 |
-| B13 | future with ra7 | 7 |
 | C10 | preposition goes in front | 6 |
-| D5 | preposition keeps el- | 6 |
 | B16 | kan laazem | 5 |
+| D5 | preposition keeps el- | 5 |
 | C1 | no word for 'to be' | 4 |
 | E3 | time units, two-of and many-of | 4 |
 | A5 | chain possession | 4 |
@@ -2050,48 +2050,53 @@ _Long English-only stretches: 06:07-07:03 (meme), 09:53-12:53 (election talk), 2
 
 ### 2026-10-30
 
-_No echo-candidates file for 2026-10-30. Engine: أمل at 11:08/11:14 is عمل (3amal), not the name; بنمسد=بنبسط; بتخمس=بتحمس; بأذ/بنذ=بأزعج/بنزعج; أؤذ=أقص; وافي=وقف; بسلّح=بصلّح (S4); 10:41 'بيكون أنا حفلة' likely engine for بيكون عنا (Amal's suggestion), not filed. 32:28-32:44 command answers are [foreign language]/garbled - not judged. 34:27-36:02 Medi away (Amal talking to herself). 59:19 عليني->علي was his own fix before hers (GR-22). 1:04:14-1:04:30 (إزعلني / إزعاج) too garbled to judge. Repeats not filed: 10:07 عيد ميلادو, 15:20 شوفوا, 22:40 على الكباب, 1:03:26 ما عند Halloween. / No CHAT lines in this transcript; no echo-candidates file for 10-30. Engine is noisy: several Medi lines are garbled (benent akhui, بسلّح, أما السوي شوي, رو بيير, على сода). Left out as S4 pronunciation: بسوال/بوصل (letter flip, 45:13-45:37), بنمسد for بنبسط (29:19-30:14), باسب/تأسب for بعصب (56:03-59:19), بنذ/تذأج for بنزعج (52:31-53:43), ما تشتي for ما تشتاقي (1:05:01, dropped ق; Amal echoes تشتعي), بشتا for بشتاق, صادة for صعبة (25:26), بيخد for بياخد (16:45/17:07), سورة for صورة (30:19). Left out as questions/meta: 08:53 how to say 'introduce', 58:09 'can I say مني', 27:18. Left out as pre-fixed by himself: 24:55 لما بلبس -> 25:03 بيلبسوا, 39:42 بعيد -> بعيدة, 53:40 ما تذأج -> ما تذأجني, 1:02:21 متأخر -> متأخرين. 'costume', 'Halloween', 'Thanksgiving' are not on Amal's sheet so not tier 3. 'أمل' at 10:30 is the name; at 11:08/11:14 the engine writes أمل where he most likely said 3amal (row 1030-5)._
+_Engine: أمل at 05:05/05:43 (asta amal) and 11:08-11:14 (مش أمل party) is 3amal/asta3mel, not the name; 10:41/10:45 'بيكون أنا حفلة' = bikoon 3inna (dropped ع, S4); 36:50 and 37:52 'عليك' that Amal called Nice are likely -lak (chat bashtaa2lak / mishtaa2lek); 41:00+ بتخمس = bat7ammas (S4); 1:04:14 'الضياع إي' and 1:04:25 'إزعاج' are her recasts garbled; 1:05:07/1:05:14 تشتعي = tishta2i, his ما تشتي is a dropped ق (S4, not filed); 1:07:18 Cyrillic 'сода' = sada (black coffee). 15:53 'pantalon' likely بنطلون (chat bantaloan), not filed. 32:28-32:44 command answers lost ([foreign language]); 34:27-36:02 Medi away, Amal lines garbled. Echo: 'bilbesu' 04:46 = byelbasu. Self-fixes skipped: benent->benat 04:32, حكيت->بتحكي 06:51, بيساعدني->ساعد 09:18, سلّح->سلّحت 14:09, بعيد->بعيدة 39:42, ما تذأج مني->ما تذأجني 53:43, عليني->علي 59:19, متأخر->متأخرين 1:02:23, بحب->بحبها 1:06:41. Rule questions not filed (51:51-52:24 بأذ, 53:17, 58:09). / Whole file read. Engine is rough on Medi's Arabic (Persian-accented): بنمسد = بنبسط, باسب = بعصب, بتخمس = بتحمس, سورة = صورة, أستف = آسف (sorry), سلّحت = صلّحت, أؤذ = أقص (Amal: 'because it's مقص'), بازل = بزعل (kaman marra, no row). Treated as S4/engine, not rows. Names: أمل (Amal) and عمان (Amman) never counted; at 11:08 the engine wrote أمل where he said 3emel (Amal's chat: ma 3emel party), so the row's wrong piece is مش only. S4 not filed as rows: ما تشتي/شتعلت are filed LOW only because Amal corrected them out loud (root-letter ق/ع slip, may be S4). Listening-only moments (بداية for بدايق at 1:00:07) not filed. 22:25 عروس/عروسي is probably the engine's عرسي, not filed. Pantalon (sheet: ban6aloan) and gym (sheet: gym) filed as pre-ruled tier 3 vocab-B. No echo-candidates file was opened. Stretches of English-only (18:23-19:00, 23:48-24:00, 26:00-27:20, 30:37-32:08, 59:30-1:00:00, 1:07:35-1:09:30) held no Arabic slips._
 
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
-| FA-d8393474 | 04:39 | grammar | B18 | benat akhui, uh, be, um, bitilbis, uh, costume. | تلبس؟ | bitilbis -> bilbesu (بيلبسوا) | Subject is benat akhui (they), he used the she-form bitilbis; Amal queried 'تلبس؟' and he changed to bilbesu (they wear). | high | judge panel (Opus + Argon, p 0.90) |
-| FA-4fc6dc7a | 06:00 | grammar | E1 | Uh, il, il tintain. | costume in? | il tintain -> costume in | His phrase continues as Il tintain costume at 06:05, and Amal supplies the noun's dual form, explaining 'two costumes' at 06:20. | high | judge panel (Opus + Argon, p 0.80) |
-| FA-b8868e1d | 08:10 | grammar | B18 | سجاد طيارة أو طيا-- س-سجاد بطير. | مم. بيطير. | سجاد بطير -> سجاد بيطير | The carpet flies needs the it-form بيطير, he said بطير (I fly); Amal recast بيطير. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-ed660ee0 | 10:01 | grammar | A2 | ميلاد عيدو. | عيد ميلاده. | ميلاد عيدو -> عيد ميلاده | Idafa order: thing first (عيد) then ميلاد + owner ending; he reversed it, Amal recast عيد ميلاده and he repeated it. | high | judge panel (Opus + Argon, p 0.94) |
-| FA-7272cfbe | 11:08 | vocab-B | tier 3 | الـ-- مش أمل party. أمل؟ مش، مش أمل party. | Why miss-- No miss. ... ما عمل. | party -> حفلة | English 'party' inside an Arabic clause; sheet 'party / 7afle / حفلة / 7afle', and he used حفلة at 10:41. Pre-ruled AR-1933 (do not correct). Engine wrote أمل for عمل here (not the name). | medium | r3 |
-| FA-0bc12d83 | 11:08 | grammar | C4 | الـ-- مش أمل party. أمل؟ مش، مش أمل party. / ما أمل party. | Why miss-- No miss. Why miss? ... ما عمل. | مش أمل party -> ما عمل party | Engine wrote أمل for عمل (3amal, did); a verb is negated with ma not mish; Amal said 'No miss. Why miss?' and then gave ما عمل. | high | judge panel (Opus + Argon, p 0.94) |
-| FA-ffa0d66f | 14:16 | grammar | B2 | الـ card بس نسيت خلصته، خلصتهم. | نسيت أخلصه. Second verb present. | نسيت خلصته -> نسيت أخلصه | A verb after another verb is a bare present; he used past خلصته after نسيت; Amal gave نسيت أخلصه and named it 'Second verb present'. | high | judge panel (Opus + Argon, p 0.94) |
-| FA-02783ea1 | 15:38 | grammar | D4 | أوكي، أنا راح أشوفك. أنا راح أحكيلك. | No. ... Nice. Well done. | أنا راح أشوفك -> أنا راح أشوفه (my reading) | He meant 'I will see it' (the homework, Amal's شوفه) but put the you-ending -ك; Amal's 'No.' may target it, then he said أحكيلك and she said Nice - unclear, could be engine. | medium | judge panel (Opus + Argon, p 0.75) |
-| FA-b8c6860b | 15:53 | vocab-B | tier 3 | أزرق و pantalon، |  | pantalon -> بنطلون | English/French word in an Arabic sentence; sheet 'pants / Ban6aloan / بنطلون / ban6aloan'. Repeated 16:01/16:15 = one row. Pre-ruled AR-1933 (do not correct). | medium | r3 |
-| FA-bf1d5e5b | 16:19 | vocab-A | tier 2 | pantalon سيكني في ود-- قمع. قمي-- قمع. قميء؟ قمع. | غامق. | قمع -> غامق | He scrambled the letters of 'dark' (sheet 'dark (color) / 8aameq / غامق') into قمع/قميء; Amal supplied غامق. | medium | judge panel (Opus + Argon, p 0.75) |
-| FA-56276e56 | 17:01 | vocab-A | tier 1 | ولا حدا؟ | ولا إشي. | ولا حدا -> ولا إشي | ولا حدا = nobody, he meant nothing (what it takes); Amal recast ولا إشي and he took it ('ولا إشي, yeah'). | high | judge panel (Opus + Argon, p 0.88) |
-| FA-f7308b89 | 21:25 | grammar | D2 | عشان نعزم إيلت خطيبتي لكباب. | على. ... على كباب. invite to. | لكباب -> على كباب | عزم takes على for what you invite to; he used لـ; Amal said 'على', then 'على كباب ... invite to'. | high | judge panel (Opus + Argon, p 0.92) |
-| FA-dc0f5c4a | 21:58 | grammar | D2 | So بعزم عليهم، | No. ... You invite people to the wedding. | بعزم عليهم -> بعزم حدا على | The invited person is the direct object (بعزمهم / بعزم حدا), على goes on the event; he put على on the people; Amal 'No', then he gave بعزم حدا على and she said Yes. | high | judge panel (Opus + Argon, p 0.92) |
-| FA-5712fd88 | 23:34 | grammar | B12 | ببسط. | No. | ببسط -> بنبسط | 'I get happy' is the n- form بنبسط; ببسط is the make-X form; Amal said No and accepted 'Bandaset'. | high | judge panel (Opus + Argon, p 0.94) |
-| FA-a775a3a8 | 24:40 | vocab-A | tier 1 | من بنات خطيبتي لما... | بنات. بنات خطيبتي. [تضحك] Already? | بنات خطيبتي -> بنات أخوي | He meant his nieces (بنات أخوي) but said بنات خطيبتي (my fiancee's daughters); Amal echoed it laughing 'Already?' and he changed it. | medium | judge panel (Opus + Argon, p 0.62) |
-| FA-8aa27018 | 24:55 | grammar | B18 | لما بلبس costumes. | لما. | لما بلبس -> بيلبسوا | Nieces are 'they', he used the I-form بلبس; Amal prompted 'لما.' and he changed to بيلبسوا, she said Nice. | high | judge panel (Opus + Argon, p 0.80) |
-| FA-ae42ac62 | 29:25 | grammar | D3 | بنمسد tilha for her. I don't know. لما، لما تخلص المدرسة. | بنبسط لها. | tilha -> لها | He built the preposition + her as tilha; Amal recast بنبسط لها. Her recast may also be aimed at the verb (he said بنمسد, S4), so only the preposition part is filed. | medium | judge panel (Opus + Argon, p 0.75) |
-| FA-0a66444c | 30:14 | grammar | C11 | أنا بنمسد بي آخد، uh, سورة. Or بسورة. | Did we take the noun for s-photography? ... تصوير ... Because you can't add be to a verb ... It would have to be a noun. | بي آخد، سورة -> بالتصوير | After بـ use the noun of the action, not a verb (آخد صورة); Amal gave the noun تصوير and said 'you can't add be to a verb ... it would have to be a noun'. Engine wrote بنمسد for بنبسط, سورة for صورة. | high | judge panel (Opus + Argon, p 0.92) |
-| FA-f5f5073e | 30:55 | grammar | D5 | Be taswir? Be-- | Mm-hmm. بالتصوير. التصوير. | Be taswir -> بالتصوير | General activity after بـ keeps el-: بالتصوير; he said be taswir, Amal recast with el- and stressed التصوير. | medium | judge panel (Opus + Argon, p 0.77) |
-| FA-3375ae78 | 32:12 | grammar | D2 | Bi, la, and ala. | هلا. W- | ala -> min | Asked what prepositions بنبسط takes, he listed bi, la, ala; Amal echoed هلا and began another word and he said 'Min, sorry. Bi, la, and min'. Engine writes Latin here. | medium | judge panel (Opus + Argon, p 0.70) |
-| FA-66cd81b5 | 36:35 | grammar | D2 | أنا بشتا عليك. | Mm-hmm. عليك؟ ... No. | بشتا عليك -> بشتاق لك | Amal questioned 'عليك؟' and answered his 'Is that right?' with No, then used أنا بشتاق لك at 36:56; his 36:50 retry was likely لك (engine wrote عليك again). | high | judge panel (Opus + Argon, p 0.92) |
-| FA-5c3ba71c | 37:24 | grammar | B8 | أنا بكون مشتاق. No, that doesn't sound-- | No. Bakoon, you didn't get habitual or conditional. So it's just now, I miss you. | أنا بكون مشتاق -> أنا مشتاق | bakoon only for habit/conditional; for 'I miss you now' it is plain أنا مشتاق; Amal said No and named the rule. His doubt had no right form before hers. | high | judge panel (Opus + Argon, p 0.88) |
-| FA-da49c393 | 38:54 | vocab-A | tier 2 | أنا شتعلت. Is it شتعلت؟ | اشتقت. No al in the middle. | شتعلت -> اشتقت | Past of اشتاق is اشتقت; he built شتعلت (extra sound in the middle); Amal gave اشتقت 'No al in the middle'. He kept saying شتعلت at 39:00/40:06 - same row. | high | judge panel (Opus + Argon, p 0.82) |
-| FA-23eb5046 | 39:18 | grammar | C4 | لما مش ... تكون. | When you weren't here. ... You weren't. | لما مش تكون -> ما كنت هون | Verb negation is ما not مش, and past 'weren't' is ما كنت; Amal prompted 'You weren't.' and he said ما كنت هون. | high | judge panel (Opus + Argon, p 0.82) |
-| FA-e7e5f363 | 41:11 | grammar | B12 | What's I excite? -> أنا بتحمس. | Mm-hmm. بحمس. ... أنا بحمس، أنا بتحمس. | أنا بتحمس -> أنا بحمس | 'I excite (someone)' is بحمس; بتحمس is 'I get excited'; Amal recast بحمس and contrasted the two. | high | judge panel (Opus + Argon, p 0.89) |
-| FA-08cbecbd | 41:59 | vocab-A | tier 1 | أنا بتحمس, شهر الماضي عشان | Wait. Do you mean next month for the next month? | شهر الماضي -> الشهر الجاي | الماضي = last/past, he meant next (الجاي); Amal asked 'Do you mean next month?' and he said للشهر الجاي. | high | judge panel (Opus + Argon, p 0.84) |
-| FA-40f6f99d | 43:01 | grammar | B15 | Oh, you're right. أنا بتخمس. | أنا متحمس للشهر الجاي. | بتخمس -> متحمس | For his current excited state, Amal supplies the participle instead of habitual بتحمس, rendered بتخمس by the engine; B15 remains unscored. | medium | judge panel (Opus + Argon, p 0.75) |
-| FA-de3e6553 | 45:13 | vocab-A | tier 2 | Um, to arrive is بسوال. | No. ... Just flip it. | بسوال -> بوصل | Letters of وصل swapped (بسوال); Amal said No, 'Just flip it', and he said بوصل. | high | judge panel (Opus + Argon, p 0.92) |
-| FA-463ccf03 | 46:36 | grammar | B18 | وصلت على بيتك. | وصل-- 'cause you used بيتك so make it gender appropriate. | وصلت على بيتك -> وصلتِ | Asking Amal (she) 'you arrived' needs وصلتِ to match بيتك; Amal named it 'make it gender appropriate' and he said وصلتِ. | high | judge panel (Opus + Argon, p 0.92) |
-| FA-e63dc648 | 49:50 | vocab-A | tier 1 | لما أؤذ، uh, حالي بيغلط. | أؤذ حالي؟ ... that doesn't really work ... because it's a snip ... 'cause it's مؤذ. | أؤذ -> (not قص - Amal gave no word; e.g. بجرح حالي) | Engine wrote أؤذ for أقص (sheet 'cut / 2oss / قص'); Amal said it doesn't work because قص is only cutting with scissors - wrong verb for hurting himself. | high | judge panel (Opus + Argon, p 0.80) |
-| FA-9fc84431 | 52:02 | grammar | B12 | I get annoyed is أنا بأذ, right? ... It's بأذ and بأذ, right? The two verbs? | I annoy. أنا بأزعج. ... No, no, no, it's an N verb. | أنا بأذ -> أنا بنزعج | He gave بأزعج (I annoy; engine wrote بأذ) for 'I get annoyed'; Amal said it means I annoy and 'No, it's an N verb' -> بنزعج. Framed with 'right?', so medium. | high | judge panel (Opus + Argon, p 0.85) |
-| FA-99c9389d | 55:02 | rejected | D1 | أتمرن أو أشتغل، uh, نفس اليوم. | Great job. بس make it on the same day or in the same day. | نفس اليوم -> بنفس اليوم | 'On the same day' needs بـ; Amal said 'make it on the same day' and he said بنفس اليوم, she said صح. | high | judge panel (Opus + Argon, p 0.89) |
-| FA-d4b26910 | 56:40 | vocab-A | tier 2 | هو، um, مزعوج. | You're angry at him because he's annoyed? ... Or because he's annoying. | مزعوج -> مزعج | مزعوج = annoyed, he meant annoying (مزعج); Amal asked 'because he's annoyed?' and he changed to مزعج. | high | judge panel (Opus + Argon, p 0.89) |
-| FA-c9adf1d6 | 59:19 | grammar | D3 | ما تأسب عليني. ما تأسب عليني. علي. | علي. | عليني -> علي | He put a verb pronoun ending (-ني) on the preposition (عليني); Amal recast علي and he repeated علي. The engine may have written -ني for his hesitation. | medium | judge panel (Opus + Argon, p 0.65) |
-| FA-b4cf10c7 | 1:02:09 | grammar | D2 | أنا بتضايق على الزباين لما متأخر كتير. | ليش؟ ... That's, that's you're sad for them. ... أنا بزعل من أو بدايق. | بتضايق على الزباين -> بزعل من / بدايق من | بتضايق على = sad for someone; upset with is من; Amal said 'that's you're sad for them' and gave بزعل من أو بدايق. | high | judge panel (Opus + Argon, p 0.82) |
-| FA-5226a04a | 1:02:46 | grammar | B9 | Akoun. | Mm-hmm. يكونوا متأخرين. | Akoun -> يكونوا | He gave the I-form أكون for 'they'; Amal recast يكونوا. | medium | judge panel (Opus + Argon, p 0.68) |
-| FA-92a08741 | 1:03:23 | grammar | C4 | مش عند Halloween. | ما عند. | مش عند -> ما عند | عند + ending is negated with ما, not مش; Amal recast ما عند and he repeated it. | high | judge panel (Opus + Argon, p 0.92) |
-| FA-ade19155 | 1:03:54 | rejected | tier 1 | Uh, وافي. | Mm-hmm. ... شو واقفة؟ | وافي (=وقف) -> اتضايق | Asked for the command 'be upset' he said وقف (engine وافي; stop); Amal asked 'شو واقفة؟' and he realised 'that's stop' and said إتضايق. | medium | judge panel (Opus + Argon, p 0.77) |
-| FA-3cd2906f | 1:05:01 | vocab-A | tier 2 | ما تشتي. | ما؟ ... تشتعي. | ما تشتي -> ما تشتاقي | Don't miss = ما تشتاقي; he said تشتي (dropping the long a and ق); Amal prompted 'ما؟' and twice said تشتاقي. May be S4 sound only. | medium | judge panel (Opus + Argon, p 0.73) |
-| FA-86c08072 | 1:05:42 | grammar | D2 | أنا بفضل إشي أكثر من إشي. | أممم. That's more than. | أكثر من إشي -> على إشي | فضّل takes على for the thing it beats (بفضل القهوة على الشاي); Amal said 'That's more than' and steered to 'over'. | high | judge panel (Opus + Argon, p 0.86) |
-| FA-98bd341e | 1:06:12 | grammar | A1 | أنا بفضل، um, قهوة على شاي. | القهوة على الشاي. | قهوة على شاي -> القهوة على الشاي | General nouns take el- (القهوة / الشاي); Amal recast and he said 'Gosh darn it'. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-d8393474 | 04:39 | grammar | B18 | benat akhui, uh, be, um, bitilbis, uh, costume. | تلبس؟ ... مم. إنت إيش راح تلبس؟ | bitilbis -> byelbesu | Subject is banaat akhui (they) but he used the she/you form bitilbis; she echoed تلبس؟ and he changed to bilbesu (they-form), her chat byelbesu. | high | judge panel (Opus + Argon, p 0.90) |
+| FA-4fc6dc7a | 06:00 | grammar | E1 | Uh, il, il tintain. | costume in? | il tintain -> costume in | His phrase continues as Il tintain costume at 06:05, and Amal supplies the noun's dual form, explaining 'two costumes' at 06:20. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-37e99da6 | 08:10 | grammar | B18 | سجاد طيارة أو طيا-- س-سجاد بطير. | مم. بيطير. [تضحك] | بطير -> بيطير | The carpet (he/it) flies is بيطير; بطير is the I-form; she recast بيطير with a laugh and he repeated بي-بي-ب-بطير. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-ed660ee0 | 10:01 | grammar | A2 | ميلاد عيدو. | عيد ميلاده. | ميلاد عيدو -> عيد ميلاده | Birthday is the idafa عيد ميلاد + owner ending; he flipped the order; she recast عيد ميلاده and he repeated it. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-7272cfbe | 11:08 | vocab-B | tier 3 | الـ-- مش أمل party. أمل؟ مش، مش أمل party. |  | party -> حفلة | English 'party' inside an Arabic clause; sheet row 'party / 7afle / حفلة / 7afle' and he said حفلة at 10:41; her voiced fix (11:11-11:30) was only مش->ما (A4). Pre-ruled do-not-correct (AR-1933). Engine wrote أمل for عمل (her ما عمل). | low | r3 |
+| FA-0bc12d83 | 11:08 | grammar | C4 | الـ-- مش أمل party. أمل؟ مش، مش أمل party. | مم. Why miss-- No miss. Why miss? ... it's not miss. ... ما عمل. | مش أمل party -> ما عمل party | A verb is negated with ma, not mish; engine wrote أمل for عمل (3amal, he made) - not the name; she said 'No miss' and gave ما عمل. | high | judge panel (Opus + Argon, p 0.94) |
+| FA-fd18d0e2 | 14:22 | grammar | B2 | سلّحت، أنا سلّحت الـ card بس نسيت خلصته، خلصتهم. | مم. نسيت؟ ... نسيت what؟ ... نسيت أخلصه. Second verb present. | نسيت خلصته -> نسيت أخلصه | After a verb like nseet the second verb is a bare present (a5allso), not past خلصته; she said 'Second verb present'. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-29e851da | 15:31 | grammar | B13 | أوكي، أنا راح. | أنا راح أحكي لك. We don't, we don't say just I will. | أنا راح. -> أنا راح أحكي لك | Future ra7 needs a bare verb after it; he stopped at أنا راح; she gave أنا راح أحكي لك and said 'we don't say just I will'. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-bf1d5e5b | 16:19 | vocab-A | tier 1 | امم، pantalon سيكني في ود-- قمع. ... قمي-- قمع. قميء؟ قمع. | غامق. | قمع -> غامق | He tried 'dark' and produced the non-word قمع several times; she supplied غامق (sheet: dark (color) / 8aameq / غامق). | medium | judge panel (Opus + Argon, p 0.73) |
+| FA-56276e56 | 17:01 | vocab-A | tier 1 | امم، [تنهد] ما يخ-- ما، اه، ما بيخد، امم، ولا حدا؟ | ولا إشي. ... Or ما بياخد إشي. | ولا حدا -> ولا إشي | Asked what the cat takes, he answered ولا حدا (nobody); a thing is ولا إشي (nothing), which she gave and he repeated. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-f7308b89 | 21:25 | grammar | D2 | عشان نعزم إيلت خطيبتي لكباب. | على. ... على كباب. ... invite to. Did we review invite to? | لكباب -> على كباب | 3azam takes 3ala for what you invite to; he used la-; she said على, على كباب, 'invite to'. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-d275574d | 22:02 | grammar | D2 | So بعزم عليهم، | No. ... You invite people to the wedding. | عليهم -> بعزم حدا على | The person is the direct object of 3azam and على marks the event; he put على on the people; she said No and he rebuilt بعزم حدا على. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-b4cedff3 | 23:02 | vocab-A (listening) | tier 1 | Invite them for dinner. | مم، غدا. | dinner -> Lunch | He translates Amal's الغدا as dinner; she repeats غدا, he corrects to Lunch, and she confirms Lunch at 23:08. | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-5712fd88 | 23:34 | grammar | B12 | ببسط. | No. | ببسط -> بنبسط | 'I get happy' is the n-form banbeset; ببسط is the make-happy form (brief: بسط for انبسط is B12); she said No and he gave bandaset. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-a775a3a8 | 24:40 | vocab-A | tier 1 | أنا بنبسط من، uh, من- من بنات خطيبتي لما... | بنات. بنات خطيبتي. [تضحك] Already? | بنات خطيبتي -> بنات أخوي | He meant his nieces (بنات أخوي) but said his fiancée's daughters; she echoed it with 'Already?' and he said 'Sorry, بنات أخوي'. | medium | judge panel (Opus + Argon, p 0.72) |
+| FA-8aa27018 | 24:55 | grammar | B18 | لما بلبس costumes. | لما. | لما بلبس -> لما بيلبسوا | The nieces wear, so the they-form; he used بلبس (I wear); she prompted لما and he fixed to بيلبسوا, then Nice. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-351f8a6c | 28:37 | vocab-A (listening) | tier 1 | Um, "ili" means, uh, who or that. | La, la, the other, not إلي. إلي. | who or that -> for me | He identifies the possessive/prepositional إلي as relative illi, and Amal distinguishes them and gives for me at 28:53. | medium | judge panel (Opus + Argon, p 0.65) |
+| FA-7e55a294 | 29:25 | grammar | D3 | أنا بنمسد، uh, بنمسد tilha for her. I don't know. لما، uh، لما تخلص المدرسة. | Okay. بنبسط لها. | بنمسد tilha -> بنبسط لها | 'Happy for her' is la + -ha (laha / -ilha); he said tilha and 'I don't know'; she recast بنبسط لها (بنمسد itself is S4 sound). | medium | judge panel (Opus + Argon, p 0.75) |
+| FA-d158b877 | 30:19 | grammar | C11 | أنا بنمسد بي آخد، uh, سورة. Or بسورة. بسورة. | Did we, did we take the noun for s-photography? ... تصوير. ... بالتصوير. التصوير. | بي آخد، uh, سورة -> بالتصوير | After bi the action must be a noun (el-tasweer), not the verb آخد صورة; she asked for the noun and later said 'you can't add be to a verb... it would have to be a noun'. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-f5f5073e | 30:55 | grammar | A1 | Be, be taswir? Be-- | Mm-hmm. بالتصوير. التصوير. | Be taswir -> بالتصوير | The activity in general takes el- after bi (bi-l-tasweer); he said be taswir; she recast بالتصوير التصوير. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-3375ae78 | 32:12 | grammar | D2 | Bi, la, and ala. | هلا. W- | ala -> min | Asked which prepositions بنبسط takes, he substitutes ala for min and corrects after Amal's apparent questioning echo, though her transcription is unclear. | medium | judge panel (Opus + Argon, p 0.65) |
+| FA-66cd81b5 | 36:35 | grammar | D2 | I'm guessing there is a preposition because of this lesson. [laughs] أنا بشتا عليك. | Yeah. Great observation. Mm-hmm. عليك؟ ... No. | بشتا عليك -> بشتاق لك | Ishtaa2 takes la- (bashtaa2lak, her chat); he used على; she queried عليك؟ and said No; his 36:50/37:52 'عليك' lines that she called Nice are likely the engine for -lak. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-5c3ba71c | 37:24 | grammar | B8 | أنا بكون مشتاق. No, that doesn't sound-- | No. ... Bakoon, you didn't get habitual or conditional. So it's just now, I miss you. | أنا بكون مشتاق -> أنا مشتاق | bakoon is only for habit/conditional; a present state has no 'to be'; she said No and explained, he said أنا مشتاق. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-da49c393 | 38:54 | vocab-A | tier 2 | أنا شتعلت. Is it شتعلت؟ | اشتقت. No al in the middle. | شتعلت -> اشتقت | Past of ishtaa2 is ishta2et; he added an extra letter (شتعلت); she gave اشتقت and said no extra sound in the middle. | medium | judge panel (Opus + Argon, p 0.78) |
+| FA-23eb5046 | 39:18 | grammar | B6 | لما مش ... تكون. | When you weren't here. ... You weren't. | لما مش تكون -> لما ما كنت هون | 'When you weren't' needs past kaan negated with ma (ma kunti), not mish + present تكون; she prompted 'You weren't' and he gave ما كنت هون. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-6c0b1537 | 41:11 | grammar | B12 | Uh, أنا بتحمس. | Mm-hmm. بحمس. ... بحمس. بحمس. أنا، أنا بتحمس. | بتحمس -> بحمس | Asked for 'I excite' (make someone excited) he gave the get-form بتحمس; she gave بحمس and he asked 'What'd I say?'. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-08cbecbd | 41:59 | vocab-A | tier 1 | أنا بتحمس, uh, شهر الماضي عشان | Wait. Do you mean next month for the next month? | شهر الماضي -> الشهر الجاي | He meant next month (holidays coming) but said الماضي (past); she stopped him 'Do you mean next month?' and he said للشهر الجاي. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-6cb64513 | 43:01 | grammar | B15 | Oh, you're right. أنا بتخمس. | أنا متحمس للشهر الجاي. | أنا بتخمس -> أنا متحمس | For 'I am excited right now' she wanted the participle متحمس, not the b- verb; she recast it right after his answer (B15 is shown but never counted). | medium | judge panel (Opus + Argon, p 0.77) |
+| FA-de3e6553 | 45:13 | vocab-A | tier 2 | Um, to arrive is بسوال. | No. ... Just flip it. | بسوال -> بوصل | Letters swapped (like daba for bada): arrive is بوصل; she said No and 'Just flip it', he said بوصل. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-f8e4cacc | 45:34 | rejected | tier 2 | أنا بسوال-- | No. | بسوال -> بوصل | Said the swapped form again right after her fix; she said No again and he said أنا بوصل - its own slip per GR-32. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-839ea849 | 46:36 | grammar | B5 | Yeah. وصلت على بيتك. | وصل-- 'cause you used بيتك so make it gender appropriate. | وصلت -> وصلتِ | Asking Amal (she) when she arrived needs the you-fem ending wselti; she said make it gender appropriate and he said وصلتِ. | high | judge panel (Opus + Argon, p 0.90) |
+| FA-f8135306 | 49:50 | vocab-A | tier 1 | أنا بتوجع لما، uh, لما أؤذ، uh, حالي | أؤذ حالي؟ ... Uh, that doesn't really work. ... لا، because it's a snip, snip... 'cause it's مؤذ. | أؤذ حالي -> (she gave no word; أؤذ/قص is only cutting with scissors - e.g. جرحت حالي, reader's reading) | He used the scissors-cut verb for cutting/hurting himself; she said it doesn't work because it means snipping with scissors. | medium | judge panel (Opus + Argon, p 0.75) |
+| FA-9fc84431 | 52:02 | grammar | B12 | Is it I ge- I get annoyed is أنا بأذ, right? | I annoy. أنا بأزعج. ... Mm. No, no, no, it's an N verb. | أنا بأذ -> أنا بنزعج | 'I get annoyed' needs the n- form; he used the 'I annoy' form (بزعج); Amal gave 'I annoy' as the contrast and said 'it's an N verb', he answered بنذ, oops. | medium | judge panel (Opus + Argon, p 0.75) |
+| FA-72b28320 | 53:17 | grammar | B12 | Wait, if ما تنذن، ما تنذ don't annoy me? | No. Don't-- ما تنزعج، don't get annoyed by me. | ما تنزعج -> ما تزعجني | Used passive reflexive verb ma tanze3ej to mean causative 'don't annoy me' (ma tez3ejni). | medium | judge panel (Opus + Argon, p 0.62) |
+| FA-99c9389d | 55:02 | rejected | D1 | أتمرن أو أشتغل، uh, نفس اليوم. The same day. | Great job. ... بس make it on the same day or in the same day. | نفس اليوم -> بنفس اليوم | 'On the same day' needs the preposition bi (binafs el-yoam); she said make it 'on/in the same day' in English and he said بنفس اليوم. | high | judge panel (Opus + Argon, p 0.84) |
+| FA-d4b26910 | 56:40 | vocab-A | tier 2 | uh, هو، um, مزعوج. | You're angry at him because he's annoyed? ... Or because he's annoying. | مزعوج -> مزعج | He meant annoying (مزعج, sheet: annoying / Muz3ej / مزعج) but said مزعوج (annoyed); she asked 'because he's annoyed?' and he fixed to مزعج. | high | judge panel (Opus + Argon, p 0.86) |
+| FA-c9adf1d6 | 59:19 | grammar | D3 | ما تأسب عليني. ما تأسب عليني. علي. | علي. | عليني -> علي | 3ala + me is 3alayy; he added -ni to the preposition; Amal said علي and he repeated it. | medium | judge panel (Opus + Argon, p 0.65) |
+| FA-63de60ad | 1:02:23 | grammar | B8 | لما متأخر كتير. متأخرين كتير. ... Akoun. | بعدين لما takes-- لما is conditional so what does it take؟ ... يكونوا متأخرين. | لما متأخرين -> لما يكونوا متأخرين | After lamma a state needs ykoon (ykoonu mit2a55reen); she prompted 'what does it take?', he said Akoun (wrong person) and she gave يكونوا. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-5226a04a | 1:02:46 | grammar | B9 | Akoun. | Mm-hmm. يكونوا متأخرين. | Akoun -> يكونوا | Asked what lamma takes he said akoun (I be); the subject is the customers so ykoonu; she recast يكونوا. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-92a08741 | 1:03:23 | grammar | C4 | مش عند Halloween. | ما عند. | مش عند -> ما عند | 3ind is negated with ma (ma 3indek), not mish; she recast ما عند and he repeated it. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-09f28ef4 | 1:03:54 | rejected | tier 1 | Uh, وافي. ... وافي. | Mm-hmm. ... شو واقفة؟ | وافي -> إتضايق | For the command 'be upset' he said وافي/واقف (stop); she asked 'what's واقفة?' and he said 'that's stop' and gave إتضايق. | medium | judge panel (Opus + Argon, p 0.77) |
+| FA-6d5b6272 | 1:04:08 | grammar | B10 | [laughs] uh, إتضايق. | الضياع إي. | إتضايق -> اتضايقي | Command to Amal (a woman) takes -i; engine wrote her reply as الضياع إي, most likely اتضايقي; he echoed 'إتضايق إيه؟'. | medium | judge panel (Opus + Argon, p 0.65) |
+| FA-873504b0 | 1:04:24 | grammar | B10 | أصل. إزعلني. | إزعاج. ... اه، don't. | إزعلني -> ازعلي | Command 'be upset' to a woman is iz3ali; he added -ni (upset me); engine wrote her recast as إزعاج; she then moved to 'don't' and he said ما تزعلي. | medium | judge panel (Opus + Argon, p 0.65) |
+| FA-3cd2906f | 1:05:01 | vocab-A | tier 2 | ما تشتي. ... ما تشتي. | ما؟ ... تشتعي. | ما تشتي -> ما تشتاقي | For 'don't miss (me)' he gave a shortened form; Amal recast it twice (engine wrote تشتعي = تشتاقي); a dropped ق and long vowel may be S4, filed low because she voiced it. | medium | judge panel (Opus + Argon, p 0.75) |
+| FA-bbfd7e47 | 1:05:42 | grammar | D2 | أنا بفضل إشي أكثر من إشي. | أممم. That's more than. ... mm-hmm. | إشي أكثر من إشي -> إشي على إشي | Prefer X over Y is bafaddel X 3ala Y; he used aktar min; she said 'That's more than' and he moved to 'prefer something over', chat 3ala ishi. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-98bd341e | 1:06:12 | grammar | A1 | أنا بفضل، um, قهوة على شاي. | القهوة على الشاي. | قهوة على شاي -> القهوة على الشاي | Things in general take el- (el-ahwe, el-shaay); she recast القهوة على الشاي and he said 'Gosh darn it'. | high | judge panel (Opus + Argon, p 0.92) |
