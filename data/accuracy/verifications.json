@@ -31018,6 +31018,156 @@
     "wrong": "أنا بزعج",
     "right": "أنا بنزعج"
    }
+  },
+  {
+   "uid": "FA-0bc12d83",
+   "date": "2026-10-30",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says «مش عمل party», and Amal explicitly challenges «مش». He switches to «ما عمل» after her intervention; this is a negation correction, despite the spelling «أمل».",
+   "evidence": {
+    "t_start": 658.0,
+    "t_end": 691.0,
+    "quote": "Medi: «مش عمل party»; Amal: «No mish. Why mish?»; Medi: «ما عمل party».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-30/FA-0bc12d83_Medi_Medi_Natanzi-192fafa60af.mp3",
+      "sha256": "f599f0c7cec4c1af85cb3be5d4ff7515d5644f5a5faaa88bb5aef0b20992f2c7",
+      "source": "Medi_Natanzi-192fafa60afe94c0.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-30/FA-0bc12d83_Amal_Amal-25523abb8ba8da9e.mp3",
+      "sha256": "0466122a69b41a057fef28ce08f6ad7512863efb9dc137259c3884f35f637e44",
+      "source": "Amal-25523abb8ba8da9e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-30/FA-0bc12d83_mixed_lesson.mp3",
+      "sha256": "cfd499041a421ac79dacc1c1c2c41b366787f5b0528f1fe4ff3cb900848777aa",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "مش مش امل بارتي امل مش مش امل بارتي ما امل ما امل بارتي شكرا",
+     "Amal": "لم يقابلونا لماذا ليس ميش؟ لماذا ليس ميش؟ نعم إنه موضوع ممتع ولكن ليس هذا المشكلة",
+     "mixed": "he didn't invite us مش مش عمل party مش عمل party ما عمل ما عمل party it's internal flipping yes it's internal flipping but it's not mish شكرا"
+    }
+   },
+   "claim": {
+    "wrong": "مش أمل party",
+    "right": "ما عمل party",
+    "bucket": "C4",
+    "tier": null
+   },
+   "at": "2026-10-30T17:46:30-07:00",
+   "run_id": "c4c6e19d01164e06ba85c0c7a2d12aa3"
+  },
+  {
+   "uid": "FA-6d5b6272",
+   "date": "2026-10-30",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "unsure",
+   "confidence": "medium",
+   "reason": "The transcriptions are too garbled to establish whether Medi omitted the feminine ending or whether Amal corrected it. «إيه دايق إي» could represent «اتضايقي», but does not reliably distinguish a correction from an echo.",
+   "evidence": {
+    "t_start": 3838.0,
+    "t_end": 3874.0,
+    "quote": "Medi: «إيه إيه إدايي؟»; Amal: «إيه دايق إي»; Medi: «إيه دايق إي».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-30/FA-6d5b6272_Medi_Medi_Natanzi-9993ed4e99f.mp3",
+      "sha256": "0fd355d2c3ddb18887a9f45d7b818c98af1c72297d11d898ce61cc9e2a3c8079",
+      "source": "Medi_Natanzi-9993ed4e99fe508f.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-30/FA-6d5b6272_Amal_Amal-25523abb8ba8da9e.mp3",
+      "sha256": "0b3ae5c866e2b5c62f537452cdcc0a79298925c59617f8b3ff36ebae26f8e0f9",
+      "source": "Amal-25523abb8ba8da9e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-30/FA-6d5b6272_mixed_lesson.mp3",
+      "sha256": "7255c33aa7110b35b8599cf1be813ce1ca64d8f7f72b84a3fce30b4d131d80f5",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "واحي إذن أتكلمين أه ناو إتعي إتعي إزعلي معتز علي",
+     "Amal": "اه شو واقفة? ايه? او ماذا هو الاخر لبزعل ازعل او لا",
+     "mixed": "وقفي? شو وقفي? Oh, no, that's a stop. اه اه اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي ا"
+    }
+   },
+   "claim": {
+    "wrong": "إتضايق",
+    "right": "اتضايقي",
+    "bucket": "B10",
+    "tier": null
+   },
+   "at": "2026-10-30T17:46:30-07:00",
+   "run_id": "c4c6e19d01164e06ba85c0c7a2d12aa3"
+  },
+  {
+   "uid": "FA-873504b0",
+   "date": "2026-10-30",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "high",
+   "reason": "No correction is evident: both independent models hear Medi say «إزعلي», and Amal echoes «إزعلي» before moving to “don't.” Her matching echo supports a correct answer, not the claimed «إزعلني».",
+   "evidence": {
+    "t_start": 3854.0,
+    "t_end": 3885.0,
+    "quote": "Medi: «إزعلي؟»; Amal: «إزعلي. إيه، دونت»; Medi: «ما تزعلي؟».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-30/FA-873504b0_Medi_Medi_Natanzi-9993ed4e99f.mp3",
+      "sha256": "9bea05caf7b1e348931515cc76da11d3450003659c40bf6e30a5ae6bb5e88329",
+      "source": "Medi_Natanzi-9993ed4e99fe508f.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-30/FA-873504b0_Amal_Amal-25523abb8ba8da9e.mp3",
+      "sha256": "3e17b5018137d01bc840c16e8290f4bca68f1e782329674e4e46065c0381d0ec",
+      "source": "Amal-25523abb8ba8da9e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-30/FA-873504b0_mixed_lesson.mp3",
+      "sha256": "47b1090b121b2029d1917ad87c138d10de9bcf89467c47842bfc24982728ab95",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "بالتأيه ايه? ازعلي معتز علي اشتركوا في القناة",
+     "Amal": "or what's the other one for بزعل ازعل don't don't don't miss how do you say that شكرا",
+     "mixed": "اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي اي ا شكرا"
+    }
+   },
+   "claim": {
+    "wrong": "إزعلني",
+    "right": "ازعلي",
+    "bucket": "B10",
+    "tier": null
+   },
+   "at": "2026-10-30T17:46:30-07:00",
+   "run_id": "c4c6e19d01164e06ba85c0c7a2d12aa3"
   }
  ]
 }
