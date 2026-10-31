@@ -32,7 +32,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-26 | 95.1 | 294 | 91.7 | 23 | 230 | 0 / 0 |
 | 2026-10-27 | 96.2 | 223 | 88.5 | 23 | 192 | 0 / 0 |
 | 2026-10-28 | 95.4 -> **96.4** | 130 -> **182** | 88.3 -> **87.3** | 14 -> **22** | 111 -> **173** | 0 / 1 |
-| 2026-10-30 | None -> **94.7** | None -> **228** | None -> **87.8** | None -> **30** | None -> **237** | 1 / 1 |
+| 2026-10-30 | None -> **94.8** | None -> **270** | None -> **88.5** | None -> **28** | None -> **235** | 2 / 0 |
 
 
 ## Conflicts
@@ -149,8 +149,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-30 17:01 C1p both stand: ولا (word-bank right) vs ولا حدا -> ولا إشي (readers wrong) - slip elsewhere in the phrase: the word stays right
 - 2026-10-30 24:40 C1p both stand: بنات (word-bank right) vs بنات خطيبتي -> بنات أخوي (readers not-scored) - slip elsewhere in the phrase: the word stays right
 - 2026-10-30 24:41 C1r both stand: خطيبتي (word-bank right) vs بنات خطيبتي -> بنات أخوي (readers not-scored) - the Word Bank's context review already settled it: unchanged
-- 2026-10-30 41:59 C1q Medi?: شهر (word-bank right) vs شهر الماضي -> الشهر الجاي (readers not-scored) - which word of the phrase was wrong: Medi
-- 2026-10-30 41:59 C1q Medi?: الماضي (word-bank right) vs شهر الماضي -> الشهر الجاي (readers not-scored) - which word of the phrase was wrong: Medi
+- 2026-10-30 41:59 C1 settled: الماضي (word-bank right) vs الماضي -> الجاي (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-10-30 56:40 C1r both stand: مزعوج. (word-bank right) vs مزعوج -> مزعج (readers wrong) - the Word Bank's context review already settled it: unchanged
 
 ## Medi's corrections (PR-15)

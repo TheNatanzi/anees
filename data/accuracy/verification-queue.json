@@ -1,10 +1,9 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 4,
+ "count": 2,
  "by_date": {
   "2026-09-26": 1,
-  "2026-10-28": 1,
-  "2026-10-30": 2
+  "2026-10-28": 1
  },
  "rows": [
   {
@@ -56,56 +55,6 @@
    },
    "listen_from": "40:16",
    "listen_to": "40:53"
-  },
-  {
-   "uid": "FA-6d5b6272",
-   "date": "2026-10-30",
-   "t": "1:04:08",
-   "t_amal": "1:04:14",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B10",
-   "medi_said": "[laughs] uh, إتضايق.",
-   "amal_said": "الضياع إي.",
-   "wrong": "إتضايق",
-   "right": "اتضايقي",
-   "why_check": [
-    "the transcript under it is disputed (engine wrote something else)"
-   ],
-   "check": "audio",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-6-astra",
-    "verdict": "unsure",
-    "reason": "The transcriptions are too garbled to establish whether Medi omitted the feminine ending or whether Amal corrected it. «إيه دايق إي» could represent «اتضايقي», but does not reliably distinguish a correction from an echo."
-   },
-   "listen_from": "1:03:58",
-   "listen_to": "1:04:34"
-  },
-  {
-   "uid": "FA-873504b0",
-   "date": "2026-10-30",
-   "t": "1:04:24",
-   "t_amal": "1:04:25",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B10",
-   "medi_said": "أصل. إزعلني.",
-   "amal_said": "إزعاج. ... اه، don't.",
-   "wrong": "إزعلني",
-   "right": "ازعلي",
-   "why_check": [
-    "the transcript under it is disputed (engine wrote something else)"
-   ],
-   "check": "audio",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-6-astra",
-    "verdict": "rejected",
-    "reason": "No correction is evident: both independent models hear Medi say «إزعلي», and Amal echoes «إزعلي» before moving to “don't.” Her matching echo supports a correct answer, not the claimed «إزعلني»."
-   },
-   "listen_from": "1:04:14",
-   "listen_to": "1:04:45"
   }
  ]
 }
