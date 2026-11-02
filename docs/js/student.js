@@ -37,13 +37,10 @@
 
   // ---- answering ----------------------------------------------------------------------------------------------------
   async function post(table, body) { return fetch(ANEES.url + '/rest/v1/' + table, { method: 'POST', headers: { ...HD, Prefer: 'return=minimal' }, body: JSON.stringify(body) }); }
+  // Medi 2026-11-02: the first check now runs on his Claude plan from the PC (scripts/grade_homework.py, every 15 min), not
+  // the paid OpenAI function, so the page only saves the answer and says when the check comes.
   async function check(replyId) {
-    try {
-      const r = await fetch(ANEES.url + '/functions/v1/check-homework', { method: 'POST', headers: HD, body: JSON.stringify({ reply_id: replyId }) });
-      const j = await r.json().catch(() => ({}));
-      if (r.ok && j.ai) { const rep = D.replies.find(x => x.id === replyId); if (rep) { rep.ai = j.ai; rep.ai_at = new Date().toISOString(); } return true; }
-      msg[replyId] = 'The AI check did not run (' + (j.error || r.status) + '). Your teacher will still see your answer.'; return false;
-    } catch (e) { msg[replyId] = 'The AI check did not run (offline). Your teacher will still see your answer.'; return false; }
+    msg[replyId] = 'Saved. The AI check appears here within 15 minutes; your teacher sees your answer too.'; return true;
   }
   async function answer(task, text) {
     const t = String(text || '').trim(); if (!t) return;

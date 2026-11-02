@@ -254,6 +254,8 @@ STEPS = [
     ("tutor_note_check_pull", [sys.executable, "scripts/build_tutor_note_check.py", "pull"]),
     ("review_grades", [sys.executable, "scripts/review_grades.py"]),
     # Amal's uploads + homework -> Student tab / Flashcards data (Medi 2026-10-05)
+    # Medi 2026-11-02: his homework answers get their first check here, on his Claude plan ($0), not the paid OpenAI function
+    ("grade_homework", [sys.executable, "scripts/grade_homework.py"]),
     ("build_student_data", [sys.executable, "scripts/build_student_data.py"]),
     ("build_tutor_weak", [sys.executable, "scripts/build_tutor_weak.py"]),   # PG-30: Amal\'s Grammar / Vocab / Decay tabs
     # after the lesson data is rebuilt: proposals count the moments on the rebuilt transcript
@@ -287,7 +289,7 @@ SOURCES = [
     {"id": "word_review", "label": "Word review", "fetch": fetch_word_review, "steps": ["build_tutor_data"],
      "note": "her answers are detected and logged; showing them in the Word Bank still needs the Speaking release rebuild (not automated)"},
     {"id": "homework", "label": "Homework verdicts", "fetch": fetch_homework, "steps": ["build_tutor_data"]},
-    {"id": "student", "label": "Tutor uploads + homework (uploads, tasks, Medi's answers, her verdicts)", "fetch": fetch_student, "steps": ["build_student_data"]},
+    {"id": "student", "label": "Tutor uploads + homework (uploads, tasks, Medi's answers, her verdicts)", "fetch": fetch_student, "steps": ["grade_homework", "build_student_data"]},
     {"id": "grammar_notes", "label": "Grammar notes she writes on the rules page", "fetch": fetch_grammar_notes,
      "steps": ["build_amal_docs", "build_tutor_data"],
      "note": "like her Doc notes, a note becomes a scoring ruling only after a row-by-row read (amal_grammar_notes.py)"},

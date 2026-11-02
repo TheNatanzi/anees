@@ -769,3 +769,22 @@ def test_normalise_survives_letters_that_lowercase_to_two_characters():
     import transcript_marks as TM
     s, idx = TM.normalise("بتقدر İ ال بيت")
     assert len(s) == len(idx) and idx == sorted(idx)
+
+
+
+def test_homework_is_checked_on_the_plan_not_paid_openai():
+    """PR-31 (Medi 2026-11-02, the page said "The AI check did not run (OpenAI 429 ... no credits remaining)"): the Student tab no
+    longer calls the paid check-homework function; grade_homework.py checks waiting replies on the Claude plan, every 15 min."""
+    import sys
+    root = Path(__file__).resolve().parents[1]
+    sys.path.insert(0, str(root / 'scripts'))
+    import grade_homework as G
+    js = (root / 'docs' / 'js' / 'student.js').read_text(encoding='utf-8')
+    assert 'functions/v1/check-homework' not in js and 'within 15 minutes' in js
+    trig = (root / 'scripts' / 'amal_trigger.py').read_text(encoding='utf-8')
+    assert '"grade_homework", "build_student_data"' in trig
+    rows = [{'id': 'a', 'ai': None}, {'id': 'b', 'ai': {'verdict': 'close'}},
+            {'id': 'c', 'ai': {'verdict': 'ungraded', 'reason': "Today's checking budget is used up."}}]
+    assert [r['id'] for r in G.waiting(rows)] == ['a', 'c']
+    assert G.parse('```json' + chr(10) + '{"verdict":"close","reason":"la, not 3ala","fixed":"x"}' + chr(10) + '```')['verdict'] == 'close'
+    assert G.parse('nonsense')['verdict'] == 'ungraded'

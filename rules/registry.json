@@ -11725,6 +11725,47 @@
    "aliases": []
   },
   {
+   "id": "PR-31",
+   "kind": "process",
+   "scope": "process",
+   "topic": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Homework answers get their first AI check on Medi's Claude plan from this PC (scripts/grade_homework.py, run by the 15-minute Amal trigger and its 'student' source), never the paid OpenAI check-homework function: the Student tab only saves the answer and says the check comes within 15 minutes; Amal's verdict still overrides it.",
+   "plain": "Homework answers are checked on your Claude plan ($0) within 15 minutes, not with paid OpenAI credits.",
+   "plain_for": "7c5c7140",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-11-02",
+     "quote": "The AI check did not run (OpenAI 429: ... You have no credits remaining ...)"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/grade_homework.py",
+     "contains": "def waiting(replies):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_trigger.py",
+     "contains": "(\"grade_homework\", [sys.executable, \"scripts/grade_homework.py\"]),"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_homework_is_checked_on_the_plan_not_paid_openai"
+    }
+   ],
+   "example": {
+    "date": "2026-11-02",
+    "note": "3 Oct 28 translate answers waited unchecked; checked by claude -p at $0"
+   },
+   "aliases": []
+  },
+  {
    "id": "GR-37",
    "kind": "process",
    "scope": "grammar-scoring",
