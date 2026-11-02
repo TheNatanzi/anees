@@ -2,16 +2,17 @@
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-11-02T21:22:12Z",
  "last_publish_sha": "c4dd763e1f2bb73da2cfb50919168552cdbabd17",
- "last_block_reason": null,
- "last_block_utc": null,
- "first_block_reason": null,
- "blocked_since_utc": null,
+ "last_block_reason": "tests_py: exit 1: FAILED tests/test_stale_banner.py::test_banner_appears_when_build_changes - p... | 1 failed, 971 passed, 3 xfailed in 129.18s (0:02:09)",
+ "last_block_utc": "2026-11-02T22:04:33Z",
+ "first_block_reason": "tests_py: exit 1: FAILED tests/test_stale_banner.py::test_banner_appears_when_build_changes - p... | 1 failed, 971 passed, 3 xfailed in 129.18s (0:02:09)",
+ "blocked_since_utc": "2026-11-02T22:04:33Z",
  "open_failures": [],
  "pending": [
+  "1 blocked push(es) since the last publish",
   "second listen not applied: 2026-10-26"
  ],
- "hours_since_publish": 0.6,
+ "hours_since_publish": 0.7,
  "stalled": false,
- "generated_at": "2026-11-02T22:00:27Z",
- "plain_reason": "waiting: second listen not applied: 2026-10-26"
+ "generated_at": "2026-11-02T22:04:34Z",
+ "plain_reason": "a test failed"
 }
