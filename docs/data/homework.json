@@ -1,5 +1,5 @@
 {
- "built": "2026-11-02T20:15:37-08:00",
+ "built": "2026-11-03T03:53:25-08:00",
  "tasks": [
   {
    "id": "d9bbdc34-52c8-4199-be07-f4c50fc2f24e",
@@ -235,22 +235,62 @@
    "created_at": "2026-11-02T21:49:57.67+00:00"
   }
  ],
- "verdicts": [],
+ "verdicts": [
+  {
+   "id": "532928fd-8b51-448b-8e20-9c4e2bb201ce",
+   "reply_id": "c9f3d0bb-ac51-4d7f-b335-2d14c8c306e6",
+   "kind": "verdict",
+   "undoes": null,
+   "verdict": "close",
+   "agrees": true,
+   "note": null,
+   "fix": null,
+   "token": "WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "created_at": "2026-11-03T11:45:45.231+00:00"
+  },
+  {
+   "id": "a5f718c9-a6a0-45c5-b180-fb4778645270",
+   "reply_id": "91109157-4ab7-4cb0-ad48-79fe0650e445",
+   "kind": "verdict",
+   "undoes": null,
+   "verdict": "right",
+   "agrees": false,
+   "note": "The spelling is subjective as long as it doesn’t change the meaning. Yhe right way is t5allsi. Also 3ala el maktab is correct. We’re not familiar with missing prepositions and “el” yet.",
+   "fix": "Erja3i 3ala el-maktab lamma t5allsi",
+   "token": "WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "created_at": "2026-11-03T11:51:18.095+00:00"
+  }
+ ],
  "score": {
   "total": 3,
-  "done": 0,
-  "right": 0,
-  "close": 0,
+  "done": 2,
+  "right": 1,
+  "close": 1,
   "wrong": 0,
-  "points": 0.0,
-  "pct": null,
-  "waiting": 3,
+  "points": 1.5,
+  "pct": 75.0,
+  "waiting": 1,
   "checking": 0,
   "todo": 0,
-  "agreed": 0,
-  "overruled": 0
+  "agreed": 1,
+  "overruled": 1
  },
- "overrules": [],
+ "overrules": [
+  {
+   "id": "a5f718c9-a6a0-45c5-b180-fb4778645270",
+   "date": "2026-11-03T11:51:18.095+00:00",
+   "kind": "translate",
+   "prompt": "come back to the office when you finish",
+   "direction": "en_ar",
+   "words": null,
+   "answer": "erja3i 3ala el maktab lamma tekhalsi",
+   "ai_said": "close",
+   "amal_says": "right",
+   "fix": "Erja3i 3ala el-maktab lamma t5allsi",
+   "note": "The spelling is subjective as long as it doesn’t change the meaning. Yhe right way is t5allsi. Also 3ala el maktab is correct. We’re not familiar with missing prepositions and “el” yet.",
+   "rule": "HW-overrule"
+  }
+ ],
  "cards": [
   {
    "id": "d9bbdc34-52c8-4199-be07-f4c50fc2f24e",
