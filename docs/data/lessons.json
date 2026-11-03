@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T16:22:56-08:00",
+ "updated": "2026-11-02T17:44:47-08:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -12698,52 +12698,54 @@
     ]
    },
    "words": {
-    "unique": 109,
-    "right": 242,
+    "unique": 110,
+    "right": 241,
     "wrong": 3,
-    "partial": 4,
-    "pct": 98.0,
-    "scored": 249,
+    "partial": 3,
+    "pct": 98.2,
+    "scored": 247,
     "audit_wrong": 3,
     "audit_partial": 0,
     "not_on_sheet": 3,
     "rehear_word_conflicts": 0,
-    "unique_rows": 107,
-    "eligible": 249,
+    "unique_rows": 108,
+    "eligible": 247,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 98.0,
+    "eligible_pct": 98.2,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 232,
+    "uses": 209,
     "mistakes": 29,
-    "pct": 89.2,
+    "pct": 89.5,
     "estimate": false,
-    "scored_mistakes": 25,
-    "unscored_mistakes": 4,
+    "scored_mistakes": 22,
+    "unscored_mistakes": 7,
     "eligible": 29,
     "excluded": 0,
     "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
-      "9 slips are in rules the counter found 0 uses of in this lesson",
-      "7 rules have more slips than counted uses (A12, A20, A22, A23, A3, B18, B2)"
+      "13 slips are in rules the counter found 0 uses of in this lesson",
+      "9 rules have more slips than counted uses (A12, A18, A20, A22, A23, A3, B18, B7)"
      ],
-     "uses": 209,
+     "uses": 189,
      "slips": 29,
      "slips_latin": 7,
-     "slips_in_zero_use_rules": 9,
+     "slips_in_zero_use_rules": 13,
      "rules_slips_over_uses": [
       "A12",
+      "A18",
       "A20",
       "A22",
       "A23",
       "A3",
       "B18",
-      "B2"
+      "B7",
+      "C9"
      ]
     },
     "verified_pct": null
@@ -12872,10 +12874,10 @@
      "t": "41:39"
     }
    ],
-   "coverage": "No echo-candidates file for 11-02. 04:06-04:23 Latin 'Intira raha ... tinnis be mayi' (inti ra7 tinbasti ma3i; Amal 04:54 'I heard my'). 18:47-19:24 garbled ('قدرة مختلف', 'وسط الـ براتولي', 'ما أجنب', 'Adatens'). 40:45/42:26 'أو' probably his 'u' (and) - not filed as C5. 43:24 'بزن النوراح' garbled. 44:12 Amal 'sharp is' likely engine for 'حرب هي'. 37:37 Amal 'بدي تحط بطلب' wrote بطلب for the verb. 28:03 أغلب الـ came before her 'Il' but Medi said she corrected him, filed. Long English stretches 28:31-29:51, 33:00-36:55, 56:00-1:01:39. Names: كانو = Kano not present as a word in this transcript (كانو at 42:33 is kaanu 'they were'). / Many stretches are Latin-transliterated Medi Arabic (04:06-04:28, 06:14-08:04, 09:54-11:57, 25:15-26:47) and several lines are engine-garbled (tinnis be mayi, بأسب = batdaya2, daia et = daya2et, أسر مارا الجاي, النوراح, مواسف/ياسر, حندارة). No echo-candidates file existed for this date. Name check: كانوا in this lesson is the verb 'were', not Kano. Left out on purpose: 'last kind' vs 'last one' (17:52-18:21, Amal says both fine); 40:00 قرأت (Amal repeated it, he said it right); تانية vs تانين (46:48-47:39, Amal says تانية is valid); 'costume' (not on her sheet, so not tier 3); 49:15-49:51 إشي المفضل عندي (Amal said صح). 30:20 and 44:17 may be his own self-fixes (low confidence). Several fixes are Amal's English prompts (13:44, 24:15, 30:22, 42:31).",
+   "coverage": "Latin-transliterated stretches 04:06-04:23, 06:03-11:55, 24:51-26:37 (Medi Arabic in Latin letters, read with her chat lines). English-only stretches 23:00-24:06, 28:31-30:11, 33:00-36:59, 56:28-1:01:30. Unclear engine lines skipped: 00:38-00:46 'بعدا نستعمل كلمة سؤال لواجب', 17:32 'فكرت إنه عديت', 18:47-19:17 'قدرة مختلف / براتولي / ما أجنب / Adatens', 43:24 'بزن النوراح' (= bazonn enno, her chat), 44:17 'ثمن راح', 45:45 'مش بتوجع مع حرب', 46:13 'ما بارة'. echo: 'maba nasito' (09:18) = his failed try at مستقبل; 'هم مات؟' (07:37) = Amal's 'humme?'; 'sharp is' (44:12) = Amal's 'harb is'; 'بأسب' = ba3asseb. 39:55-40:12 قريت vs قرأت = hamza, S4 pronunciation, not filed. Self-fixes not filed: 30:20 كان أسوأ, 12:20 كانوا, 13:39 واحد->واحدة, 32:30 الأول->أول الفيلم (before her 32:33 question), 45:53 بتسأليني, 46:48 حروب تانية. 40:24-40:45 أوّل مرة بالصباح / Amal 'في ... in the morning' too unclear to file. 53:43 هذي kept after her هذا fix - she did not fix it again. Kano name not present in this transcript. / Read the whole file. Much of the lesson is English talk (56:49 on). Latin-transliterated stretches: 03:14-04:23, 06:14-08:27, 10:11-11:57, 24:10-26:48. Engine splits suffixes (min hom, ahel hom, ma hom, من هم) - treated as spacing, not slips. Echo: 'Uh, maba nasito' (09:18) = unclear attempt at a future word after her prompt مـ-مس; 'Musta'bal.' = مستقبل (repeat of her word). Engine garble not scored: بأسب (~batdaya2), مواسف/ماسب (~m3asseb/mu3assib), حندارة, براتولي, ما أجنب, كان مني (~kaan mnee7, 09:54 and 15:24), إشتى. Not scored: 01:29-01:35 جاوبت عليهم (Amal remark), self-fixes (أسول->أسئلة, أكل->أكلة, 30:20 كان أسوأ), 46:39 حروب تانية (Amal said both OK), 21:52 date without day number (chat only), 30:13 أول الـ اجتماع.",
    "notes": [
     "timings: anees-20261102-recall-amal-seg0: page/engine offset spread 261.40s; anees-20261102-recall-amal-seg2307: page/engine offset spread 681.43s",
-    "grammar: 4 of the 29 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "grammar: 7 of the 29 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "1 moment(s) wait for Medi (counted as before until he picks): 05:38."
    ],
    "page": "lessons/2026-11-02.html",
@@ -12889,9 +12891,9 @@
    },
    "counts": {
     "turns": 1031,
-    "chat_lines": 0,
+    "chat_lines": 29,
     "vocab_errors": 6,
-    "vocab_correct": 246,
+    "vocab_correct": 244,
     "grammar_errors": 29,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -12902,7 +12904,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-11-02.json",
-    "marks": 519,
+    "marks": 520,
     "conflicts": 3,
     "resolved": 0,
     "needs_medi": 1,
@@ -12948,7 +12950,7 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 52.0 %; 2 consecutive passes at >= 95 % are needed",
+     "reader agreement: pass 1 51.9 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: speaker labels agree with an independent check on only 85.9 % of 882 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3720 s) compared with a second model"
     ],
@@ -12957,11 +12959,11 @@
      "passes": [
       {
        "pass": 1,
-       "r1": 42,
-       "r2": 40,
-       "agreed": 26,
-       "disputed": 24,
-       "agreement_pct": 52.0
+       "r1": 47,
+       "r2": 41,
+       "agreed": 27,
+       "disputed": 25,
+       "agreement_pct": 51.9
       }
      ],
      "between": [],
