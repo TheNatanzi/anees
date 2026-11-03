@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **880** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **909** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 122 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 33 |
-| Vocab fixes Amal voiced (A) | **417** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 206, '0': 147, '2': 100, '3': 4} |
+| Vocab fixes Amal voiced (A) | **423** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 212, '0': 147, '2': 100, '3': 4} |
 | Vocab she let pass (B, to Amal) | **42** by tier {'1': 32, '2': 8, '3': 2} |
 | Listening-drill misreads (kept apart) | 73 |
-| Rows the readers found that the sweep did not have | 1134 |
+| Rows the readers found that the sweep did not have | 1169 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -50,6 +50,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-27 | 22 | 2 | 7 | 0 | 2 | 0 | 0 | 61.2 % |
 | 2026-10-28 | 22 | 0 | 4 | 0 | 1 | 0 | 0 | 52.2 % |
 | 2026-10-30 | 28 | 0 | 11 | 1 | 1 | 0 | 0 | 61.3 % |
+| 2026-11-02 | 29 | 0 | 6 | 0 | 0 | 0 | 0 | 52.0 % |
 
 ## Reader passes (the loop)
 
@@ -82,56 +83,57 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-10-27**: pass 1: r1 42 r2 40 agreed 30 disputed 19 (61.2 %), r3 kept 13 dropped 6 -> 33 rows
 - **2026-10-28**: pass 1: r1 34 r2 41 agreed 24 disputed 22 (52.2 %), r3 kept 12 dropped 10 -> 29 rows
 - **2026-10-30**: pass 1: r1 53 r2 48 agreed 38 disputed 24 (61.3 %), r3 kept 14 dropped 10 -> 38 rows
+- **2026-11-02**: pass 1: r1 42 r2 40 agreed 26 disputed 24 (52.0 %), r3 kept 19 dropped 5 -> 32 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
-| D2 | verb + its fixed preposition | 77 |
-| B18 | verb matches its subject | 76 |
-| B5 | past tense | 63 |
+| B18 | verb matches its subject | 79 |
+| D2 | verb + its fixed preposition | 79 |
+| B5 | past tense | 65 |
 | B12 | make-X vs get-X | 60 |
-| A8 | gender on adjectives | 56 |
-| A7 | noun + adjective | 44 |
-| D4 | endings on verbs | 42 |
+| A8 | gender on adjectives | 59 |
+| A7 | noun + adjective | 46 |
+| D4 | endings on verbs | 43 |
 | A9 | plurals | 42 |
-| D1 | prepositions | 39 |
+| D1 | prepositions | 41 |
 | B1 | present with b- | 37 |
 | A2 | idafa (possession) | 35 |
 | PROPOSE | ? | 33 |
+| A4 | possessive endings | 32 |
 | A1 | el- (the) | 31 |
-| A4 | possessive endings | 31 |
+| B2 | b-drop after modals | 23 |
 | E1 | number + noun | 22 |
-| B2 | b-drop after modals | 22 |
 | C4 | saying no | 19 |
 | D3 | endings on prepositions | 18 |
 | B10 | commands | 18 |
+| B6 | kaan = was / were | 17 |
 | C2 | the pointer rule | 17 |
-| B6 | kaan = was / were | 16 |
 | C7 | illi | 15 |
-| A15 | aa5er / a5eer: before or after the noun | 14 |
+| A15 | aa5er / a5eer: before or after the noun | 15 |
 | B15 | participles | 13 |
+| A10 | hada / hadi | 13 |
 | B11 | negative commands | 13 |
 | E2 | clock time | 12 |
-| A10 | hada / hadi | 12 |
 | B3 | b-drop after time words | 10 |
+| C3 | comparatives | 10 |
 | B8 | bakoon / ykoon | 10 |
-| C3 | comparatives | 9 |
-| A3 | feminine -t in idafa | 9 |
+| A3 | feminine -t in idafa | 10 |
+| A14 | taani: before or after the noun | 9 |
 | A11 | kul: all vs every | 8 |
+| A12 | pronoun matches who you mean | 8 |
 | E4 | calendar | 8 |
 | A13 | awal / oola: before or after the noun | 8 |
-| A14 | taani: before or after the noun | 8 |
-| A12 | pronoun matches who you mean | 7 |
 | C9 | word order | 7 |
 | B13 | future with ra7 | 7 |
 | C10 | preposition goes in front | 6 |
 | D5 | preposition keeps el- | 6 |
 | B16 | kan laazem | 5 |
-| C1 | no word for 'to be' | 4 |
+| C1 | no word for 'to be' | 5 |
+| A16 | 8eir: other / different, no el- | 5 |
 | E3 | time units, two-of and many-of | 4 |
 | A5 | chain possession | 4 |
-| A16 | 8eir: other / different, no el- | 4 |
 | C6 | iza / lamma | 3 |
 | A10b | demonstrative keeps el- | 3 |
 | A9b | broken plurals are patterns | 3 |
@@ -141,6 +143,8 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A6 | professions | 2 |
 | C11 | noun, not verb, after a preposition | 2 |
 | A18 | hidden gender nouns | 2 |
+| A22 | a8lab and nafs + definite noun | 2 |
+| A23 | mufaddal + 3ind | 2 |
 | B9 | person on ykoon | 1 |
 | C5 | u / aw / willa / wala | 1 |
 | B14 | 3am = right now | 1 |
@@ -148,10 +152,9 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | D6 | iyyaa - the second object | 1 |
 | C4b | words that drag a ma along | 1 |
 | A17 | nafs + el-: the same | 1 |
-| A22 | a8lab and nafs + definite noun | 1 |
 | A21 | taani and 8eir | 1 |
-| A23 | mufaddal + 3ind | 1 |
 | E6 | ago = qabel + number + noun | 1 |
+| A20 | awal / aa5er with el- | 1 |
 
 ## Sweep rows the readers did not list (kept, not dropped)
 
@@ -2098,3 +2101,45 @@ _33:30-36:00 Medi away (Amal-only garbled lines, e.g. 'Let's try back so taller'
 | FA-3cd2906f | 1:05:01 | vocab-A | tier 2 | ما تشتي. | ما؟ ... تشتعي. | ما تشتي -> ما تشتاقي | He cut the verb to تشتي; Amal prompts with ما? and the verb and he builds ما تشتاقي (may be S4). | medium | judge panel (Opus + Argon, p 0.79) |
 | FA-da73f5ae | 1:05:42 | grammar | D2 | بفضل إشي أكثر من إشي. | أممم. That's more than. | أكثر من -> على | fadhal X over Y takes 3ala; Amal: 'That's more than' and he got على. | high | judge panel (Opus + Argon, p 0.92) |
 | FA-98bd341e | 1:06:12 | grammar | A1 | قهوة على شاي. | القهوة على الشاي. | قهوة على شاي -> القهوة على الشاي | General things (coffee, tea) take el-; Amal recast القهوة على الشاي and he said 'Gosh darn it'. | high | judge panel (Opus + Argon, p 0.92) |
+
+### 2026-11-02
+
+_No echo-candidates file for 11-02. 04:06-04:23 Latin 'Intira raha ... tinnis be mayi' (inti ra7 tinbasti ma3i; Amal 04:54 'I heard my'). 18:47-19:24 garbled ('قدرة مختلف', 'وسط الـ براتولي', 'ما أجنب', 'Adatens'). 40:45/42:26 'أو' probably his 'u' (and) - not filed as C5. 43:24 'بزن النوراح' garbled. 44:12 Amal 'sharp is' likely engine for 'حرب هي'. 37:37 Amal 'بدي تحط بطلب' wrote بطلب for the verb. 28:03 أغلب الـ came before her 'Il' but Medi said she corrected him, filed. Long English stretches 28:31-29:51, 33:00-36:55, 56:00-1:01:39. Names: كانو = Kano not present as a word in this transcript (كانو at 42:33 is kaanu 'they were'). / Many stretches are Latin-transliterated Medi Arabic (04:06-04:28, 06:14-08:04, 09:54-11:57, 25:15-26:47) and several lines are engine-garbled (tinnis be mayi, بأسب = batdaya2, daia et = daya2et, أسر مارا الجاي, النوراح, مواسف/ياسر, حندارة). No echo-candidates file existed for this date. Name check: كانوا in this lesson is the verb 'were', not Kano. Left out on purpose: 'last kind' vs 'last one' (17:52-18:21, Amal says both fine); 40:00 قرأت (Amal repeated it, he said it right); تانية vs تانين (46:48-47:39, Amal says تانية is valid); 'costume' (not on her sheet, so not tier 3); 49:15-49:51 إشي المفضل عندي (Amal said صح). 30:20 and 44:17 may be his own self-fixes (low confidence). Several fixes are Amal's English prompts (13:44, 24:15, 30:22, 42:31)._
+
+| id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
+|---|---|---|---|---|---|---|---|---|---|
+| FA-0d5ca773 | 00:53 | grammar | D1 | So الواجب عندو تلات سو-- أسول-- أو-- Hold on. أسئلة. | صح. فيو ثلاث أسئلة. ... فيو، in it. ... It doesn't have. There's in it. | عندو -> فيو | For a thing containing something Amal swaps 3indo (has) for fiho (there is in it); he takes it: 'instead of عندي، فيو'. | high | judge panel (Opus + Argon, p 0.90) |
+| FA-f4d77800 | 04:23 | grammar | D2 | tinnis be mayi. | Mm-mm. Happy with me. ... Happy from, from something I did. ... so minni. | be mayi (ma3i) -> minni | inbasat takes min (happy from someone), not ma3i; Amal 'Mm-mm', then 'minni', and 'I heard my' confirms he said ma3i. | high | judge panel (Opus + Argon, p 0.90) |
+| FA-c2b5126d | 05:29 | grammar | B5 | أنا بحكي-- | وأنا؟ | أنا بحكي -> أنا حكيت | Talking about yesterday he began in the present (بحكي); Amal cut in 'وأنا؟' and he restarted with past حكيت. May be his own restart. | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-0788afdd | 05:38 | vocab-A | tier 1 | و الـ-- وال بنات الـ-- بنات و-- أو ولاد، ... أمها أو أبوها. | أوه، عمها وعمتها. Cuz ولاد أمها are أخوتها. | ولاد، أمها أو أبوها -> عمها وعمتها | He described aunts/uncles as 'children of her mother or father' (= her siblings); Amal supplied عمها وعمتها (sheet: 'aunt (paternal) / 3ammeh', 'uncle (paternal) / 3am'). | medium | judge panel (Opus + Argon, p 0.75) |
+| FA-0ec89898 | 06:22 | grammar | C3 | enno ana barif akhtar arabi min hom. | إشتى أنا بعرف عربي أكتر منهم. | akhtar arabi -> عربي أكتر | Amal recast with the noun first and aktar after it (ba3ref 3arabi aktar minhom). | high | judge panel (Opus + Argon, p 0.80) |
+| FA-66f5db24 | 07:35 | grammar | A12 | Bas, uh, huwe, | هم مات؟ | huwe -> هم | He uses huwe (he) for the cousins (they), here and at 06:42 'hu-huwe bifhamu'; Amal prompts هم and he says هم at 07:38. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-eeab7ee6 | 07:59 | grammar | A8 | bifikru el lugha muhim ilhom. | Yeah، بس لغة as well. | muhim -> muhimme | لغة is feminine so the adjective is muhimme; Amal 'بس لغة as well', he: 'Oh, it's feminine. ... muhema'. | high | judge panel (Opus + Argon, p 0.90) |
+| FA-faa4f30b | 08:40 | vocab-A | tier 1 | Um, il modara. No, modara is present... moraja. | مـ-مس... مستقبل | il modara -> مستقبل | Asked for the word for 'future' he guessed مضارع and مراجعة (wrong words); Amal began مـ-مس... and gave مستقبل (sheet: Musta2bal = future). | medium | judge panel (Opus + Argon, p 0.62) |
+| FA-3b75a10b | 10:31 | grammar | B18 | Ma libisna. ... Shwe min kbar, libisna costume bas kul il zgar. | So لبسوا. ليش؟ | libisna -> لبسوا | Subject is el-kbaar (they) so the verb is libsu, not libisna (we); Amal recast لبسوا, he: 'It would be لبسوا?'. | medium | judge panel (Opus + Argon, p 0.60) |
+| FA-50afb98b | 11:28 | grammar | A3 | Okay. Uh, libsa Halloween. Libsa, right? | لبست. | libsa Halloween -> لبست Halloween | Feminine first word of an idafa takes -t: libset Halloween; he repeats Libsit and explains it. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-754abab3 | 12:20 | grammar | A8 | كان حلووات كتير. كانوا حلوات كتير. | Are they all كلهم بنات؟ ... لأ، عاد صغار بس حلوين قول حلوات. | حلوات -> حلوين | Kids of both sexes take the masculine plural حلوين; Amal asked if they were all girls and he switched to حلوين at 12:45. | medium | judge panel (Opus + Argon, p 0.78) |
+| FA-83dd4ae9 | 13:08 | grammar | A7 | واحد أكلة. | آ، واحدة is an adjective. So what do where do I put it؟ | واحد أكلة -> أكلة واحدة | The number-adjective follows the noun and agrees: akle wa7de; Amal asked where it goes and he said أكلة واحدة. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-bc876f62 | 13:39 | grammar | A7 | كل حدا جاب واحد أكل، أكلة. No، واحدة أكلة. | آ، واحدة is an adjective. So what do where do I put it؟ | واحدة أكلة -> أكلة واحدة | The adjective goes after the noun; Amal asked where to put it and he fixed to أكلة واحدة (her صح). | high | judge panel (Opus + Argon, p 0.88) |
+| FA-24fcc382 | 14:25 | grammar | D4 | كل عيلتها، آآ، طلبوني. | طلبوه. | طلبوني -> طلبوه | Object ending: they ordered IT (the kebab), not me; Amal recast طلبوه twice and said 'No. They requested.' | high | judge panel (Opus + Argon, p 0.90) |
+| FA-b5c22eb7 | 14:54 | grammar | B2 | طلبوا مني، آآ، إنه جبت kebab. | إنه to bring. ... أجيب kebab. | إنه جبت -> إنه أجيب | After talabu minni enno (asked me to) the second verb is the bare present ajeeb, not past jibt; Amal 'إنه to bring', then أجيب. | high | judge panel (Opus + Argon, p 0.90) |
+| FA-b5dc69a4 | 21:44 | vocab-A | tier 1 | يوم الثلاث، | No. | يوم الثلاث -> يوم الاثنين | Today (2026-11-02) is Monday; he said Tuesday, Amal 'No', he fixed to يوم الاثنين. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-ed4f2482 | 24:10 | grammar | B5 | أنا بأسب منهم. ... أنا بأسب لهم | Mm-mm. I got upset for them. ... Mm-hmm. I got. | بأسب -> داية it (past) | The prompt was 'I got upset' (past); he used the present b- form; Amal 'I got' and he: 'Oh, you're right' then the past form. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-5bdbf3e3 | 24:10 | vocab-A | tier 1 | Okay. أنا بأسب منهم. | Mm-mm. I got upset for them. ... Mm-mm. And about it was I get angry. | بأسب -> داية it (dayi2t) | بعصب means 'I get angry' (sheet: 'i get angry / Ana ba3asseb'); Amal said his word was 'I get angry' and he moved to dayi2t (sheet: 'i feel upset about / for someone / Ana batDaaya2 3ala'). | high | judge panel (Opus + Argon, p 0.80) |
+| FA-ce5b1329 | 25:34 | grammar | D1 | Alayhom ala... | No, you don't need anything. If you do-- If you would want to put something, it would be in, in anything. | ala (before akher il film) -> akher il film (no preposition) | He put ala before 'the end of the movie'; Amal: no preposition needed. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-74a388b4 | 25:54 | vocab-A | tier 1 | akher. No, tahet. | Mm-hmm. La saħħ. ... Shu yammi taħet. [laughs] It's not taħet. | tahet -> akher | He swapped akher (end) for ta7t (under); Amal: 'It's not taħet'. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-c12c59ab | 27:58 | grammar | A22 | أنا جاوبت على أغلب من-- أغلب الـ، أغلب السؤال، ... أسئلة، | Mm. Mm. ... Il. Saħħ. | أغلب من -> أغلب الأسئلة | a8lab takes a definite noun directly (a8lab el-as2ile), not min; Medi at 28:43: 'I said أغلب من and you corrected me'. Singular السؤال -> أسئلة was his own fix in the same turn. | medium | judge panel (Opus + Argon, p 0.65) |
+| FA-8f425825 | 30:28 | grammar | A15 | من الـ آخر. ... آخر هي هو؟ ... Is it آخره؟ | The end of it. ... Just it. ... صح، آخره. | الـ آخر -> آخره | 'The end of it' is aa5er + pronoun ending (aa5ro); Amal prompted 'The end of it' / 'Just it' until he said آخره. | medium | judge panel (Opus + Argon, p 0.75) |
+| FA-798cdd65 | 32:48 | grammar | A4 | ما حبيت الـ آخرو. | No ال. Why? | الـ آخرو -> آخرو | A word with a pronoun ending is already definite and takes no el-; Amal 'No ال. Why?'. | high | judge panel (Opus + Argon, p 0.93) |
+| FA-eceab2d6 | 37:45 | grammar | A16 | No، طلب-- غير تاني. No، إشي غير من هم. | غير إشي، ليش؟ | إشي غير -> غير إشي | 8eir goes before the noun; Amal recast غير إشي and he said 'غير always comes before the noun'. | high | judge panel (Opus + Argon, p 0.90) |
+| FA-6fe5fe9f | 40:50 | grammar | B18 | بالـ، بالصباح أو، uh, كان angering. | بيعصب بس كان أو كانوا cuz أخبار is multiple news. | كان -> كانوا | أخبار is plural so the verb is kaanu; Amal named it ('أخبار is plural'). | high | judge panel (Opus + Argon, p 0.88) |
+| FA-e99e1720 | 42:28 | grammar | B6 | أو بيعصبوا. | أمم، they were. | بيعصبوا -> كانوا بيعصبوا | Past description needs kaanu; Amal 'they were' and he said كانو بيعصبوا. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-4f5f37b0 | 43:47 | vocab-A | tier 1 | Okay. الـ حفلة. | الحفلة؟ [تضحك] I wish I would be a حفلة. | الـ حفلة -> الحرب | He said حفلة (party) for حرب (war); Amal laughed and echoed الحفلة؟ and he fixed to الحرب. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-86de60a3 | 44:10 | grammar | B18 | الحرب راح, راح يسير أسوأ. | أممم، آه، sharp is | يسير -> تصير | حرب is feminine so ra7 tSeer; after Amal's prompt he said 'راح تصير أسوأ' and she said صح. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-54ff2511 | 48:49 | grammar | D2 | لما أنا أطلع الطبيعة | أطلع at. | أطلع الطبيعة -> أتطلع على الطبيعة | Look at takes 3ala; Amal 'أطلع at.' and he said أتطلع على الطبيعة. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-347bffb6 | 49:15 | grammar | A23 | إشي المفضل عندي. Or المفضل إشي عندي. | Where do you put the Ls? ... Where is the other L? You have another L. Where do you put it? | إشي المفضل عندي -> الإشي المفضل عندي | With el-mufaddal the noun takes el- too; Amal asked twice for 'the other L' (engine may have dropped it on his later line she called صح). | high | judge panel (Opus + Argon, p 0.88) |
+| FA-1746bf24 | 50:05 | grammar | C1 | إنه | You don't need anything actually just. | إنه -> الإشي المفضل عندي لما أتطلع على الطبيعة | Amal removes the proposed connector and explains at 50:13 that the relationship is simply is, requiring no separate present-tense linking word. | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-e9826b2d | 51:06 | grammar | A14 | No, your صحابك تانيين. | close. ... التاني. | صحابك تانيين -> صحابك التاني | صحابك is definite (pronoun ending) so the adjective takes el-: التانيين; Amal 'close... التاني' and explained 'صحابك is definitive'. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-a1ed4aa1 | 52:16 | grammar | A8 | um, عائلتي, my other family, عائلت- عائلتي, it would be التاني. | Yes. التانية. | التاني -> التانية | عائلة is feminine so التانية; Amal recast it, though his line was a rule check. | medium | judge panel (Opus + Argon, p 0.75) |
+| FA-b469fef7 | 53:05 | grammar | A10 | So هذي أول مرة أول يومي هون. | هذا. | هذي أول يومي -> هذا أول يومي | 'Yoam' is masculine, so the demonstrative must be masculine 'hada'. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-e60cbc2a | 53:29 | grammar | A20 | هذي أول مرة أول يومي هون. ... هذي أول اليومي هون. | أول يومي is what? ... No. What does أول يومي mean? ... صح. | أول يومي -> يومي الأول | awal + possessed noun means 'the beginning of my day'; for 'my first day' use يومي الأول or أول يوم إلي; Amal prompted until يومي الأول. | high | judge panel (Opus + Argon, p 0.88) |

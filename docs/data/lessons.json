@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T07:20:28-08:00",
+ "updated": "2026-11-02T16:13:18-08:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -12544,6 +12544,451 @@
      "_lesson_s": 4248.0,
      "first_t": 182.42,
      "last_t": 4182.03,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-11-02",
+   "start_local": "2026-11-02T15:06:30-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 62.0,
+   "type": "review-grammar",
+   "review_mode": "speaking",
+   "type_why": "22:48-59:10 (~36 of 62 min) is a sentence drill reviewing collocations, idafa and the tool words (aghlab, aa5er, awal, 8eir, taani, kul, nafs) - 22:59 'mix between collocation أو idafa', 31:14 'صح، آخره' (aa5er with a pronoun, no el-), 51:44 'صحابك is definitive... التاني', 55:19 'treat أول as an adjective' -> يومي الأول / أول يوم إلي; nothing new was planned (59:10 'next time should be just reviewing this'). 00:00-22:48 is warm-up talk in Arabic (homework, a dinner with his fiancee's family, Halloween, food, the date, clothes) with fixes as they come.",
+   "type_source": "claude-read",
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Sentence drill reviewing tool words (aa5er, awal, taani), idafa and verb + preposition pairs",
+    "rules": [
+     {
+      "title": "aa5er / awal + pronoun = the end / beginning of it, with no el-: aa5ero",
+      "pattern": "aa5er / awal + pronoun ending",
+      "bullets": [
+       "aa5er and awal take a pronoun ending like a noun",
+       "the pronoun makes it definite, so no el-",
+       "aa5ero = the end of it, awalhom = the first of them"
+      ],
+      "examples": [
+       {
+        "t": "31:14",
+        "line": "آخره - the end of it"
+       },
+       {
+        "t": "32:36",
+        "line": "أول الفيلم منيح بس ما حبيت آخره - the start of the film was good but I didn't like its end"
+       },
+       {
+        "t": "35:15",
+        "line": "أغلبنا - most of us"
+       },
+       {
+        "t": "36:17",
+        "line": "كلنا / كلهم - all of us / all of them"
+       }
+      ]
+     },
+     {
+      "title": "taani after a definite noun takes el-: sa7abak el-taani",
+      "pattern": "noun + pronoun + el-taani",
+      "bullets": [
+       "a noun with a pronoun ending is definite",
+       "so the adjective after it needs el-",
+       "taani before the noun means second only"
+      ],
+      "examples": [
+       {
+        "t": "51:16",
+        "line": "صحابك التاني - your other friends"
+       },
+       {
+        "t": "52:25",
+        "line": "عيلتي التانية - my other family"
+       }
+      ]
+     },
+     {
+      "title": "My first day: yawmi el-awal or awal yawm ili",
+      "bullets": [
+       "awal yawmi = the beginning of my day, not my first day",
+       "way 1: treat awal as an adjective after the noun",
+       "way 2: awal yawm + ili (mine)"
+      ],
+      "examples": [
+       {
+        "t": "55:30",
+        "line": "يومي الأول - my first day"
+       },
+       {
+        "t": "56:08",
+        "line": "هذا أول يوم إلي - this is my first day"
+       }
+      ]
+     },
+     {
+      "title": "Verb + preposition pairs in a sentence",
+      "bullets": [
+       "batDaaya2 3ala = upset for someone",
+       "bajaaweb 3ala = answer",
+       "ba6lub min = ask from",
+       "bat6alla3 3ala = look at"
+      ],
+      "examples": [
+       {
+        "t": "26:37",
+        "line": "ضايقة عليهم آخر الفيلم - upset for them at the end of the film"
+       },
+       {
+        "t": "28:03",
+        "line": "جاوبت على أغلب الأسئلة - I answered most of the questions"
+       },
+       {
+        "t": "37:57",
+        "line": "طلبت غير إشي منهم - I asked them for something else"
+       },
+       {
+        "t": "50:22",
+        "line": "الإشي المفضل عندي لما أتطلع على الطبيعة - my favourite thing is when I look at nature"
+       }
+      ]
+     },
+     {
+      "title": "bi3asseb as an adjective: the news was enraging = kanu bi3assbu",
+      "bullets": [
+       "the b- present form works as an adjective: enraging",
+       "akhbaar is plural (khabar = one piece of news), so kanu"
+      ],
+      "examples": [
+       {
+        "t": "41:03",
+        "line": "بيعصب بس كان أو كانوا - enraging, but was or were"
+       },
+       {
+        "t": "43:02",
+        "line": "كانوا يعصبوا - they were enraging"
+       }
+      ]
+     },
+     {
+      "title": "A plural can be treated as feminine: 7uroob taanye",
+      "bullets": [
+       "you may hear plurals with a feminine adjective",
+       "she skipped this rule before; you don't need it, but taanye is fine"
+      ],
+      "examples": [
+       {
+        "t": "46:48",
+        "line": "حروب تانية - other wars"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up talk 00:00-22:48: homework, dinner with his fiancee's family, Halloween costumes, the pastries, the date, clothes",
+     "Fixes in talk: fiih not 3ando (01:08), kul 7ada jaab (13:24), akle wa7de (13:55), talabu minni ajeeb (15:07)",
+     "59:10 plan: next lesson reviews the tool words again; no new plural nouns yet"
+    ]
+   },
+   "words": {
+    "unique": 109,
+    "right": 242,
+    "wrong": 3,
+    "partial": 4,
+    "pct": 98.0,
+    "scored": 249,
+    "audit_wrong": 3,
+    "audit_partial": 0,
+    "not_on_sheet": 3,
+    "rehear_word_conflicts": 0,
+    "unique_rows": 107,
+    "eligible": 249,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 98.0,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 232,
+    "mistakes": 29,
+    "pct": 89.2,
+    "estimate": false,
+    "scored_mistakes": 25,
+    "unscored_mistakes": 4,
+    "eligible": 29,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "9 slips are in rules the counter found 0 uses of in this lesson",
+      "7 rules have more slips than counted uses (A12, A20, A22, A23, A3, B18, B2)"
+     ],
+     "uses": 209,
+     "slips": 29,
+     "slips_latin": 7,
+     "slips_in_zero_use_rules": 9,
+     "rules_slips_over_uses": [
+      "A12",
+      "A20",
+      "A22",
+      "A23",
+      "A3",
+      "B18",
+      "B2"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1260.5,
+    "amal_s": 913.5,
+    "speak_pct": 58.0,
+    "listen_pct": 42.0,
+    "window": [
+     0.0,
+     3720.9
+    ]
+   },
+   "fillers": {
+    "count": 144,
+    "per_min": 6.85,
+    "top": [
+     [
+      "uh",
+      84
+     ],
+     [
+      "um",
+      31
+     ],
+     [
+      "آآ",
+      19
+     ],
+     [
+      "ah",
+      4
+     ],
+     [
+      "hmm",
+      2
+     ],
+     [
+      "آه",
+      2
+     ]
+    ],
+    "in_turns": 144,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.56,
+    "p75_s": 2.98,
+    "n": 235
+   },
+   "flow": {
+    "wpm": 60.4,
+    "n_turns": 161,
+    "arabic_words": 474
+   },
+   "new_words": [],
+   "taught": [
+    {
+     "latin": "Ana batDaaya2 3ala",
+     "arabic": "أنا بتضايق على",
+     "review": true
+    },
+    {
+     "latin": "Ana bajaaweb (3ala)",
+     "arabic": "أنا بجاوب (على)",
+     "review": true
+    },
+    {
+     "latin": "Ana ba6lub (min)",
+     "arabic": "أنا بطلب (من)",
+     "review": true
+    },
+    {
+     "latin": "Ana ba3asseb",
+     "arabic": "أنا بعصب",
+     "review": true
+    },
+    {
+     "latin": "Ana bat6alla3 3ala",
+     "arabic": "أنا بتطلع على",
+     "review": true
+    }
+   ],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "فيه",
+     "english": "there is ... in it (the homework has 3 questions)",
+     "t": "01:08"
+    },
+    {
+     "latin": null,
+     "arabic": "عمها وعمتها",
+     "english": "her (paternal) uncle and aunt",
+     "t": "05:59"
+    },
+    {
+     "latin": null,
+     "arabic": "مستقبل",
+     "english": "future",
+     "t": "09:21"
+    },
+    {
+     "latin": null,
+     "arabic": "الكبار",
+     "english": "the adults (the big ones)",
+     "t": "10:34"
+    },
+    {
+     "latin": null,
+     "arabic": "سبانخ",
+     "english": "spinach",
+     "t": "17:24"
+    },
+    {
+     "latin": null,
+     "arabic": "جبنة بيضا",
+     "english": "white cheese",
+     "t": "19:25"
+    },
+    {
+     "latin": null,
+     "arabic": "خبر",
+     "english": "a piece of news (plural أخبار)",
+     "t": "41:39"
+    }
+   ],
+   "coverage": "No echo-candidates file for 11-02. 04:06-04:23 Latin 'Intira raha ... tinnis be mayi' (inti ra7 tinbasti ma3i; Amal 04:54 'I heard my'). 18:47-19:24 garbled ('قدرة مختلف', 'وسط الـ براتولي', 'ما أجنب', 'Adatens'). 40:45/42:26 'أو' probably his 'u' (and) - not filed as C5. 43:24 'بزن النوراح' garbled. 44:12 Amal 'sharp is' likely engine for 'حرب هي'. 37:37 Amal 'بدي تحط بطلب' wrote بطلب for the verb. 28:03 أغلب الـ came before her 'Il' but Medi said she corrected him, filed. Long English stretches 28:31-29:51, 33:00-36:55, 56:00-1:01:39. Names: كانو = Kano not present as a word in this transcript (كانو at 42:33 is kaanu 'they were'). / Many stretches are Latin-transliterated Medi Arabic (04:06-04:28, 06:14-08:04, 09:54-11:57, 25:15-26:47) and several lines are engine-garbled (tinnis be mayi, بأسب = batdaya2, daia et = daya2et, أسر مارا الجاي, النوراح, مواسف/ياسر, حندارة). No echo-candidates file existed for this date. Name check: كانوا in this lesson is the verb 'were', not Kano. Left out on purpose: 'last kind' vs 'last one' (17:52-18:21, Amal says both fine); 40:00 قرأت (Amal repeated it, he said it right); تانية vs تانين (46:48-47:39, Amal says تانية is valid); 'costume' (not on her sheet, so not tier 3); 49:15-49:51 إشي المفضل عندي (Amal said صح). 30:20 and 44:17 may be his own self-fixes (low confidence). Several fixes are Amal's English prompts (13:44, 24:15, 30:22, 42:31).",
+   "notes": [
+    "timings: anees-20261102-recall-amal-seg0: page/engine offset spread 261.40s; anees-20261102-recall-amal-seg2307: page/engine offset spread 681.43s",
+    "grammar: 4 of the 29 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "1 moment(s) wait for Medi (counted as before until he picks): 05:38."
+   ],
+   "page": "lessons/2026-11-02.html",
+   "detail": "data/lessons/2026-11-02.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-11-02",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 1031,
+    "chat_lines": 0,
+    "vocab_errors": 6,
+    "vocab_correct": 246,
+    "grammar_errors": 29,
+    "grammar_not_counted": 0,
+    "vocab_errors_split": {
+     "wrong": 3,
+     "half": 0,
+     "off_list": 3
+    }
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-11-02.json",
+    "marks": 519,
+    "conflicts": 3,
+    "resolved": 0,
+    "needs_medi": 1,
+    "mode": "on",
+    "items": [
+     {
+      "id": "C1q-ed0e9649c9",
+      "kind": "C1q",
+      "t": 337.63,
+      "mmss": "05:38",
+      "line": "و الـ-- وال بنات الـ-- بنات و-- أو ولاد،",
+      "question": "Which of the student's words was wrong here?",
+      "options": [
+       "ولاد",
+       "أمها",
+       "أو",
+       "أبوها",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [
+       "05:43"
+      ],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "ولاد",
+       "word_key": "walad"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "not-scored",
+       "wrong": "ولاد، أمها أو أبوها",
+       "fix": "عمها وعمتها",
+       "bucket": null,
+       "signal": "recast"
+      },
+      "ask": "amal"
+     }
+    ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 52.0 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: speaker labels agree with an independent check on only 85.9 % of 882 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3720 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 42,
+       "r2": 40,
+       "agreed": 26,
+       "disputed": 24,
+       "agreement_pct": 52.0
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3720.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3942.01,
+     "first_t": 0.33,
+     "last_t": 3699.42,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3942.01,
+     "first_t": 2.29,
+     "last_t": 3697.39,
      "missing": [],
      "holes": [],
      "missing_s": 0,
