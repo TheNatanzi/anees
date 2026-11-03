@@ -31208,6 +31208,56 @@
    "at": "2026-11-02T15:01:51.581071+00:00",
    "rule_id": 107378,
    "source": "amal_rules review (Tutor page)"
+  },
+  {
+   "uid": "FA-84ca44c1",
+   "date": "2026-11-02",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used English “costume,” and Amal explicitly prompted “a Halloween outfit”; he then produced «لبسة هالوين». Her subsequent «لبست» models the construct pronunciation of that phrase.",
+   "evidence": {
+    "t_start": 670.0,
+    "t_end": 702.0,
+    "quote": "Medi: «costume بس»; Amal: “How about you say a Halloween outfit”; Medi: «لبسة هالوين»; Amal: «لبست».",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-11-02/FA-84ca44c1_Medi_Medi_Natanzi-be45d53f643.mp3",
+      "sha256": "131fdad09ccb729602836a304b359993f42afb7b4247c1a8b8104bbcb83eca34",
+      "source": "Medi_Natanzi-be45d53f64384b14.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-11-02/FA-84ca44c1_Amal_Amal-9d61644e62b495b9.mp3",
+      "sha256": "14ded3e09490d9f569b4ff73b32c8ff7225430ee3512393c6df675675e590f90",
+      "source": "Amal-9d61644e62b495b9.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-11-02/FA-84ca44c1_mixed_lesson.mp3",
+      "sha256": "e276717e1465ac73799a352f3fda7a1653ea84063d1e267840ec4dae04f7471f",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "حسناً، كل اللبس شوي الكبار لبسو فاسوم فاس. حسناً، لبسة هالوين. لبسة، صحيح؟ لبست. لأنك تخصص على حلوين. حلوين.",
+     "Amal": "how about you say a halloween outfit we don't really have a costume lips what lips lips اه",
+     "mixed": "حسناً، كل اللبس شوي الكبار لبس كاستيوم ماذا تقول؟ لبس لبس لا نملك كاستيوم حسناً، لبس لبس لبس ماذا؟ لبس لبست لأنك تخصص على هالوين. هالوين."
+    }
+   },
+   "claim": {
+    "wrong": "costume",
+    "right": "لبسة Halloween",
+    "bucket": null,
+    "tier": 3
+   },
+   "at": "2026-11-02T18:51:09-08:00",
+   "run_id": "9ae2af48979946acad71676aa75ab6c4"
   }
  ]
 }
