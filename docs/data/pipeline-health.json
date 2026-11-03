@@ -2,18 +2,18 @@
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-11-02T23:18:57Z",
  "last_publish_sha": "99c10b30b1872179836a19b72ea1341b30569ca2",
- "last_block_reason": "tests_py: exit 1: FAILED tests/test_meet_chat.py::test_pg_47_meet_chat_is_in_the_transcript_in_its_own_colour | 1 failed, 972 passed, 3 xfailed in 102.13s (0:01:42)",
- "last_block_utc": "2026-11-03T01:18:35Z",
+ "last_block_reason": "lesson_ledger: exit 1: 2026-11-02: ledger is older than its inputs (docs/lessons/2026-11-02.html): rebuild (build_lessons_page_data.py) | ledger: FAIL 1 problem(s); tests_py: exit 1: FAILED tests/test_lesson_ledger.py::test_LS_11_committed_pages_equal_the_ledger | 1 failed, 972 passed, 3 xfailed in 120.52s (0:02:00)",
+ "last_block_utc": "2026-11-03T01:54:24Z",
  "first_block_reason": "tests_py: exit 1: FAILED tests/test_build_student_data.py::test_the_committed_shaky_words_file_matches_the_last_two_lessons_on_disk | FAILED tests/test_meet_chat.py::test_pg_47_meet_chat_is_in_the_transcript_in_its_own_colour | 2 failed, 971 passed, 3 xfailed in 163.51s (0:02:43)",
  "blocked_since_utc": "2026-11-03T00:27:03Z",
  "open_failures": [],
  "pending": [
   "lesson day (2026-11-02)",
-  "2 blocked push(es) since the last publish",
+  "3 blocked push(es) since the last publish",
   "second listen not applied: 2026-10-26, 2026-11-02"
  ],
- "hours_since_publish": 2.0,
- "stalled": false,
- "generated_at": "2026-11-03T01:18:35Z",
+ "hours_since_publish": 2.6,
+ "stalled": true,
+ "generated_at": "2026-11-03T01:54:24Z",
  "plain_reason": "a test failed"
 }
