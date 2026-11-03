@@ -33,6 +33,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-27 | 96.2 | 223 | 88.5 | 23 | 192 | 0 / 0 |
 | 2026-10-28 | 96.4 | 182 | 87.3 | 22 | 173 | 0 / 1 |
 | 2026-10-30 | 94.8 | 270 | 90.7 | 28 | 290 | 2 / 0 |
+| 2026-11-02 | None -> **98.0** | None -> **249** | None -> **89.2** | None -> **29** | None -> **232** | 0 / 1 |
 
 
 ## Conflicts
@@ -151,6 +152,9 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-30 24:41 C1r both stand: خطيبتي (word-bank right) vs بنات خطيبتي -> بنات أخوي (readers not-scored) - the Word Bank's context review already settled it: unchanged
 - 2026-10-30 41:59 C1 settled: الماضي (word-bank right) vs الماضي -> الجاي (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-10-30 56:40 C1r both stand: مزعوج. (word-bank right) vs مزعوج -> مزعج (readers wrong) - the Word Bank's context review already settled it: unchanged
+- 2026-11-02 05:38 C1q Medi?: ولاد (word-bank right) vs ولاد، أمها أو أبوها -> عمها وعمتها (readers not-scored) - which word of the phrase was wrong: Medi
+- 2026-11-02 05:43 C1q Medi?: أو (word-bank right) vs ولاد، أمها أو أبوها -> عمها وعمتها (readers not-scored) - which word of the phrase was wrong: Medi
+- 2026-11-02 21:44 C1p both stand: يوم (word-bank right) vs يوم الثلاث -> يوم الاثنين (readers wrong) - slip elsewhere in the phrase: the word stays right
 
 ## Medi's corrections (PR-15)
 
