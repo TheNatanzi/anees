@@ -1,5 +1,5 @@
 {
- "built": "2026-11-04T13:15:57-08:00",
+ "built": "2026-11-04T14:02:09-08:00",
  "tasks": [
   {
    "id": "d9bbdc34-52c8-4199-be07-f4c50fc2f24e",
@@ -278,6 +278,57 @@
    },
    "ai_at": "2026-11-02T21:53:48.075456+00:00",
    "created_at": "2026-11-02T21:49:57.67+00:00"
+  },
+  {
+   "id": "08a750ad-56c1-47b7-bd55-a007341d3170",
+   "task_id": "eacd0138-43d3-4ba5-b2cc-ae53a9a2766e",
+   "answer": "Safri 3ala dowla tania",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "Safri 3ala dawle tanye",
+    "model": "claude-sonnet-5-5",
+    "reason": "Tmm. Safri 3ala dawle tanye is right. Dowla/dawle and tania/tanye are just spelling.",
+    "verdict": "right",
+    "cost_usd": 0,
+    "examples": 2
+   },
+   "ai_at": "2026-11-04T22:02:06.626872+00:00",
+   "created_at": "2026-11-04T21:57:05.43+00:00"
+  },
+  {
+   "id": "1f051c23-0f0a-4f35-8a1f-2ecff5a7849e",
+   "task_id": "7d72e99a-f908-419c-89fb-423ba4c532a9",
+   "answer": "a5er muadetha 3ala el tinein",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "a5er maw3edha 3ala el tintein",
+    "model": "claude-sonnet-5-5",
+    "reason": "Tmm. Maw3edha with the idafa and 3ala el-tintein for \"at 2\" both work. Only the spelling differs (maw3edha, tintein).",
+    "verdict": "right",
+    "cost_usd": 0,
+    "examples": 2
+   },
+   "ai_at": "2026-11-04T22:01:53.478694+00:00",
+   "created_at": "2026-11-04T21:58:22.376+00:00"
+  },
+  {
+   "id": "61eae4e0-ae34-4879-b007-d99ae8b059ec",
+   "task_id": "63b78061-c85c-44c5-beeb-3a51968ee601",
+   "answer": "sallhi el sayarat tanyeen",
+   "script": "english",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "salli7i el-sayyaraat el-taniye",
+    "model": "claude-sonnet-5-5",
+    "reason": "Sall7i with 7 (not h). \"Other\" needs el and agrees with cars as feminine singular: el-sayyaraat el-taniyye, not tanyeen.",
+    "verdict": "close",
+    "cost_usd": 0,
+    "examples": 2
+   },
+   "ai_at": "2026-11-04T22:01:37.658706+00:00",
+   "created_at": "2026-11-04T21:59:04.001+00:00"
   }
  ],
  "verdicts": [
@@ -326,9 +377,9 @@
   "wrong": 1,
   "points": 1.5,
   "pct": 50.0,
-  "waiting": 0,
+  "waiting": 3,
   "checking": 0,
-  "todo": 3,
+  "todo": 0,
   "agreed": 1,
   "overruled": 2
  },
