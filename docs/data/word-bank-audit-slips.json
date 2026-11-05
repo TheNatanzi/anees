@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T17:25:17-08:00",
+ "updated": "2026-11-04T18:46:35-08:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -4445,28 +4445,9 @@
    "vocab_points": 0,
    "text": "إضافه",
    "said": "أنا أخذت وقت إضافه لـ قهوة",
-   "reason": "He used MSA إضافة for 'extra'; Amal recast وقت زيادة and said إضافة is Fusha, spoken is زيادة (sheet: extra / increase | Ziaadeh | زيادة).",
+   "reason": "MSA إضافة for 'extra'; she recast وقت زيادة and said 'We say زيادة in spoken'. Sheet: 'extra / increase | Ziaadeh | زيادة' vs 'addition / the possessive construct | iḍaafe | إضافة'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-832109de"
-  },
-  {
-   "id": "audit:FA-00e7189f",
-   "word_key": "wa2et",
-   "entry_id": "wa2et:word",
-   "lesson_date": "2026-11-04",
-   "t_start": 1421,
-   "t_end": 1421,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "el marra",
-   "said": "so aglab el marra is most of the time.",
-   "reason": "'Most of the time' is أغلب الوقت; مرة is an occurrence, Amal said 'we don't say that' and gave الوقت.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-00e7189f"
   },
   {
    "id": "audit:FA-3e222cf5",
@@ -4482,8 +4463,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "زكيسة",
-   "said": "زكيسة. ... شيزدان أور...",
-   "reason": "For 'bag' he tried كيس (plastic bag) then جزدان; Amal said No, kees is a plastic bag, and led him to شنتة (sheet: bag | Shanta | شنتة).",
+   "said": "are you trying to get, uh, Qissa or, or Jazan? / زكيسة",
+   "reason": "For 'bag' he offered kees / jizdan; she said kees is a plastic bag and pointed him to suitcase -> شنتة. Sheet: 'bag | Shanta | شنتة'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-3e222cf5"
   },
@@ -4501,8 +4482,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "special",
-   "said": "بدنا إشي ممتاز و special.",
-   "reason": "English 'special' in an Arabic sentence; on her sheet: special | Mumayyaz | مميز; Amal asked for it and supplied مميز.",
+   "said": "كتير بدنا إشي ممتاز و special.",
+   "reason": "English 'special' in an Arabic sentence; she asked for it and supplied مميز. Sheet: 'special | Mumayyaz | مميز | mumaiyaz'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-850343f7"
   }
@@ -5224,12 +5205,23 @@
    "keyed_by": "auto-part"
   },
   {
+   "uid": "FA-d44b05f0",
+   "date": "2026-11-04",
+   "t": 1421,
+   "key": "a8lab",
+   "kind": "wrong",
+   "said": "so aglab el marra is most of the time.",
+   "wrong": "aglab el marra",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
+  },
+  {
    "uid": "FA-c414fdc4",
    "date": "2026-11-04",
    "t": 3953,
    "key": "shahar 3asal",
    "kind": "wrong",
-   "said": "قبل شهرة، شهرة.",
+   "said": "قبل الـ ش-- uh, قبل شهرة، شهرة.",
    "wrong": "شهرة",
    "why": "which list word it is waits for a reader (the automatic match was part)",
    "keyed_by": "auto-part"
@@ -8774,21 +8766,6 @@
    "expected": {
     "word_key": "idAfe",
     "t_start": 600.63
-   }
-  },
-  {
-   "event_id": "2d6797b59592befd40e496320f9f3ad449d273655953d0d50b0c9f6f41caf9ee",
-   "date": "2026-11-04",
-   "mark": "ra:FA-00e7189f",
-   "was": "right",
-   "changes": {
-    "observation_only": true,
-    "ledger": "ra:FA-00e7189f",
-    "ledger_reason": "One utterance, one judgment: el marra here is the counted slip (الوقت), not also a right use, until the tutor answers (WS-39)"
-   },
-   "expected": {
-    "word_key": "mura",
-    "t_start": 1421.36
    }
   }
  ]
