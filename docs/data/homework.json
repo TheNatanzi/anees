@@ -1,5 +1,5 @@
 {
- "built": "2026-11-05T13:15:39-08:00",
+ "built": "2026-11-05T14:01:40-08:00",
  "tasks": [
   {
    "id": "d9bbdc34-52c8-4199-be07-f4c50fc2f24e",
@@ -359,6 +359,40 @@
    },
    "ai_at": "2026-11-04T22:01:37.658706+00:00",
    "created_at": "2026-11-04T21:59:04.001+00:00"
+  },
+  {
+   "id": "8eaf8552-8d4a-4fb6-ada1-91dea5604930",
+   "task_id": "93371c2c-8f68-4b53-bc84-bb665ec4be1d",
+   "answer": "enbasati ayumik el a5eer hon",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "istamti3i b ayyamik el-a5eera hon",
+    "model": "claude-sonnet-5-5",
+    "reason": "Plural days take a feminine adjective: ayyamik el-a5eera. Also, for 'enjoy' say istamti3i (enbasti means 'be happy').",
+    "verdict": "close",
+    "cost_usd": 0,
+    "examples": 4
+   },
+   "ai_at": "2026-11-05T22:01:38.433277+00:00",
+   "created_at": "2026-11-05T21:48:47.796+00:00"
+  },
+  {
+   "id": "111cd1f7-2c8e-4cee-92d1-960fec2c0102",
+   "task_id": "2c7b97b0-0c2d-48de-859b-9f115bda551d",
+   "answer": "Shaware3kom farq bein Shaware3na",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "Shawari3kom mukhtalfe 3an shawari3na",
+    "model": "claude-sonnet-5-5",
+    "reason": "Farq bein means 'a difference between', not 'different'. Use the adjective mukhtalfe plus 3an: 'different from'. Streets (plural, things) take feminine singular.",
+    "verdict": "wrong",
+    "cost_usd": 0,
+    "examples": 4
+   },
+   "ai_at": "2026-11-05T22:01:24.703166+00:00",
+   "created_at": "2026-11-05T21:50:16.149+00:00"
   }
  ],
  "verdicts": [
@@ -443,9 +477,9 @@
   "wrong": 3,
   "points": 2.5,
   "pct": 41.7,
-  "waiting": 0,
+  "waiting": 2,
   "checking": 0,
-  "todo": 2,
+  "todo": 0,
   "agreed": 2,
   "overruled": 4
  },

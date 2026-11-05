@@ -3,248 +3,258 @@
  "judge": "gemini-4-argon",
  "model": "gemini-4-argon",
  "usage": {
-  "in": 33646,
-  "out": 2581,
-  "reasoning": 15314,
+  "in": 34835,
+  "out": 2293,
+  "reasoning": 13271,
   "finish": "STOP",
-  "usd": 0.246242
+  "usd": 0.22531
  },
- "candidates_sig": "d6871ceb5a1ba49b",
+ "candidates_sig": "1eee47c283cf002e",
  "verdicts": {
   "C1": {
    "verdict": "slip",
    "confidence": 95,
-   "why": "Medi used a present/broken form for 'I did them' and Amal recast it in the past tense as عملتهم."
+   "why": "Medi said عملهم without the first-person past ending and Amal recast to عملتهم."
   },
   "C2": {
    "verdict": "slip",
-   "confidence": 96,
-   "why": "Medi used إنها ('that it') instead of conditional إذا ('if/whether'), and Amal prompted him with 'إنه، or إذا؟'."
+   "confidence": 98,
+   "why": "Medi used singular منيح with plural كانوا and Amal recast to plural مناح."
   },
   "C3": {
-   "verdict": "not",
+   "verdict": "slip",
    "confidence": 95,
-   "why": "Duplicate of C2 at the same moment; the linker choice إنه vs إذا is better classified as grammar (C2)."
+   "why": "Medi used إنها instead of conditional إذا after خلينا نشوف and Amal prompted him to switch to إذا."
   },
   "C4": {
    "verdict": "not",
-   "confidence": 90,
-   "why": "As Amal and Medi discuss at 07:09-07:39, he knew the word عادي ('normal') and this was a pronunciation/vowel-length issue, not a vocab slip."
+   "confidence": 95,
+   "why": "Duplicate of the grammar connector slip in C3 at the same timestamp."
   },
   "C5": {
-   "verdict": "slip",
-   "confidence": 95,
-   "why": "Medi used Farsi/MSA إضافة for 'extra' time, and Amal recast to the spoken Levantine word زيادة."
-  },
-  "C6": {
    "verdict": "not",
    "confidence": 90,
-   "why": "Medi was translating Amal's Arabic proverb into English during comprehension, not making an error while speaking Arabic."
+   "why": "Pronunciation/vowel-length issue on عادي rather than a vocabulary slip, as Amal explicitly notes."
+  },
+  "C6": {
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used Fusha إضافة for 'extra' and Amal recast to the spoken word زيادة."
   },
   "C7": {
    "verdict": "not",
-   "confidence": 98,
-   "why": "Medi misspoke in English ('life' instead of 'work') while translating Amal's proverb, which is not an Arabic slip."
+   "confidence": 75,
+   "why": "Medi misheard the tutor's Arabic word العمر as أمر while translating her proverb into English, not a production error in Arabic."
   },
   "C8": {
-   "verdict": "slip",
-   "confidence": 92,
-   "why": "Medi used عندي for 'my first time' (El mara el awwal andi), and Amal rejected it and gave أول مرة إلي, explaining عندي is only for مفضل."
+   "verdict": "not",
+   "confidence": 95,
+   "why": "An English slip of the tongue while translating the proverb, not an Arabic mistake."
   },
   "C9": {
-   "verdict": "not",
+   "verdict": "slip",
    "confidence": 92,
-   "why": "Amal did not notice or correct الأول at 19:04 (as both note at 21:04-21:17), and the actual correction of الأولى is captured at C10."
+   "why": "Medi used عندي for 'my first time' and Amal rejected it, correcting to أول مرة إلي."
   },
   "C10": {
-   "verdict": "slip",
-   "confidence": 95,
-   "why": "Medi paired feminine المرة with masculine الأول, and Amal recast it to المرة الأولى إلي."
+   "verdict": "not",
+   "confidence": 92,
+   "why": "Amal did not react to الأول at 19:04 and only corrected the gender agreement later at 20:58 (C11)."
   },
   "C11": {
    "verdict": "slip",
-   "confidence": 98,
-   "why": "Medi said أغلب المرة for 'most of the time', which Amal rejected and corrected to أغلب الوقت."
+   "confidence": 95,
+   "why": "Medi used masculine الأول with feminine المرة and Amal recast to المرة الأولى إلي."
   },
   "C12": {
    "verdict": "slip",
    "confidence": 98,
-   "why": "Medi used the preposition من ('awal minna') for 'the beginning of it', and Amal said no and guided him to attach the pronoun directly (أوله / أولها)."
+   "why": "Medi said أغلب المرة for 'most of the time' and Amal rejected it and supplied أغلب الوقت."
   },
   "C13": {
    "verdict": "slip",
-   "confidence": 95,
-   "why": "Medi used كيس for 'bag', and Amal rejected it ('kees is a plastic bag') and prompted him to شنتة."
+   "confidence": 98,
+   "why": "Medi used من (أول منه) for 'the beginning of it' and Amal rejected it until he said أوله."
   },
   "C14": {
    "verdict": "slip",
-   "confidence": 92,
-   "why": "Medi placed آخر before the noun ('آخر الشنتة') for 'her last bag', and Amal challenged it and explained that means 'the end of her bag'."
+   "confidence": 95,
+   "why": "Medi guessed كيسة for 'bag' and Amal rejected it as plastic bag and prompted him to شنتة."
   },
   "C15": {
    "verdict": "slip",
-   "confidence": 92,
-   "why": "Medi tried placing آخرها after the noun ('شنتت آخرها') instead of the adjective الأخيرة, and Amal rejected it with 'No'."
+   "confidence": 95,
+   "why": "Medi said آخر الشنتتها for 'her last bag' and Amal prompted and rejected it before guiding him to شنتتها الأخيرة."
   },
   "C16": {
-   "verdict": "not",
+   "verdict": "slip",
    "confidence": 90,
-   "why": "Medi is asking a clarifying question about the same 'آخر شنتة' form from C14 that Amal just explained at 31:59."
+   "why": "Medi tried the invalid construction شنتت آخرها and Amal explicitly rejected it with No."
   },
   "C17": {
-   "verdict": "not",
-   "confidence": 92,
-   "why": "Medi self-corrected and aborted this thought ('no. So it becomes the end. No, right?') before settling on his actual attempt in C18."
+   "verdict": "slip",
+   "confidence": 85,
+   "why": "Even after her explanation, Medi proposed آخر شنتتها for 'her last bag' and Amal corrected him that it means 'the end of her bag'."
   },
   "C18": {
    "verdict": "slip",
    "confidence": 95,
-   "why": "Medi kept الـ on the noun after آخر ('آخر الشنتة لها'), and Amal recast it without الـ as 'آخر شنطة إلها'."
+   "why": "Medi put el- on the noun after آخر (آخر الشنتة إلها) and Amal recast to آخر شنطة إلها."
   },
   "C19": {
    "verdict": "slip",
    "confidence": 95,
-   "why": "For 'the end of our program', Medi said 'آخر البرنامج لنا' instead of using the possessive suffix, and Amal rejected it with 'No'."
+   "why": "Medi said آخر البرنامج إلنا for 'the end of our program' and Amal rejected it in favor of آخر برنامجنا."
   },
   "C20": {
    "verdict": "slip",
-   "confidence": 93,
-   "why": "Medi switched to a post-nominal adjective ('برنامجها الأخرين'), and Amal pointed out that means 'her last program' rather than 'the end of'."
+   "confidence": 92,
+   "why": "Medi switched to the adjective construction برنامجها الآخرين with the wrong pronoun and Amal rejected it as meaning 'her last program'."
   },
   "C21": {
-   "verdict": "not",
-   "confidence": 88,
-   "why": "Medi had misremembered the English prompt as 'her schedule' (at 34:19), and the target phrase 'آخر برنامجنا' is already covered by C19 and C20."
+   "verdict": "slip",
+   "confidence": 96,
+   "why": "Medi said أول بستهم for 'their first cat' and Amal rejected it because أول before a possessed noun means 'the beginning of'."
   },
   "C22": {
    "verdict": "slip",
-   "confidence": 96,
-   "why": "Medi placed أول before a possessed noun ('أول بستهم'), and Amal rejected it and explained it means 'the beginning of their cat'."
+   "confidence": 95,
+   "why": "Medi used wrong possessive بستنا and plural أولين instead of بستهم الأولى, both corrected by Amal."
   },
   "C23": {
    "verdict": "slip",
-   "confidence": 90,
-   "why": "When forming 'their first cat' with a post-nominal adjective, Medi used '-na' ('our') and plural 'olin', both of which Amal corrected."
+   "confidence": 88,
+   "why": "When asked for the other way to say 'her second cup', Medi proposed تاني كاستها and Amal rejected it."
   },
   "C24": {
    "verdict": "slip",
    "confidence": 95,
-   "why": "Medi placed تاني before a possessed noun ('ثانية كسرتها') for 'her second cup', and Amal rejected it as meaningless and prompted the إلها construction."
+   "why": "Medi said كاست التانية إلها and Amal rejected it with No before he fixed it to تاني كاسة إلها."
   },
   "C25": {
-   "verdict": "slip",
-   "confidence": 95,
-   "why": "Medi put ثانية after the indefinite noun ('كاسط ثانية لها', meaning 'another cup'), and Amal said 'No' until he reordered it to 'ثانية كاسا لها'."
+   "verdict": "not",
+   "confidence": 92,
+   "why": "After getting the right answer, Medi was asking a hypothetical question about how غير works with a possessed noun."
   },
   "C26": {
    "verdict": "not",
-   "confidence": 95,
-   "why": "After already getting the drill item right at 40:57, Medi asked a hypothetical question about the rule for using غير."
+   "confidence": 90,
+   "why": "Duplicate of C27 at the same timestamp, where Amal treated أسيلك as a vocabulary plural form issue ('What's questions?')."
   },
   "C27": {
    "verdict": "slip",
-   "confidence": 92,
-   "why": "Medi omitted the feminine -t- before the possessive suffix on أسئلة ('أسيليك'), and after Amal's prompt he fixed it to 'أسيليتك' (أسألتك)."
+   "confidence": 95,
+   "why": "Medi misformed the plural 'your questions' as أسيلك and Amal prompted 'What's questions?' to elicit أسئلتك."
   },
   "C28": {
-   "verdict": "not",
-   "confidence": 92,
-   "why": "Duplicate of C27 at the same moment; Medi already used أسئلة at 02:52, so missing the -t- before -ك is a grammar slip (C27)."
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi tried جواب and أجواب for plural 'answers' and Amal supplied أجوبة."
   },
   "C29": {
    "verdict": "slip",
-   "confidence": 92,
-   "why": "Medi guessed 'Ajwab' for the plural 'answers', and Amal corrected it to أجوبة."
+   "confidence": 90,
+   "why": "When combining the phrase at 43:28 Medi dropped the possessive ending (نفس أجوبة) and Amal corrected it back to أجوبتك."
   },
   "C30": {
-   "verdict": "not",
-   "confidence": 92,
-   "why": "Medi immediately self-completed 'ajwabe. Ajwabetek.' with the -t- and possessive suffix in his own turn at 43:23 before Amal spoke."
-  },
-  "C31": {
    "verdict": "slip",
    "confidence": 98,
-   "why": "Medi used the preposition من ('ghayr minni') instead of عن for 'different from me', and Amal rejected it and supplied عن."
+   "why": "Medi used the wrong preposition after غير (غير مني) for 'different from me' and Amal rejected it and gave عن."
+  },
+  "C31": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Part of the same preposition search moment already counted in C30."
   },
   "C32": {
    "verdict": "slip",
    "confidence": 98,
-   "why": "Medi attached a pronoun suffix to عن before a noun ('annik il kul'), and Amal prompted him to fix it to 'عن الكل'."
+   "why": "Medi attached a pronoun ending to عن before الكل (غير عنك الكل) and Amal prompted him to fix it to غير عن الكل."
   },
   "C33": {
-   "verdict": "not",
-   "confidence": 92,
-   "why": "Medi had already given غير طالب at 47:25; his phrase طالب مختلف ('a different student') was grammatically valid, and Amal clarified she wanted 'one more student' (كمان)."
+   "verdict": "slip",
+   "confidence": 95,
+   "why": "Medi used feminine تانية with masculine طالب and fixed it to طالب تاني after Amal's prompt."
   },
   "C34": {
-   "verdict": "not",
+   "verdict": "slip",
    "confidence": 90,
-   "why": "Same moment as C33; طالب مختلف was a valid phrase with a different nuance, and Amal re-specified the English prompt as 'one more student' to elicit كمان."
+   "why": "Medi said طالب مختلف for 'another/one more student' and Amal explained that means 'unique' and prompted for كمان."
   },
   "C35": {
    "verdict": "not",
    "confidence": 98,
-   "why": "Medi said طريقتي correctly at 51:37, self-answered his own question about '-ni' at 51:47, and completed الأولى on his own at 51:58."
+   "why": "Medi did not omit الأولى; he paused after طريقتي to check its spelling and then completed the phrase with الأولى."
   },
   "C36": {
-   "verdict": "slip",
-   "confidence": 99,
-   "why": "Medi used masculine راح يكون with the feminine subject آخر مرة, and Amal prompted him on gender until he fixed it to راح تكون."
+   "verdict": "not",
+   "confidence": 98,
+   "why": "Speech-to-text transcription noise (أخذت for أخطط), as shown by Amal's chat log ana bakrah a5a66et el-3urus."
   },
   "C37": {
    "verdict": "slip",
-   "confidence": 98,
-   "why": "Medi omitted the present b- prefix on أملها ('أعملها'), and Amal recast it as بعملها."
+   "confidence": 99,
+   "why": "Medi used masculine راح يكون with feminine آخر مرة and Amal named the gender rule to elicit راح تكون."
   },
   "C38": {
-   "verdict": "slip",
-   "confidence": 99,
-   "why": "Medi used the present copula نكون and singular adjective سيء for a plural subject, and Amal corrected it to just plural سيئين."
+   "verdict": "not",
+   "confidence": 88,
+   "why": "Amal's gender prompt at 54:00 targeted راح يكون (C37), and Medi self-corrected the object pronoun to -ها at 54:18 before she reacted to it."
   },
   "C39": {
    "verdict": "slip",
    "confidence": 98,
-   "why": "Medi negated عندنا with مش ('مش عندنا'), and Amal twice recast it to ما عنا."
+   "why": "Medi omitted the present b- prefix on أعملها and Amal recast it to بعملها."
   },
   "C40": {
-   "verdict": "not",
+   "verdict": "slip",
    "confidence": 99,
-   "why": "Medi asked in English how to say 'both of us' at 57:25 and was simply repeating Amal's answer in Levantine pronunciation (التنين) at 57:34."
+   "why": "Medi used present copula نكون and singular سيء for two people, and Amal corrected it to just plural سيئين."
   },
   "C41": {
    "verdict": "slip",
-   "confidence": 95,
-   "why": "Medi kept the b- prefix on the verb after راح, and Amal prompted 'راح' and supplied the bare verb ندفع."
+   "confidence": 99,
+   "why": "Medi negated عندنا with مش and Amal recast it twice to ما عنا."
   },
   "C42": {
    "verdict": "not",
-   "confidence": 95,
-   "why": "Duplicate moment with C41; 'بنطفأ' / 'نطفا' is speech-to-text transcription of his pronunciation of ندفع, not a lexical slip."
+   "confidence": 99,
+   "why": "Medi asked in English how to say 'both of us' first, and then repeated Amal's answer إحنا التنين."
   },
   "C43": {
    "verdict": "slip",
-   "confidence": 96,
-   "why": "Medi omitted the preposition على after متأخرين, and Amal recast the phrase as 'متأخرين على أول طيارة'."
+   "confidence": 98,
+   "why": "Medi kept the b- prefix after راح (راح بندفع, transcribed as بنفتأ/بنطفأ) and Amal prompted راح and recast to ندفع."
   },
   "C44": {
-   "verdict": "slip",
-   "confidence": 88,
-   "why": "Medi tried 'آخر الوقت' for 'the last time', and Amal rejected it because الـ after آخر makes it mean 'the end of', leading him to say آخر مرة."
-  },
-  "C45": {
    "verdict": "not",
    "confidence": 95,
-   "why": "Medi asked how to say 'my Spanish', and Amal introduced تبعي, which had not been taught yet."
+   "why": "Duplicate of C43 caused by STT mishearing بندفع as بنطفأ."
+  },
+  "C45": {
+   "verdict": "slip",
+   "confidence": 98,
+   "why": "Medi omitted the preposition على after متأخرين and Amal recast to متأخرين على أول طيارة."
   },
   "C46": {
    "verdict": "slip",
-   "confidence": 92,
-   "why": "Medi said the feminine form شهرة for 'month' twice at 1:05:53, and Amal recast it to masculine شهر."
+   "confidence": 90,
+   "why": "Medi proposed آخر الوقت for 'the last time' and Amal rejected it with لا because of الـ before he fixed it to آخر مرة."
   },
   "C47": {
+   "verdict": "not",
+   "confidence": 96,
+   "why": "Medi explicitly asked how to say 'my Spanish' and had not been taught تبعي yet."
+  },
+  "C48": {
    "verdict": "slip",
    "confidence": 95,
-   "why": "Medi used 'قبل شهر' ('a month ago') when he meant 'the last/past month', and Amal guided him to الشهر الماضي and explained قبل means 'ago'."
+   "why": "Medi said قبل شهر ('a month ago') when he meant 'last month' and Amal guided him to الشهر الماضي."
+  },
+  "C49": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Duplicate of the قبل شهر to الشهر الماضي correction already counted in C48."
   }
  }
 }
