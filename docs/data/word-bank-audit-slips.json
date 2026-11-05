@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T19:17:14-08:00",
+ "updated": "2026-11-04T19:53:35-08:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -4445,12 +4445,12 @@
    "vocab_points": 0,
    "text": "إضافه",
    "said": "أنا أخذت وقت إضافه لـ قهوة",
-   "reason": "MSA إضافة for 'extra'; she recast وقت زيادة and said 'We say زيادة in spoken'. Sheet: 'extra / increase | Ziaadeh | زيادة' vs 'addition / the possessive construct | iḍaafe | إضافة'.",
+   "reason": "He used the fus7a word إضافة for 'extra'; Amal recast زيادة and explained it is the spoken word; he asked 'What did I say?' and took it.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-832109de"
   },
   {
-   "id": "audit:FA-3e222cf5",
+   "id": "audit:FA-ae7ed8b7",
    "word_key": "shanta",
    "entry_id": "shanta:singular",
    "lesson_date": "2026-11-04",
@@ -4462,11 +4462,11 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "زكيسة",
-   "said": "are you trying to get, uh, Qissa or, or Jazan? / زكيسة",
-   "reason": "For 'bag' he offered kees / jizdan; she said kees is a plastic bag and pointed him to suitcase -> شنتة. Sheet: 'bag | Shanta | شنتة'.",
+   "text": "كيسة",
+   "said": "Is it كيسة؟",
+   "reason": "He reached for كيس/كيسة for 'bag'; Amal said no, that is a plastic bag, and hinted 'suitcase' until he said شنتة.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-3e222cf5"
+   "audit_uid": "FA-ae7ed8b7"
   },
   {
    "id": "audit:FA-850343f7",
@@ -4482,8 +4482,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "special",
-   "said": "كتير بدنا إشي ممتاز و special.",
-   "reason": "English 'special' in an Arabic sentence; she asked for it and supplied مميز. Sheet: 'special | Mumayyaz | مميز | mumaiyaz'.",
+   "said": "بدنا إشي ممتاز و special.",
+   "reason": "English 'special' inside an Arabic sentence; on her sheet: 'special | Mumayyaz | مميز'; Amal asked for it and supplied مميز.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-850343f7"
   }
@@ -5205,24 +5205,13 @@
    "keyed_by": "auto-part"
   },
   {
-   "uid": "FA-d44b05f0",
+   "uid": "FA-010f37af",
    "date": "2026-11-04",
    "t": 1421,
    "key": "a8lab",
    "kind": "wrong",
-   "said": "so aglab el marra is most of the time.",
-   "wrong": "aglab el marra",
-   "why": "which list word it is waits for a reader (the automatic match was part)",
-   "keyed_by": "auto-part"
-  },
-  {
-   "uid": "FA-c414fdc4",
-   "date": "2026-11-04",
-   "t": 3953,
-   "key": "shahar 3asal",
-   "kind": "wrong",
-   "said": "قبل الـ ش-- uh, قبل شهرة، شهرة.",
-   "wrong": "شهرة",
+   "said": "أغلب المرة is most of the time.",
+   "wrong": "أغلب المرة",
    "why": "which list word it is waits for a reader (the automatic match was part)",
    "keyed_by": "auto-part"
   }
@@ -8754,6 +8743,141 @@
    }
   },
   {
+   "event_id": "f2043081f034a665d9ed382706c2ef0dcc5e690771c0e0d0731dd7253d39a75f",
+   "date": "2026-11-04",
+   "mark": "wb:f2043081f034a665d9ed382706c2ef0dcc5e690771c0e0d0731dd7253d39a75f",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:f2043081f034a665d9ed382706c2ef0dcc5e690771c0e0d0731dd7253d39a75f",
+    "ledger_reason": "the recording engine wrote ما فتح.; you said ارتاح. (TR-22)"
+   },
+   "expected": {
+    "word_key": "mA",
+    "t_start": 327.405959055
+   }
+  },
+  {
+   "event_id": "260c7abd4aa1c4c6e90a2dc47b3f200c7a8d898255efee8d098ef4b3ec52b5f5",
+   "date": "2026-11-04",
+   "mark": "wb:260c7abd4aa1c4c6e90a2dc47b3f200c7a8d898255efee8d098ef4b3ec52b5f5",
+   "was": "partial",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:260c7abd4aa1c4c6e90a2dc47b3f200c7a8d898255efee8d098ef4b3ec52b5f5",
+    "ledger_reason": "the recording engine wrote عادي; you said عدي (TR-22)"
+   },
+   "expected": {
+    "word_key": "3Adi",
+    "t_start": 458.433959055
+   }
+  },
+  {
+   "event_id": "033c1ec90020e8dc8ce561357cd3845355315c91ab291125671b8c431490fb07",
+   "date": "2026-11-04",
+   "mark": "wb:033c1ec90020e8dc8ce561357cd3845355315c91ab291125671b8c431490fb07",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:033c1ec90020e8dc8ce561357cd3845355315c91ab291125671b8c431490fb07",
+    "ledger_reason": "the recording engine wrote آآآ بـ تي لا; you said أم، بطيء لـ (TR-22)"
+   },
+   "expected": {
+    "word_key": "lA",
+    "t_start": 535.373959055
+   }
+  },
+  {
+   "event_id": "9012d5d904e446d5cc74c11941f123cc5bfa1e31a10579a77d68f8d925343ea1",
+   "date": "2026-11-04",
+   "mark": "wb:9012d5d904e446d5cc74c11941f123cc5bfa1e31a10579a77d68f8d925343ea1",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:9012d5d904e446d5cc74c11941f123cc5bfa1e31a10579a77d68f8d925343ea1",
+    "ledger_reason": "the recording engine wrote شنتة,; you said شنتتها, (TR-22)"
+   },
+   "expected": {
+    "word_key": "shanta",
+    "t_start": 1936.511959055
+   }
+  },
+  {
+   "event_id": "8685038e18b7b53e70d370da8f0e2b71148f585e3f19d1b10addbb27406a5b65",
+   "date": "2026-11-04",
+   "mark": "wb:8685038e18b7b53e70d370da8f0e2b71148f585e3f19d1b10addbb27406a5b65",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:8685038e18b7b53e70d370da8f0e2b71148f585e3f19d1b10addbb27406a5b65",
+    "ledger_reason": "the recording engine wrote أو; you said or (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 3384.655959055
+   }
+  },
+  {
+   "event_id": "ee10056e3abe3ae7cf7094f8d6acf8940cdd699651d6474bcb8efbd05b1909dd",
+   "date": "2026-11-04",
+   "mark": "wb:ee10056e3abe3ae7cf7094f8d6acf8940cdd699651d6474bcb8efbd05b1909dd",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:ee10056e3abe3ae7cf7094f8d6acf8940cdd699651d6474bcb8efbd05b1909dd",
+    "ledger_reason": "the recording engine wrote إيه يا مع أنا; you said Yeah ما عنا (TR-22)"
+   },
+   "expected": {
+    "word_key": "eh",
+    "t_start": 3438.775959055
+   }
+  },
+  {
+   "event_id": "daadf889b591f5e2dced02ff68b05b78ce4a68760a37ecafaaa4057f3f7d1e6c",
+   "date": "2026-11-04",
+   "mark": "wb:daadf889b591f5e2dced02ff68b05b78ce4a68760a37ecafaaa4057f3f7d1e6c",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:daadf889b591f5e2dced02ff68b05b78ce4a68760a37ecafaaa4057f3f7d1e6c",
+    "ledger_reason": "the recording engine wrote كبير; you said كتير (TR-22)"
+   },
+   "expected": {
+    "word_key": "kbIr",
+    "t_start": 3440.5559590549997
+   }
+  },
+  {
+   "event_id": "407c7acaaed0b2769b0be56cbfb3c09bec36cbbbeb2f072d0bd47f443b7dff6d",
+   "date": "2026-11-04",
+   "mark": "wb:407c7acaaed0b2769b0be56cbfb3c09bec36cbbbeb2f072d0bd47f443b7dff6d",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:407c7acaaed0b2769b0be56cbfb3c09bec36cbbbeb2f072d0bd47f443b7dff6d",
+    "ledger_reason": "the recording engine wrote أو آآآ; you said uh (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 3641.415959055
+   }
+  },
+  {
+   "event_id": "e6f998d416a6c8d18cd9cad0240ba4a3abb325a0c621655f30ae21884695a001",
+   "date": "2026-11-04",
+   "mark": "wb:e6f998d416a6c8d18cd9cad0240ba4a3abb325a0c621655f30ae21884695a001",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:e6f998d416a6c8d18cd9cad0240ba4a3abb325a0c621655f30ae21884695a001",
+    "ledger_reason": "the recording engine wrote ما; you said مع (TR-22)"
+   },
+   "expected": {
+    "word_key": "mA",
+    "t_start": 3691.719959055
+   }
+  },
+  {
    "event_id": "ffeb48a9779ff614204cc7d21f8f1db7db25ec4d5e4cfc4fafaad8ae190f17d3",
    "date": "2026-11-04",
    "mark": "ra:FA-832109de",
@@ -8766,6 +8890,21 @@
    "expected": {
     "word_key": "idAfe",
     "t_start": 600.63
+   }
+  },
+  {
+   "event_id": "ae7a8ea99fec1ce9656e36ab3b64ae479e4a174a8a1f0c9faef9f60e18fab151",
+   "date": "2026-11-04",
+   "mark": "ra:FA-010f37af",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "ra:FA-010f37af",
+    "ledger_reason": "Said here, another word intended: Amal says no (أغلب الوقت)"
+   },
+   "expected": {
+    "word_key": "mura",
+    "t_start": 1421.36
    }
   }
  ]

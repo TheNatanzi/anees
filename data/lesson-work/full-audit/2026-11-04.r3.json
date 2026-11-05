@@ -1,211 +1,163 @@
 {
  "date": "2026-11-04",
  "reader": "r3",
- "note": "Transcript complete 00:03-1:07:29; English-only stretches 13:29-14:49 and 47:33-49:31. Engine spells his bisse as بسيطًا / بسطًا, kaase as كاسطة / كاسط, nedfa3 as بنفتح / بنطفأ / نطفا, a5a66e6 as أخذت / أخدد. D18 = D3, D24 = D13, D26 folded into D16.",
+ "note": "34:51-35:16 holds TWO slips (برنامجها for 'our' = D5/A4; برنامجها الآخرين structure = D6/A20). 53:54-54:32 holds A26 (ykoon->tkoon) + D10 (أعمله -> -ها) + D11 (no b-). Engine fixes: 15:19 داكني = سكني (sakani, grey); 52:54 أخذت = أخطط (a5a66et); 57:57 بنفتأ/بنطفأ = bnedfa3. Amal's 06:10 بالاسبوع sits out of order before his 06:40 question (see challenge A3).",
  "rulings": [
   {
    "id": "D1",
    "verdict": "keep",
    "row": {
     "id": "1104-r3-1",
-    "t": "02:57",
-    "t_amal": "03:05",
-    "medi_said": "أنا أملوهن هلأ. أنا أمل-- أملهم هلأ.",
-    "amal_said": "عملتهم.",
+    "t": "03:26",
+    "t_amal": "03:32",
+    "medi_said": "Yeah, كانوا منيح؟",
+    "amal_said": "كانوا مناح، you mean؟",
     "chat": null,
-    "wrong": "أملهم هلأ",
-    "right": "عملتهم",
+    "wrong": "منيح",
+    "right": "مناح",
     "kind": "grammar",
     "tier": null,
-    "bucket": "B5",
+    "bucket": "A9",
     "bucket2": null,
     "mode": "speaking",
     "signal": "recast",
-    "confidence": "low",
-    "why": "She asked عملتهم؟ (did you do them?); he answered with a present form (no b-, a3malhom) and she recast past عملتهم, he said Yes. Low: 'doing them now' is a possible meaning.",
-    "english": "I did them just now."
+    "confidence": "high",
+    "why": "Plural subject (the three questions) needs the plural adjective مناح; Amal recast it and he repeated مناح.",
+    "english": "Were they good?"
    },
-   "why": "02:51 her question is past; 03:05 recast + his 03:08 Yes."
+   "why": "Amal voiced 'كانوا مناح، you mean؟' at 03:32 and he repeated مناح مناح at 03:34: a voiced recast of the plural adjective, not a let-pass."
   },
   {
    "id": "D2",
    "verdict": "keep",
    "row": {
     "id": "1104-r3-2",
-    "t": "03:44",
-    "t_amal": "03:52",
-    "medi_said": "حاليا نشوف إنها أملتهم صح",
-    "amal_said": "In. إنه، or إذا؟",
-    "chat": null,
-    "wrong": "إنها",
-    "right": "إذا",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "C6",
+    "t": "12:00",
+    "t_amal": "12:11",
+    "medi_said": "The, the command don't finish or the command's finished",
+    "amal_said": "العمر. What's عمر؟ ... That's عمر. عمر، شو عمرك؟",
+    "chat": "el-3omor by5alless u el-shu8ul ma bey5alless",
+    "wrong": "command (أمر)",
+    "right": "عمر",
+    "kind": "vocab-A",
+    "tier": 1,
+    "bucket": null,
     "bucket2": null,
-    "mode": "speaking",
+    "mode": "listening",
     "signal": "prompt-then-fix",
     "confidence": "medium",
-    "why": "'let's see whether I did them right' needs iza; she voiced 'إنه، or إذا؟' to steer him off enno; he moved on without repeating it.",
-    "english": "Now let's see if I did them right."
+    "why": "Listening: he heard العمر بيخلص as 'the command finishes'; Amal prompted with عمر / شو عمرك and he understood age/life.",
+    "english": "Life ends (but work doesn't)."
    },
-   "why": "Her voiced 'إنه or إذا?' is a prompt on a function word (iza vs enno) - grammar C6, not vocab."
+   "why": "He misheard her العمر (in her saying) as أمر 'command'; she prompted 'What's عمر؟ ... شو عمرك؟' and he got 'life or age' at 12:19. Listening, not speaking - he never said an Arabic word."
   },
   {
    "id": "D3",
    "verdict": "keep",
    "row": {
     "id": "1104-r3-3",
-    "t": "12:00",
-    "t_amal": "12:07",
-    "medi_said": "The, the command don't finish or the command's finished ... I thought it was command.",
-    "amal_said": "العمر. What's عمر؟ ... That's عمر. عمر، شو عمرك؟",
-    "chat": "el-3omor by5alless u el-shu8ul ma bey5alless",
-    "wrong": "command (أمر)",
-    "right": "عمر (age / life)",
-    "kind": "vocab-A",
-    "tier": 1,
-    "bucket": null,
+    "t": "15:17",
+    "t_amal": null,
+    "medi_said": "بلوزة، بلوزة نص كم، أزرق",
+    "amal_said": null,
+    "chat": "el-yoam balbes blooze noss noss kum azra2 u short sakani u boat aswad",
+    "wrong": "أزرق",
+    "right": "زرقا",
+    "kind": "grammar-B",
+    "tier": null,
+    "bucket": "A8",
     "bucket2": null,
-    "mode": "listening",
-    "signal": "recast",
-    "confidence": "medium",
-    "why": "He heard her saying العمر بيخلص as أمر 'command'; she repeated العمر and taught عمر = age/life (12:21 'Age or life, yes').",
-    "english": "Life ends but work doesn't."
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "Feminine noun بلوزة takes the feminine colour زرقا (my reading); Amal let it pass and even typed azra2.",
+    "english": "a blue short-sleeved blouse"
    },
-   "why": "Real listening mishear; D18 is the same moment."
+   "why": "بلوزة is feminine and he said أزرق; Amal voiced nothing and her chat kept azra2, so it stays a let-pass at low confidence."
   },
   {
    "id": "D4",
    "verdict": "keep",
    "row": {
     "id": "1104-r3-4",
-    "t": "18:43",
-    "t_amal": "18:49",
-    "medi_said": "El mara el awwal andi",
-    "amal_said": "No. What's the other way to say it? ... This rule is إلي. The عندي rule is just, uh, with مفضل.",
-    "chat": "my first time = awal marra ili",
-    "wrong": "andi",
-    "right": "إلي (awal marra ili)",
-    "kind": "grammar",
+    "t": "22:22",
+    "t_amal": null,
+    "medi_said": "and then el thani, el aw- el mara el thani, yeah, is also second time",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "el mara el thani",
+    "right": "el-marra el-tanye",
+    "kind": "grammar-B",
     "tier": null,
-    "bucket": "A23",
+    "bucket": "A14",
     "bucket2": null,
     "mode": "speaking",
-    "signal": "named-rule",
-    "confidence": "high",
-    "why": "He used 3indi for 'my first time'; she said No and named the rule (19:48): 3indi only with mufaddal, otherwise ili. The el-awwal part is agreed row A4.",
-    "english": "my first time"
+    "signal": "none",
+    "confidence": "low",
+    "why": "Feminine مرة needs el-tanye after it; he said el thani in a recap example and Amal voiced nothing about it - recap/meta talk, so low.",
+    "english": "the second time"
    },
-   "why": "She named the mufaddal + 3ind rule, which is A23 exactly."
+   "why": "In his recap he gave 'el mara el thani' as the form for 'the second time'; مرة is feminine so it is المرة التانية. Amal let it pass (she was asking about meanings). Same kind of slip as agreed A7 (المرة الأول) but a different word, so its own let-pass row."
   },
   {
    "id": "D5",
    "verdict": "keep",
    "row": {
     "id": "1104-r3-5",
-    "t": "33:38",
-    "t_amal": "33:43",
-    "medi_said": "آخر الـ، آخر الشنتة / لها.",
-    "amal_said": "آخر شنطة إلها.",
-    "chat": "her last bag = shantetha el-a5ira / aa5er shanta ilha",
-    "wrong": "آخر الشنتة لها",
-    "right": "آخر شنطة إلها",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A15",
-    "bucket2": "D3",
-    "mode": "speaking",
-    "signal": "recast",
-    "confidence": "medium",
-    "why": "aa5er + el- + noun = the end of; she recast آخر شنطة إلها (no el-, ilha). He said the el- form again after her 31:59 fix, so it is its own slip (GR-32); laha/ilha is minor.",
-    "english": "her last bag"
-   },
-   "why": "Main slip is the el- after aa5er (A15); ilha goes in bucket2."
-  },
-  {
-   "id": "D6",
-   "verdict": "keep",
-   "row": {
-    "id": "1104-r3-6",
     "t": "34:51",
-    "t_amal": "35:09",
-    "medi_said": "برنامجها الـ أخرين. / 35:06 برنامجها أخرين.",
-    "amal_said": "That's her last program. ... No. How do you say the end of?",
-    "chat": "aa5er barnaamejna",
-    "wrong": "برنامجها الـ أخرين",
-    "right": "آخر برنامجنا",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A15",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "explicit-no",
-    "confidence": "high",
-    "why": "noun + el-a5eer means 'last', not 'the end of'; she said it means her last program, then No at 35:09 when he repeated it.",
-    "english": "the end of our program"
-   },
-   "why": "Voiced 'That's her last program' + 'No' at 35:09."
-  },
-  {
-   "id": "D7",
-   "verdict": "keep",
-   "row": {
-    "id": "1104-r3-7",
-    "t": "35:13",
     "t_amal": "35:16",
-    "medi_said": "So آخر برنامجها.",
+    "medi_said": "برنامج، uh, برنامجها ... So آخر برنامجها.",
     "amal_said": "Yeah. بس برنامجنا.",
     "chat": "aa5er barnaamejna",
     "wrong": "برنامجها",
     "right": "برنامجنا",
     "kind": "grammar",
     "tier": null,
-    "bucket": "A12",
-    "bucket2": "A4",
+    "bucket": "A4",
+    "bucket2": "A12",
     "mode": "speaking",
     "signal": "recast",
     "confidence": "high",
-    "why": "'our' program, not 'her'; she already said 'Hour' (our) at 34:21 and recast برنامجنا, he repeated it.",
+    "why": "He put -ha (her) on the noun for 'our'; Amal recast برنامجنا and he repeated it at 35:18.",
     "english": "the end of our program"
    },
-   "why": "Wrong person on the ending = A12 (pronoun matches who you mean); A4 as bucket2."
+   "why": "Both readers saw the برنامجها for 'our' slip; Amal's 'بس برنامجنا' at 35:16 is the fix (he had already mixed her/our in English at 34:19, Amal: 'Our'). Filed A4 like agreed A16 (بستنا -> بستهم, same wrong-owner ending). r2's other half (برنامجها الآخرين = her last program) is a separate slip, ruled under D6."
   },
   {
-   "id": "D8",
+   "id": "D6",
    "verdict": "keep",
    "row": {
-    "id": "1104-r3-8",
-    "t": "37:13",
-    "t_amal": "37:17",
-    "medi_said": "بسطنا الـ...",
-    "amal_said": "Their.",
-    "chat": "bessethom el-oola",
-    "wrong": "بسطنا",
-    "right": "bessethom",
+    "id": "1104-r3-6",
+    "t": "34:57",
+    "t_amal": "35:01",
+    "medi_said": "برنامجها الآخرين ... برنامجها أخرين.",
+    "amal_said": "That's her last program. ... No. How do you say the end of?",
+    "chat": null,
+    "wrong": "برنامجها الآخرين",
+    "right": "آخر برنامجنا",
     "kind": "grammar",
     "tier": null,
-    "bucket": "A12",
-    "bucket2": "A4",
+    "bucket": "A20",
+    "bucket2": "A15",
     "mode": "speaking",
-    "signal": "prompt-then-fix",
+    "signal": "explicit-no",
     "confidence": "medium",
-    "why": "He put -na (our) on bisse for 'their first cat'; she prompted 'Their.' and he went back to بسيطًا (engine for bessethom).",
-    "english": "their first cat"
+    "why": "For 'the end of our program' he put the adjective after the noun (= her last program); Amal said so and said No, prompting آخر + noun.",
+    "english": "the end of our program"
    },
-   "why": "Her one-word 'Their.' is a voiced prompt on the ending."
+   "why": "Real, but not the vocab-B r1 wrote: Amal heard الآخرين as 'last' ('That's her last program') so the word form was not the problem; the slip is the structure - adjective after the noun means 'last X', not 'the end of'. Amal: 'No. How do you say the end of?' at 35:09, he then said آخر برنامجها. New wrong form after her 34:37 No, so its own slip (GR-32). Relabelled grammar A20."
   },
   {
-   "id": "D10",
+   "id": "D7",
    "verdict": "keep",
    "row": {
-    "id": "1104-r3-9",
+    "id": "1104-r3-7",
     "t": "42:20",
     "t_amal": "42:24",
-    "medi_said": "أغلب أسيليك.",
-    "amal_said": "Very close. What's questions? ... Mm-hmm. أسألتك.",
+    "medi_said": "أغلب أسيلك",
+    "amal_said": "Very close. What's questions?",
     "chat": "a8lab as2iltek",
-    "wrong": "أسيليك",
+    "wrong": "أسيلك",
     "right": "أسئلتك",
     "kind": "grammar",
     "tier": null,
@@ -213,47 +165,124 @@
     "bucket2": null,
     "mode": "speaking",
     "signal": "prompt-then-fix",
-    "confidence": "high",
-    "why": "He knows أسئلة (said it at 02:52); he dropped the -t before -ek; after her prompt he added it (أسيليتك) and she confirmed أسألتك.",
+    "confidence": "medium",
+    "why": "Feminine plural أسئلة grows -t before the owner ending (as2iltek); engine wrote أسيلك with no t; Amal said very close and prompted the base word, he said أسئلتك.",
     "english": "most of your questions"
    },
-   "why": "The fix is the -t before the ending (A3), not a new word."
+   "why": "Amal: 'Very close. What's questions?' - she sent him back to the base noun أسئلة (with its ة), and he produced أسئلتك. The missing piece in أسيلك is the -t before the owner ending, so A3 grammar fits better than a tier-2 plural."
+  },
+  {
+   "id": "D8",
+   "verdict": "keep",
+   "row": {
+    "id": "1104-r3-8",
+    "t": "45:52",
+    "t_amal": null,
+    "medi_said": "ghayr anni, ma مين، uh, بحكيلك ... غير إني ما مين بتِحكي",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "ما مين",
+    "right": "ما حدا",
+    "kind": "vocab-B",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "'Nobody' is ما حدا, not ما مين (who) - my reading; Amal gave no voiced fix of the word.",
+    "english": "other than me, nobody talks to you"
+   },
+   "why": "For 'nobody (talks to you)' he twice said ما مين (also Latin 'ma min'); Levantine says ما حدا. Amal's replies (Mm-hmm / No / No, yeah) are about the pointer question, not this word, so it is a let-pass at low confidence."
+  },
+  {
+   "id": "D9",
+   "verdict": "drop",
+   "why": "Engine mishearing: her chat types his sentence as 'ana bakrah a5a66et el-3urus' (TR-21 chat pair, sound-alike أخذت ~ a5a66et), and at 55:08 he says أخطط العرس without her ever supplying the word. Her 'قيسة أخذت؟' is a hearing check, not a fix. Cannot be verified as his slip."
+  },
+  {
+   "id": "D10",
+   "verdict": "keep",
+   "row": {
+    "id": "1104-r3-10",
+    "t": "53:54",
+    "t_amal": "54:00",
+    "medi_said": "أعمل، uh, I do this. أعمل... أعمله.",
+    "amal_said": "Only one correction is مرة، مرة is feminine or masculine. ... آخر مرة بعملها.",
+    "chat": "ra7 tkoon aa5er marra ba3malha.",
+    "wrong": "أعمله",
+    "right": "بعملها",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "D4",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "named-rule",
+    "confidence": "medium",
+    "why": "The object ending points back at feminine مرة so it is -ها; Amal named مرة as feminine and recast بعملها. Medium: her 'only one correction' may have meant only the ykoon slip (agreed A26).",
+    "english": "it will be the last time I do it"
+   },
+   "why": "r1's row (53:54 أعمله, feminine object ending) and r2's row (54:18 أملها, missing b-) are two different slips; r2's half is D11. Here: he said أعمله pointing at feminine مرة; Amal's 'مرة is feminine' (54:00) prompted the gender, and at 54:18 he moved to -ها, she recast بعملها."
+  },
+  {
+   "id": "D11",
+   "verdict": "keep",
+   "row": {
+    "id": "1104-r3-11",
+    "t": "54:18",
+    "t_amal": "54:22",
+    "medi_said": "أخر مرة أملها.",
+    "amal_said": "Mm-hmm. آخر مرة بعملها.",
+    "chat": "ra7 tkoon aa5er marra ba3malha.",
+    "wrong": "أملها",
+    "right": "بعملها",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "B1",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "high",
+    "why": "Plain present needs b- (بعملها); engine wrote أملها; Amal recast twice and he took it.",
+    "english": "the last time I do it"
+   },
+   "why": "After her fix of the gender he said أملها (engine for عملها) with no b-; Amal recast بعملها at 54:22 and again at 54:32, he said آه، بعملها."
+  },
+  {
+   "id": "D12",
+   "verdict": "keep",
+   "row": {
+    "id": "1104-r3-12",
+    "t": "57:57",
+    "t_amal": "58:02",
+    "medi_said": "بس راح، راح بنفتأ ... But uh راح بنـ، بنطفأ.",
+    "amal_said": "راح. ... نبي ندفع.",
+    "chat": "ra7 nedfa3 kteer",
+    "wrong": "راح بنفتأ",
+    "right": "راح ندفع",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "B13",
+    "bucket2": "B3",
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "ra7 takes the bare verb; engine wrote بنفتأ/بنطفأ for bnedfa3; Amal echoed راح then gave ندفع and he accepted.",
+    "english": "but we're going to pay (a lot)"
+   },
+   "why": "Both readers: راح + بن- verb; Amal repeated 'راح.' (prompt) then gave ندفع and he said 'Oh yeah that's right. إحنا راح ندفع كتير.' B13 (ra7 + bare verb) is the specific bucket; B3 as second."
   },
   {
    "id": "D13",
    "verdict": "keep",
    "row": {
-    "id": "1104-r3-10",
-    "t": "57:57",
-    "t_amal": "58:02",
-    "medi_said": "بس راح، راح بنفتح / بتـ-- راح بنـ، بنطفأ.",
-    "amal_said": "راح. ... نبي ندفع.",
-    "chat": "ra7 nedfa3 kteer u iza bnedfa3",
-    "wrong": "راح بنفتح",
-    "right": "راح ندفع",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "B13",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "medium",
-    "why": "ra7 takes a bare verb; she echoed 'راح.' then gave bare ندفع, he said 'Oh yeah that's right. إحنا راح نطفا كتير' (no b-). Engine wrote بنفتح / بنطفأ / نطفا for (b)nedfa3 - sound, not a wrong word.",
-    "english": "We're going to pay a lot."
-   },
-   "why": "His repeat after her drops the b- and keeps his own verb sound, so the fix was the b-; the vocab reading rests on engine spellings."
-  },
-  {
-   "id": "D14",
-   "verdict": "keep",
-   "row": {
-    "id": "1104-r3-11",
-    "t": "58:20",
+    "id": "1104-r3-13",
+    "t": "58:23",
     "t_amal": null,
-    "medi_said": "و إذا بنـ-- إذا بنـ-- نطفا كتير",
-    "amal_said": "Mm-hmm.",
-    "chat": "iza bnedfa3",
-    "wrong": "إذا نطفا",
+    "medi_said": "و إذا بنـ-- إذا بنـ-- ندفع كتير بدنا إشي ممتاز و special.",
+    "amal_said": null,
+    "chat": "ra7 nedfa3 kteer u iza bnedfa3 bidna ishi mumtaaz mumayyaz",
+    "wrong": "إذا ندفع",
     "right": "إذا بندفع",
     "kind": "grammar-B",
     "tier": null,
@@ -262,157 +291,137 @@
     "mode": "speaking",
     "signal": "none",
     "confidence": "low",
-    "why": "iza KEEPS the b- (her chat iza bnedfa3); he started بنـ twice then dropped it, carrying over the ra7 drop. She let it pass; engine could have lost the b-.",
+    "why": "iza keeps the b- (B3); he dropped it right after Amal's ra7 ndfa3 fix; only her chat shows bnedfa3, and the cut-off بنـ makes it low.",
     "english": "and if we pay a lot"
    },
-   "why": "Let-pass, low: the restart may hide the b-."
+   "why": "He started بنـ twice then dropped to ندفع after إذا - an over-applied b-drop (iza keeps the b-). Amal voiced nothing; her chat typed iza bnedfa3. Let-pass."
+  },
+  {
+   "id": "D14",
+   "verdict": "keep",
+   "row": {
+    "id": "1104-r3-14",
+    "t": "1:05:57",
+    "t_amal": "1:06:11",
+    "medi_said": "قبل شهر، uh, ما، ما استعملت، um, اسباني كتير.",
+    "amal_said": "Do, do you wanna say the last month؟ ... الشهر الماضي. ... قبل is for ago.",
+    "chat": "el-shahar el-maadi ma esta3maletv sbaani kteer",
+    "wrong": "قبل شهر",
+    "right": "الشهر الماضي",
+    "kind": "vocab-A",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "He meant 'last month' but قبل شهر = a month ago; Amal asked and gave الشهر الماضي.",
+    "english": "Last month I didn't use Spanish much."
+   },
+   "why": "Amal voiced it: 'Do you wanna say the last month؟' -> 'الشهر الماضي' and 'قبل is for ago. قبل شهر is like a month ago'. Wrong expression for the meaning = vocab tier 1. Separate from agreed A35 (شهرة -> شهر, the noun form)."
   },
   {
    "id": "D15",
-   "verdict": "keep",
-   "row": {
-    "id": "1104-r3-12",
-    "t": "1:04:08",
-    "t_amal": null,
-    "medi_said": "عربي كلمة عربي كتير.",
-    "amal_said": "[ضحك]",
-    "chat": "Kelmaat 3arabi kteer",
-    "wrong": "كلمة عربي كتير",
-    "right": "كلمات عربي كتير",
-    "kind": "grammar-B",
-    "tier": null,
-    "bucket": "A9",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "none",
-    "confidence": "low",
-    "why": "'a lot of Arabic words' needs the plural كلمات (her chat Kelmaat); she laughed, no voiced fix.",
-    "english": "I kept using a lot of Arabic words."
-   },
-   "why": "Let-pass plural slip."
+   "verdict": "drop",
+   "why": "Not an error: 'بقدر أستعمل الكلمة ... بطيء لـ يوم' is a question 'can I use the word بطيء for (a) day', and لـ = for is correct there; Amal said 'You can' and he then said يوم بطيء."
   },
   {
    "id": "D16",
    "verdict": "keep",
    "row": {
-    "id": "1104-r3-13",
-    "t": "1:05:57",
-    "t_amal": "1:06:11",
-    "medi_said": "قبل شهر، uh, ما، ما استعملت، اسباني كتير.",
-    "amal_said": "Do, do you wanna say the last month? ... الشهر الماضي. ... قبل is for ago.",
-    "chat": "el-shahar el-maadi ma esta3maletv sbaani kteer",
-    "wrong": "قبل شهر",
-    "right": "الشهر الماضي",
+    "id": "1104-r3-16",
+    "t": "10:01",
+    "t_amal": "10:34",
+    "medi_said": "أنا أخذت وقت إضافه لـ قهوة",
+    "amal_said": "وقت زيادة للقهوة؟ ... للقهوة؟",
+    "chat": "la bashte8el bas ana nemet aktar u a5adet wa2et zyaade la-el-ahwe",
+    "wrong": "لـ قهوة",
+    "right": "للقهوة",
     "kind": "grammar",
     "tier": null,
-    "bucket": "E6",
+    "bucket": "A1",
     "bucket2": null,
     "mode": "speaking",
-    "signal": "named-rule",
-    "confidence": "high",
-    "why": "He used qabel for 'last month' (he said 'I need to قبل' for last week); she gave الشهر الماضي and said 'قبل is for ago'.",
-    "english": "Last month I didn't use Spanish much."
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "el- missing on قهوة after لـ; Amal repeated للقهوة؟ twice and he said لـ القهوة. Medium: her question may also have been about the meaning.",
+    "english": "I took extra time for coffee"
    },
-   "why": "She named the rule (قبل = ago); one row for the whole 'last week / last month' search (D26 folded in)."
+   "why": "After her زيادة fix Amal asked 'وقت زيادة للقهوة؟' (10:27) and again 'للقهوة؟' (10:34), stressing the el-, and he answered 'لـ القهوة.' (10:36). That is a voiced prompt on the missing el- (A1), not just a repeat."
   },
   {
-   "id": "D23",
+   "id": "D17",
    "verdict": "keep",
    "row": {
-    "id": "1104-r3-14",
-    "t": "40:02",
-    "t_amal": "40:08",
-    "medi_said": "I don't know how to say third. Is it thin-- uh, a lot?",
-    "amal_said": "Mm, yeah, we didn't learn them. ثالث.",
+    "id": "1104-r3-17",
+    "t": "11:30",
+    "t_amal": "11:34",
+    "medi_said": "I know. I agree. I don't know how to say I agree.",
+    "amal_said": "We have, we have a saying-- مظبوط عادي، مظبوط.",
     "chat": null,
-    "wrong": "",
-    "right": "ثالث",
+    "wrong": "I agree",
+    "right": "مظبوط",
     "kind": "vocab-A",
     "tier": 0,
     "bucket": null,
     "bucket2": null,
     "mode": "speaking",
     "signal": "asked",
-    "confidence": "high",
-    "why": "Didn't-know: he said he doesn't know 'third'; she supplied ثالث (sheet: third | Tult is the fraction, not the ordinal).",
-    "english": "third"
+    "confidence": "medium",
+    "why": "He asked for 'I agree'; Amal gave مظبوط before moving to the saying.",
+    "english": "I agree"
    },
-   "why": "A didn't-know she answered - vocab-A tier 0 asked."
-  },
-  {
-   "id": "D9",
-   "verdict": "drop",
-   "why": "She said 'Great.' to كاسطة ثانية and her chat kaasetha el-taanya is her clean-up (GR-19); no voiced fix and the engine easily drops the el- - not an error on this evidence."
-  },
-  {
-   "id": "D11",
-   "verdict": "drop",
-   "why": "Not a fresh slip: at 43:23 he already said Ajwabetek (with -t-ek) before her أجوبتك; 'Nafs aj-ajwab' at 43:28 is a cut-off restart while repeating her form (S5 / GR-32 repeat). The plural is agreed row A14."
-  },
-  {
-   "id": "D12",
-   "verdict": "drop",
-   "why": "Engine: her chat 'ana bakrah a5a66et el-3urus' shows he said a5a66e6 (plan), engine wrote أخذت; at 55:08 the same word comes out أخدد and she says Nice. Her 'قيسة أخذت؟' got 'Yeah' and no fix - cannot be verified as a wrong word."
-  },
-  {
-   "id": "D17",
-   "verdict": "drop",
-   "why": "S4 pronunciation: he said مش عادي with a hamza / short a (engine مش بدي); she explained at 07:39 'if you would've said adi, I would've guessed it's عادي' - a sound slip, not a word he didn't know."
+   "why": "He asked 'I don't know how to say I agree' and Amal supplied مظبوط - a didn't-know."
   },
   {
    "id": "D18",
    "verdict": "drop",
-   "why": "Duplicate of D3 (same عمر / 'command' listening moment, 12:00-12:21)."
+   "why": "Cannot be verified: a lone و between ألفين and ستة is exactly what the engine drops; Amal voiced nothing and only her chat has 'alfain u sitte'. GR-19: chat alone is not a correction."
   },
   {
    "id": "D19",
    "verdict": "drop",
-   "why": "Not an error: 'boot' IS the Arabic word - sheet row 'sneakers / boots | Boat | بوت' and her chat 'boat aswad'; the engine wrote it in Latin letters."
+   "why": "Not an error - engine mishearing: Amal's chat has 'short sakani' and her sheet has 'gray (m/f) | Sakani | سكني | sakani'. He said سكني (grey), a right word; the engine wrote داكني."
   },
   {
    "id": "D20",
    "verdict": "drop",
-   "why": "A question to check the rule ('her last bag is آخر شنتة, right?') 15 s after she said it means the end of her bag - same moment as agreed row A9, not a new slip."
+   "why": "Duplicate of agreed A11: 31:18-31:41 is one prompting sequence (her 'Does that sound right?' was a prompt, not a fix) and A11's medi_said already holds شنتت آخرها."
   },
   {
    "id": "D21",
    "verdict": "drop",
-   "why": "Same search as D5: he rejected the 'end' forms himself ('no. So it becomes the end. No, right?') before her 'No end, but something else', and she gave the form once at 33:43 (D5)."
+   "why": "Duplicate of D5 (same moment 34:51, same wrong برنامجها -> برنامجنا)."
   },
   {
    "id": "D22",
    "verdict": "drop",
-   "why": "A question ('can you do ثانية كسرتها؟') - a question about the rule is neither a slip nor a use; the same search ends in agreed row A13 at 39:33."
+   "why": "Duplicate of agreed A22: غير مني (44:06) and غير على (44:32) are one prompting sequence that ends with her عن، عن; A22's medi_said already holds غير على."
+  },
+  {
+   "id": "D23",
+   "verdict": "drop",
+   "why": "Engine/sound, not a vocab gap: بنفتأ/بنطفأ is a sound-alike of bnedfa3 (d~t, 3~2); Amal's first reaction was to echo 'راح.' (the b- after ra7, D12), and her chat 'ra7 nedfa3' keeps his verb. The fix is counted once under D12."
   },
   {
    "id": "D24",
    "verdict": "drop",
-   "why": "Duplicate of D13 (same راح بنـ moment, 57:57-58:13)."
-  },
-  {
-   "id": "D25",
-   "verdict": "drop",
-   "why": "اسباني / إسباني (Spanish) is on the task's names list - never flagged as a wrong or unknown word; he also said اسباني first, then asked."
-  },
-  {
-   "id": "D26",
-   "verdict": "drop",
-   "why": "Folded into D16: same 'last week / last month' attempt, she fixed it once with الشهر الماضي; 'قريب آخر' itself is unclear (she asked 'شو غريب آخر؟', no fix of that piece)."
+   "why": "A question about the rule ('آخر الوقت. Would this be the last time? Or can I use آخر الـ...'): per the reader brief a rule question is neither a slip nor a use; Amal answered it and he said آخر مرة."
   }
  ],
  "added": [],
  "challenges": [
   {
-   "id": "A1",
-   "why": "Her بالاسبوع is stamped 06:10, 30 s BEFORE his 'I don't know how to say per' (06:40); her reply after it (06:49) is about مش أدي, not per. Timing hole - audio check that she supplied بالاسبوع for his question."
+   "id": "A3",
+   "why": "Amal's only بالاسبوع is stamped 06:10, 30 s BEFORE his 'I don't know how to say per' (06:40); he said بالأسبوع himself at 06:47 with no Amal line between. Either the 06:10 line is mislabelled/mistimed (his own word) or it was a self-fix - audio check."
   },
   {
-   "id": "A14",
-   "why": "Label: he asked ('is it جواب? No. Ajwab?') and she answered - a question / didn't-know (signal asked, tier 0), not a tier-2 invented plural."
+   "id": "A12",
+   "why": "Same prompting sequence as agreed A11 (her last bag): at 31:59 she had just said 'Akhir shantata means like the end of her bag' and at 32:14 he asked it back as a question ('her last bag is آخر شنتتها, right?'). Likely a rule question / repeat inside A11, not a second slip."
   },
   {
-   "id": "A28",
-   "why": "Likely engine: شهر الماضي came 12 s after her الشهر الماضي, as his repeat of her form (GR-32); el- before ش is assimilated (esh-shahar) and the engine drops it easily."
+   "id": "A21",
+   "why": "He self-fixed at 43:23 ('نفس أجوبة. أجوبتك.') BEFORE her 43:27 أجوبتك; the 43:28 'نفس أجـ أجوبة' line overlaps her and may be the engine re-cutting the same words. Possibly self-fix before help - audio check."
   }
  ]
 }

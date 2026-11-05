@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **940** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **942** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 122 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 33 |
-| Vocab fixes Amal voiced (A) | **430** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 215, '0': 147, '2': 102, '3': 6} |
+| Vocab fixes Amal voiced (A) | **431** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 216, '0': 147, '2': 102, '3': 6} |
 | Vocab she let pass (B, to Amal) | **42** by tier {'1': 32, '2': 8, '3': 2} |
 | Listening-drill misreads (kept apart) | 74 |
-| Rows the readers found that the sweep did not have | 1208 |
+| Rows the readers found that the sweep did not have | 1211 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -51,7 +51,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-28 | 22 | 0 | 4 | 0 | 1 | 0 | 0 | 52.2 % |
 | 2026-10-30 | 28 | 0 | 11 | 1 | 1 | 0 | 0 | 61.3 % |
 | 2026-11-02 | 35 | 0 | 6 | 0 | 1 | 0 | 0 | 62.3 % |
-| 2026-11-04 | 25 | 0 | 7 | 0 | 0 | 0 | 0 | 51.9 % |
+| 2026-11-04 | 27 | 0 | 8 | 0 | 0 | 0 | 0 | 60.0 % |
 
 ## Reader passes (the loop)
 
@@ -85,7 +85,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-10-28**: pass 1: r1 34 r2 41 agreed 24 disputed 22 (52.2 %), r3 kept 12 dropped 10 -> 29 rows
 - **2026-10-30**: pass 1: r1 53 r2 48 agreed 38 disputed 24 (61.3 %), r3 kept 14 dropped 10 -> 38 rows
 - **2026-11-02**: pass 1: r1 56 r2 49 agreed 38 disputed 23 (62.3 %), r3 kept 20 dropped 3 -> 49 rows
-- **2026-11-04**: pass 1: r1 44 r2 44 agreed 28 disputed 26 (51.9 %), r3 kept 14 dropped 12 -> 34 rows
+- **2026-11-04**: pass 1: r1 50 r2 52 agreed 36 disputed 24 (60.0 %), r3 kept 15 dropped 9 -> 43 rows
 
 ## Grammar by bucket (A, speaking)
 
@@ -95,14 +95,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | B18 | verb matches its subject | 79 |
 | B5 | past tense | 66 |
 | B12 | make-X vs get-X | 60 |
-| A8 | gender on adjectives | 58 |
+| A8 | gender on adjectives | 59 |
 | A7 | noun + adjective | 45 |
+| A9 | plurals | 44 |
 | D4 | endings on verbs | 42 |
-| A9 | plurals | 42 |
 | D1 | prepositions | 41 |
 | B1 | present with b- | 38 |
-| A4 | possessive endings | 36 |
 | A2 | idafa (possession) | 35 |
+| A4 | possessive endings | 35 |
 | PROPOSE | ? | 33 |
 | A1 | el- (the) | 32 |
 | B2 | b-drop after modals | 23 |
@@ -110,29 +110,30 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | D3 | endings on prepositions | 20 |
 | C4 | saying no | 20 |
 | B10 | commands | 18 |
-| A15 | aa5er / a5eer: before or after the noun | 18 |
 | C2 | the pointer rule | 17 |
 | B6 | kaan = was / were | 16 |
 | C7 | illi | 15 |
+| A15 | aa5er / a5eer: before or after the noun | 15 |
 | B15 | participles | 13 |
 | A10 | hada / hadi | 13 |
 | B11 | negative commands | 13 |
 | E2 | clock time | 12 |
-| A3 | feminine -t in idafa | 11 |
+| A14 | taani: before or after the noun | 12 |
 | A13 | awal / oola: before or after the noun | 11 |
-| A14 | taani: before or after the noun | 11 |
 | B3 | b-drop after time words | 10 |
-| A12 | pronoun matches who you mean | 10 |
 | C3 | comparatives | 10 |
 | B8 | bakoon / ykoon | 10 |
+| A3 | feminine -t in idafa | 10 |
+| A20 | awal / aa5er with el- | 9 |
 | A11 | kul: all vs every | 8 |
+| A12 | pronoun matches who you mean | 8 |
 | E4 | calendar | 8 |
 | B13 | future with ra7 | 8 |
 | C9 | word order | 7 |
 | C10 | preposition goes in front | 6 |
-| C1 | no word for 'to be' | 6 |
 | D5 | preposition keeps el- | 6 |
 | B16 | kan laazem | 5 |
+| C1 | no word for 'to be' | 5 |
 | A16 | 8eir: other / different, no el- | 5 |
 | C6 | iza / lamma | 4 |
 | B7 | kaan + verb = used to / was doing | 4 |
@@ -143,20 +144,19 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A9b | broken plurals are patterns | 3 |
 | E5 | kam + singular | 3 |
 | A18 | hidden gender nouns | 3 |
-| A20 | awal / aa5er with el- | 3 |
+| A22 | a8lab and nafs + definite noun | 3 |
 | C12 | a doing verb says what was done | 2 |
 | A6 | professions | 2 |
 | C11 | noun, not verb, after a preposition | 2 |
-| A22 | a8lab and nafs + definite noun | 2 |
 | A21 | taani and 8eir | 2 |
 | A23 | mufaddal + 3ind | 2 |
-| E6 | ago = qabel + number + noun | 2 |
 | C5 | u / aw / willa / wala | 1 |
 | B14 | 3am = right now | 1 |
 | F3 | causative verbs: 3 forms | 1 |
 | D6 | iyyaa - the second object | 1 |
 | C4b | words that drag a ma along | 1 |
 | A17 | nafs + el-: the same | 1 |
+| E6 | ago = qabel + number + noun | 1 |
 
 ## Sweep rows the readers did not list (kept, not dropped)
 
@@ -2155,39 +2155,42 @@ _Echo check: 09:18 'maba nasito' = ما بـ... نسيته (already Arabic in tr
 
 ### 2026-11-04
 
-_17:00-31:00 and 43:00-47:30 are function-word recap/drill stretches transcribed in Latin letters (his Arabic in English spelling; ghayr/bayt = 8eir, aglab = a8lab). Engine sound-alikes: بسيطًا / بسطًا = bessethom / 5u66ethom; كاسطة = kaasetha; بنفتح / بنطفأ / نطفا = (b)nedfa3; طماطيس (58:53) = mumayyaz echo; طبيعي (1:05:13) = tabe3i; مبارك ليش (1:06:45) = ma ba3raf laish; عذراء / بكيني (15:17) = azra2 / sakani; أملوهن / أملتهم = 3amaltohom. 04:54 'أنا بشترل بيروت اليوم' unreadable (maybe bashta2 la-beirut), not filed. 05:25-05:57 he asked how to say 'relax' (sheet Ertaa7); engine wrote افتح, Amal never voiced the word - not filed. echo: 'If can.' (03:14) after كيف كانوا؟ unclear, left as English. 26:53 nafsishi not filed: Amal explained el- is there but silent before sh (sun letter). Questions about the rule (18:53 marti, 39:12 ثانية كسرتها, 41:00 il 8eir, 1:02:34 آخر الوقت, 1:03:30 اسبانيائي) not filed. 57:43 English 'research' not on her sheet - skipped. Medi turns: 279 with Arabic script plus ~40 Latin-letter Arabic turns. / Whole file read. From about 19:00 the engine mostly writes Medi's Arabic in Latin letters. Engine echoes: 'Command' (50:23) = كمان; 'أخذت / أخدد' (53:00, 55:08) = أخطط (Amal chat a5a66et); 'بكرة' (54:51) = بكره (final h, pronunciation); 'عذراء' = أزرق, 'بكيني' = سكيني (chat); 'ولا أسبوع / مش أدي' near 06:47 = مش عادي (S4 vowel length). Skipped as questions about the rule (not slips): 03:57 صح vs مزبوط, 41:00 غير خطتهم, 1:02:34 آخر الوقت vs آخر مرة, 1:02:58 إنو vs اللي. Unclear stretches not filed: 46:09 'would this be pointer / La / No' (ghayr anni ma min betihiki), 50:38-50:47 'بير تلب / تلب أنين' (Amal: 'Ignore it'), 05:25-05:57 relax (never answered), 52:58 'قيسة أخذت؟'. Chat-only lines (GR-19) not used as slips: 13:19 date, 38:55 كاسطة ثانية (Amal said Great)._
+_Whole file read. English-only stretches: 13:29-15:02 (election talk), 47:33-49:31 (other students), 55:29-56:07 (wedding planning). 17:13-23:30 and 26:50-29:43 are his English/Latin rule recap of awal/taani/8eir/nafs/aa5er (recap slips not scored except where she reacted). Echo candidates checked: none are sound-alikes of Arabic (If can. / Um / Ajwabe are English or his Latin). Engine notes: 54:18 أملها = عملها; 57:57 بنفتأ/بنطفأ = bnedfa3; 1:00:50 her تيار = طيارة; 52:54 أخذت may be the engine for a5a66et; 1:04:04 her 'استعمل وقت' unclear. 06:27 مش عدي = S4 (ع dropped), not counted. Names (Ramallah, Israel, Palestine, Egypt, Syria, Egyptian, Japan, اسباني) not flagged. 'boot' is her own sheet word (بوت), so not tier 3; 'cards'/'research' are not on her sheet, so skipped. / All of it read. Not rows: 07:00 مش عادي / عدي = ع dropped (S4 pronunciation); 03:57 صح vs مزبوط = her preference only; 04:57 ببيتي is fine; 05:25-05:57 relax / ارتاح: he used it right, her 'bad word' lines unclear; 13:40-14:38 names (Israel, Palestine, Egypt, Syria, Egyptian) not flagged; 26:50 نفس إشي vs نفس الإشي: she said both are said; 41:00 'il غير' question; 50:47 doctors: he self-fixed; 59:52-60:11 التاني then تاني طيارة self-fixed before her صح; 1:03:30 اسباني / اسبانيائي is a name; 1:01:07 متأخرين لا vs على: she said both work; 46:15-46:32 'ghayr anni ... ma مين بتحكي' too unclear to file. English words not on her sheet, not filed: boot, cards, fair, research, function words. Engine: 53:00 أخذت = أخطط (Amal asked قيسة أخذت), 54:51 بكرة = بكرهها (Amal 'make the ها more prominent', pronunciation), 58:06 بنطفأ ~ ندفع, 13:19 استعاش ~ إحداعش, 15:19 داكني uncertain. Echo candidates: echo: If can. = كانوا منيح?; echo: Ajwabe. = أجوبة. Chat lines mostly lag his voice; the 11:18 and 12:43 chat lines just write what he said right._
 
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
-| FA-866b90f6 | 02:57 | grammar | B5 | أنا أملوهن هلأ. أنا أمل-- أملهم هلأ. | عملتهم. | أملهم هلأ -> عملتهم | She asked عملتهم؟ (did you do them?); he answered with the present form a3malhom and she recast to past عملتهم, he said Yes. | high | judge panel (Opus + Argon, p 0.80) |
-| FA-a3e60139 | 03:44 | grammar | C6 | حاليا نشوف إنها أملتهم صح | In. إنه، or إذا؟ | إنها -> إذا | 'let's see whether I did them right' needs iza (if/whether); she voiced 'إنه، or إذا؟' to steer him off enno. | medium | judge panel (Opus + Argon, p 0.77) |
-| FA-832109de | 10:01 | vocab-A | tier 1 | أنا أخذت وقت إضافه لـ قهوة | وقت زيادة يمن؟ ... We have إضافة بس it's فصحى ... We say زيادة in spoken. | إضافه -> زيادة | MSA إضافة for 'extra'; she recast وقت زيادة and said 'We say زيادة in spoken'. Sheet: 'extra / increase / Ziaadeh / زيادة' vs 'addition / the possessive construct / iḍaafe / إضافة'. | high | judge panel (Opus + Argon, p 0.92) |
-| FA-9d530391 | 18:43 | grammar | A13 | El mara el awwal andi / So as an adjective, "El mara el awwal," right? | المرة الأولى إلي. | El mara el awwal -> المرة الأولى | marra is feminine so the adjective after it is el-oola; she recast المرة الأولى إلي and he said 'the adjective is not el... You didn't correct me on the other one.' | high | judge panel (Opus + Argon, p 0.82) |
-| FA-d3230269 | 20:54 | grammar | A13 | So el mara el awwal eli wouldn't make sense. | المرة الأولى إلي. | el mara el awwal -> el mara el ula (المرة الأولى) | Feminine مرة with the adjective after it takes الأولى, not awwal; Amal recast and he said 'el mara el ula, that's what I forgot'. | high | judge panel (Opus + Argon, p 0.88) |
-| FA-d44b05f0 | 23:41 | vocab-A | tier 1 | so aglab el marra is most of the time. | Yeah, but we don't say that. So أغلب الوقت. | aglab el marra -> أغلب الوقت | marra is 'occurrence'; for 'most of the time' she said we don't say that and gave أغلب الوقت. | high | judge panel (Opus + Argon, p 0.92) |
-| FA-d8e36834 | 25:38 | grammar | A4 | so awal min-minna? | No. ... Or maybe the it is feminine. | awal min-minna -> awalo / awalha | 'the beginning of it' is awal + possessive ending, not awal min-; she said No and typed awalo / awalha (his 25:59 'awal minna or awal minha' was a question on the same moment). | high | judge panel (Opus + Argon, p 0.91) |
-| FA-3e222cf5 | 30:36 | vocab-A | tier 1 | are you trying to get, uh, Qissa or, or Jazan? / زكيسة | No, kees is a plastic bag. ... Remember suitcase. | زكيسة -> شنتة | For 'bag' he offered kees / jizdan; she said kees is a plastic bag and pointed him to suitcase -> شنتة. Sheet: 'bag / Shanta / شنتة'. | high | judge panel (Opus + Argon, p 0.83) |
-| FA-2f23638e | 31:18 | grammar | A20 | آخر الشنتة. | Does that sound right? ... If you take out the L, it's wrong. Akhir shantata means like the end of her bag. | آخر الشنتة -> شنتتها الأخيرة | aa5er + el- noun = 'the end of', and 'her' needs the -ha ending; she queried it and explained it means the end of the bag; he reached شنتة الأخيرة at 32:34. | medium | judge panel (Opus + Argon, p 0.77) |
-| FA-5078fea9 | 31:38 | grammar | A15 | شنتت آخرها. | No. | شنتت آخرها -> شنتتها الأخيرة | After the noun 'last' is the adjective el-a5eera, and -ha goes on the noun, not on aa5er; she said No. | high | judge panel (Opus + Argon, p 0.82) |
-| FA-57c0c0e5 | 33:38 | grammar | A15 | آخر الـ، آخر الشنتة / لها. | آخر شنطة إلها. | آخر الشنتة لها -> آخر شنطة إلها | aa5er + noun = last only without el-; she recast آخر شنطة إلها (no el-, Levantine ilha not laha). | high | judge panel (Opus + Argon, p 0.83) |
-| FA-29c11b70 | 34:22 | grammar | A4 | So آخر الـ برنامج لنا. | No. ... Just one way to say this thing. | آخر الـ برنامج لنا -> آخر برنامجنا | 'the end of our program' is aa5er + barnaamej + -na ending, not el- + lana; she said No. | high | judge panel (Opus + Argon, p 0.89) |
-| FA-06179620 | 34:51 | grammar | A15 | برنامجها الـ أخرين. / 35:06 برنامجها أخرين. | That's her last program. ... No. How do you say the end of? | برنامجها الـ أخرين -> آخر برنامجنا | noun + el-a5eer means 'last', not 'the end of' (and أخرين is not the adjective form); she said it means her last program, then No at 35:09 to the repeat. | high | judge panel (Opus + Argon, p 0.80) |
-| FA-9844d250 | 35:13 | grammar | A12 | So آخر برنامجها. | Yeah. بس برنامجنا. | برنامجها -> برنامجنا | 'our' program, not 'her'; she already said 'Hour' (our) at 34:21 and recast برنامجنا, he repeated it. | high | judge panel (Opus + Argon, p 0.80) |
-| FA-03896e3d | 36:39 | grammar | A20 | So أول بسيطًا. | No. ... It means the beginning of their cat. | أول بسيطًا -> bessethom el-oola | awal + a noun with a possessive ending = 'the beginning of'; she said No and explained; chat bessethom el-oola (engine wrote بسيطًا for bessethom). | high | judge panel (Opus + Argon, p 0.92) |
-| FA-6e1fd7e8 | 37:13 | grammar | A12 | بسطنا الـ... | Their. | بسطنا -> bessethom | He put -na (our) on bisse; she prompted 'Their.' and he went back to بسيطًا (bessethom). Engine may have misheard the ending. | medium | judge panel (Opus + Argon, p 0.74) |
-| FA-fffbf517 | 39:12 | grammar | A14 | can you do ثانية كسرتها؟ (engine; taanye + noun with her ending) | تاني كسرتها؟ No. | ثانية كسرتها -> تاني كاسة إلها | Ordinal before a noun with a possessive ending does not work; Amal said No, it doesn't mean anything. | medium | judge panel (Opus + Argon, p 0.68) |
-| FA-03e91526 | 39:33 | grammar | A14 | So كاس-- Yeah, yeah, كاسط, كاسط ثانية لها. No? | No. | كاسط ثانية لها -> taani kaase ilha | With ilha the ordinal goes BEFORE the noun (taani kaase ilha); she said No and he moved it to ثانية كاسا لها -> Great. | high | judge panel (Opus + Argon, p 0.85) |
-| FA-37ea3d71 | 42:50 | vocab-A | tier 2 | is it جواب? No. Ajwab? | جواب is one. أجوبة. | Ajwab -> أجوبة | Invented plural ajwab; she gave the plural أجوبة. | medium | judge panel (Opus + Argon, p 0.69) |
-| FA-75ff971d | 43:28 | grammar | A3 | Nafs ajwabe. Ajwabetek. / Nafs aj-ajwab. | أجوبتك. ... أجوبة، أجوبتك. | Nafs aj-ajwab -> nafs ajwibtek | After her أجوبتك (43:27) he went back to bare ajwab with no -t-ek; she fixed it again, then he said Nafs ajwabtek -> Great job. | medium | judge panel (Opus + Argon, p 0.68) |
-| FA-b39b008e | 44:06 | grammar | A21 | Uh, ghayr minni? | No. ... It's tied to غير. ... عن، عن. | ghayr minni -> 8eir 3anni | 'different from' is 8eir 3an; she said No, said the preposition is tied to غير and gave عن. | high | judge panel (Opus + Argon, p 0.92) |
-| FA-cde622ff | 45:12 | grammar | D3 | Inti ghayr annik il kul. Huh? | then everyone. ... Yes. | ghayr annik il kul -> 8eir 3an el-kul | He put a -ik ending on 3an although el-kul is its object; she prompted 'than everyone' and he said ghayr ann ikul -> Yes. | high | judge panel (Opus + Argon, p 0.83) |
-| FA-b020cde1 | 49:58 | vocab-A | tier 1 | طالب مختلف. | Or that's like, um, unique maybe. Yeah. ... One more student. Like another in the meaning of one more. | طالب مختلف -> kamaan 6aaleb / 8eir 6aaleb | For 'another student' mukhtalef means different/unique; she said so and steered him to kamaan 6aaleb. | medium | judge panel (Opus + Argon, p 0.77) |
-| FA-3806af1f | 53:20 | grammar | B9 | راح. This will be راح يكون الـأخر-- ... أخر مرة، ... أملو | Only one correction is مرة، مرة is feminine or masculine. So راح شو؟ | راح يكون -> راح تكون | The subject is marra (feminine) so ykoon must be tkoon (also -o -> -ha on a3mal); she named it and he said راح تكون. | high | judge panel (Opus + Argon, p 0.92) |
-| FA-48690e29 | 54:18 | grammar | B1 | أخر مرة أملها. | آخر مرة بعملها. | أملها -> بعملها | Present verb needs b-; she recast بعملها and he asked 'Did he say بل بعملها؟', she repeated بعملها. | high | judge panel (Opus + Argon, p 0.83) |
-| FA-6954cb53 | 56:35 | grammar | C1 | um نكون سيء | You are bad. ... You don't need منكون، خلص، بس سيئين. | نكون سيء -> سيئين | No 'to be' in the plain present and the adjective must be plural for 'we'; she said you don't need منكون, just سيئين. | high | judge panel (Opus + Argon, p 0.89) |
-| FA-6d9bd638 | 57:10 | grammar | C4 | مش، مش عندنا كتير وقت. | ما عنا. | مش عندنا -> ما عنا | 3ind is negated with ma, not mish; she said ما عنا twice. | high | judge panel (Opus + Argon, p 0.92) |
-| FA-a9746018 | 57:57 | grammar | B13 | بس راح، راح بنفتح / بتـ-- راح بنـ، بنطفأ. | راح. ... نبي ندفع. | راح بنفتح -> راح ندفع | ra7 takes a bare verb; she echoed 'راح.' then gave ندفع and he said إحنا راح نطفا كتير (no b-). Engine wrote بنفتح / بنطفأ / نطفا for (b)nedfa3 - pronunciation, not a wrong word. | high | judge panel (Opus + Argon, p 0.80) |
-| FA-850343f7 | 58:27 | vocab-A | tier 3 | كتير بدنا إشي ممتاز و special. | What's special? You know it. ... مميز. | special -> مميز | English 'special' in an Arabic sentence; she asked for it and supplied مميز. Sheet: 'special / Mumayyaz / مميز / mumaiyaz'. | high | r1+r2 |
-| FA-75c9dce9 | 1:00:35 | grammar | D2 | راح نكون متأخرين الـ-- أو آآآ متأخرين آآآ أول طيارة. | متأخرين على أول تيار. | متأخرين أول طيارة -> متأخرين على أول طيارة | mit2a55er takes 3ala; she recast متأخرين على and he asked it back. | high | judge panel (Opus + Argon, p 0.84) |
-| FA-c414fdc4 | 1:05:53 | vocab-A | tier 2 | قبل الـ ش-- uh, قبل شهرة، شهرة. | شهر. | شهرة -> شهر | Invented feminine شهرة for 'month'; she recast شهر. Sheet: 'month (2 months/months) / shahar / شهر'. | medium | judge panel (Opus + Argon, p 0.77) |
-| FA-46b79534 | 1:05:57 | grammar | E6 | قبل شهر، uh, ما، ما استعملت، اسباني كتير. | Do, do you wanna say the last month? ... الشهر الماضي. ... قبل is for ago. | قبل شهر -> الشهر الماضي | He used qabel for 'last' (he said 'I need to قبل' for last week); she asked if he meant last month, gave الشهر الماضي and said قبل is for ago. | high | judge panel (Opus + Argon, p 0.83) |
+| FA-2d3f6e70 | 02:57 | grammar | B5 | أنا عملوهن هلأ. أنا عملو-- عملهم هلأ. | عملتهم. | عملهم -> عملتهم | He left off the I-ending on the past verb (3amalhom = he did them); Amal recast عملتهم and he said Yes. | high | judge panel (Opus + Argon, p 0.90) |
+| FA-88047d43 | 03:26 | grammar | A9 | كانوا منيح؟ | كانوا مناح، you mean؟ | منيح -> مناح | Plural subject (the questions) needs the plural adjective; Amal recast مناح and he repeated it. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-a3e60139 | 03:44 | grammar | C6 | خلّينا نشوف إنها عملتهم صح. | إنه، or إذا؟ | إنها -> إذا | 'let's see whether I did them right' needs إذا (if/whether), not إنه; she asked 'إنه or إذا?' and he switched to إذا. | high | judge panel (Opus + Argon, p 0.90) |
+| FA-832109de | 10:01 | vocab-A | tier 1 | أنا أخذت وقت إضافه لـ قهوة | وقت زيادة يمن؟ ... We have إضافة، بس it's فصحى ... We say زيادة in spoken. | إضافه -> زيادة | He used the fus7a word إضافة for 'extra'; Amal recast زيادة and explained it is the spoken word; he asked 'What did I say?' and took it. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-9fa56d40 | 18:43 | grammar | A13 | المرة الأول عنـ عندي؟ / El mara el awwal | المرة الأولى إلي. | المرة الأول -> المرة الأولى | After feminine مرة the adjective is الأولى; he said الأول at 18:43, 19:04 and 20:54, Amal recast المرة الأولى إلي at 20:58 and he said 'El mara el ula, that's what it is'. | high | judge panel (Opus + Argon, p 0.83) |
+| FA-f4de54bd | 20:54 | grammar | A8 | So el mara el awwal eli wouldn't make sense. | المرة الأولى إلي. | el mara el awwal eli -> المرة الأولى إلي | Masculine awwal after feminine مرة; Amal recast المرة الأولى and he said 'that's what I forgot' (Latin transliteration in the transcript). | high | judge panel (Opus + Argon, p 0.88) |
+| FA-010f37af | 23:41 | vocab-A | tier 1 | أغلب المرة is most of the time. | Yeah, but we don't say that. So أغلب الوقت. | أغلب المرة -> أغلب الوقت | 'Most of the time' uses وقت, not مرة (occurrence); Amal said we don't say that and gave أغلب الوقت, which he repeated. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-cb020e09 | 25:38 | grammar | A20 | أول من... منه؟ | No. | أول من... منه -> أوله | 'the beginning of it' is awal + the pronoun ending (أوله), no من; Amal said No and he went to أوله, she said Mm-hmm. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-ae7ed8b7 | 30:36 | vocab-A | tier 1 | Is it كيسة؟ | No, kees is a plastic bag. ... Remember suitcase. | كيسة -> شنتة | He reached for كيس/كيسة for 'bag'; Amal said no, that is a plastic bag, and hinted 'suitcase' until he said شنتة. | medium | judge panel (Opus + Argon, p 0.77) |
+| FA-020c03dd | 31:18 | grammar | A20 | آخر الشنتتها ... شنتت آخرها. | Does that sound right? ... No. | آخر الشنتتها -> شنتتها الأخيرة | 'her last bag': el- cannot sit on a noun with a possessive ending and آخر + owned noun means 'the end of'; Amal said No until he built شنتتها الأخيرة (Great job). | high | judge panel (Opus + Argon, p 0.82) |
+| FA-5078fea9 | 31:38 | grammar | A20 | شنتت آخرها. | No. ... you never start akhir with an N. | شنتت آخرها -> شنتتها الأخيرة | Second try put آخر after the noun with a pronoun ending; Amal said No. | medium | judge panel (Opus + Argon, p 0.78) |
+| FA-adfae6a0 | 32:14 | grammar | A20 | Oh, so yeah, her last bag is آخر شنتتها, right? | That's the end of her bag. | آخر شنتتها -> شنتتها الأخيرة | آخر + a noun with a possessive ending means 'the end of'; Amal told him 'That's the end of her bag'. | medium | judge panel (Opus + Argon, p 0.72) |
+| FA-6832a357 | 33:38 | grammar | A20 | آخر الـ، آخر الشنتة ... إلها. | No end, but something else. ... last bag for her ... آخر شنطة إلها. | آخر الشنتة -> آخر شنطة إلها | The second way is آخر + bare noun + إلها; آخر الشنتة = the end of the bag; Amal prompted 'no end... for her' and recast آخر شنطة إلها. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-7f73eaef | 34:27 | grammar | A20 | آخر الـ برنامج إلنا | No. ... Just one way to say this thing. | آخر الـ برنامج إلنا -> آخر برنامجنا | 'the end of our program' is آخر + noun with the pronoun ending; Amal said No and it ended at آخر برنامجنا (Great job). | high | judge panel (Opus + Argon, p 0.88) |
+| FA-5b35addd | 34:51 | grammar | A4 | برنامج، uh, برنامجها | Yeah. بس برنامجنا. | برنامجها -> برنامجنا | He put 'her' (ها) on the noun for 'our'; Amal recast برنامجنا and he repeated it. | high | judge panel (Opus + Argon, p 0.81) |
+| FA-c8b0b099 | 36:34 | grammar | A20 | أول بستهم | No. ... It means the beginning of their cat. | أول بستهم -> بستهم الأولى | أول + a noun with a possessive ending = 'the beginning of'; Amal said No and explained. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-ce7dda89 | 37:19 | grammar | A13 | بستهم أولين؟ | لش. ... No, it's, it's not plural. Their first cat. | أولين -> الأولى | After بستهم (one female cat) it is الأولى (fem singular, with el-); he gave a plural أولين, Amal said لش / not plural, he said أولى. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-fffbf517 | 39:12 | grammar | A14 | can you do ثانية كسرتها؟ | تاني كسرتها؟ No. | ثانية كسرتها؟ -> تاني كاسة إلها | He placed taani before a definite noun (which is invalid for 'second'), and Amal prompted him to use 'kase ilha'. | medium | judge panel (Opus + Argon, p 0.79) |
+| FA-da36fc3c | 39:29 | grammar | A14 | كاست التانية إلها. No? | No. | كاست التانية إلها -> تاني كاسة إلها | The ili-way is taani + bare noun + إلها; Amal said No and he built تاني كاسا إلها (Great). | high | judge panel (Opus + Argon, p 0.85) |
+| FA-e221705a | 42:20 | vocab-A | tier 2 | أغلب أسيلك | Very close. What's questions? | أسيلك -> أسئلتك | The plural of سؤال came out wrong (engine أسيلك); Amal said very close, asked 'What's questions?' and confirmed أسئلتك. | medium | judge panel (Opus + Argon, p 0.62) |
+| FA-37ea3d71 | 42:50 | vocab-A | tier 2 | is it جواب? No. Ajwab? | جواب is one. أجوبة. | Ajwab -> أجوبة | He tried a plural shape Ajwab; Amal said جواب is singular and gave أجوبة. | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-4a85839f | 43:28 | grammar | A22 | نفس أجـ أجوبة | أجوبة، أجوبتك. | نفس أجـ أجوبة -> نفس أجوبتك | After her أجوبتك at 43:27 he went back to bare أجوبة (nafs needs a definite noun, here the -t + ek ending); she fixed it again and he said نفس أجوبتك. | medium | judge panel (Opus + Argon, p 0.70) |
+| FA-65d0e1f6 | 44:06 | grammar | A21 | Can you do? غيري؟ ... Uh, غير مني؟ ... غير على؟ | What's the preposition? ... No. ... عن، عن. | غير مني -> غير عن | 'different from' is غير عن; he tried غيري, غير مني, غير على; Amal said No and gave عن. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-ebefc8e3 | 45:12 | grammar | D3 | انتي غير عنّك الكل | then everyone. | عنّك -> عن | He put a 'you' ending on عن before الكل; Amal pointed at 'than everyone' and he said إنتِ غير عن الكل (Yes). | high | judge panel (Opus + Argon, p 0.81) |
+| FA-8e3d8772 | 49:42 | grammar | A14 | طالب تانية | Tanya or Tanya? Did you say Tanya? | طالب تانية -> طالب تاني | طالب is masculine so it is تاني; Amal checked 'Did you say Tanya?' and he said طالب تاني. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-b020cde1 | 49:58 | vocab-A | tier 1 | طالب مختلف. | Or that's like, um, unique maybe. | طالب مختلف -> غير طالب | For 'another student' مختلف means a different/unique kind; Amal flagged the meaning and he moved on to غير طلاب. | medium | judge panel (Opus + Argon, p 0.70) |
+| FA-3806af1f | 53:20 | grammar | B9 | راح. This will be راح يكون ... أخر مرة | Only one correction is مرة، مرة is feminine or masculine. So راح شو؟ | راح يكون -> راح تكون | مرة is feminine so ykoon must be تكون; Amal named the rule and he said راح تكون. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-48690e29 | 54:18 | grammar | B1 | أخر مرة أملها. | Mm-hmm. آخر مرة بعملها. | أملها -> بعملها | Engine wrote أملها = عملها; the plain present needs b- (بعملها); Amal recast بعملها twice and he said آه، بعملها. | high | judge panel (Opus + Argon, p 0.84) |
+| FA-6151ccfa | 56:38 | grammar | A9 | um نكون سيء | بس سيئين. | سيء -> سيئين | Two people (Renad and I) take the plural adjective سيئين; Amal recast it and he repeated سيئين. | high | judge panel (Opus + Argon, p 0.90) |
+| FA-6d9bd638 | 57:10 | grammar | C4 | مش، مش عندنا كتير وقت. | ما عنا. ... ما عنا. | مش عندنا -> ما عنا | عند takes ma, not mish; Amal said ما عنا twice and he said ما عنا وقت كتير. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-f70ac328 | 57:57 | grammar | B13 | بس راح، راح بنفتأ ... راح بنـ، بنطفأ. | راح. ... نبي ندفع. | راح بنفتأ -> راح ندفع | ra7 takes the bare verb (no b-); Amal repeated 'راح.' then gave ندفع and he said إحنا راح ندفع كتير. Engine wrote بنفتأ/بنطفأ for bnedfa3. | high | judge panel (Opus + Argon, p 0.81) |
+| FA-850343f7 | 58:27 | vocab-A | tier 3 | بدنا إشي ممتاز و special. | What's special? You know it. ... It sounds like ممتاز. ... مميز. | special -> مميز | English 'special' inside an Arabic sentence; on her sheet: 'special / Mumayyaz / مميز'; Amal asked for it and supplied مميز. | high | r1+r2 |
+| FA-75c9dce9 | 1:00:35 | grammar | D2 | راح نكون متأخرين ... أول طيارة. | متأخرين على أول تيار. | متأخرين أول طيارة -> متأخرين على أول طيارة | Late FOR takes على; Amal recast متأخرين على أول طيارة and he asked 'متأخرين على؟'. | high | judge panel (Opus + Argon, p 0.84) |
+| FA-46984e6e | 1:02:34 | grammar | A20 | So، آخر الوقت. Would this be the last time? Or can I use آخر الـ، um... | لا. Cuz you said ال. | آخر الوقت -> آخر مرة | He asked it as a question, but Amal said لا because he put ال after آخر (which means the end of); he then said آخر مرة. | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-c7b10214 | 1:05:57 | vocab-A | tier 1 | قبل شهر، uh, ما استعملت اسباني كتير. | Do, do you wanna say the last month؟ ... الشهر الماضي. | قبل شهر -> الشهر الماضي | He meant 'last month' but قبل شهر = a month ago; Amal asked and gave الشهر الماضي, explaining قبل is for ago. | high | judge panel (Opus + Argon, p 0.82) |
