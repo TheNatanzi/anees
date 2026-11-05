@@ -1,0 +1,1806 @@
+{
+ "date": "2026-11-04",
+ "rule": "PR-29",
+ "threshold": 0.6,
+ "judges": [
+  "claude-opus-5-5",
+  "gemini-4-argon"
+ ],
+ "readers": [
+  "r1",
+  "r2",
+  "codex-gpt-5.6-terra",
+  "codex-gpt-6-astra",
+  "gemini-3.7-flash",
+  "gemini-3.1-pro-preview"
+ ],
+ "candidates": [
+  {
+   "id": "C1",
+   "t": "02:57",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "r1",
+    "r2"
+   ],
+   "p": 0.775,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.6,
+    "gemini-4-argon": 0.95
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "He gave a non-past form for 'I did them'; Amal recast it as عملتهم and he said Yes.",
+    "gemini-4-argon": "Medi used a present/broken form for 'I did them' and Amal recast it in the past tense as عملتهم."
+   },
+   "claims": [
+    {
+     "wrong": "أملهم",
+     "right": "عملتهم",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Amal supplies the completed first-person past form for the homework he has just done; the missing ع itself is excluded as pronunciation or transcription."
+    },
+    {
+     "wrong": "أملهم هلأ",
+     "right": "عملتهم",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "He said a bare present for 'I did them now' (engine wrote أملهم); Amal recast with the past عملتهم (she had asked عملتهم؟ at 02:51)."
+    },
+    {
+     "wrong": "أملوهن",
+     "right": "عملتهم",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Asked عملتهم؟ he answered with a broken past form (amalhon / amalhom) for 'I did them'; she recast عملتهم and he said Yes."
+    }
+   ]
+  },
+  {
+   "id": "C2",
+   "t": "03:44",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.7-flash",
+    "r1"
+   ],
+   "p": 0.83,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.7,
+    "gemini-4-argon": 0.96
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "He used إنها for 'if'; Amal pointed at the wrong word with 'إنه or إذا?'.",
+    "gemini-4-argon": "Medi used إنها ('that it') instead of conditional إذا ('if/whether'), and Amal prompted him with 'إنه، or إذا؟'."
+   },
+   "claims": [
+    {
+     "wrong": "إنها",
+     "right": "إذا",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "'Let's see if I did them right' needs iza (if), not inno/inha; she asked 'إنه or إذا?' pointing at the wrong linker."
+    },
+    {
+     "wrong": "إنها",
+     "right": "إذا",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "Medi used connector إنها instead of conditional إذا ('let's see if I did them right'); Amal prompts with إنه or إذا."
+    },
+    {
+     "wrong": "إنها",
+     "right": "إذا",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "Amal contrasts 'that' with 'if' because he means checking whether he completed the exercises correctly."
+    }
+   ]
+  },
+  {
+   "id": "C3",
+   "t": "03:44",
+   "family": "vocab",
+   "readers": [
+    "gemini-3.1-pro-preview"
+   ],
+   "p": 0.1,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.15000000000000002,
+    "gemini-4-argon": 0.050000000000000044
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "Same moment as C2.",
+    "gemini-4-argon": "Duplicate of C2 at the same moment; the linker choice إنه vs إذا is better classified as grammar (C2)."
+   },
+   "claims": [
+    {
+     "wrong": "إنها",
+     "right": "إذا",
+     "kind": "vocab-A",
+     "signal": "prompt-then-fix",
+     "why": "He used 'innha' (that it) instead of 'iza' for 'if'."
+    }
+   ]
+  },
+  {
+   "id": "C4",
+   "t": "06:49",
+   "family": "vocab",
+   "readers": [
+    "gemini-3.1-pro-preview"
+   ],
+   "p": 0.325,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.55,
+    "gemini-4-argon": 0.09999999999999998
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "Amal questioned 'مش أدي', said مش عادي and explained the difference.",
+    "gemini-4-argon": "As Amal and Medi discuss at 07:09-07:39, he knew the word عادي ('normal') and this was a pronunciation/vowel-length issue, not a vocab slip."
+   },
+   "claims": [
+    {
+     "wrong": "أدي",
+     "right": "عادي",
+     "kind": "vocab-A",
+     "signal": "prompt-then-fix",
+     "why": "Engine missed it in his line, but Amal's echo shows he said 'adi' instead of '3aadi'."
+    }
+   ]
+  },
+  {
+   "id": "C5",
+   "t": "10:01",
+   "family": "vocab",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.9,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.85,
+    "gemini-4-argon": 0.95
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "He used Fusha إضافة; Amal recast it as زيادة and said that is the spoken word.",
+    "gemini-4-argon": "Medi used Farsi/MSA إضافة for 'extra' time, and Amal recast to the spoken Levantine word زيادة."
+   },
+   "claims": [
+    {
+     "wrong": "إضافه",
+     "right": "زيادة",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "He used MSA إضافة for 'extra'; Amal recast وقت زيادة and said إضافة is Fusha, spoken is زيادة (sheet: extra / increase | Ziaadeh | زيادة)."
+    },
+    {
+     "wrong": "إضافه",
+     "right": "زيادة",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "He used the MSA word إضافة; Amal said it is فصحى and spoken is زيادة (sheet: extra / increase | Ziaadeh | زيادة); he took it."
+    },
+    {
+     "wrong": "إضافه",
+     "right": "زيادة",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "Medi used Fusha/Farsi إضافة for extra/more time; Amal explains at 10:22 that in spoken Arabic we say زيادة."
+    }
+   ]
+  },
+  {
+   "id": "C6",
+   "t": "12:00",
+   "family": "vocab",
+   "readers": [
+    "codex-gpt-6-astra"
+   ],
+   "p": 0.225,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.35,
+    "gemini-4-argon": 0.09999999999999998
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "He misunderstood Amal's Arabic in English; he didn't produce any wrong Arabic.",
+    "gemini-4-argon": "Medi was translating Amal's Arabic proverb into English during comprehension, not making an error while speaking Arabic."
+   },
+   "claims": [
+    {
+     "wrong": "command",
+     "right": "Age or life",
+     "kind": "vocab-A",
+     "signal": "prompt-then-fix",
+     "why": "He explicitly interprets العمر as 'command'; Amal prompts with قديش عمرك and confirms 'Age or life' at 12:21, making this a meaning misunderstanding rather than a production pronunciation slip."
+    }
+   ]
+  },
+  {
+   "id": "C7",
+   "t": "12:30",
+   "family": "vocab",
+   "readers": [
+    "codex-gpt-6-astra"
+   ],
+   "p": 0.21,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.4,
+    "gemini-4-argon": 0.020000000000000018
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "A mistake in his English translation of her saying, not in his Arabic.",
+    "gemini-4-argon": "Medi misspoke in English ('life' instead of 'work') while translating Amal's proverb, which is not an Arabic slip."
+   },
+   "claims": [
+    {
+     "wrong": "life",
+     "right": "work",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "In his translation of the saying he assigns 'life' to الشغل, and Amal supplies 'work' before his acknowledgment."
+    }
+   ]
+  },
+  {
+   "id": "C8",
+   "t": "18:28",
+   "family": "grammar",
+   "readers": [
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.885,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.85,
+    "gemini-4-argon": 0.92
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal said No to 'el mara el awwal andi' and gave أول مرة إلي (عندي is only used with مفضل).",
+    "gemini-4-argon": "Medi used عندي for 'my first time' (El mara el awwal andi), and Amal rejected it and gave أول مرة إلي, explaining عندي is only for مفضل."
+   },
+   "claims": [
+    {
+     "wrong": "El mara el awwal andi",
+     "right": "أول مرة إلي",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "He used 3andi for 'my first time' and el-awwal after a feminine noun; Amal said no and gave أول مرة إلي and the rule (3ind only with مفضل). He repeated 'awwal mara andi' at 19:19 (same moment)."
+    },
+    {
+     "wrong": "el awwal",
+     "right": "الأولى",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "مرة is feminine so the adjective after it is el-oola; Amal recast المرة الأولى and he said 'El mara el ula ... You didn't correct me on the other one'."
+    },
+    {
+     "wrong": "Marti",
+     "right": "أول مرة إلي",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Putting the -i ending on مرة gives مرتي = my wife; Amal said it sounds wrong and 'technically right but never used' (19:13, 20:18)."
+    }
+   ]
+  },
+  {
+   "id": "C9",
+   "t": "19:04",
+   "family": "grammar",
+   "readers": [
+    "gemini-3.7-flash"
+   ],
+   "p": 0.19,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.30000000000000004,
+    "gemini-4-argon": 0.07999999999999996
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "Amal fixed el-awwal → الأولى only at 20:58, which is the C10 moment.",
+    "gemini-4-argon": "Amal did not notice or correct الأول at 19:04 (as both note at 21:04-21:17), and the actual correction of الأولى is captured at C10."
+   },
+   "claims": [
+    {
+     "wrong": "الأول",
+     "right": "الأولى",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Medi paired masculine el-awwal with feminine noun el-marra; Amal recasts to المرة الأولى (which Medi acknowledges at 21:00)."
+    }
+   ]
+  },
+  {
+   "id": "C10",
+   "t": "20:54",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra"
+   ],
+   "p": 0.9,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.85,
+    "gemini-4-argon": 0.95
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal recast it as المرة الأولى and he noticed the missing feminine form.",
+    "gemini-4-argon": "Medi paired feminine المرة with masculine الأول, and Amal recast it to المرة الأولى إلي."
+   },
+   "claims": [
+    {
+     "wrong": "el mara el awwal",
+     "right": "المرة الأولى",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Amal recast the feminine noun مرة with the feminine ordinal الأولى."
+    }
+   ]
+  },
+  {
+   "id": "C11",
+   "t": "23:41",
+   "family": "vocab",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.915,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.85,
+    "gemini-4-argon": 0.98
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "'We don't say that', then she gave أغلب الوقت.",
+    "gemini-4-argon": "Medi said أغلب المرة for 'most of the time', which Amal rejected and corrected to أغلب الوقت."
+   },
+   "claims": [
+    {
+     "wrong": "aglab el marra",
+     "right": "أغلب الوقت",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "He used مرة (occurrence) for 'time' in 'most of the time'; Amal gave أغلب الوقت and explained مرة is occurrence."
+    },
+    {
+     "wrong": "أغلب المرة",
+     "right": "أغلب الوقت",
+     "kind": "vocab-A",
+     "signal": "explicit-no",
+     "why": "Medi translated 'most of the time' literally as aglab el marra; Amal explicitly rejects it and gives أغلب الوقت."
+    },
+    {
+     "wrong": "el marra",
+     "right": "الوقت",
+     "kind": "vocab-A",
+     "signal": "explicit-no",
+     "why": "'Most of the time' is أغلب الوقت; مرة is an occurrence, Amal said 'we don't say that' and gave الوقت."
+    }
+   ]
+  },
+  {
+   "id": "C12",
+   "t": "25:38",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.915,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.85,
+    "gemini-4-argon": 0.98
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal said No to awal min-minna; the owner ending goes straight on أول.",
+    "gemini-4-argon": "Medi used the preposition من ('awal minna') for 'the beginning of it', and Amal said no and guided him to attach the pronoun directly (أوله / أولها)."
+   },
+   "claims": [
+    {
+     "wrong": "min-minna",
+     "right": "awalo / awalha",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "In the translation drill Amal rejects من and explains at 26:05–26:30 that the owner attaches directly to أول; the Latin right forms follow her spoken explanation as transcribed elsewhere in this exchange."
+    },
+    {
+     "wrong": "awal minna",
+     "right": "أوله / أولها",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "Medi added preposition min ('awal minna') for 'the beginning of it'; Amal rejects with 'No' and guides to awwalo / awwalha."
+    },
+    {
+     "wrong": "awal min-minna",
+     "right": "أولها",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "For 'the beginning of it' he used awal + min + pronoun; Amal said no, the owner goes on the end (awala/awalha), no min."
+    }
+   ]
+  },
+  {
+   "id": "C13",
+   "t": "30:36",
+   "family": "vocab",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "gemini-3.1-pro-preview",
+    "r1",
+    "r2"
+   ],
+   "p": 0.775,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.6,
+    "gemini-4-argon": 0.95
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal rejected كيس for 'bag' and led him to شنتة.",
+    "gemini-4-argon": "Medi used كيس for 'bag', and Amal rejected it ('kees is a plastic bag') and prompted him to شنتة."
+   },
+   "claims": [
+    {
+     "wrong": "زكيسة",
+     "right": "شنتة",
+     "kind": "vocab-A",
+     "signal": "explicit-no",
+     "why": "He tried كيس (also Qissa/Jazan at 30:28) for 'bag'; Amal said kees is a plastic bag and steered him to suitcase/شنتة (sheet: bag | Shanta | شنتة)."
+    },
+    {
+     "wrong": "زكيسة",
+     "right": "شنتة",
+     "kind": "vocab-A",
+     "signal": "explicit-no",
+     "why": "For 'bag' he tried كيس (plastic bag) then جزدان; Amal said No, kees is a plastic bag, and led him to شنتة (sheet: bag | Shanta | شنتة)."
+    },
+    {
+     "wrong": "زكيسة",
+     "right": "شنتة",
+     "kind": "vocab-A",
+     "signal": "explicit-no",
+     "why": "Amal rejected his bag word as kees, a plastic bag, and supplied شنتة."
+    }
+   ]
+  },
+  {
+   "id": "C14",
+   "t": "31:18",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.86,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.8,
+    "gemini-4-argon": 0.92
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal questioned آخر الشنتة and explained it means 'the end of'.",
+    "gemini-4-argon": "Medi placed آخر before the noun ('آخر الشنتة') for 'her last bag', and Amal challenged it and explained that means 'the end of her bag'."
+   },
+   "claims": [
+    {
+     "wrong": "آخر الشنتة",
+     "right": "آخر شنطة إلها",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "For 'her last bag', Amal challenges آخر followed by a definite noun, explains the 'end of' reading at 31:59, and later supplies آخر شنطة إلها."
+    },
+    {
+     "wrong": "آخر الشنتة",
+     "right": "الشنتة الأخيرة",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "aa5er + el- noun means 'the end of', not 'last'; Amal questioned it and explained, he reached شنتة الأخيرة (32:34) and she said Great job."
+    },
+    {
+     "wrong": "آخر الشنتة",
+     "right": "شنتتها الأخيرة",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "Medi placed aa5er before the noun for 'her last bag', which means 'the end of her bag'; Amal explains the adjective must follow the noun."
+    }
+   ]
+  },
+  {
+   "id": "C15",
+   "t": "31:38",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-6-astra",
+    "r1",
+    "r2"
+   ],
+   "p": 0.81,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.7,
+    "gemini-4-argon": 0.92
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "A separate attempt, شنتت آخرها; Amal said No.",
+    "gemini-4-argon": "Medi tried placing آخرها after the noun ('شنتت آخرها') instead of the adjective الأخيرة, and Amal rejected it with 'No'."
+   },
+   "claims": [
+    {
+     "wrong": "شنتت آخرها",
+     "right": "شنتتها الأخيرة",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "He attaches 'her' to آخر instead of the bag noun; Amal rejects it, and the accepted adjective construction emerges at 32:28–32:38."
+    },
+    {
+     "wrong": "شنتت آخرها",
+     "right": "شنتتها الأخيرة",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "He put آخر after the noun with a pronoun ending; after the noun the adjective form a5eera is needed; Amal said No."
+    },
+    {
+     "wrong": "شنتت آخرها",
+     "right": "الشنتة الأخيرة",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Another wrong try for 'her last bag' (aa5er + pronoun ending means the end of her ...); Amal said No."
+    }
+   ]
+  },
+  {
+   "id": "C16",
+   "t": "32:14",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-6-astra"
+   ],
+   "p": 0.35,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.6,
+    "gemini-4-argon": 0.09999999999999998
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "A new attempt after her explanation; Amal said 'That's the end of her bag'.",
+    "gemini-4-argon": "Medi is asking a clarifying question about the same 'آخر شنتة' form from C14 that Amal just explained at 31:59."
+   },
+   "claims": [
+    {
+     "wrong": "آخر شنتتها",
+     "right": "شنتتها الأخيرة",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Engine wrote آخر شنتة, but Amal's explicit 'end of her bag' interpretation and preceding echo Akhir shantata support a possessive noun; this is a renewed wrong attempt after her 31:59 explanation."
+    }
+   ]
+  },
+  {
+   "id": "C17",
+   "t": "33:01",
+   "family": "grammar",
+   "readers": [
+    "r2"
+   ],
+   "p": 0.265,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.44999999999999996,
+    "gemini-4-argon": 0.07999999999999996
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "He rejected his own attempt first; her line answered his doubt, and the real fix is C18.",
+    "gemini-4-argon": "Medi self-corrected and aborted this thought ('no. So it becomes the end. No, right?') before settling on his actual attempt in C18."
+   },
+   "claims": [
+    {
+     "wrong": "شنتة الـ آخر",
+     "right": "آخر شنطة إلها",
+     "kind": "grammar",
+     "signal": "finished-sentence",
+     "why": "Asked for the second way to say 'her last bag' he tried 'the end'; Amal said not end, then gave آخر شنطة إلها after he said لها."
+    }
+   ]
+  },
+  {
+   "id": "C18",
+   "t": "33:38",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r2"
+   ],
+   "p": 0.85,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.75,
+    "gemini-4-argon": 0.95
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal recast آخر الشنتة لها as آخر شنطة إلها, without el-.",
+    "gemini-4-argon": "Medi kept الـ on the noun after آخر ('آخر الشنتة لها'), and Amal recast it without الـ as 'آخر شنطة إلها'."
+   },
+   "claims": [
+    {
+     "wrong": "آخر الشنتة",
+     "right": "آخر شنطة",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "In his new attempt at the alternative construction, Amal removes el- so آخر means 'last' rather than 'the end of'."
+    },
+    {
+     "wrong": "آخر الشنتة لها",
+     "right": "آخر شنطة إلها",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Medi put el- on shanta after aa5er ('آخر الشنتة لها'); Amal recasts to 'آخر شنطة إلها' without el-."
+    },
+    {
+     "wrong": "آخر الشنتة لها.",
+     "right": "آخر شنتة إلها",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "He put el- on the noun after aa5er, making it 'the end of' instead of 'the last'."
+    }
+   ]
+  },
+  {
+   "id": "C19",
+   "t": "34:22",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.9,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.85,
+    "gemini-4-argon": 0.95
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal said No to آخر البرنامج لنا; the answer is آخر برنامجنا.",
+    "gemini-4-argon": "For 'the end of our program', Medi said 'آخر البرنامج لنا' instead of using the possessive suffix, and Amal rejected it with 'No'."
+   },
+   "claims": [
+    {
+     "wrong": "آخر الـ برنامج لنا",
+     "right": "آخر برنامجنا",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "'The end of our program': he put el- and a separate لنا; Amal said No, one way only: آخر برنامجنا (possessive ending, no el-). Words spread over 34:22-34:33."
+    },
+    {
+     "wrong": "آخر الـ برنامج لنا",
+     "right": "آخر برنامجنا",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Medi said 'آخر البرنامج لنا' instead of attaching possessive -na to the noun ('آخر برنامجنا'); Amal rejects with 'No' and recasts at 35:16."
+    },
+    {
+     "wrong": "آخر الـ برنامج لنا",
+     "right": "آخر برنامجنا",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Amal rejects the separate لنا construction for this drill, supplies برنامجنا at 35:16, and approves آخر برنامجنا at 35:32."
+    }
+   ]
+  },
+  {
+   "id": "C20",
+   "t": "34:51",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-6-astra",
+    "r1",
+    "r2"
+   ],
+   "p": 0.815,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.7,
+    "gemini-4-argon": 0.93
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal said this means 'her last program' and said No to the repeat.",
+    "gemini-4-argon": "Medi switched to a post-nominal adjective ('برنامجها الأخرين'), and Amal pointed out that means 'her last program' rather than 'the end of'."
+   },
+   "claims": [
+    {
+     "wrong": "برنامجها الـ أخرين",
+     "right": "آخر برنامجنا",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "His revised answer switches to a final adjective and 'her'; Amal contrasts 'her last program' with the requested 'end of our program', then prompts آخر and supplies برنامجنا."
+    },
+    {
+     "wrong": "برنامجها الـ أخرين",
+     "right": "آخر برنامجنا",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "He used the adjective (and a plural أخرين) after the noun, which means 'her last program', not 'the end of'; Amal said No and he got آخر برنامجها."
+    },
+    {
+     "wrong": "برنامجها الـ أخرين",
+     "right": "آخر برنامجها",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "He produced 'her last program' (noun + adjective) when asked for 'the end of'; Amal said No and he reached آخر برنامجها."
+    }
+   ]
+  },
+  {
+   "id": "C21",
+   "t": "35:13",
+   "family": "grammar",
+   "readers": [
+    "r1"
+   ],
+   "p": 0.41,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.7,
+    "gemini-4-argon": 0.12
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "He said -ha (her) for 'our'; Amal recast it as برنامجنا.",
+    "gemini-4-argon": "Medi had misremembered the English prompt as 'her schedule' (at 34:19), and the target phrase 'آخر برنامجنا' is already covered by C19 and C20."
+   },
+   "claims": [
+    {
+     "wrong": "برنامجها",
+     "right": "برنامجنا",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "'Our' program needs -na, he said -ha (her); Amal recast برنامجنا and he repeated it."
+    }
+   ]
+  },
+  {
+   "id": "C22",
+   "t": "36:34",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.905,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.85,
+    "gemini-4-argon": 0.96
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal said No to أول + their cat: it means 'the beginning of their cat'.",
+    "gemini-4-argon": "Medi placed أول before a possessed noun ('أول بستهم'), and Amal rejected it and explained it means 'the beginning of their cat'."
+   },
+   "claims": [
+    {
+     "wrong": "أول بسيطًا",
+     "right": "بسيتهم الأولى",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Engine wrote بسيطًا for 'their cat'; awal + noun-with-ending means the beginning of their cat, so he needs the adjective after the noun; Amal said No and explained."
+    },
+    {
+     "wrong": "أول بستهم",
+     "right": "بستهم الأولى",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Medi placed awal before the definite possessed noun ('أول بستهم', engine wrote بسيطًا); Amal rejects and explains it means 'the beginning of their cat'."
+    },
+    {
+     "wrong": "أول بستهم",
+     "right": "بستهم الأولى",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Engine wrote أول بسيطًا across 36:34–36:39; Amal says it means 'the beginning of their cat' and explains that the possessive noun is definite."
+    }
+   ]
+  },
+  {
+   "id": "C23",
+   "t": "37:13",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-6-astra",
+    "r1",
+    "r2"
+   ],
+   "p": 0.775,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.65,
+    "gemini-4-argon": 0.9
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal fixed the owner ending with 'Their.' and rejected the plural awwalin.",
+    "gemini-4-argon": "When forming 'their first cat' with a post-nominal adjective, Medi used '-na' ('our') and plural 'olin', both of which Amal corrected."
+   },
+   "claims": [
+    {
+     "wrong": "olin",
+     "right": "ola (الأولى)",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "He reached for the plural awwalin after a single feminine noun; Amal said it is not plural and he got ola."
+    },
+    {
+     "wrong": "بسطنا",
+     "right": "بسيتهم",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "Engine wrote بسطنا (ending -na, 'our'); Amal said 'Their.' to point to -hom; he did not complete the fix."
+    },
+    {
+     "wrong": "بسطنا",
+     "right": "بستهم",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "Amal explicitly redirects his -نا owner ending to 'their'; the noun's consonant spelling is engine noise."
+    }
+   ]
+  },
+  {
+   "id": "C24",
+   "t": "39:12",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "gemini-3.1-pro-preview",
+    "r2"
+   ],
+   "p": 0.875,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.8,
+    "gemini-4-argon": 0.95
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal said No to ثانية كسرتها: it 'doesn't mean anything'.",
+    "gemini-4-argon": "Medi placed تاني before a possessed noun ('ثانية كسرتها') for 'her second cup', and Amal rejected it as meaningless and prompted the إلها construction."
+   },
+   "claims": [
+    {
+     "wrong": "ثانية كسرتها",
+     "right": "ثانية كاسة إلها",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Engine wrote كسرتها for 'her cup'; taani before a noun with a possessive ending is not the pattern; Amal said No and 'doesn't mean anything'."
+    },
+    {
+     "wrong": "ثانية كسرتها؟",
+     "right": "تاني كاسة إلها",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "He placed taani before a definite noun (which is invalid for 'second'), and Amal prompted him to use 'kase ilha'."
+    },
+    {
+     "wrong": "ثانية كسرتها",
+     "right": "تاني كاسة إلها",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Amal rejected his attempted alternate word order and guided him to the taani-before-noun construction."
+    }
+   ]
+  },
+  {
+   "id": "C25",
+   "t": "39:29",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-6-astra",
+    "r1",
+    "r2"
+   ],
+   "p": 0.875,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.8,
+    "gemini-4-argon": 0.95
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal said No to كاسة ثانية لها; he reordered it and she said Great.",
+    "gemini-4-argon": "Medi put ثانية after the indefinite noun ('كاسط ثانية لها', meaning 'another cup'), and Amal said 'No' until he reordered it to 'ثانية كاسا لها'."
+   },
+   "claims": [
+    {
+     "wrong": "كاسط ثانية لها",
+     "right": "ثانية كاسا لها (تاني كاسة إلها)",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "The 'other way' for 'her second cup' is taani before the noun + إلها; he put the possessed noun first then ثانية لها; Amal said No, then Great for ثانية كاسا لها."
+    },
+    {
+     "wrong": "كاسط ثانية لها",
+     "right": "تاني كاسة إلها",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "For 'her second cup', Amal rejects the noun-first indefinite alternative and accepts his reordered second-plus-cup answer at 39:44–39:50."
+    },
+    {
+     "wrong": "كاسط ثانية",
+     "right": "ثانية كاسة إلها",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Noun + taani gives 'another cup'; for 'second cup' taani goes first; Amal said No, then Great at 39:50 for ثانية كاسا لها."
+    }
+   ]
+  },
+  {
+   "id": "C26",
+   "t": "41:06",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra"
+   ],
+   "p": 0.175,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.30000000000000004,
+    "gemini-4-argon": 0.050000000000000044
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "He asked whether غير خطتهم works; that is a question about a rule.",
+    "gemini-4-argon": "After already getting the drill item right at 40:57, Medi asked a hypothetical question about the rule for using غير."
+   },
+   "claims": [
+    {
+     "wrong": "غير خطتهم",
+     "right": "غير خطة",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Amal explained that his phrase means “other than their plan,” while 8eir before a noun makes “another plan.”"
+    }
+   ]
+  },
+  {
+   "id": "C27",
+   "t": "42:20",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-6-astra",
+    "r1"
+   ],
+   "p": 0.835,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.75,
+    "gemini-4-argon": 0.92
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "He dropped the -t before the ending; Amal prompted and he fixed it to أسئلتك.",
+    "gemini-4-argon": "Medi omitted the feminine -t- before the possessive suffix on أسئلة ('أسيليك'), and after Amal's prompt he fixed it to 'أسيليتك' (أسألتك)."
+   },
+   "claims": [
+    {
+     "wrong": "أسيليك",
+     "right": "أسألتك",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "أسئلة is feminine so it grows -t before the owner ending (as2iltak); he dropped the t, Amal prompted and he said أسيليتك."
+    },
+    {
+     "wrong": "أسيليك",
+     "right": "أسألتك",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "The corrected أسيليتك followed by Amal's أسألتك restores the noun's -t before the possessive ending."
+    }
+   ]
+  },
+  {
+   "id": "C28",
+   "t": "42:20",
+   "family": "vocab",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r2"
+   ],
+   "p": 0.115,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.15000000000000002,
+    "gemini-4-argon": 0.07999999999999996
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "Same moment as C27.",
+    "gemini-4-argon": "Duplicate of C27 at the same moment; Medi already used أسئلة at 02:52, so missing the -t- before -ك is a grammar slip (C27)."
+   },
+   "claims": [
+    {
+     "wrong": "أسيليك",
+     "right": "أسئلتك",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "He did not have the plural of سؤال (sheet has only question | Su2aal | سؤال); Amal said 'very close' and gave أسألتك."
+    },
+    {
+     "wrong": "أسيليك",
+     "right": "أسألتك",
+     "kind": "vocab-A",
+     "signal": "prompt-then-fix",
+     "why": "Medi produced an incorrect plural noun form with possessive ('أسيليك'); Amal prompts and provides أسألتك at 42:31."
+    },
+    {
+     "wrong": "أسيليك",
+     "right": "أسئلتك",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "He used an incorrect form of the known word for questions; Amal supplied أسئلتك."
+    }
+   ]
+  },
+  {
+   "id": "C29",
+   "t": "42:50",
+   "family": "vocab",
+   "readers": [
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "r1",
+    "r2"
+   ],
+   "p": 0.66,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.4,
+    "gemini-4-argon": 0.92
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "He was guessing a plural out loud as a question, i.e. a word he didn't know.",
+    "gemini-4-argon": "Medi guessed 'Ajwab' for the plural 'answers', and Amal corrected it to أجوبة."
+   },
+   "claims": [
+    {
+     "wrong": "Ajwab",
+     "right": "أجوبة",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "After discarding the singular himself, his attempted plural is replaced by Amal's lexical plural أجوبة."
+    },
+    {
+     "wrong": "Ajwab",
+     "right": "أجوبة",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "He guessed the plural from the singular; Amal said جواب is one and gave أجوبة."
+    },
+    {
+     "wrong": "Ajwab",
+     "right": "أجوبة",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "He guessed a plural Ajwab for 'answers'; Amal gave the plural أجوبة."
+    }
+   ]
+  },
+  {
+   "id": "C30",
+   "t": "43:20",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "r2"
+   ],
+   "p": 0.315,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.55,
+    "gemini-4-argon": 0.07999999999999996
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "Amal recast أجوبتك twice until he said it right.",
+    "gemini-4-argon": "Medi immediately self-completed 'ajwabe. Ajwabetek.' with the -t- and possessive suffix in his own turn at 43:23 before Amal spoke."
+   },
+   "claims": [
+    {
+     "wrong": "Ajwabetek",
+     "right": "أجوبتك",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Feminine plural-form noun takes -t before the owner ending (أجوبة + ك = أجوبتك); Amal recast it."
+    },
+    {
+     "wrong": "ajwabe",
+     "right": "أجوبتك",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "For “same as your answers,” Amal supplied the possessive ending on أجوبة."
+    }
+   ]
+  },
+  {
+   "id": "C31",
+   "t": "44:06",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.94,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.9,
+    "gemini-4-argon": 0.98
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal said No to غير مني and gave عن.",
+    "gemini-4-argon": "Medi used the preposition من ('ghayr minni') instead of عن for 'different from me', and Amal rejected it and supplied عن."
+   },
+   "claims": [
+    {
+     "wrong": "ghayr minni",
+     "right": "غير عني",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Medi used preposition min with ghayr ('ghayr minni') for 'different from me'; Amal says 'No' and provides 3an (غير عني)."
+    },
+    {
+     "wrong": "ghayr minni",
+     "right": "غير عني",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "'Other than / different from' is غير عن; he used min; Amal said No and gave عن (she says he keeps forgetting it)."
+    },
+    {
+     "wrong": "ghayr minni",
+     "right": "غير عني",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "In the translation drill Amal rejects من and supplies عن at 44:33 for غير عن."
+    }
+   ]
+  },
+  {
+   "id": "C32",
+   "t": "45:12",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "r1"
+   ],
+   "p": 0.84,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.7,
+    "gemini-4-argon": 0.98
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "He put a 'you' ending on عن before الكل; Amal prompted and he fixed it.",
+    "gemini-4-argon": "Medi attached a pronoun suffix to عن before a noun ('annik il kul'), and Amal prompted him to fix it to 'عن الكل'."
+   },
+   "claims": [
+    {
+     "wrong": "annik il kul",
+     "right": "ann ikul (عن الكل)",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "He put a pronoun ending on عن and then a noun after it; after Amal's 'then everyone' he said 'ghayr ann ikul' and she said Yes."
+    },
+    {
+     "wrong": "annik",
+     "right": "عن",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "Amal redirects the complement to 'everyone', prompting him to remove the attached 'you' ending before الكل."
+    },
+    {
+     "wrong": "annik il kul.",
+     "right": "عن الكل",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "He unnecessarily attached a pronoun ending to '3an' before 'el-kul'."
+    }
+   ]
+  },
+  {
+   "id": "C33",
+   "t": "49:58",
+   "family": "grammar",
+   "readers": [
+    "r1"
+   ],
+   "p": 0.24,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.4,
+    "gemini-4-argon": 0.07999999999999996
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "Same moment as C34, which states the target better.",
+    "gemini-4-argon": "Medi had already given غير طالب at 47:25; his phrase طالب مختلف ('a different student') was grammatically valid, and Amal clarified she wanted 'one more student' (كمان)."
+   },
+   "claims": [
+    {
+     "wrong": "طالب مختلف",
+     "right": "غير طالب",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Asked for another way to say 'another student' he said طالب مختلف (a different student); Amal pushed back ('that's like unique'); the drilled forms are طالب تاني / غير طالب."
+    }
+   ]
+  },
+  {
+   "id": "C34",
+   "t": "49:58",
+   "family": "vocab",
+   "readers": [
+    "codex-gpt-6-astra"
+   ],
+   "p": 0.325,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.55,
+    "gemini-4-argon": 0.09999999999999998
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "Amal pushed back on مختلف ('like unique') and prompted 'one more', i.e. كمان.",
+    "gemini-4-argon": "Same moment as C33; طالب مختلف was a valid phrase with a different nuance, and Amal re-specified the English prompt as 'one more student' to elicit كمان."
+   },
+   "claims": [
+    {
+     "wrong": "مختلف",
+     "right": "كمان",
+     "kind": "vocab-A",
+     "signal": "prompt-then-fix",
+     "why": "Amal distinguishes مختلف from the requested additional student and prompts 'one more', eliciting كمان, transcribed Command."
+    }
+   ]
+  },
+  {
+   "id": "C35",
+   "t": "51:47",
+   "family": "grammar",
+   "readers": [
+    "gemini-3.1-pro-preview",
+    "r2"
+   ],
+   "p": 0.21,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.4,
+    "gemini-4-argon": 0.020000000000000018
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "He fixed طريقتني himself; Amal's لا overlaps his own fix.",
+    "gemini-4-argon": "Medi said طريقتي correctly at 51:37, self-answered his own question about '-ni' at 51:47, and completed الأولى on his own at 51:58."
+   },
+   "claims": [
+    {
+     "wrong": "طريقتني",
+     "right": "طريقتي",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "He tried an -ni ending (verb object pronoun) on a noun; Amal said لا and he settled on طريقتي; may be his own self-fix (her لا overlaps his line)."
+    },
+    {
+     "wrong": "طريقتي",
+     "right": "طريقتي الأولى",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "He omitted the adjective 'el-oola' after the definite noun to mean 'first'."
+    }
+   ]
+  },
+  {
+   "id": "C36",
+   "t": "53:20",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.945,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.9,
+    "gemini-4-argon": 0.99
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal asked if مرة is feminine and he fixed it to راح تكون.",
+    "gemini-4-argon": "Medi used masculine راح يكون with the feminine subject آخر مرة, and Amal prompted him on gender until he fixed it to راح تكون."
+   },
+   "claims": [
+    {
+     "wrong": "راح يكون",
+     "right": "راح تكون",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "Medi used masculine راح يكون referring to feminine subject آخر مرة; Amal prompts for gender match and Medi fixes to راح تكون."
+    },
+    {
+     "wrong": "راح يكون",
+     "right": "راح تكون",
+     "kind": "grammar",
+     "signal": "named-rule",
+     "why": "ykoon must match the feminine مرة; Amal asked if مرة is feminine or masculine and he said راح تكون."
+    },
+    {
+     "wrong": "راح يكون",
+     "right": "راح تكون",
+     "kind": "grammar",
+     "signal": "named-rule",
+     "why": "مرة is feminine so the verb is تكون; Amal named the gender of مرة and he said راح تكون."
+    }
+   ]
+  },
+  {
+   "id": "C37",
+   "t": "54:15",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.84,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.7,
+    "gemini-4-argon": 0.98
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal recast it as بعملها, adding the present b-, and repeated it.",
+    "gemini-4-argon": "Medi omitted the present b- prefix on أملها ('أعملها'), and Amal recast it as بعملها."
+   },
+   "claims": [
+    {
+     "wrong": "أملها",
+     "right": "بعملها",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Amal adds the ordinary-present b- and repeats بعملها when he asks what she said; the ع spelling is not separately scored."
+    },
+    {
+     "wrong": "أعملها",
+     "right": "بعملها",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Medi omitted b- prefix on present verb ('أعملها', engine wrote أملها); Amal recasts to بعملها with b-."
+    },
+    {
+     "wrong": "أملها",
+     "right": "بعملها",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "A plain present verb needs b-; he said أملها, Amal recast بعملها and repeated it."
+    }
+   ]
+  },
+  {
+   "id": "C38",
+   "t": "56:35",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.92,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.85,
+    "gemini-4-argon": 0.99
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal removed منكون and gave the plural adjective سيئين.",
+    "gemini-4-argon": "Medi used the present copula نكون and singular adjective سيء for a plural subject, and Amal corrected it to just plural سيئين."
+   },
+   "claims": [
+    {
+     "wrong": "نكون سيء",
+     "right": "سيئين",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Medi inserted present form of 'to be' ('نكون') and singular 'سيء'; Amal corrects that Arabic drops 'to be' in plain present and requires plural adjective سيئين."
+    },
+    {
+     "wrong": "سيء",
+     "right": "سيئين",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "'We two' needs the plural adjective سيئين; he said singular سيء; Amal recast سيئين and he repeated it."
+    },
+    {
+     "wrong": "نكون سيء",
+     "right": "سيئين",
+     "kind": "grammar",
+     "signal": "named-rule",
+     "why": "Amal explicitly removes the present copula and supplies the plural adjective for Medi and Renad."
+    }
+   ]
+  },
+  {
+   "id": "C39",
+   "t": "57:10",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.915,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.85,
+    "gemini-4-argon": 0.98
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal twice recast مش عندنا as ما عنا.",
+    "gemini-4-argon": "Medi negated عندنا with مش ('مش عندنا'), and Amal twice recast it to ما عنا."
+   },
+   "claims": [
+    {
+     "wrong": "مش عندنا",
+     "right": "ما عنا",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Amal answered 'ما عنا' (twice, 57:15 and 57:18) for 'we don't have'; ma + 3ind form."
+    },
+    {
+     "wrong": "مش عندنا",
+     "right": "ما عنا",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Medi negated 3indna with mish; Amal recasts to ما عنا (ma with pseudo-verbs)."
+    },
+    {
+     "wrong": "مش عندنا",
+     "right": "ما عنا",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Amal twice replaces مش with ما in the negative possession construction."
+    }
+   ]
+  },
+  {
+   "id": "C40",
+   "t": "57:34",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra"
+   ],
+   "p": 0.105,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.19999999999999996,
+    "gemini-4-argon": 0.010000000000000009
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "He asked how to say 'both of us'; Amal answered his question.",
+    "gemini-4-argon": "Medi asked in English how to say 'both of us' at 57:25 and was simply repeating Amal's answer in Levantine pronunciation (التنين) at 57:34."
+   },
+   "claims": [
+    {
+     "wrong": "التنين",
+     "right": "الاثنين",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Amal supplied the definite expression for “both of us.”"
+    }
+   ]
+  },
+  {
+   "id": "C41",
+   "t": "57:57",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.825,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.7,
+    "gemini-4-argon": 0.95
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal repeated راح as a prompt and gave the bare verb ندفع.",
+    "gemini-4-argon": "Medi kept the b- prefix on the verb after راح, and Amal prompted 'راح' and supplied the bare verb ندفع."
+   },
+   "claims": [
+    {
+     "wrong": "راح بنفتح",
+     "right": "راح ندفع",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "Amal prompts راح and supplies ندفع at 58:11, after which he acknowledges the fix; payment context makes بنفتح/بنطفأ engine renderings of the payment verb, not separate lexical errors."
+    },
+    {
+     "wrong": "راح بنفتح",
+     "right": "راح ندفع",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "ra7 takes a bare verb; Amal repeated راح as a prompt, then said ندفع and he said 'إحنا راح نطفا كتير' (engine wrote بنفتح / بنطفأ for bnedfa3)."
+    },
+    {
+     "wrong": "راح بندفع",
+     "right": "راح ندفع",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "Medi kept the b- prefix after future particle ra7 ('راح بندفع', engine wrote بنطفأ); Amal prompts with 'راح' and recasts to bare verb ندفع."
+    }
+   ]
+  },
+  {
+   "id": "C42",
+   "t": "58:06",
+   "family": "vocab",
+   "readers": [
+    "r2"
+   ],
+   "p": 0.125,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.19999999999999996,
+    "gemini-4-argon": 0.050000000000000044
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "Same moment as C41; بنطفأ is the speech-to-text engine mishearing the verb.",
+    "gemini-4-argon": "Duplicate moment with C41; 'بنطفأ' / 'نطفا' is speech-to-text transcription of his pronunciation of ندفع, not a lexical slip."
+   },
+   "claims": [
+    {
+     "wrong": "بنطفأ",
+     "right": "ندفع",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "Engine wrote بنطفأ; Amal supplied ندفع (pay) and he said 'Oh yeah that's right'."
+    }
+   ]
+  },
+  {
+   "id": "C43",
+   "t": "1:00:33",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "codex-gpt-6-astra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.855,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.75,
+    "gemini-4-argon": 0.96
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal recast it with على and later said على is better.",
+    "gemini-4-argon": "Medi omitted the preposition على after متأخرين, and Amal recast the phrase as 'متأخرين على أول طيارة'."
+   },
+   "claims": [
+    {
+     "wrong": "متأخرين أول طيارة",
+     "right": "متأخرين على أول طيارة",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Amal inserts على after متأخرين and later explicitly recommends it; her تيار is an engine rendering of طيارة in the flight exercise."
+    },
+    {
+     "wrong": "متأخرين أول طيارة",
+     "right": "متأخرين على أول طيارة",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "متأخر takes على; he left it out; Amal recast متأخرين على أول طيارة and he echoed 'متأخرين على؟'."
+    },
+    {
+     "wrong": "متأخرين أول طيارة",
+     "right": "متأخرين على أول طيارة",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Medi omitted preposition 3ala after متأخرين; Amal recasts with على (متأخرين على أول طيارة)."
+    }
+   ]
+  },
+  {
+   "id": "C44",
+   "t": "1:02:34",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "r2"
+   ],
+   "p": 0.64,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.4,
+    "gemini-4-argon": 0.88
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "He asked 'Would this be the last time?'; that is a rule question.",
+    "gemini-4-argon": "Medi tried 'آخر الوقت' for 'the last time', and Amal rejected it because الـ after آخر makes it mean 'the end of', leading him to say آخر مرة."
+   },
+   "claims": [
+    {
+     "wrong": "آخر الوقت",
+     "right": "آخر مرة",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Amal rejected the definite noun construction because it means the end of the time, not “last time.”"
+    },
+    {
+     "wrong": "آخر الوقت",
+     "right": "آخر مرة",
+     "kind": "grammar",
+     "signal": "named-rule",
+     "why": "aa5er + el- means 'the end of'; for 'last time' it is آخر مرة with no el-; he took it."
+    }
+   ]
+  },
+  {
+   "id": "C45",
+   "t": "1:04:45",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-5.6-terra"
+   ],
+   "p": 0.25,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.44999999999999996,
+    "gemini-4-argon": 0.050000000000000044
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "He asked which form is right; Amal answered with تبعي and didn't reject anything.",
+    "gemini-4-argon": "Medi asked how to say 'my Spanish', and Amal introduced تبعي, which had not been taught yet."
+   },
+   "claims": [
+    {
+     "wrong": "اسباني إلي",
+     "right": "إسباني تبعي",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Amal rejected his إلي possession phrase and supplied إسباني تبعي."
+    }
+   ]
+  },
+  {
+   "id": "C46",
+   "t": "1:05:48",
+   "family": "vocab",
+   "readers": [
+    "codex-gpt-5.6-terra",
+    "gemini-3.1-pro-preview",
+    "gemini-3.7-flash",
+    "r1",
+    "r2"
+   ],
+   "p": 0.785,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.65,
+    "gemini-4-argon": 0.92
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "He said شهرة twice; Amal recast it as شهر.",
+    "gemini-4-argon": "Medi said the feminine form شهرة for 'month' twice at 1:05:53, and Amal recast it to masculine شهر."
+   },
+   "claims": [
+    {
+     "wrong": "قبل شهر",
+     "right": "الشهر الماضي",
+     "kind": "vocab-A",
+     "signal": "prompt-then-fix",
+     "why": "Medi used قبل شهر (a month ago) when he meant 'the past month'; Amal prompts and corrects to الشهر الماضي."
+    },
+    {
+     "wrong": "شهرة",
+     "right": "شهر",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "Medi used non-existent feminine form شهرة for masculine month (شهر); Amal recasts to شهر."
+    },
+    {
+     "wrong": "شهرة",
+     "right": "شهر",
+     "kind": "vocab-A",
+     "signal": "recast",
+     "why": "Month is شهر (sheet: month | shahar | شهر); he said شهرة twice and Amal recast شهر."
+    }
+   ]
+  },
+  {
+   "id": "C47",
+   "t": "1:05:57",
+   "family": "grammar",
+   "readers": [
+    "codex-gpt-6-astra",
+    "r1"
+   ],
+   "p": 0.875,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.8,
+    "gemini-4-argon": 0.95
+   },
+   "kept": true,
+   "why": {
+    "claude-opus-5-5": "Amal prompted 'the last month', gave الشهر الماضي and explained that قبل means 'ago'.",
+    "gemini-4-argon": "Medi used 'قبل شهر' ('a month ago') when he meant 'the last/past month', and Amal guided him to الشهر الماضي and explained قبل means 'ago'."
+   },
+   "claims": [
+    {
+     "wrong": "قبل شهر",
+     "right": "الشهر الماضي",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "قبل + number = ago; for 'last month' it is الشهر الماضي; Amal asked if he meant 'the last month' and explained قبل is for ago."
+    },
+    {
+     "wrong": "قبل شهر",
+     "right": "الشهر الماضي",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "After he confirms 'last month', Amal supplies الشهر الماضي and explicitly explains that قبل شهر means 'a month ago'."
+    }
+   ]
+  }
+ ]
+}
