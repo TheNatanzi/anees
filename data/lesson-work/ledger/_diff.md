@@ -34,7 +34,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-28 | 96.4 | 182 | 87.3 | 22 | 173 | 0 / 1 |
 | 2026-10-30 | 94.8 | 270 | 90.7 | 28 | 290 | 2 / 0 |
 | 2026-11-02 | 98.2 -> **97.7** | 247 -> **263** | 89.5 -> **86.9** | 29 -> **35** | 209 -> **229** | 2 / 0 |
-| 2026-11-04 | None -> **97.4** | None -> **229** | None -> **89.6** | None -> **25** | None -> **182** | 1 / 1 |
+| 2026-11-04 | None -> **98.1** | None -> **268** | None -> **90.6** | None -> **27** | None -> **180** | 2 / 0 |
 
 
 ## Conflicts
@@ -157,9 +157,9 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-11-02 24:10 C1 settled: بعصب (word-bank right) vs بعصب -> تضايقت (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
 - 2026-11-02 43:48 C1 settled: حفلة. (word-bank right) vs حفلة -> الحرب (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-11-04 10:01 C1 settled: إضافه (word-bank right) vs إضافه -> زيادة (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
-- 2026-11-04 23:41 C1q Medi?: aglab (word-bank partial) vs aglab el marra -> أغلب الوقت (readers wrong) - which word of the phrase was wrong: Medi
-- 2026-11-04 23:42 C1q Medi?: marra (word-bank right) vs aglab el marra -> أغلب الوقت (readers wrong) - which word of the phrase was wrong: Medi
-- 2026-11-04 49:58 C1r both stand: مختلف. (word-bank right) vs طالب مختلف -> kamaan 6aaleb / 8eir 6aaleb (readers not-scored) - the Word Bank's context review already settled it: unchanged
+- 2026-11-04 23:41 C1 settled: المرة (word-bank right) vs أغلب المرة -> أغلب الوقت (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-11-04 23:41 C1p both stand: أغلب (word-bank partial) vs أغلب المرة -> أغلب الوقت (readers wrong) - slip elsewhere in the phrase: the word stays right
+- 2026-11-04 49:58 C1r both stand: مختلف. (word-bank right) vs طالب مختلف -> غير طالب (readers not-scored) - the Word Bank's context review already settled it: unchanged
 
 ## Medi's corrections (PR-15)
 
