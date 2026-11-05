@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T03:51:18-08:00",
+ "updated": "2026-11-04T17:16:07-08:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -12699,17 +12699,17 @@
    },
    "words": {
     "unique": 122,
-    "right": 256,
+    "right": 255,
     "wrong": 4,
     "partial": 4,
     "pct": 97.7,
-    "scored": 264,
+    "scored": 263,
     "audit_wrong": 4,
     "audit_partial": 0,
     "not_on_sheet": 2,
     "rehear_word_conflicts": 3,
     "unique_rows": 116,
-    "eligible": 264,
+    "eligible": 263,
     "excluded": 0,
     "pending": 0,
     "eligible_pct": 97.7,
@@ -12894,7 +12894,7 @@
     "turns": 1031,
     "chat_lines": 29,
     "vocab_errors": 6,
-    "vocab_correct": 260,
+    "vocab_correct": 259,
     "grammar_errors": 35,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
@@ -12905,7 +12905,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-11-02.json",
-    "marks": 594,
+    "marks": 593,
     "conflicts": 3,
     "resolved": 2,
     "needs_medi": 0,
@@ -12957,6 +12957,459 @@
      "_lesson_s": 3942.01,
      "first_t": 2.29,
      "last_t": 3697.39,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-11-04",
+   "start_local": "2026-11-04T15:04:37-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 68.7,
+   "type": "review-grammar",
+   "review_mode": "speaking",
+   "type_why": "16:52-1:06:40 (~50 of 65 min) is a review of the tool words (awal, taani, 8eir, aghlab, nafs, aa5er) with idafa and pronouns - 17:03 'tell me what do you know about أول؟', 15:51 'we agreed for you to review their function words' - plus one new twist at 17:49-21:36, 'my first time' = 'أول مرة إلي' (18:58 'There's two ways to say my first, my second, my last'), drilled as شنطتها الأخيرة / آخر شنطة إلها (32:34, 33:43) and كاستها التانية (39:50). 02:26-15:38 is warm-up talk in Arabic (homework, a lazy day, the saying العمر بيخلص والشغل ما بيخلص, the election, clothes); 1:03-1:06 he talks about his Spanish.",
+   "type_source": "claude-read",
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Tool word review (awal, taani, 8eir, aghlab, nafs, aa5er) + new: my first / my last with إلي",
+    "rules": [
+     {
+      "title": "my first / my last: أول مرة إلي, not مرتي الأولى",
+      "pattern": "awal / aa5er / taani + noun + إلي (or إلها, إلهم...)",
+      "bullets": [
+       "مرتي sounds like 'my wife', so say أول مرة إلي",
+       "the pronoun goes on إلي, not on the noun",
+       "only مفضل takes عندي; the rest take إلي"
+      ],
+      "examples": [
+       {
+        "t": "21:36",
+        "line": "أول مرة إلي - my first time"
+       },
+       {
+        "t": "33:43",
+        "line": "آخر شنطة إلها - her last bag"
+       },
+       {
+        "t": "39:50",
+        "line": "تانية كاسة إلها - her second cup"
+       }
+      ]
+     },
+     {
+      "title": "or put the pronoun on the noun and use the adjective with el-: شنطتها الأخيرة",
+      "pattern": "noun + pronoun + el- + adjective (الأولى / التانية / الأخيرة)",
+      "bullets": [
+       "أول شنطتها means 'the beginning of her bag'",
+       "a noun with a pronoun is definite, like el-",
+       "so the ordinal follows as an adjective"
+      ],
+      "examples": [
+       {
+        "t": "32:34",
+        "line": "شنطة الأخيرة - her last bag"
+       },
+       {
+        "t": "38:58",
+        "line": "كاستها تانية - her second cup"
+       },
+       {
+        "t": "51:58",
+        "line": "طريقتي الأولى - my first way"
+       }
+      ]
+     },
+     {
+      "title": "awal / aa5er + noun or pronoun = the beginning / the end of it",
+      "pattern": "aa5er + noun-with-pronoun",
+      "bullets": [
+       "no من: awal il-hafla = the beginning of the party",
+       "آخر برنامجنا = the end of our program",
+       "آخر مرة = the last time (no el-)"
+      ],
+      "examples": [
+       {
+        "t": "26:14",
+        "line": "awal il hafla - the beginning of the party"
+       },
+       {
+        "t": "35:30",
+        "line": "آخر برنامجنا - the end of our program"
+       },
+       {
+        "t": "54:13",
+        "line": "آخر مرة بعملها - the last time I do it"
+       }
+      ]
+     },
+     {
+      "title": "nafs il-ishi: nafs always takes el-",
+      "bullets": [
+       "people say nafs ishi, but the L is there",
+       "nafs il makan - the same place",
+       "nafsi = the same as me"
+      ],
+      "examples": [
+       {
+        "t": "27:15",
+        "line": "nafs il ishi - the same thing"
+       },
+       {
+        "t": "43:37",
+        "line": "نفس أجوبتك - the same as your answers"
+       }
+      ]
+     },
+     {
+      "title": "8eir 3an = different from; 8eir + noun = another / other",
+      "bullets": [
+       "8eir takes عن, not من",
+       "8eir خطة = another plan",
+       "8eir khuttethum = other than their plan"
+      ],
+      "examples": [
+       {
+        "t": "44:33",
+        "line": "عن، عن - different from"
+       },
+       {
+        "t": "45:32",
+        "line": "inti ghayr 3an il kul - you're different from everyone"
+       },
+       {
+        "t": "41:25",
+        "line": "غير خطة - another plan"
+       }
+      ]
+     },
+     {
+      "title": "aghlab el-wa'it, not aghlab el-marra",
+      "bullets": [
+       "مرة is one occurrence, so not with aghlab",
+       "aghlab + pronoun: aghlabhum = most of them"
+      ],
+      "examples": [
+       {
+        "t": "23:49",
+        "line": "أغلب الوقت - most of the time"
+       },
+       {
+        "t": "42:31",
+        "line": "أغلب أسئلتك - most of your questions"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up talk 02:26-15:38: homework, a lazy day, the saying العمر بيخلص والشغل ما بيخلص, the election, clothes",
+     "He asked: مش عادي vs مش أد (07:00), زيادة not إضافة (10:22)",
+     "Wedding sentence drill 52:06-59:01: آخر مرة, إحنا الاثنين, مميز",
+     "End 1:03-1:06: his Spanish - إسباني تبعي, الشهر الماضي vs قبل شهر",
+     "Next time: keep building on these tool-word lessons (1:07:13)"
+    ]
+   },
+   "words": {
+    "unique": 94,
+    "right": 217,
+    "wrong": 5,
+    "partial": 2,
+    "pct": 97.3,
+    "scored": 224,
+    "audit_wrong": 5,
+    "audit_partial": 0,
+    "not_on_sheet": 1,
+    "rehear_word_conflicts": 0,
+    "unique_rows": 90,
+    "eligible": 224,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 97.3,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 187,
+    "mistakes": 25,
+    "pct": 90.4,
+    "estimate": false,
+    "scored_mistakes": 18,
+    "unscored_mistakes": 7,
+    "eligible": 25,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "9 slips are in rules the counter found 0 uses of in this lesson",
+      "5 rules have more slips than counted uses (A20, A21, A3, B18, E6)"
+     ],
+     "uses": 172,
+     "slips": 25,
+     "slips_latin": 6,
+     "slips_in_zero_use_rules": 9,
+     "rules_slips_over_uses": [
+      "A20",
+      "A21",
+      "A3",
+      "B18",
+      "E6"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1203.3,
+    "amal_s": 814.8,
+    "speak_pct": 59.6,
+    "listen_pct": 40.4,
+    "window": [
+     0.0,
+     4058.8
+    ]
+   },
+   "fillers": {
+    "count": 191,
+    "per_min": 9.52,
+    "top": [
+     [
+      "uh",
+      109
+     ],
+     [
+      "um",
+      46
+     ],
+     [
+      "آآ",
+      33
+     ],
+     [
+      "ah",
+      2
+     ],
+     [
+      "امم",
+      1
+     ]
+    ],
+    "in_turns": 191,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.39,
+    "p75_s": 2.32,
+    "n": 272
+   },
+   "flow": {
+    "wpm": 62.8,
+    "n_turns": 145,
+    "arabic_words": 410
+   },
+   "new_words": [],
+   "taught": [],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "أد",
+     "english": "as much as (مش أد = not as much as), not عادي",
+     "t": "07:09"
+    },
+    {
+     "latin": null,
+     "arabic": "زيادة",
+     "english": "extra / more (spoken; إضافة is fusha)",
+     "t": "10:22"
+    },
+    {
+     "latin": null,
+     "arabic": "العمر بيخلص والشغل ما بيخلص",
+     "english": "life ends but work never does (a saying)",
+     "t": "11:40"
+    },
+    {
+     "latin": null,
+     "arabic": "أول مبارح",
+     "english": "the day before yesterday (= قبل مبارح)",
+     "t": "25:09"
+    },
+    {
+     "latin": null,
+     "arabic": "ثالث",
+     "english": "third",
+     "t": "40:08"
+    },
+    {
+     "latin": null,
+     "arabic": "أجوبة",
+     "english": "answers (جواب = one answer)",
+     "t": "42:54"
+    },
+    {
+     "latin": null,
+     "arabic": "غير عن",
+     "english": "different from",
+     "t": "44:33"
+    },
+    {
+     "latin": null,
+     "arabic": "إحنا الاثنين",
+     "english": "both of us",
+     "t": "57:31"
+    },
+    {
+     "latin": null,
+     "arabic": "ندفع",
+     "english": "we pay",
+     "t": "58:11"
+    },
+    {
+     "latin": null,
+     "arabic": "مميز",
+     "english": "special",
+     "t": "58:52"
+    },
+    {
+     "latin": null,
+     "arabic": "إسباني",
+     "english": "Spanish (the language)",
+     "t": "1:03:34"
+    },
+    {
+     "latin": null,
+     "arabic": "إسباني تبعي",
+     "english": "my Spanish (تبعي = mine)",
+     "t": "1:05:11"
+    },
+    {
+     "latin": null,
+     "arabic": "الشهر الماضي",
+     "english": "last month (the past month); قبل شهر = a month ago",
+     "t": "1:06:27"
+    }
+   ],
+   "coverage": "17:00-50:00 is a toolbox-word drill (awal/taani/8eir/a8lab/nafs/aa5er) with much of Medi's Arabic in Latin letters; rule explanations and 'can I say X?' questions were not scored. Engine: 04:54 بيروت probably بالبيت/بيت (working from home; Amal asks about الشغل بالبيت at 08:33); 05:25/05:57 افتح شوي likely ارتاح شوي (relax); 06:27 مش بدي = مش عادي (his ع, S4; Amal discussed أد vs عادي); 09:15/09:19 تسول = كسول; 15:13-15:19 بلوزة نو سكوم / عذراء / شورت بكيني garbled colours (عذراء probably خضرا); 36:39 بسيطًا = bsset-hom (their cat); echo: 'Command.' (50:23) = كمان; 52:54 أنا بكرة أخذت الـعرس = أنا بكره أخطط العرس (also 55:08 أخدد الـ أوروس); 57:57 بنفتح / 58:06 بنطفأ / نطفا = bnedfa3 / nedfa3 (Amal said ندفع); 1:05:13 طبيعي = تبعي; 45:49-46:34 ma min betihilik exchange unclear, not scored; 54:51-55:02 بكره/بكرهها exchange is ه pronunciation (S4), not scored. Names (أمل, Ramallah, Israel, Palestine, Egypt, Syria, Egyptian, Japan, اسباني) not flagged. No echo-candidates file exists for this date. medi_turns counts Medi lines with Arabic script only (279); about 40 more Latin-Arabic Medi lines in the drill were also read. / Whole file read. No echo-candidates file for this date. Engine garble not filed as errors: 04:54 أنا بشترل بيروت (works Beirut hours), 05:25 لازم افتح شوي (relax, engine), 40:39 بسطًا (plan, engine; Amal 'what did you say'), 50:38 بير تلب / تلب أنين (engine for 'other students'), 52:46-55:22 first wedding sentence (أخذت / أخدد الـ أوروس; Amal 'Nice'), 54:51 بكرهها (Amal asks for a clearer ها = pronunciation S4), 1:04:03 استعمل وقت. 'Command' at 50:23 = kamaan. Nationality اسباني/إسباني, names and place names not flagged. 'research' (57:43) is not on her sheet so not filed. Latin-letter stretches: 18:30-22:00, 25:00-29:00, 42:50-47:30. 45:49-46:30 (ghayr anni ma min betihiki, pointer question) too unclear to file.",
+   "notes": [
+    "grammar: 7 of the 25 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 10:01 Word Bank said right, Amal said no to that word: her no counts.",
+    "1 moment(s) wait for Medi (counted as before until he picks): 23:41."
+   ],
+   "page": "lessons/2026-11-04.html",
+   "detail": "data/lessons/2026-11-04.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-11-05",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 1150,
+    "chat_lines": 0,
+    "vocab_errors": 6,
+    "vocab_correct": 219,
+    "grammar_errors": 25,
+    "grammar_not_counted": 0,
+    "vocab_errors_split": {
+     "wrong": 5,
+     "half": 0,
+     "off_list": 1
+    }
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-11-04.json",
+    "marks": 441,
+    "conflicts": 3,
+    "resolved": 1,
+    "needs_medi": 1,
+    "mode": "on",
+    "items": [
+     {
+      "id": "C1q-0bfbb8d665",
+      "kind": "C1q",
+      "t": 1421.36,
+      "mmss": "23:41",
+      "line": "so aglab el marra",
+      "question": "Which of the student's words was wrong here?",
+      "options": [
+       "el",
+       "marra",
+       "other",
+       "none"
+      ],
+      "now": "once, as the slip (one utterance, one judgment, WS-39), until Amal answers",
+      "also": [
+       "23:42"
+      ],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "el marra",
+       "word_key": "mura"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "wrong",
+       "wrong": "el marra",
+       "fix": "الوقت",
+       "bucket": null,
+       "signal": "explicit-no"
+      },
+      "ask": "amal"
+     }
+    ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 48.3 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4122 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 43,
+       "r2": 46,
+       "agreed": 28,
+       "disputed": 30,
+       "agreement_pct": 48.3
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4122.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 4122.0,
+     "first_t": 3.03,
+     "last_t": 4046.04,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 4122.0,
+     "first_t": 113.53,
+     "last_t": 4049.11,
      "missing": [],
      "holes": [],
      "missing_s": 0,

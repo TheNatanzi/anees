@@ -1,9 +1,89 @@
 {
  "rule": "AM-31",
- "updated": "2026-11-04T16:15:14-08:00",
+ "updated": "2026-11-04T17:21:21-08:00",
  "about": "Grammar the tutor added on her Tutor page: her words, Claude's rewrite as a rule with a letter-number, and her answer. Only her 'Yes, add it' adds the rule (scripts/tutor_grammar.py).",
- "waiting_for_tutor": 3,
+ "waiting_for_tutor": 4,
  "items": [
+  {
+   "sid": "heard-20261104-1913",
+   "text": "أول مرة إلي",
+   "example": "",
+   "at": "2026-11-05T01:20:47+00:00",
+   "state": "proposed",
+   "versions": [
+    {
+     "grammar": true,
+     "id": "A25",
+     "family": "A",
+     "name": "my first: awal + noun + ili",
+     "one_line": "To say 'my first / my last / my second', put the ordinal before the noun and add إلي (or إلها, etc.) after it, instead of putting a possessive ending on the noun (مرتي means 'my wife').",
+     "formula": "awal / aa5er / taani + noun + ili (ilha, ilhom...)",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "أول يوم إلي",
+       "english": "my first day",
+       "hers": true,
+       "date": "2026-10-05",
+       "t": "44:16"
+      },
+      {
+       "arabizi": "",
+       "arabic": "أول عطلة إلي",
+       "english": "my first vacation",
+       "hers": true,
+       "date": "2026-10-06",
+       "t": "46:27"
+      },
+      {
+       "arabizi": "",
+       "arabic": "هذا أول يوم إلي",
+       "english": "this is my first day",
+       "hers": true,
+       "date": "2026-11-02",
+       "t": "56:08"
+      },
+      {
+       "arabizi": "",
+       "arabic": "آخر شنطة إلها",
+       "english": "her last bag",
+       "hers": true,
+       "date": "2026-11-04",
+       "t": "33:43"
+      }
+     ],
+     "why": "English speakers add the possessive to the noun (marti), which Arabic hears as 'my wife'; Arabic uses ili after the noun. Amal said the other way, with the adjective after a possessive noun, is technically right but you would never hear it.",
+     "overlaps": {
+      "id": "A23",
+      "name": "mufaddal + 3ind",
+      "why": "A23 also covers 3ind with mufaddal, while this rule uses ili for other ordinals."
+     },
+     "checked": {
+      "new": true,
+      "covered_by": null,
+      "why": "No existing rule or proposal teaches putting إلي/إلها after an ordinal + noun to say 'my first/last'; A13, A15 and A20 only cover the plain meanings and the el-/possessive cases.",
+      "her_examples": 4,
+      "cost_usd": 0.021156
+     },
+     "v": 1,
+     "made_at": "2026-11-05T01:20:47+00:00",
+     "model": "claude-sonnet-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-11-04",
+     "readers": [
+      "b"
+     ]
+    }
+   ],
+   "heard": {
+    "date": "2026-11-04",
+    "t": "19:13",
+    "quote": "أول مرة إلي",
+    "line": "يعني technically مرتي، مرتي الأولى is technically it's right, but you would never hear it because it would mean إلي. أول مرة إلي.",
+    "before": "So as an adjective, \"El mara el awwal,\" right?"
+   }
+  },
   {
    "sid": "heard-20261102-0108",
    "text": "فيو، in it.",
