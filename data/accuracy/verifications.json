@@ -31258,6 +31258,114 @@
    },
    "at": "2026-11-02T18:51:09-08:00",
    "run_id": "9ae2af48979946acad71676aa75ab6c4"
+  },
+  {
+   "uid": "FA-03896e3d",
+   "date": "2026-11-04",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "high",
+   "reason": "The supported error is «أول بستهم», not literal «أول بسيطًا». Amal says “No,” explains “the beginning of their cat,” and identifies the possessed noun as definite; Medi then recognizes he needs the adjective.",
+   "evidence": {
+    "t_start": 2189.0,
+    "t_end": 2223.0,
+    "quote": "Medi: «أول بالست قوم»; Amal: “No … the beginning of their cat … بس بسيت home is definitive.”",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-11-04/FA-03896e3d_Medi_Medi_Natanzi-c0b7ffd2fb6.mp3",
+      "sha256": "59b7d63373bf25613d518a9b521420231425ea1fe9384594cb44e8c00319ae42",
+      "source": "Medi_Natanzi-c0b7ffd2fb636400.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-11-04/FA-03896e3d_Amal_Amal-307da4c324303c0a.mp3",
+      "sha256": "e420a69660146d20d673bd49830ffed0914cf43ea672a71ece253ac5dedb6478",
+      "source": "Amal-307da4c324303c0a.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-11-04/FA-03896e3d_mixed_lesson.mp3",
+      "sha256": "e1f45ee01605ed0778f0063772d4d8b0993e6e76d2e0dd058c6c4ad3a0107885",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "لذا أول بسيط ماذا يعني هذا؟ أول مرحبا أعتقد أن أول إل في البداية",
+     "Amal": "لا لا لا لا لا لا لا لا لا لا لا لا لا اشتركوا في القناة",
+     "mixed": "اوووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووو نعم، بس بسيطوم is definitive أوه، بسيطوم"
+    }
+   },
+   "claim": {
+    "wrong": "أول بسيطًا",
+    "right": "بستهم الأولى",
+    "bucket": "A20",
+    "tier": null
+   },
+   "at": "2026-11-04T17:11:17-08:00",
+   "run_id": "be9f095647094179bf9da8bb157753ea",
+   "changed_to": {
+    "wrong": "أول بستهم",
+    "right": "بستهم الأولى"
+   }
+  },
+  {
+   "uid": "FA-a9746018",
+   "date": "2026-11-04",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-6-astra",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "high",
+   "reason": "The independent dialect and mixed transcriptions support «راح بندفع». Amal prompts «راح», then explicitly supplies «ندفع», establishing correction of the ب-prefix rather than a change from “open” to “pay.”",
+   "evidence": {
+    "t_start": 3467.0,
+    "t_end": 3502.0,
+    "quote": "Medi: «راح بندفع»; Amal: «راح! … نوبي، ندفع»; Medi: “Oh yeah that's right.”",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-11-04/FA-a9746018_Medi_Medi_Natanzi-c0b7ffd2fb6.mp3",
+      "sha256": "fefa98264f9a750309cb2fb847b4907668047753637e32714af56bbd27de6842",
+      "source": "Medi_Natanzi-c0b7ffd2fb636400.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-11-04/FA-a9746018_Amal_Amal-307da4c324303c0a.mp3",
+      "sha256": "f2dd38fa8f6fd20c0b41c6e3f4880aaec4bc843dddf0651822b12c80b65c5925",
+      "source": "Amal-307da4c324303c0a.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-11-04/FA-a9746018_mixed_lesson.mp3",
+      "sha256": "3337b8eca30ec281d3e503423a36916660aa117ae7f8122c9c2063463e36ddfa",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "راح ندفع كتير هو إذ",
+     "Amal": "أعتقد أن هذا جيد أحسن من كونه هكذا لا أعرف ما هو الوصف راح نوبي ندفع يا حنو",
+     "mixed": "أعتقد أن هذا جيد. أفضل من كونه كذلك. لا أعرف كيف تسميه. راح راح بنفتق راح راح بندفع نوبي ندفع نعم هذا صحيح. احنا راح نتفاكت هير يارو و ازا"
+    }
+   },
+   "claim": {
+    "wrong": "راح بنفتح",
+    "right": "راح ندفع",
+    "bucket": "B13",
+    "tier": null
+   },
+   "at": "2026-11-04T17:11:17-08:00",
+   "run_id": "be9f095647094179bf9da8bb157753ea",
+   "changed_to": {
+    "wrong": "راح بندفع",
+    "right": "راح ندفع"
+   }
   }
  ]
 }
