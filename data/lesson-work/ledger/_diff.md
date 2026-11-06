@@ -35,7 +35,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-30 | 94.8 | 270 | 90.7 | 28 | 290 | 2 / 0 |
 | 2026-11-02 | 98.2 -> **97.7** | 247 -> **263** | 89.5 -> **86.9** | 29 -> **35** | 209 -> **229** | 2 / 0 |
 | 2026-11-04 | None -> **98.1** | None -> **268** | None -> **91.9** | None -> **27** | None -> **209** | 2 / 0 |
-| 2026-11-05 | None -> **97.9** | None -> **97** | None -> **84.1** | None -> **10** | None -> **63** | 0 / 0 |
+| 2026-11-05 | None -> **96.2** | None -> **117** | None -> **88.3** | None -> **7** | None -> **60** | 1 / 1 |
 
 
 ## Conflicts
@@ -161,7 +161,8 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-11-04 23:41 C1 settled: المرة (word-bank right) vs أغلب المرة -> أغلب الوقت (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-11-04 23:41 C1p both stand: أغلب (word-bank partial) vs أغلب المرة -> أغلب الوقت (readers wrong) - slip elsewhere in the phrase: the word stays right
 - 2026-11-04 49:58 C1r both stand: مختلف. (word-bank right) vs طالب مختلف -> غير طالب (readers not-scored) - the Word Bank's context review already settled it: unchanged
-- 2026-11-05 02:12 C1r both stand: مفتوح، (word-bank right) vs مفتوح -> مرتاح (readers wrong) - the Word Bank's context review already settled it: unchanged
+- 2026-11-05 02:10 C1 settled: مفتاح (word-bank right) vs مفتاح -> مرتاح (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-11-05 26:00 C1q Medi?: زياد (word-bank right) vs زياد -> زيادة (readers wrong) - which word of the phrase was wrong: Medi
 
 ## Medi's corrections (PR-15)
 
