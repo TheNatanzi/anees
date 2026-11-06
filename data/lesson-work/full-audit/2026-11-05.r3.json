@@ -1,188 +1,222 @@
 {
  "date": "2026-11-05",
  "reader": "r3",
- "note": "Short lesson: real talk ends at ~29:57 (phone call, then bye at 33:10). Most Arabic in 22:00-29:00 is in Latin letters from the engine (zaigish, matenbisti, in basatetish). 08:15-08:18 number line may be engine (sitteen heard as sixteen).",
+ "note": "Lesson runs 00:43-33:10, real talk ends ~29:57 (phone call, then background noise to 33:06). Much of 09:27-21:00 is English rule talk about non-human plurals and -ish negation. Rows D1/A3 and D5/A9 are distinct pieces of the same moments, not duplicates.",
  "rulings": [
   {
    "id": "D1",
-   "verdict": "drop",
-   "why": "Same 02:29 line as A2, whose right already reads (اشتغلت) من بيتي; Amal said 'Yes. صح، من بيتي' and only fixed the preposition. Nothing in the transcript shows the verb was wrong: the engine may have dropped the i(sh)- (S4 / engine). Cannot be verified."
+   "verdict": "keep",
+   "row": {
+    "id": "1105-3",
+    "t": "03:36",
+    "t_amal": "04:09",
+    "medi_said": "اه، ال... آخر اجتماعاتي، اجتماعاتي.",
+    "amal_said": "Did you add in؟ ... It's one. اجتماع.",
+    "chat": "ijtimaa3i el-a5eer / aa5er ijtimaa3 ili kaan 3ala el-wa7de",
+    "wrong": "آخر اجتماعاتي",
+    "right": "اجتماعي الأخير / آخر اجتماع",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "A20",
+    "bucket2": "A15",
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "high",
+    "why": "aa5er + a noun with a possessive ending means 'the end of / last of my meetings'; Amal prompted (03:40 'Did you add in?', 04:09 'It's one. اجتماع.') and typed ijtimaa3i el-a5eer / aa5er ijtimaa3 - A20 names the possessive case exactly; A15 is the general before/after rule.",
+    "english": "my last meeting"
+   },
+   "why": "Both readers saw the same slip; A20 (aa5er + possessive ending = end of) fits the transcript best, A15 kept as bucket2."
   },
   {
    "id": "D2",
    "verdict": "keep",
    "row": {
+    "id": "1105-8",
+    "t": "07:22",
+    "t_amal": "07:24",
+    "medi_said": "At this moment.",
+    "amal_said": "No. هذي الفترة.",
+    "chat": "keef el-jaw 3indkom hadi el-fatra",
+    "wrong": "At this moment",
+    "right": "هذي الفترة (this period)",
+    "kind": "vocab-A",
+    "tier": 0,
+    "bucket": null,
     "bucket2": null,
-    "chat": "ijtimaa3i el-a5eer / aa5er ijtimaa3 ili kaan 3ala el-wa7de",
-    "tier": null,
-    "bucket": "A9",
-    "mode": "speaking",
-    "id": "1105-r3-1",
-    "t": "04:04",
-    "t_amal": "04:09",
-    "medi_said": "اه، اجتماعاتي الأخيرة، الأخير، الأخيرة، أخ-- لا، أخوات.",
-    "amal_said": "It's one. اجتماع.",
-    "wrong": "اجتماعاتي",
-    "right": "اجتماعي",
-    "kind": "grammar",
+    "mode": "listening",
     "signal": "explicit-no",
-    "confidence": "high",
-    "why": "She asked about the last ONE meeting (امتى كان آخر واحد؟); he used the plural اجتماعاتي; Amal: 'It's one. اجتماع.' and he took it at 04:12 ('Oh, 'cause it's the last meeting. You're right'). The plural is a separate piece from A3 (aa5er placement) and A4 (gender).",
-    "english": "my last meeting"
-   }
+    "confidence": "medium",
+    "why": "He glossed her هذي الفترة as 'at this moment'; Amal said 'No. هذي الفترة.' and he then worked out فترة = a period of time (07:27, she: أها).",
+    "english": "this period / these days"
+   },
+   "why": "Real listening miss: his gloss, her voiced No and repeat, then his corrected understanding."
   },
   {
    "id": "D3",
-   "verdict": "drop",
-   "why": "04:22-04:30 is him searching (الآخر، أخيرة، الأخير، الأخيرة - S5); her 'No. [laughs]' at 04:27 is not tied to one piece, and the same phrase is fixed at 04:37 ('اجتماع is masculine'), which is agreed row A4 (right اجتماعي الأخير). The plural part is D2. Same moment, not its own slip."
+   "verdict": "keep",
+   "row": {
+    "id": "1105-10",
+    "t": "08:18",
+    "t_amal": null,
+    "medi_said": "uh, sixteen.",
+    "amal_said": "Wow.",
+    "chat": "darjet el-7araara 7awaali 5amse u sitteen",
+    "wrong": "sixteen",
+    "right": "خمسة وستين",
+    "kind": "vocab-B",
+    "tier": 3,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "After the Arabic number failed (A7) he dropped English 'sixteen' into درجة الحرارة حوالي...; sheet: 'sixteen | sitta3sh | ستاعش', 'sixty | sittin | ستين'; her chat shows he meant 65. Pre-ruled tier-3 let-pass (AR-1933); may be the engine for 'sixty-five'.",
+    "english": "about sixty-five (degrees)"
+   },
+   "why": "English number inside an Arabic sentence, Arabic on her sheet; she let it pass - vocab-B tier 3, pre-ruled, low because the engine may have misheard."
   },
   {
    "id": "D4",
-   "verdict": "drop",
-   "why": "No voiced signal; her chat 7awaali alone is not a correction (GR-19). أول (awal) is a near-sound of حوالي with the ح dropped (7awaali -> awaali): most likely the engine or S4, not a wrong word."
+   "verdict": "keep",
+   "row": {
+    "id": "1105-11",
+    "t": "12:36",
+    "t_amal": "12:39",
+    "medi_said": "Is it بعيد؟ بعيد becomes bad?",
+    "amal_said": "لا، لا. من بابدا، بدت.",
+    "chat": "el-droos badat",
+    "wrong": "بعيد",
+    "right": "بدت (from بدا, started)",
+    "kind": "vocab-A",
+    "tier": 0,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "listening",
+    "signal": "asked",
+    "confidence": "low",
+    "why": "He asked whether her بدت came from بعيد (far); Amal: 'لا، لا. من بابدا، بدت.' and 'Started.' - a comprehension question about her word, so tier 0.",
+    "english": "started"
+   },
+   "why": "Listening mix-up he raised as a question; tier 0 (asked) rather than tier 1 since he did not produce the word in a sentence."
   },
   {
    "id": "D5",
    "verdict": "keep",
    "row": {
-    "bucket2": null,
-    "chat": "darjet el-7araara 7awaali 5amse u sitteen",
-    "tier": null,
-    "bucket": "E1",
-    "mode": "speaking",
-    "id": "1105-r3-2",
-    "t": "08:08",
-    "t_amal": "08:13",
-    "medi_said": "خمس وست-- What?",
-    "amal_said": "No. ... مش خمس.",
-    "wrong": "خمس",
-    "right": "خمسة",
+    "id": "1105-14",
+    "t": "23:09",
+    "t_amal": "23:12",
+    "medi_said": "Yeah. تزعش",
+    "amal_said": "اممم. Again.",
+    "chat": "ma / tenze3jesh min ay ishi taani",
+    "wrong": "تزعش",
+    "right": "تنزعجش",
     "kind": "grammar",
-    "signal": "explicit-no",
-    "confidence": "high",
-    "why": "A number said alone (65 degrees, no counted noun after it) keeps the -e: 5amse u sitteen. Amal 'No' (08:10) and 'مش خمس' (08:13); at 06:35 she had just asked when the أ/-e is dropped and he said 'when we're counting'. This is a new slip 2 minutes after A6, not a repeat.",
-    "english": "about sixty-five"
-   }
+    "tier": null,
+    "bucket": "B12",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "After she restored the t (A9) he still used the za3aj (annoy someone) stem without the n- of inza3aj (get annoyed; sheet: 'i get annoyed | Banz3ej | بنزعج'); Amal said 'Again', he reached بنزعج, she confirmed 'بنزعج، صح', he: 'There's an N'.",
+    "english": "don't be annoyed"
+   },
+   "why": "Separate piece from A9 (A9 = missing t-, this = missing n- of the get-X form); her 'Again' prompt led to his fix."
   },
   {
    "id": "D6",
    "verdict": "keep",
    "row": {
-    "bucket2": null,
-    "chat": "darjet el-7araara 7awaali 5amse u sitteen",
-    "tier": 1,
-    "bucket": null,
-    "mode": "speaking",
-    "id": "1105-r3-3",
-    "t": "08:18",
+    "id": "1105-20",
+    "t": "26:49",
     "t_amal": null,
-    "medi_said": "خمس و، uh, ستة عشر.",
-    "amal_said": "Wow.",
-    "wrong": "ستة عشر",
-    "right": "ستين",
-    "kind": "vocab-B",
+    "medi_said": "انبسطيش فيه / uh, زيادة",
+    "amal_said": "Mm-hmm.",
+    "chat": "ma / tenbestish fiyyo zyaade",
+    "wrong": "انبسطيش",
+    "right": "تنبسطيش",
+    "kind": "grammar-B",
+    "tier": null,
+    "bucket": "B11",
+    "bucket2": null,
+    "mode": "speaking",
     "signal": "none",
     "confidence": "low",
-    "why": "He meant 65 (chat 5amse u sitteen) and the engine wrote ستة عشر (sixteen) for sixty. Her voiced 'No / مش خمس' was before and aimed at خمس (D5); 'Wow' is not a fix, so it goes in as B (let pass). Low: 'sitteen' sounds like English 'sixteen', so the engine may have turned a right ستين into ستة عشر.",
-    "english": "sixty"
-   }
+    "why": "She had just said 'tinbastish fiyo ktir also works'; he said انبسطيش (no t-), the same t-drop she fixed at 23:04/23:40; she let it pass ('Mm-hmm') and typed tenbestish. Low: ان/تن is a near-sound the engine may have swapped.",
+    "english": "don't enjoy it too much"
+   },
+   "why": "Possible let-pass of a pattern he has (A10 انزعجش); kept as grammar-B low because the engine may have dropped the ت."
   },
   {
    "id": "D7",
-   "verdict": "keep",
-   "row": {
-    "bucket2": "A7",
-    "chat": "el-droos sa3be",
-    "tier": null,
-    "bucket": "A8",
-    "mode": "speaking",
-    "id": "1105-r3-4",
-    "t": "11:57",
-    "t_amal": "12:00",
-    "medi_said": "الدروس السبع, right?",
-    "amal_said": "No. صعبة.",
-    "wrong": "السبع",
-    "right": "صعبة",
-    "kind": "grammar",
-    "signal": "explicit-no",
-    "confidence": "medium",
-    "why": "He repeated her example الدروس صعبة 5 s later with a different word; in a lesson about feminine adjectives for non-human plurals, السبع is the engine's spelling of el-sa3b (masculine, with el-), not 'the seven'. Amal 'No. صعبة.' and he answered 'Oh, you're saying the singular feminine' - he took her fix. Speaking (him saying the rule's form), not a listening misread.",
-    "english": "the lessons are hard"
-   }
+   "verdict": "drop",
+   "why": "Not an error: at 09:39 he is listing the homework plurals in a meta talk ('did you see how many plurals...'); أخيرات is a valid plural of أخير (A15 lists a5eeraat) and Amal lists more forms with أها, no correction."
   },
   {
    "id": "D8",
    "verdict": "drop",
-   "why": "Duplicate of A9: the same word (zaigish 23:02 -> zaish 23:09 -> 'but zaish' 23:15), one continuous attempt, 13 s after her fix; A9's right تنزعجش already holds the missing n. Her 'بنزعج، صح' says 'right', so the line itself is not clearly wrong."
+   "why": "A question about the rule ('for بارد I can use like باردات؟') - neither a slip nor a use per the reader brief."
   },
   {
    "id": "D9",
    "verdict": "keep",
    "row": {
+    "id": "1105-11b",
+    "t": "11:57",
+    "t_amal": "12:00",
+    "medi_said": "الدروس صعبات، right?",
+    "amal_said": "No. صعبة.",
+    "chat": "el-droos sa3be",
+    "wrong": "صعبات",
+    "right": "صعبة",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "A8",
     "bucket2": null,
-    "chat": "ma / tenze3jesh min ay ishi taani",
-    "tier": 1,
-    "bucket": null,
     "mode": "speaking",
-    "id": "1105-r3-5",
-    "t": "24:07",
-    "t_amal": "24:16",
-    "medi_said": "Uh, minhek. Min-minhekishi or minhekishi.",
-    "amal_said": "هيك issue something like this.",
-    "wrong": "minhek",
-    "right": "min ay ishi",
-    "kind": "vocab-A",
     "signal": "explicit-no",
-    "confidence": "medium",
-    "why": "For 'about anything else' he used هيك (like this); Amal told him 'هيك is something like this', i.e. the wrong word; chat min ay ishi taani; sheet 'anything | Ay eshi | أي اشي'.",
-    "english": "about anything else"
-   }
+    "confidence": "low",
+    "why": "He built الدروس صعبات (non-human plural with -aat adjective) and Amal said 'No. صعبة.'; he then said 'Oh, you're saying the singular feminine'. Low: it has 'right?' (checking) and she later said كبيرات 'wouldn't be wrong' (16:19).",
+    "english": "the lessons are hard"
+   },
+   "why": "He produced a sentence with a wrong form and she voiced No + the fix (same shape as agreed A3 'اجتماعات الأخيرة، right?'); low because it is half a rule check."
   },
   {
    "id": "D10",
-   "verdict": "drop",
-   "why": "Amal: 'Fi or fiyo. You could say fiyo. Adi.' - she says both are fine (3adi) and offers fiyo as an option. Brief: Amal saying his version is also valid is not a slip."
+   "verdict": "keep",
+   "row": {
+    "id": "1105-19",
+    "t": "25:54",
+    "t_amal": "26:05",
+    "medi_said": "Oh yeah, فيه. ما تنبسطي فيه",
+    "amal_said": "Mm-hmm. Where's your ish?",
+    "chat": null,
+    "wrong": "ما تنبسطي فيه",
+    "right": "ما تنبسطيش فيه",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "PROPOSE",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "After her 25:46 'Where's your ish?' he said the wrong form again (ما تنبسطي فيه ... زيادة) and she prompted 'Where's your ish?' a second time; he then asked 'you want me to do ish for all of them?' and said ما تنبسطيش.",
+    "english": "don't enjoy it too much",
+    "proposed_rule": "A negative verb takes -ish at the end (ma tenbestish, bahkish): Amal 'Where's your ish?'"
+   },
+   "why": "Wrong form said again after her fix and she fixed it again = its own slip (GR-32); same PROPOSE rule as agreed A13."
   },
   {
    "id": "D11",
-   "verdict": "keep",
-   "row": {
-    "bucket2": null,
-    "chat": "ma / tenbestish fiyyo zyaade",
-    "tier": null,
-    "bucket": "PROPOSE",
-    "mode": "speaking",
-    "id": "1105-r3-6",
-    "t": "25:54",
-    "t_amal": "26:05",
-    "medi_said": "Oh yeah, fio. Matenbisti fio ziyad.",
-    "amal_said": "Mm-hmm. Where's your ish?",
-    "wrong": "Matenbisti fio",
-    "right": "ma tenbestish fiyyo",
-    "kind": "grammar",
-    "proposed_rule": "Negating a verb in spoken Levantine adds -ish at the end as well as ma in front: ma tenbestish fiyyo (don't enjoy it), ma tenze3jesh.",
-    "signal": "explicit-no",
-    "confidence": "medium",
-    "why": "8 s after her 25:46 'Where's your ish?' (A11) he again said Matenbisti with no -sh, and she asked again 'Where's your ish?'; he answered 'you want me to do ish for all of them?'. Wrong form again after her fix, fixed again = its own slip (GR-32). No bucket covers the -ish ending (B11 is only ma + you-form), so PROPOSE, same as A11.",
-    "english": "don't enjoy it too much"
-   }
-  },
-  {
-   "id": "D12",
    "verdict": "drop",
-   "why": "His 28:35 try already had the right form (in basatetish, with the t); 28:41 'in basata, in basatish' is him wavering (S5), and her 'Inbastatish' matches his first try. At 28:47 he said 'There's two T's, right?' again on his own. Self-fix before help / searching, not a slip."
-  },
-  {
-   "id": "D13",
-   "verdict": "drop",
-   "why": "'So like, for باد I can use like بادات' is a QUESTION about the rule she was explaining (feminine for non-human plurals), not a use in a sentence. Brief: a question about the rule is neither a slip nor a use."
+   "why": "Self-fix before help: his line runs بحكي, behkesh, behkish - he reached behkish (right) before her بحكيش at 20:36; her line confirms and explains the long-vowel rule (GR-22)."
   }
  ],
  "added": [],
  "challenges": [
   {
-   "id": "A7",
-   "why": "No voiced fix from Amal, only her chat 'tentain illa tult'. The engine line تسعة عشر إلا اثني عشر sounds nothing like any clock form and may be the engine garbling; if real it is a wrong number word, not the E2 'el-saa3a + feminine number' rule. Needs an audio check for what he said."
+   "id": "A14",
+   "why": "زياد at 26:00 looks like a word cut off mid-way (S5): Amal's 'Zia.' at 26:02 supplies the rest and he finishes زيـ زيادة at 26:03 - help on the way to the right word, not a wrong form; needs an audio check."
   }
  ]
 }

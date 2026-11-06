@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T17:17:00-08:00",
+ "updated": "2026-11-05T17:40:31-08:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -4488,7 +4488,7 @@
    "audit_uid": "FA-850343f7"
   },
   {
-   "id": "audit:FA-ab9a64b9",
+   "id": "audit:FA-07a79fed",
    "word_key": "mertA7",
    "entry_id": "mertA7:singular",
    "lesson_date": "2026-11-05",
@@ -4500,11 +4500,30 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "مفتوح",
-   "said": "مفتوح، أنا مفتوح، أنا مفتوح.",
-   "reason": "He said 'I am open' (maftoo7) for 'I am relaxed'; Amal said no (you're not a key), he switched to مرتاح at 02:18 and her chat has ana mertaa7.",
+   "text": "مفتاح",
+   "said": "مفتوح، أنا مفتاح، أنا مفتاح.",
+   "reason": "He reached for 'relaxed' and said مفتوح / مفتاح (open / key); Amal said No, you're a key, and he then found مرتاح (her chat ana mertaa7).",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-ab9a64b9"
+   "audit_uid": "FA-07a79fed"
+  },
+  {
+   "id": "audit:FA-6a2175d6",
+   "word_key": "ziAdeh",
+   "entry_id": "ziAdeh:singular",
+   "lesson_date": "2026-11-05",
+   "t_start": 1560,
+   "t_end": 1560,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "زياد",
+   "said": "زياد",
+   "reason": "He said زياد (a man's name) for زيادة; Amal echoed 'Zia' and he completed زيـ زيادة - may just be a cut-off word (S5).",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-6a2175d6"
   }
  ],
  "unplaced": [
@@ -8939,6 +8958,81 @@
    "expected": {
     "word_key": "mara~time",
     "t_start": 206.39
+   }
+  },
+  {
+   "event_id": "6df6609311bb257ea77d97a5c13e3158abeeebe63ff683db77c0c13153d61ee0",
+   "date": "2026-11-05",
+   "mark": "wb:6df6609311bb257ea77d97a5c13e3158abeeebe63ff683db77c0c13153d61ee0",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:6df6609311bb257ea77d97a5c13e3158abeeebe63ff683db77c0c13153d61ee0",
+    "ledger_reason": "the recording engine wrote لا،; you said no، (TR-22)"
+   },
+   "expected": {
+    "word_key": "lA",
+    "t_start": 248.054204976
+   }
+  },
+  {
+   "event_id": "fa11dd0246245f427fb7cfe01ec64a9ea3f3a621bfc599316599b7d58639e661",
+   "date": "2026-11-05",
+   "mark": "wb:fa11dd0246245f427fb7cfe01ec64a9ea3f3a621bfc599316599b7d58639e661",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:fa11dd0246245f427fb7cfe01ec64a9ea3f3a621bfc599316599b7d58639e661",
+    "ledger_reason": "the recording engine wrote تسعة عشر; you said اثنين (TR-22)"
+   },
+   "expected": {
+    "word_key": "tes3ah",
+    "t_start": 421.402204976
+   }
+  },
+  {
+   "event_id": "abc192d9c2797379e64c4bb369d2a0beb962b5b1e49090215d5682e0494019eb",
+   "date": "2026-11-05",
+   "mark": "wb:abc192d9c2797379e64c4bb369d2a0beb962b5b1e49090215d5682e0494019eb",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:abc192d9c2797379e64c4bb369d2a0beb962b5b1e49090215d5682e0494019eb",
+    "ledger_reason": "the recording engine wrote ستة عشر.; you said sixteen. (TR-22)"
+   },
+   "expected": {
+    "word_key": "sitah",
+    "t_start": 498.24220497600004
+   }
+  },
+  {
+   "event_id": "164dafe76c5622705b0eba41c38b05456384414e37784c6d30267565d17d3a33",
+   "date": "2026-11-05",
+   "mark": "ra:FA-07a79fed",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "ra:FA-07a79fed",
+    "ledger_reason": "Said here, another word intended: Amal says no (مرتاح)"
+   },
+   "expected": {
+    "word_key": "muftA7",
+    "t_start": 130.39
+   }
+  },
+  {
+   "event_id": "8ad8bb24b814edb4ac0bfa0616ba3cdaa03a7760b7c87b3d020b7e27d726008b",
+   "date": "2026-11-05",
+   "mark": "ra:FA-6a2175d6",
+   "was": "right",
+   "changes": {
+    "scored_in_event": true,
+    "ledger": "ra:FA-6a2175d6",
+    "ledger_reason": "One utterance, one judgment: زياد here is the counted slip (زيادة), not also a right use, until the tutor answers (WS-39)"
+   },
+   "expected": {
+    "word_key": "ziAdeh",
+    "t_start": 1559.69
    }
   }
  ]

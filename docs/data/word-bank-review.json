@@ -121780,24 +121780,29 @@
         }
       }
     },
-    "1cb8f94999c553c027c2bc261cfaf7bc5e1a3b9bd5f2370af81ca6a381881684": {
+    "c7605a6c261cb5f6bbb4f1b09bf0ec94aa93b389a5aaae6eb67ae4d3fa8f1440": {
       "expected": {
         "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
-        "row_id": "anees-20261105-recall-medi:row:606",
-        "word_key": "awal",
-        "text": "أول،",
-        "t_start": 480.422204976,
-        "t_end": 481.102204976,
-        "assessment": "unresolved",
-        "reason": "Isolated production; insufficient evidence of independent contextual success"
+        "row_id": "cover:2026-11-05:1261.7",
+        "word_key": "ana bal3ab",
+        "text": "بلعب",
+        "t_start": 1261.7,
+        "t_end": 1269.76,
+        "assessment": "helped",
+        "reason": "He says the tutor's words back (20:53 «بلعب.»): a repeat, not credited, not a mistake (WS-31)"
       },
       "changes": {
-        "assessment": "independent",
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other) (WS-30)",
+        "assessment": "helped",
+        "reason": "He says the tutor's words back (20:53 «بلعب.»): a repeat, not credited, not a mistake (WS-31)",
         "by": "word-coverage",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "vocab_points": 1
+        "rule": "WS-31",
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1253.07,
+          "text": "بلعب."
+        },
+        "entry_id": "ana bal3ab:present"
       }
     },
     "71f41c1cd33d08790c825011595f75e6c544bc3b17a2bc7f08e65dd6d5403df7": {
@@ -404545,13 +404550,59 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "3c4f66680abd0282760716c5fee46c9242bc43b7f8b752c1a20ed3d31694ea05",
+        "id": "6b9fbd658521628ec719722937152cd1bc84cd9359c77489ae94fff69981ddeb",
         "lesson_date": "2026-11-05",
-        "word_key": "kamAn",
+        "word_key": "Asef",
+        "local_start": 42.916,
+        "local_end": 43.536,
+        "candidate_keys": [
+          "Asef"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:43.01",
+        "item_ids": [],
+        "t_start": 43.01,
+        "t_end": 43.63,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "آسف",
+        "original_text": "آه سيس.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:43.01",
+            "speaker": "Medi",
+            "text": "آسف",
+            "timeline_start": 43.01,
+            "timeline_end": 43.63
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "3f88de2028c04511d705a983d54bf01d2378efc507a09ffcb55edf5e78c962dc",
+        "lesson_date": "2026-11-05",
+        "word_key": "tamAm",
         "local_start": 87.176,
         "local_end": 88.776,
         "candidate_keys": [
-          "kamAn"
+          "tamAm"
         ],
         "source_id": "anees-20261105-recall-medi",
         "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
@@ -404561,7 +404612,7 @@
         "t_end": 88.87,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "كمان",
+        "text": "تمام",
         "original_text": "كمان، 20.",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -404574,7 +404625,7 @@
           {
             "row_id": "cover:2026-11-05:87.27",
             "speaker": "Medi",
-            "text": "كمان، 20.",
+            "text": "تمام، وإنتِ؟",
             "timeline_start": 87.27,
             "timeline_end": 88.87
           }
@@ -404637,13 +404688,108 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "efd3d2cfadfea38fc5ab0cd25258a6616acd61254525e7ab602241531cd58bb3",
+        "id": "164dafe76c5622705b0eba41c38b05456384414e37784c6d30267565d17d3a33",
         "lesson_date": "2026-11-05",
-        "word_key": "mertA7",
+        "word_key": "muftA7",
+        "local_start": 130.296,
+        "local_end": 133.316,
+        "candidate_keys": [
+          "muftA7"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:130.39",
+        "item_ids": [],
+        "t_start": 130.39,
+        "t_end": 133.41,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "مفتاح",
+        "original_text": "مفتوح، أنا مفتوح، أنا مفتوح.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:130.39",
+            "speaker": "Medi",
+            "text": "مفتوح، أنا مفتاح، أنا مفتاح.",
+            "timeline_start": 130.39,
+            "timeline_end": 133.41
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "677e30bc2d5d1ed22305701d70788f0fd9fc3ec9e885c3f4bbaabdd92d68b887",
+        "lesson_date": "2026-11-05",
+        "word_key": "muftA7",
+        "local_start": 130.296,
+        "local_end": 133.316,
+        "candidate_keys": [
+          "muftA7"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:130.39",
+        "item_ids": [],
+        "t_start": 130.39,
+        "t_end": 133.41,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "مفتاح",
+        "original_text": "مفتوح، أنا مفتوح، أنا مفتوح.",
+        "match_method": "word_coverage",
+        "assessment": "unresolved",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:130.39",
+            "speaker": "Medi",
+            "text": "مفتوح، أنا مفتاح، أنا مفتاح.",
+            "timeline_start": 130.39,
+            "timeline_end": 133.41
+          }
+        ],
+        "reason": "said again in the same line, right after his own مفتاح: one try, counted once (WS-39)",
+        "rule": "WS-39",
+        "classification": "ignored",
+        "coverage": true,
+        "vocab_points": null,
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "dfe31f5660666e3ba1e79e7fe8dc9f9590aa87c5d0d3c705bca7aa8dd7bc3e0a",
+        "lesson_date": "2026-11-05",
+        "word_key": "ertA7",
         "local_start": 138.376,
         "local_end": 143.976,
         "candidate_keys": [
-          "mertA7"
+          "ertA7"
         ],
         "source_id": "anees-20261105-recall-medi",
         "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
@@ -404653,10 +404799,10 @@
         "t_end": 144.07,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "مرتاح",
+        "text": "ارتاح",
         "original_text": "افتح. أنا مرتاح؟ No. Okay, أنا مرتاح",
         "match_method": "word_coverage",
-        "assessment": "helped",
+        "assessment": "independent",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -404666,21 +404812,17 @@
           {
             "row_id": "cover:2026-11-05:138.47",
             "speaker": "Medi",
-            "text": "افتح. أنا مرتاح؟ No. Okay, أنا مرتاح",
+            "text": "ارتاح. أنا مر-- مرتاح؟ No. Okay, أنا مرتاح",
             "timeline_start": 138.47,
             "timeline_end": 144.07
           }
         ],
-        "reason": "Repeat of the tutor's fix of a counted slip at 02:13 («No. You're a key. You can't open.»): not credited, not a mistake (WS-31)",
-        "rule": "WS-31",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
         "classification": "lexical",
         "coverage": true,
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 133.31,
-          "text": "No. You're a key. You can't open."
-        }
+        "vocab_points": 1,
+        "entry_id": "ana bartA7:past"
       },
       "by": "word-coverage"
     },
@@ -404717,7 +404859,7 @@
           {
             "row_id": "cover:2026-11-05:138.47",
             "speaker": "Medi",
-            "text": "افتح. أنا مرتاح؟ No. Okay, أنا مرتاح",
+            "text": "ارتاح. أنا مر-- مرتاح؟ No. Okay, أنا مرتاح",
             "timeline_start": 138.47,
             "timeline_end": 144.07
           }
@@ -404732,6 +404874,104 @@
           "t": 133.31,
           "text": "No. You're a key. You can't open."
         }
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "ad446900d86309e0be28af3be47f27a0f3e97f78db8dee9778a8e0b21a7b7bf8",
+        "lesson_date": "2026-11-05",
+        "word_key": "mertA7",
+        "local_start": 138.376,
+        "local_end": 143.976,
+        "candidate_keys": [
+          "mertA7"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:138.47",
+        "item_ids": [],
+        "t_start": 138.47,
+        "t_end": 144.07,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "مرتاح",
+        "original_text": "افتح. أنا مرتاح؟ No. Okay, أنا مرتاح",
+        "match_method": "word_coverage",
+        "assessment": "helped",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:138.47",
+            "speaker": "Medi",
+            "text": "ارتاح. أنا مر-- مرتاح؟ No. Okay, أنا مرتاح",
+            "timeline_start": 138.47,
+            "timeline_end": 144.07
+          }
+        ],
+        "reason": "Repeat of the tutor's fix of a counted slip at 02:13 («No. You're a key. You can't open.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
+        "classification": "lexical",
+        "coverage": true,
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 133.31,
+          "text": "No. You're a key. You can't open."
+        }
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "e71c6a70ebb69f7d9716c94b69911737c24349c2cd670399959414b0b41fcb30",
+        "lesson_date": "2026-11-05",
+        "word_key": "ana shta8alet",
+        "local_start": 148.536,
+        "local_end": 153.796,
+        "candidate_keys": [
+          "ana shta8alet"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:148.63",
+        "item_ids": [],
+        "t_start": 148.63,
+        "t_end": 153.89,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "اشتغلت",
+        "original_text": "شغلت بيتي. من بيتي؟ لا، شغلت بيتي.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:148.63",
+            "speaker": "Medi",
+            "text": "اشتغلت، اه بيتي. من بيتي؟ لا، اشتغلت بيتي.",
+            "timeline_start": 148.63,
+            "timeline_end": 153.89
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana bashte8el:past"
       },
       "by": "word-coverage"
     },
@@ -404768,7 +405008,7 @@
           {
             "row_id": "cover:2026-11-05:148.63",
             "speaker": "Medi",
-            "text": "شغلت بيتي. من بيتي؟ لا، شغلت بيتي.",
+            "text": "اشتغلت، اه بيتي. من بيتي؟ لا، اشتغلت بيتي.",
             "timeline_start": 148.63,
             "timeline_end": 153.89
           }
@@ -404865,7 +405105,7 @@
           {
             "row_id": "cover:2026-11-05:171.11",
             "speaker": "Medi",
-            "text": "صباحي-- Can you say صباحي؟ My morning?",
+            "text": "سـ صباحي-- Can you say صباحي؟ My morning?",
             "timeline_start": 171.11,
             "timeline_end": 174.45
           }
@@ -404977,7 +405217,7 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "89cde030ff427d9d744bf8eaddf43dd58f74ca3ba4087e8755940524ec16909e",
+        "id": "f1b5423f2d1b6205a54304f85eec0878d7638583d520a573140b9331f83bd564",
         "lesson_date": "2026-11-05",
         "word_key": "huwe kAn",
         "local_start": 185.356,
@@ -405006,7 +405246,7 @@
           {
             "row_id": "cover:2026-11-05:185.45",
             "speaker": "Medi",
-            "text": "أن، اه، كان عندي",
+            "text": "أم، اه، كان عندي",
             "timeline_start": 185.45,
             "timeline_end": 187.89
           }
@@ -405024,7 +405264,7 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "1fc62623e6860e591ca6188ba2811560a7405e1416d4292fc07f7633c36c1bd0",
+        "id": "d0d1f4d98b1548baf2e01759022d89dd25b992d43fa1b04bb072f99e6f64ce51",
         "lesson_date": "2026-11-05",
         "word_key": "ana 3endi",
         "local_start": 185.356,
@@ -405053,7 +405293,7 @@
           {
             "row_id": "cover:2026-11-05:185.45",
             "speaker": "Medi",
-            "text": "أن، اه، كان عندي",
+            "text": "أم، اه، كان عندي",
             "timeline_start": 185.45,
             "timeline_end": 187.89
           }
@@ -405162,7 +405402,7 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "126c61863b4f5aa277a7445c75bda6a08cb0500f55edbbe2f0ba77a3be09edff",
+        "id": "9bfc65364386c712b34a48ef6ce6bb39b35c513ddcc2c7888b3225e6515eef4d",
         "lesson_date": "2026-11-05",
         "word_key": "zbUn",
         "local_start": 200.636,
@@ -405178,7 +405418,7 @@
         "t_end": 203.99,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "وذباين",
+        "text": "زباين",
         "original_text": "Yeah. اه، وذباين.",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -405191,7 +405431,7 @@
           {
             "row_id": "cover:2026-11-05:200.73",
             "speaker": "Medi",
-            "text": "Yeah. اه، وذباين.",
+            "text": "Yeah. um, with زباين.",
             "timeline_start": 200.73,
             "timeline_end": 203.99
           }
@@ -405300,13 +405540,13 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "aa4efba89154fc1a0b637c13b3a97b6b1f811026d24b9f86dc9a68c713f2b80a",
+        "id": "5a0b526d45d67a8ec75315bcae9c2e82f3a2c8ed8e31e669ca482ad5bcc0fc45",
         "lesson_date": "2026-11-05",
-        "word_key": "A5er",
+        "word_key": "2A5er",
         "local_start": 215.636,
         "local_end": 220.936,
         "candidate_keys": [
-          "A5er"
+          "2A5er"
         ],
         "source_id": "anees-20261105-recall-medi",
         "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
@@ -405316,7 +405556,7 @@
         "t_end": 221.03,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "الآخر",
+        "text": "آخر",
         "original_text": "اه، الآخر اجتماعتي، اجتماعتي.",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -405329,12 +405569,12 @@
           {
             "row_id": "cover:2026-11-05:215.73",
             "speaker": "Medi",
-            "text": "اه، الآخر اجتماعتي، اجتماعتي.",
+            "text": "اه، ال... آخر اجتماعاتي، اجتماعاتي.",
             "timeline_start": 215.73,
             "timeline_end": 221.03
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "reason": "His own answer to her question (03:27 «امتى كان آخر واحد؟»): counts like any word, not a repeat (WS-38)",
         "rule": "WS-30",
         "classification": "lexical",
         "coverage": true,
@@ -405346,7 +405586,7 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "86b876074477d4c97e302421e9e167234b438465a746b36e164bd6262ece0132",
+        "id": "a0b01e37d84858101c583ac4408af00a150b8182dc73edb162ef5aedf3833935",
         "lesson_date": "2026-11-05",
         "word_key": "ijtemA3",
         "local_start": 215.636,
@@ -405362,7 +405602,7 @@
         "t_end": 221.03,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "اجتماعتي",
+        "text": "اجتماعاتي",
         "original_text": "اه، الآخر اجتماعتي، اجتماعتي.",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -405375,7 +405615,7 @@
           {
             "row_id": "cover:2026-11-05:215.73",
             "speaker": "Medi",
-            "text": "اه، الآخر اجتماعتي، اجتماعتي.",
+            "text": "اه، ال... آخر اجتماعاتي، اجتماعاتي.",
             "timeline_start": 215.73,
             "timeline_end": 221.03
           }
@@ -405411,7 +405651,7 @@
         "text": "آخر",
         "original_text": "No. آخر اجتماعاتي. Did I add a...",
         "match_method": "word_coverage",
-        "assessment": "helped",
+        "assessment": "independent",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -405426,16 +405666,11 @@
             "timeline_end": 227.31
           }
         ],
-        "reason": "Repeat of the tutor's fix of a counted slip at 03:40 («Did you add in؟»): not credited, not a mistake (WS-31)",
-        "rule": "WS-31",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
         "classification": "lexical",
         "coverage": true,
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 220.31,
-          "text": "Did you add in؟"
-        }
+        "vocab_points": 1
       },
       "by": "word-coverage"
     },
@@ -405462,7 +405697,7 @@
         "text": "اجتماعاتي",
         "original_text": "No. آخر اجتماعاتي. Did I add a...",
         "match_method": "word_coverage",
-        "assessment": "helped",
+        "assessment": "independent",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -405477,16 +405712,11 @@
             "timeline_end": 227.31
           }
         ],
-        "reason": "Repeat of the tutor's fix of a counted slip at 03:40 («Did you add in؟»): not credited, not a mistake (WS-31)",
-        "rule": "WS-31",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
         "classification": "lexical",
         "coverage": true,
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 220.31,
-          "text": "Did you add in؟"
-        }
+        "vocab_points": 1
       },
       "by": "word-coverage"
     },
@@ -405513,7 +405743,7 @@
         "text": "آخر",
         "original_text": "So آخر is the last one, right? آخر اجتماع-- Oh, 'cause it's now I'm conjugating it. Um,",
         "match_method": "word_coverage",
-        "assessment": "helped",
+        "assessment": "unresolved",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -405523,21 +405753,19 @@
           {
             "row_id": "cover:2026-11-05:231.45",
             "speaker": "Medi",
-            "text": "So آخر is the last one, right? آخر اجتماع-- Oh, 'cause it's now I'm conjugating it. Um,",
+            "text": "So آخر is it's the last one, right? آخر اجتماع-- اجت-- Oh, 'cause it's now I'm conjugating it. Um,",
             "timeline_start": 231.45,
             "timeline_end": 239.03
           }
         ],
-        "reason": "Repeat of the tutor's fix of a counted slip at 03:40 («Did you add in؟»): not credited, not a mistake (WS-31)",
-        "rule": "WS-31",
-        "classification": "lexical",
+        "reason": "said again right after his own آخر at 03:43 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
         "coverage": true,
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 220.31,
-          "text": "Did you add in؟"
-        }
+        "vocab_points": null,
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
       },
       "by": "word-coverage"
     },
@@ -405564,7 +405792,7 @@
         "text": "آخر",
         "original_text": "So آخر is the last one, right? آخر اجتماع-- Oh, 'cause it's now I'm conjugating it. Um,",
         "match_method": "word_coverage",
-        "assessment": "helped",
+        "assessment": "unresolved",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -405574,21 +405802,19 @@
           {
             "row_id": "cover:2026-11-05:231.45",
             "speaker": "Medi",
-            "text": "So آخر is the last one, right? آخر اجتماع-- Oh, 'cause it's now I'm conjugating it. Um,",
+            "text": "So آخر is it's the last one, right? آخر اجتماع-- اجت-- Oh, 'cause it's now I'm conjugating it. Um,",
             "timeline_start": 231.45,
             "timeline_end": 239.03
           }
         ],
-        "reason": "Repeat of the tutor's fix of a counted slip at 03:40 («Did you add in؟»): not credited, not a mistake (WS-31)",
-        "rule": "WS-31",
-        "classification": "lexical",
+        "reason": "said again right after his own آخر at 03:43 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
         "coverage": true,
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 220.31,
-          "text": "Did you add in؟"
-        }
+        "vocab_points": null,
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
       },
       "by": "word-coverage"
     },
@@ -405625,7 +405851,7 @@
           {
             "row_id": "cover:2026-11-05:243.81",
             "speaker": "Medi",
-            "text": "اه، اجتماعاتي الأخيرة، الأخير، الأخيرة، أخ-- لا، أخوات.",
+            "text": "اه، اجتماعاتي الأخيرة، أخير، أخيرة، أخ-- no، أخوات.",
             "timeline_start": 243.81,
             "timeline_end": 248.77
           }
@@ -405671,7 +405897,7 @@
           {
             "row_id": "cover:2026-11-05:243.81",
             "speaker": "Medi",
-            "text": "اه، اجتماعاتي الأخيرة، الأخير، الأخيرة، أخ-- لا، أخوات.",
+            "text": "اه، اجتماعاتي الأخيرة، أخير، أخيرة، أخ-- no، أخوات.",
             "timeline_start": 243.81,
             "timeline_end": 248.77
           }
@@ -405688,7 +405914,7 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "5391891d896e09a84f48a584f84b040084ed3c132d381c755df283cfa03332f3",
+        "id": "02b53a22f2ce662d5b7ae3149513f512764f921c8a80ab626dedec27c468e47d",
         "lesson_date": "2026-11-05",
         "word_key": "a5Ir",
         "local_start": 243.716,
@@ -405704,7 +405930,7 @@
         "t_end": 248.77,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "الأخير",
+        "text": "أخير",
         "original_text": "اه، اجتماعاتي الأخيرة، الأخير، الأخيرة، أخ-- لا، أخوات.",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -405717,7 +405943,7 @@
           {
             "row_id": "cover:2026-11-05:243.81",
             "speaker": "Medi",
-            "text": "اه، اجتماعاتي الأخيرة، الأخير، الأخيرة، أخ-- لا، أخوات.",
+            "text": "اه، اجتماعاتي الأخيرة، أخير، أخيرة، أخ-- no، أخوات.",
             "timeline_start": 243.81,
             "timeline_end": 248.77
           }
@@ -405734,7 +405960,7 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "6d3e8baa31addb153814f16210009d09f91bc9f90f4eb4df2afa35fe66fe586a",
+        "id": "d8bd81500915be6ecf2b80dc06ff6799bee85c286a35a79b45151c517b43e424",
         "lesson_date": "2026-11-05",
         "word_key": "u5t",
         "local_start": 243.716,
@@ -405763,7 +405989,7 @@
           {
             "row_id": "cover:2026-11-05:243.81",
             "speaker": "Medi",
-            "text": "اه، اجتماعاتي الأخيرة، الأخير، الأخيرة، أخ-- لا، أخوات.",
+            "text": "اه، اجتماعاتي الأخيرة، أخير، أخيرة، أخ-- no، أخوات.",
             "timeline_start": 243.81,
             "timeline_end": 248.77
           }
@@ -405809,7 +406035,7 @@
           {
             "row_id": "cover:2026-11-05:261.93",
             "speaker": "Medi",
-            "text": "اجتماعاتي الآخر،",
+            "text": "اجتماعاتي الأخير",
             "timeline_start": 261.93,
             "timeline_end": 265.29
           }
@@ -405831,13 +406057,13 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "d7afea40abb445df7bd0c27fd796b2185aa09b4e0a22d2c8f44132dadaf6e2a9",
+        "id": "78b5cac2c73111a4a6ca023129fc938549a6eb944de38d225a61216cb3c5986a",
         "lesson_date": "2026-11-05",
-        "word_key": "A5er",
+        "word_key": "a5Ir",
         "local_start": 261.836,
         "local_end": 265.196,
         "candidate_keys": [
-          "A5er"
+          "a5Ir"
         ],
         "source_id": "anees-20261105-recall-medi",
         "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
@@ -405847,7 +406073,7 @@
         "t_end": 265.29,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "الآخر",
+        "text": "الأخير",
         "original_text": "اجتماعاتي الآخر،",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -405860,7 +406086,7 @@
           {
             "row_id": "cover:2026-11-05:261.93",
             "speaker": "Medi",
-            "text": "اجتماعاتي الآخر،",
+            "text": "اجتماعاتي الأخير",
             "timeline_start": 261.93,
             "timeline_end": 265.29
           }
@@ -405896,7 +406122,7 @@
         "text": "أخيرة",
         "original_text": "أخيرة، الأخير،",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "unresolved",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -405911,11 +406137,10 @@
             "timeline_end": 268.97
           }
         ],
-        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
+        "reason": "A correction cue from the tutor right after; the readers decide",
         "rule": "WS-30",
         "classification": "lexical",
-        "coverage": true,
-        "vocab_points": 1
+        "coverage": true
       },
       "by": "word-coverage"
     },
@@ -405942,7 +406167,7 @@
         "text": "الأخير",
         "original_text": "أخيرة، الأخير،",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "unresolved",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -405957,11 +406182,14 @@
             "timeline_end": 268.97
           }
         ],
-        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
-        "rule": "WS-30",
-        "classification": "lexical",
+        "reason": "said again right after his own الأخير at 04:21 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
         "coverage": true,
-        "vocab_points": 1
+        "vocab_points": null,
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
       },
       "by": "word-coverage"
     },
@@ -406033,7 +406261,7 @@
         "text": "اجتماعات",
         "original_text": "It's right. اجتماعات الأخيرة، right?",
         "match_method": "word_coverage",
-        "assessment": "unresolved",
+        "assessment": "independent",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -406048,10 +406276,11 @@
             "timeline_end": 276.31
           }
         ],
-        "reason": "A correction cue from the tutor right after; the readers decide",
+        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
         "rule": "WS-30",
         "classification": "lexical",
-        "coverage": true
+        "coverage": true,
+        "vocab_points": 1
       },
       "by": "word-coverage"
     },
@@ -406261,6 +406490,53 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
+        "id": "d665f2caec93d5ef23f130489f4b216982b157254e58d6533f030b420e0a8441",
+        "lesson_date": "2026-11-05",
+        "word_key": "huwe kAn",
+        "local_start": 295.816,
+        "local_end": 298.796,
+        "candidate_keys": [
+          "huwe kAn"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:295.91",
+        "item_ids": [],
+        "t_start": 295.91,
+        "t_end": 298.89,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "كان",
+        "original_text": "على، I can-- اه، على،",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:295.91",
+            "speaker": "Medi",
+            "text": "على، كان، اه، على،",
+            "timeline_start": 295.91,
+            "timeline_end": 298.89
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana bakUn:past"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
         "id": "f300a0f32dd2e4864b3e9ff39c684aed7c75621a3af86f41dd54420ef3ab7c39",
         "lesson_date": "2026-11-05",
         "word_key": "wa7ad",
@@ -406307,7 +406583,7 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "522305436a446b688dca58f96e0f93db7d17214c93205ffe2e71f76913a80e8d",
+        "id": "23864393e718c0bcd280a9735bfdc3b7b18629e1b0d7b10e45727afb03bbc64e",
         "lesson_date": "2026-11-05",
         "word_key": "wa7ad",
         "local_start": 311.016,
@@ -406323,7 +406599,7 @@
         "t_end": 311.81,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "واحدة",
+        "text": "الواحدة",
         "original_text": "الـ واحدة.",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -406336,7 +406612,7 @@
           {
             "row_id": "cover:2026-11-05:311.11",
             "speaker": "Medi",
-            "text": "الـ واحدة.",
+            "text": "الـ الواحدة",
             "timeline_start": 311.11,
             "timeline_end": 311.81
           }
@@ -406399,7 +406675,99 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "f28ccdbde7800a93cfff1cbb2c73e699b9d765e9b402d3fb162d77e8658684d9",
+        "id": "feabedde7afdfe32dd4d91efb47d0df715a09f7b1e3ac5dc042fb8ecbed3c76b",
+        "lesson_date": "2026-11-05",
+        "word_key": "3ashAn",
+        "local_start": 357.316,
+        "local_end": 358.656,
+        "candidate_keys": [
+          "3ashAn"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:357.41",
+        "item_ids": [],
+        "t_start": 357.41,
+        "t_end": 358.75,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "عشان",
+        "original_text": "ا weights دائما،",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:357.41",
+            "speaker": "Medi",
+            "text": "عشان وقت دائما،",
+            "timeline_start": 357.41,
+            "timeline_end": 358.75
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "055300a39c8c64fbf65dea1aef433d0bd3494d443c4b5b8071b8a36f4fb17647",
+        "lesson_date": "2026-11-05",
+        "word_key": "wa2et",
+        "local_start": 357.316,
+        "local_end": 358.656,
+        "candidate_keys": [
+          "wa2et"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:357.41",
+        "item_ids": [],
+        "t_start": 357.41,
+        "t_end": 358.75,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "وقت",
+        "original_text": "ا weights دائما،",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:357.41",
+            "speaker": "Medi",
+            "text": "عشان وقت دائما،",
+            "timeline_start": 357.41,
+            "timeline_end": 358.75
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "037f99733a3a107886ab17812393cf2331beec3a3b476c80df7e50bcd727a3b5",
         "lesson_date": "2026-11-05",
         "word_key": "dAiman",
         "local_start": 357.316,
@@ -406428,7 +406796,7 @@
           {
             "row_id": "cover:2026-11-05:357.41",
             "speaker": "Medi",
-            "text": "ا weights دائما،",
+            "text": "عشان وقت دائما،",
             "timeline_start": 357.41,
             "timeline_end": 358.75
           }
@@ -406445,7 +406813,154 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "32e8804b469006f06d8e495e75cde0e1dacd178436306235c4226d4746adca9f",
+        "id": "4c0395576f318a22f4845b6bd9ff73aba32d3a46a29b57350f7c88c8bb58de69",
+        "lesson_date": "2026-11-05",
+        "word_key": "dAiman",
+        "local_start": 360.296,
+        "local_end": 366.906,
+        "candidate_keys": [
+          "dAiman"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:360.39",
+        "item_ids": [],
+        "t_start": 360.39,
+        "t_end": 367,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "دايماً",
+        "original_text": "اه Do I know how to say feminine, masculine? I don't, right? Diamond feminine, uh,",
+        "match_method": "word_coverage",
+        "assessment": "unresolved",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:360.39",
+            "speaker": "Medi",
+            "text": "اه Do I know how to say feminine, masculine? I don't, right? دايماً feminine, uh,",
+            "timeline_start": 360.39,
+            "timeline_end": 367.0
+          }
+        ],
+        "reason": "said again right after his own دائما at 05:57 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
+        "coverage": true,
+        "vocab_points": null,
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "ba7ff7525e70f0464932012c64f22f4bc3585955d0acc2f614c742ca698d1a56",
+        "lesson_date": "2026-11-05",
+        "word_key": "dAiman",
+        "local_start": 368.286,
+        "local_end": 368.726,
+        "candidate_keys": [
+          "dAiman"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:368.38",
+        "item_ids": [],
+        "t_start": 368.38,
+        "t_end": 368.82,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "دايماً",
+        "original_text": "uh,",
+        "match_method": "word_coverage",
+        "assessment": "unresolved",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:368.38",
+            "speaker": "Medi",
+            "text": "uh, دايماً",
+            "timeline_start": 368.38,
+            "timeline_end": 368.82
+          }
+        ],
+        "reason": "said again right after his own دايماً at 06:00 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
+        "coverage": true,
+        "vocab_points": null,
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "b06e3c0f4842ae894490c1706b879b486f04ca415cb2ba7dae866c1252cb7f86",
+        "lesson_date": "2026-11-05",
+        "word_key": "dAiman",
+        "local_start": 370.486,
+        "local_end": 371.686,
+        "candidate_keys": [
+          "dAiman"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:370.58",
+        "item_ids": [],
+        "t_start": 370.58,
+        "t_end": 371.78,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "دايماً",
+        "original_text": "diamond definitive.",
+        "match_method": "word_coverage",
+        "assessment": "unresolved",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:370.58",
+            "speaker": "Medi",
+            "text": "دايماً definitive.",
+            "timeline_start": 370.58,
+            "timeline_end": 371.78
+          }
+        ],
+        "reason": "said again right after his own دايماً at 06:08 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
+        "coverage": true,
+        "vocab_points": null,
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "cb66362edf32ba3552bbf98403ff188a28ded9ae9c7949308fd068a6c2e6f9a0",
         "lesson_date": "2026-11-05",
         "word_key": "5amsah",
         "local_start": 381.026,
@@ -406461,7 +406976,7 @@
         "t_end": 382.92,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "خمس",
+        "text": "خامس",
         "original_text": "خمس، mm-hmm،",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -406474,7 +406989,7 @@
           {
             "row_id": "cover:2026-11-05:381.12",
             "speaker": "Medi",
-            "text": "خمس، mm-hmm،",
+            "text": "خامس، mm-hmm،",
             "timeline_start": 381.12,
             "timeline_end": 382.92
           }
@@ -406520,7 +407035,7 @@
           {
             "row_id": "cover:2026-11-05:384.7",
             "speaker": "Medi",
-            "text": "uh, خمس إحدى عشر،",
+            "text": "uh, خمس إحداش",
             "timeline_start": 384.7,
             "timeline_end": 387.24
           }
@@ -406537,13 +407052,13 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "c03985ba8e9d7834c585bf0b5625d8d624ed9b866de4f2fb93175be854060a4c",
+        "id": "3aa747187c79f9aa40f74eee965fec80ba310a3beb1cd847eec6f4f4c13a6aed",
         "lesson_date": "2026-11-05",
-        "word_key": "yoam ala7ad",
+        "word_key": "e7da3sh",
         "local_start": 384.606,
         "local_end": 387.146,
         "candidate_keys": [
-          "yoam ala7ad"
+          "e7da3sh"
         ],
         "source_id": "anees-20261105-recall-medi",
         "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
@@ -406553,7 +407068,7 @@
         "t_end": 387.24,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "إحدى",
+        "text": "إحداش",
         "original_text": "uh, خمس إحدى عشر،",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -406566,7 +407081,7 @@
           {
             "row_id": "cover:2026-11-05:384.7",
             "speaker": "Medi",
-            "text": "uh, خمس إحدى عشر،",
+            "text": "uh, خمس إحداش",
             "timeline_start": 384.7,
             "timeline_end": 387.24
           }
@@ -406583,59 +407098,13 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "3ffd364bdbd93fa98c3d8f46d11ceb1bcab510905911d56913f26aafc3865483",
+        "id": "fe16b3afe0c837c6ac1eced5d3955ca3e3bcc2ab25d50104d596b6f97202e74b",
         "lesson_date": "2026-11-05",
-        "word_key": "3ashrah",
-        "local_start": 384.606,
-        "local_end": 387.146,
-        "candidate_keys": [
-          "3ashrah"
-        ],
-        "source_id": "anees-20261105-recall-medi",
-        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
-        "row_id": "cover:2026-11-05:384.7",
-        "item_ids": [],
-        "t_start": 384.7,
-        "t_end": 387.24,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "عشر",
-        "original_text": "uh, خمس إحدى عشر،",
-        "match_method": "word_coverage",
-        "assessment": "independent",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-11-05:384.7",
-            "speaker": "Medi",
-            "text": "uh, خمس إحدى عشر،",
-            "timeline_start": 384.7,
-            "timeline_end": 387.24
-          }
-        ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "coverage": true,
-        "vocab_points": 1
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
-      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
-      "event": {
-        "id": "df17bb9b30857bc67f0e4c3fa27d4b40b231555a5a04466f5bd222e68bf13c06",
-        "lesson_date": "2026-11-05",
-        "word_key": "yoam ala7ad",
+        "word_key": "e7da3sh",
         "local_start": 392.026,
         "local_end": 394.306,
         "candidate_keys": [
-          "yoam ala7ad"
+          "e7da3sh"
         ],
         "source_id": "anees-20261105-recall-medi",
         "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
@@ -406645,10 +407114,10 @@
         "t_end": 394.4,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "إحدى",
+        "text": "إحداش",
         "original_text": "إحدى عشر ألفين وستة وعشرين.",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -406658,16 +407127,21 @@
           {
             "row_id": "cover:2026-11-05:392.12",
             "speaker": "Medi",
-            "text": "إحدى عشر ألفين وستة وعشرين.",
+            "text": "إحداش، ألفين ستة وعشرين.",
             "timeline_start": 392.12,
             "timeline_end": 394.4
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
+        "reason": "Repeat of the tutor's fix of a counted slip at 06:26 («Mm. No.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 386.41,
+          "text": "Mm. No."
+        }
       },
       "by": "word-coverage"
     },
@@ -406675,53 +407149,7 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "0a22394c047149b410b31a4be76b2ebdc8842bcd569be3fe60ac52df857d15b7",
-        "lesson_date": "2026-11-05",
-        "word_key": "3ashrah",
-        "local_start": 392.026,
-        "local_end": 394.306,
-        "candidate_keys": [
-          "3ashrah"
-        ],
-        "source_id": "anees-20261105-recall-medi",
-        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
-        "row_id": "cover:2026-11-05:392.12",
-        "item_ids": [],
-        "t_start": 392.12,
-        "t_end": 394.4,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "عشر",
-        "original_text": "إحدى عشر ألفين وستة وعشرين.",
-        "match_method": "word_coverage",
-        "assessment": "independent",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-11-05:392.12",
-            "speaker": "Medi",
-            "text": "إحدى عشر ألفين وستة وعشرين.",
-            "timeline_start": 392.12,
-            "timeline_end": 394.4
-          }
-        ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "coverage": true,
-        "vocab_points": 1
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
-      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
-      "event": {
-        "id": "f93d2398e50bdc2a67cb394503e718b684f6cf38e03a570acb37ea68aa6ee2a1",
+        "id": "4f645d4966c1bbeee27aa059b52eef293db0af7b106f606993a37c2418984ea5",
         "lesson_date": "2026-11-05",
         "word_key": "sitah",
         "local_start": 392.026,
@@ -406737,7 +407165,7 @@
         "t_end": 394.4,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "وستة",
+        "text": "ستة",
         "original_text": "إحدى عشر ألفين وستة وعشرين.",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -406750,7 +407178,7 @@
           {
             "row_id": "cover:2026-11-05:392.12",
             "speaker": "Medi",
-            "text": "إحدى عشر ألفين وستة وعشرين.",
+            "text": "إحداش، ألفين ستة وعشرين.",
             "timeline_start": 392.12,
             "timeline_end": 394.4
           }
@@ -406767,7 +407195,7 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "0954f6526e336391a99aa82e3bff77711b4979865a849bd10812be3dcb38e30f",
+        "id": "2f58b84ea6e5c5094375c475f4d6afb22d8276861c729a8e3ae9b10a951c6fd9",
         "lesson_date": "2026-11-05",
         "word_key": "3eshrIn",
         "local_start": 392.026,
@@ -406796,7 +407224,7 @@
           {
             "row_id": "cover:2026-11-05:392.12",
             "speaker": "Medi",
-            "text": "إحدى عشر ألفين وستة وعشرين.",
+            "text": "إحداش، ألفين ستة وعشرين.",
             "timeline_start": 392.12,
             "timeline_end": 394.4
           }
@@ -406842,7 +407270,7 @@
           {
             "row_id": "cover:2026-11-05:406.04",
             "speaker": "Medi",
-            "text": "like خمس اجتماع، اجتماع، اجتمع. Yeah, اجتماع is plural, right?",
+            "text": "like خمس اجتماع، اجتماعات، اجتماع، Yeah, اجتماعات is plural, right?",
             "timeline_start": 406.04,
             "timeline_end": 413.36
           }
@@ -406852,6 +407280,149 @@
         "classification": "lexical",
         "coverage": true,
         "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "fbb7e20c3ee8837091892437d76373b6cba66f69671364d376c79b22e9f83ec1",
+        "lesson_date": "2026-11-05",
+        "word_key": "ijtemA3",
+        "local_start": 405.946,
+        "local_end": 413.266,
+        "candidate_keys": [
+          "ijtemA3"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:406.04",
+        "item_ids": [],
+        "t_start": 406.04,
+        "t_end": 413.36,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "اجتماعات",
+        "original_text": "like خمس اجتماع، اجتماع، اجتمع. Yeah, اجتماع is plural, right?",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:406.04",
+            "speaker": "Medi",
+            "text": "like خمس اجتماع، اجتماعات، اجتماع، Yeah, اجتماعات is plural, right?",
+            "timeline_start": 406.04,
+            "timeline_end": 413.36
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "85796f609a4f4900743f93f117459832fa6589b556881330c80db8669c860816",
+        "lesson_date": "2026-11-05",
+        "word_key": "ijtemA3",
+        "local_start": 405.946,
+        "local_end": 413.266,
+        "candidate_keys": [
+          "ijtemA3"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:406.04",
+        "item_ids": [],
+        "t_start": 406.04,
+        "t_end": 413.36,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "اجتماعات",
+        "original_text": "like خمس اجتماع، اجتماع، اجتمع. Yeah, اجتماع is plural, right?",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:406.04",
+            "speaker": "Medi",
+            "text": "like خمس اجتماع، اجتماعات، اجتماع، Yeah, اجتماعات is plural, right?",
+            "timeline_start": 406.04,
+            "timeline_end": 413.36
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "4a71a2399c960ac5e17680a5aebca93de134a87103ad61737579a7226e72bd9a",
+        "lesson_date": "2026-11-05",
+        "word_key": "sa7",
+        "local_start": 414.826,
+        "local_end": 415.126,
+        "candidate_keys": [
+          "sa7"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:414.92",
+        "item_ids": [],
+        "t_start": 414.92,
+        "t_end": 415.22,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "صح",
+        "original_text": "Okay.",
+        "match_method": "word_coverage",
+        "assessment": "helped",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:414.92",
+            "speaker": "Medi",
+            "text": "صح.",
+            "timeline_start": 414.92,
+            "timeline_end": 415.22
+          }
+        ],
+        "reason": "He says the tutor's words back (06:54 «صح.»): a repeat, not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
+        "classification": "lexical",
+        "coverage": true,
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 414.05,
+          "text": "صح."
+        }
       },
       "by": "word-coverage"
     },
@@ -406905,13 +407476,13 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "ab518018fa72a5b9ba3c5b2d35e3ecd2a1450aa56f1de15969381c719128ef88",
+        "id": "d2fadbbc448b200819b146530ae5e9c9ad8e8db244f89f844531a702699175a3",
         "lesson_date": "2026-11-05",
-        "word_key": "3ashrah",
+        "word_key": "yoam aletnain",
         "local_start": 420.966,
         "local_end": 424.046,
         "candidate_keys": [
-          "3ashrah"
+          "yoam aletnain"
         ],
         "source_id": "anees-20261105-recall-medi",
         "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
@@ -406921,7 +407492,7 @@
         "t_end": 424.14,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "عشر",
+        "text": "اثنين",
         "original_text": "uh, تسعة عشر إلا اثني عشر.",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -406934,7 +407505,53 @@
           {
             "row_id": "cover:2026-11-05:421.06",
             "speaker": "Medi",
-            "text": "uh, تسعة عشر إلا اثني عشر.",
+            "text": "uh, اثنين إلا ثلث",
+            "timeline_start": 421.06,
+            "timeline_end": 424.14
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "f47b5b09ba46dea8be66282a6d4c737c79e63e5133292e37f8c65669d57a73c2",
+        "lesson_date": "2026-11-05",
+        "word_key": "tult",
+        "local_start": 420.966,
+        "local_end": 424.046,
+        "candidate_keys": [
+          "tult"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:421.06",
+        "item_ids": [],
+        "t_start": 421.06,
+        "t_end": 424.14,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "ثلث",
+        "original_text": "uh, تسعة عشر إلا اثني عشر.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:421.06",
+            "speaker": "Medi",
+            "text": "uh, اثنين إلا ثلث",
             "timeline_start": 421.06,
             "timeline_end": 424.14
           }
@@ -407118,7 +407735,7 @@
           {
             "row_id": "cover:2026-11-05:460.06",
             "speaker": "Medi",
-            "text": "dam-- Uh, do you say الجو شمس? Do you guys say the weather is sunny? الجو. Okay, الجو شمس بس شوي، um, بارد.",
+            "text": "dam-- Uh, do you say الجو شمس? Do you guys say the weather is sunny? الجو. Okay, الجو شمس بس شوي، um, بـ بارد.",
             "timeline_start": 460.06,
             "timeline_end": 470.9
           }
@@ -407167,7 +407784,7 @@
           {
             "row_id": "cover:2026-11-05:460.06",
             "speaker": "Medi",
-            "text": "dam-- Uh, do you say الجو شمس? Do you guys say the weather is sunny? الجو. Okay, الجو شمس بس شوي، um, بارد.",
+            "text": "dam-- Uh, do you say الجو شمس? Do you guys say the weather is sunny? الجو. Okay, الجو شمس بس شوي، um, بـ بارد.",
             "timeline_start": 460.06,
             "timeline_end": 470.9
           }
@@ -407306,7 +407923,7 @@
           {
             "row_id": "cover:2026-11-05:487.62",
             "speaker": "Medi",
-            "text": "خمس وست-- What?",
+            "text": "خمس و ست-- Wait.",
             "timeline_start": 487.62,
             "timeline_end": 492.1
           }
@@ -407315,103 +407932,6 @@
         "rule": "WS-30",
         "classification": "lexical",
         "coverage": true
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
-      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
-      "event": {
-        "id": "89689669f26c4b49abc9aa3161b961533ca822ca844b70d05bfbb2a255d71db3",
-        "lesson_date": "2026-11-05",
-        "word_key": "5amsah",
-        "local_start": 495.266,
-        "local_end": 495.846,
-        "candidate_keys": [
-          "5amsah"
-        ],
-        "source_id": "anees-20261105-recall-medi",
-        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
-        "row_id": "cover:2026-11-05:495.36",
-        "item_ids": [],
-        "t_start": 495.36,
-        "t_end": 495.94,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "خمس",
-        "original_text": "خمس و،",
-        "match_method": "word_coverage",
-        "assessment": "helped",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-11-05:495.36",
-            "speaker": "Medi",
-            "text": "خمس و،",
-            "timeline_start": 495.36,
-            "timeline_end": 495.94
-          }
-        ],
-        "reason": "Repeat of the tutor's fix of a counted slip at 08:13 («مش خمس.»): not credited, not a mistake (WS-31)",
-        "rule": "WS-31",
-        "classification": "lexical",
-        "coverage": true,
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 493.07,
-          "text": "مش خمس."
-        }
-      },
-      "by": "word-coverage"
-    },
-    {
-      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
-      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
-      "event": {
-        "id": "a822b9834913682b9d532cd6ff12015e73a43542d33f6f2e64818f962181b583",
-        "lesson_date": "2026-11-05",
-        "word_key": "3ashrah",
-        "local_start": 497.566,
-        "local_end": 498.766,
-        "candidate_keys": [
-          "3ashrah"
-        ],
-        "source_id": "anees-20261105-recall-medi",
-        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
-        "row_id": "cover:2026-11-05:497.66",
-        "item_ids": [],
-        "t_start": 497.66,
-        "t_end": 498.86,
-        "speaker": "Medi",
-        "speaker_basis": "participant_track_not_voice_verified",
-        "text": "عشر",
-        "original_text": "uh, ستة عشر.",
-        "match_method": "word_coverage",
-        "assessment": "independent",
-        "assessment_status": "provisional",
-        "spoken": true,
-        "wording_status": "asr",
-        "review_ids": [],
-        "version": "speaking-evidence-1",
-        "context": [
-          {
-            "row_id": "cover:2026-11-05:497.66",
-            "speaker": "Medi",
-            "text": "uh, ستة عشر.",
-            "timeline_start": 497.66,
-            "timeline_end": 498.86
-          }
-        ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "coverage": true,
-        "vocab_points": 1
       },
       "by": "word-coverage"
     },
@@ -407604,7 +408124,7 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "b8ec9fd941d590b0f6499f4c10deb6c30c5945a1e7d656becbd59a5738bfc339",
+        "id": "b5f1850ce6aef9370d254cd331f5c82caba3fad5081691cb2c4e934732c5a274",
         "lesson_date": "2026-11-05",
         "word_key": "fe3el",
         "local_start": 566.066,
@@ -407620,7 +408140,7 @@
         "t_end": 567.72,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "فاعل",
+        "text": "فعل",
         "original_text": "But I used فاعل wrong, which...",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -407633,7 +408153,7 @@
           {
             "row_id": "cover:2026-11-05:566.16",
             "speaker": "Medi",
-            "text": "But I used فاعل wrong, which...",
+            "text": "But I used فعل wrong, which...",
             "timeline_start": 566.16,
             "timeline_end": 567.72
           }
@@ -407650,7 +408170,7 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "558c4868505f551e93befecb52612cf4fb4061622c2d812debd4b6aee548ab4e",
+        "id": "cb99b050daa855927d37c42ceee59f556a07d189bedf6628c52681e258567a2f",
         "lesson_date": "2026-11-05",
         "word_key": "a5Ir",
         "local_start": 578.726,
@@ -407666,7 +408186,7 @@
         "t_end": 581.34,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "أخيرة",
+        "text": "أخيرات",
         "original_text": "So أخيرة، آواخر.",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -407679,7 +408199,7 @@
           {
             "row_id": "cover:2026-11-05:578.82",
             "speaker": "Medi",
-            "text": "So أخيرة، آواخر.",
+            "text": "So أخيرات، آواخر.",
             "timeline_start": 578.82,
             "timeline_end": 581.34
           }
@@ -407788,13 +408308,13 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "23262ba23583a1546756c1df1e13316dc77178851ec239c48a4d60b198d5bc82",
+        "id": "4a65d3fc2968cf0391b19556fd06ed2c10cc0a9af4c934586ca726a83e9e51c0",
         "lesson_date": "2026-11-05",
-        "word_key": "heiye badat",
+        "word_key": "bAred",
         "local_start": 698.326,
         "local_end": 701.326,
         "candidate_keys": [
-          "heiye badat"
+          "bAred"
         ],
         "source_id": "anees-20261105-recall-medi",
         "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
@@ -407804,7 +408324,7 @@
         "t_end": 701.42,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "بادات",
+        "text": "بارد",
         "original_text": "for باد I can use like بادات.",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -407817,7 +408337,53 @@
           {
             "row_id": "cover:2026-11-05:698.42",
             "speaker": "Medi",
-            "text": "for باد I can use like بادات.",
+            "text": "for بارد I can use like باردات؟",
+            "timeline_start": 698.42,
+            "timeline_end": 701.42
+          }
+        ],
+        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "ca290c9f891c85a1b2df839239a75441e2977d386cc4899b2f42e79d71964deb",
+        "lesson_date": "2026-11-05",
+        "word_key": "bAred",
+        "local_start": 698.326,
+        "local_end": 701.326,
+        "candidate_keys": [
+          "bAred"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:698.42",
+        "item_ids": [],
+        "t_start": 698.42,
+        "t_end": 701.42,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "باردات",
+        "original_text": "for باد I can use like بادات.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:698.42",
+            "speaker": "Medi",
+            "text": "for بارد I can use like باردات؟",
             "timeline_start": 698.42,
             "timeline_end": 701.42
           }
@@ -407863,7 +408429,7 @@
           {
             "row_id": "cover:2026-11-05:717.22",
             "speaker": "Medi",
-            "text": "الدروس السبع, right?",
+            "text": "الدروس صعبات، right?",
             "timeline_start": 717.22,
             "timeline_end": 719.42
           }
@@ -407880,13 +408446,13 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "56dff52a01f3320bc95aeb49a21e0626a626f91e919bdbae7e4999573caddb5e",
+        "id": "27747b6c099e2240a62089f1fa3198e3dd7e11e35d28d7a8405e42dbc0b75762",
         "lesson_date": "2026-11-05",
-        "word_key": "sab3ah",
+        "word_key": "sa3b",
         "local_start": 717.126,
         "local_end": 719.326,
         "candidate_keys": [
-          "sab3ah"
+          "sa3b"
         ],
         "source_id": "anees-20261105-recall-medi",
         "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
@@ -407896,10 +408462,10 @@
         "t_end": 719.42,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "السبع",
+        "text": "صعبات",
         "original_text": "الدروس السبع, right?",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -407909,9 +408475,55 @@
           {
             "row_id": "cover:2026-11-05:717.22",
             "speaker": "Medi",
-            "text": "الدروس السبع, right?",
+            "text": "الدروس صعبات، right?",
             "timeline_start": 717.22,
             "timeline_end": 719.42
+          }
+        ],
+        "reason": "Same vocabulary said by the tutor within 15 s (her own wording, not a fix): practice, half credit",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 0.5
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "d79e547850fa9e22abf893c1fdd1047d8f1f2f65f7b7d321d6d6f8fa60904ed0",
+        "lesson_date": "2026-11-05",
+        "word_key": "dars",
+        "local_start": 751.316,
+        "local_end": 754.316,
+        "candidate_keys": [
+          "dars"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:751.41",
+        "item_ids": [],
+        "t_start": 751.41,
+        "t_end": 754.41,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "الدروس",
+        "original_text": "Reduce bad. So the, the--",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:751.41",
+            "speaker": "Medi",
+            "text": "الدروس بدت. So the, the--",
+            "timeline_start": 751.41,
+            "timeline_end": 754.41
           }
         ],
         "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
@@ -407926,7 +408538,56 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "ea9c9496f10f21019d0480ca28a004beae006f70622bf9db7ead26e030712d4b",
+        "id": "55bc25d7baab9749fce48e681ed10daf034b3f729c0f022c9814d2b083dcdf17",
+        "lesson_date": "2026-11-05",
+        "word_key": "ba3Id",
+        "local_start": 755.836,
+        "local_end": 757.876,
+        "candidate_keys": [
+          "ba3Id"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:755.93",
+        "item_ids": [],
+        "t_start": 755.93,
+        "t_end": 757.97,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "بعيد",
+        "original_text": "Is it baid? Baid becomes bad?",
+        "match_method": "word_coverage",
+        "assessment": "unresolved",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:755.93",
+            "speaker": "Medi",
+            "text": "Is it بعيد؟ بعيد becomes bad?",
+            "timeline_start": 755.93,
+            "timeline_end": 757.97
+          }
+        ],
+        "reason": "he asks whether it is this form ('Is it بعيد؟ بعيد becomes bad?'): a question, not a use (WS-39)",
+        "rule": "WS-39",
+        "classification": "ignored",
+        "coverage": true,
+        "vocab_points": null,
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "question"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "65720a5bb9758bd8ac835bd8a769ee058adce260f0a5863209b124186d1c4705",
         "lesson_date": "2026-11-05",
         "word_key": "kamAn",
         "local_start": 773.656,
@@ -407942,7 +408603,7 @@
         "t_end": 774.47,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "kaman",
+        "text": "كمان",
         "original_text": "So kaman mana?",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -407955,7 +408616,7 @@
           {
             "row_id": "cover:2026-11-05:773.75",
             "speaker": "Medi",
-            "text": "So kaman mana?",
+            "text": "So كمان مرة؟",
             "timeline_start": 773.75,
             "timeline_end": 774.47
           }
@@ -407972,13 +408633,13 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
-        "id": "32283ee0b4c039e4fb1b6e4fcf06e95c5bd1587664050ffc7cf47023d52f0e12",
+        "id": "c08d1199b3aa9daf6c4bc2b15bbf30b47b8eb13eda7cbe57b835c3f1923440b2",
         "lesson_date": "2026-11-05",
-        "word_key": "ma3na",
+        "word_key": "mara~time",
         "local_start": 773.656,
         "local_end": 774.376,
         "candidate_keys": [
-          "ma3na"
+          "mara~time"
         ],
         "source_id": "anees-20261105-recall-medi",
         "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
@@ -407988,7 +408649,7 @@
         "t_end": 774.47,
         "speaker": "Medi",
         "speaker_basis": "participant_track_not_voice_verified",
-        "text": "mana",
+        "text": "مرة",
         "original_text": "So kaman mana?",
         "match_method": "word_coverage",
         "assessment": "independent",
@@ -408001,7 +408662,7 @@
           {
             "row_id": "cover:2026-11-05:773.75",
             "speaker": "Medi",
-            "text": "So kaman mana?",
+            "text": "So كمان مرة؟",
             "timeline_start": 773.75,
             "timeline_end": 774.47
           }
@@ -408011,6 +408672,149 @@
         "classification": "lexical",
         "coverage": true,
         "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "f3a1f73bbe43f46f207761f56836e3120d62bee7c0dba20b676ccaac972435f5",
+        "lesson_date": "2026-11-05",
+        "word_key": "dars",
+        "local_start": 891.376,
+        "local_end": 893.256,
+        "candidate_keys": [
+          "dars"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:891.47",
+        "item_ids": [],
+        "t_start": 891.47,
+        "t_end": 893.35,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "درس",
+        "original_text": "So that's is not...",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:891.47",
+            "speaker": "Medi",
+            "text": "So درس is not...",
+            "timeline_start": 891.47,
+            "timeline_end": 893.35
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "ef80968ccc6c79de27db0f1cc5a5e31cd70b836d32194192da884ce21840eb05",
+        "lesson_date": "2026-11-05",
+        "word_key": "seiyara",
+        "local_start": 966.176,
+        "local_end": 968.476,
+        "candidate_keys": [
+          "seiyara"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:966.27",
+        "item_ids": [],
+        "t_start": 966.27,
+        "t_end": 968.57,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "السيارات",
+        "original_text": "so it's, il sayarat.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:966.27",
+            "speaker": "Medi",
+            "text": "so الـ السيارات",
+            "timeline_start": 966.27,
+            "timeline_end": 968.57
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "8f5d043ece55b7d230f2db186c9376a05634b2290b180f2d8fab22272d06f677",
+        "lesson_date": "2026-11-05",
+        "word_key": "kbIr",
+        "local_start": 976.576,
+        "local_end": 978.116,
+        "candidate_keys": [
+          "kbIr"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:976.67",
+        "item_ids": [],
+        "t_start": 976.67,
+        "t_end": 978.21,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "كبيرة",
+        "original_text": "Kabira, sorry. Yeah?",
+        "match_method": "word_coverage",
+        "assessment": "helped",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:976.67",
+            "speaker": "Medi",
+            "text": "كبيرة، sorry. Yeah?",
+            "timeline_start": 976.67,
+            "timeline_end": 978.21
+          }
+        ],
+        "reason": "He says the tutor's words back (16:15 «You could say ‫كبيرة‬.»): a repeat, not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
+        "classification": "lexical",
+        "coverage": true,
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 975.09,
+          "text": "You could say ‫كبيرة‬."
+        }
       },
       "by": "word-coverage"
     },
@@ -408057,6 +408861,145 @@
         "classification": "lexical",
         "coverage": true,
         "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "ff72b18e59fbad2f522bfa97d31857f44d98ea990f13702318c0b5b04b948121",
+        "lesson_date": "2026-11-05",
+        "word_key": "baid",
+        "local_start": 1021.736,
+        "local_end": 1024.496,
+        "candidate_keys": [
+          "baid"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1021.83",
+        "item_ids": [],
+        "t_start": 1021.83,
+        "t_end": 1024.59,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "بيض",
+        "original_text": "uh, buyud or bayda,",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1021.83",
+            "speaker": "Medi",
+            "text": "uh, بيض or بيضا،",
+            "timeline_start": 1021.83,
+            "timeline_end": 1024.59
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "d3123a46b60614c4ccc8856b6238c8f055f968a6f471791ebff2d0e8452903df",
+        "lesson_date": "2026-11-05",
+        "word_key": "abyad",
+        "local_start": 1021.736,
+        "local_end": 1024.496,
+        "candidate_keys": [
+          "abyad"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1021.83",
+        "item_ids": [],
+        "t_start": 1021.83,
+        "t_end": 1024.59,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "بيضا",
+        "original_text": "uh, buyud or bayda,",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1021.83",
+            "speaker": "Medi",
+            "text": "uh, بيض or بيضا،",
+            "timeline_start": 1021.83,
+            "timeline_end": 1024.59
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "4d4493d2e513383aa5b542313cd1baea44e8f4a769880188101d683dbdeb7c38",
+        "lesson_date": "2026-11-05",
+        "word_key": "ana babda",
+        "local_start": 1074.056,
+        "local_end": 1075.656,
+        "candidate_keys": [
+          "ana babda"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1074.15",
+        "item_ids": [],
+        "t_start": 1074.15,
+        "t_end": 1075.75,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "ببدا",
+        "original_text": "you said like babda, right?",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1074.15",
+            "speaker": "Medi",
+            "text": "you said like ببدا, right?",
+            "timeline_start": 1074.15,
+            "timeline_end": 1075.75
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana babda:present"
       },
       "by": "word-coverage"
     },
@@ -408156,6 +409099,52 @@
       "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
       "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
       "event": {
+        "id": "9b064524838aeeb1ad3be794ca4116b42f3e691e3365d1f98f1ff33340921f66",
+        "lesson_date": "2026-11-05",
+        "word_key": "sa7",
+        "local_start": 1134.366,
+        "local_end": 1134.666,
+        "candidate_keys": [
+          "sa7"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1134.46",
+        "item_ids": [],
+        "t_start": 1134.46,
+        "t_end": 1134.76,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "صح",
+        "original_text": "Sorry.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1134.46",
+            "speaker": "Medi",
+            "text": "صح",
+            "timeline_start": 1134.46,
+            "timeline_end": 1134.76
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
         "id": "a604c4dd4013f2986e64ed418200da3b6e69f12bf7b5a5bf4dc47862862222ea",
         "lesson_date": "2026-11-05",
         "word_key": "ana ba7ki",
@@ -408196,6 +409185,782 @@
         "coverage": true,
         "vocab_points": 1,
         "entry_id": "ana ba7ki:present"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "0a41e32578914e1baa1abe85914cf8c8f674f457000f6ac0a9ec39590df063f4",
+        "lesson_date": "2026-11-05",
+        "word_key": "3arabi",
+        "local_start": 1237.386,
+        "local_end": 1237.946,
+        "candidate_keys": [
+          "3arabi"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1237.48",
+        "item_ids": [],
+        "t_start": 1237.48,
+        "t_end": 1238.04,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "عربي",
+        "original_text": "Behkish.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1237.48",
+            "speaker": "Medi",
+            "text": "بحكيش عربي؟",
+            "timeline_start": 1237.48,
+            "timeline_end": 1238.04
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "4875b7c145a3864863000c1f7d98e85201873d7f9ed84bf4809d0fd2bf0f8e81",
+        "lesson_date": "2026-11-05",
+        "word_key": "ana bal3ab",
+        "local_start": 1257.066,
+        "local_end": 1259.566,
+        "candidate_keys": [
+          "ana bal3ab"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1257.16",
+        "item_ids": [],
+        "t_start": 1257.16,
+        "t_end": 1259.66,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "بلعب",
+        "original_text": "Balab. Is balab in again?",
+        "match_method": "word_coverage",
+        "assessment": "helped",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1257.16",
+            "speaker": "Medi",
+            "text": "بلعب. Is bal3ab in again?",
+            "timeline_start": 1257.16,
+            "timeline_end": 1259.66
+          }
+        ],
+        "reason": "He says the tutor's words back (20:53 «بلعب.»): a repeat, not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
+        "classification": "lexical",
+        "coverage": true,
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1253.07,
+          "text": "بلعب."
+        },
+        "entry_id": "ana bal3ab:present"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "c7605a6c261cb5f6bbb4f1b09bf0ec94aa93b389a5aaae6eb67ae4d3fa8f1440",
+        "lesson_date": "2026-11-05",
+        "word_key": "ana bal3ab",
+        "local_start": 1261.606,
+        "local_end": 1269.666,
+        "candidate_keys": [
+          "ana bal3ab"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1261.7",
+        "item_ids": [],
+        "t_start": 1261.7,
+        "t_end": 1269.76,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "بلعب",
+        "original_text": "Balab. What does balab mean?",
+        "match_method": "word_coverage",
+        "assessment": "helped",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1261.7",
+            "speaker": "Medi",
+            "text": "بلعب. What does بلعب mean?",
+            "timeline_start": 1261.7,
+            "timeline_end": 1269.76
+          }
+        ],
+        "reason": "He says the tutor's words back (20:53 «بلعب.»): a repeat, not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
+        "classification": "lexical",
+        "coverage": true,
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1253.07,
+          "text": "بلعب."
+        },
+        "entry_id": "ana bal3ab:present"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "8de7a8578f6d410409a4d4f577bf7ff32a336487a43e9bd898b65a35df6df110",
+        "lesson_date": "2026-11-05",
+        "word_key": "ana bal3ab",
+        "local_start": 1272.726,
+        "local_end": 1274.206,
+        "candidate_keys": [
+          "ana bal3ab"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1272.82",
+        "item_ids": [],
+        "t_start": 1272.82,
+        "t_end": 1274.3,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "بلعب",
+        "original_text": "Oh, balabit. Okay.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1272.82",
+            "speaker": "Medi",
+            "text": "Oh, بلعب. Okay.",
+            "timeline_start": 1272.82,
+            "timeline_end": 1274.3
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana bal3ab:present"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "2953a6819bc4163decab214a71578f51761e60878931e7510aea7d500def531d",
+        "lesson_date": "2026-11-05",
+        "word_key": "tamAm",
+        "local_start": 1326.046,
+        "local_end": 1326.346,
+        "candidate_keys": [
+          "tamAm"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1326.14",
+        "item_ids": [],
+        "t_start": 1326.14,
+        "t_end": 1326.44,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "تمام",
+        "original_text": "I am...",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1326.14",
+            "speaker": "Medi",
+            "text": "تمام",
+            "timeline_start": 1326.14,
+            "timeline_end": 1326.44
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "0f20d5ff70ad6e8747784eb2f7e5da863f0f072be7157b600bdc7599013461fd",
+        "lesson_date": "2026-11-05",
+        "word_key": "ana baz3ej",
+        "local_start": 1379.246,
+        "local_end": 1380.446,
+        "candidate_keys": [
+          "ana baz3ej"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1379.34",
+        "item_ids": [],
+        "t_start": 1379.34,
+        "t_end": 1380.54,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "زعجي",
+        "original_text": "So zaigi,",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1379.34",
+            "speaker": "Medi",
+            "text": "So زعجي",
+            "timeline_start": 1379.34,
+            "timeline_end": 1380.54
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana baz3ej:past"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "dac22e2cd3a1f8cf241e6792f1252b5beceac38047a1b148a700b590f40a0055",
+        "lesson_date": "2026-11-05",
+        "word_key": "ana banze3ej",
+        "local_start": 1394.786,
+        "local_end": 1396.446,
+        "candidate_keys": [
+          "ana banze3ej"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1394.88",
+        "item_ids": [],
+        "t_start": 1394.88,
+        "t_end": 1396.54,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "بنزعج",
+        "original_text": "So it's but zaish, right?",
+        "match_method": "word_coverage",
+        "assessment": "unresolved",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1394.88",
+            "speaker": "Medi",
+            "text": "So it's بنزعج, right?",
+            "timeline_start": 1394.88,
+            "timeline_end": 1396.54
+          }
+        ],
+        "reason": "he asks whether it is this form ('So it's بنزعج, right?'): a question, not a use (WS-39)",
+        "rule": "WS-39",
+        "classification": "ignored",
+        "coverage": true,
+        "vocab_points": null,
+        "entry_id": "ana banze3ej:present",
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "question"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "4974896a2197b896063282bf0a7711ed4818caa65bc51dc1d04feb9a94646085",
+        "lesson_date": "2026-11-05",
+        "word_key": "eshi",
+        "local_start": 1457.806,
+        "local_end": 1459.226,
+        "candidate_keys": [
+          "eshi"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1457.9",
+        "item_ids": [],
+        "t_start": 1457.9,
+        "t_end": 1459.32,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "إشي",
+        "original_text": "Oh, minhekishitani.",
+        "match_method": "word_coverage",
+        "assessment": "helped",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1457.9",
+            "speaker": "Medi",
+            "text": "آه، من إشي ثاني.",
+            "timeline_start": 1457.9,
+            "timeline_end": 1459.32
+          }
+        ],
+        "reason": "Repeat of the tutor's fix of a counted slip at 24:07 («About anything else.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
+        "classification": "lexical",
+        "coverage": true,
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1447.41,
+          "text": "About anything else."
+        }
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "2890bd6919ebb4fee5c61bfb6c12e62583c191121eb5de3420a4a88da5d90786",
+        "lesson_date": "2026-11-05",
+        "word_key": "tAni",
+        "local_start": 1457.806,
+        "local_end": 1459.226,
+        "candidate_keys": [
+          "tAni"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1457.9",
+        "item_ids": [],
+        "t_start": 1457.9,
+        "t_end": 1459.32,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "ثاني",
+        "original_text": "Oh, minhekishitani.",
+        "match_method": "word_coverage",
+        "assessment": "helped",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1457.9",
+            "speaker": "Medi",
+            "text": "آه، من إشي ثاني.",
+            "timeline_start": 1457.9,
+            "timeline_end": 1459.32
+          }
+        ],
+        "reason": "Repeat of the tutor's fix of a counted slip at 24:07 («About anything else.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
+        "classification": "lexical",
+        "coverage": true,
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1447.41,
+          "text": "About anything else."
+        }
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "f17848fefba2e5737d7b3ad1430e0b41d005566dfb22d9a723c9a5d20d660a9c",
+        "lesson_date": "2026-11-05",
+        "word_key": "ana banbese6",
+        "local_start": 1535.996,
+        "local_end": 1537.316,
+        "candidate_keys": [
+          "ana banbese6"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1536.09",
+        "item_ids": [],
+        "t_start": 1536.09,
+        "t_end": 1537.41,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "تنبسطي",
+        "original_text": "matenbisti.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1536.09",
+            "speaker": "Medi",
+            "text": "ما تنبسطي",
+            "timeline_start": 1536.09,
+            "timeline_end": 1537.41
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana banbese6:future"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "0c41b0d0007c1257f81a40349aeee28920366e0aa7d3d7f2fbb9d9bf97854b05",
+        "lesson_date": "2026-11-05",
+        "word_key": "ana banbese6",
+        "local_start": 1540.996,
+        "local_end": 1543.396,
+        "candidate_keys": [
+          "ana banbese6"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1541.09",
+        "item_ids": [],
+        "t_start": 1541.09,
+        "t_end": 1543.49,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "تنبسطي",
+        "original_text": "Don't enjoy it. Matenbisti.",
+        "match_method": "word_coverage",
+        "assessment": "unresolved",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1541.09",
+            "speaker": "Medi",
+            "text": "Don't enjoy it. ما تنبسطي",
+            "timeline_start": 1541.09,
+            "timeline_end": 1543.49
+          }
+        ],
+        "reason": "said again right after his own تنبسطي at 25:36 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
+        "coverage": true,
+        "vocab_points": null,
+        "entry_id": "ana banbese6:future",
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "baf75dc79263d297e5497a72f1eda7327851a73048cd8b85d543e909e6b2638b",
+        "lesson_date": "2026-11-05",
+        "word_key": "ana banbese6",
+        "local_start": 1554.216,
+        "local_end": 1557.816,
+        "candidate_keys": [
+          "ana banbese6"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1554.31",
+        "item_ids": [],
+        "t_start": 1554.31,
+        "t_end": 1557.91,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "تنبسطي",
+        "original_text": "Oh yeah, fio. Matenbisti fio",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1554.31",
+            "speaker": "Medi",
+            "text": "Oh yeah, فيه. ما تنبسطي فيه",
+            "timeline_start": 1554.31,
+            "timeline_end": 1557.91
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana banbese6:future"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "8ad8bb24b814edb4ac0bfa0616ba3cdaa03a7760b7c87b3d020b7e27d726008b",
+        "lesson_date": "2026-11-05",
+        "word_key": "ziAdeh",
+        "local_start": 1559.596,
+        "local_end": 1560.316,
+        "candidate_keys": [
+          "ziAdeh"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1559.69",
+        "item_ids": [],
+        "t_start": 1559.69,
+        "t_end": 1560.41,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "زياد",
+        "original_text": "ziyad.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1559.69",
+            "speaker": "Medi",
+            "text": "زياد",
+            "timeline_start": 1559.69,
+            "timeline_end": 1560.41
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "3329496eb2395f5abff1fa83af864868fc0bdcdf554533cbd481e4e180f2bba1",
+        "lesson_date": "2026-11-05",
+        "word_key": "ziAdeh",
+        "local_start": 1562.416,
+        "local_end": 1563.856,
+        "candidate_keys": [
+          "ziAdeh"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1562.51",
+        "item_ids": [],
+        "t_start": 1562.51,
+        "t_end": 1563.95,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "زيادة",
+        "original_text": "Ziya-ziyad.",
+        "match_method": "word_coverage",
+        "assessment": "helped",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1562.51",
+            "speaker": "Medi",
+            "text": "زيـ زيادة",
+            "timeline_start": 1562.51,
+            "timeline_end": 1563.95
+          }
+        ],
+        "reason": "Repeat of the tutor's fix of a counted slip at 26:02 («Zia.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
+        "classification": "lexical",
+        "coverage": true,
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1562.29,
+          "text": "Zia."
+        }
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "9f2fe1896e81501036371a0af7147baecc883b877c5191605460825dc15a06f0",
+        "lesson_date": "2026-11-05",
+        "word_key": "ziAdeh",
+        "local_start": 1612.076,
+        "local_end": 1613.576,
+        "candidate_keys": [
+          "ziAdeh"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1612.17",
+        "item_ids": [],
+        "t_start": 1612.17,
+        "t_end": 1613.67,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "زيادة",
+        "original_text": "uh, ziyad.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1612.17",
+            "speaker": "Medi",
+            "text": "uh, زيادة",
+            "timeline_start": 1612.17,
+            "timeline_end": 1613.67
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "4e6c2f0d523ebc28fff57e8199a8b36d7064503a0f9b7ebf9f332f4d58c609f6",
+      "expected_source": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+      "event": {
+        "id": "a563ee9b84fba384e08687e31e4b69a9d120a2848b4afda447d57ee19ca84736",
+        "lesson_date": "2026-11-05",
+        "word_key": "enbese6",
+        "local_start": 1721.036,
+        "local_end": 1723.976,
+        "candidate_keys": [
+          "enbese6"
+        ],
+        "source_id": "anees-20261105-recall-medi",
+        "source_sha256": "04a858c9763d38f46f72c6db928fd35bbea4c644f1e78e1efd077544196e195f",
+        "row_id": "cover:2026-11-05:1721.13",
+        "item_ids": [],
+        "t_start": 1721.13,
+        "t_end": 1724.07,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "انبسطَ",
+        "original_text": "Uh, in basata, in basatish.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-05:1721.13",
+            "speaker": "Medi",
+            "text": "Uh, انبسطَ، انبسطتِش",
+            "timeline_start": 1721.13,
+            "timeline_end": 1724.07
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana banbese6:command"
       },
       "by": "word-coverage"
     },
