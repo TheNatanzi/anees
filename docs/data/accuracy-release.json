@@ -6,14 +6,14 @@
   "max_reader_passes": 2
  },
  "totals": {
-  "lessons": 31,
+  "lessons": 32,
   "verified_lessons": 0,
   "threshold_pct": 95.0,
   "words": {
    "verified_avg_pct": null,
    "unverified_avg_pct": 94.7,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 7010,
+   "eligible": 7105,
    "excluded": 28,
    "pending": 1
   },
@@ -22,19 +22,19 @@
    "unverified_avg_pct": 85.5,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 2,
-   "eligible": 923,
+   "eligible": 935,
    "excluded": 51,
    "pending": 0
   },
   "verification_queue": 1,
   "word_bank": {
-   "occurrences": 11728,
-   "eligible": 6731,
-   "excluded_not_scored": 4217,
-   "pending_needs_review": 780,
+   "occurrences": 11873,
+   "eligible": 6824,
+   "excluded_not_scored": 4252,
+   "pending_needs_review": 797,
    "other": 0,
    "pct": 98.5,
-   "lessons_in_audit": 31,
+   "lessons_in_audit": 32,
    "lessons_missing": [],
    "note": "pct = (Correct + half Partial) / (Correct + Partial + Wrong); 'Needs review' is pending and counts nowhere; 'Not scored' is excluded by rule (English, names, glue words...)."
   }
@@ -1717,18 +1717,18 @@
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 90.6,
+    "pct": 91.9,
     "verified_pct": null,
     "mistakes": 27,
-    "uses": 180,
+    "uses": 209,
     "eligible": 27,
     "excluded": 0,
     "pending": 0,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
-     "10 slips are in rules the counter found 0 uses of in this lesson",
-     "4 rules have more slips than counted uses (A14, A20, A21, A22)"
+     "11 slips are in rules the counter found 0 uses of in this lesson",
+     "5 rules have more slips than counted uses (A14, A20, A21, A22, D2)"
     ]
    },
    "coverage": {
@@ -1749,6 +1749,59 @@
    },
    "agreement": [
     60.0
+   ],
+   "between_passes": []
+  },
+  {
+   "date": "2026-11-05",
+   "release": "not verified",
+   "reasons": [
+    "reader agreement: pass 1 40.6 %; 2 consecutive passes at >= 95 % are needed",
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 2004 s) compared with a second model"
+   ],
+   "words": {
+    "pct": 96.8,
+    "eligible_pct": 96.8,
+    "verified_pct": null,
+    "scored": 95,
+    "eligible": 95,
+    "excluded": 0,
+    "pending": 0,
+    "excluded_why": {}
+   },
+   "grammar": {
+    "pct": 82.8,
+    "verified_pct": null,
+    "mistakes": 12,
+    "uses": 64,
+    "eligible": 12,
+    "excluded": 0,
+    "pending": 0,
+    "estimate": false,
+    "denominator_valid": false,
+    "denominator_reasons": [
+     "7 slips are in rules the counter found 0 uses of in this lesson",
+     "5 rules have more slips than counted uses (B11, B12, E1, E2, F2)"
+    ]
+   },
+   "coverage": {
+    "Medi": {
+     "covered_pct": 100.0,
+     "missing_s": 0,
+     "hole_s": 0
+    },
+    "Amal": {
+     "covered_pct": 100.0,
+     "missing_s": 0,
+     "hole_s": 0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "agreement": [
+    40.6
    ],
    "between_passes": []
   }

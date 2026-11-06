@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T19:53:35-08:00",
+ "updated": "2026-11-05T15:58:10-08:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -4486,6 +4486,44 @@
    "reason": "English 'special' inside an Arabic sentence; on her sheet: 'special | Mumayyaz | مميز'; Amal asked for it and supplied مميز.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-850343f7"
+  },
+  {
+   "id": "audit:FA-ab9a64b9",
+   "word_key": "mertA7",
+   "entry_id": "mertA7:singular",
+   "lesson_date": "2026-11-05",
+   "t_start": 130,
+   "t_end": 130,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "مفتوح",
+   "said": "مفتوح، أنا مفتوح، أنا مفتوح.",
+   "reason": "He said maftoo7 (open) for mirtaa7 (relaxed); Amal said no ('you can't open') and he then found مرتاح (sheet: comfortable / relaxed | Mertaa7 | مرتاح).",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-ab9a64b9"
+  },
+  {
+   "id": "audit:FA-14bd63a9",
+   "word_key": "ziAdeh",
+   "entry_id": "ziAdeh:singular",
+   "lesson_date": "2026-11-05",
+   "t_start": 1560,
+   "t_end": 1560,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "ziyad",
+   "said": "Matenbisti fio ziyad.",
+   "reason": "Amal recast his ziyad as ziyaade (sheet: extra / increase | Ziaadeh | زيادة); may be only the dropped final -e (then S4).",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-14bd63a9"
   }
  ],
  "unplaced": [
@@ -8905,6 +8943,21 @@
    "expected": {
     "word_key": "mura",
     "t_start": 1421.36
+   }
+  },
+  {
+   "event_id": "3a7ea2c33f8e08d8a97f8f159bd81adbfb49604e67015722a4257354edbabc38",
+   "date": "2026-11-05",
+   "mark": "wb:3a7ea2c33f8e08d8a97f8f159bd81adbfb49604e67015722a4257354edbabc38",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:3a7ea2c33f8e08d8a97f8f159bd81adbfb49604e67015722a4257354edbabc38",
+    "ledger_reason": "the recording engine wrote كم مرة; you said كمان مرة (GR-11)"
+   },
+   "expected": {
+    "word_key": "mara~time",
+    "t_start": 206.39
    }
   }
  ]

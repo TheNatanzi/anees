@@ -1,4 +1,4 @@
-# Full vocab + grammar audit - 2026-11-04
+# Full vocab + grammar audit - 2026-11-05
 
 Two independent readers per lesson, a third settles disagreements, reconciled with the 2026-09-24 hand sweep. A = Amal fixed it out loud (scored; a fix she only typed in the chat is not a correction - GR-19). B = she let it pass (unscored until she rules on her review page). Tier 0 = she supplied a word he asked for. Nothing the sweep verified was dropped.
 
@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **942** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **954** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 122 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 33 |
-| Vocab fixes Amal voiced (A) | **431** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 216, '0': 147, '2': 102, '3': 6} |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 34 |
+| Vocab fixes Amal voiced (A) | **435** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 219, '0': 147, '2': 103, '3': 6} |
 | Vocab she let pass (B, to Amal) | **42** by tier {'1': 32, '2': 8, '3': 2} |
 | Listening-drill misreads (kept apart) | 74 |
-| Rows the readers found that the sweep did not have | 1211 |
+| Rows the readers found that the sweep did not have | 1228 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -52,6 +52,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-30 | 28 | 0 | 11 | 1 | 1 | 0 | 0 | 61.3 % |
 | 2026-11-02 | 35 | 0 | 6 | 0 | 1 | 0 | 0 | 62.3 % |
 | 2026-11-04 | 27 | 0 | 8 | 0 | 0 | 0 | 0 | 60.0 % |
+| 2026-11-05 | 12 | 0 | 4 | 0 | 0 | 0 | 0 | 40.6 % |
 
 ## Reader passes (the loop)
 
@@ -86,6 +87,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-10-30**: pass 1: r1 53 r2 48 agreed 38 disputed 24 (61.3 %), r3 kept 14 dropped 10 -> 38 rows
 - **2026-11-02**: pass 1: r1 56 r2 49 agreed 38 disputed 23 (62.3 %), r3 kept 20 dropped 3 -> 49 rows
 - **2026-11-04**: pass 1: r1 50 r2 52 agreed 36 disputed 24 (60.0 %), r3 kept 15 dropped 9 -> 43 rows
+- **2026-11-05**: pass 1: r1 24 r2 26 agreed 13 disputed 19 (40.6 %), r3 kept 13 dropped 6 -> 18 rows
 
 ## Grammar by bucket (A, speaking)
 
@@ -93,31 +95,31 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 |---|---|---|
 | D2 | verb + its fixed preposition | 82 |
 | B18 | verb matches its subject | 79 |
-| B5 | past tense | 66 |
-| B12 | make-X vs get-X | 60 |
-| A8 | gender on adjectives | 59 |
+| B5 | past tense | 67 |
+| B12 | make-X vs get-X | 61 |
+| A8 | gender on adjectives | 60 |
 | A7 | noun + adjective | 45 |
-| A9 | plurals | 44 |
+| A9 | plurals | 45 |
 | D4 | endings on verbs | 42 |
-| D1 | prepositions | 41 |
+| D1 | prepositions | 42 |
 | B1 | present with b- | 38 |
 | A2 | idafa (possession) | 35 |
 | A4 | possessive endings | 35 |
-| PROPOSE | ? | 33 |
+| PROPOSE | ? | 34 |
 | A1 | el- (the) | 32 |
+| E1 | number + noun | 24 |
 | B2 | b-drop after modals | 23 |
-| E1 | number + noun | 22 |
 | D3 | endings on prepositions | 20 |
 | C4 | saying no | 20 |
 | B10 | commands | 18 |
 | C2 | the pointer rule | 17 |
 | B6 | kaan = was / were | 16 |
+| A15 | aa5er / a5eer: before or after the noun | 16 |
 | C7 | illi | 15 |
-| A15 | aa5er / a5eer: before or after the noun | 15 |
+| B11 | negative commands | 15 |
+| E2 | clock time | 13 |
 | B15 | participles | 13 |
 | A10 | hada / hadi | 13 |
-| B11 | negative commands | 13 |
-| E2 | clock time | 12 |
 | A14 | taani: before or after the noun | 12 |
 | A13 | awal / oola: before or after the noun | 11 |
 | B3 | b-drop after time words | 10 |
@@ -157,6 +159,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | C4b | words that drag a ma along | 1 |
 | A17 | nafs + el-: the same | 1 |
 | E6 | ago = qabel + number + noun | 1 |
+| F2 | vowel length | 1 |
 
 ## Sweep rows the readers did not list (kept, not dropped)
 
@@ -2194,3 +2197,27 @@ _Whole file read. English-only stretches: 13:29-15:02 (election talk), 47:33-49:
 | FA-75c9dce9 | 1:00:35 | grammar | D2 | راح نكون متأخرين ... أول طيارة. | متأخرين على أول تيار. | متأخرين أول طيارة -> متأخرين على أول طيارة | Late FOR takes على; Amal recast متأخرين على أول طيارة and he asked 'متأخرين على؟'. | high | judge panel (Opus + Argon, p 0.84) |
 | FA-46984e6e | 1:02:34 | grammar | A20 | So، آخر الوقت. Would this be the last time? Or can I use آخر الـ، um... | لا. Cuz you said ال. | آخر الوقت -> آخر مرة | He asked it as a question, but Amal said لا because he put ال after آخر (which means the end of); he then said آخر مرة. | medium | judge panel (Opus + Argon, p 0.68) |
 | FA-c7b10214 | 1:05:57 | vocab-A | tier 1 | قبل شهر، uh, ما استعملت اسباني كتير. | Do, do you wanna say the last month؟ ... الشهر الماضي. | قبل شهر -> الشهر الماضي | He meant 'last month' but قبل شهر = a month ago; Amal asked and gave الشهر الماضي, explaining قبل is for ago. | high | judge panel (Opus + Argon, p 0.82) |
+
+### 2026-11-05
+
+_Short lesson: ends ~30:00 when Medi takes a work call; 30:17-33:06 background only. 09:27-19:13 and 21:00-22:20 mostly English meta talk (plurals of awal/aa5er, non-human plurals treated as feminine, -ish negation intro); his questions there (kabar/kabira, buyud/bayda, sayarat bimshu/btimshi, biddesh) not scored. Echo: 11:57 'الدروس السبع' = الدروس الصعبة. 01:27 'كمان، 20' unclear (maybe kaman marra). 03:21 'وذباين' read as و زباين. 05:57 'ا weights دائما' engine garble. 08:00 'أول' before the temperature unclear. 04:22-04:30 الآخر/أخيرة/الأخير chain read as self-searching; filed only the 04:09 number fix and 04:37 gender fix. 07:40 الجو شمس not flagged (sheet: it's sunny | El-denia shames). 20:33 behkesh->behkish self-fixed before her long-vowel note (F2, not scored). 28:46-29:24 t-cluster pronunciation in inbasa6tish = S4. No echo-candidates file for 11-05. / No echo-candidates file for this date. Engine garbles not filed: 03:21 'وذباين' (likely زباين customers, sheet Zboon), 01:27 'كمان، 20.', 05:57 'ا weights دائما'. Much of the lesson (11:00-29:00) is Latin-letter Arabizi and English. Not filed: 03:26 'كمان مرة؟' (= again); 06:46 'خمس اجتماع' (example, Amal 'Great'); 16:10 kabirat/kabira (Amal: both OK); 20:02 'mabiddesh' question; 23:32 'enzaigish' and 23:52 matizangish questions (covered by row 21); 25:47 'fi' vs fiyo (both OK). Row 13 cause unclear. Rows 3, 9, 10, 12, 15 are vocab-B (no signal) and low._
+
+| id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
+|---|---|---|---|---|---|---|---|---|---|
+| FA-ab9a64b9 | 02:10 | vocab-A | tier 1 | مفتوح، أنا مفتوح، أنا مفتوح. | No. You're a key. You can't open. | مفتوح -> مرتاح | He said maftoo7 (open) for mirtaa7 (relaxed); Amal said no ('you can't open') and he then found مرتاح (sheet: comfortable / relaxed / Mertaa7 / مرتاح). | high | judge panel (Opus + Argon, p 0.94) |
+| FA-0acbe8f6 | 02:29 | grammar | D1 | شغلت بيتي. من بيتي؟ لا، شغلت بيتي. | Yes. صح، من بيتي. | شغلت بيتي -> (اشتغلت) من بيتي | He dropped min ('worked my house'), rejected his own من بيتي, and Amal restored it: صح، من بيتي; he repeated من بيتي. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-a29f007c | 03:36 | grammar | A15 | اه، الآخر اجتماعتي، اجتماعتي. | Did you add in؟ | الآخر اجتماعتي -> آخر اجتماع / اجتماعي الأخير | He put el- on aa5er before the noun ('the end of'); Amal asked 'Did you add in [el]?' and he dropped it: آخر اجتماعاتي. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-ab3e1a3e | 04:04 | grammar | A9 | اه، اجتماعاتي الأخيرة، الأخير، الأخيرة | It's one. اجتماع. | اجتماعاتي الأخيرة -> اجتماعي الأخير | He used the plural اجتماعات for the single last meeting; Amal: 'It's one. اجتماع.' and he answered 'You're right'. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-bc734092 | 04:33 | grammar | A8 | It's right. اجتماعات الأخيرة، right? | No، اجتماع is masculine. | الأخيرة -> الأخير | Feminine adjective on masculine اجتماع; Amal: 'No, اجتماع is masculine. You don't need a t.' and he said اجتماعي الأخير at 04:50. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-1de1370d | 05:00 | grammar | E2 | أم، على واحد، واحدة. | الوحدة. | على واحدة -> على الوحدة | Clock time takes el- + the feminine number; Amal recast الوحدة and he repeated الـ واحدة. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-e4f1b838 | 06:25 | grammar | E1 | uh, خمس إحدى عشر، | Mm. No. ... When do we take out the أ in numbers؟ | خمس إحدى عشر -> خمسة إحدى عشر | A date number with no counted noun keeps its -a (khamse); Amal said No, he fixed to خمسة, and she asked when we drop it (only before a counted noun). | high | judge panel (Opus + Argon, p 0.88) |
+| FA-f6fe2449 | 08:08 | grammar | E1 | خمس وست-- What? | No. مش خمس. | خمس وست -> خمسة وستين (my reading) | Giving the temperature as a bare number; Amal said 'No. مش خمس.' right after drilling when the -a drops - a number with no noun keeps it; he did not fix it (خمس و، ستة عشر). | medium | judge panel (Opus + Argon, p 0.73) |
+| FA-0fb7ba5f | 20:33 | grammar | F2 | بحكي, behkesh, behkish. | بحكيش. See these verbs that end with a long vowel؟ We keep them long | behkesh -> بحكيش | He first gave the short vowel behkesh; Amal names the rule: verbs ending in a long vowel keep it long before -ish. | medium | judge panel (Opus + Argon, p 0.69) |
+| FA-c27a0d80 | 21:22 | vocab-A | tier 1 | Um, bashtesh. | That's I don't miss. I don't complain. | bashtesh -> bashkish (بشكيش) | For 'I don't complain' he said the 'miss' verb (bashta2ish); Amal: 'That's I don't miss. I don't complain.' (sheet: i complain / Ana bashki / أنا بشكي). | high | judge panel (Opus + Argon, p 0.85) |
+| FA-331c946f | 23:02 | grammar | B11 | zaigish, za-zaigish. | مهم. Where's the t؟ You keep the t. | zaigish -> تنزعجيش / تنزعجش | A negative command uses the YOU-form (t-); he dropped the t; Amal: 'Where's the t? You keep the t.' | high | judge panel (Opus + Argon, p 0.91) |
+| FA-583e1f9e | 23:15 | grammar | B12 | So it's but zaish, right? | بنزعج، صح. | zaish -> تنزعج (inzi3ij) | He used the zi33ij (annoy someone) shape for 'get annoyed'; Amal gave بنزعج and he said 'There's an N.' | medium | judge panel (Opus + Argon, p 0.69) |
+| FA-a450c518 | 23:32 | grammar | B11 | but, uh, if I do enzaigish, there's no ma, right? Enzaigish. | لا، it doesn't work. تنزعجش. | enzaigish -> تنزعجش | Right after her t- fix he dropped the you-form t again (inzi3jish); Amal: 'it doesn't work. تنزعجش.' - its own slip (GR-32). | medium | judge panel (Opus + Argon, p 0.75) |
+| FA-70950686 | 24:10 | vocab-A | tier 1 | Min-minhekishi or minhekishi. | هيك issue something like this. | minhekishi -> من اشي تاني | Amal explains that his هيك اشي means 'something like this' rather than the requested 'anything else'; the target is inferred from her English prompt and subsequent approval of his addition of تاني. | medium | judge panel (Opus + Argon, p 0.79) |
+| FA-552c21b6 | 25:41 | grammar-propose | PROPOSE | Don't enjoy it. Matenbisti. | No. Where's your ish? | Matenbisti -> ما تنبسطش | In the -ish negation drill he left off -ish; Amal: 'No. Where's your ish?' | high | judge panel (Opus + Argon, p 0.89) |
+| FA-14bd63a9 | 26:00 | vocab-A | tier 2 | Matenbisti fio ziyad. | Zia. | ziyad -> زيادة | Amal recast his ziyad as ziyaade (sheet: extra / increase / Ziaadeh / زيادة); may be only the dropped final -e (then S4). | medium | judge panel (Opus + Argon, p 0.60) |
+| FA-320d1bbf | 28:41 | grammar | B5 | Uh, in basata, in basatish. | Inbastatish. | in basatish -> انبسطتش (inbasa6tish) | For 'I didn't enjoy' he said inbasa6ish (he didn't) without the I-ending -t; Amal recast Inbastatish and he asked about the two t's. | medium | judge panel (Opus + Argon, p 0.79) |

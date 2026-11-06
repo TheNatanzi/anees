@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T19:53:54-08:00",
+ "updated": "2026-11-05T15:58:28-08:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -13137,9 +13137,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 180,
+    "uses": 209,
     "mistakes": 27,
-    "pct": 90.6,
+    "pct": 91.9,
     "estimate": false,
     "scored_mistakes": 17,
     "unscored_mistakes": 10,
@@ -13149,18 +13149,19 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "10 slips are in rules the counter found 0 uses of in this lesson",
-      "4 rules have more slips than counted uses (A14, A20, A21, A22)"
+      "11 slips are in rules the counter found 0 uses of in this lesson",
+      "5 rules have more slips than counted uses (A14, A20, A21, A22, D2)"
      ],
-     "uses": 165,
+     "uses": 193,
      "slips": 27,
      "slips_latin": 1,
-     "slips_in_zero_use_rules": 10,
+     "slips_in_zero_use_rules": 11,
      "rules_slips_over_uses": [
       "A14",
       "A20",
       "A21",
-      "A22"
+      "A22",
+      "D2"
      ]
     },
     "verified_pct": null
@@ -13324,7 +13325,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-11-04.json",
-    "marks": 509,
+    "marks": 573,
     "conflicts": 4,
     "resolved": 2,
     "needs_medi": 0,
@@ -13375,6 +13376,389 @@
      "_lesson_s": 4122.0,
      "first_t": 113.53,
      "last_t": 4049.11,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-11-05",
+   "start_local": "2026-11-05T15:33:16-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 33.4,
+   "type": "new-grammar",
+   "review_mode": null,
+   "type_why": "Two new rules fill 09:27-29:52 (~20 of 33 min): 09:27-19:13 non-human plurals take feminine singular adjectives and verbs (11:14 'feminine version of an adjective for plurals', 13:12 'It's only a proposal... We're not learning it', 17:10 'سيارات بتمشي or بيمشو'), then 19:16-29:52 the -ish negation he asked for (19:29 'You just add ish', 21:30 'when we review the collocations... we're gonna use this version of I don't'), drilled with تنزعجش, تنبسطش, انبسطتش. 00:43-09:20 is warm-up talk with fixes (آخر اجتماع / اجتماعي الأخير, the date, the weather); from 29:34 he takes a work call and the lesson ends at 33:10.",
+   "type_source": "claude-read",
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "New: -ish negation (bakulesh, biddesh, tinzi3ijish) + a preview of feminine treatment for non-human plurals",
+    "rules": [
+     {
+      "title": "Add -ish to say 'don't': bakulesh, biddesh, behkish",
+      "pattern": "verb + ish (ما optional)",
+      "bullets": [
+       "-ish at the end makes the verb negative",
+       "ما بديش also works, just stronger",
+       "verbs ending in a long vowel keep it: بحكي - بحكيش",
+       "we'll use this form when reviewing collocations"
+      ],
+      "examples": [
+       {
+        "t": "19:54",
+        "line": "بديش - I don't want"
+       },
+       {
+        "t": "20:36",
+        "line": "بحكيش - I don't speak"
+       },
+       {
+        "t": "20:48",
+        "line": "بمشيش - I don't walk"
+       },
+       {
+        "t": "20:11",
+        "line": "ما بديش أحكي - I don't want to speak"
+       }
+      ]
+     },
+     {
+      "title": "Command with -ish keeps the t: تنزعجش, تنبسطش",
+      "pattern": "t + present stem + ish",
+      "bullets": [
+       "don't + command = the 'you' present form + ish",
+       "ما تنزعجش is also fine",
+       "انزعجش without the t doesn't work"
+      ],
+      "examples": [
+       {
+        "t": "23:40",
+        "line": "تنزعجش - don't be annoyed"
+       },
+       {
+        "t": "23:46",
+        "line": "ما تنزعجش - don't be annoyed"
+       },
+       {
+        "t": "26:44",
+        "line": "tinbastish fiyo ktir - don't enjoy it too much"
+       }
+      ]
+     },
+     {
+      "title": "Past with -ish: inbastatish",
+      "pattern": "past verb + ish",
+      "bullets": [
+       "انبسطت + ish = انبسطتش",
+       "the t-t sounds are mashed together"
+      ],
+      "examples": [
+       {
+        "t": "29:03",
+        "line": "Inbastatish - I didn't enjoy it"
+       }
+      ]
+     },
+     {
+      "title": "Non-human plurals are treated as feminine singular: الدروس صعبة",
+      "pattern": "non-human plural + she-adjective / she-verb",
+      "bullets": [
+       "only for things, not people (not طلاب, أولاد)",
+       "adjective, verb and preposition all go feminine",
+       "a preview: studied properly when we review plurals"
+      ],
+      "examples": [
+       {
+        "t": "11:52",
+        "line": "الدروس صعبة - the lessons are hard"
+       },
+       {
+        "t": "12:55",
+        "line": "الدروس بدت - the lessons started"
+       },
+       {
+        "t": "13:24",
+        "line": "الدروس فيها أشياء - the lessons have things in them"
+       },
+       {
+        "t": "16:15",
+        "line": "سيارات كبيرة - big cars"
+       },
+       {
+        "t": "17:10",
+        "line": "سيارات بتمشي or بيمشو - cars run"
+       }
+      ]
+     },
+     {
+      "title": "My last meeting: اجتماعي الأخير or آخر اجتماع",
+      "bullets": [
+       "اجتماع is masculine, so الأخير without a t",
+       "آخر + noun = the last ..."
+      ],
+      "examples": [
+       {
+        "t": "03:51",
+        "line": "آخر اجتماع - the last meeting"
+       },
+       {
+        "t": "04:50",
+        "line": "اجتماعي الأخير - my last meeting"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up talk 00:43-09:20: his busy morning, three meetings, the date, the weather and temperature",
+     "Homework talk 08:28-09:40: the plurals of أول and آخر",
+     "Off-lesson 29:57-33:05: Medi's work call; the lesson ends at 33:10"
+    ]
+   },
+   "words": {
+    "unique": 62,
+    "right": 91,
+    "wrong": 2,
+    "partial": 2,
+    "pct": 96.8,
+    "scored": 95,
+    "audit_wrong": 2,
+    "audit_partial": 0,
+    "not_on_sheet": 2,
+    "rehear_word_conflicts": 0,
+    "unique_rows": 62,
+    "eligible": 95,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 96.8,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 64,
+    "mistakes": 12,
+    "pct": 82.8,
+    "estimate": false,
+    "scored_mistakes": 11,
+    "unscored_mistakes": 1,
+    "eligible": 12,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "7 slips are in rules the counter found 0 uses of in this lesson",
+      "5 rules have more slips than counted uses (B11, B12, E1, E2, F2)"
+     ],
+     "uses": 58,
+     "slips": 12,
+     "slips_latin": 4,
+     "slips_in_zero_use_rules": 7,
+     "rules_slips_over_uses": [
+      "B11",
+      "B12",
+      "E1",
+      "E2",
+      "F2"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 588.1,
+    "amal_s": 411.1,
+    "speak_pct": 58.9,
+    "listen_pct": 41.1,
+    "window": [
+     0.0,
+     1990.1
+    ]
+   },
+   "fillers": {
+    "count": 65,
+    "per_min": 6.63,
+    "top": [
+     [
+      "uh",
+      39
+     ],
+     [
+      "um",
+      20
+     ],
+     [
+      "اه",
+      4
+     ],
+     [
+      "ah",
+      1
+     ],
+     [
+      "mm",
+      1
+     ]
+    ],
+    "in_turns": 65,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.66,
+    "p75_s": 2.65,
+    "n": 114
+   },
+   "flow": {
+    "wpm": 56.7,
+    "n_turns": 44,
+    "arabic_words": 138
+   },
+   "new_words": [],
+   "taught": [
+    {
+     "latin": "Ana baz3ej / Ana banze3ej",
+     "arabic": "أنا بزعج / أنا بنزعج",
+     "review": true
+    },
+    {
+     "latin": "Ana babse6 / Ana banbese6",
+     "arabic": "أنا ببسط / أنا بنبسط",
+     "review": true
+    }
+   ],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "الوحدة",
+     "english": "the one (feminine), not الـ واحدة",
+     "t": "05:09"
+    },
+    {
+     "latin": null,
+     "arabic": "صعبة",
+     "english": "hard (feminine, for الدروس)",
+     "t": "11:52"
+    },
+    {
+     "latin": null,
+     "arabic": "بدا / بدت",
+     "english": "it started (بابدا = I start)",
+     "t": "12:39"
+    },
+    {
+     "latin": null,
+     "arabic": "سيارة بتمشي بسرعة",
+     "english": "the car goes fast (بتمشي = runs, of a car)",
+     "t": "17:30"
+    },
+    {
+     "latin": null,
+     "arabic": "بديش",
+     "english": "I don't want",
+     "t": "19:54"
+    },
+    {
+     "latin": null,
+     "arabic": "بحكيش",
+     "english": "I don't speak",
+     "t": "20:36"
+    },
+    {
+     "latin": null,
+     "arabic": "تنزعجش",
+     "english": "don't be annoyed",
+     "t": "23:40"
+    },
+    {
+     "latin": null,
+     "arabic": "انبسطتش",
+     "english": "I didn't enjoy / I wasn't happy",
+     "t": "29:03"
+    }
+   ],
+   "coverage": "Short lesson: ends ~30:00 when Medi takes a work call; 30:17-33:06 background only. 09:27-19:13 and 21:00-22:20 mostly English meta talk (plurals of awal/aa5er, non-human plurals treated as feminine, -ish negation intro); his questions there (kabar/kabira, buyud/bayda, sayarat bimshu/btimshi, biddesh) not scored. Echo: 11:57 'الدروس السبع' = الدروس الصعبة. 01:27 'كمان، 20' unclear (maybe kaman marra). 03:21 'وذباين' read as و زباين. 05:57 'ا weights دائما' engine garble. 08:00 'أول' before the temperature unclear. 04:22-04:30 الآخر/أخيرة/الأخير chain read as self-searching; filed only the 04:09 number fix and 04:37 gender fix. 07:40 الجو شمس not flagged (sheet: it's sunny | El-denia shames). 20:33 behkesh->behkish self-fixed before her long-vowel note (F2, not scored). 28:46-29:24 t-cluster pronunciation in inbasa6tish = S4. No echo-candidates file for 11-05. / No echo-candidates file for this date. Engine garbles not filed: 03:21 'وذباين' (likely زباين customers, sheet Zboon), 01:27 'كمان، 20.', 05:57 'ا weights دائما'. Much of the lesson (11:00-29:00) is Latin-letter Arabizi and English. Not filed: 03:26 'كمان مرة؟' (= again); 06:46 'خمس اجتماع' (example, Amal 'Great'); 16:10 kabirat/kabira (Amal: both OK); 20:02 'mabiddesh' question; 23:32 'enzaigish' and 23:52 matizangish questions (covered by row 21); 25:47 'fi' vs fiyo (both OK). Row 13 cause unclear. Rows 3, 9, 10, 12, 15 are vocab-B (no signal) and low.",
+   "notes": [
+    "grammar: 1 of the 12 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+   ],
+   "page": "lessons/2026-11-05.html",
+   "detail": "data/lessons/2026-11-05.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-11-05",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 488,
+    "chat_lines": 0,
+    "vocab_errors": 4,
+    "vocab_correct": 93,
+    "grammar_errors": 12,
+    "grammar_not_counted": 0,
+    "vocab_errors_split": {
+     "wrong": 2,
+     "half": 0,
+     "off_list": 2
+    }
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-11-05.json",
+    "marks": 169,
+    "conflicts": 1,
+    "resolved": 0,
+    "needs_medi": 0,
+    "mode": "on",
+    "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 40.6 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 2004 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 24,
+       "r2": 26,
+       "agreed": 13,
+       "disputed": 19,
+       "agreement_pct": 40.6
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 2004.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 2004.0,
+     "first_t": 43.01,
+     "last_t": 1837.1,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 2004.0,
+     "first_t": 45.49,
+     "last_t": 1989.62,
      "missing": [],
      "holes": [],
      "missing_s": 0,
