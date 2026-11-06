@@ -11,9 +11,9 @@
   "threshold_pct": 95.0,
   "words": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 94.7,
+   "unverified_avg_pct": 94.8,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 7105,
+   "eligible": 7107,
    "excluded": 28,
    "pending": 1
   },
@@ -22,14 +22,14 @@
    "unverified_avg_pct": 85.5,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 2,
-   "eligible": 935,
+   "eligible": 933,
    "excluded": 51,
    "pending": 0
   },
   "verification_queue": 1,
   "word_bank": {
-   "occurrences": 11873,
-   "eligible": 6824,
+   "occurrences": 11876,
+   "eligible": 6827,
    "excluded_not_scored": 4252,
    "pending_needs_review": 797,
    "other": 0,
@@ -1756,32 +1756,32 @@
    "date": "2026-11-05",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 40.6 %; 2 consecutive passes at >= 95 % are needed",
+    "reader agreement: pass 1 48.0 %; 2 consecutive passes at >= 95 % are needed",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 2004 s) compared with a second model"
    ],
    "words": {
-    "pct": 96.8,
-    "eligible_pct": 96.8,
+    "pct": 97.9,
+    "eligible_pct": 97.9,
     "verified_pct": null,
-    "scored": 95,
-    "eligible": 95,
+    "scored": 97,
+    "eligible": 97,
     "excluded": 0,
     "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 82.8,
+    "pct": 83.9,
     "verified_pct": null,
-    "mistakes": 12,
-    "uses": 64,
-    "eligible": 12,
+    "mistakes": 10,
+    "uses": 62,
+    "eligible": 10,
     "excluded": 0,
     "pending": 0,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
-     "7 slips are in rules the counter found 0 uses of in this lesson",
-     "5 rules have more slips than counted uses (B11, B12, E1, E2, F2)"
+     "2 slips are in rules the counter found 0 uses of in this lesson",
+     "2 rules have more slips than counted uses (B11, E1)"
     ]
    },
    "coverage": {
@@ -1801,7 +1801,7 @@
     "timing": "engine"
    },
    "agreement": [
-    40.6
+    48.0
    ],
    "between_passes": []
   }
