@@ -26,30 +26,30 @@
     "r1",
     "r2"
    ],
-   "p": 0.94,
+   "p": 0.915,
    "p_by_judge": {
-    "claude-opus-5-5": 0.9,
+    "claude-opus-5-5": 0.85,
     "gemini-4-argon": 0.98
    },
    "kept": true,
    "why": {
-    "claude-opus-5-5": "He said مفتوح ('open') to mean relaxed. Amal said 'No. You're a key', and he switched to مرتاح.",
-    "gemini-4-argon": "Medi used مفتوح ('open') to mean 'relaxed', and Amal explicitly rejected it before he corrected to مرتاح."
+    "claude-opus-5-5": "He used مفتوح/مفتاح (open/key) for 'relaxed'; Amal said 'No. You're a key' and he moved to مرتاح.",
+    "gemini-4-argon": "Medi said مفتوح and مفتاح for 'relaxed', and Amal explicitly rejected it ('No. You're a key. You can't open.') before he fixed it to مرتاح."
    },
    "claims": [
     {
-     "wrong": "مفتوح",
+     "wrong": "مفتاح",
      "right": "مرتاح",
      "kind": "vocab-A",
      "signal": "explicit-no",
-     "why": "He answered 'how is your day' with 'I am open' (maftoo7, sheet: open | Maftoo7); Amal said no; he then found أنا مرتاح (Amal 'Mm-hmm', chat ana mertaa7; sheet: comfortable / relaxed | Mertaa7)."
+     "why": "He reached for 'relaxed' and said مفتوح / مفتاح (open / key); Amal said No, you're a key, and he then found مرتاح (her chat ana mertaa7)."
     },
     {
-     "wrong": "مفتوح",
-     "right": "مرتاح",
+     "wrong": "أنا مفتاح",
+     "right": "أنا مرتاح",
      "kind": "vocab-A",
      "signal": "explicit-no",
-     "why": "He said 'I am open' (maftoo7) for 'I am relaxed'; Amal said no (you're not a key), he switched to مرتاح at 02:18 and her chat has ana mertaa7."
+     "why": "He said 'key' (sheet: key | Muftaa7) for 'relaxed'; Amal says 'You're a key'; he then fixes to مرتاح and her chat gives mertaa7."
     },
     {
      "wrong": "مفتوح",
@@ -78,30 +78,30 @@
    },
    "kept": true,
    "why": {
-    "claude-opus-5-5": "He dropped من and said شغلت بيتي. Amal answered 'صح، من بيتي', and he repeated من بيتي.",
-    "gemini-4-argon": "Medi rejected من بيتي in favor of شغلت بيتي, and Amal corrected him by confirming صح، من بيتي."
+    "claude-opus-5-5": "He dropped من (اشتغلت بيتي); Amal put it back with 'صح، من بيتي' and he repeated it.",
+    "gemini-4-argon": "Medi rejected من بيتي and settled on اشتغلت بيتي without the preposition, which Amal corrected by confirming صح، من بيتي."
    },
    "claims": [
-    {
-     "wrong": "شغلت بيتي",
-     "right": "(اشتغلت) من بيتي",
-     "kind": "grammar",
-     "signal": "recast",
-     "why": "He asked himself 'min beiti?' then rejected it and said shaghalt beiti; Amal said 'Yes, sa7, min beiti' and he repeated من بيتي - the preposition min (from) was missing."
-    },
-    {
-     "wrong": "شغلت بيتي",
-     "right": "شغلت من بيتي",
-     "kind": "grammar",
-     "signal": "prompt-then-fix",
-     "why": "'worked my house' lacks min (from); he floated من بيتي as a question, went back to the bare form, and Amal confirmed صح، من بيتي and he repeated it."
-    },
     {
      "wrong": "شغلت بيتي",
      "right": "من بيتي",
      "kind": "grammar",
      "signal": "recast",
      "why": "He considers من بيتي but retracts it with لا; Amal restores من to express working from home, while the transcription of the verb is uncertain."
+    },
+    {
+     "wrong": "شغلت بيتي",
+     "right": "من بيتي",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "Medi doubted whether to use the preposition and explicitly rejected it ('لا، شغلت بيتي'); Amal confirmed and recast with 'صح، من بيتي'."
+    },
+    {
+     "wrong": "اشتغلت بيتي",
+     "right": "اشتغلت من بيتي",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "He floated من بيتي then rejected it ('لا، اشتغلت بيتي'); Amal said Yes, صح، من بيتي - the preposition min is needed."
     }
    ]
   },
@@ -116,30 +116,23 @@
     "r1",
     "r2"
    ],
-   "p": 0.825,
+   "p": 0.225,
    "p_by_judge": {
-    "claude-opus-5-5": 0.7,
-    "gemini-4-argon": 0.95
+    "claude-opus-5-5": 0.35,
+    "gemini-4-argon": 0.09999999999999998
    },
-   "kept": true,
+   "kept": false,
    "why": {
-    "claude-opus-5-5": "He put el- on آخر (الآخر اجتماعتي). Amal asked 'Did you add (el)?', and he fixed it to آخر.",
-    "gemini-4-argon": "Medi put el- on آخر before a noun (الآخر اجتماعتي), and Amal prompted him until he dropped the article."
+    "claude-opus-5-5": "The 'ال...' was a cut-off and her 'add in?' prompt is unclear; the actual singular fix is the C4 moment.",
+    "gemini-4-argon": "The initial الـ before آخر was a cut-off hesitation that Medi denied, and the plural اجتماعاتي is the same error corrected at C4."
    },
    "claims": [
     {
-     "wrong": "الآخر اجتماعتي",
-     "right": "آخر اجتماع",
-     "kind": "grammar",
-     "signal": "recast",
-     "why": "'last meeting' needs aa5er + a bare singular noun (sheet: Aa5er + noun); he built el-aakhir + plural-with-my and kept saying اجتماعاتي الأخيرة (04:04); Amal: 'It's one. اجتماع.' then 'Plural.'"
-    },
-    {
-     "wrong": "الآخر اجتماعتي",
-     "right": "آخر اجتماع",
+     "wrong": "آخر اجتماعاتي",
+     "right": "اجتماعي الأخير / آخر اجتماع",
      "kind": "grammar",
      "signal": "prompt-then-fix",
-     "why": "aa5er + el- means 'the end of'; for 'the last meeting' aa5er takes no el-; Amal asked 'did you add (el)?' and he answered 'No. آخر اجتماعاتي'."
+     "why": "For 'my last meeting' he put aa5er on a plural with a possessive ending (= the last of my meetings / end of); Amal prompted ('Did you add in?', 'It's one. اجتماع.') and typed aa5er ijtimaa3 / ijtimaa3i el-a5eer."
     },
     {
      "wrong": "الآخر اجتماعتي",
@@ -147,6 +140,13 @@
      "kind": "grammar",
      "signal": "prompt-then-fix",
      "why": "He incorrectly put 'el-' on 'aa5er' before the noun, Amal verbally prompted him about adding an article (engine wrote 'in') and he fixed it."
+    },
+    {
+     "wrong": "الآخر",
+     "right": "آخر",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "Her transcribed prompt appears to question the added article, after which he removes it in آخر اجتماعاتي; prenominal آخر does not take el-."
     }
    ]
   },
@@ -157,27 +157,19 @@
    "readers": [
     "codex-gpt-6-astra",
     "gemini-3.1-pro-preview",
-    "gemini-3.7-flash",
-    "r1"
+    "gemini-3.7-flash"
    ],
-   "p": 0.905,
+   "p": 0.875,
    "p_by_judge": {
-    "claude-opus-5-5": 0.85,
-    "gemini-4-argon": 0.96
+    "claude-opus-5-5": 0.8,
+    "gemini-4-argon": 0.95
    },
    "kept": true,
    "why": {
-    "claude-opus-5-5": "He used the plural اجتماعاتي for a single meeting. Amal said 'It's one. اجتماع.'",
-    "gemini-4-argon": "Medi used the plural اجتماعاتي when referring to a single meeting, and Amal explicitly corrected it to the singular اجتماع."
+    "claude-opus-5-5": "He used plural اجتماعاتي for one meeting; Amal corrected: 'It's one. اجتماع.'",
+    "gemini-4-argon": "Medi used the plural اجتماعاتي when referring to a single meeting, and Amal explicitly corrected him to the singular ('It's one. اجتماع.')."
    },
    "claims": [
-    {
-     "wrong": "اجتماعاتي",
-     "right": "اجتماعي",
-     "kind": "grammar",
-     "signal": "explicit-no",
-     "why": "Amal asked when the last ONE was; he used the plural اجتماعاتي; she said 'It's one. اجتماع' (and 'Plural' at 04:15); he ended with اجتماعي الأخير at 04:50."
-    },
     {
      "wrong": "اجتماعاتي",
      "right": "اجتماع",
@@ -191,6 +183,13 @@
      "kind": "grammar",
      "signal": "prompt-then-fix",
      "why": "Medi used the plural اجتماعاتي (my meetings) when answering about a single meeting; Amal corrected: 'It's one. اجتماع.'"
+    },
+    {
+     "wrong": "اجتماعاتي",
+     "right": "اجتماعي",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "He used the plural 'ejtima3at' to mean 'my last meeting' (singular), Amal explicitly corrected him to the singular."
     }
    ]
   },
@@ -206,15 +205,15 @@
     "r1",
     "r2"
    ],
-   "p": 0.905,
+   "p": 0.88,
    "p_by_judge": {
-    "claude-opus-5-5": 0.85,
+    "claude-opus-5-5": 0.8,
     "gemini-4-argon": 0.96
    },
    "kept": true,
    "why": {
-    "claude-opus-5-5": "He put the feminine الأخيرة on the masculine اجتماع. Amal said 'No, اجتماع is masculine, you don't need a t', and he fixed it to الأخير.",
-    "gemini-4-argon": "Medi used feminine agreement (الأخيرة / -t) with اجتماع, and Amal explicitly corrected him because اجتماع is masculine."
+    "claude-opus-5-5": "He put feminine الأخيرة on masculine اجتماع; Amal said 'No, اجتماع is masculine. You don't need a t.'",
+    "gemini-4-argon": "Medi used the feminine adjective الأخيرة and kept a -t on اجتماع, which Amal explicitly rejected ('No, اجتماع is masculine. You don't need a t.')."
    },
    "claims": [
     {
@@ -225,18 +224,18 @@
      "why": "After the earlier singular correction he again uses اجتماعاتي and settles on الأخيرة at 04:30; Amal corrects the masculine singular and adds 'You don't need a t' at 04:45."
     },
     {
-     "wrong": "اجتماعات الأخيرة",
-     "right": "اجتماعي الأخير",
+     "wrong": "الأخيرة",
+     "right": "الأخير",
      "kind": "grammar",
      "signal": "explicit-no",
-     "why": "Feminine adjective (الأخيرة, -a) on masculine singular اجتماع; Amal: 'No، اجتماع is masculine. You don't need a t.' (he reached اجتماعي الأخير at 04:50)."
+     "why": "He put the feminine adjective الأخيرة on اجتماع; Amal said No, اجتماع is masculine, you don't need a t, and he then said اجتماعي الأخير."
     },
     {
-     "wrong": "اجتماعات الأخيرة",
-     "right": "اجتماعي الأخير",
+     "wrong": "الأخيرة",
+     "right": "الأخير",
      "kind": "grammar",
      "signal": "explicit-no",
-     "why": "He put the feminine adjective الأخيرة on اجتماع; Amal: 'No, اجتماع is masculine... You don't need a t' (04:45); he said اجتماعي الأخير at 04:50."
+     "why": "Medi used the feminine adjective الأخيرة for the masculine noun اجتماع; Amal corrected: 'No, اجتماع is masculine. You don't need a t.'"
     }
    ]
   },
@@ -252,30 +251,30 @@
     "r1",
     "r2"
    ],
-   "p": 0.8,
+   "p": 0.84,
    "p_by_judge": {
-    "claude-opus-5-5": 0.65,
-    "gemini-4-argon": 0.95
+    "claude-opus-5-5": 0.7,
+    "gemini-4-argon": 0.98
    },
    "kept": true,
    "why": {
-    "claude-opus-5-5": "He said على واحدة without el-. Amal recast it as الوحدة, and he repeated it.",
-    "gemini-4-argon": "Medi omitted the definite article on the clock time (على واحدة), and Amal recast it as الوحدة."
+    "claude-opus-5-5": "He left out el- in the clock time (على واحدة); Amal supplied الوحدة, he repeated it, and her chat says 3ala el-wa7de.",
+    "gemini-4-argon": "Medi omitted el- on the clock hour (على واحدة), and Amal recast it as الوحدة and reviewed why it takes the article."
    },
    "claims": [
+    {
+     "wrong": "على واحدة",
+     "right": "على الواحدة",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "El- missing before the clock number; Amal says الوحدة (engine may write الواحدة), he repeats 'الـ الواحدة'; her chat 3ala el-wa7de."
+    },
     {
      "wrong": "واحدة",
      "right": "الوحدة",
      "kind": "grammar",
      "signal": "recast",
      "why": "Clock time 'at 1:00' requires el- and the feminine number (الوحدة); Medi omitted el- ('على واحدة') and Amal recast with 'الوحدة'."
-    },
-    {
-     "wrong": "على واحدة",
-     "right": "على الواحدة",
-     "kind": "grammar",
-     "signal": "prompt-then-fix",
-     "why": "Clock time needs the el- (3ala el-wa7de); Amal answered with الوحدة and he repeated الـ واحدة; 05:11 is a repeat of her fix."
     },
     {
      "wrong": "على واحد، واحدة",
@@ -298,30 +297,23 @@
     "r1",
     "r2"
    ],
-   "p": 0.825,
+   "p": 0.915,
    "p_by_judge": {
-    "claude-opus-5-5": 0.7,
-    "gemini-4-argon": 0.95
+    "claude-opus-5-5": 0.85,
+    "gemini-4-argon": 0.98
    },
    "kept": true,
    "why": {
-    "claude-opus-5-5": "He said خمس in the date. Amal said 'Mm. No', and he fixed it to خمسة; she then asked about the a-ending.",
-    "gemini-4-argon": "Medi used the short form خمس instead of خمسة for the standalone number in the date, and Amal rejected it."
+    "claude-opus-5-5": "He said خمس in the date; Amal said 'No' and he fixed it to خمسة.",
+    "gemini-4-argon": "Medi used the shortened counting form خمس instead of خمسة in the date خمس إحداش, and Amal explicitly rejected it ('Mm. No.')."
    },
    "claims": [
     {
-     "wrong": "خمس",
-     "right": "خمسة",
+     "wrong": "خمس إحداش",
+     "right": "خمسة إحداش",
      "kind": "grammar",
      "signal": "explicit-no",
-     "why": "Giving today's date (5th) he said خمس; Amal 'Mm. No.', he fixed 'I mean، خمسة' and she said 'Mm-hmm'. Could be only the engine dropping the final -a (S4); the 'No' also came right after إحدى عشر (MSA 11 vs her e7da3sh)."
-    },
-    {
-     "wrong": "خمس",
-     "right": "خمسة",
-     "kind": "grammar",
-     "signal": "explicit-no",
-     "why": "In the date the number stands alone so it is 5amse, not 5ams; Amal said No, he fixed to خمسة, she then asked when the a-ending drops (06:35)."
+     "why": "In a date the number stands alone and keeps its -e (5amse); Amal said No, he fixed to خمسة, and she then asked when the number drops its ending (only when counting a noun)."
     },
     {
      "wrong": "خمس",
@@ -329,6 +321,13 @@
      "kind": "grammar",
      "signal": "prompt-then-fix",
      "why": "He repeats خمس in the date at 06:25, Amal rejects it, and he repairs it to خمسة before her explanation about shortened counting forms."
+    },
+    {
+     "wrong": "خمس",
+     "right": "خمسة",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "When standing alone or in a date, the number 5 retains its -a ending (خمسة); Medi dropped it to خمس and Amal corrected with 'Mm. No.'"
     }
    ]
   },
@@ -338,17 +337,18 @@
    "family": "vocab",
    "readers": [
     "codex-gpt-5.6-terra",
-    "codex-gpt-6-astra"
+    "codex-gpt-6-astra",
+    "r1"
    ],
-   "p": 0.175,
+   "p": 0.125,
    "p_by_judge": {
-    "claude-opus-5-5": 0.19999999999999996,
-    "gemini-4-argon": 0.15000000000000002
+    "claude-opus-5-5": 0.15000000000000002,
+    "gemini-4-argon": 0.09999999999999998
    },
    "kept": false,
    "why": {
-    "claude-opus-5-5": "He checked the meaning of هذي الفترة in English; that is a comprehension check, not a mistake in Arabic.",
-    "gemini-4-argon": "Medi spoke in English to check his understanding of her question and immediately knew الفترة meant 'period of time' once she repeated the Arabic."
+    "claude-opus-5-5": "He misunderstood Amal's phrase; he made no Arabic mistake of his own.",
+    "gemini-4-argon": "Medi spoke in English ('At this moment') to check his comprehension of Amal's question rather than making an error in Arabic."
    },
    "claims": [
     {
@@ -357,6 +357,13 @@
      "kind": "vocab-A",
      "signal": "explicit-no",
      "why": "He interprets her weather question as referring to this instant, and she rejects that interpretation and repeats the phrase meaning this period."
+    },
+    {
+     "wrong": "At this moment",
+     "right": "هذي الفترة (this period)",
+     "kind": "vocab-A",
+     "signal": "explicit-no",
+     "why": "He understood her هذي الفترة as 'at this moment'; Amal said No and repeated it, and he then worked out فترة = this period of time."
     },
     {
      "wrong": "At this moment",
@@ -374,17 +381,18 @@
    "readers": [
     "codex-gpt-6-astra",
     "gemini-3.7-flash",
-    "r1"
+    "r1",
+    "r2"
    ],
-   "p": 0.83,
+   "p": 0.84,
    "p_by_judge": {
     "claude-opus-5-5": 0.7,
-    "gemini-4-argon": 0.96
+    "gemini-4-argon": 0.98
    },
    "kept": true,
    "why": {
-    "claude-opus-5-5": "He said خمس for the temperature. Amal said 'No. مش خمس'; this is a new corrected moment after the date.",
-    "gemini-4-argon": "Medi said خمس instead of خمسة in 65 (خمسة وستين), and Amal explicitly rejected it ('No. مش خمس.')."
+    "claude-opus-5-5": "He said خمس in the temperature; Amal said 'No. مش خمس' and her chat gives 5amse u sitteen.",
+    "gemini-4-argon": "Medi again used خمس instead of خمسة in the compound number خمسة وستين, and Amal explicitly corrected him ('No. مش خمس.')."
    },
    "claims": [
     {
@@ -406,34 +414,34 @@
      "right": "خمسة",
      "kind": "grammar",
      "signal": "explicit-no",
-     "why": "Amal said No / 'mish 5ams'; the standalone number is 5amse (chat 5amse u sitteen)."
+     "why": "Amal 'No. مش خمس' while he counted the temperature; her chat has 5amse u sitteen. Meaning partly unclear."
     }
    ]
   },
   {
    "id": "C10",
-   "t": "08:18",
+   "t": "09:39",
    "family": "vocab",
    "readers": [
     "r2"
    ],
-   "p": 0.3,
+   "p": 0.135,
    "p_by_judge": {
-    "claude-opus-5-5": 0.5,
-    "gemini-4-argon": 0.09999999999999998
+    "claude-opus-5-5": 0.25,
+    "gemini-4-argon": 0.020000000000000018
    },
    "kept": false,
    "why": {
-    "claude-opus-5-5": "He said ستة عشر (16) where he meant sixty. Amal reacted 'Wow' and typed 5amse u sitteen in chat.",
-    "gemini-4-argon": "Amal's rejection was of خمس (covered in C9), while ستة عشر is likely an ASR mishearing of ستين in the same phrase."
+    "claude-opus-5-5": "He was repeating plurals from the homework; Amal listed the forms without correcting him.",
+    "gemini-4-argon": "Medi was listing plural forms of أخير/آخر he had seen in his homework, and Amal agreed ('أها') rather than correcting him."
    },
    "claims": [
     {
-     "wrong": "ستة عشر",
-     "right": "ستين",
+     "wrong": "أخيرات",
+     "right": "آخرات",
      "kind": "vocab-A",
-     "signal": "explicit-no",
-     "why": "Temperature 'about 65': he said خمس و ... ستة عشر (sixteen) where sitteen (sixty) was meant; Amal said 'No. مش خمس' at 08:10/08:13 then 'Wow', and typed 5amse u sitteen. Her voiced 'no' was on the خمس start, so which word she rejected is unclear."
+     "signal": "recast",
+     "why": "Plural of آخر: she lists آخرات then أواخر (أها); his أخيرات looks like an invented plural pattern."
     }
    ]
   },
@@ -444,23 +452,23 @@
    "readers": [
     "r2"
    ],
-   "p": 0.225,
+   "p": 0.085,
    "p_by_judge": {
-    "claude-opus-5-5": 0.4,
-    "gemini-4-argon": 0.050000000000000044
+    "claude-opus-5-5": 0.15000000000000002,
+    "gemini-4-argon": 0.020000000000000018
    },
    "kept": false,
    "why": {
-    "claude-opus-5-5": "This was a question testing the rule ('can I use بادات'), not a real attempt to say something.",
-    "gemini-4-argon": "Medi was asking a question in English about how an untaught, proposed grammar rule works."
+    "claude-opus-5-5": "He asked a question about the rule ('can I use باردات?').",
+    "gemini-4-argon": "Medi was asking a clarifying question in English ('for بارد I can use like باردات؟') about the new grammar rule Amal was explaining."
    },
    "claims": [
     {
-     "wrong": "بادات",
-     "right": "صعبة (الدروس صعبة)",
+     "wrong": "باردات",
+     "right": "feminine singular (non-human plural)",
      "kind": "grammar",
      "signal": "explicit-no",
-     "why": "He tested adding -at to an adjective for a non-human plural; Amal 'No. مش هيك' and gave feminine singular الدروس صعبة. It is a question about the rule, so low confidence."
+     "why": "He asked whether the plural adjective باردات works; Amal 'No' and shows the singular feminine. It is a rule question, so low."
     }
    ]
   },
@@ -471,50 +479,50 @@
    "readers": [
     "r2"
    ],
-   "p": 0.35,
+   "p": 0.265,
    "p_by_judge": {
-    "claude-opus-5-5": 0.6,
-    "gemini-4-argon": 0.09999999999999998
+    "claude-opus-5-5": 0.44999999999999996,
+    "gemini-4-argon": 0.07999999999999996
    },
    "kept": false,
    "why": {
-    "claude-opus-5-5": "Repeating her example, he said the masculine form with el-. Amal said 'No. صعبة', and his reply shows he had said the masculine.",
-    "gemini-4-argon": "Medi was asking about Amal's example while she explained an untaught grammar proposal, not making a production slip."
+    "claude-opus-5-5": "He was checking the rule she had just explained ('right?'), which counts as a rule question.",
+    "gemini-4-argon": "Medi was asking a clarifying question ('الدروس صعبات، right?') while trying to understand what Amal meant by feminine agreement on non-human plurals."
    },
    "claims": [
     {
-     "wrong": "الدروس السبع",
-     "right": "الدروس صعبة",
+     "wrong": "صعبات",
+     "right": "صعبة",
      "kind": "grammar",
      "signal": "explicit-no",
-     "why": "Repeating her example he said a masculine adjective with el- (engine wrote السبع = el-sa3b); Amal 'No. صعبة.'; he answered 'But that's not feminine ... singular feminine'. Needs fem. singular, no el- for a sentence (A7)."
+     "why": "Non-human plural takes the feminine singular adjective; he added plural -aat and Amal: 'No. صعبة.'"
     }
    ]
   },
   {
    "id": "C13",
-   "t": "11:57",
+   "t": "12:36",
    "family": "vocab",
    "readers": [
-    "r1"
+    "r2"
    ],
-   "p": 0.14,
+   "p": 0.085,
    "p_by_judge": {
-    "claude-opus-5-5": 0.19999999999999996,
-    "gemini-4-argon": 0.07999999999999996
+    "claude-opus-5-5": 0.15000000000000002,
+    "gemini-4-argon": 0.020000000000000018
    },
    "kept": false,
    "why": {
-    "claude-opus-5-5": "This is the same moment as C12; it is counted there.",
-    "gemini-4-argon": "This is the same turn as C12 where Medi misheard or questioned Amal's example during a rule explanation."
+    "claude-opus-5-5": "He guessed wrong about a word Amal said; this is comprehension, not his own Arabic.",
+    "gemini-4-argon": "Medi was asking in English what word Amal had used in her example الدروس بدت ('Is it بعيد؟')."
    },
    "claims": [
     {
-     "wrong": "السبع",
-     "right": "صعبة",
+     "wrong": "بعيد",
+     "right": "بدت (من بدأ)",
      "kind": "vocab-A",
      "signal": "explicit-no",
-     "why": "Repeating her example الدروس صعبة he said السبع (sab3 / the seven); Amal said No, صعبة. A misread of her Arabic, kept apart as listening."
+     "why": "He guessed the word she said (بدت) was بعيد; she says no, it comes from بدأ."
     }
    ]
   },
@@ -525,15 +533,15 @@
    "readers": [
     "codex-gpt-5.6-terra"
    ],
-   "p": 0.125,
+   "p": 0.105,
    "p_by_judge": {
     "claude-opus-5-5": 0.19999999999999996,
-    "gemini-4-argon": 0.050000000000000044
+    "gemini-4-argon": 0.010000000000000009
    },
    "kept": false,
    "why": {
-    "claude-opus-5-5": "This was a question about the rule, and Amal said كبيرات and other forms are also acceptable.",
-    "gemini-4-argon": "Medi was asking a question about the proposed plural agreement rule, self-corrected to كبيرة, and Amal said كبيرات is also acceptable."
+    "claude-opus-5-5": "It was a rule question, and Amal said كبيرات wouldn't be wrong either.",
+    "gemini-4-argon": "Medi was asking a question about the rule, and كبار is a valid form that Amal confirmed alongside كبيرة and كبيرات."
    },
    "claims": [
     {
@@ -550,19 +558,27 @@
    "t": "20:33",
    "family": "grammar",
    "readers": [
-    "codex-gpt-5.6-terra"
+    "codex-gpt-5.6-terra",
+    "r2"
    ],
-   "p": 0.35,
+   "p": 0.76,
    "p_by_judge": {
     "claude-opus-5-5": 0.6,
-    "gemini-4-argon": 0.09999999999999998
+    "gemini-4-argon": 0.92
    },
-   "kept": false,
+   "kept": true,
    "why": {
-    "claude-opus-5-5": "He said behkesh. Amal recast it as بحكيش and explained that the long vowel is kept.",
-    "gemini-4-argon": "Medi was trying out the newly introduced -ish suffix for the first time and already adjusted to behkish before Amal explained the long-vowel rule."
+    "claude-opus-5-5": "He gave behkesh with a short vowel; Amal recast it as بحكيش and explained that long vowels stay long.",
+    "gemini-4-argon": "Medi shortened the final vowel when negating بحكي with -ish (behkesh/behkish), and Amal recast it as بحكيش and explained the long-vowel rule."
    },
    "claims": [
+    {
+     "wrong": "behkesh",
+     "right": "بحكيش",
+     "kind": "grammar",
+     "signal": "named-rule",
+     "why": "Attempting 'I don't speak' with -sh he gave behkesh/behkish; Amal states that verbs ending in a long vowel keep it long."
+    },
     {
      "wrong": "behkesh",
      "right": "بحكيش",
@@ -584,15 +600,15 @@
     "r1",
     "r2"
    ],
-   "p": 0.855,
+   "p": 0.84,
    "p_by_judge": {
-    "claude-opus-5-5": 0.75,
-    "gemini-4-argon": 0.96
+    "claude-opus-5-5": 0.7,
+    "gemini-4-argon": 0.98
    },
    "kept": true,
    "why": {
-    "claude-opus-5-5": "He gave the verb for 'miss' when asked for 'complain'. Amal said 'That's I don't miss', and he retried.",
-    "gemini-4-argon": "Medi used the verb for 'miss' instead of 'complain', and Amal explicitly corrected the meaning."
+    "claude-opus-5-5": "For 'complain' he used the 'miss' verb (بشتاقش); Amal said 'That's I don't miss' and he switched to بشكيش.",
+    "gemini-4-argon": "Medi said بشتاقش ('I don't miss') for 'I don't complain', and Amal explicitly corrected the verb meaning before he fixed it to بشكيش."
    },
    "claims": [
     {
@@ -603,18 +619,18 @@
      "why": "Amal explicitly identifies his chosen verb as 'miss' rather than 'complain'; the Arabic target is reconstructed from her sheet's بشكي and the suffix being drilled because her correction is in English."
     },
     {
-     "wrong": "bashtesh",
-     "right": "بشتكيش",
+     "wrong": "بشتاقش",
+     "right": "بشكيش",
      "kind": "vocab-A",
      "signal": "explicit-no",
-     "why": "She asked 'I don't complain'; he said bashtesh (= I don't miss, bishta2) and Amal said 'That's I don't miss. I don't complain' (sheet: complain | Eshki | اشتكي); he then tried 'beshtesh'."
+     "why": "Asked for 'I don't complain' he said بشتاقش (I don't miss), a different verb; Amal said that's I don't miss and he switched to بشكيش (sheet: complain | Eshki | اشتكي)."
     },
     {
      "wrong": "bashtesh",
-     "right": "bashkeesh (بشكيش)",
+     "right": "بشكيش",
      "kind": "vocab-A",
      "signal": "explicit-no",
-     "why": "Asked for 'I don't complain' he gave the verb for 'miss' (bashta2sh); Amal: 'That's I don't miss.' Sheet: 'i complain | Ana bashki (min)'. He retried at 21:28 and she accepted."
+     "why": "He incorrectly formed 'bashtesh' (from bashtaaq, I miss) when trying to say 'I don't complain' (bashkish). Amal explicitly corrected his meaning."
     }
    ]
   },
@@ -636,16 +652,16 @@
    },
    "kept": true,
    "why": {
-    "claude-opus-5-5": "He dropped the you-form t in the negative command. Amal said 'Where's the t? You keep the t.'",
-    "gemini-4-argon": "Medi dropped the second-person prefix t- in the negative command, and Amal prompted him to keep the t-."
+    "claude-opus-5-5": "He said زعجش without the t- and without the n-; Amal asked 'Where's the t?' and then 'Again' until he reached بنزعج.",
+    "gemini-4-argon": "Medi used the wrong verb stem without the t- prefix (زعجش / تزعش) for 'don't be annoyed', and Amal prompted him on both the t- prefix and the n- stem (تنزعجش)."
    },
    "claims": [
     {
-     "wrong": "zaigish",
-     "right": "tenze3jesh",
+     "wrong": "تزعش",
+     "right": "تنزعجش",
      "kind": "grammar",
      "signal": "prompt-then-fix",
-     "why": "Negative command 'don't be annoyed' needs the you-form t (ma tenze3jesh); Amal 'Where's the t? You keep the t.' then 'Again', 'بنزعج، صح' (the n), 'لا، t command. Command t.'"
+     "why": "He used the za3aj (annoy someone) stem instead of the n- form inza3aj (get annoyed); Amal said Again, he reached بنزعج, she confirmed 'بنزعج، صح' and he noted 'There's an N'."
     },
     {
      "wrong": "za-zaigish",
@@ -655,43 +671,16 @@
      "why": "In negative commands, the verb must keep the you-prefix t- (ما تنزعج / تنزعجش); Medi dropped it to zaigish and Amal prompted: 'Where's the t? You keep the t.'"
     },
     {
-     "wrong": "zaigish",
+     "wrong": "زعجي",
      "right": "تنزعجش",
      "kind": "grammar",
-     "signal": "named-rule",
-     "why": "He omits the second-person t- in a negative command, and Amal explicitly requires it before supplying تنزعجش at 23:40."
+     "signal": "prompt-then-fix",
+     "why": "'don't be annoyed' needs the n- verb (انزعج) in the you-form; he used make-X زعج and dropped the t; she says 'Where's the t? You keep the t.'"
     }
    ]
   },
   {
    "id": "C18",
-   "t": "23:15",
-   "family": "grammar",
-   "readers": [
-    "r1"
-   ],
-   "p": 0.275,
-   "p_by_judge": {
-    "claude-opus-5-5": 0.44999999999999996,
-    "gemini-4-argon": 0.09999999999999998
-   },
-   "kept": false,
-   "why": {
-    "claude-opus-5-5": "This belongs to the same repair of the same word as C17, so C17 counts it.",
-    "gemini-4-argon": "This is part of the same unresolved correction moment on تنزعجش as C17."
-   },
-   "claims": [
-    {
-     "wrong": "zaish",
-     "right": "بنزعج / تنزعجش",
-     "kind": "grammar",
-     "signal": "recast",
-     "why": "'Get annoyed' is the n- form enze3ej (sheet 'i get annoyed | banze3ej'); he left out the n, Amal said بنزعج and he said 'There's an N'."
-    }
-   ]
-  },
-  {
-   "id": "C19",
    "t": "23:32",
    "family": "grammar",
    "readers": [
@@ -702,15 +691,15 @@
     "r1",
     "r2"
    ],
-   "p": 0.36,
+   "p": 0.35,
    "p_by_judge": {
     "claude-opus-5-5": 0.6,
-    "gemini-4-argon": 0.12
+    "gemini-4-argon": 0.09999999999999998
    },
    "kept": false,
    "why": {
-    "claude-opus-5-5": "After being fixed, he dropped the t again (enzaigish). Amal said 'لا، it doesn't work. تنزعجش', so it counts as a repeat slip.",
-    "gemini-4-argon": "This is still part of the same unresolved effort to form تنزعجش as C17, framed as a question about whether the rule allows enzaigish without ma."
+    "claude-opus-5-5": "After her fix he dropped the t- again (انزعجش); Amal said 'لا، it doesn't work. تنزعجش.'",
+    "gemini-4-argon": "This is part of the same unresolved attempt at تنزعجش from C17, framed as a rule question ('if I do enzaigish, there's no ma, right?')."
    },
    "claims": [
     {
@@ -721,40 +710,41 @@
      "why": "Although introduced in a question, he then attempts Enzaigish alone at 23:39 after the earlier t- instruction, and Amal explicitly replaces it with the second-person negative command."
     },
     {
-     "wrong": "enzaigish",
+     "wrong": "انزعجش",
      "right": "تنزعجش",
      "kind": "grammar",
      "signal": "explicit-no",
-     "why": "He tried an en- (I/we) form without ma for the command; Amal 'لا، it doesn't work. تنزعجش.' and added ما تنزعجش is also fine."
+     "why": "After her t fix he dropped the t- again (انزعجش, past/command stem); Amal said la, it doesn't work, تنزعجش - its own slip after the fix (GR-32)."
     },
     {
-     "wrong": "Enzaigish",
+     "wrong": "انزعجش",
      "right": "تنزعجش",
      "kind": "grammar",
      "signal": "explicit-no",
-     "why": "He dropped the you-form t again after her 23:04 fix (framed as 'there's no ma, right?'); Amal: 'La, it doesn't work. تنزعجش'."
+     "why": "Negative command takes the you-form with t-; he used the bare imperative form; Amal: 'لا، it doesn't work. تنزعجش.'"
     }
    ]
   },
   {
-   "id": "C20",
+   "id": "C19",
    "t": "24:07",
    "family": "vocab",
    "readers": [
     "codex-gpt-6-astra",
     "gemini-3.1-pro-preview",
     "gemini-3.7-flash",
-    "r1"
+    "r1",
+    "r2"
    ],
-   "p": 0.825,
+   "p": 0.815,
    "p_by_judge": {
-    "claude-opus-5-5": 0.7,
-    "gemini-4-argon": 0.95
+    "claude-opus-5-5": 0.65,
+    "gemini-4-argon": 0.98
    },
    "kept": true,
    "why": {
-    "claude-opus-5-5": "He used هيك اشي for 'anything else'. Amal pointed out that it means 'something like this', and he retried; her chat shows ay ishi.",
-    "gemini-4-argon": "Medi used هيك اشي ('something like this') instead of أي اشي تاني ('anything else'), and Amal corrected the meaning and typed the fix in chat."
+    "claude-opus-5-5": "He said هيك اشي for 'anything else'; Amal said that means 'something like this' and he fixed it to من إشي ثاني.",
+    "gemini-4-argon": "Medi used من هيك إشي ('from something like this') for 'about anything else', and Amal corrected the meaning until he said من إشي ثاني."
    },
    "claims": [
     {
@@ -766,10 +756,10 @@
     },
     {
      "wrong": "minhek",
-     "right": "min ay ishi",
+     "right": "من إشي ثاني (min ay ishi taani)",
      "kind": "vocab-A",
-     "signal": "explicit-no",
-     "why": "For 'anything else' he used هيك (like this) instead of أي (any); Amal said 'hek is something like this', chat min ay ishi taani; sheet 'anything | Ay eshi'. He said 'Oh' and retried at 24:18."
+     "signal": "prompt-then-fix",
+     "why": "For 'about anything else' he said min heik (from this / like this); Amal repeated 'About anything else' twice and said heik is 'something like this', then he said من إشي ثاني."
     },
     {
      "wrong": "hekishi",
@@ -781,7 +771,7 @@
    ]
   },
   {
-   "id": "C21",
+   "id": "C20",
    "t": "25:36",
    "family": "grammar",
    "readers": [
@@ -790,24 +780,17 @@
     "r1",
     "r2"
    ],
-   "p": 0.86,
+   "p": 0.85,
    "p_by_judge": {
     "claude-opus-5-5": 0.8,
-    "gemini-4-argon": 0.92
+    "gemini-4-argon": 0.9
    },
    "kept": true,
    "why": {
-    "claude-opus-5-5": "He left the -ish off the negated verb (matenbisti). Amal said 'No. Where's your ish?'",
-    "gemini-4-argon": "Medi omitted the target -ish suffix (and object pronoun on fi), and Amal prompted him until he produced it and typed the fix in chat."
+    "claude-opus-5-5": "In the -ish drill he said ما تنبسطي; Amal said 'No. Where's your ish?'",
+    "gemini-4-argon": "Medi said ما تنبسطي without the drilled -ish suffix, and Amal explicitly rejected it ('No. Where's your ish?') until he produced ما تنبسطيش."
    },
    "claims": [
-    {
-     "wrong": "matenbisti",
-     "right": "ma tenbestish",
-     "kind": "grammar",
-     "signal": "prompt-then-fix",
-     "why": "The -ish at the end of a negated verb was missing; Amal 'No. Where's your ish?' and again at 26:05, he fumbled until 26:37 'Matenbisti ish, fio', which she accepted; chat ma / tenbestish fiyyo zyaade."
-    },
     {
      "wrong": "matenbisti",
      "right": "tinbastish fiyo ktir",
@@ -816,44 +799,51 @@
      "why": "Amal requests the missing suffix twice and gives tinbastish fiyo ktir at 26:44; this is a drill-target correction, not a claim that an ordinary ma-negative is invalid."
     },
     {
-     "wrong": "fi",
-     "right": "fiyo",
+     "wrong": "ما تنبسطي",
+     "right": "ما تنبسطيش",
      "kind": "grammar",
-     "signal": "recast",
-     "why": "'Enjoy IT' takes the ending on the preposition (fiyyo = in it); Amal offered fiyo and he took it ('Oh yeah, fio')."
+     "signal": "explicit-no",
+     "why": "In the -ish negation drill he left the -ish off; Amal said No, Where's your ish? (again at 26:05) until he said ما تنبسطيش; no bucket covers the -ish negative."
+    },
+    {
+     "wrong": "matenbisti",
+     "right": "ما تنبسطش فيه",
+     "kind": "grammar",
+     "signal": "explicit-no",
+     "why": "Amal explicitly rejected the form because it omitted the drilled -ish negative ending."
+    }
+   ]
+  },
+  {
+   "id": "C21",
+   "t": "25:54",
+   "family": "grammar",
+   "readers": [
+    "r2"
+   ],
+   "p": 0.225,
+   "p_by_judge": {
+    "claude-opus-5-5": 0.4,
+    "gemini-4-argon": 0.050000000000000044
+   },
+   "kept": false,
+   "why": {
+    "claude-opus-5-5": "It is the same error, never fixed in between, so it belongs to the C20 moment.",
+    "gemini-4-argon": "This is the same unresolved -ish omission from C20, where Amal repeats 'Where's your ish?' before Medi fixes it."
+   },
+   "claims": [
+    {
+     "wrong": "ما تنبسطي فيه",
+     "right": "ما تنبسطيش فيه",
+     "kind": "grammar",
+     "signal": "prompt-then-fix",
+     "why": "He dropped the -ish again after her first prompt; she asked 'Where's your ish?' a second time."
     }
    ]
   },
   {
    "id": "C22",
-   "t": "25:54",
-   "family": "grammar",
-   "readers": [
-    "r1"
-   ],
-   "p": 0.34,
-   "p_by_judge": {
-    "claude-opus-5-5": 0.6,
-    "gemini-4-argon": 0.07999999999999996
-   },
-   "kept": false,
-   "why": {
-    "claude-opus-5-5": "After her first fix, he left off -ish again. Amal asked 'Where's your ish?' a second time, so it is a repeat slip.",
-    "gemini-4-argon": "This is the same ongoing correction moment for the missing -ish on tenbestish as C21."
-   },
-   "claims": [
-    {
-     "wrong": "Matenbisti fio",
-     "right": "ma tenbestish fiyyo",
-     "kind": "grammar",
-     "signal": "explicit-no",
-     "why": "After her 25:46 fix he again left off the -sh and she asked again 'Where's your ish?' - its own slip (GR-32: wrong form again, fixed again)."
-    }
-   ]
-  },
-  {
-   "id": "C23",
-   "t": "25:54",
+   "t": "26:00",
    "family": "vocab",
    "readers": [
     "gemini-3.1-pro-preview",
@@ -861,24 +851,17 @@
     "r1",
     "r2"
    ],
-   "p": 0.71,
+   "p": 0.675,
    "p_by_judge": {
-    "claude-opus-5-5": 0.5,
-    "gemini-4-argon": 0.92
+    "claude-opus-5-5": 0.44999999999999996,
+    "gemini-4-argon": 0.9
    },
    "kept": true,
    "why": {
-    "claude-opus-5-5": "Her 'Zia.' is unclear, she then accepted his 'ziyad' with 'Mm-hmm', and the difference may be pronunciation or a speech-to-text error.",
-    "gemini-4-argon": "Medi said ziyad instead of زيادة (zyaade) for 'too much', and Amal prompted the fix and typed zyaade in chat."
+    "claude-opus-5-5": "زياد looks like a word cut off mid-way; he finished زيادة as soon as Amal started it.",
+    "gemini-4-argon": "Medi dropped the feminine ending on زيادة (saying زياد), and Amal prompted 'Zia.' so he completed زيادة."
    },
    "claims": [
-    {
-     "wrong": "ziyad",
-     "right": "زيادة (zyaade)",
-     "kind": "vocab-A",
-     "signal": "prompt-then-fix",
-     "why": "'too much' = ziaadeh (sheet: extra / increase | Ziaadeh); he said ziyad (also a man's name) and Amal began 'Zia.' as a prompt; he repeated 'ziyad' and she moved on with 'Where's your ish?', chat has zyaade."
-    },
     {
      "wrong": "ziyad",
      "right": "زيادة",
@@ -887,34 +870,40 @@
      "why": "Medi said 'ziyad' instead of 'ziyadeh' (زيادة) for 'extra / too much'; sheet: 'extra / increase | Ziaadeh | زيادة | ziAdeh'."
     },
     {
-     "wrong": "ziyad",
-     "right": "zyaade",
+     "wrong": "زياد",
+     "right": "زيادة",
      "kind": "vocab-A",
-     "signal": "recast",
-     "why": "'Too much / extra' is ziyaade (sheet 'extra / increase | Ziaadeh'); he said ziyad, Amal recast 'Zia(de)'."
+     "signal": "prompt-then-fix",
+     "why": "He said زياد (a man's name) for زيادة; Amal echoed 'Zia' and he completed زيـ زيادة - may just be a cut-off word (S5)."
+    },
+    {
+     "wrong": "زياد",
+     "right": "زيادة",
+     "kind": "vocab-A",
+     "signal": "prompt-then-fix",
+     "why": "He said زياد (ending missing); Amal began the word 'Zia.' and he finished زيادة (sheet ziaadeh)."
     }
    ]
   },
   {
-   "id": "C24",
+   "id": "C23",
    "t": "28:35",
    "family": "grammar",
    "readers": [
     "codex-gpt-5.6-terra",
     "codex-gpt-6-astra",
     "gemini-3.1-pro-preview",
-    "gemini-3.7-flash",
-    "r1"
+    "gemini-3.7-flash"
    ],
-   "p": 0.725,
+   "p": 0.25,
    "p_by_judge": {
-    "claude-opus-5-5": 0.55,
-    "gemini-4-argon": 0.9
+    "claude-opus-5-5": 0.4,
+    "gemini-4-argon": 0.09999999999999998
    },
-   "kept": true,
+   "kept": false,
    "why": {
-    "claude-opus-5-5": "He said in basatish / in basatetish. Amal recast it as Inbastatish several times and told him to add ma.",
-    "gemini-4-argon": "Medi wavered to in basatish / in basatetish without ma, and Amal recast it as Inbastatish and instructed him to add ma in the past tense."
+    "claude-opus-5-5": "He asked about how the two t's sound, and her 'add ma' was an extra suggestion, not a fix.",
+    "gemini-4-argon": "Medi already said انبسطتش at 28:35 and was asking a pronunciation question about how the consecutive t sounds (ط and ت) are pronounced, while Amal's note to add ما in the past tense was new instruction."
    },
    "claims": [
     {
@@ -925,18 +914,18 @@
      "why": "After discussing the pronunciation, Amal explicitly instructs him to add ma to the past-tense -ish negative; 'addima' is the engine's rendering of 'add ma'."
     },
     {
-     "wrong": "in basatish",
-     "right": "inbasa6tish",
-     "kind": "grammar",
-     "signal": "recast",
-     "why": "For 'I didn't enjoy' he wavered to in basatish (no -t for 'I'); Amal recast Inbastatish; his 28:35 try had the t, so this may be searching, not a slip."
-    },
-    {
      "wrong": "in basatetish",
      "right": "انبسطتش",
      "kind": "grammar",
      "signal": "recast",
      "why": "Medi inserted an extra vowel/syllable when attaching -ish to the past tense ('in basatetish' instead of 'inbastatish'); Amal recast: 'Inbastatish.'"
+    },
+    {
+     "wrong": "in basatish",
+     "right": "انبسطتش",
+     "kind": "grammar",
+     "signal": "recast",
+     "why": "He missed the 't' ending (for 'I') before the '-ish' suffix for past tense negation, Amal recast the correct form."
     }
    ]
   }

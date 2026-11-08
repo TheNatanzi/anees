@@ -5,127 +5,122 @@
  "usage": {
   "via": "claude-plan"
  },
- "candidates_sig": "f346bd2dc4443be0",
+ "candidates_sig": "c1c30f913a2ae885",
  "verdicts": {
   "C1": {
    "verdict": "slip",
-   "confidence": 90,
-   "why": "He said مفتوح ('open') to mean relaxed. Amal said 'No. You're a key', and he switched to مرتاح."
+   "confidence": 85,
+   "why": "He used مفتوح/مفتاح (open/key) for 'relaxed'; Amal said 'No. You're a key' and he moved to مرتاح."
   },
   "C2": {
    "verdict": "slip",
    "confidence": 65,
-   "why": "He dropped من and said شغلت بيتي. Amal answered 'صح، من بيتي', and he repeated من بيتي."
+   "why": "He dropped من (اشتغلت بيتي); Amal put it back with 'صح، من بيتي' and he repeated it."
   },
   "C3": {
-   "verdict": "slip",
-   "confidence": 70,
-   "why": "He put el- on آخر (الآخر اجتماعتي). Amal asked 'Did you add (el)?', and he fixed it to آخر."
+   "verdict": "not",
+   "confidence": 65,
+   "why": "The 'ال...' was a cut-off and her 'add in?' prompt is unclear; the actual singular fix is the C4 moment."
   },
   "C4": {
    "verdict": "slip",
-   "confidence": 85,
-   "why": "He used the plural اجتماعاتي for a single meeting. Amal said 'It's one. اجتماع.'"
+   "confidence": 80,
+   "why": "He used plural اجتماعاتي for one meeting; Amal corrected: 'It's one. اجتماع.'"
   },
   "C5": {
    "verdict": "slip",
-   "confidence": 85,
-   "why": "He put the feminine الأخيرة on the masculine اجتماع. Amal said 'No, اجتماع is masculine, you don't need a t', and he fixed it to الأخير."
+   "confidence": 80,
+   "why": "He put feminine الأخيرة on masculine اجتماع; Amal said 'No, اجتماع is masculine. You don't need a t.'"
   },
   "C6": {
    "verdict": "slip",
-   "confidence": 65,
-   "why": "He said على واحدة without el-. Amal recast it as الوحدة, and he repeated it."
+   "confidence": 70,
+   "why": "He left out el- in the clock time (على واحدة); Amal supplied الوحدة, he repeated it, and her chat says 3ala el-wa7de."
   },
   "C7": {
    "verdict": "slip",
-   "confidence": 70,
-   "why": "He said خمس in the date. Amal said 'Mm. No', and he fixed it to خمسة; she then asked about the a-ending."
+   "confidence": 85,
+   "why": "He said خمس in the date; Amal said 'No' and he fixed it to خمسة."
   },
   "C8": {
    "verdict": "not",
-   "confidence": 80,
-   "why": "He checked the meaning of هذي الفترة in English; that is a comprehension check, not a mistake in Arabic."
+   "confidence": 85,
+   "why": "He misunderstood Amal's phrase; he made no Arabic mistake of his own."
   },
   "C9": {
    "verdict": "slip",
    "confidence": 70,
-   "why": "He said خمس for the temperature. Amal said 'No. مش خمس'; this is a new corrected moment after the date."
+   "why": "He said خمس in the temperature; Amal said 'No. مش خمس' and her chat gives 5amse u sitteen."
   },
   "C10": {
-   "verdict": "slip",
-   "confidence": 50,
-   "why": "He said ستة عشر (16) where he meant sixty. Amal reacted 'Wow' and typed 5amse u sitteen in chat."
+   "verdict": "not",
+   "confidence": 75,
+   "why": "He was repeating plurals from the homework; Amal listed the forms without correcting him."
   },
   "C11": {
    "verdict": "not",
-   "confidence": 60,
-   "why": "This was a question testing the rule ('can I use بادات'), not a real attempt to say something."
+   "confidence": 85,
+   "why": "He asked a question about the rule ('can I use باردات?')."
   },
   "C12": {
-   "verdict": "slip",
-   "confidence": 60,
-   "why": "Repeating her example, he said the masculine form with el-. Amal said 'No. صعبة', and his reply shows he had said the masculine."
+   "verdict": "not",
+   "confidence": 55,
+   "why": "He was checking the rule she had just explained ('right?'), which counts as a rule question."
   },
   "C13": {
    "verdict": "not",
-   "confidence": 80,
-   "why": "This is the same moment as C12; it is counted there."
+   "confidence": 85,
+   "why": "He guessed wrong about a word Amal said; this is comprehension, not his own Arabic."
   },
   "C14": {
    "verdict": "not",
    "confidence": 80,
-   "why": "This was a question about the rule, and Amal said كبيرات and other forms are also acceptable."
+   "why": "It was a rule question, and Amal said كبيرات wouldn't be wrong either."
   },
   "C15": {
    "verdict": "slip",
    "confidence": 60,
-   "why": "He said behkesh. Amal recast it as بحكيش and explained that the long vowel is kept."
+   "why": "He gave behkesh with a short vowel; Amal recast it as بحكيش and explained that long vowels stay long."
   },
   "C16": {
    "verdict": "slip",
-   "confidence": 75,
-   "why": "He gave the verb for 'miss' when asked for 'complain'. Amal said 'That's I don't miss', and he retried."
+   "confidence": 70,
+   "why": "For 'complain' he used the 'miss' verb (بشتاقش); Amal said 'That's I don't miss' and he switched to بشكيش."
   },
   "C17": {
    "verdict": "slip",
    "confidence": 80,
-   "why": "He dropped the you-form t in the negative command. Amal said 'Where's the t? You keep the t.'"
+   "why": "He said زعجش without the t- and without the n-; Amal asked 'Where's the t?' and then 'Again' until he reached بنزعج."
   },
   "C18": {
-   "verdict": "not",
-   "confidence": 55,
-   "why": "This belongs to the same repair of the same word as C17, so C17 counts it."
+   "verdict": "slip",
+   "confidence": 60,
+   "why": "After her fix he dropped the t- again (انزعجش); Amal said 'لا، it doesn't work. تنزعجش.'"
   },
   "C19": {
    "verdict": "slip",
-   "confidence": 60,
-   "why": "After being fixed, he dropped the t again (enzaigish). Amal said 'لا، it doesn't work. تنزعجش', so it counts as a repeat slip."
+   "confidence": 65,
+   "why": "He said هيك اشي for 'anything else'; Amal said that means 'something like this' and he fixed it to من إشي ثاني."
   },
   "C20": {
    "verdict": "slip",
-   "confidence": 70,
-   "why": "He used هيك اشي for 'anything else'. Amal pointed out that it means 'something like this', and he retried; her chat shows ay ishi."
+   "confidence": 80,
+   "why": "In the -ish drill he said ما تنبسطي; Amal said 'No. Where's your ish?'"
   },
   "C21": {
-   "verdict": "slip",
-   "confidence": 80,
-   "why": "He left the -ish off the negated verb (matenbisti). Amal said 'No. Where's your ish?'"
+   "verdict": "not",
+   "confidence": 60,
+   "why": "It is the same error, never fixed in between, so it belongs to the C20 moment."
   },
   "C22": {
-   "verdict": "slip",
-   "confidence": 60,
-   "why": "After her first fix, he left off -ish again. Amal asked 'Where's your ish?' a second time, so it is a repeat slip."
+   "verdict": "not",
+   "confidence": 55,
+   "why": "زياد looks like a word cut off mid-way; he finished زيادة as soon as Amal started it."
   },
   "C23": {
    "verdict": "not",
-   "confidence": 50,
-   "why": "Her 'Zia.' is unclear, she then accepted his 'ziyad' with 'Mm-hmm', and the difference may be pronunciation or a speech-to-text error."
-  },
-  "C24": {
-   "verdict": "slip",
-   "confidence": 55,
-   "why": "He said in basatish / in basatetish. Amal recast it as Inbastatish several times and told him to add ma."
+   "confidence": 60,
+   "why": "He asked about how the two t's sound, and her 'add ma' was an extra suggestion, not a fix."
   }
  }
 }

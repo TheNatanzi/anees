@@ -3,133 +3,128 @@
  "judge": "gemini-4-argon",
  "model": "gemini-4-argon",
  "usage": {
-  "in": 18699,
-  "out": 1182,
-  "reasoning": 10750,
+  "in": 18320,
+  "out": 1285,
+  "reasoning": 11687,
   "finish": "STOP",
-  "usd": 0.156718
+  "usd": 0.16636
  },
- "candidates_sig": "f346bd2dc4443be0",
+ "candidates_sig": "c1c30f913a2ae885",
  "verdicts": {
   "C1": {
    "verdict": "slip",
    "confidence": 98,
-   "why": "Medi used مفتوح ('open') to mean 'relaxed', and Amal explicitly rejected it before he corrected to مرتاح."
+   "why": "Medi said مفتوح and مفتاح for 'relaxed', and Amal explicitly rejected it ('No. You're a key. You can't open.') before he fixed it to مرتاح."
   },
   "C2": {
    "verdict": "slip",
    "confidence": 95,
-   "why": "Medi rejected من بيتي in favor of شغلت بيتي, and Amal corrected him by confirming صح، من بيتي."
+   "why": "Medi rejected من بيتي and settled on اشتغلت بيتي without the preposition, which Amal corrected by confirming صح، من بيتي."
   },
   "C3": {
-   "verdict": "slip",
-   "confidence": 95,
-   "why": "Medi put el- on آخر before a noun (الآخر اجتماعتي), and Amal prompted him until he dropped the article."
+   "verdict": "not",
+   "confidence": 90,
+   "why": "The initial الـ before آخر was a cut-off hesitation that Medi denied, and the plural اجتماعاتي is the same error corrected at C4."
   },
   "C4": {
    "verdict": "slip",
-   "confidence": 96,
-   "why": "Medi used the plural اجتماعاتي when referring to a single meeting, and Amal explicitly corrected it to the singular اجتماع."
+   "confidence": 95,
+   "why": "Medi used the plural اجتماعاتي when referring to a single meeting, and Amal explicitly corrected him to the singular ('It's one. اجتماع.')."
   },
   "C5": {
    "verdict": "slip",
    "confidence": 96,
-   "why": "Medi used feminine agreement (الأخيرة / -t) with اجتماع, and Amal explicitly corrected him because اجتماع is masculine."
+   "why": "Medi used the feminine adjective الأخيرة and kept a -t on اجتماع, which Amal explicitly rejected ('No, اجتماع is masculine. You don't need a t.')."
   },
   "C6": {
    "verdict": "slip",
-   "confidence": 95,
-   "why": "Medi omitted the definite article on the clock time (على واحدة), and Amal recast it as الوحدة."
+   "confidence": 98,
+   "why": "Medi omitted el- on the clock hour (على واحدة), and Amal recast it as الوحدة and reviewed why it takes the article."
   },
   "C7": {
    "verdict": "slip",
-   "confidence": 95,
-   "why": "Medi used the short form خمس instead of خمسة for the standalone number in the date, and Amal rejected it."
+   "confidence": 98,
+   "why": "Medi used the shortened counting form خمس instead of خمسة in the date خمس إحداش, and Amal explicitly rejected it ('Mm. No.')."
   },
   "C8": {
    "verdict": "not",
-   "confidence": 85,
-   "why": "Medi spoke in English to check his understanding of her question and immediately knew الفترة meant 'period of time' once she repeated the Arabic."
+   "confidence": 90,
+   "why": "Medi spoke in English ('At this moment') to check his comprehension of Amal's question rather than making an error in Arabic."
   },
   "C9": {
    "verdict": "slip",
-   "confidence": 96,
-   "why": "Medi said خمس instead of خمسة in 65 (خمسة وستين), and Amal explicitly rejected it ('No. مش خمس.')."
+   "confidence": 98,
+   "why": "Medi again used خمس instead of خمسة in the compound number خمسة وستين, and Amal explicitly corrected him ('No. مش خمس.')."
   },
   "C10": {
    "verdict": "not",
-   "confidence": 90,
-   "why": "Amal's rejection was of خمس (covered in C9), while ستة عشر is likely an ASR mishearing of ستين in the same phrase."
+   "confidence": 98,
+   "why": "Medi was listing plural forms of أخير/آخر he had seen in his homework, and Amal agreed ('أها') rather than correcting him."
   },
   "C11": {
    "verdict": "not",
-   "confidence": 95,
-   "why": "Medi was asking a question in English about how an untaught, proposed grammar rule works."
+   "confidence": 98,
+   "why": "Medi was asking a clarifying question in English ('for بارد I can use like باردات؟') about the new grammar rule Amal was explaining."
   },
   "C12": {
    "verdict": "not",
-   "confidence": 90,
-   "why": "Medi was asking about Amal's example while she explained an untaught grammar proposal, not making a production slip."
+   "confidence": 92,
+   "why": "Medi was asking a clarifying question ('الدروس صعبات، right?') while trying to understand what Amal meant by feminine agreement on non-human plurals."
   },
   "C13": {
    "verdict": "not",
-   "confidence": 92,
-   "why": "This is the same turn as C12 where Medi misheard or questioned Amal's example during a rule explanation."
+   "confidence": 98,
+   "why": "Medi was asking in English what word Amal had used in her example الدروس بدت ('Is it بعيد؟')."
   },
   "C14": {
    "verdict": "not",
-   "confidence": 95,
-   "why": "Medi was asking a question about the proposed plural agreement rule, self-corrected to كبيرة, and Amal said كبيرات is also acceptable."
+   "confidence": 99,
+   "why": "Medi was asking a question about the rule, and كبار is a valid form that Amal confirmed alongside كبيرة and كبيرات."
   },
   "C15": {
-   "verdict": "not",
-   "confidence": 90,
-   "why": "Medi was trying out the newly introduced -ish suffix for the first time and already adjusted to behkish before Amal explained the long-vowel rule."
+   "verdict": "slip",
+   "confidence": 92,
+   "why": "Medi shortened the final vowel when negating بحكي with -ish (behkesh/behkish), and Amal recast it as بحكيش and explained the long-vowel rule."
   },
   "C16": {
    "verdict": "slip",
-   "confidence": 96,
-   "why": "Medi used the verb for 'miss' instead of 'complain', and Amal explicitly corrected the meaning."
+   "confidence": 98,
+   "why": "Medi said بشتاقش ('I don't miss') for 'I don't complain', and Amal explicitly corrected the verb meaning before he fixed it to بشكيش."
   },
   "C17": {
    "verdict": "slip",
    "confidence": 96,
-   "why": "Medi dropped the second-person prefix t- in the negative command, and Amal prompted him to keep the t-."
+   "why": "Medi used the wrong verb stem without the t- prefix (زعجش / تزعش) for 'don't be annoyed', and Amal prompted him on both the t- prefix and the n- stem (تنزعجش)."
   },
   "C18": {
    "verdict": "not",
    "confidence": 90,
-   "why": "This is part of the same unresolved correction moment on تنزعجش as C17."
+   "why": "This is part of the same unresolved attempt at تنزعجش from C17, framed as a rule question ('if I do enzaigish, there's no ma, right?')."
   },
   "C19": {
-   "verdict": "not",
-   "confidence": 88,
-   "why": "This is still part of the same unresolved effort to form تنزعجش as C17, framed as a question about whether the rule allows enzaigish without ma."
+   "verdict": "slip",
+   "confidence": 98,
+   "why": "Medi used من هيك إشي ('from something like this') for 'about anything else', and Amal corrected the meaning until he said من إشي ثاني."
   },
   "C20": {
    "verdict": "slip",
-   "confidence": 95,
-   "why": "Medi used هيك اشي ('something like this') instead of أي اشي تاني ('anything else'), and Amal corrected the meaning and typed the fix in chat."
+   "confidence": 90,
+   "why": "Medi said ما تنبسطي without the drilled -ish suffix, and Amal explicitly rejected it ('No. Where's your ish?') until he produced ما تنبسطيش."
   },
   "C21": {
-   "verdict": "slip",
-   "confidence": 92,
-   "why": "Medi omitted the target -ish suffix (and object pronoun on fi), and Amal prompted him until he produced it and typed the fix in chat."
+   "verdict": "not",
+   "confidence": 95,
+   "why": "This is the same unresolved -ish omission from C20, where Amal repeats 'Where's your ish?' before Medi fixes it."
   },
   "C22": {
-   "verdict": "not",
-   "confidence": 92,
-   "why": "This is the same ongoing correction moment for the missing -ish on tenbestish as C21."
-  },
-  "C23": {
-   "verdict": "slip",
-   "confidence": 92,
-   "why": "Medi said ziyad instead of زيادة (zyaade) for 'too much', and Amal prompted the fix and typed zyaade in chat."
-  },
-  "C24": {
    "verdict": "slip",
    "confidence": 90,
-   "why": "Medi wavered to in basatish / in basatetish without ma, and Amal recast it as Inbastatish and instructed him to add ma in the past tense."
+   "why": "Medi dropped the feminine ending on زيادة (saying زياد), and Amal prompted 'Zia.' so he completed زيادة."
+  },
+  "C23": {
+   "verdict": "not",
+   "confidence": 90,
+   "why": "Medi already said انبسطتش at 28:35 and was asking a pronunciation question about how the consecutive t sounds (ط and ت) are pronounced, while Amal's note to add ما in the past tense was new instruction."
   }
  }
 }
