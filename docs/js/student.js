@@ -133,7 +133,13 @@
   // PG-35 (Medi 2026-10-08 "see why amal uploaded two card sets but the student page only shows one"): a set she uploaded
   // but has not assigned for a lesson yet is a To do row too - every upload is the student's, assigned or not
   function allCards() { return H.effective(D.tasks).filter(x => x.kind === 'cards').concat(H.unassignedUploads(D.uploads || [], D.tasks)); }
-  function openCards(t) { return allCards().filter(x => !(x.n_cards && H.cardsDone(x, D.log) >= x.n_cards)); }
+  // Medi 2026-11-11 ("move the open lessons older than 8 days in the student tab to done"): a lesson's card set leaves To do
+  // 8 days after its lesson date and shows on Done as closed; uploads with no lesson date stay in To do
+  const STALE_DAYS = 8;
+  const staleCut = () => new Date(Date.now() - STALE_DAYS * 864e5).toISOString().slice(0, 10);
+  const stale = x => !!(x.lesson_date && x.lesson_date < staleCut());
+  function openCards(t) { return allCards().filter(x => !stale(x) && !(x.n_cards && H.cardsDone(x, D.log) >= x.n_cards)); }
+  function closedCards() { return allCards().filter(x => stale(x) && !(x.n_cards && H.cardsDone(x, D.log) >= x.n_cards)); }
   const ring = f => `<svg class="st-ring" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--dw-line)" stroke-width="5"/><circle cx="18" cy="18" r="15" fill="none" stroke="var(--dw-a1)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(94.25 * Math.min(1, f)).toFixed(1)} 94.25" transform="rotate(-90 18 18)"/></svg>`;
   function cardsCard(t) {
     const done = H.cardsDone(t, D.log), n = t.n_cards || 0, today = new Date().toISOString().slice(0, 10), past = t.lesson_date && t.lesson_date < today;
@@ -168,13 +174,15 @@
     setTab('done');
     const L = states().filter(x => x.s && x.s.state === 'done').sort((a, b) => String(b.s.verdict.created_at).localeCompare(String(a.s.verdict.created_at)));
     const Qa = attn().answered.slice().reverse();
-    $('#st-view').innerHTML = (L.length || Qa.length) ? L.map(x => doneCard(x.t, x.s)).join('') + Qa.map(attnCard).join('') : '<p class="hb-empty">Nothing checked by your teacher yet.</p>';
+    const K = closedCards().sort((a, b) => String(b.lesson_date).localeCompare(String(a.lesson_date)));
+    const closed = K.length ? `<h3 class="st-day">Closed after ${STALE_DAYS} days <span class="hb-n">${K.length}</span></h3>` + K.map(cardsCard).join('') : '';
+    $('#st-view').innerHTML = (L.length || Qa.length || K.length) ? L.map(x => doneCard(x.t, x.s)).join('') + Qa.map(attnCard).join('') + closed : '<p class="hb-empty">Nothing checked by your teacher yet.</p>';
   }
   function counts() {
     const S = states(), sc = H.score(D.tasks, D.replies, D.verdicts);
     $('#st-n-todo').textContent = (sc.todo + sc.waiting + sc.checking + openCards().length + attn().open.length) || '';
     $('#st-n-shaky').textContent = D.shaky ? (H.shakyCards(D.shaky, D.log).length || '') : '';
-    $('#st-n-done').textContent = (sc.done + attn().answered.length) || '';
+    $('#st-n-done').textContent = (sc.done + attn().answered.length + closedCards().length) || '';
     $('#st-score').innerHTML = scoreHtml();
     $('#st-hello').textContent = sc.todo ? `${sc.todo} to do · ${sc.waiting + sc.checking} waiting for your teacher` : '';
   }
