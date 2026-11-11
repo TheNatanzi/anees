@@ -1,5 +1,5 @@
 {
- "built": "2026-11-11T13:15:40-08:00",
+ "built": "2026-11-11T14:02:29-08:00",
  "tasks": [
   {
    "id": "d9bbdc34-52c8-4199-be07-f4c50fc2f24e",
@@ -468,6 +468,91 @@
    },
    "ai_at": "2026-11-05T22:01:24.703166+00:00",
    "created_at": "2026-11-05T21:50:16.149+00:00"
+  },
+  {
+   "id": "8fd6a3e8-d8d9-4c8b-a6ca-0a1a3c5567d9",
+   "task_id": "a8347e02-9510-4795-a0e8-145bad6b0758",
+   "answer": "Shu8ulhom el a5reen mata3ebeen",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "shu8lhom el-a5eer mut3eb",
+    "model": "claude-sonnet-5-5",
+    "reason": "Job is singular: shu8lhom el-a5eer, not plural a5reen. Tiring is mut3eb, not mata3ebeen. Or: aa5er shu8l ilhom mut3eb.",
+    "verdict": "wrong",
+    "cost_usd": 0,
+    "examples": 5
+   },
+   "ai_at": "2026-11-11T22:02:26.813847+00:00",
+   "created_at": "2026-11-11T21:52:21.378+00:00"
+  },
+  {
+   "id": "aa1c64a1-64be-4823-b939-a9d73d200c7a",
+   "task_id": "9116a190-28a7-48af-9630-246df6938d8d",
+   "answer": "sallaret s7abi el oowla kanat zar2a",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "seyyaret s7abi el-oola kanat zar2a",
+    "model": "claude-sonnet-5-5",
+    "reason": "Car is seyyara, not sallaret. Idafa seyyaret s7abi, el-oola after it, kanat zar2a: all good.",
+    "verdict": "close",
+    "cost_usd": 0,
+    "examples": 5
+   },
+   "ai_at": "2026-11-11T22:02:11.285817+00:00",
+   "created_at": "2026-11-11T21:53:37.198+00:00"
+  },
+  {
+   "id": "9629b99d-53c4-4280-bc7e-1ead345ff920",
+   "task_id": "98d0d7ef-1f27-4456-b5cd-b12255b9cf10",
+   "answer": "hadi ra7 ykun mara el a5eera ili honak",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "Hay ra7 tkun aa5er mara ili honaak",
+    "model": "claude-sonnet-5-5",
+    "reason": "Last time = aa5er mara (idafa), not mara el-a5eera. Mara is feminine: tkun, not ykun. Put ili after mara: aa5er mara ili honaak.",
+    "verdict": "wrong",
+    "cost_usd": 0,
+    "examples": 5
+   },
+   "ai_at": "2026-11-11T22:01:55.681586+00:00",
+   "created_at": "2026-11-11T21:55:08.909+00:00"
+  },
+  {
+   "id": "516f1fa5-5528-45e9-9d59-bfea012ef165",
+   "task_id": "15d1b2ab-2a47-4ca5-8ebf-f5a08ad33da0",
+   "answer": "7ajezna el tani mish nafs el makan min hadi el wa7ad",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "7ajzna el-tani ma howe bi-nafs el-makaan zayy hada el-wa7ad",
+    "model": "claude-sonnet-5-5",
+    "reason": "Ma, not mish. 'As' is zayy, not min. Hada with wa7ad, not hadi. Say: ma howe bi-nafs el-makaan.",
+    "verdict": "wrong",
+    "cost_usd": 0,
+    "examples": 5
+   },
+   "ai_at": "2026-11-11T22:01:42.23355+00:00",
+   "created_at": "2026-11-11T21:56:46.929+00:00"
+  },
+  {
+   "id": "424f428b-af33-4f4f-82a6-1e7118e4346b",
+   "task_id": "86d75b1e-ee35-4d79-a5aa-bf1f047d61df",
+   "answer": "Fekkri fi tari2a tanya",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "Fekkri fi tari2a tanya",
+    "model": "claude-sonnet-5-5",
+    "reason": "Tmm. Fakkri fi tari2a tanya is correct. Fakkri is the command form. Fakker is the masculine; fakkri the feminine.",
+    "verdict": "right",
+    "cost_usd": 0,
+    "examples": 5
+   },
+   "ai_at": "2026-11-11T22:01:28.391762+00:00",
+   "created_at": "2026-11-11T21:57:29.26+00:00"
   }
  ],
  "verdicts": [
@@ -576,9 +661,9 @@
   "wrong": 5,
   "points": 2.5,
   "pct": 31.2,
-  "waiting": 0,
+  "waiting": 5,
   "checking": 0,
-  "todo": 5,
+  "todo": 0,
   "agreed": 3,
   "overruled": 5
  },
