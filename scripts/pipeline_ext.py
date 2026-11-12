@@ -38,10 +38,27 @@ def spend(service, usd, what):
     return L
 
 
+# Medi 2026-11-12 ("yes" to an $8-per-month ElevenLabs cap): the ElevenLabs cap was all-time ($15 since September) and
+# blocked 11-10 / 11-11 while his Creator plan was only 21 % used. It now counts this calendar month's calls only.
+MONTHLY = {'elevenlabs': 8.0}
+
+
+def spent(service, L=None, month=None):
+    """USD for `service`: this calendar month's calls for a MONTHLY service, else the all-time total."""
+    L = L or ledger()
+    if service not in MONTHLY:
+        return L.get(service, 0.0)
+    month = month or datetime.date.today().isoformat()[:7]
+    return round(sum(c.get('usd', 0) for c in L.get('calls', []) if c.get('service') == service and str(c.get('t', '')).startswith(month)), 4)
+
+
+def cap(service):
+    return MONTHLY.get(service, CAPS[service])
+
+
 def budget_ok(service, usd_next):
-    """True when the next call keeps the service under 90 % of its cap."""
-    L = ledger()
-    return L.get(service, 0.0) + usd_next <= CAPS[service] * STOP_AT
+    """True when the next call keeps the service under 90 % of its cap (a monthly cap for MONTHLY services)."""
+    return spent(service) + usd_next <= cap(service) * STOP_AT
 
 
 class BudgetStop(RuntimeError):
@@ -121,7 +138,7 @@ def _transcribe_with_retry(post, mp3_path, key, minutes, tries, backoff, sleep, 
     note = (lambda **k: rec.set(**k)) if rec is not None else (lambda **k: None)
     note(usage={'audio_min': round(minutes, 3)})
     if not budget_ok('elevenlabs', est):
-        raise BudgetStop(f'ElevenLabs budget: {ledger().get("elevenlabs", 0):.2f} + {est:.2f} USD would pass 90 % of the {CAPS["elevenlabs"]:.0f} USD cap')
+        raise BudgetStop(f'ElevenLabs budget: {spent("elevenlabs"):.2f} + {est:.2f} USD would pass 90 % of the {cap("elevenlabs"):.0f} USD monthly cap')
     last = None
     attempts = 0
     for i in range(tries):

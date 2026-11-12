@@ -59,7 +59,7 @@ def test_other_4xx_does_not_retry(tmp_path, ledger):
 
 
 def test_budget_guard_stops_at_90_percent(tmp_path, ledger):
-    px.spend('elevenlabs', px.CAPS['elevenlabs'] * 0.89, 'earlier lessons')   # follows the cap (10 -> 15 on 2026-10-20)
+    px.spend('elevenlabs', px.cap('elevenlabs') * 0.89, 'earlier lessons')   # follows the cap (monthly $8 from 2026-11-12)
     mp3 = tmp_path / 'a.mp3'; mp3.write_bytes(b'x')
     with pytest.raises(px.BudgetStop):
         px.transcribe_with_retry(lambda *a, **k: R(200, body={'words': []}), mp3, 'k', minutes=60)
@@ -217,3 +217,14 @@ def test_report_email_only_after_push_and_live(monkeypatch, tmp_path):
     fl.publish_report = lambda date: (_ for _ in ()).throw(RuntimeError('git push failed: rejected'))
     out = px.post_process('2099-01-01', send_email=True, use_openai=False, log=lambda *a: None)
     assert order == ['understand', 'build', 'speaking'] and 'report_error' in out and emails and 'report for 2099-01-01 failed' in emails[0]
+
+
+def test_elevenlabs_cap_is_monthly(tmp_path, ledger):
+    """Medi 2026-11-12 ("yes" to $8 a month): only this calendar month's ElevenLabs calls count against the cap, so last
+    month's spend never blocks a new lesson; other services keep their all-time caps."""
+    import io, json
+    L = {'elevenlabs': 50.0, 'openai': 0.0, 'calls': [{'t': '2020-01-05T10:00:00', 'service': 'elevenlabs', 'usd': 50.0, 'what': 'old'}]}
+    io.open(px.LEDGER, 'w', encoding='utf-8').write(json.dumps(L))
+    assert px.spent('elevenlabs') == 0 and px.budget_ok('elevenlabs', 0.26)
+    px.spend('elevenlabs', 7.0, 'this month')
+    assert not px.budget_ok('elevenlabs', 0.26)      # 7.00 + 0.26 > 90 % of 8
