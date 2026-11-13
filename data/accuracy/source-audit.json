@@ -3134,35 +3134,94 @@
    "date": "2026-11-12",
    "lesson_s": 3972.0,
    "attribution": "per-speaker-tracks",
-   "timing": "none",
+   "timing": "engine",
    "people": {
     "Medi": {
+     "segments": [
+      {
+       "offset": 0.355,
+       "duration_s": 3968.1,
+       "status": "ok",
+       "file": "Medi_Natanzi-be1d3c610ba44f3e.mp3"
+      }
+     ],
+     "audio_s": 3968.1,
+     "audio_pct": 99.9,
+     "no_audio": [],
+     "lost_segments": [],
      "lines": 538,
      "first_line": 161.68,
-     "speech_s": null,
-     "speech_transcribed_pct": null,
-     "untranscribed_s": null,
-     "holes": [],
+     "speech_s": 1022.9,
+     "speech_transcribed_pct": 84.2,
+     "untranscribed_s": 161.7,
+     "holes": [
+      [
+       3274.9,
+       3658.0,
+       93.7
+      ]
+     ],
      "empty_audio": []
     },
     "Amal": {
+     "segments": [
+      {
+       "offset": 159.315,
+       "duration_s": 3805.3,
+       "status": "ok",
+       "file": "Amal_Abusrour-d3c568b800ced083.mp3"
+      },
+      {
+       "offset": 224.015,
+       "duration_s": 3745.8,
+       "status": "ok",
+       "file": "Amal_Abusrour-25d28f768d1355a5.mp3"
+      }
+     ],
+     "audio_s": 3810.4,
+     "audio_pct": 95.9,
+     "no_audio": [
+      [
+       0.0,
+       159.3
+      ]
+     ],
+     "lost_segments": [],
      "lines": 410,
      "first_line": 160.66,
-     "speech_s": null,
-     "speech_transcribed_pct": null,
-     "untranscribed_s": null,
+     "speech_s": 648.8,
+     "speech_transcribed_pct": 80.4,
+     "untranscribed_s": 127.4,
      "holes": [],
      "empty_audio": []
     }
    },
-   "flags": [],
-   "recording": "one mixed recording",
+   "flags": [
+    {
+     "who": "Medi",
+     "kind": "untranscribed",
+     "from": 3274.9,
+     "to": 3658.0,
+     "speech_s": 93.7,
+     "text": "Medi talks 54:35-1:00:58 (94 s of speech on their own track) with no transcript line"
+    }
+   ],
+   "recording": "per-person tracks",
    "swap_check": {
-    "method": "voice pitch per line (Medi < 155 Hz, Amal > 180 Hz) vs the engine's diarization labels",
-    "checked": 907,
-    "agree_pct": 91.2,
-    "by_person": {},
-    "caption_agree_pct": 52.9,
+    "method": "own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?)",
+    "checked": 832,
+    "agree_pct": 95.7,
+    "by_person": {
+     "Medi": {
+      "own_track_louder": 460,
+      "other_track_louder": 24
+     },
+     "Amal": {
+      "own_track_louder": 336,
+      "other_track_louder": 12
+     }
+    },
+    "caption_agree_pct": 53.1,
     "caption_checked": 716,
     "caption_offset_s": -106,
     "cutoffs": {
@@ -3186,5 +3245,5 @@
   "loud_db": 6.0,
   "speech": "own-track frame energy > max(20th percentile + 15 dB, -50 dBFS), 0.1-s frames"
  },
- "built": "2026-11-13T01:26:00-08:00"
+ "built": "2026-11-13T05:35:46-08:00"
 }

@@ -36,9 +36,9 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-11-02 | 98.2 -> **97.7** | 247 -> **263** | 89.5 -> **86.9** | 29 -> **35** | 209 -> **229** | 2 / 0 |
 | 2026-11-04 | None -> **98.1** | None -> **268** | None -> **91.9** | None -> **27** | None -> **209** | 2 / 0 |
 | 2026-11-05 | None -> **96.2** | None -> **117** | None -> **91.9** | None -> **7** | None -> **86** | 1 / 1 |
-| 2026-11-10 | None -> **95.6** | None -> **309** | None -> **91.7** | None -> **20** | None -> **217** | 1 / 2 |
+| 2026-11-10 | None -> **97.0** | None -> **304** | None -> **89.2** | None -> **27** | None -> **222** | 1 / 1 |
 | 2026-11-11 | None -> **98.4** | None -> **224** | None -> **86.1** | None -> **26** | None -> **180** | 2 / 0 |
-| 2026-11-12 | None -> **98.3** | None -> **181** | None -> **89.5** | None -> **18** | None -> **172** | 0 / 1 |
+| 2026-11-12 | None -> **98.3** | None -> **151** | None -> **89.0** | None -> **21** | None -> **173** | 0 / 1 |
 
 
 ## Conflicts
@@ -166,16 +166,13 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-11-04 49:58 C1r both stand: مختلف. (word-bank right) vs طالب مختلف -> غير طالب (readers not-scored) - the Word Bank's context review already settled it: unchanged
 - 2026-11-05 02:10 C1 settled: مفتاح (word-bank right) vs مفتاح -> مرتاح (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-11-05 26:00 C1q Medi?: زياد (word-bank right) vs زياد -> زيادة (readers wrong) - which word of the phrase was wrong: Medi
-- 2026-11-10 03:13 C5 settled: أنا بشتغل (word-bank right) vs بشتغل -> بستعمل (readers wrong) - one word counted right and wrong at once: counted once, as the slip
-- 2026-11-10 11:11 C1q Medi?: مختلف. (word-bank right) vs مختلف -> تاني (readers wrong) - which word of the phrase was wrong: Medi
-- 2026-11-10 37:57 C1p both stand: متشجع (word-bank right) vs متشجع -> حافز (motivation) / متشجع (motivated) (readers wrong) - slip elsewhere in the phrase: the word stays right
-- 2026-11-10 40:33 C1q Medi?: متوترة (word-bank right) vs متوترة -> مضغوط (readers wrong) - which word of the phrase was wrong: Medi
-- 2026-11-10 48:07 C1a both stand: اكتر (word-bank right) vs اكتر اشي -> زيادة (readers asked) - he asked for another word: both stand
-- 2026-11-10 48:08 C1a both stand: اشي? (word-bank right) vs اكتر اشي -> زيادة (readers asked) - he asked for another word: both stand
+- 2026-11-10 11:11 C1p both stand: إشي (word-bank right) vs إشي مختلف -> إشي تاني (readers wrong) - slip elsewhere in the phrase: the word stays right
+- 2026-11-10 11:11 C1q Medi?: مختلف. (word-bank right) vs إشي مختلف -> إشي تاني (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-11-10 37:57 C1p both stand: متشجع (word-bank right) vs Motivation is متشجع ... motivated is حافز -> motivation = حافز, motivated = متشجع (readers not-scored) - slip elsewhere in the phrase: the word stays right
+- 2026-11-10 40:33 C1 settled: متوترة (word-bank right) vs متوترة -> مضغوط (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-11-11 52:03 C1 settled: آخر (word-bank right) vs آخر ليلة -> ليلة امبارح (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
 - 2026-11-11 58:18 C1 settled: ولا (word-bank right) vs ولا -> ابن (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
-- 2026-11-12 04:37 C1a both stand: ليل (word-bank right) vs ليل -> الليلة (readers asked) - he asked for another word: both stand
-- 2026-11-12 36:11 C1q Medi?: أي (word-bank right) vs أي أدج -> كل أدج (kul addaish) (readers not-scored) - which word of the phrase was wrong: Medi
+- 2026-11-12 36:11 C1q Medi?: أي (word-bank right) vs أي أدج -> كل أدّيش (readers not-scored) - which word of the phrase was wrong: Medi
 
 ## Medi's corrections (PR-15)
 
