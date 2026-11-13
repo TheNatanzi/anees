@@ -166,7 +166,14 @@ def test_mail_only_to_medi(tmp_path):
 def test_budget_at_90_percent_fails(tmp_path):
     w(tmp_path / "data" / "budget.json", {"elevenlabs": 3.39, "openai": 2.21})
     assert cr.check_budget(tmp_path, None)["status"] == "pass"
-    w(tmp_path / "data" / "budget.json", {"elevenlabs": 0.9 * cr.CAPS["elevenlabs"], "openai": 2.21})
+    w(tmp_path / "data" / "budget.json", {"elevenlabs": 0.9 * cr.CAPS["elevenlabs"], "openai": 0.9 * cr.CAPS["openai"]})
+    assert cr.check_budget(tmp_path, None)["status"] == "fail"
+    # ElevenLabs is a calendar-month cap since 2026-11-12: this month's calls count, the old all-time total does not
+    import datetime, pipeline_ext as PX
+    now = datetime.date.today().isoformat()
+    w(tmp_path / "data" / "budget.json", {"elevenlabs": 99, "openai": 2.21, "calls": [{"service": "elevenlabs", "usd": 0.5, "t": now}]})
+    assert cr.check_budget(tmp_path, None)["status"] == "pass"
+    w(tmp_path / "data" / "budget.json", {"elevenlabs": 0, "openai": 2.21, "calls": [{"service": "elevenlabs", "usd": 0.9 * PX.cap("elevenlabs"), "t": now}]})
     assert cr.check_budget(tmp_path, None)["status"] == "fail"
 
 
