@@ -3129,6 +3129,53 @@
     "human_listened_s": 0
    },
    "gap_fill": []
+  },
+  "2026-11-12": {
+   "date": "2026-11-12",
+   "lesson_s": 3972.0,
+   "attribution": "per-speaker-tracks",
+   "timing": "none",
+   "people": {
+    "Medi": {
+     "lines": 538,
+     "first_line": 161.68,
+     "speech_s": null,
+     "speech_transcribed_pct": null,
+     "untranscribed_s": null,
+     "holes": [],
+     "empty_audio": []
+    },
+    "Amal": {
+     "lines": 410,
+     "first_line": 160.66,
+     "speech_s": null,
+     "speech_transcribed_pct": null,
+     "untranscribed_s": null,
+     "holes": [],
+     "empty_audio": []
+    }
+   },
+   "flags": [],
+   "recording": "one mixed recording",
+   "swap_check": {
+    "method": "voice pitch per line (Medi < 155 Hz, Amal > 180 Hz) vs the engine's diarization labels",
+    "checked": 907,
+    "agree_pct": 91.2,
+    "by_person": {},
+    "caption_agree_pct": 52.9,
+    "caption_checked": 716,
+    "caption_offset_s": -106,
+    "cutoffs": {
+     "swapped_below": 50.0,
+     "doubtful_below": 90.0
+    }
+   },
+   "asr_review": {
+    "second_model_excerpts": 0,
+    "second_model_s": 0,
+    "human_listened_s": 0
+   },
+   "gap_fill": []
   }
  },
  "about": "Per lesson x per person source audit (scripts/source_audit.py): audio present, speech on each person's own track, untranscribed speech, independent speaker-label check, ASR review. Read by scripts/accuracy_gates.py.",
@@ -3139,5 +3186,5 @@
   "loud_db": 6.0,
   "speech": "own-track frame energy > max(20th percentile + 15 dB, -50 dBFS), 0.1-s frames"
  },
- "built": "2026-11-12T22:03:52-08:00"
+ "built": "2026-11-13T01:26:00-08:00"
 }
