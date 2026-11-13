@@ -37,7 +37,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-11-04 | 98.1 | 268 | 91.9 | 27 | 209 | 2 / 0 |
 | 2026-11-05 | 96.2 | 117 | 91.9 | 7 | 86 | 1 / 1 |
 | 2026-11-10 | 97.0 | 304 | 89.2 | 27 | 222 | 1 / 1 |
-| 2026-11-11 | 98.4 | 224 | 86.1 | 26 | 180 | 2 / 0 |
+| 2026-11-11 | 98.4 -> **98.1** | 224 -> **262** | 86.1 -> **86.6** | 26 | 180 -> **179** | 1 / 2 |
 | 2026-11-12 | 98.3 | 151 | 88.9 | 21 | 171 | 0 / 1 |
 
 
@@ -170,8 +170,10 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-11-10 11:11 C1q Medi?: مختلف. (word-bank right) vs إشي مختلف -> إشي تاني (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-11-10 37:57 C1p both stand: متشجع (word-bank right) vs Motivation is متشجع ... motivated is حافز -> motivation = حافز, motivated = متشجع (readers not-scored) - slip elsewhere in the phrase: the word stays right
 - 2026-11-10 40:33 C1 settled: متوترة (word-bank right) vs متوترة -> مضغوط (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
-- 2026-11-11 52:03 C1 settled: آخر (word-bank right) vs آخر ليلة -> ليلة امبارح (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
-- 2026-11-11 58:18 C1 settled: ولا (word-bank right) vs ولا -> ابن (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-11-11 02:10 C1q Medi?: ليل (word-bank right) vs ليل -> ليلة (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-11-11 04:16 C1a both stand: بالأخيرة (word-bank right) vs بالأخيرة -> وأخيرًا (readers asked) - he asked for another word: both stand
+- 2026-11-11 36:57 C1q Medi?: وقف (word-bank right) vs وقف -> بتتضايقي (readers not-scored) - which word of the phrase was wrong: Medi
+- 2026-11-11 59:54 C1 settled: ولد (word-bank right) vs ولد عمي -> ابن عمي (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
 - 2026-11-12 36:11 C1q Medi?: أي (word-bank right) vs أي أدج -> كل أدّيش (readers not-scored) - which word of the phrase was wrong: Medi
 
 ## Medi's corrections (PR-15)
