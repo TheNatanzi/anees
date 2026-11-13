@@ -36,8 +36,8 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-11-02 | 98.2 -> **97.7** | 247 -> **263** | 89.5 -> **86.9** | 29 -> **35** | 209 -> **229** | 2 / 0 |
 | 2026-11-04 | None -> **98.1** | None -> **268** | None -> **91.9** | None -> **27** | None -> **209** | 2 / 0 |
 | 2026-11-05 | None -> **96.2** | None -> **117** | None -> **91.9** | None -> **7** | None -> **86** | 1 / 1 |
-| 2026-11-10 | None -> **94.5** | None -> **299** | None -> **89.2** | None -> **28** | None -> **231** | 1 / 2 |
-| 2026-11-11 | None -> **98.7** | None -> **226** | None -> **100.0** | None -> **0** | None -> **157** | 0 / 0 |
+| 2026-11-10 | None -> **94.5** | None -> **299** | None -> **88.6** | None -> **28** | None -> **219** | 1 / 2 |
+| 2026-11-11 | None -> **98.4** | None -> **219** | None -> **85.1** | None -> **26** | None -> **175** | 1 / 2 |
 
 
 ## Conflicts
@@ -171,6 +171,10 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-11-10 17:23 C1q Medi?: أدا (word-bank right) vs كل أدا -> الكل (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-11-10 37:57 C1p both stand: متشجع (word-bank right) vs متشجع -> حافز (motivation) / متشجع (motivated) (readers wrong) - slip elsewhere in the phrase: the word stays right
 - 2026-11-10 40:33 C1q Medi?: متوترة (word-bank right) vs متوترة -> مضغوط (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-11-11 02:10 C1q Medi?: الليل (word-bank right) vs الليل الماضي -> ليلة (el-leile el-maadye / lailet mbaare7) (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-11-11 02:10 C1q Medi?: الماضي (word-bank right) vs الليل الماضي -> ليلة (el-leile el-maadye / lailet mbaare7) (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-11-11 52:03 C1 settled: آخر (word-bank right) vs آخر ليلة -> ليلة امبارح / امبارح بالليل (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
+- 2026-11-11 58:18 C1q Medi?: ولا (word-bank right) vs ولا أمي -> ابن عمي (readers not-scored) - which word of the phrase was wrong: Medi
 
 ## Medi's corrections (PR-15)
 

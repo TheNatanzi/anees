@@ -1,9 +1,10 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 2,
+ "count": 3,
  "by_date": {
   "2026-09-26": 1,
-  "2026-11-10": 1
+  "2026-11-10": 1,
+  "2026-11-11": 1
  },
  "rows": [
   {
@@ -51,6 +52,27 @@
    "second_judge": null,
    "listen_from": "13:29",
    "listen_to": "14:17"
+  },
+  {
+   "uid": "FA-ae397660",
+   "date": "2026-11-11",
+   "t": "24:22",
+   "t_amal": "24:23",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A10",
+   "medi_said": "آدي.",
+   "amal_said": "هذا هذا 'cause حجوز.",
+   "wrong": "آدي",
+   "right": "هذا",
+   "why_check": [
+    "the transcript under it is disputed (engine wrote something else)"
+   ],
+   "check": "audio",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "24:12",
+   "listen_to": "24:43"
   }
  ]
 }
