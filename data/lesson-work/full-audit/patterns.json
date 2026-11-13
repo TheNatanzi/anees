@@ -173,6 +173,28 @@
    ]
   },
   {
+   "id": "p-el-missing-on-noun",
+   "kind": "grammar",
+   "bucket": "A7",
+   "tier": null,
+   "title": "el- on the adjective but not on the noun (min usboo3 el-maadi -> min el-usboo3 el-maadi)",
+   "wrong": "usboo3 el-maadi",
+   "right": "el-usboo3 el-maadi",
+   "wrong_arabic": "أسبوع الماضي",
+   "right_arabic": "الأسبوع الماضي",
+   "wrong_arabizi": null,
+   "right_arabizi": null,
+   "why": "In 'last week' he drops el- from the noun but keeps it on the adjective; both need el- (she had just said min el-usboo3 el-maadi).",
+   "english": "since last week",
+   "rows": [
+    "FA-7838fd1e",
+    "FA-d32b9d22",
+    "FA-1bd24c84",
+    "FA-32995664",
+    "FA-06b910ab"
+   ]
+  },
+  {
    "id": "p-b-kept-after-lamma-iza",
    "kind": "grammar",
    "bucket": "B3",
@@ -419,23 +441,23 @@
    ]
   },
   {
-   "id": "p-el-missing-on-noun",
+   "id": "p-aktar-before-adjective",
    "kind": "grammar",
-   "bucket": "A7",
+   "bucket": "C3",
    "tier": null,
-   "title": "el- on the adjective but not on the noun (min usboo3 el-maadi -> min el-usboo3 el-maadi)",
-   "wrong": "usboo3 el-maadi",
-   "right": "el-usboo3 el-maadi",
-   "wrong_arabic": "أسبوع الماضي",
-   "right_arabic": "الأسبوع الماضي",
+   "title": "aktar put before the adjective (aktar sehle -> sehle aktar, aktar sahel -> sahel aktar)",
+   "wrong": "aktar sehle / aktar sahel",
+   "right": "sehle aktar / sahel aktar",
+   "wrong_arabic": "أكتر سهلة / أكثر سهل",
+   "right_arabic": "سهلة أكتر / سهل أكتر",
    "wrong_arabizi": null,
    "right_arabizi": null,
-   "why": "In 'last week' he drops el- from the noun but keeps it on the adjective; both need el- (she had just said min el-usboo3 el-maadi).",
-   "english": "since last week",
+   "why": "He puts aktar (more) before the adjective like English 'more easy', but the comparative goes adjective + aktar (her chat: sehla aktar, sehel aktar).",
+   "english": "easier / I must make it easier for you",
    "rows": [
-    "FA-7838fd1e",
-    "FA-d32b9d22",
-    "FA-1bd24c84"
+    "FA-79518a36",
+    "FA-7a93d354",
+    "FA-4922fcb5"
    ]
   },
   {
@@ -703,25 +725,6 @@
    "rows": [
     "FA-7ad77653",
     "FA-2a2d94b7"
-   ]
-  },
-  {
-   "id": "p-aktar-before-adjective",
-   "kind": "grammar",
-   "bucket": "C3",
-   "tier": null,
-   "title": "aktar put before the adjective (aktar sehle -> sehle aktar, aktar sahel -> sahel aktar)",
-   "wrong": "aktar sehle / aktar sahel",
-   "right": "sehle aktar / sahel aktar",
-   "wrong_arabic": "أكتر سهلة / أكثر سهل",
-   "right_arabic": "سهلة أكتر / سهل أكتر",
-   "wrong_arabizi": null,
-   "right_arabizi": null,
-   "why": "He puts aktar (more) before the adjective like English 'more easy', but the comparative goes adjective + aktar (her chat: sehla aktar, sehel aktar).",
-   "english": "easier / I must make it easier for you",
-   "rows": [
-    "FA-79518a36",
-    "FA-7a93d354"
    ]
   },
   {
@@ -2108,6 +2111,60 @@
    "english": "I'm a bit nervous",
    "rows": [
     "FA-53eeeffc"
+   ]
+  },
+  {
+   "id": "p-faare2-for-farq",
+   "kind": "vocab",
+   "bucket": null,
+   "tier": 2,
+   "title": "faare2 said for farq (difference), right after she said farq",
+   "wrong": "faare2 bein",
+   "right": "el-farq bein",
+   "wrong_arabic": "فارق",
+   "right_arabic": "فرق",
+   "wrong_arabizi": null,
+   "right_arabizi": "Farq",
+   "why": "Right after she said فرق he said فارق (a different, MSA-sounding word); her chat and sheet have el-farq.",
+   "english": "the difference between",
+   "rows": [
+    "FA-620f8e4c"
+   ]
+  },
+  {
+   "id": "p-pointer-h-dropped",
+   "kind": "grammar",
+   "bucket": "C2",
+   "tier": null,
+   "title": "Pointer -h dropped after a fronted object (awal makaan la2aina -> awal makaan la2ainaah)",
+   "wrong": "awal makaan la2aina",
+   "right": "awal makaan la2ainaah",
+   "wrong_arabic": "أول مكان لقينا",
+   "right_arabic": "أول مكان لقيناه",
+   "wrong_arabizi": "i7na la2aina",
+   "right_arabizi": null,
+   "why": "When the object (the first place) comes first, the verb should point back to it with -h (her chat: la2ainaah); he left it off.",
+   "english": "the first place we found (it)",
+   "rows": [
+    "FA-c218f40a"
+   ]
+  },
+  {
+   "id": "p-zakar-for-zakkar-remind",
+   "kind": "grammar",
+   "bucket": "B12",
+   "tier": null,
+   "title": "Plain form azkur for the doubled 'remind' form azakker (azkur 7aali -> azakker 7aali)",
+   "wrong": "azkur 7aali",
+   "right": "azakker 7aali",
+   "wrong_arabic": "اذكر حالي",
+   "right_arabic": "أذكّر حالي",
+   "wrong_arabizi": null,
+   "right_arabizi": "Bazakker",
+   "why": "'Remind myself' needs the doubled make-form azakker (her sheet: Bazakker, chat: laazem azakker 7aali); he said the plain azkur (mention).",
+   "english": "I have to remind myself",
+   "rows": [
+    "FA-e9fc4ffe"
    ]
   }
  ],
