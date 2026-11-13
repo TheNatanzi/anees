@@ -1,9 +1,265 @@
 {
  "rule": "AM-31",
- "updated": "2026-11-12T18:01:46-08:00",
+ "updated": "2026-11-12T22:13:16-08:00",
  "about": "Grammar the tutor added on her Tutor page: her words, Claude's rewrite as a rule with a letter-number, and her answer. Only her 'Yes, add it' adds the rule (scripts/tutor_grammar.py).",
- "waiting_for_tutor": 5,
+ "waiting_for_tutor": 9,
  "items": [
+  {
+   "sid": "heard-20261111-4104",
+   "text": "It could be with any verb actually. يعني for example, أنا اشتغلت عنك.",
+   "example": "",
+   "at": "2026-11-13T06:12:19+00:00",
+   "state": "proposed",
+   "versions": [
+    {
+     "grammar": true,
+     "id": "D8",
+     "family": "D",
+     "name": "3an = on someone's behalf",
+     "one_line": "Put 3an + the person after a verb to say you did or felt it in place of someone who should have done it.",
+     "formula": "verb + 3an + person (ending)",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "أنا اشتغلت عنك",
+       "english": "I worked in your place.",
+       "hers": true,
+       "date": "2026-11-11",
+       "t": "41:04"
+      },
+      {
+       "arabizi": "",
+       "arabic": "أنا بأزعل عنك",
+       "english": "I'm upset on your behalf.",
+       "hers": true,
+       "date": "2026-11-11",
+       "t": "40:42"
+      },
+      {
+       "arabizi": "",
+       "arabic": "بدفع عنك",
+       "english": "I pay for you.",
+       "hers": true,
+       "date": "2026-09-21",
+       "t": "25:20"
+      }
+     ],
+     "why": "She explained that 3an works with any verb when you do something that someone else should have done, which is not the same as working for an employer.",
+     "overlaps": {
+      "id": "D2",
+      "name": "verb + its fixed preposition",
+      "why": "It is a preposition chosen after a verb, but here 3an adds a meaning (on behalf of) and is not a fixed partner of one verb."
+     },
+     "checked": {
+      "new": true,
+      "covered_by": null,
+      "why": "No existing rule or proposal teaches 3an + person for doing or feeling something on someone's behalf; D1 and D2 only cover prepositions in general.",
+      "her_examples": 3,
+      "cost_usd": 0.01885
+     },
+     "v": 1,
+     "made_at": "2026-11-13T06:12:19+00:00",
+     "model": "claude-sonnet-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-11-11",
+     "readers": [
+      "a"
+     ]
+    }
+   ],
+   "heard": {
+    "date": "2026-11-11",
+    "t": "41:04",
+    "quote": "It could be with any verb actually. يعني for example, أنا اشتغلت عنك.",
+    "line": "It could be with any verb actually. يعني for example, أنا اشتغلت عنك.",
+    "before": "No, wait, what is it?"
+   }
+  },
+  {
+   "sid": "heard-20261111-5446",
+   "text": "We wouldn't use آخر we would use ماضي.",
+   "example": "",
+   "at": "2026-11-13T06:12:19+00:00",
+   "state": "proposed",
+   "versions": [
+    {
+     "grammar": true,
+     "id": "A27",
+     "family": "A",
+     "name": "aa5er = last in order, maadi = past",
+     "one_line": "Use aa5er for last in a sequence (the final one); for last meaning the previous or past one (last summer), use maadi.",
+     "formula": "aa5er = last in sequence; noun + el-maadi = last (past) noun",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "المرة الماضية",
+       "english": "last time (the previous time)",
+       "hers": true,
+       "date": "2026-11-11",
+       "t": "55:52"
+      },
+      {
+       "arabizi": "",
+       "arabic": "آخر جملة",
+       "english": "the last sentence",
+       "hers": true,
+       "date": "2026-09-05",
+       "t": "59:45"
+      },
+      {
+       "arabizi": "",
+       "arabic": "آخر درس",
+       "english": "the last lesson",
+       "hers": true,
+       "date": "2026-09-10",
+       "t": "13:09"
+      },
+      {
+       "arabizi": "",
+       "arabic": "آخر واحدة",
+       "english": "the last one",
+       "hers": true,
+       "date": "2026-09-11",
+       "t": "58:57"
+      }
+     ],
+     "why": "English uses 'last' for both the final one and the previous one, but she said aa5er only means last in a sequence, and maadi means past.",
+     "overlaps": {
+      "id": "A15",
+      "name": "aa5er / a5eer: before or after the noun",
+      "why": "A15 covers where aa5er goes around the noun, not when to use maadi instead."
+     },
+     "checked": {
+      "new": true,
+      "covered_by": null,
+      "why": "A15 covers aa5er as 'last' in sequence, but none of the rules or proposals teach using maadi (el-maadi) for 'last' meaning the past or previous one.",
+      "her_examples": 4,
+      "cost_usd": 0.022388
+     },
+     "v": 1,
+     "made_at": "2026-11-13T06:12:19+00:00",
+     "model": "claude-sonnet-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-11-11",
+     "readers": [
+      "a"
+     ]
+    }
+   ],
+   "heard": {
+    "date": "2026-11-11",
+    "t": "54:46",
+    "quote": "We wouldn't use آخر we would use ماضي.",
+    "line": "We wouldn't use آخر we would use ماضي.",
+    "before": "So is it..."
+   }
+  },
+  {
+   "sid": "heard-20261111-4834",
+   "text": "بس شركة because it's feminine, you would say تبعتي.",
+   "example": "",
+   "at": "2026-11-13T06:12:19+00:00",
+   "state": "proposed",
+   "versions": [
+    {
+     "grammar": true,
+     "id": "A28",
+     "family": "A",
+     "name": "tabe3 agrees with the noun",
+     "one_line": "To say 'my own' business, use tabe3 + the ending, and with a feminine noun it becomes tab3a: sharike tab3ti.",
+     "formula": "noun + tabe3 / tab3at + ending",
+     "examples": [
+      {
+       "arabizi": "",
+       "arabic": "بس شركة because it's feminine, you would say تبعتي.",
+       "english": "for a feminine noun like company, use tab3ati (mine)",
+       "hers": true
+      }
+     ],
+     "why": "She said you can use tabe3 for 'business', and that it changes to tab3at with a feminine noun.",
+     "overlaps": {
+      "id": "A4",
+      "name": "possessive endings",
+      "why": "It is also a way to say 'my', but it uses a separate word, tabe3, that agrees with the noun."
+     },
+     "checked": {
+      "new": true,
+      "covered_by": null,
+      "why": "No existing rule or proposal teaches tabe3 / tab3a as a possessive word that agrees with its noun; A4 only covers endings attached directly to the noun.",
+      "her_examples": 0,
+      "cost_usd": 0.017528
+     },
+     "v": 1,
+     "made_at": "2026-11-13T06:12:19+00:00",
+     "model": "claude-sonnet-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-11-11",
+     "readers": [
+      "a"
+     ]
+    }
+   ],
+   "heard": {
+    "date": "2026-11-11",
+    "t": "48:34",
+    "quote": "بس شركة because it's feminine, you would say تبعتي.",
+    "line": "بس شركة because it's feminine, you would say تبعتي.",
+    "before": "sharikati tabayi or sharikat, sharikat tabayi."
+   }
+  },
+  {
+   "sid": "heard-20261111-2628",
+   "text": "Time, occurrence, if it's occurrence or turn or it's, it's marra. You would say my last time, my first time, it's all marra if you make it in this context.",
+   "example": "",
+   "at": "2026-11-13T06:12:19+00:00",
+   "state": "proposed",
+   "versions": [
+    {
+     "grammar": true,
+     "id": "E8",
+     "family": "E",
+     "name": "time as occurrence = marra",
+     "one_line": "When 'time' means an occasion or a turn (my last time, my first time), say marra and not wa2t.",
+     "formula": "aa5er / awal + marra",
+     "examples": [
+      {
+       "arabizi": "haadi ra7 tkoon aa5er marra ili honaak",
+       "arabic": "haadi ra7 tkoon aa5er marra ili honaak",
+       "english": "This will be my last time there",
+       "hers": true
+      }
+     ],
+     "why": "English uses one word, 'time', for an occasion and for a stretch of time, but she said an occasion or turn is marra.",
+     "overlaps": null,
+     "checked": {
+      "new": true,
+      "covered_by": null,
+      "why": "No existing rule or proposal covers using marra (not wa2t) for 'time' as an occasion or turn, as in aa5er marra / awal marra.",
+      "her_examples": 0,
+      "cost_usd": 0.014672
+     },
+     "v": 1,
+     "made_at": "2026-11-13T06:12:19+00:00",
+     "model": "claude-sonnet-5-5",
+     "cost_usd": null,
+     "asked": null,
+     "heard_run": "2026-11-11",
+     "readers": [
+      "a"
+     ]
+    }
+   ],
+   "heard": {
+    "date": "2026-11-11",
+    "t": "26:28",
+    "quote": "Time, occurrence, if it's occurrence or turn or it's, it's marra. You would say my last time, my first time, it's all marra if you make it in this context.",
+    "line": "Time, occurrence, if it's occurrence or turn or it's, it's marra. You would say my last time, my first time, it's all marra if you make it in this context.",
+    "before": "No?"
+   }
+  },
   {
    "sid": "heard-20261105-1523",
    "text": "we give them the she verb conjugations, and we give them the feminine adjectives",

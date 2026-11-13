@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T21:27:59-08:00",
+ "updated": "2026-11-12T22:06:54-08:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -14302,47 +14302,209 @@
     "timing": "engine"
    },
    "duration_min": 63.1,
-   "type": "free-speak",
-   "review_mode": null,
-   "type_why": "Not read yet: default until the same-day reader (review_lesson.py, scripts/lesson_type_read.py) reads this lesson. The publish guard blocks while this shows.",
+   "type": "review-grammar",
+   "review_mode": "speaking",
+   "type_why": "Mixed review: 34:56-1:00:51 (~26 min, the most) drills verb + preposition pairs in her English-to-Arabic sentences (16:38 'Do you remember how to say apologise to?', 35:55 't2assaffi la-awal 7ada', 43:34 'enza3ajti min 7ada'), and 19:42-34:56 (~15 min) goes over his homework on the tool words awal / aa5er / taani / nafs (26:28 'my last time, my first time, it's all marra'). 01:52-19:42 is warm-up talk (a van accident, the holiday, date, clothes); Medi's audio is missing 12:07-17:36, only her side is transcribed. Nothing new was set except a few words and two small rules (عن = on behalf of at 40:42, last night = ليلة امبارح at 53:57).",
    "type_source": "claude-read",
-   "type_read_by": null,
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Review: verb + preposition pairs in sentences, and homework on awal / aa5er / taani / nafs",
+    "rules": [
+     {
+      "title": "Each feeling verb takes its own little word: bat2assaf la-, btetdaaya2 min, byet7ammas la-, ba5aaf 3ala",
+      "pattern": "verb + لـ / من / على",
+      "bullets": [
+       "the verb decides the little word, learn them as pairs",
+       "من = from / because of something",
+       "3ala = worried about someone",
+       "la- = towards (apologise to, excited for, miss)"
+      ],
+      "examples": [
+       {
+        "t": "35:55",
+        "line": "t2assaffi la-awal 7ada inti betshufih - apologise to the first person you see"
+       },
+       {
+        "t": "37:33",
+        "line": "fi ishi taani inti btetdaaya2i minno? - is there anything else you're upset about?"
+       },
+       {
+        "t": "43:34",
+        "line": "aimta aa5er marra enza3ajti min 7ada? - when was the last time you got annoyed with someone?"
+       },
+       {
+        "t": "45:23",
+        "line": "abuy byet7ammas la-el-5areef - my father gets excited for the fall"
+       },
+       {
+        "t": "48:16",
+        "line": "ana shta2et la-ijaazaati - I missed my vacations"
+       },
+       {
+        "t": "1:00:51",
+        "line": "ana ba5aaf 3ala eben 3ammi - I worry about my cousin"
+       }
+      ]
+     },
+     {
+      "title": "عن = doing it on someone's behalf: ana baz3al 3annak, shta8alet 3annak",
+      "pattern": "verb + عن + person",
+      "bullets": [
+       "use عن when they should have done it, but you did",
+       "works with any verb",
+       "not 'worked for you' as an employer"
+      ],
+      "examples": [
+       {
+        "t": "40:42",
+        "line": "أنا بزعل عنك - I'm upset for you (you should be)"
+       },
+       {
+        "t": "41:04",
+        "line": "أنا اشتغلت عنك - I worked in your place"
+       }
+      ]
+     },
+     {
+      "title": "Time = marra: aa5er marra, awal marra (not marra el-a5eera)",
+      "pattern": "aa5er / awal + marra",
+      "bullets": [
+       "a time or a turn is marra, not wa2et",
+       "aa5er goes before the noun, no el-",
+       "il-marra el-a5eera works, marra el-a5eera does not"
+      ],
+      "examples": [
+       {
+        "t": "26:28",
+        "line": "my last time, my first time, it's all marra"
+       },
+       {
+        "t": "28:24",
+        "line": "haadi ra7 tkoon aa5er marra ili honaak - this will be my last time there"
+       },
+       {
+        "t": "42:21",
+        "line": "imta aa5er marra - when was the last time"
+       }
+      ]
+     },
+     {
+      "title": "Tool words on the homework: el-taani after the noun, nafs + noun, awal + noun",
+      "bullets": [
+       "the second one = el-taani after the noun",
+       "the same place as this = nafs makaan haada",
+       "the first car = awal sayyaara"
+      ],
+      "examples": [
+       {
+        "t": "25:34",
+        "line": "7ajezna el-taani mish nafs makaan haada - our second booking is not in the same place as this one"
+       },
+       {
+        "t": "32:18",
+        "line": "awal sayyaara la-s7aabi kanat zar2a - my friend's first car was blue"
+       },
+       {
+        "t": "34:12",
+        "line": "aa5er shu8ul ilhom kaan mut3eb / beyta33eb - their last job was tiring"
+       }
+      ]
+     },
+     {
+      "title": "Last night = lailet mbaare7; aa5er = last in a row, maadi = past",
+      "pattern": "ليلة امبارح / امبارح بالليل",
+      "bullets": [
+       "aa5er lailet means the final night, not yesterday",
+       "last summer = el-saif el-maadi",
+       "for time both aa5er marra and el-marra el-maadye work"
+      ],
+      "examples": [
+       {
+        "t": "53:57",
+        "line": "ليلة امبارح أو امبارح بالليل - last night"
+       },
+       {
+        "t": "54:20",
+        "line": "lailet mbaare7 ana kunet mit7ammes la-arja3 3ala el-bait - last night I was excited to get back home"
+       },
+       {
+        "t": "55:52",
+        "line": "المرة الماضية - the last time"
+       }
+      ]
+     },
+     {
+      "title": "Own business: tabe3 agrees with the noun: sharike tab3ti",
+      "pattern": "noun + تبع / تبعت + ending",
+      "bullets": [
+       "شركة is feminine, so it takes تبعتي",
+       "business is masculine: تبعي"
+      ],
+      "examples": [
+       {
+        "t": "48:07",
+        "line": "Business تبع"
+       },
+       {
+        "t": "48:34",
+        "line": "شركة because it's feminine, you would say تبعتي"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up 01:52-19:42: a van accident, he bought a new one, working on the holiday, the date, the time, his clothes",
+     "Medi's audio is missing 12:07-17:36 (homework and 'review' talk); only Amal's side is transcribed",
+     "Off-lesson: Amal closed her door 06:40-07:31; Medi gave a passer-by directions 22:06-22:34",
+     "Words given: wa5eeran, ba2addi, lailet mbaare7, eben 3ammi, مراجعة"
+    ]
+   },
    "words": {
-    "unique": 104,
-    "right": 220,
-    "wrong": 0,
-    "partial": 6,
-    "pct": 98.7,
-    "scored": 226,
-    "audit_wrong": 0,
+    "unique": 109,
+    "right": 214,
+    "wrong": 2,
+    "partial": 3,
+    "pct": 98.4,
+    "scored": 219,
+    "audit_wrong": 2,
     "audit_partial": 0,
+    "not_on_sheet": 6,
     "rehear_word_conflicts": 0,
-    "unique_rows": 101,
-    "eligible": 226,
+    "unique_rows": 106,
+    "eligible": 219,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 98.7,
+    "eligible_pct": 98.4,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 157,
-    "mistakes": 0,
-    "pct": 100.0,
+    "uses": 181,
+    "mistakes": 26,
+    "pct": 85.6,
     "estimate": false,
-    "scored_mistakes": 0,
+    "scored_mistakes": 26,
     "unscored_mistakes": 0,
-    "eligible": 0,
-    "excluded": 0,
-    "pending": 0,
+    "eligible": 24,
+    "excluded": 2,
+    "pending": 1,
     "denominator": {
-     "valid": true,
-     "reasons": [],
+     "valid": false,
+     "reasons": [
+      "3 slips are in rules the counter found 0 uses of in this lesson",
+      "5 rules have more slips than counted uses (A10, B18, B9, C7, D2)"
+     ],
      "uses": 157,
-     "slips": 0,
-     "slips_latin": 0,
-     "slips_in_zero_use_rules": 0,
-     "rules_slips_over_uses": []
+     "slips": 26,
+     "slips_latin": 7,
+     "slips_in_zero_use_rules": 3,
+     "rules_slips_over_uses": [
+      "A10",
+      "B18",
+      "B9",
+      "C7",
+      "D2"
+     ]
     },
     "verified_pct": null
    },
@@ -14399,12 +14561,104 @@
     "arabic_words": 407
    },
    "new_words": [],
-   "taught": [],
-   "taught_words": [],
-   "coverage": null,
+   "taught": [
+    {
+     "latin": "Ana bat2assaf la- / min",
+     "arabic": "أنا بتأسف لـ / من",
+     "review": true
+    },
+    {
+     "latin": "Ana batDaaya2 min",
+     "arabic": "أنا بتضايق من",
+     "review": true
+    },
+    {
+     "latin": "Ana banze3ej min",
+     "arabic": "أنا بنزعج من",
+     "review": true
+    },
+    {
+     "latin": "Ana bat7ammas la-",
+     "arabic": "أنا بتحمس لـ",
+     "review": true
+    },
+    {
+     "latin": "Ana bashtaa2 la-",
+     "arabic": "أنا بشتاق لـ",
+     "review": true
+    },
+    {
+     "latin": "Ana banbese6 la-",
+     "arabic": "أنا بنبسط لـ",
+     "review": true
+    },
+    {
+     "latin": "Ana barja3 3ala",
+     "arabic": "أنا برجع على",
+     "review": true
+    },
+    {
+     "latin": "Ana ba5aaf 3ala",
+     "arabic": "أنا بخاف على",
+     "review": true
+    }
+   ],
+   "taught_words": [
+    {
+     "latin": "wa5eeran",
+     "arabic": "وأخيرًا",
+     "english": "finally",
+     "t": "04:19"
+    },
+    {
+     "latin": null,
+     "arabic": "براجع / مراجعة",
+     "english": "I review / a review",
+     "t": "14:36"
+    },
+    {
+     "latin": "ba2addi",
+     "arabic": "بقضي",
+     "english": "I spend (time) (past: addait shwai wa2et = I spent some time)",
+     "t": "15:37"
+    },
+    {
+     "latin": null,
+     "arabic": "عن",
+     "english": "on behalf of / for (someone who should have done it): أنا بزعل عنك, اشتغلت عنك",
+     "t": "40:42"
+    },
+    {
+     "latin": null,
+     "arabic": "تبع / تبعتي",
+     "english": "my own (business tab3i; feminine sharike tab3ti)",
+     "t": "48:02"
+    },
+    {
+     "latin": "lailet mbaare7",
+     "arabic": "ليلة امبارح",
+     "english": "last night (also mbaare7 billail)",
+     "t": "53:57"
+    },
+    {
+     "latin": null,
+     "arabic": "وحش",
+     "english": "monster / beast (not 'wild' about a person; Medi said وحشي)",
+     "t": "59:09"
+    },
+    {
+     "latin": "eben 3ammi",
+     "arabic": "ابن عمي",
+     "english": "my cousin (father's brother's son)",
+     "t": "59:41"
+    }
+   ],
+   "coverage": "No echo-candidates file for 2026-11-11. HOLE 12:07-18:15: Medi's lines are missing (only Amal shown) - rows at 14:36, 15:19, 15:42, 16:53, 17:48 rely on Amal's echo and are low confidence. 36:48 and 36:59 his Arabic shows only as [speaking Arabic]. 42:14-48:20 Medi's Arabic is in Latin letters. 20:00-34:12 is homework review: only lines he said aloud are rowed (written-only slips such as the سلارة spelling and the plural أخرين he named himself are left out). Self-fixes not rowed: 09:12 حفلة -> 09:40 عطلة (before Amal voiced anything); 27:58 هون -> 28:05 هناك; 52:16 أكون -> كنت. Unclear and skipped: 05:51 'ما ندري', 09:35 'يوم إمني', 19:29 'قماش ربي' (chat: kundara binniyye - engine). Engine: 35:22 هذا = 7ada; 58:22 أمي = 3ammi; 06:01 Amal 'سوء نعم' = su2na; 06:03 سوينا = su2na; 25:15 حاجتنا = 7ajezna; 50:30 الأصل = العسل. Questions not rowed: 11:54 فادي, 46:30 ala la?, 53:05 أرجعت?, 40:55 An?. / Medi's voice is missing or empty 13:04-17:36 and 18:00-18:09 (Amal asks, no answers; rows 1111-8 to 1111-10 are built from her side only). Lines 35:09-48:20, 49:37-50:10 are partly Latin-transliterated. Many Medi stretches are English (homework talk 20:00-34:00). Engine echoes: واجهة = wa7da (04:41); هذا / آدي = 7ada (35:25, 43:32); وحشي read as said. Self-fixed, not filed: حفلة -> عطلة (09:40, he fixed before Amal); هون -> هناك (28:05). Skipped: سا-سعينا/سوينا (S4 ق letter; Amal chat su2na); بيدة (S4); واظف (S4); قماش ربي (19:29, chat shows kundara binniyye, can't read). No echo-candidates file for 2026-11-11.",
    "notes": [
     "timings: anees-20261111-recall-amal-seg111: page/engine offset spread 195.52s",
-    "5 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow."
+    "5 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow.",
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 52:03 Word Bank said right, Amal said no to that word: her no counts.",
+    "2 moment(s) wait for Medi (counted as before until he picks): 02:10; 58:18."
    ],
    "page": "lessons/2026-11-11.html",
    "detail": "data/lessons/2026-11-11.json",
@@ -14418,38 +14672,114 @@
    "counts": {
     "turns": 978,
     "chat_lines": 34,
-    "vocab_errors": 0,
-    "vocab_correct": 226,
-    "grammar_errors": 0,
+    "vocab_errors": 8,
+    "vocab_correct": 217,
+    "grammar_errors": 26,
     "grammar_not_counted": 0,
     "vocab_errors_split": {
-     "wrong": 0,
+     "wrong": 2,
      "half": 0,
-     "off_list": 0
+     "off_list": 6
     }
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-11-11.json",
-    "marks": 396,
-    "conflicts": 0,
-    "resolved": 0,
-    "needs_medi": 0,
+    "marks": 421,
+    "conflicts": 4,
+    "resolved": 1,
+    "needs_medi": 2,
     "mode": "on",
-    "items": []
+    "items": [
+     {
+      "id": "C1q-81f3e0e21f",
+      "kind": "C1q",
+      "t": 130.25,
+      "mmss": "02:10",
+      "line": "آآ، الليل الماضي،",
+      "question": "Which of the student's words was wrong here?",
+      "options": [
+       "الليل",
+       "الماضي",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [
+       "02:10"
+      ],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "الليل",
+       "word_key": "bilail"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "wrong",
+       "wrong": "الليل الماضي",
+       "fix": "ليلة (el-leile el-maadye / lailet mbaare7)",
+       "bucket": null,
+       "signal": "recast"
+      },
+      "ask": "amal"
+     },
+     {
+      "id": "C1q-08a0066e9e",
+      "kind": "C1q",
+      "t": 3497.87,
+      "mmss": "58:18",
+      "line": "ولا أم، uh,",
+      "question": "Which of the student's words was wrong here?",
+      "options": [
+       "ولا",
+       "أمي",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "ولا",
+       "word_key": "wla"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "not-scored",
+       "wrong": "ولا أمي",
+       "fix": "ابن عمي",
+       "bucket": null,
+       "signal": "prompt-then-fix"
+      },
+      "ask": "amal"
+     }
+    ]
    },
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: no reader pass; 2 consecutive passes at >= 95 % are needed",
+     "reader agreement: pass 1 60.4 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: Medi not transcribed 12:06-14:19 while the other person talks",
      "coverage: Medi not transcribed 14:20-17:36 while the other person talks",
      "coverage: 4 stretches of Medi's speech written as '[speaking ...]' markers (00:26 in all)",
-     "coverage: no source audit of the raw audio for this lesson (run scripts/source_audit.py)",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3786 s) compared with a second model"
+     "coverage: Medi talks 12:29-18:11 (105 s of speech on their own track) with no transcript line",
+     "coverage: speaker labels agree with an independent check on only 83.9 % of 788 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3786 s) compared with a second model",
+     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
-     "passes": [],
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 47,
+       "r2": 41,
+       "agreed": 32,
+       "disputed": 21,
+       "agreement_pct": 60.4
+      }
+     ],
      "between": [],
      "threshold_pct": 95.0
     },
@@ -14476,6 +14806,11 @@
        860.43,
        1056.13,
        "no transcript for Medi while the other person talks"
+      ],
+      [
+       748.6,
+       1090.7,
+       "Medi talks 12:29-18:11 (105 s of speech on their own track) with no transcript line"
       ]
      ],
      "holes": [
@@ -14500,9 +14835,9 @@
        "engine heard speech but wrote a marker, not words"
       ]
      ],
-     "missing_s": 329.3,
+     "missing_s": 364.9,
      "hole_s": 26.0,
-     "covered_pct": 91.3
+     "covered_pct": 90.4
     },
     "Amal": {
      "_lesson_s": 3786.0,

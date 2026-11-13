@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T21:27:38-08:00",
+ "updated": "2026-11-12T22:06:36-08:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -4714,6 +4714,44 @@
    "reason": "English 'so' dropped in; Amal voiced هيك. Sheet: 'like this / this way | Heik | هيك'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f83533c5"
+  },
+  {
+   "id": "audit:FA-10b1d5d5",
+   "word_key": "alaile",
+   "entry_id": "alaile:word",
+   "lesson_date": "2026-11-11",
+   "t_start": 130,
+   "t_end": 130,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "الليل الماضي",
+   "said": "آآ، الليل الماضي، آآم، ليلة الماضية.",
+   "reason": "He used el-leil (night, mass noun) for 'last night'; he shifted to ليلة at the same second Amal said ليلة, so it may be his own self-fix (both at 02:15).",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-10b1d5d5"
+  },
+  {
+   "id": "audit:FA-a28b2aea",
+   "word_key": "maftU7",
+   "entry_id": "maftU7:singular",
+   "lesson_date": "2026-11-11",
+   "t_start": 624,
+   "t_end": 624,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "مفتاح",
+   "said": "لازم يكون مفتاح. ... open لازم مفتاح؟ ... المفتوح.",
+   "reason": "He said miftaa7 (key) for maftoo7 (open); Amal: 'No, not that, Key ... fix the vowel', then مفتوح. Sheet: 'open | Maftoo7 | مفتوح'.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-a28b2aea"
   }
  ],
  "unplaced": [
@@ -9297,6 +9335,21 @@
    "expected": {
     "word_key": "mitwater",
     "t_start": 2432.8
+   }
+  },
+  {
+   "event_id": "0a4c7a9b17d0b9f1a1adbc151c04d9e6fdc20a6ebbfd1120c330b81471eeb69c",
+   "date": "2026-11-11",
+   "mark": "ra:FA-9ed47e29",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "ra:FA-9ed47e29",
+    "ledger_reason": "Said here, another word intended: Amal says no (ليلة امبارح / امبارح بالليل); her word is not on her list, so neither counts"
+   },
+   "expected": {
+    "word_key": "2A5er",
+    "t_start": 3122.54
    }
   }
  ]
