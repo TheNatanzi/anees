@@ -130617,12 +130617,16 @@
         "reason": "Isolated production; insufficient evidence of independent contextual success"
       },
       "changes": {
-        "assessment": "independent",
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other) (WS-30)",
+        "assessment": "helped",
+        "reason": "Repeat of the tutor's fix of a counted slip at 04:45 («بالليل at night، بس عادي.»): not credited, not a mistake (WS-31)",
         "by": "word-coverage",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "vocab_points": 1
+        "rule": "WS-31",
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 285.94,
+          "text": "بالليل at night، بس عادي."
+        }
       }
     },
     "63a308a46b74b0d6343880746d312340f8df3d8c557ffa33b35681d1ed67c0c9": {
@@ -130799,6 +130803,30 @@
         }
       }
     },
+    "070f2cf6f840946b5412bb06696c9aff0a651ac67ee2ace4651ba9cf662f4af0": {
+      "expected": {
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:715.98",
+        "word_key": "akel",
+        "text": "الأكل",
+        "t_start": 715.98,
+        "t_end": 716.28,
+        "assessment": "helped",
+        "reason": "Repeat of the tutor's fix of a counted slip at 11:53 («الـ.»): not credited, not a mistake (WS-31)"
+      },
+      "changes": {
+        "assessment": "helped",
+        "reason": "Repeat of the tutor's fix of a counted slip at 11:53 («الـ.»): not credited, not a mistake (WS-31)",
+        "by": "word-coverage",
+        "rule": "WS-31",
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 713.4,
+          "text": "الـ."
+        }
+      }
+    },
     "e47cdea644ba67996258f38c65b41d634fc830d8c9e98f73e13281a220f9a599": {
       "expected": {
         "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
@@ -130817,6 +130845,54 @@
         "rule": "WS-30",
         "classification": "lexical",
         "vocab_points": 1
+      }
+    },
+    "25ae56a02f15fd6ff06258f3376c1508094ab1fbda0251bb763af590d0d3100c": {
+      "expected": {
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:1498.82",
+        "word_key": "su2Al",
+        "text": "السؤال",
+        "t_start": 1498.82,
+        "t_end": 1499.12,
+        "assessment": "helped",
+        "reason": "Repeat of the tutor's fix of a counted slip at 24:44 («No, that's a mixed way to say it.»): not credited, not a mistake (WS-31)"
+      },
+      "changes": {
+        "assessment": "helped",
+        "reason": "Repeat of the tutor's fix of a counted slip at 24:44 («No, that's a mixed way to say it.»): not credited, not a mistake (WS-31)",
+        "by": "word-coverage",
+        "rule": "WS-31",
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1484.05,
+          "text": "No, that's a mixed way to say it."
+        }
+      }
+    },
+    "1714f96cb8f53fcab4d8a9fa0cb5a612233435bfe8649734a215613c78a52dbb": {
+      "expected": {
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:1504.0",
+        "word_key": "su2Al",
+        "text": "سؤال",
+        "t_start": 1504,
+        "t_end": 1504.3,
+        "assessment": "helped",
+        "reason": "Repeat of the tutor's fix of a counted slip at 25:00 («That's the end.»): not credited, not a mistake (WS-31)"
+      },
+      "changes": {
+        "assessment": "helped",
+        "reason": "Repeat of the tutor's fix of a counted slip at 25:00 («That's the end.»): not credited, not a mistake (WS-31)",
+        "by": "word-coverage",
+        "rule": "WS-31",
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1500.73,
+          "text": "That's the end."
+        }
       }
     },
     "656bdc7957ae0052d54bca7c4cee1d93afae27bd4215fa42453f7720015dbd87": {
@@ -434690,7 +434766,7 @@
         "text": "ليلة",
         "original_text": "Oh, tonight is a ليلة؟",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -434705,11 +434781,16 @@
             "timeline_end": 288.24
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
+        "reason": "Repeat of the tutor's fix of a counted slip at 04:45 («بالليل at night، بس عادي.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 285.94,
+          "text": "بالليل at night، بس عادي."
+        }
       },
       "by": "word-coverage"
     },
@@ -435501,6 +435582,58 @@
       "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
       "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
       "event": {
+        "id": "480ad1f951880fb8ca4075e1b03b02bfbe5f4dc7aea91fd813079228f1acca8f",
+        "lesson_date": "2026-11-12",
+        "word_key": "ana bakUn",
+        "local_start": 456.565,
+        "local_end": 456.865,
+        "candidate_keys": [
+          "ana bakUn"
+        ],
+        "source_id": "anees-20261112-recall-medi",
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:456.92",
+        "item_ids": [],
+        "t_start": 456.92,
+        "t_end": 457.22,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "بيكون",
+        "original_text": "‫بكل، by بكل you mean like probably؟‬",
+        "match_method": "word_coverage",
+        "assessment": "helped",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-12:456.92",
+            "speaker": "Medi",
+            "text": "‫بيكون، by بكل you mean like probably؟‬",
+            "timeline_start": 456.92,
+            "timeline_end": 457.22
+          }
+        ],
+        "reason": "He quotes the tutor's words (07:30 «بيكون التفاح لحاله بدون نعناع.») to ask about them: a repeat, not credited, not a mistake (WS-36)",
+        "rule": "WS-31",
+        "classification": "lexical",
+        "coverage": true,
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 450.64,
+          "text": "بيكون التفاح لحاله بدون نعناع."
+        },
+        "entry_id": "ana bakUn:present"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
+      "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+      "event": {
         "id": "fbaacb3a053018182ea59e5d9f2eac4fe49d4bfdf6e3fb51d047cfe0460fb475",
         "lesson_date": "2026-11-12",
         "word_key": "aw",
@@ -435540,6 +435673,53 @@
         "classification": "lexical",
         "coverage": true,
         "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
+      "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+      "event": {
+        "id": "e98aabf278eb1539f7d2608f5438881acc2f1563c326dd5c8aa96b80f8f551bb",
+        "lesson_date": "2026-11-12",
+        "word_key": "ana bakUn",
+        "local_start": 471.865,
+        "local_end": 472.165,
+        "candidate_keys": [
+          "ana bakUn"
+        ],
+        "source_id": "anees-20261112-recall-medi",
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:472.22",
+        "item_ids": [],
+        "t_start": 472.22,
+        "t_end": 472.52000000000004,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "بيكون",
+        "original_text": "بكل for everything.‬",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-12:472.22",
+            "speaker": "Medi",
+            "text": "بيكون for everything.‬",
+            "timeline_start": 472.22,
+            "timeline_end": 472.52000000000004
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana bakUn:present"
       },
       "by": "word-coverage"
     },
@@ -436505,7 +436685,7 @@
         "text": "الأكل",
         "original_text": "So الأكل الأمريكي أحسن من...‬ Oh, that's right. الأكل العربي.",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -436520,11 +436700,16 @@
             "timeline_end": 716.28
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
+        "reason": "Repeat of the tutor's fix of a counted slip at 11:53 («الـ.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 713.4,
+          "text": "الـ."
+        }
       },
       "by": "word-coverage"
     },
@@ -436643,7 +436828,7 @@
         "text": "العربي",
         "original_text": "So الأكل الأمريكي أحسن من...‬ Oh, that's right. الأكل العربي.",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -436658,11 +436843,120 @@
             "timeline_end": 716.28
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
+        "reason": "Repeat of the tutor's fix of a counted slip at 11:53 («الـ.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 713.4,
+          "text": "الـ."
+        }
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
+      "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+      "event": {
+        "id": "c661b753499cc72f80a6d83baf1aa1491127f02e6ecc402699bdc71bf36dba71",
+        "lesson_date": "2026-11-12",
+        "word_key": "kunet",
+        "local_start": 757.175,
+        "local_end": 757.475,
+        "candidate_keys": [
+          "kunet"
+        ],
+        "source_id": "anees-20261112-recall-medi",
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:757.53",
+        "item_ids": [],
+        "t_start": 757.53,
+        "t_end": 757.8299999999999,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "كنت",
+        "original_text": "Kunetra.",
+        "match_method": "word_coverage",
+        "assessment": "helped",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-12:757.53",
+            "speaker": "Medi",
+            "text": "كنت راح.",
+            "timeline_start": 757.53,
+            "timeline_end": 757.8299999999999
+          }
+        ],
+        "reason": "He says the tutor's words back (12:36 «كنت راح.»): a repeat, not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
+        "classification": "lexical",
+        "coverage": true,
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 756.16,
+          "text": "كنت راح."
+        },
+        "entry_id": "ana bakUn:past"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
+      "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+      "event": {
+        "id": "947ad2d6beeaa586d37a704f270c8503dd6d802f60f6d6e426b188ce872bcb05",
+        "lesson_date": "2026-11-12",
+        "word_key": "rA7",
+        "local_start": 757.175,
+        "local_end": 757.475,
+        "candidate_keys": [
+          "rA7"
+        ],
+        "source_id": "anees-20261112-recall-medi",
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:757.53",
+        "item_ids": [],
+        "t_start": 757.53,
+        "t_end": 757.8299999999999,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "راح",
+        "original_text": "Kunetra.",
+        "match_method": "word_coverage",
+        "assessment": "helped",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-12:757.53",
+            "speaker": "Medi",
+            "text": "كنت راح.",
+            "timeline_start": 757.53,
+            "timeline_end": 757.8299999999999
+          }
+        ],
+        "reason": "He says the tutor's words back (12:36 «كنت راح.»): a repeat, not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
+        "classification": "lexical",
+        "coverage": true,
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 756.16,
+          "text": "كنت راح."
+        },
+        "entry_id": "ana baru7:past"
       },
       "by": "word-coverage"
     },
@@ -436965,7 +437259,7 @@
         "text": "الأخير",
         "original_text": "الأخير، أنا، آخر",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -436980,11 +437274,16 @@
             "timeline_end": 1487.12
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
+        "reason": "Repeat of the tutor's fix of a counted slip at 24:44 («No, that's a mixed way to say it.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1484.05,
+          "text": "No, that's a mixed way to say it."
+        }
       },
       "by": "word-coverage"
     },
@@ -437057,7 +437356,7 @@
         "text": "السؤال",
         "original_text": "السؤال اللي... هذا آخر السؤال اللي،",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -437072,11 +437371,16 @@
             "timeline_end": 1499.12
           }
         ],
-        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
-        "rule": "WS-30",
+        "reason": "Repeat of the tutor's fix of a counted slip at 24:44 («No, that's a mixed way to say it.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1484.05,
+          "text": "No, that's a mixed way to say it."
+        }
       },
       "by": "word-coverage"
     },
@@ -437149,7 +437453,7 @@
         "text": "آخر",
         "original_text": "السؤال اللي... هذا آخر السؤال اللي،",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "unresolved",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -437164,11 +437468,10 @@
             "timeline_end": 1499.12
           }
         ],
-        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
+        "reason": "A correction cue from the tutor right after; the readers decide",
         "rule": "WS-30",
         "classification": "lexical",
-        "coverage": true,
-        "vocab_points": 1
+        "coverage": true
       },
       "by": "word-coverage"
     },
@@ -437195,7 +437498,7 @@
         "text": "آخر",
         "original_text": "أنا آخر سؤال اللي. السؤال الأخير اللي...",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -437210,11 +437513,16 @@
             "timeline_end": 1504.3
           }
         ],
-        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
-        "rule": "WS-30",
+        "reason": "Repeat of the tutor's fix of a counted slip at 25:00 («That's the end.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1500.73,
+          "text": "That's the end."
+        }
       },
       "by": "word-coverage"
     },
@@ -437241,7 +437549,7 @@
         "text": "سؤال",
         "original_text": "أنا آخر سؤال اللي. السؤال الأخير اللي...",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -437256,11 +437564,16 @@
             "timeline_end": 1504.3
           }
         ],
-        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
-        "rule": "WS-30",
+        "reason": "Repeat of the tutor's fix of a counted slip at 25:00 («That's the end.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1500.73,
+          "text": "That's the end."
+        }
       },
       "by": "word-coverage"
     },
@@ -437287,7 +437600,7 @@
         "text": "الأخير",
         "original_text": "أنا آخر سؤال اللي. السؤال الأخير اللي...",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -437302,11 +437615,16 @@
             "timeline_end": 1504.3
           }
         ],
-        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
-        "rule": "WS-30",
+        "reason": "Repeat of the tutor's fix of a counted slip at 25:00 («That's the end.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1500.73,
+          "text": "That's the end."
+        }
       },
       "by": "word-coverage"
     },
@@ -437333,7 +437651,7 @@
         "text": "سؤالي",
         "original_text": "سؤالي",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -437348,11 +437666,16 @@
             "timeline_end": 1507.1599999999999
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
+        "reason": "Repeat of the tutor's fix of a counted slip at 25:00 («That's the end.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1500.73,
+          "text": "That's the end."
+        }
       },
       "by": "word-coverage"
     },
@@ -437379,7 +437702,7 @@
         "text": "الأخير",
         "original_text": "الأخير.",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -437392,6 +437715,57 @@
             "text": "الأخير.",
             "timeline_start": 1507.14,
             "timeline_end": 1507.44
+          }
+        ],
+        "reason": "Repeat of the tutor's fix of a counted slip at 25:00 («That's the end.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
+        "classification": "lexical",
+        "coverage": true,
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 1500.73,
+          "text": "That's the end."
+        }
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
+      "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+      "event": {
+        "id": "031ddd0535f984311f38206386b52d2d59066961c21c9dad33e4a0768d5876f4",
+        "lesson_date": "2026-11-12",
+        "word_key": "sA3a",
+        "local_start": 1666.425,
+        "local_end": 1666.725,
+        "candidate_keys": [
+          "sA3a"
+        ],
+        "source_id": "anees-20261112-recall-medi",
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:1666.78",
+        "item_ids": [],
+        "t_start": 1666.78,
+        "t_end": 1667.08,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "ساعات",
+        "original_text": "seat.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-12:1666.78",
+            "speaker": "Medi",
+            "text": "ساعات.",
+            "timeline_start": 1666.78,
+            "timeline_end": 1667.08
           }
         ],
         "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
@@ -437425,7 +437799,7 @@
         "text": "تبدأ",
         "original_text": "تبدأ، تبدأي علي،",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "unresolved",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -437440,11 +437814,10 @@
             "timeline_end": 1847.58
           }
         ],
-        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
+        "reason": "A correction cue from the tutor right after; the readers decide",
         "rule": "WS-30",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1,
         "entry_id": "ana babda:future"
       },
       "by": "word-coverage"
@@ -437472,7 +437845,7 @@
         "text": "تبدأي",
         "original_text": "تبدأ، تبدأي علي،",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "unresolved",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -437487,11 +437860,10 @@
             "timeline_end": 1847.58
           }
         ],
-        "reason": "Word he said on his own: the tutor's 'no' right after was not about it - the three readers wrote no slip on it (WS-30)",
+        "reason": "A correction cue from the tutor right after; the readers decide",
         "rule": "WS-30",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1,
         "entry_id": "ana babda:future"
       },
       "by": "word-coverage"
@@ -439082,6 +439454,147 @@
       "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
       "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
       "event": {
+        "id": "749b08ebac13d44bebba7ec65cefa2d4289af00f6ab6ef9d786cd081b9441b6f",
+        "lesson_date": "2026-11-12",
+        "word_key": "ana banbese6",
+        "local_start": 2816.145,
+        "local_end": 2816.445,
+        "candidate_keys": [
+          "ana banbese6"
+        ],
+        "source_id": "anees-20261112-recall-medi",
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:2816.5",
+        "item_ids": [],
+        "t_start": 2816.5,
+        "t_end": 2816.8,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "انبسطت",
+        "original_text": "in basat ti.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-12:2816.5",
+            "speaker": "Medi",
+            "text": "in انبسطت ti.",
+            "timeline_start": 2816.5,
+            "timeline_end": 2816.8
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana banbese6:past"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
+      "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+      "event": {
+        "id": "914a3ea82d1ed60fc5037a00cd563b72585d5bb658669d5ec0efad0e39bc0567",
+        "lesson_date": "2026-11-12",
+        "word_key": "ana banbese6",
+        "local_start": 2821.305,
+        "local_end": 2821.605,
+        "candidate_keys": [
+          "ana banbese6"
+        ],
+        "source_id": "anees-20261112-recall-medi",
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:2821.66",
+        "item_ids": [],
+        "t_start": 2821.66,
+        "t_end": 2821.96,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "انبسطت",
+        "original_text": "In basat ti,",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-12:2821.66",
+            "speaker": "Medi",
+            "text": "In انبسطت ti,",
+            "timeline_start": 2821.66,
+            "timeline_end": 2821.96
+          }
+        ],
+        "reason": "His own answer to her question (47:00 «انبسطت؟»): counts like any word, not a repeat (WS-38)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana banbese6:past"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
+      "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+      "event": {
+        "id": "3fe2819f495ae8d1bb54a6760f757ab64d361808274fc2de73e83482967d2bb3",
+        "lesson_date": "2026-11-12",
+        "word_key": "ana banbese6",
+        "local_start": 2834.405,
+        "local_end": 2834.705,
+        "candidate_keys": [
+          "ana banbese6"
+        ],
+        "source_id": "anees-20261112-recall-medi",
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:2834.76",
+        "item_ids": [],
+        "t_start": 2834.76,
+        "t_end": 2835.0600000000004,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "انبسطت",
+        "original_text": "In basat ti bi,",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-12:2834.76",
+            "speaker": "Medi",
+            "text": "In انبسطت ti bi,",
+            "timeline_start": 2834.76,
+            "timeline_end": 2835.0600000000004
+          }
+        ],
+        "reason": "His own answer to her question (47:10 «انبسطت؟»): counts like any word, not a repeat (WS-38)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana banbese6:past"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
+      "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+      "event": {
         "id": "35e82bb7c22d0cb4fc7689ec0645f62b8052b9c510ae1dfc30d77985ddf7343a",
         "lesson_date": "2026-11-12",
         "word_key": "alaile",
@@ -439393,7 +439906,7 @@
             "timeline_end": 2985.61
           }
         ],
-        "reason": "Repeat of the tutor's recast of his line at 49:43 («متعبة.»): not credited, not a mistake (WS-31)",
+        "reason": "Repeat of the tutor's fix of a counted slip at 49:43 («متعبة.»): not credited, not a mistake (WS-31)",
         "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
@@ -440221,7 +440734,7 @@
         "text": "الأخير",
         "original_text": "الأخير.",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -440236,11 +440749,16 @@
             "timeline_end": 3785.88
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
+        "reason": "Repeat of the tutor's fix of a counted slip at 63:04 («الـ.»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 3784.73,
+          "text": "الـ."
+        }
       },
       "by": "word-coverage"
     },
@@ -440287,6 +440805,53 @@
         "classification": "lexical",
         "coverage": true,
         "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
+      "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+      "event": {
+        "id": "fb5c34d3f016da48e789165907ab64c78d572477226d510aeb21b3140b2ae35b",
+        "lesson_date": "2026-11-12",
+        "word_key": "ana bantebeh",
+        "local_start": 3881.865,
+        "local_end": 3882.165,
+        "candidate_keys": [
+          "ana bantebeh"
+        ],
+        "source_id": "anees-20261112-recall-medi",
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:3882.22",
+        "item_ids": [],
+        "t_start": 3882.22,
+        "t_end": 3882.52,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "بنتبه",
+        "original_text": "انتبرش، okay. انتبرش، that was it, okay، فانتبرش. Um,",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-12:3882.22",
+            "speaker": "Medi",
+            "text": "بنتبه، okay. انتبرش، that was it, okay، فانتبرش. Um,",
+            "timeline_start": 3882.22,
+            "timeline_end": 3882.52
+          }
+        ],
+        "reason": "Her question used the word; he used it in his own new answer (3+ words)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana bantebeh:present"
       },
       "by": "word-coverage"
     },
@@ -440572,6 +441137,53 @@
       "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
       "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
       "event": {
+        "id": "b3d79bcb239276b863569cd3923361b26e050cbe8a33ad3d0386173b8a9221a5",
+        "lesson_date": "2026-11-12",
+        "word_key": "ana bedi",
+        "local_start": 3946.445,
+        "local_end": 3946.745,
+        "candidate_keys": [
+          "ana bedi"
+        ],
+        "source_id": "anees-20261112-recall-medi",
+        "source_sha256": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+        "row_id": "cover:2026-11-12:3946.8",
+        "item_ids": [],
+        "t_start": 3946.8,
+        "t_end": 3947.1000000000004,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "بدي",
+        "original_text": "uh، بي حيوانات.",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-12:3946.8",
+            "speaker": "Medi",
+            "text": "uh، بدي حيوانات.",
+            "timeline_start": 3946.8,
+            "timeline_end": 3947.1000000000004
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1,
+        "entry_id": "ana bedi:present"
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "1c200e8fb3f84c7e5191ca9d7c68a3a679f69a733a9876ed560d2374b7c638dc",
+      "expected_source": "6a1531ae19495e0de893c1ce1d6ff503c21ee902e16e6b593251ae0fe9ab1ca1",
+      "event": {
         "id": "c41ffec549e6ae3e439245579bdbb894a7bcb2044b1c4e0238c1e7da9de23cd6",
         "lesson_date": "2026-11-12",
         "word_key": "7aiwAn",
@@ -440601,7 +441213,7 @@
           {
             "row_id": "cover:2026-11-12:3946.8",
             "speaker": "Medi",
-            "text": "uh، بي حيوانات.",
+            "text": "uh، بدي حيوانات.",
             "timeline_start": 3946.8,
             "timeline_end": 3947.1000000000004
           }

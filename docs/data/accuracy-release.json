@@ -13,25 +13,25 @@
    "verified_avg_pct": null,
    "unverified_avg_pct": 95.0,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 7845,
+   "eligible": 7840,
    "excluded": 28,
-   "pending": 7
+   "pending": 9
   },
   "grammar": {
    "verified_avg_pct": null,
    "unverified_avg_pct": 85.8,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 2,
-   "eligible": 974,
-   "excluded": 53,
-   "pending": 4
+   "eligible": 991,
+   "excluded": 54,
+   "pending": 7
   },
-  "verification_queue": 11,
+  "verification_queue": 16,
   "word_bank": {
-   "occurrences": 13040,
-   "eligible": 7550,
-   "excluded_not_scored": 4561,
-   "pending_needs_review": 929,
+   "occurrences": 13050,
+   "eligible": 7542,
+   "excluded_not_scored": 4576,
+   "pending_needs_review": 932,
    "other": 0,
    "pct": 98.6,
    "lessons_in_audit": 35,
@@ -1921,30 +1921,30 @@
    "date": "2026-11-12",
    "release": "not verified",
    "reasons": [
-    "reader agreement: no reader pass; 2 consecutive passes at >= 95 % are needed",
+    "reader agreement: pass 1 51.1 %; 2 consecutive passes at >= 95 % are needed",
     "coverage: Medi not transcribed 55:03-1:01:01 while the other person talks",
     "coverage: no word timings",
-    "coverage: no source audit of the raw audio for this lesson (run scripts/source_audit.py)",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3972 s) compared with a second model"
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3972 s) compared with a second model",
+    "checks: 5 scored rows need an audio or human check (2 words, 3 grammar)"
    ],
    "words": {
-    "pct": 99.2,
-    "eligible_pct": 99.2,
+    "pct": 98.3,
+    "eligible_pct": 98.3,
     "verified_pct": null,
-    "scored": 185,
-    "eligible": 185,
+    "scored": 180,
+    "eligible": 180,
     "excluded": 0,
-    "pending": 0,
+    "pending": 2,
     "excluded_why": {}
    },
    "grammar": {
     "pct": null,
     "verified_pct": null,
-    "mistakes": 0,
+    "mistakes": 18,
     "uses": null,
-    "eligible": 0,
-    "excluded": 0,
-    "pending": 0,
+    "eligible": 17,
+    "excluded": 1,
+    "pending": 3,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -1967,7 +1967,9 @@
     "attribution": "per-speaker-tracks",
     "timing": "none"
    },
-   "agreement": [],
+   "agreement": [
+    51.1
+   ],
    "between_passes": []
   }
  ]
