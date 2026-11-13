@@ -357,6 +357,7 @@ def acquire(wait_s=0):
         try:
             fd = os.open(str(LOCK_P), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
             os.write(fd, json.dumps({"pid": os.getpid(), "at": now_iso()}).encode()); os.close(fd)
+            _beat()
             return True
         except FileExistsError:
             try:
@@ -369,7 +370,28 @@ def acquire(wait_s=0):
             time.sleep(10)
 
 
+_HELD = []
+
+
+def _beat():
+    """Keep the lock fresh while this process holds it (Medi 2026-11-12: the 11-10 review ran 3 h 40 min, its lock went
+    'stale' at 3 h and another job could take it mid-run). Touches the file every 5 min; a dead holder stops touching
+    it, so a crashed run's lock still frees after LOCK_STALE_S."""
+    import threading
+    stop = threading.Event(); _HELD.append(stop)
+
+    def run():
+        while not stop.wait(300):
+            try:
+                os.utime(str(LOCK_P), None)
+            except OSError:
+                return
+    threading.Thread(target=run, daemon=True).start()
+
+
 def release():
+    while _HELD:
+        _HELD.pop().set()
     try:
         LOCK_P.unlink()
     except FileNotFoundError:
