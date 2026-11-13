@@ -5,277 +5,302 @@
  "usage": {
   "via": "claude-plan"
  },
- "candidates_sig": "679f452296bf686a",
+ "candidates_sig": "176ece16ec360de1",
  "verdicts": {
   "C1": {
    "verdict": "slip",
    "confidence": 85,
-   "why": "Amal said 'No. You don't جاوب التليفون' and he switched to أرد."
+   "why": "Amal said 'No, you don't جاوب التليفون', and he switched to أرد, which she confirmed."
   },
   "C2": {
    "verdict": "not",
-   "confidence": 65,
-   "why": "Amal said 'That works' at this point; the later تستعمل correction is counted once under C5."
+   "confidence": 70,
+   "why": "At 03:02 Amal said 'That works', so she let this first بشتغل pass; the real correction comes at 03:59."
   },
   "C3": {
    "verdict": "not",
    "confidence": 60,
-   "why": "Same بشتغل-for-use moment as C5; counted once there."
+   "why": "Same بشتغل-for-use moment that C5 covers, and C5 sits right before her تستعمل recast."
   },
   "C4": {
    "verdict": "slip",
    "confidence": 75,
-   "why": "Amal prompted 'just dad' (jdaad) for the two items and he fixed it to جداد."
+   "why": "Amal said jdaad, not jdeed, for the two devices, and he repeated جداد."
   },
   "C5": {
    "verdict": "slip",
-   "confidence": 70,
-   "why": "Amal recast بشتغل as تستعمل and typed basta3mel; this is the best row for that moment."
+   "confidence": 65,
+   "why": "Right after his بشتغل له, Amal recast it as تستعمل and typed basta3mel in chat."
   },
   "C6": {
    "verdict": "not",
    "confidence": 65,
-   "why": "He openly asked how to say 'difference', so these were guesses at a word he did not know."
+   "why": "He asked whether he knew the word for 'difference', so this is a word search that ended with Amal giving فرق."
   },
   "C7": {
    "verdict": "not",
-   "confidence": 65,
-   "why": "Amal answered what he said, not his grammar; بنها is likely a mishearing and the beinhom is only in her chat model sentence."
+   "confidence": 70,
+   "why": "Amal's 'ما شفت فرق لسه' answers what he said; it does not correct بنها."
   },
   "C8": {
-   "verdict": "not",
-   "confidence": 55,
-   "why": "مش مني looks cut off, and the كل claim belongs to the C9 moment."
+   "verdict": "slip",
+   "confidence": 45,
+   "why": "Amal offered the two adjective forms and typed mish mnee7a, which points to a gender correction, but the engine cut his word."
   },
   "C9": {
-   "verdict": "not",
-   "confidence": 55,
-   "why": "He asked whether كل + noun means 'the entire', which is a question about a rule; he had first said كل القتلى correctly."
+   "verdict": "slip",
+   "confidence": 80,
+   "why": "Amal said 'No. That's every', and he changed to كل العطلة (A11)."
   },
   "C10": {
    "verdict": "slip",
    "confidence": 80,
-   "why": "Amal said No twice and gave خططنا for his wrong past form."
+   "why": "Amal said no twice and gave خططنا, which he then repeated."
   },
   "C11": {
    "verdict": "not",
-   "confidence": 75,
-   "why": "Same moment as C10."
+   "confidence": 70,
+   "why": "Same خططنا moment as C10."
   },
   "C12": {
    "verdict": "slip",
-   "confidence": 75,
-   "why": "Amal asked what rann takes and he added على."
+   "confidence": 70,
+   "why": "Amal asked what rann takes, and he added على."
   },
   "C13": {
    "verdict": "slip",
    "confidence": 60,
-   "why": "Amal recast رننا as رنينا and he repeated it; this is separate from the على prompt."
+   "why": "Amal recast رننا as رنينا, and he repeated it; this is a separate correction from the على one."
   },
   "C14": {
    "verdict": "slip",
-   "confidence": 85,
-   "why": "Amal asked about مية until he said ميت."
+   "confidence": 80,
+   "why": "Amal prompted until he changed مية to ميت (E7)."
   },
   "C15": {
    "verdict": "slip",
    "confidence": 80,
-   "why": "Amal said no, 'it's more than 10', and he fixed it to مطعم / مكان."
+   "why": "Amal gave singular مطعم and said 'more than 10', and he fixed both nouns."
   },
   "C16": {
-   "verdict": "slip",
-   "confidence": 65,
-   "why": "Amal prompted 'other things' and he changed مختلف to إشي تاني."
+   "verdict": "not",
+   "confidence": 70,
+   "why": "Same plural-after-a-number moment as C15."
   },
   "C17": {
-   "verdict": "slip",
-   "confidence": 75,
-   "why": "Amal's 'الأول؟' prompted him until he said أول مكان."
+   "verdict": "not",
+   "confidence": 60,
+   "why": "Same إشي تاني moment as C18."
   },
   "C18": {
    "verdict": "slip",
-   "confidence": 55,
-   "why": "Amal asked about the missing ending on the verb for the fronted object and typed la2ainaah."
+   "confidence": 60,
+   "why": "Amal pushed 'other things' with إشي تاني, and he repeated it."
   },
   "C19": {
-   "verdict": "not",
+   "verdict": "slip",
    "confidence": 70,
-   "why": "Same moment as C18, and الأينا is likely a mishearing of لقينا."
+   "why": "Amal echoed 'الأول؟' as a question, and he fixed it to أول مكان."
   },
   "C20": {
-   "verdict": "not",
-   "confidence": 55,
-   "why": "He was reaching for a word he could not recall and asked 'right?', so Amal gave him the word."
+   "verdict": "slip",
+   "confidence": 45,
+   "why": "Amal recast لقينا and her chat has la2ainaah, but the engine likely garbled his word."
   },
   "C21": {
-   "verdict": "slip",
+   "verdict": "not",
    "confidence": 60,
-   "why": "Amal rejected هبنا and kept prompting 'wanted' until he added كان."
+   "why": "Same الأينا moment as C20, and possibly an engine error."
   },
   "C22": {
-   "verdict": "slip",
-   "confidence": 70,
-   "why": "Amal asked 'whose friends?' and supplied صحابنا."
+   "verdict": "not",
+   "confidence": 55,
+   "why": "He was searching for the word with Amal's hint and asked 'right?'."
   },
   "C23": {
    "verdict": "not",
-   "confidence": 60,
-   "why": "This duplicates C24 (الكل) and C25 (يكون)."
+   "confidence": 65,
+   "why": "Amal gave no clear spoken correction, and منيه is likely an engine rendering."
   },
   "C24": {
    "verdict": "slip",
-   "confidence": 50,
-   "why": "Amal prompted 'everybody' after his كل أدا and he gave الكل."
+   "confidence": 60,
+   "why": "Amal said No and prompted 'how do you say wanted?' until he added كان."
   },
   "C25": {
-   "verdict": "slip",
-   "confidence": 65,
-   "why": "Amal asked what لما needs and he added يكون; her chat has beykoon mumayyaz."
+   "verdict": "not",
+   "confidence": 50,
+   "why": "He seems to have fixed it himself (صباحنا = صحابنا) before Amal reacted."
   },
   "C26": {
    "verdict": "not",
-   "confidence": 60,
-   "why": "Saying winter was a mix-up about the season, not a language error; the vocab slip is C27."
+   "confidence": 50,
+   "why": "كل حدا is valid Levantine for 'everyone', and the لما/يكون part belongs to C27."
   },
   "C27": {
    "verdict": "slip",
-   "confidence": 60,
-   "why": "His خيس for خريف was corrected, and Amal typed 5areef."
+   "confidence": 65,
+   "why": "Amal asked what لما needs, and he supplied the missing يكون."
   },
   "C28": {
    "verdict": "not",
-   "confidence": 55,
-   "why": "He asked what the word means ('is future, right?'), which is a question about meaning."
+   "confidence": 60,
+   "why": "Same يكون moment as C27."
   },
   "C29": {
    "verdict": "not",
-   "confidence": 60,
-   "why": "He said he did not remember the word for future, so Amal gave it to him."
+   "confidence": 70,
+   "why": "Amal's chat copied his sentence as he said it, so she did not reject it."
   },
   "C30": {
    "verdict": "not",
-   "confidence": 60,
-   "why": "He fixed it himself; Amal's reaction is unclear."
+   "confidence": 55,
+   "why": "Saying it is winter is a wrong fact, not wrong Arabic; the word problem is in C31."
   },
   "C31": {
    "verdict": "slip",
-   "confidence": 70,
-   "why": "Amal prompted 'the most' and he rebuilt it as مشغولين أكتر إشي."
+   "confidence": 50,
+   "why": "His خيس for 'fall' was corrected when Amal typed 5areef."
   },
   "C32": {
-   "verdict": "slip",
-   "confidence": 65,
-   "why": "Amal repeated شجرة to point at the feminine noun and typed 3alaiha."
+   "verdict": "not",
+   "confidence": 55,
+   "why": "He asked a question ('is future, right?') about a word he had just heard."
   },
   "C33": {
-   "verdict": "slip",
-   "confidence": 70,
-   "why": "Amal named the two-verb rule and he changed it to ندرس."
+   "verdict": "not",
+   "confidence": 60,
+   "why": "He could not recall the word 'future' and rejected his own guess first."
   },
   "C34": {
-   "verdict": "slip",
-   "confidence": 65,
-   "why": "Amal contrasted بديت and بدينا to fix the person ending for إحنا."
+   "verdict": "not",
+   "confidence": 55,
+   "why": "Amal's 'لا، خريف' looks like a fix of how he said the word, not of el-."
   },
   "C35": {
    "verdict": "not",
    "confidence": 55,
-   "why": "بعدين is likely a mishearing; Amal only checked whether he knew the word."
+   "why": "He fixed it to الشتاء himself, and the engine output is unclear."
   },
   "C36": {
-   "verdict": "not",
-   "confidence": 85,
-   "why": "This was a comprehension question about بالظبط, not his own Arabic."
+   "verdict": "slip",
+   "confidence": 65,
+   "why": "Amal pushed 'the most', and he fixed it to مشغولين أكتر إشي."
   },
   "C37": {
-   "verdict": "slip",
-   "confidence": 70,
-   "why": "He swapped the two words, Amal said بالعكس, and he fixed it."
+   "verdict": "not",
+   "confidence": 65,
+   "why": "Same moment as C36."
   },
   "C38": {
    "verdict": "slip",
-   "confidence": 75,
-   "why": "Amal echoed كتير and he changed إشي to the plural أشياء."
+   "confidence": 65,
+   "why": "Amal repeated شجرة twice to point at the gender, and typed 3alaiha."
   },
   "C39": {
-   "verdict": "not",
-   "confidence": 55,
-   "why": "He did not remember مضغوط ('I don't remember that at all'), so it was a word he did not know."
+   "verdict": "slip",
+   "confidence": 75,
+   "why": "Amal named the two-verb rule, and he changed to ندرس."
   },
   "C40": {
    "verdict": "slip",
-   "confidence": 70,
-   "why": "Amal said no to بيغيروا and he gave بيتغيروا."
+   "confidence": 65,
+   "why": "Amal contrasted بديت with بدينا to match the verb to إحنا."
   },
   "C41": {
-   "verdict": "slip",
-   "confidence": 70,
-   "why": "Amal changed واحدة to واحد."
+   "verdict": "not",
+   "confidence": 80,
+   "why": "He was asking what a word means."
   },
   "C42": {
    "verdict": "slip",
    "confidence": 70,
-   "why": "Amal prompted with حياة and he changed يكون to تكون."
+   "why": "Amal said بالعكس, and he swapped the two words back."
   },
   "C43": {
-   "verdict": "slip",
-   "confidence": 80,
-   "why": "Amal recast سهل as سهلة and he repeated it."
+   "verdict": "not",
+   "confidence": 55,
+   "why": "He was asking how to say 'should be', and Amal guided him through building it."
   },
   "C44": {
    "verdict": "slip",
-   "confidence": 50,
-   "why": "He drifted to على حالك, Amal said حالي, and he repeated اذكر حالي."
+   "confidence": 60,
+   "why": "Amal echoed كتير, and he changed to the plural أشياء."
   },
   "C45": {
    "verdict": "not",
    "confidence": 60,
-   "why": "His form already had الـ; there is no clear error that was corrected."
+   "why": "He did not know the word for 'stressed' and said he did not remember it at all."
   },
   "C46": {
-   "verdict": "not",
-   "confidence": 55,
-   "why": "يكونوا was a question, and إمنا is likely a mishearing of مناح."
+   "verdict": "slip",
+   "confidence": 75,
+   "why": "Amal said no to بيغيروا, and he changed to بيتغيروا."
   },
   "C47": {
-   "verdict": "not",
-   "confidence": 70,
-   "why": "He rejected it himself and was searching for an unknown word."
+   "verdict": "slip",
+   "confidence": 55,
+   "why": "Amal changed واحدة to واحد, and he repeated it."
   },
   "C48": {
    "verdict": "slip",
-   "confidence": 80,
-   "why": "Amal recast أحس as بحس and typed ba7ess."
+   "confidence": 75,
+   "why": "Amal cued that حياة is feminine, and he changed to تكون."
   },
   "C49": {
    "verdict": "slip",
-   "confidence": 70,
-   "why": "He used the you-form for himself, and Amal's correction was followed by his أشتغل."
+   "confidence": 75,
+   "why": "Amal recast سهل as سهلة, and he repeated it."
   },
   "C50": {
    "verdict": "slip",
-   "confidence": 85,
-   "why": "Amal gave يكون عندي and he said he forgot that lesson."
+   "confidence": 45,
+   "why": "Amal prompted 'لا، كل هدول' and then الـ, but the engine output is messy."
   },
   "C51": {
    "verdict": "slip",
-   "confidence": 70,
-   "why": "Amal said 'لا، كنت راح صح' against his راح كنت."
+   "confidence": 55,
+   "why": "Amal said لا and supplied the plural adjective مناح."
   },
   "C52": {
    "verdict": "not",
-   "confidence": 60,
-   "why": "He was asking how to say 'make mistakes', and the wording is noisy."
+   "confidence": 65,
+   "why": "Same moment as C51."
   },
   "C53": {
    "verdict": "slip",
-   "confidence": 55,
-   "why": "Amal recast أضربهم as أتدرب."
+   "confidence": 75,
+   "why": "Amal recast أحس as بحس."
   },
   "C54": {
    "verdict": "slip",
-   "confidence": 55,
-   "why": "Amal hinted 'collocations' and he added عليهم."
+   "confidence": 70,
+   "why": "Amal recast تشتغل as أشتغل, and he fixed it."
+  },
+  "C55": {
+   "verdict": "slip",
+   "confidence": 80,
+   "why": "Amal supplied يكون عندي after لما, and he said he forgot that lesson."
+  },
+  "C56": {
+   "verdict": "slip",
+   "confidence": 65,
+   "why": "Amal rejected راح كنت and confirmed كنت راح."
+  },
+  "C57": {
+   "verdict": "slip",
+   "confidence": 50,
+   "why": "Amal recast it as بغلط فيها, and he repeated بغلط في."
+  },
+  "C58": {
+   "verdict": "slip",
+   "confidence": 60,
+   "why": "Amal gave أتدرب and the collocation hint, and he added عليهم."
+  },
+  "C59": {
+   "verdict": "not",
+   "confidence": 60,
+   "why": "Same moment as C58."
   }
  }
 }
