@@ -35,7 +35,9 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-30 | 94.8 | 270 | 90.7 | 28 | 290 | 2 / 0 |
 | 2026-11-02 | 98.2 -> **97.7** | 247 -> **263** | 89.5 -> **86.9** | 29 -> **35** | 209 -> **229** | 2 / 0 |
 | 2026-11-04 | None -> **98.1** | None -> **268** | None -> **91.9** | None -> **27** | None -> **209** | 2 / 0 |
-| 2026-11-05 | None -> **96.2** | None -> **117** | None -> **88.3** | None -> **7** | None -> **60** | 1 / 1 |
+| 2026-11-05 | None -> **96.2** | None -> **117** | None -> **91.9** | None -> **7** | None -> **86** | 1 / 1 |
+| 2026-11-10 | None -> **94.5** | None -> **299** | None -> **89.2** | None -> **28** | None -> **231** | 1 / 2 |
+| 2026-11-11 | None -> **98.7** | None -> **226** | None -> **100.0** | None -> **0** | None -> **157** | 0 / 0 |
 
 
 ## Conflicts
@@ -163,6 +165,12 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-11-04 49:58 C1r both stand: مختلف. (word-bank right) vs طالب مختلف -> غير طالب (readers not-scored) - the Word Bank's context review already settled it: unchanged
 - 2026-11-05 02:10 C1 settled: مفتاح (word-bank right) vs مفتاح -> مرتاح (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-11-05 26:00 C1q Medi?: زياد (word-bank right) vs زياد -> زيادة (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-11-10 03:55 C1r both stand: بشتغل (word-bank right) vs بشتغل -> بستعمل (readers wrong) - the Word Bank's context review already settled it: unchanged
+- 2026-11-10 11:11 C1p both stand: إشي (word-bank right) vs إشي مختلف -> إشي تاني (readers wrong) - slip elsewhere in the phrase: the word stays right
+- 2026-11-10 11:11 C1 settled: مختلف. (word-bank right) vs إشي مختلف -> إشي تاني (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-11-10 17:23 C1q Medi?: أدا (word-bank right) vs كل أدا -> الكل (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-11-10 37:57 C1p both stand: متشجع (word-bank right) vs متشجع -> حافز (motivation) / متشجع (motivated) (readers wrong) - slip elsewhere in the phrase: the word stays right
+- 2026-11-10 40:33 C1q Medi?: متوترة (word-bank right) vs متوترة -> مضغوط (readers wrong) - which word of the phrase was wrong: Medi
 
 ## Medi's corrections (PR-15)
 
