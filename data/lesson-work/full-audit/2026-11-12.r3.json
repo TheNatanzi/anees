@@ -1,13 +1,57 @@
 {
  "date": "2026-11-12",
  "reader": "r3",
- "note": "Medi's turns 55:02-1:01:01 are missing (D14, D15, A22 rely on Amal's lines only). Latin-engine stretches 12:31-14:59, 16:01-24:23, 26:13-30:25, 43:24-48:42. D1 and D2 were the same 14:59 moment; D10 covered two pieces (only the C10 one is a slip).",
+ "note": "Medi's lines are missing 54:54-1:01:01 (A25, A26, D19 rest on Amal's side only). Engine Latin for long stretches (14:00-31:00, 43:00-48:00). Engine echoes: 'هو and home' = hu/humme 3indhom (09:31); بالداخل = bid7ak (50:56); طلقت = et6alla3 (52:33, 54:14). D5/D21 and D6/D7 were the same moments.",
  "rulings": [
   {
    "id": "D1",
+   "verdict": "drop",
+   "why": "Not an error: he reached بالليل himself at 04:43 before Amal spoke (self-fix of the el-), and Amal said بالليل 'at night, بس عادي' = his version is fine; he then found الليلة himself."
+  },
+  {
+   "id": "D2",
+   "verdict": "drop",
+   "why": "Not a vocab slip: Amal's 'Most of شو؟' shows she heard 'most' (engine أكل = a8lab); she was asking most of WHAT, and he added الأشياء."
+  },
+  {
+   "id": "D3",
+   "verdict": "drop",
+   "why": "Duplicate of A1: same أحب within 10 s of her بحب recast at 06:37 (GR-28 same moment); she did not fix it again."
+  },
+  {
+   "id": "D4",
+   "verdict": "drop",
+   "why": "Cannot be verified: engine garble while he echoed her للنسوان line; Amal answered 'yeah' and explained, no fix of the lemon phrase."
+  },
+  {
+   "id": "D5",
    "verdict": "keep",
    "row": {
-    "id": "1112-r3-1",
+    "id": "1112-7",
+    "t": "09:57",
+    "t_amal": "10:12",
+    "medi_said": "So شوي is a few. How do I say like some which is a little bit more than a few?",
+    "amal_said": "You can use come. Do you remember؟ ... You can use come، yeah.",
+    "chat": null,
+    "wrong": "some (asked)",
+    "right": "كم",
+    "kind": "vocab-A",
+    "tier": 0,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "asked",
+    "confidence": "medium",
+    "why": "He asked how to say 'some' (more than shwai); Amal supplied كم - a didn't-know (same moment as D21).",
+    "english": "some"
+   },
+   "why": "Real didn't-know: he asked, she supplied كم. D21 is the same moment."
+  },
+  {
+   "id": "D6",
+   "verdict": "keep",
+   "row": {
+    "id": "1112-11",
     "t": "14:59",
     "t_amal": "15:05",
     "medi_said": "Ma-ma-matehtaj,",
@@ -18,191 +62,143 @@
     "kind": "grammar",
     "tier": null,
     "bucket": "B18",
-    "bucket2": null,
+    "bucket2": "B1",
     "mode": "speaking",
     "signal": "recast",
     "confidence": "medium",
-    "why": "He meant 'I don't need' but used the you-form te7taaj; Amal recast بحتاج and he said mobahtaj at 15:05.",
-    "english": "I don't need to wear a jacket."
+    "why": "For 'I don't need' he said ma-te7taaj (you/she form, no b-); Amal recast بحتاج. The earlier 'ma lazem' (engine 'ma zum') is fine Arabic - her 'ما I don't need' only steered to the verb she wanted, so no vocab row.",
+    "english": "I don't need (to wear a jacket)"
    },
-   "why": "Both readers saw this moment; the provable slip is the 14:59 you-form te7taaj for 'I' that Amal recast as بحتاج. The 14:52 'ma zum' (likely ma lazem = I don't have to) is valid Arabic in engine-garbled Latin; her 'ما I don't need' only steers him to the verb, not a fix of a wrong word."
+   "why": "Both readers saw the matehtaj slip; the transcript supports the grammar row (r2 label). r1's 'zum -> بحتاج' vocab piece is dropped: ma laazem albes is valid."
   },
   {
-   "id": "D2",
+   "id": "D7",
    "verdict": "drop",
-   "why": "Duplicate of D1 (same 14:59 matehtaj -> بحتاج B18 row)."
+   "why": "Duplicate of D6 (same matehtaj -> بحتاج moment at 14:59/15:05)."
   },
   {
-   "id": "D3",
+   "id": "D8",
    "verdict": "drop",
-   "why": "Duplicate of agreed row A8 (19:53 azimni alayhim -> azimhom 3ala, D4)."
+   "why": "Same moment as A12 (GR-28): 24:23 is his retry of the line Amal fixed at 24:10 ('Past'); she accepted it; the ta- is engine Latin and already inside A12's wrong piece."
   },
   {
-   "id": "D4",
+   "id": "D9",
    "verdict": "keep",
    "row": {
-    "id": "1112-r3-2",
-    "t": "24:59",
-    "t_amal": "25:01",
-    "medi_said": "السؤال اللي... هذا آخر السؤال اللي،",
-    "amal_said": "That's the end.",
-    "chat": "ma jaawabti su2aali el-a5eer / aa5er su2aal ili",
-    "wrong": "آخر السؤال",
-    "right": "سؤالي الأخير / آخر سؤال لي",
-    "kind": "grammar",
+    "id": "1112-23",
+    "t": "27:05",
+    "t_amal": null,
+    "medi_said": "Okay, sarna. / Uh, sarna.",
+    "amal_said": "(26:58) No, you conjugate the li, so sarli, sarlak, sarlna. ... (28:02) You would hear it a lot more sarlna.",
+    "chat": "saarelna benren 3alaik la-talat saa3aat",
+    "wrong": "sarna",
+    "right": "صارلنا",
+    "kind": "grammar-B",
     "tier": null,
-    "bucket": "A15",
-    "bucket2": "A20",
+    "bucket": "B17",
+    "bucket2": null,
     "mode": "speaking",
-    "signal": "explicit-no",
-    "confidence": "high",
-    "why": "aa5er + el-noun means 'the end of the question'; Amal said 'That's the end.' A new wrong form after her 24:50 explanation (A12 was السؤال الأخير اللي), so its own slip.",
-    "english": "my last question"
+    "signal": "none",
+    "confidence": "low",
+    "why": "Right after she listed sarli/sarlak/sarlna he said sarna (no l); she did not voice a fix of the l (her 28:02 sarlna is about word order), so grammar-B; engine Latin may have dropped the l.",
+    "english": "we have been"
    },
-   "why": "Transcript supports it: 'آخر السؤال' then her 'That's the end.' A15 states aa5er + el- + noun = the end of (same bucket as A23 in this lesson); A20 as second id."
+   "why": "Real-looking B17 slip but no voiced signal on the l; r2's grammar-B label fits."
   },
   {
-   "id": "D5",
+   "id": "D10",
+   "verdict": "drop",
+   "why": "Not supported: right after her Binrin recast (A15) he said 'Oh that's right, you put the B there' and 'berin/barin' is engine Latin for his binrin; her 'No' at 27:33 targets the object 'nick' (he kept barin and changed only to aleik, which she accepted) - that is D11."
+  },
+  {
+   "id": "D11",
    "verdict": "keep",
    "row": {
-    "id": "1112-r3-3",
+    "id": "1112-26",
     "t": "27:31",
     "t_amal": "27:33",
     "medi_said": "barin nick.",
     "amal_said": "No.",
-    "chat": "saarelna benren 3alaik",
+    "chat": "saarelna benren 3alaik la-talat saa3aat",
     "wrong": "barin nick",
-    "right": "barin aleik (benren 3alaik)",
+    "right": "بنرن عليك",
     "kind": "grammar",
     "tier": null,
     "bucket": "D2",
     "bucket2": null,
     "mode": "speaking",
     "signal": "explicit-no",
-    "confidence": "high",
-    "why": "rann takes 3ala; he put the 'you' ending on the verb, Amal said No and he fixed to barin aleik at 27:34.",
-    "english": "we have been calling you"
-   },
-   "why": "Clear: his 'barin nick', her 'No.', his fix 'barin aleik' after her signal."
-  },
-  {
-   "id": "D6",
-   "verdict": "drop",
-   "why": "Cannot be verified: Latin engine stretch ('berin, barin') right after Amal's 'Binrin' (A14); the engine's vowel is no proof he said ba- (I) rather than bn- (we); Amal did not react to it."
-  },
-  {
-   "id": "D7",
-   "verdict": "keep",
-   "row": {
-    "id": "1112-r3-4",
-    "t": "38:26",
-    "t_amal": "38:31",
-    "medi_said": "ما تعسفي.",
-    "amal_said": "Ma? ... How many Ts are there?",
-    "chat": "ma tet2assafli / ma tet2assafi minni",
-    "wrong": "ما تعسفي",
-    "right": "ما تتأسفي (ma tet2assafi)",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "B11",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
     "confidence": "medium",
-    "why": "The negative command needs the full you-form tet2assafi (t- prefix + form V t-); he said ma t2assafi and Amal prompted 'How many Ts are there?'; he never fully fixed it (39:10 still ما تعسفي مني). May partly be sound.",
-    "english": "Don't apologize to me."
+    "why": "rann (call) takes 3ala; he put the object on the verb (rinnak); Amal said No and he fixed it to 'barin aleik', which she accepted.",
+    "english": "we've been calling you"
    },
-   "why": "Her 'Ma?' + 'How many Ts' targets the missing t- of the you-form, a verb-form rule (B11: ma + the YOU-form), not a different word, so grammar not vocab."
-  },
-  {
-   "id": "D8",
-   "verdict": "drop",
-   "why": "Cannot be verified: تتضار is not a word and the engine gives no clue what he said; Amal accepted it with Mm-hmm and Nice, so no wrong word can be shown."
-  },
-  {
-   "id": "D9",
-   "verdict": "keep",
-   "row": {
-    "id": "1112-r3-5",
-    "t": "40:13",
-    "t_amal": null,
-    "medi_said": "هي... تتضار من الـ-من الحيوانات.",
-    "amal_said": "Nice.",
-    "chat": "heyye bet5aaf min kul el-7aywaanaat",
-    "wrong": "تتضار",
-    "right": "بتـ... (bet5aaf)",
-    "kind": "grammar-B",
-    "tier": null,
-    "bucket": "B1",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "none",
-    "confidence": "low",
-    "why": "Habitual present verb written without b- (تت...) where her chat has bet5aaf; she let it pass. The verb itself is engine-garbled, so low.",
-    "english": "She gets scared of all animals."
-   },
-   "why": "The t- prefix with no b- is visible in the engine line for a habitual present; let pass, so grammar-B, low."
-  },
-  {
-   "id": "D10",
-   "verdict": "keep",
-   "row": {
-    "id": "1112-r3-6",
-    "t": "41:36",
-    "t_amal": "41:58",
-    "medi_said": "شو-شو شكيت؟ / شو شكتي؟ / شو شكتي لـ-- لشيلو؟",
-    "amal_said": "You're still missing the first step I told you about.",
-    "chat": "min shu shakaitilo",
-    "wrong": "شو شكتي",
-    "right": "من شو شكيتيلو",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "C10",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "high",
-    "why": "'What did you complain about' needs the preposition in front of shu; Amal said he was still missing the first step and he added أن شو at 42:02.",
-    "english": "What did you complain to him about?"
-   },
-   "why": "The readers named two different pieces. The slip is the missing preposition before shu (her 'still missing the first step', his fix at 42:02). Her 'To him. Him.' at 41:46 only supplied a part of the sentence he had not reached yet - help on the way, not a slip."
-  },
-  {
-   "id": "D11",
-   "verdict": "keep",
-   "row": {
-    "id": "1112-r3-7",
-    "t": "44:30",
-    "t_amal": "44:41",
-    "medi_said": "uh, sh-sh-sha'at? Sha'a? I don't know how-- I don't think I've ever done the past tense for this.",
-    "amal_said": "Saf shtait is I missed.",
-    "chat": "shta2tili?",
-    "wrong": "sha'at",
-    "right": "اشتقت (shta2t)",
-    "kind": "vocab-A",
-    "tier": 0,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "asked",
-    "confidence": "medium",
-    "why": "He said he had never made the past of this verb and guessed; Amal supplied shtait / shta2t - a didn't-know.",
-    "english": "I missed (you)."
-   },
-   "why": "His own words 'I don't think I've ever done the past tense for this' make it a didn't-know, so tier 0 / asked, not tier 2."
+   "why": "Transcript supports it: No right after 'nick', his fix changed only the object to aleik."
   },
   {
    "id": "D12",
    "verdict": "keep",
    "row": {
-    "id": "1112-r3-8",
+    "id": "1112-30",
+    "t": "38:26",
+    "t_amal": "38:40",
+    "medi_said": "ما تعسفي.",
+    "amal_said": "Ma? ... How many Ts are there?",
+    "chat": "ma tet2assafli / ma tet2assafi minni",
+    "wrong": "ما تعسفي",
+    "right": "ما تتأسفي",
+    "kind": "vocab-A",
+    "tier": 2,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "He dropped the te- of the form tet2assaf (said t2assafi); Amal asked 'Ma?' and 'How many Ts are there?'; chat tet2assafi. A wrong form of a verb he knows, not a dropped root letter.",
+    "english": "don't apologize (to me)"
+   },
+   "why": "Her 'How many Ts are there?' is a voiced prompt on the missing t- syllable."
+  },
+  {
+   "id": "D13",
+   "verdict": "drop",
+   "why": "Covered by A19: تتضار is a non-word (vocab), so a missing b- on it cannot be read from the transcript."
+  },
+  {
+   "id": "D14",
+   "verdict": "keep",
+   "row": {
+    "id": "1112-35",
+    "t": "45:04",
+    "t_amal": "45:15",
+    "medi_said": "Lay? Sha'atili? Okay. ... Sha'atili. Sha'atili. Sha'atili.",
+    "amal_said": "Shta'teeli. ... Say it. ... Ta'teeli.",
+    "chat": "shta2tili?",
+    "wrong": "Sha'atili",
+    "right": "اشتقتيلي",
+    "kind": "vocab-A",
+    "tier": 2,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "low",
+    "why": "After her 44:41 fix he said sha'ati again; she recast Shta'teeli and stressed 'Ta'teeli' at 45:15 - wrong form said again and fixed again = its own slip (brief: repeat after fix that she fixes again). Engine Latin, could be pronunciation, so low.",
+    "english": "did you miss me"
+   },
+   "why": "Second fix of the same wrong form (after D23); kept low because the engine Latin may hide pronunciation."
+  },
+  {
+   "id": "D15",
+   "verdict": "keep",
+   "row": {
+    "id": "1112-38",
     "t": "50:56",
-    "t_amal": "50:58",
-    "medi_said": "كيف الماضي كان؟ بالداخل.",
+    "t_amal": "51:05",
+    "medi_said": "كيف الماضي كان؟ ... بالداخل.",
     "amal_said": "That's funny. ... It was fun making. Fun causing.",
     "chat": "el-9aif el-maadi kaan byebse6",
-    "wrong": "بالداخل (engine; he said a word for 'funny')",
-    "right": "byebse6 (ببسط)",
+    "wrong": "بالداخل",
+    "right": "بيبسط",
     "kind": "vocab-A",
     "tier": 1,
     "bucket": null,
@@ -210,71 +206,57 @@
     "mode": "speaking",
     "signal": "prompt-then-fix",
     "confidence": "medium",
-    "why": "For 'fun' he used a word meaning funny/laugh-making (engine wrote بالداخل); Amal said 'That's funny ... fun causing', he gave beabseft and said 'that would have been it's funny. Got it.'",
-    "english": "Last summer was fun."
+    "why": "For 'was fun' he used the word for 'funny' (engine بالداخل ~ bid7ak); Amal said 'That's funny ... fun causing', he said beabseft (byebse6, 'Yes') and admitted 'that would have been it's funny'. A different word, not the B12 make/become form.",
+    "english": "last summer was fun"
    },
-   "why": "His own 51:37 'So that would have been it's funny' shows his first word meant 'funny' - a different word, vocab tier 1, not the B12 causative."
+   "why": "His own 51:37 'that would have been it's funny' proves the wrong word was 'funny'; vocab tier 1 fits, not B12."
   },
   {
-   "id": "D13",
+   "id": "D16",
+   "verdict": "drop",
+   "why": "Neither piece holds: r1's طلقت (past vs command) is engine Latin and Amal said Mm-hmm / Nice; r2's missing el- is contradicted by Amal 53:06 'Yeah you said it right. الأول بس' - the real fix there is the gender of awwal, which is D17."
+  },
+  {
+   "id": "D17",
    "verdict": "keep",
    "row": {
-    "id": "1112-r3-9",
-    "t": "52:38",
+    "id": "1112-41",
+    "t": "53:05",
     "t_amal": "53:08",
-    "medi_said": "على إيميلي ال-- أو، uh, أول.",
-    "amal_said": "Yeah you said it right. الأول بس. The only correction is أول not أول. ... the female version is أولى. it stays أول for male.",
+    "medi_said": "ال-- أول? (engine wrote أول; 53:22 he says he thought it was أولى)",
+    "amal_said": "Yeah you said it right. الأول بس. The only correction is أول not أولى. ... the female version is أولى. It stays أول for male.",
     "chat": "et6alla3 3ala awal email ili / emaili el-awwal",
-    "wrong": "أو، uh, أول",
-    "right": "إيميلي الأول",
+    "wrong": "ال-- أولى (engine wrote أول)",
+    "right": "الأول",
     "kind": "grammar",
     "tier": null,
     "bucket": "A13",
-    "bucket2": "A20",
+    "bucket2": "A8",
     "mode": "speaking",
     "signal": "named-rule",
     "confidence": "medium",
-    "why": "After the noun 'first' is el-awwal (masc) / el-oola (fem); he wavered between oola and awwal without el-; Amal said 'الأول بس' and explained the masculine stays awwal.",
+    "why": "After masculine إيميلي he used the feminine el-oola; Amal named the rule: oola is the female version, it stays awwal for male.",
     "english": "my first email"
    },
-   "why": "Her fix covers both pieces A13 names (el- after the noun and awwal vs oola); A20 as second id."
+   "why": "Amal named the rule; his 53:22 line confirms he used أولى."
   },
   {
-   "id": "D14",
-   "verdict": "keep",
-   "row": {
-    "id": "1112-r3-10",
-    "t": "57:00",
-    "t_amal": "57:12",
-    "medi_said": "(Medi's line not transcribed - gap 55:02-1:01:01)",
-    "amal_said": "No. Two Ts. قططنا.",
-    "chat": "ana mit7ammes el-laila 5a66atna ishi 8eir",
-    "wrong": "5a6atna (one t, line missing)",
-    "right": "خططنا (5a66a6na)",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "F3",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "explicit-no",
-    "confidence": "low",
-    "why": "His line is missing; Amal said No, two Ts - the doubled letter of 5a66a6 (plan). Sound shape (F family, unscored) and may be S4; needs the audio.",
-    "english": "We planned something different."
-   },
-   "why": "Her 'No' proves a slip, but his words are lost and her fix is about letter count only, so it is filed under the unscored sound family at low confidence for an audio check."
+   "id": "D18",
+   "verdict": "drop",
+   "why": "Cannot be verified: he said himself 'It's present tense, right?' and Amal said Mhm/Yeah; engine طلقت is the same garble as at 52:33; no voiced fix."
   },
   {
-   "id": "D15",
+   "id": "D19",
    "verdict": "keep",
    "row": {
-    "id": "1112-r3-11",
+    "id": "1112-44",
     "t": "59:05",
-    "t_amal": "59:05",
-    "medi_said": "(Medi's line not transcribed - gap 55:02-1:01:01)",
-    "amal_said": "before، before نفس. شوفي before. No. ... ما أو. في.",
+    "t_amal": "59:31",
+    "medi_said": "(Medi's line missing from the transcript 54:54-1:01:01)",
+    "amal_said": "before نفس. شوفي before. No. No. ... في. نفس الحد.",
     "chat": "e7na ra7 nelte2i ma3/fi nafs el-7ada el-usboo3 el-jaay",
-    "wrong": "(no / wrong preposition before nafs)",
-    "right": "ma3 / fi nafs el-7ada",
+    "wrong": "(not in transcript) word before نفس",
+    "right": "في نفس",
     "kind": "grammar",
     "tier": null,
     "bucket": "D1",
@@ -282,90 +264,176 @@
     "mode": "speaking",
     "signal": "explicit-no",
     "confidence": "low",
-    "why": "His line is missing; Amal pointed at what comes before nafs, said No, then gave ما أو في (ma3 or fi) - a preposition, not el-.",
-    "english": "We will meet on the same Sunday next week."
+    "why": "Medi's lines are missing; Amal pointed at the word before nafs, said No twice and supplied في (chat ma3/fi nafs). Real but his words cannot be proven - transcript hole.",
+    "english": "we will meet on the same Sunday next week"
    },
-   "why": "Her own answer 'ما أو في' names prepositions, which fits D1, not A17 (el- before nafs). Low: his line is missing."
-  },
-  {
-   "id": "D16",
-   "verdict": "keep",
-   "row": {
-    "id": "1112-r3-12",
-    "t": "1:02:42",
-    "t_amal": "1:02:45",
-    "medi_said": "أش-- أشعتنا، or is it أشانا؟",
-    "amal_said": "No. عشان. عشان is masculine.",
-    "chat": "a5uy dafa3 3anna 3ashana el-a5eer",
-    "wrong": "أشعتنا",
-    "right": "عشانا",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A18",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "explicit-no",
-    "confidence": "high",
-    "why": "3asha (dinner) sounds feminine but is masculine, so no -t before the owner ending; Amal said No, it is masculine.",
-    "english": "our last dinner"
-   },
-   "why": "Her named reason 'is masculine' is the A18 hidden-gender rule, not a garbled word."
-  },
-  {
-   "id": "D17",
-   "verdict": "drop",
-   "why": "Repeat of Amal's بشوفك said 1 s before (GR-32) in a goodbye; the engine likely dropped the ب; not a slip."
-  },
-  {
-   "id": "D18",
-   "verdict": "drop",
-   "why": "Not an error: 'I was Will, right? ... Kendra' is him thinking aloud (I was = kunt, will = ra7) and 'Kendra' is the engine for kunt ra7; Amal's كنت راح confirms it, and he says 'Anna Kunetra Asalik' at 13:26."
-  },
-  {
-   "id": "D19",
-   "verdict": "drop",
-   "why": "Same moment as agreed A11 (24:07 ma tajawabi -> past); the 'ta' is Latin engine text and Amal accepted with Mm-hmm - cannot prove a form VI verb."
+   "why": "Her voiced 'before نفس ... No. No ... في' is a clear fix; kept low because his line is missing."
   },
   {
    "id": "D20",
-   "verdict": "drop",
-   "why": "Not a slip: Amal said 'Yeah' to la fatra and only asked for the other (more common) order; her chat at 28:17 gives both forms as fine (la-talat saa3aat / saarelna talat saa3aat)."
+   "verdict": "keep",
+   "row": {
+    "id": "1112-48",
+    "t": "1:04:35",
+    "t_amal": "1:04:39",
+    "medi_said": "Oh, it was-- Uh, what's the other verb that I'm thinking of? إن...",
+    "amal_said": "It's to pay attention. بنتبه.",
+    "chat": null,
+    "wrong": "إن... (asked)",
+    "right": "انتبه",
+    "kind": "vocab-A",
+    "tier": 0,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "asked",
+    "confidence": "medium",
+    "why": "He asked for the other verb he had in mind; Amal supplied بنتبه - a didn't-know.",
+    "english": "to pay attention"
+   },
+   "why": "Real asked/didn't-know."
   },
   {
    "id": "D21",
    "verdict": "drop",
-   "why": "Not a slip: Amal said '3an could work, but min is safer' - both forms fine."
+   "why": "Duplicate of D5 (same 'some' -> كم question, 09:41-10:19)."
   },
   {
    "id": "D22",
    "verdict": "keep",
    "row": {
-    "id": "1112-r3-13",
-    "t": "1:05:28",
-    "t_amal": "1:05:36",
-    "medi_said": "انت اختارت.",
-    "amal_said": "إنت اختار.",
-    "chat": null,
-    "wrong": "اختارت",
-    "right": "اختار",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "B10",
+    "id": "1112-7",
+    "t": "30:17",
+    "t_amal": "30:23",
+    "medi_said": "uh, tab D. ... So it's that ... tid at. Tid aty.",
+    "amal_said": "B or D? Am I hearing a D? ... Babat.",
+    "chat": "kam addaish sarlek bteb3atili rasaayel",
+    "wrong": "Tid aty",
+    "right": "تبعتي",
+    "kind": "vocab-A",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "For 'you send' he said tibd-ati (start); Amal asked 'B or D? Am I hearing a D?' and said Babat. Not S4: at 30:47-30:52 he says تبدأ ... ببدأ، بدء، بدأت, 'start' - he really had the verb bada (start) in mind. He said تبعتي right at 30:31, then went back to تبدأي and she fixed it again (A17) - two separate slips.",
+    "english": "(how long have) you been sending me"
+   },
+   "why": "The 30:52 line proves a wrong word, not pronunciation; first instance, separate from A17 because he got it right in between."
+  },
+  {
+   "id": "D23",
+   "verdict": "keep",
+   "row": {
+    "id": "1112-10",
+    "t": "44:40",
+    "t_amal": "44:41",
+    "medi_said": "So is this like Ramshi? The, uh, sh-sh-sha'at? Sha'a? I don't think I've ever done the past tense for this. ... Sha'at.",
+    "amal_said": "Saf shtait is I missed. So did you miss me?",
+    "chat": "shta2tili?",
+    "wrong": "sha'at",
+    "right": "شتقت",
+    "kind": "vocab-A",
+    "tier": 2,
+    "bucket": null,
     "bucket2": null,
     "mode": "speaking",
     "signal": "recast",
-    "confidence": "low",
-    "why": "Amal said إنت اختار (you choose); he said it back with a past ending and she repeated the command form; may be the engine.",
-    "english": "You choose."
+    "confidence": "medium",
+    "why": "For 'missed' he built sha'at; Amal gave shta2t ('shtait is I missed'); sheet: i missed you (to a female) | Shta2etlek | شتقتلك. Wrong form of the verb (the form VIII t is missing), not a dropped root letter.",
+    "english": "did you miss me"
    },
-   "why": "He changed her command to a past form and she recast it once more - its own slip under GR-32; low because the engine may have added the t."
+   "why": "Her recast with the right past form; he says he never did the past of this verb."
+  },
+  {
+   "id": "D24",
+   "verdict": "drop",
+   "why": "Not an error: 'Messages please' was him asking for the word; Amal said 'You could say message (loan), make it plural, or the other word' and 'we use it عادي' - she ruled the loan fine and he gave رسائل."
+  },
+  {
+   "id": "D25",
+   "verdict": "drop",
+   "why": "Help mid-sentence, not a slip: he stalled on the number (S5, engine 'la, lalsa') and Amal supplied 'Thalath'; he finished with ساعات."
+  },
+  {
+   "id": "D26",
+   "verdict": "drop",
+   "why": "Help on the way, not a slip: he stalled searching ('Cam sa... How you?', S5); Amal prompted 'Have you been?' and he built kam sarlik."
+  },
+  {
+   "id": "D27",
+   "verdict": "drop",
+   "why": "Not a slip: Amal said 'Yeah' (his order is fine) then 'make it the other way ... that sounds way better' - a nicer rephrase, which the brief says is not a slip."
+  },
+  {
+   "id": "D28",
+   "verdict": "drop",
+   "why": "Not a correction: Amal was telling him 'إنت اختار' (you choose the topic) and repeated her instruction; his echo's extra ت is likely the engine, and no fix was voiced."
+  },
+  {
+   "id": "D29",
+   "verdict": "keep",
+   "row": {
+    "id": "1112-42",
+    "t": "09:31",
+    "t_amal": "09:37",
+    "medi_said": "آآآ، آآآ هو and home. (engine: hu 3indhom)",
+    "amal_said": "أمه.",
+    "chat": "humme 3indhom minu noss akel middleastern u nos akel amriki",
+    "wrong": "هو",
+    "right": "هم عندهم",
+    "kind": "grammar-B",
+    "tier": null,
+    "bucket": "A12",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "'They have' needs humme; the engine 'هو and home' = hu 3indhom; her chat types humme 3indhom. Her 'أمه' at 09:37 may be a voiced humme recast, but he repeated هو unchanged, so not proven - kept as grammar-B for audio check.",
+    "english": "they have"
+   },
+   "why": "Pronoun slip is visible (هو for the restaurant people); no clear voiced fix."
+  },
+  {
+   "id": "D30",
+   "verdict": "keep",
+   "row": {
+    "id": "1112-44",
+    "t": "34:03",
+    "t_amal": "34:04",
+    "medi_said": "ينزعج ... منا.",
+    "amal_said": "Mm-hmm. ... Nice.",
+    "chat": "sarlo fatra byenze3ej minna",
+    "wrong": "ينزعج",
+    "right": "بينزعج",
+    "kind": "grammar-B",
+    "tier": null,
+    "bucket": "B1",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "Present habit verb without b- (said twice, 34:03 and 34:40); chat byenze3ej; Amal said Nice - no voiced fix (GR-19), so grammar-B.",
+    "english": "he has been getting annoyed with us"
+   },
+   "why": "Real b- miss she let pass."
+  },
+  {
+   "id": "D31",
+   "verdict": "drop",
+   "why": "Not a grammar slip: he left the word كل out of the translation; that is an omission, not the kul all/every rule (A11), and Amal said Nice with no fix."
   }
  ],
  "added": [],
  "challenges": [
   {
-   "id": "A1",
-   "why": "Amal said 'بالليل at night، بس عادي' (but it's fine) - she may be accepting his بـ ليل rather than fixing it; he then asked about ليلة himself."
+   "id": "A28",
+   "why": "Wrong label: at 1:03:00 he already said الـ before آخر; Amal's 'الـ.' then his الأخير changed aa5er -> el-a5eer (adjective after the noun), which is A15, not a missing el- (A1)."
+  },
+  {
+   "id": "A9",
+   "why": "Same slip as A8 (azimni, 19:44) 9 s later; the new part Amal fixed with 'No. That's invite to them' is the added alayhim (verb+preposition, D2), not D4 again - check it is not counted twice."
   }
  ]
 }
