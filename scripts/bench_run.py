@@ -305,10 +305,10 @@ def gemini_parse(model, j, as_json=True, price_factor=1.0):
     return {"text": d.get("arabic") or "", "alt": d.get("arabizi") or "", "raw": d, "usd": usd, "tokens": [tin, aud, tout]}
 
 
-def gemini(model, path, prompt, as_json=True, temp=None, cfg_extra=None, more_audio=()):
+def gemini(model, path, prompt, as_json=True, temp=None, cfg_extra=None, more_audio=(), timeout=420):
     import requests
     body = gemini_body(model, path, prompt, as_json, temp, cfg_extra, more_audio)
-    r = requests.post("https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent" % model, params={"key": key("GEMINI_API_KEY")}, json=body, timeout=420)
+    r = requests.post("https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent" % model, params={"key": key("GEMINI_API_KEY")}, json=body, timeout=timeout)
     if r.status_code != 200:
         if r.status_code == 429:
             time.sleep(15)

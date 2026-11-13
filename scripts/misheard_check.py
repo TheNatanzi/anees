@@ -29,9 +29,12 @@ REPO = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 FIXES_P = os.path.join(REPO, "data", "lesson-work", "transcript-fixes.json")
 FROM = "2026-10-08"
-CLAUDE = os.environ.get("ANEES_CLAUDE", "claude")
+import shutil
+CLAUDE = os.environ.get("ANEES_CLAUDE") or shutil.which("claude") or os.path.join(os.path.expanduser("~"), ".local", "bin", "claude.exe")
 GEMINI = "gemini-3.8-flash"
 MAX_AUDIO, MAX_USD = 25, 0.50
+# Medi 2026-11-12: 11-10 lost 58 min to Gemini timing out (420 s a word, 8 words) - stop the audio step after 2 misses
+MAX_MISSES = 2
 SUSPECT = re.compile(r"not on her word list|does not list yet|two list words are spelled|second listen changed")
 AR = re.compile(r"[؀-ۿ]")
 
@@ -157,11 +160,12 @@ def ask_claude(date, items, T, chat):
             " | ".join("%s «%s»" % (mmss(u["t"]), u["text"]) for u in her) or "-",
             " | ".join("«%s»" % c["text"] for c in typed) or "-"))
     prompt = PROMPT + "\n".join(body)
-    cmd = [CLAUDE, "-p", prompt, "--output-format", "json"] + track.claude_model_args()
+    # the prompt goes on stdin: 108 suspects made the command line too long for Windows (FileNotFoundError, 11-10)
+    cmd = [CLAUDE, "-p", "--output-format", "json"] + track.claude_model_args()
     try:
         with track.run("misheard_check", date, kind="inference", provider="anthropic", request_model=track.CLAUDE_MODEL,
                        params={"suspects": len(items), "prompt_arg_sha": track.sha256_text(prompt)}) as run:
-            r = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True, encoding="utf-8", timeout=1200)
+            r = subprocess.run(cmd, cwd=REPO, input=prompt, capture_output=True, text=True, encoding="utf-8", timeout=1200)
             parsed = track.parse_claude_output(r.stdout)
             run.claude(parsed)
             txt = parsed.get("text") or ""
@@ -273,7 +277,7 @@ def ask_gemini(date, s, opts, spent):
         prompt = ASK_AUDIO.format(word=s["word"], line=s["line"], choices=" / ".join(opts))
         with track.run("misheard_check_audio", date, kind="inference", provider="google", request_model=GEMINI,
                        params={"t": s["t"]}) as run:
-            res = BR.gemini(GEMINI, wav, prompt, as_json=True)
+            res = BR.gemini(GEMINI, wav, prompt, as_json=True, timeout=90)   # one short clip; 90 s is plenty
             if res.get("usd") is not None:
                 run.set(cost_usd=round(res["usd"], 6), cost_basis="tokens")
     raw = res.get("raw") or {}
@@ -327,9 +331,12 @@ def main():
                              "her chat" if "who" not in p["src"] else "her line at " + mmss(p["src"]["t"]), p["quote"])})
         else:
             left.append(s)
-    spent, asked, heard_again = 0.0, 0, []
+    spent, asked, heard_again, misses = 0.0, 0, [], 0
     if "--no-audio" not in sys.argv:
         for s in left:
+            if misses >= MAX_MISSES:
+                print("  audio step stopped: %d misses in a row (the hearing service is down or slow)" % misses)
+                break
             if asked >= MAX_AUDIO or spent >= MAX_USD or not AR.search(s["word"]):
                 continue
             opts = choices(keys, s["word"])
@@ -339,7 +346,9 @@ def main():
                 raw, usd = ask_gemini(date, s, opts, spent)
             except Exception as e:  # noqa: BLE001 - no clip, no key, a timeout: the word stays as it is
                 print("  %s %s: not heard again (%s)" % (mmss(s["t"]), s["word"], type(e).__name__))
+                misses += 1
                 continue
+            misses = 0
             asked += 1
             spent += usd
             pick = raw.get("word")
