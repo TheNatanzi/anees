@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T17:40:50-08:00",
+ "updated": "2026-11-12T17:52:04-08:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -13541,9 +13541,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 60,
+    "uses": 86,
     "mistakes": 7,
-    "pct": 88.3,
+    "pct": 91.9,
     "estimate": false,
     "scored_mistakes": 7,
     "unscored_mistakes": 0,
@@ -13553,15 +13553,14 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "2 slips are in rules the counter found 0 uses of in this lesson",
-      "2 rules have more slips than counted uses (B12, E1)"
+      "1 slips are in rules the counter found 0 uses of in this lesson",
+      "1 rules have more slips than counted uses (E1)"
      ],
-     "uses": 57,
+     "uses": 83,
      "slips": 7,
      "slips_latin": 0,
-     "slips_in_zero_use_rules": 2,
+     "slips_in_zero_use_rules": 1,
      "rules_slips_over_uses": [
-      "B12",
       "E1"
      ]
     },
@@ -13714,7 +13713,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-11-05.json",
-    "marks": 198,
+    "marks": 231,
     "conflicts": 2,
     "resolved": 1,
     "needs_medi": 1,
@@ -13796,6 +13795,696 @@
      "_lesson_s": 2004.0,
      "first_t": 45.49,
      "last_t": 1989.62,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "start_local": "2026-11-10T13:05:24-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 59.5,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "Open conversation from 01:22 to 59:24 with fixes and typed rewrites: his weekend hunting for a wedding venue (06:58-18:54), the date and weather (19:00-20:52), last fall and Christmas (25:54-37:19), feeling stressed and working too much (37:49-51:43), food and the AI app (51:56-58:10). Amal offered 23:55 'مراجعة؟ ... أو نعمل محادثة؟' and at the end said 58:03 'I wasn't prepared and we need more topics' after Medi's 57:57 'just open speaking like today'; no new rule or verb pair was set, only words given when he was stuck.",
+   "type_source": "claude-read",
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Open conversation: wedding venues, fall, stress and work, with words like 5areef, mad8oo6, el-farq",
+    "rules": [
+     {
+      "title": "Over ten, the noun stays singular; mية becomes meet: meet mat3am",
+      "pattern": "meet + singular noun",
+      "bullets": [
+       "مية ends in a t-sound, so it becomes ميت before a noun",
+       "more than 10 = singular noun: مطعم not مطاعم",
+       "meet, not ميت (dead)"
+      ],
+      "examples": [
+       {
+        "t": "10:38",
+        "line": "ميت - meet (a hundred, before a noun)"
+       },
+       {
+        "t": "10:58",
+        "line": "مطعم - restaurant (singular after more than 10)"
+       },
+       {
+        "t": "11:58",
+        "line": "أكتر من مية مطعم - more than a hundred restaurants"
+       }
+      ]
+     },
+     {
+      "title": "Two verbs together: only the first is past: badaina nedrus",
+      "pattern": "past verb + present verb",
+      "bullets": [
+       "the first verb carries the past",
+       "the second stays in the present",
+       "ballashna works the same as badaina"
+      ],
+      "examples": [
+       {
+        "t": "31:16",
+        "line": "If there's two verbs only the first one is past"
+       },
+       {
+        "t": "32:06",
+        "line": "بلشنا - we started"
+       },
+       {
+        "t": "32:20",
+        "line": "e7na badaina / ballashna nedrus ma3 ba3ad - we started studying together"
+       }
+      ]
+     },
+     {
+      "title": "After lamma use ykoon: lamma ykoon 3indi",
+      "pattern": "لما + يكون",
+      "bullets": [
+       "lamma (when) about the future needs يكون",
+       "lamma 3indi alone is not enough"
+      ],
+      "examples": [
+       {
+        "t": "18:36",
+        "line": "لما الكل في نفس المكان بيكون مميز - when everyone is in the same place it's special"
+       },
+       {
+        "t": "51:06",
+        "line": "يكون عندي - (when) I have"
+       },
+       {
+        "t": "51:13",
+        "line": "لما يكون عندي ولاد - when I have kids"
+       }
+      ]
+     },
+     {
+      "title": "aa5er + month = the end of that month; last month = September el-maadi",
+      "pattern": "آخر + month / month + الماضي",
+      "bullets": [
+       "aa5er September = the end of September",
+       "a month name is like a proper noun",
+       "last September = سبتمبر الماضي or شهر تسعة الماضي"
+      ],
+      "examples": [
+       {
+        "t": "34:39",
+        "line": "آخر September - the end of September"
+       },
+       {
+        "t": "35:32",
+        "line": "سبتمبر الماضي - last September"
+       },
+       {
+        "t": "36:34",
+        "line": "bazonn enno ballashna aa5er September - I think we started at the end of September"
+       }
+      ]
+     },
+     {
+      "title": "'Was going to' = kunet ra7 + verb; ra7 never stands alone",
+      "pattern": "كنت راح + present verb",
+      "bullets": [
+       "kunet ra7 aakol = I was going to eat",
+       "you can't say راح on its own"
+      ],
+      "examples": [
+       {
+        "t": "52:46",
+        "line": "You can't just say راح on its own"
+       },
+       {
+        "t": "53:16",
+        "line": "ana kunet ra7 aakol, bas ma kunet ju3aan - I was going to eat but I wasn't hungry"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Words given when he was stuck: sammaa3aat, el-farq, 5ayaar, 5areef, musta2bal, bizabt, mad8oo6, ba8lat, أتدرب",
+     "Small fixes: أرد not أجاوب for the phone, nafs el-makaan, سهلة for حياة, بحس هيك",
+     "Off-lesson 48:21-49:25: a customer at Medi's store; Amal stepped away 21:57-22:19",
+     "Plan: next time review the collocations and do the homework"
+    ]
+   },
+   "words": {
+    "unique": 136,
+    "right": 280,
+    "wrong": 14,
+    "partial": 5,
+    "pct": 94.5,
+    "scored": 299,
+    "audit_wrong": 14,
+    "audit_partial": 0,
+    "rehear_word_conflicts": 0,
+    "unique_rows": 127,
+    "eligible": 299,
+    "excluded": 0,
+    "pending": 1,
+    "eligible_pct": 94.5,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 231,
+    "mistakes": 28,
+    "pct": 89.2,
+    "estimate": false,
+    "scored_mistakes": 25,
+    "unscored_mistakes": 3,
+    "eligible": 28,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "7 slips are in rules the counter found 0 uses of in this lesson",
+      "6 rules have more slips than counted uses (A12, B12, B18, C2, D2, E7)"
+     ],
+     "uses": 212,
+     "slips": 28,
+     "slips_latin": 0,
+     "slips_in_zero_use_rules": 7,
+     "rules_slips_over_uses": [
+      "A12",
+      "B12",
+      "B18",
+      "C2",
+      "D2",
+      "E7"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1011.1,
+    "amal_s": 584.0,
+    "speak_pct": 63.4,
+    "listen_pct": 36.6,
+    "window": [
+     0.0,
+     3565.8
+    ]
+   },
+   "fillers": {
+    "count": 260,
+    "per_min": 15.43,
+    "top": [
+     [
+      "uh",
+      100
+     ],
+     [
+      "آآ",
+      73
+     ],
+     [
+      "um",
+      49
+     ],
+     [
+      "آ",
+      15
+     ],
+     [
+      "ممم",
+      8
+     ],
+     [
+      "mm",
+      6
+     ]
+    ],
+    "in_turns": 260,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.56,
+    "p75_s": 2.59,
+    "n": 238
+   },
+   "flow": {
+    "wpm": 69.2,
+    "n_turns": 215,
+    "arabic_words": 638
+   },
+   "new_words": [],
+   "taught": [],
+   "taught_words": [
+    {
+     "latin": "sammaa3aat",
+     "arabic": "سماعات",
+     "english": "headphones",
+     "t": "04:43"
+    },
+    {
+     "latin": "el-farq",
+     "arabic": "فرق",
+     "english": "difference (el-farq beinhom = the difference between them)",
+     "t": "05:56"
+    },
+    {
+     "latin": "5a66atna",
+     "arabic": "خططنا",
+     "english": "we planned",
+     "t": "08:35"
+    },
+    {
+     "latin": "5ayaar",
+     "arabic": "خيار",
+     "english": "option (also: cucumber)",
+     "t": "13:57"
+    },
+    {
+     "latin": null,
+     "arabic": "أحو / أح",
+     "english": "brr (said when you are cold)",
+     "t": "20:36"
+    },
+    {
+     "latin": "5areef",
+     "arabic": "خريف",
+     "english": "fall / autumn",
+     "t": "23:14"
+    },
+    {
+     "latin": "musta2bal",
+     "arabic": "مستقبل",
+     "english": "future",
+     "t": "24:42"
+    },
+    {
+     "latin": null,
+     "arabic": "محادثة",
+     "english": "conversation",
+     "t": "24:46"
+    },
+    {
+     "latin": "bizabt",
+     "arabic": "بالظبط",
+     "english": "exactly (from مضبوط)",
+     "t": "33:35"
+    },
+    {
+     "latin": null,
+     "arabic": "قصد",
+     "english": "intention",
+     "t": "33:52"
+    },
+    {
+     "latin": "mad8oo6",
+     "arabic": "مضغوط",
+     "english": "stressed",
+     "t": "41:02"
+    },
+    {
+     "latin": "ba8lat",
+     "arabic": "بغلط",
+     "english": "I make a mistake (verb of غلطة)",
+     "t": "55:55"
+    },
+    {
+     "latin": null,
+     "arabic": "أتدرب",
+     "english": "I practise (أتدرب عليهم = practise them)",
+     "t": "59:06"
+    }
+   ],
+   "coverage": "48:18-49:25 Medi on a phone call in English (not lesson). Engine words: قتلى/قُتلت = عطلة (3utle); صريك at 06:32 unclear (her chat 7akaitlek); أكلنا at 16:47 likely 7akulna; بيت هم 16:59 = biddhom; فاك 05:57 = farq; أتتنا 08:41 = 5a66atna; الأينا 12:47 = la2aina; أمل/أملهم 40:10-40:16 = a3malhom (verb, not the name); إمنا 46:48 = mnaa7; أشطن 50:24 = Amal's ashte8el; عالي 46:05 = 7aali; 五 19:32 = 5amse. No echo-candidates file for this date. 16:33 صحابهم -> صحابنا self-fixed before Amal (not filed). 11:58 is his read-back of her chat (not scored). 46:20 كل هدول الأشياء and 46:44 يكونوا were questions. / Engine garbage in several places (قتلى=العطلة, خطينا tries, أعل=أقل, خيس, أمل=engine for a3mal: dropped ع is S4, not flagged; names أمريكا/فلسطين not flagged). 48:20-49:25 is an unrelated phone call (English, skipped). Not filed: Amal agreeing to 'احنا بنشوف مطر', 'أحو' (new word she volunteered), خريف pronunciation drill 26:20, self-fixes (أكتر مشغولين, جوعان), rule questions (كل هدول, يكونوا). No echo-candidates file exists for this date; no echo lines recorded.",
+   "notes": [
+    "grammar: 3 of the 28 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 11:11 Word Bank said right, Amal said no to that word: her no counts.",
+    "2 moment(s) wait for Medi (counted as before until he picks): 17:23; 40:33."
+   ],
+   "page": "lessons/2026-11-10.html",
+   "detail": "data/lessons/2026-11-10.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-11-12",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 1003,
+    "chat_lines": 40,
+    "vocab_errors": 14,
+    "vocab_correct": 285,
+    "grammar_errors": 28,
+    "grammar_not_counted": 0,
+    "vocab_errors_split": {
+     "wrong": 14,
+     "half": 0,
+     "off_list": 0
+    }
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-11-10.json",
+    "marks": 567,
+    "conflicts": 6,
+    "resolved": 1,
+    "needs_medi": 2,
+    "mode": "on",
+    "items": [
+     {
+      "id": "C1q-c67467bd14",
+      "kind": "C1q",
+      "t": 1042.64,
+      "mmss": "17:23",
+      "line": "لما كل أدا،",
+      "question": "Which of the student's words was wrong here?",
+      "options": [
+       "كل",
+       "أدا",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "أدا",
+       "word_key": "iza"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "wrong",
+       "wrong": "كل أدا",
+       "fix": "الكل",
+       "bucket": null,
+       "signal": "prompt-then-fix"
+      },
+      "ask": "amal"
+     },
+     {
+      "id": "C1q-4d6130fbe2",
+      "kind": "C1q",
+      "t": 2432.8,
+      "mmss": "40:33",
+      "line": "متـ-- آآ، مت-- أنا شوية متوترة.",
+      "question": "Was «متوترة» wrong here?",
+      "options": [
+       "wrong",
+       "other",
+       "none"
+      ],
+      "now": "once, as the slip (one utterance, one judgment, WS-39), until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "متوترة",
+       "word_key": "mitwater"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "wrong",
+       "wrong": "متوترة",
+       "fix": "مضغوط",
+       "bucket": null,
+       "signal": "explicit-no"
+      },
+      "ask": "amal"
+     }
+    ]
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 44.8 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3570 s) compared with a second model",
+     "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 56,
+       "r2": 52,
+       "agreed": 30,
+       "disputed": 37,
+       "agreement_pct": 44.8
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3570.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3570.0,
+     "first_t": 0.93,
+     "last_t": 3565.51,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3570.0,
+     "first_t": 82.43,
+     "last_t": 3564.3,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-11-11",
+   "start_local": "2026-11-11T15:01:41-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 63.1,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "Not read yet: default until the same-day reader (review_lesson.py, scripts/lesson_type_read.py) reads this lesson. The publish guard blocks while this shows.",
+   "type_source": "claude-read",
+   "type_read_by": null,
+   "words": {
+    "unique": 104,
+    "right": 220,
+    "wrong": 0,
+    "partial": 6,
+    "pct": 98.7,
+    "scored": 226,
+    "audit_wrong": 0,
+    "audit_partial": 0,
+    "rehear_word_conflicts": 0,
+    "unique_rows": 101,
+    "eligible": 226,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 98.7,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 157,
+    "mistakes": 0,
+    "pct": 100.0,
+    "estimate": false,
+    "scored_mistakes": 0,
+    "unscored_mistakes": 0,
+    "eligible": 0,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": true,
+     "reasons": [],
+     "uses": 157,
+     "slips": 0,
+     "slips_latin": 0,
+     "slips_in_zero_use_rules": 0,
+     "rules_slips_over_uses": []
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1052.8,
+    "amal_s": 1414.4,
+    "speak_pct": 42.7,
+    "listen_pct": 57.3,
+    "window": [
+     0.0,
+     3780.7
+    ]
+   },
+   "fillers": {
+    "count": 145,
+    "per_min": 8.26,
+    "top": [
+     [
+      "uh",
+      66
+     ],
+     [
+      "آآ",
+      45
+     ],
+     [
+      "um",
+      15
+     ],
+     [
+      "آ",
+      11
+     ],
+     [
+      "آه",
+      4
+     ],
+     [
+      "mm",
+      3
+     ]
+    ],
+    "in_turns": 148,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.42,
+    "p75_s": 2.12,
+    "n": 206
+   },
+   "flow": {
+    "wpm": 56.9,
+    "n_turns": 145,
+    "arabic_words": 407
+   },
+   "new_words": [],
+   "taught": [],
+   "taught_words": [],
+   "coverage": null,
+   "notes": [
+    "timings: anees-20261111-recall-amal-seg111: page/engine offset spread 195.52s",
+    "5 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow."
+   ],
+   "page": "lessons/2026-11-11.html",
+   "detail": "data/lessons/2026-11-11.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-11-12",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 978,
+    "chat_lines": 34,
+    "vocab_errors": 0,
+    "vocab_correct": 226,
+    "grammar_errors": 0,
+    "grammar_not_counted": 0,
+    "vocab_errors_split": {
+     "wrong": 0,
+     "half": 0,
+     "off_list": 0
+    }
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-11-11.json",
+    "marks": 396,
+    "conflicts": 0,
+    "resolved": 0,
+    "needs_medi": 0,
+    "mode": "on",
+    "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: no reader pass; 2 consecutive passes at >= 95 % are needed",
+     "coverage: Medi not transcribed 12:06-14:19 while the other person talks",
+     "coverage: Medi not transcribed 14:20-17:36 while the other person talks",
+     "coverage: 4 stretches of Medi's speech written as '[speaking ...]' markers (00:26 in all)",
+     "coverage: no source audit of the raw audio for this lesson (run scripts/source_audit.py)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3786 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3786.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3786.0,
+     "first_t": 11.13,
+     "last_t": 3780.03,
+     "missing": [
+      [
+       725.82,
+       859.43,
+       "no transcript for Medi while the other person talks"
+      ],
+      [
+       860.43,
+       1056.13,
+       "no transcript for Medi while the other person talks"
+      ]
+     ],
+     "holes": [
+      [
+       2207.62,
+       2213.0,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2218.52,
+       2230.08,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2241.18,
+       2244.7,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2455.32,
+       2460.9,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 329.3,
+     "hole_s": 26.0,
+     "covered_pct": 91.3
+    },
+    "Amal": {
+     "_lesson_s": 3786.0,
+     "first_t": 112.15,
+     "last_t": 3778.15,
      "missing": [],
      "holes": [],
      "missing_s": 0,
