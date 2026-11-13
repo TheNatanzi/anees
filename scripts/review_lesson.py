@@ -55,7 +55,10 @@ class _NoRun(dict):
 
 def log(*a):
     line = datetime.datetime.now().strftime("%H:%M:%S ") + " ".join(str(x) for x in a)
-    print(line, flush=True)
+    try:
+        print(line, flush=True)
+    except UnicodeEncodeError:   # a cp1252 console (my manual 11-11 run): Arabic in the line must not fail the step
+        print(line.encode("ascii", "replace").decode(), flush=True)
     with open(LOG, "a", encoding="utf-8") as f:
         f.write(line + "\n")
 
