@@ -1,7 +1,7 @@
 {
  "date": "2026-11-10",
  "reader": "r3",
- "note": "Echo: 'هلا يا فيكي' (51:52) = الله يعافيكي; 'After shoot' (26:24) = خريف; 'أحسن issue' (13:19) = أحسن إشي; 'بعدين أدرس' (31:41) = بدينا ندرس; قتلى = عطلة. 48:18-49:25 is Medi on a work call, not lesson. Free-conversation lesson, Amal unprepared.",
+ "note": "Light lesson (free conversation). 48:18-49:25 is Medi on a work call (English, not the lesson). Engine wrote الأينا for لقينا (12:47), 'طب شين everybody' (18:06), 'في الله اشي' for في هلأ اشي (43:30), أكلنا for حكولنا (16:47). D26 drop and D12 keep are the same el- slip on الخريف الماضي, counted once at 28:13.",
  "rulings": [
   {
    "id": "D1",
@@ -9,23 +9,23 @@
    "row": {
     "id": "1110-r3-1",
     "t": "03:55",
-    "t_amal": null,
-    "medi_said": "أول مرة بشتغل له.",
+    "t_amal": "03:59",
+    "medi_said": "بستعمله",
     "amal_said": "بس تستعمل...",
     "chat": "awal marra basta3melhom",
-    "wrong": "بشتغل له",
-    "right": "basta3melhom",
-    "kind": "grammar-B",
+    "wrong": "بستعمله",
+    "right": "بستعملهم",
+    "kind": "grammar",
     "tier": null,
-    "bucket": "D4",
-    "bucket2": null,
+    "bucket": "A12",
+    "bucket2": "D4",
     "mode": "speaking",
-    "signal": "none",
-    "confidence": "low",
-    "why": "Two things (headphone and mic) need -hom, he said له; Amal voiced only the verb fix (agreed A2), the ending only in chat.",
-    "english": "It's the first time I'm using them."
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "Singular -ه for two things (headphone + mic); Amal prompted بس تستعمل..., he asked 'are they plural?', she said two things; chat basta3melhom.",
+    "english": "The first time I'm using them"
    },
-   "why": "Real let-pass object-ending slip; voiced fix was only the verb, so grammar-B low."
+   "why": "Voiced prompt (she cut in), so grammar not B; the fix is choosing the right pronoun for the real objects = A12."
   },
   {
    "id": "D2",
@@ -46,43 +46,19 @@
     "mode": "speaking",
     "signal": "none",
     "confidence": "low",
-    "why": "Addressing Amal he has تشوفي (feminine) but بتقدر (masculine); her chat has bte2dari; engine may have dropped the final ي, so low.",
-    "english": "You can't see (the difference)."
+    "why": "Addressing Amal (a woman) he gave تشوفي the -i but بتقدر none; her chat bte2dari; not voiced and the engine may have dropped the -i.",
+    "english": "Can't you see (the difference)?"
    },
-   "why": "Plausible let-pass; engine may hide the -i."
+   "why": "Plausible gender slip she let pass; low because the engine can drop a final -i."
   },
   {
    "id": "D3",
    "verdict": "keep",
    "row": {
     "id": "1110-r3-3",
-    "t": "05:19",
-    "t_amal": "05:25",
-    "medi_said": "مختلف. ... غير.",
-    "amal_said": "No. ... فرق.",
-    "chat": "bte2dari tshufi el-farq beinhom",
-    "wrong": "مختلف",
-    "right": "فرق",
-    "kind": "vocab-A",
-    "tier": 0,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "asked",
-    "confidence": "medium",
-    "why": "He asked 'do I know how to say difference?' (05:11), tried مختلف / غير, Amal said No and gave فرق (sheet: difference | Farq | فرق).",
-    "english": "difference"
-   },
-   "why": "He asked for the word first, so a didn't-know: tier 0, signal asked."
-  },
-  {
-   "id": "D4",
-   "verdict": "keep",
-   "row": {
-    "id": "1110-r3-4",
     "t": "06:53",
     "t_amal": null,
-    "medi_said": "يشت-- يشتغل معهم.",
+    "medi_said": "أخوي، أم، ... يشت-- يشتغل معهم.",
     "amal_said": "Okay.",
     "chat": "a5uy byeshte8el ma3hom",
     "wrong": "يشتغل",
@@ -94,218 +70,194 @@
     "mode": "speaking",
     "signal": "none",
     "confidence": "low",
-    "why": "Plain present without b-; her chat has byeshte8el; she let it pass; engine can drop a light b-, so low.",
-    "english": "(He) works with them."
+    "why": "Ordinary present habit needs b- (her chat byeshte8el); the engine often drops b-, not voiced.",
+    "english": "My brother works with them"
    },
-   "why": "Let-pass B1, low because engine may drop b-."
+   "why": "Let-pass B1 slip; low (engine b- drop possible)."
+  },
+  {
+   "id": "D4",
+   "verdict": "keep",
+   "row": {
+    "id": "1110-r3-4",
+    "t": "07:19",
+    "t_amal": "07:20",
+    "medi_said": "كل الآخر الأسبوع.",
+    "amal_said": "عطلة منيحة أو منيحة؟",
+    "chat": "kul el-3utle",
+    "wrong": "كل الآخر الأسبوع",
+    "right": "كل آخر الأسبوع",
+    "kind": "grammar-B",
+    "tier": null,
+    "bucket": "A2",
+    "bucket2": "A15",
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "aa5er is the first word of an idafa and never takes el- (her own question: عطلتك آخر الأسبوع); Amal moved to the gender slip and did not fix this.",
+    "english": "The whole weekend"
+   },
+   "why": "Real el- slip on aa5er, not voiced (her reply targets منيح)."
   },
   {
    "id": "D5",
    "verdict": "keep",
    "row": {
     "id": "1110-r3-5",
-    "t": "07:11",
-    "t_amal": "07:20",
-    "medi_said": "مش مني،",
-    "amal_said": "عطلة منيحة أو منيحة؟",
-    "chat": "mish mnee7a.",
-    "wrong": "مش مني",
-    "right": "مش منيحة",
+    "t": "09:38",
+    "t_amal": "09:40",
+    "medi_said": "آآآ، رنينا، أمم، أكتر من...",
+    "amal_said": "رنينا. What does run take؟",
+    "chat": "rannaina 3ala aktar min",
+    "wrong": "رنينا أكتر من",
+    "right": "رنينا على أكتر من",
     "kind": "grammar",
     "tier": null,
-    "bucket": "A8",
+    "bucket": "D2",
     "bucket2": null,
     "mode": "speaking",
     "signal": "prompt-then-fix",
-    "confidence": "medium",
-    "why": "عطلة is feminine so the adjective is منيحة; Amal offered the two forms (engine wrote both the same) and chat has mish mnee7a.",
-    "english": "It wasn't good."
+    "confidence": "high",
+    "why": "rann takes 3ala; Amal asked 'What does run take?' and he added على (رنينا على أكتر).",
+    "english": "We called more than..."
    },
-   "why": "Keep r2's piece (voiced). r1's piece كل الآخر الأسبوع was not targeted by her and is too engine-blurred to add."
+   "why": "Clear voiced prompt, he fixed after her."
   },
   {
    "id": "D6",
    "verdict": "keep",
    "row": {
     "id": "1110-r3-6",
-    "t": "08:00",
-    "t_amal": "08:35",
-    "medi_said": "خطينا، ... خطنا؟ ... ختتنا",
-    "amal_said": "No. She only planned. ... No. ... خططنا.",
-    "chat": "kul el-3utle e7na 5a66atna la-el-3urus",
-    "wrong": "خطينا",
-    "right": "خططنا",
+    "t": "12:47",
+    "t_amal": "13:05",
+    "medi_said": "الأينا لسه أحسن.",
+    "amal_said": "لقينا. ... Did you add an أ؟",
+    "chat": "mumken bas awal makaan la2ainaah lissa a7san ishi.",
+    "wrong": "الأينا",
+    "right": "لقيناه",
     "kind": "grammar",
     "tier": null,
-    "bucket": "B5",
-    "bucket2": null,
+    "bucket": "C2",
+    "bucket2": "D4",
     "mode": "speaking",
-    "signal": "explicit-no",
-    "confidence": "high",
-    "why": "Past of doubled 5a66a6 with -na is خططنا; he built it like a weak verb (خطينا); Amal said No twice and gave خططنا (sheet: i planned | Ana 5a66atet).",
-    "english": "We planned."
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "Engine wrote الأينا for لقينا. Fronted object أول مكان needs the pointer on the verb (la2ainaah); Amal asked 'did you add an -ah?', he said 'like we found it?', she said Mm-hmm, he: 'No, I didn't'.",
+    "english": "The first place we found is still the best"
    },
-   "why": "Same word, wrong past-tense build of a verb he knows = grammar B5, not vocab."
+   "why": "Her 'did you add an ah' is a voiced prompt for the -ه pointer (he confirms 'we found it'); C2 is the rule for a fronted object."
   },
   {
    "id": "D7",
-   "verdict": "keep",
-   "row": {
-    "id": "1110-r3-7",
-    "t": "12:25",
-    "t_amal": "12:30",
-    "medi_said": "الأول مـ- آآ، مكان. What؟",
-    "amal_said": "الأول؟",
-    "chat": null,
-    "wrong": "الأول مكان",
-    "right": "أول مكان",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A13",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "high",
-    "why": "awal + noun = first, no el-; she questioned 'الأول؟' and he went to أول مكان at 12:35.",
-    "english": "the first place"
-   },
-   "why": "Her questioning echo is a voiced prompt; he fixed after it."
+   "verdict": "drop",
+   "why": "A question about the rule ('You guys say always wanted like it would be past tense? ... would you say إحنا بدنا حبينا?'); he was asking, not using - neither slip nor use."
   },
   {
    "id": "D8",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-8",
-    "t": "12:47",
-    "t_amal": "13:01",
-    "medi_said": "الأينا لسه أحسن.",
-    "amal_said": "لقينا. ... Did you add an أ؟",
-    "chat": "mumken bas awal makaan la2ainaah lissa a7san ishi.",
-    "wrong": "الأينا",
-    "right": "لقينا",
-    "kind": "vocab-A",
-    "tier": 2,
-    "bucket": null,
-    "bucket2": null,
+    "id": "1110-r3-7",
+    "t": "16:33",
+    "t_amal": "16:37",
+    "medi_said": "صديقهم أو آآ، صحابهم. صباحنا،",
+    "amal_said": "صحاب مين؟ ... صحابنا.",
+    "chat": "s7aabna 7akulna",
+    "wrong": "صحابهم",
+    "right": "صحابنا",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "A12",
+    "bucket2": "A4",
     "mode": "speaking",
     "signal": "recast",
-    "confidence": "medium",
-    "why": "Wrong form of la2a 'we found' (extra أ- in front, she asked 'Did you add an أ?'); she gave لقينا; engine may blur part of it.",
-    "english": "we found"
+    "confidence": "high",
+    "why": "He meant 'our friends' who told us; Amal asked صحاب مين؟ and gave صحابنا, which he repeated.",
+    "english": "Our friends"
    },
-   "why": "Wrong form of a known verb with no bucket rule (extra prefix) = vocab tier 2."
+   "why": "Voiced recast; the slip is the wrong owner pronoun for the real people (A12; the ending is A4)."
   },
   {
    "id": "D9",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-9",
-    "t": "12:47",
-    "t_amal": null,
-    "medi_said": "أول مكان، آآآ، الأينا",
-    "amal_said": null,
-    "chat": "mumken bas awal makaan la2ainaah lissa a7san ishi.",
-    "wrong": "الأينا",
-    "right": "لقيناه",
-    "kind": "grammar-B",
+    "id": "1110-r3-8",
+    "t": "17:23",
+    "t_amal": "18:06",
+    "medi_said": "لما كل آآآ،",
+    "amal_said": "طب شين everybody.",
+    "chat": "u lamma el-kul",
+    "wrong": "كل",
+    "right": "الكل",
+    "kind": "grammar",
     "tier": null,
-    "bucket": "C2",
+    "bucket": "A11",
     "bucket2": null,
     "mode": "speaking",
-    "signal": "none",
-    "confidence": "low",
-    "why": "Fronted object (أول مكان) needs the pointer -h; only her chat has la2ainaah, her voiced لقينا had no -h.",
-    "english": "the first place we found (it)"
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "Everybody = el-kull; Amal prompted 'everybody' and he said الكل (18:10).",
+    "english": "And when everybody..."
    },
-   "why": "Let-pass C2, chat-only evidence so low."
+   "why": "Voiced prompt and his fix after it; t_amal is her 18:06 line."
   },
   {
    "id": "D10",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-10",
-    "t": "12:50",
-    "t_amal": "13:14",
-    "medi_said": "لسه أحسن.",
-    "amal_said": "لسه. What's the best؟ How do we say the best؟",
-    "chat": "lissa a7san ishi",
-    "wrong": "لسه أحسن",
-    "right": "لسه أحسن إشي",
+    "id": "1110-r3-9",
+    "t": "17:33",
+    "t_amal": "17:40",
+    "medi_said": "آآآ، نفس مكـ-- آآ، نفس مكان،",
+    "amal_said": "Nuffs same place. Nuffs takes شو؟ ... Nuffs takes ل أو no؟",
+    "chat": "fi nafs el-makan",
+    "wrong": "نفس مكان",
+    "right": "نفس المكان",
     "kind": "grammar",
     "tier": null,
-    "bucket": "C3",
-    "bucket2": null,
+    "bucket": "A17",
+    "bucket2": "A22",
     "mode": "speaking",
     "signal": "prompt-then-fix",
     "confidence": "high",
-    "why": "'the best' needs a7san ishi; she asked how to say the best and he said أحسن إشي (engine 'أحسن issue') at 13:19.",
-    "english": "still the best"
+    "why": "nafs + el- + noun; Amal asked what nafs takes and he said نفس المكان.",
+    "english": "In the same place"
    },
-   "why": "Clear prompt-then-fix."
+   "why": "Clear voiced prompt."
   },
   {
    "id": "D11",
-   "verdict": "drop",
-   "why": "Duplicate of D29 (same kaan bidna moment, 15:43-16:10); kept there."
-  },
-  {
-   "id": "D12",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-12",
+    "id": "1110-r3-10",
     "t": "17:59",
     "t_amal": "18:18",
-    "medi_said": "special مميز.",
+    "medi_said": "It's special مميز.",
     "amal_said": "And because we have لما what do we need؟",
     "chat": "beykoon mumayyaz",
     "wrong": "مميز",
-    "right": "يكون مميز",
+    "right": "بيكون مميز",
     "kind": "grammar",
     "tier": null,
     "bucket": "B8",
     "bucket2": null,
     "mode": "speaking",
     "signal": "prompt-then-fix",
-    "confidence": "medium",
-    "why": "A general 'when..., it is special' needs ykoon/bikoon; she prompted after لما and he said يكون at 18:29 (chat beykoon).",
-    "english": "it's special"
+    "confidence": "high",
+    "why": "After lamma a habitual state needs ykoon; Amal asked what لما needs and he said يكون مميز.",
+    "english": "It's special"
    },
-   "why": "Real B8 prompt-then-fix; D30 is the same moment."
+   "why": "Clear voiced prompt."
   },
   {
-   "id": "D13",
+   "id": "D12",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-13",
-    "t": "24:09",
-    "t_amal": "24:12",
-    "medi_said": "ما حادثه is future، right؟ ... مستأجر؟ مستأجر؟ No.",
-    "amal_said": "لا، what's future؟ ... لا. ... مستقبل.",
-    "chat": "musta2bal",
-    "wrong": "محادثة (engine ما حادثه)",
-    "right": "مستقبل",
-    "kind": "vocab-A",
-    "tier": 1,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "explicit-no",
-    "confidence": "medium",
-    "why": "For 'future' he offered محادثة (conversation) then مستأجر; Amal said لا both times and gave مستقبل (sheet: future | Musta2bal | مستقبل). One search, one row.",
-    "english": "future"
-   },
-   "why": "One moment of wrong guesses for 'future'; framed as a question so medium. D34 merged here."
-  },
-  {
-   "id": "D14",
-   "verdict": "keep",
-   "row": {
-    "id": "1110-r3-14",
-    "t": "26:20",
-    "t_amal": "26:22",
-    "medi_said": "وقت خريف الماضي.",
-    "amal_said": "لا، خريف.",
-    "chat": "shu kunet te3mal el-5areef el-maadi?",
+    "id": "1110-r3-11",
+    "t": "28:13",
+    "t_amal": null,
+    "medi_said": "خريف الماضي أنا اشتغلت كتير",
+    "amal_said": "نصير.",
+    "chat": "el-5areef el-maadi",
     "wrong": "خريف الماضي",
     "right": "الخريف الماضي",
     "kind": "grammar-B",
@@ -314,17 +266,17 @@
     "bucket2": null,
     "mode": "speaking",
     "signal": "none",
-    "confidence": "low",
-    "why": "Noun + el-adjective needs el- on both (her question and chat: el-5areef el-maadi); her 'لا، خريف' targets his pronunciation of خريف (his hardest word; engine 'After shoot'), not the el-.",
-    "english": "last fall"
+    "confidence": "medium",
+    "why": "Noun + adjective phrase needs el- on both, as in Amal's own question الخريف الماضي; she let it pass. (r2's اشتغلت كتير is not an error: plain past answers 'what did you do', and her chat keeps shta8alet.)",
+    "english": "Last fall I worked a lot"
    },
-   "why": "Her voiced 'no' is about the word's sound, so the el- slip is let-pass."
+   "why": "r1's piece is real; r2's piece is not (her chat keeps ana shta8alet). This is the first el- slip on this phrase, since D26 (26:20) was a pronunciation drill."
   },
   {
-   "id": "D15",
+   "id": "D13",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-15",
+    "id": "1110-r3-12",
     "t": "29:05",
     "t_amal": "29:08",
     "medi_said": "No, uh, أكتر مشغولين.",
@@ -338,25 +290,68 @@
     "bucket2": null,
     "mode": "speaking",
     "signal": "prompt-then-fix",
-    "confidence": "medium",
-    "why": "'the busiest' = adjective + aktar ishi, aktar after; she pushed 'The most' and he said مشغولين أكتر إشي at 29:11.",
-    "english": "busiest"
+    "confidence": "high",
+    "why": "'The most' = adjective + aktar ishi; Amal said 'أكتر. The most.' and he rebuilt مشغولين أكتر إشي.",
+    "english": "We are usually busiest"
    },
-   "why": "Clear prompt-then-fix."
+   "why": "Voiced prompt, fix came after her."
+  },
+  {
+   "id": "D14",
+   "verdict": "keep",
+   "row": {
+    "id": "1110-r3-13",
+    "t": "31:31",
+    "t_amal": "31:37",
+    "medi_said": "احنا, بدأت، ندرس عربي.",
+    "amal_said": "إحنا أو أنا، بديت أو بدينا.",
+    "chat": "e7na badaina",
+    "wrong": "بدأت",
+    "right": "بدينا",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "B18",
+    "bucket2": "B5",
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "high",
+    "why": "Subject إحنا with the I-ending -t; Amal recast بديت أو بدينا and he said بدينا ندرس عربي.",
+    "english": "We started studying Arabic"
+   },
+   "why": "Subject-verb agreement is the rule broken (B18); past ending B5 second."
+  },
+  {
+   "id": "D15",
+   "verdict": "keep",
+   "row": {
+    "id": "1110-r3-14",
+    "t": "33:45",
+    "t_amal": "33:52",
+    "medi_said": "intention is it's not همّ؟",
+    "amal_said": "ممم لا. قصد.",
+    "chat": null,
+    "wrong": "همّ",
+    "right": "قصد",
+    "kind": "vocab-A",
+    "tier": 0,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "asked",
+    "confidence": "low",
+    "why": "Amal quizzed 'what's intention?'; he guessed همّ, she said no and gave قصد; an English meta question, filed as didn't-know like A17.",
+    "english": "intention"
+   },
+   "why": "Amal supplied the word in a quiz; tier 0 for consistency with A17."
   },
   {
    "id": "D16",
-   "verdict": "drop",
-   "why": "Cannot be verified: the engine writes ة the same with or without the -t; Amal said Great, no signal."
-  },
-  {
-   "id": "D17",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-17",
+    "id": "1110-r3-15",
     "t": "39:56",
     "t_amal": "39:58",
-    "medi_said": "كتير إشي، آآ،",
+    "medi_said": "عندي كتير إشي، آآ،",
     "amal_said": "كتير.",
     "chat": "3indi kteer ashyaa2",
     "wrong": "كتير إشي",
@@ -367,22 +362,22 @@
     "bucket2": null,
     "mode": "speaking",
     "signal": "prompt-then-fix",
-    "confidence": "medium",
-    "why": "'a lot of things' needs the plural أشياء; she echoed كتير and he said أشياء at 40:00.",
-    "english": "a lot of things"
+    "confidence": "high",
+    "why": "'Many things' needs the plural ashyaa2; Amal echoed كتير and he said كتير أشياء.",
+    "english": "I have a lot of things"
    },
-   "why": "Her echo stopped him at the wrong word; he fixed after it."
+   "why": "Voiced echo prompt, fix after her."
   },
   {
-   "id": "D18",
+   "id": "D17",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-18",
+    "id": "1110-r3-16",
     "t": "40:10",
     "t_amal": "40:15",
-    "medi_said": "Yeah. آآ، آآ، أعمل.",
+    "medi_said": "آآ، أعمل.",
     "amal_said": "أعمل؟",
-    "chat": "ashyaa2 a3malhom",
+    "chat": "a3malhom",
     "wrong": "أعمل",
     "right": "أعملهم",
     "kind": "grammar",
@@ -391,70 +386,75 @@
     "bucket2": null,
     "mode": "speaking",
     "signal": "prompt-then-fix",
-    "confidence": "medium",
-    "why": "'things to do (them)' needs the object ending; she questioned أعمل؟ and he said أعملهم.",
-    "english": "to do them"
+    "confidence": "high",
+    "why": "'Things to do' needs the object ending; Amal questioned أعمل؟ and he said أعملهم.",
+    "english": "(things) to do"
    },
-   "why": "Her questioning echo is the prompt."
+   "why": "Voiced prompt."
   },
   {
-   "id": "D19",
+   "id": "D18",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-19",
+    "id": "1110-r3-17",
     "t": "44:47",
-    "t_amal": "44:50",
+    "t_amal": "44:58",
     "medi_said": "حياتي راح، uh, راح يكون...",
-    "amal_said": "ده. ... حياة اسـ...",
+    "amal_said": "حياة اسـ...",
     "chat": "7ayaati ra7 tkoon",
     "wrong": "راح يكون",
     "right": "راح تكون",
     "kind": "grammar",
     "tier": null,
     "bucket": "B9",
-    "bucket2": null,
+    "bucket2": "B18",
     "mode": "speaking",
     "signal": "prompt-then-fix",
     "confidence": "high",
-    "why": "حياة is feminine so the ykoon form is تكون; she cued حياة and he said 'حياة is feminine ... تكون' at 45:03.",
-    "english": "my life will be"
+    "why": "حياة is feminine so ykoon must be tkoon; Amal prompted حياة اسـ... and he said 'حياة is feminine... راح تكون'.",
+    "english": "My life will be..."
    },
-   "why": "B9 (person on ykoon) is the exact rule; B18 is the general one."
+   "why": "B9 is the specific rule (person on ykoon)."
+  },
+  {
+   "id": "D19",
+   "verdict": "keep",
+   "row": {
+    "id": "1110-r3-18",
+    "t": "45:18",
+    "t_amal": "45:20",
+    "medi_said": "اكتر سهل. ... سهلة. اكتر سهلة.",
+    "amal_said": "سهلة.",
+    "chat": "sehla aktar",
+    "wrong": "اكتر سهل",
+    "right": "سهلة أكتر",
+    "kind": "grammar-B",
+    "tier": null,
+    "bucket": "C3",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "medium",
+    "why": "aktar goes after the adjective (sehla aktar, her chat) or as-hal; Amal fixed only the gender (A26) and let the order pass even when he repeated اكتر سهلة.",
+    "english": "Easier"
+   },
+   "why": "Separate piece from the agreed gender row; not voiced."
   },
   {
    "id": "D20",
-   "verdict": "keep",
-   "row": {
-    "id": "1110-r3-20",
-    "t": "46:48",
-    "t_amal": "47:00",
-    "medi_said": "أشياء إمنا.",
-    "amal_said": "لا، if ... كل هدول الأشياء، وا-- ... مناح.",
-    "chat": "kul hadoal el-ashyaa2 mnaa7",
-    "wrong": "إمنا",
-    "right": "مناح",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A9",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "finished-sentence",
-    "confidence": "medium",
-    "why": "Plural things take the plural adjective مناح; Amal said لا and finished with مناح.",
-    "english": "all these things are good"
-   },
-   "why": "Keep r2's piece; bucket A9 (plural shape mnee7 -> mnaa7) fits better than A8 gender. r1's bare أشياء is part of the same sentence she rebuilt."
+   "verdict": "drop",
+   "why": "Cannot be verified: azakker vs atzakkar differs only by doubling / t-, which the transcript cannot show; his حالي / حالك wobble got only 'عالي'. Possibly S4."
   },
   {
    "id": "D21",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-21",
+    "id": "1110-r3-19",
     "t": "49:49",
     "t_amal": "49:52",
     "medi_said": "دائمًا أحس so.",
     "amal_said": "بحس. هيك.",
-    "chat": "ah, dayman ba7ess heik.",
+    "chat": "dayman ba7ess heik",
     "wrong": "so",
     "right": "هيك",
     "kind": "vocab-A",
@@ -463,22 +463,22 @@
     "bucket2": null,
     "mode": "speaking",
     "signal": "recast",
-    "confidence": "high",
-    "why": "English 'so' dropped into an Arabic sentence; she supplied هيك (sheet: like this / this way | Heik | هيك).",
-    "english": "I always feel that way."
+    "confidence": "medium",
+    "why": "English 'so' dropped into an Arabic sentence; sheet: 'like this / this way | Heik | هيك'; Amal supplied هيك and he repeated بحس هيك.",
+    "english": "I always feel that way"
    },
-   "why": "Voiced tier-3 fix counts."
+   "why": "Voiced, word on sheet."
   },
   {
    "id": "D22",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-22",
+    "id": "1110-r3-20",
     "t": "52:43",
     "t_amal": "52:46",
     "medi_said": "أنا را-- كنت راح بس،",
     "amal_said": "كنت راح. You can't just say I will. You can't just say راح on its own.",
-    "chat": "ana kunet ra7 aakol, bas ma kunet ju3aan.",
+    "chat": "ana kunet ra7 aakol",
     "wrong": "كنت راح بس",
     "right": "كنت راح آكل بس",
     "kind": "grammar",
@@ -487,145 +487,97 @@
     "bucket2": null,
     "mode": "speaking",
     "signal": "named-rule",
-    "confidence": "high",
-    "why": "ra7 needs a bare verb after it; she named the rule and he said كنت راح آكل at 52:52.",
+    "confidence": "medium",
+    "why": "ra7 needs a bare verb after it; Amal named the rule and he said كنت راح آكل. (His راح كنت at 52:37 was a waffle after saying كنت راح first, and Amal confirmed his first form - not a separate slip.)",
     "english": "I was going to eat, but"
    },
-   "why": "Separate from A33 (word order at 52:37): this is ra7 with no verb."
+   "why": "One moment; the voiced named rule is about ra7 + verb."
   },
   {
    "id": "D23",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-23",
-    "t": "59:03",
-    "t_amal": "59:06",
-    "medi_said": "لازم أضربهم.",
-    "amal_said": "أتدرب.",
-    "chat": null,
-    "wrong": "أضربهم",
-    "right": "أتدرب",
+    "id": "1110-r3-21",
+    "t": "56:18",
+    "t_amal": "56:23",
+    "medi_said": "والـ grammar اللي بغلط، uh، I get wrong.",
+    "amal_said": "بغلط، بغلط فيها.",
+    "chat": "el-grammar illi ba8la6 fiyyo",
+    "wrong": "اللي بغلط",
+    "right": "اللي بغلط فيها",
     "kind": "grammar",
     "tier": null,
-    "bucket": "B12",
-    "bucket2": null,
+    "bucket": "D2",
+    "bucket2": "D3",
     "mode": "speaking",
     "signal": "recast",
     "confidence": "medium",
-    "why": "'practice' is the t- form أتدرب; he used the make-X form (engine أضرب, likely adarreb); Amal recast أتدرب (sheet: i train / practice | Ana batdarrab 3ala).",
-    "english": "I have to practice them."
+    "why": "8ilet takes fi + a pointer back to the noun after illi; Amal recast بغلط فيها and he repeated بغلط في / فيهم.",
+    "english": "The grammar I get wrong"
    },
-   "why": "Same root, wrong form (make-X vs t-) = B12 grammar, not a different word."
+   "why": "Fixed preposition missing; the ending on it is D3."
   },
   {
    "id": "D24",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-24",
-    "t": "59:09",
-    "t_amal": "59:11",
-    "medi_said": "أضـ-أضربهم، practice them.",
-    "amal_said": "It's one of the collocations. ... صح، أتدرب عليهم.",
-    "chat": null,
-    "wrong": "أضربهم",
-    "right": "أتدرب عليهم",
-    "kind": "grammar",
+    "id": "1110-r3-22",
+    "t": "57:01",
+    "t_amal": null,
+    "medi_said": "أنا لازم أعمل له، uh، سهل، uh، أكثر سهل إلها، uh، إلك.",
+    "amal_said": "Don't worry about me.",
+    "chat": "ana laazem a3malo sehel aktar ilek",
+    "wrong": "أكثر سهل",
+    "right": "سهل أكتر",
+    "kind": "grammar-B",
     "tier": null,
-    "bucket": "D2",
+    "bucket": "C3",
     "bucket2": null,
     "mode": "speaking",
-    "signal": "prompt-then-fix",
+    "signal": "none",
     "confidence": "medium",
-    "why": "tdarrab takes 3ala (sheet: Ana batdarrab 3ala); she said it is a collocation and he added عليهم at 59:13.",
-    "english": "practice them"
+    "why": "Same aktar-before-adjective slip as 45:18, 12 minutes later; her chat sehel aktar; not voiced.",
+    "english": "I need to make it easier for you"
    },
-   "why": "Separate piece from D23: the fixed preposition."
+   "why": "New moment (not within 30 s of a fix); let pass."
   },
   {
    "id": "D25",
    "verdict": "drop",
-   "why": "Cannot be verified: engine-blurred بنها inside a broken restart; Amal's reply answers the content (she sees no difference), no fix."
+   "why": "Not a correction: her 'كتير كان مطر عنا إحنا' is her own news (it rained a lot here); he then asks كان مطر؟ كمان؟, and her chat keeps his verb (e7na benshuf ma6ar kteer)."
   },
   {
    "id": "D26",
    "verdict": "drop",
-   "why": "Not an error: S5 restart (أخوي-- أبوي، أم، أش) with no signal; which relative he meant cannot be proven."
+   "why": "S4 pronunciation drill on خريف: she says 'لا، خريف' and repeats خريف (she had just said the app flags خريف as his problem word); she never voices الـ. The el- slip on this phrase is kept at D12 (28:13)."
   },
   {
    "id": "D27",
-   "verdict": "keep",
-   "row": {
-    "id": "1110-r3-27",
-    "t": "07:33",
-    "t_amal": "07:46",
-    "medi_said": "أو كل قتلى، ... Isn't it كل قتلى the entire?",
-    "amal_said": "No. That's every.",
-    "chat": "kul el-3utle",
-    "wrong": "كل قتلى",
-    "right": "كل العطلة",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A11",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "named-rule",
-    "confidence": "high",
-    "why": "kul + bare noun = every; 'the whole holiday' needs kul el-3utle; Amal: 'That's every', he fixed to كل العطلة (engine wrote قتلى for عطلة).",
-    "english": "the whole holiday"
-   },
-   "why": "She named the rule; he took it."
+   "verdict": "drop",
+   "why": "Not an error: asked 'what is be?' as a single word, بكون is a correct form; he then built لازم أكون himself."
   },
   {
    "id": "D28",
    "verdict": "drop",
-   "why": "S4/engine: منيه vs منيح is a final ح heard as ه; Amal's chat 5ayaar mnee7 and 'ممتاز' show she heard it right."
+   "why": "A question about the rule ('would this be يكونوا?') - neither slip nor use."
   },
   {
    "id": "D29",
-   "verdict": "keep",
-   "row": {
-    "id": "1110-r3-29",
-    "t": "15:43",
-    "t_amal": "15:57",
-    "medi_said": "We always wanted إحنا بدنا ... So would you say إحنا بدنا هـ-آآ، هبنا؟",
-    "amal_said": "No. How do you say wanted؟ ... إحنا.",
-    "chat": "e7na dayman kaan bidna 3urus barra amrica",
-    "wrong": "إحنا بدنا",
-    "right": "إحنا كان بدنا",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "B6",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "explicit-no",
-    "confidence": "medium",
-    "why": "Past 'we wanted' needs kaan before bidna; Amal said No and asked 'How do you say wanted?'; he said كان بدنا at 16:10. Half framed as a question, so medium.",
-    "english": "We always wanted"
-   },
-   "why": "Keep; B6 (kaan for the past) over B8. D11 merged here."
+   "verdict": "drop",
+   "why": "Amal gave only an English hint ('Extra'); he produced زيادة himself, and he had already rejected اكتر اشي before her hint (self-fix)."
   },
   {
    "id": "D30",
-   "verdict": "drop",
-   "why": "Duplicate of D12 (same لما ... يكون moment, 17:59-18:29)."
-  },
-  {
-   "id": "D31",
-   "verdict": "drop",
-   "why": "Not a slip: Amal only rephrased his valid sentence a nicer way (كان عنا مطر); her chat copies his version."
-  },
-  {
-   "id": "D32",
    "verdict": "keep",
    "row": {
-    "id": "1110-r3-32",
-    "t": "20:31",
-    "t_amal": "20:36",
-    "medi_said": "مم، مم.",
-    "amal_said": "أحو. ... أحو is for being cold.",
+    "id": "1110-r3-23",
+    "t": "55:47",
+    "t_amal": "55:55",
+    "medi_said": "uh، make mistakes. Uh، do you guys say عمـ-عمل غلطة؟",
+    "amal_said": "You could say بعمل غلطة أو بع-- بغلط. There's a verb form of غلطة.",
     "chat": null,
-    "wrong": "مم",
-    "right": "أحو",
+    "wrong": "make mistakes",
+    "right": "بغلط",
     "kind": "vocab-A",
     "tier": 0,
     "bucket": null,
@@ -633,115 +585,21 @@
     "mode": "speaking",
     "signal": "asked",
     "confidence": "low",
-    "why": "He made a cold sound and Amal taught the cold exclamation أحو - a new word he never attempted, so a didn't-know.",
-    "english": "brr (cold)"
+    "why": "He asked how to say 'make mistakes'; Amal said بعمل غلطة works and gave the verb بغلط - a didn't-know, not a slip.",
+    "english": "I make mistakes"
    },
-   "why": "Brief: Amal teaching a new word = vocab-A tier 0 asked."
-  },
-  {
-   "id": "D33",
-   "verdict": "drop",
-   "why": "Same moment as agreed A17 (search for 'fall'), and خيس is a mispronunciation of خريف (S4; she says it is his hardest word)."
-  },
-  {
-   "id": "D34",
-   "verdict": "drop",
-   "why": "Duplicate of D13 (same search for 'future', one row)."
-  },
-  {
-   "id": "D35",
-   "verdict": "drop",
-   "why": "Same phrase repeated two minutes later with no fix: one row, kept at D14."
-  },
-  {
-   "id": "D36",
-   "verdict": "drop",
-   "why": "Self-fix / cannot be verified: he said 'no, الشتاء' himself; Amal's 'نصير' is unreadable and is not the word."
-  },
-  {
-   "id": "D37",
-   "verdict": "drop",
-   "why": "Engine sound-alike: right after her 'بديت أو بدينا' he said بدينا ندرس (engine بعدين أدرس); her next question is about 'together', not the verb."
-  },
-  {
-   "id": "D38",
-   "verdict": "keep",
-   "row": {
-    "id": "1110-r3-38",
-    "t": "32:52",
-    "t_amal": "33:35",
-    "medi_said": "зупт. ... Is, is зупт his intention or...",
-    "amal_said": "طيب let's break بالظبط down. بالظبط is exactly.",
-    "chat": "btetzakkar aimta bizabt?",
-    "wrong": "зупт",
-    "right": "بالظبط",
-    "kind": "vocab-A",
-    "tier": 0,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "listening",
-    "signal": "asked",
-    "confidence": "medium",
-    "why": "He did not understand her بالظبط (engine wrote зупт for his attempt) and she explained it (sheet: exactly | Belzzab6 | بالضبط).",
-    "english": "exactly"
-   },
-   "why": "Didn't-know of her word = tier 0; mode listening (understanding her Arabic)."
-  },
-  {
-   "id": "D39",
-   "verdict": "keep",
-   "row": {
-    "id": "1110-r3-39",
-    "t": "33:45",
-    "t_amal": "33:52",
-    "medi_said": "intention is it's not him.",
-    "amal_said": "ممم لا. قصد.",
-    "chat": null,
-    "wrong": "intention",
-    "right": "قصد",
-    "kind": "vocab-A",
-    "tier": 0,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "asked",
-    "confidence": "medium",
-    "why": "Asked what 'intention' is in Arabic, he did not know; Amal supplied قصد (sheet: intention / meaning | Qaṣd | قصد).",
-    "english": "intention"
-   },
-   "why": "Didn't-know, tier 0."
-  },
-  {
-   "id": "D40",
-   "verdict": "drop",
-   "why": "Not a slip: he answered 'what is be?' with بكون in isolation (a valid form), then asked 'Is it لازم أكون?' - a question about the rule."
-  },
-  {
-   "id": "D41",
-   "verdict": "drop",
-   "why": "Self-fix / question: he asked 'Is it كل هدول?' and said كل هدول الأشياء (46:20) before her 'لا، كل هدول' (46:25)."
-  },
-  {
-   "id": "D42",
-   "verdict": "drop",
-   "why": "Not a didn't-know: Amal gave only the English 'Extra' and he produced زيادة himself; his اكتر اشي guess was self-rejected before help."
-  },
-  {
-   "id": "D43",
-   "verdict": "drop",
-   "why": "Engine sound-alike: 'هلا يا فيكي' = الله يعافيكي, the right reply to يعطيك العافية (feminine to Amal)."
-  },
-  {
-   "id": "D44",
-   "verdict": "drop",
-   "why": "Not a slip: he asked 'do you guys say عمل غلطة?' and Amal said it works (بعمل غلطة أو بغلط) - both forms fine."
+   "why": "How-do-you-say question = tier 0 asked."
   }
  ],
  "added": [],
  "challenges": [
   {
-   "id": "A17",
-   "why": "Not a word error: Amal asked which season it is; he answered شتا and meant winter ('it's now winter'), using the word right. Her No is about the fact (it is fall), not his vocabulary."
+   "id": "A6",
+   "why": "He said كل العطلة first (07:28), then كل عطلة and asked 'Isn't it كل عطلة the entire?' - a question about the rule after the right form, which the brief counts as neither slip nor use; Amal's 'No. That's every.' answers his question."
+  },
+  {
+   "id": "A16",
+   "why": "Not clearly a wrong word: he cycled شتا / ربيع / خريف hunting for the season name ('Not winter? ... ربيع?'); reads as didn't-know (tier 0) or a fact slip, not a tier-1 wrong lexical item."
   }
  ]
 }

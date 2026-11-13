@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T12:49:31-08:00",
+ "updated": "2026-11-13T15:46:29-08:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -4539,8 +4539,8 @@
    "assessment": "helped",
    "vocab_points": 0.5,
    "text": "مختلف",
-   "said": "مختلف. ... غير.",
-   "reason": "He asked 'do I know how to say difference?' (05:11), tried مختلف / غير, Amal said No and gave فرق (sheet: difference | Farq | فرق).",
+   "said": "مختلف ... Um، غير ... بين",
+   "reason": "He asked how to say 'difference', tried مختلف / غير, Amal gave فرق (sheet: difference | Farq | فرق).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-cdd85e18"
   },
@@ -4555,11 +4555,11 @@
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
+   "assessment": "incorrect",
+   "vocab_points": 0,
    "text": "option",
-   "said": "آآآ، option. ... خوار، right؟",
-   "reason": "Didn't-know: asked for 'option'; Amal reminds him of cucumber (خيار) and he lands on it (sheet: 'option | 5ayaar | خيار').",
+   "said": "آآآ، option. Hold on. Oh my god. ... Starts with a خ، right؟",
+   "reason": "English 'option' dropped into the Arabic sentence; sheet row: 'option – options | 5ayaar | خيار'; Amal said remember cucumber and gave خيار.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-eac0ef79"
   },
@@ -4578,12 +4578,31 @@
    "vocab_points": 0,
    "text": "شتا",
    "said": "آ، شتا.",
-   "reason": "For 'what season' he says winter; Amal says No and her chat gives 5areef.",
+   "reason": "Asked which season it is now he said شتا (winter); Amal said No twice, he tried ربيع, then خريف (her chat 5areef).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-1e5e5880"
   },
   {
-   "id": "audit:FA-ec586d1d",
+   "id": "audit:FA-cfd2c3a4",
+   "word_key": "7Afez",
+   "entry_id": "7Afez:word",
+   "lesson_date": "2026-11-10",
+   "t_start": 2274,
+   "t_end": 2274,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "متشجع",
+   "said": "Motivation is، آآ، متشجع and ... motivated is حافز.",
+   "reason": "He swapped the two words; Amal says بالعكس (the opposite) and he swaps them back.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-cfd2c3a4"
+  },
+  {
+   "id": "audit:FA-a6461c18",
    "word_key": "mad8U6",
    "entry_id": "mad8U6:singular",
    "lesson_date": "2026-11-10",
@@ -4595,11 +4614,11 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "متوترة",
-   "said": "متـ-- آآ، مت-- أنا شوية متوترة.",
-   "reason": "He gives 'nervous' for 'stressed'; Amal asks if he is nervous and supplies مضغوط (sheet: 'stressed | Mad8oo6').",
+   "text": "متوتر",
+   "said": "أنا شوية متوتر.",
+   "reason": "Sheet: 'nervous / anxious | Mitwatter' and 'stressed / under pressure | Mad8oo6'; Amal asked for stressed, his متوتر is nervous, she gives مضغوط.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-ec586d1d"
+   "audit_uid": "FA-a6461c18"
   },
   {
    "id": "audit:FA-f83533c5",
@@ -4616,7 +4635,7 @@
    "vocab_points": 0,
    "text": "so",
    "said": "دائمًا أحس so.",
-   "reason": "English 'so' dropped into an Arabic sentence; she supplied هيك (sheet: like this / this way | Heik | هيك).",
+   "reason": "English 'so' dropped into an Arabic sentence; sheet: 'like this / this way | Heik | هيك'; Amal supplied هيك and he repeated بحس هيك.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f83533c5"
   },
@@ -5411,8 +5430,19 @@
    "t": 114,
    "key": "bAred",
    "kind": "wrong",
-   "said": "ممكن لازم أروح أو أجاوب الـ telephone",
+   "said": "أروح، أروح أو أجاوب التلفون",
    "wrong": "أجاوب",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
+  },
+  {
+   "uid": "FA-2a217d0c",
+   "date": "2026-11-10",
+   "t": 480,
+   "key": "ana ba5a6et",
+   "kind": "wrong",
+   "said": "إحنا، آآآ، خطينا،",
+   "wrong": "خطينا",
    "why": "which list word it is waits for a reader (the automatic match was part)",
    "keyed_by": "auto-part"
   },
@@ -9232,14 +9262,194 @@
    }
   },
   {
-   "event_id": "6a5c63ca70f1e0f45da54016dbdaebd222226cc1c4308cf1834d4cab4048e2d4",
+   "event_id": "52236bb2b092c008ebf4d31bac0ae5e1ccdbbb4b3bc463fc7e7239378766b3bc",
    "date": "2026-11-10",
-   "mark": "ra:FA-ec586d1d",
+   "mark": "wb:52236bb2b092c008ebf4d31bac0ae5e1ccdbbb4b3bc463fc7e7239378766b3bc",
    "was": "right",
    "changes": {
     "observation_only": true,
-    "ledger": "ra:FA-ec586d1d",
-    "ledger_reason": "Said here, another word intended: Amal prompts you, then gives it (مضغوط)"
+    "ledger": "wb:52236bb2b092c008ebf4d31bac0ae5e1ccdbbb4b3bc463fc7e7239378766b3bc",
+    "ledger_reason": "the recording engine wrote بشتغل; you said بستعمل (TR-22)"
+   },
+   "expected": {
+    "word_key": "ana bashte8el",
+    "t_start": 192.66549448199999
+   }
+  },
+  {
+   "event_id": "5b8580632e9da53229560762c758da13ee7685980ac43c5a92441598fc8c5669",
+   "date": "2026-11-10",
+   "mark": "wb:5b8580632e9da53229560762c758da13ee7685980ac43c5a92441598fc8c5669",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:5b8580632e9da53229560762c758da13ee7685980ac43c5a92441598fc8c5669",
+    "ledger_reason": "the recording engine wrote أكيد صريك; you said حكيت لك (TR-22)"
+   },
+   "expected": {
+    "word_key": "akId",
+    "t_start": 392.481494482
+   }
+  },
+  {
+   "event_id": "2821843582757c8c0e9f2562f671533e7c403ceacb41404178dba6dbc21c8ef4",
+   "date": "2026-11-10",
+   "mark": "wb:2821843582757c8c0e9f2562f671533e7c403ceacb41404178dba6dbc21c8ef4",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:2821843582757c8c0e9f2562f671533e7c403ceacb41404178dba6dbc21c8ef4",
+    "ledger_reason": "the recording engine wrote أو; you said آ، (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 452.541494482
+   }
+  },
+  {
+   "event_id": "55ea3bf2df7d1f2eb2d0f4ff6d5696048ac1cc74c1b2b603e9066b1cdcc1e4e1",
+   "date": "2026-11-10",
+   "mark": "wb:55ea3bf2df7d1f2eb2d0f4ff6d5696048ac1cc74c1b2b603e9066b1cdcc1e4e1",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:55ea3bf2df7d1f2eb2d0f4ff6d5696048ac1cc74c1b2b603e9066b1cdcc1e4e1",
+    "ledger_reason": "the recording engine wrote بيت هم،; you said بدهم (TR-22)"
+   },
+   "expected": {
+    "word_key": "bait",
+    "t_start": 1020.3014944820001
+   }
+  },
+  {
+   "event_id": "c8a1e69d92d750940083e4aad25c8689daa5373b10e4865ba2f852b663111ff2",
+   "date": "2026-11-10",
+   "mark": "wb:c8a1e69d92d750940083e4aad25c8689daa5373b10e4865ba2f852b663111ff2",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:c8a1e69d92d750940083e4aad25c8689daa5373b10e4865ba2f852b663111ff2",
+    "ledger_reason": "the recording engine wrote بارد.; you said برد (TR-22)"
+   },
+   "expected": {
+    "word_key": "bAred",
+    "t_start": 1190.4514944819998
+   }
+  },
+  {
+   "event_id": "737709dbe81d645c423a8d174b9d1be6d1555ca116ea9168a462f62a19a5b90b",
+   "date": "2026-11-10",
+   "mark": "wb:737709dbe81d645c423a8d174b9d1be6d1555ca116ea9168a462f62a19a5b90b",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:737709dbe81d645c423a8d174b9d1be6d1555ca116ea9168a462f62a19a5b90b",
+    "ledger_reason": "the recording engine wrote ربي، آه؟; you said ربيع، yeah? (TR-22)"
+   },
+   "expected": {
+    "word_key": "Ah",
+    "t_start": 1383.291494482
+   }
+  },
+  {
+   "event_id": "532e2795026da70da018019fb901e84a0608cc9c3e0204b873f495b015085192",
+   "date": "2026-11-10",
+   "mark": "wb:532e2795026da70da018019fb901e84a0608cc9c3e0204b873f495b015085192",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:532e2795026da70da018019fb901e84a0608cc9c3e0204b873f495b015085192",
+    "ledger_reason": "the recording engine wrote بعدين أدرس; you said بدينا ندرس (TR-22)"
+   },
+   "expected": {
+    "word_key": "ba3dain",
+    "t_start": 1901.0454944819999
+   }
+  },
+  {
+   "event_id": "92b31052bc77b99197096be4d8f8d608ba5807dbc1ca1760b22e899e26d3336b",
+   "date": "2026-11-10",
+   "mark": "wb:92b31052bc77b99197096be4d8f8d608ba5807dbc1ca1760b22e899e26d3336b",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:92b31052bc77b99197096be4d8f8d608ba5807dbc1ca1760b22e899e26d3336b",
+    "ledger_reason": "the recording engine wrote طيب. آآ،; you said غريب، آ، (TR-22)"
+   },
+   "expected": {
+    "word_key": "taiyib",
+    "t_start": 2333.235494482
+   }
+  },
+  {
+   "event_id": "e4ea5d659ac4b36a3d49fbc64c53fccd0e34b5ba81449660d6ac3bc86a9b40e7",
+   "date": "2026-11-10",
+   "mark": "wb:e4ea5d659ac4b36a3d49fbc64c53fccd0e34b5ba81449660d6ac3bc86a9b40e7",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:e4ea5d659ac4b36a3d49fbc64c53fccd0e34b5ba81449660d6ac3bc86a9b40e7",
+    "ledger_reason": "the recording engine wrote هلا يا فيكي.; you said الله يعافيكي. (TR-22)"
+   },
+   "expected": {
+    "word_key": "hala",
+    "t_start": 3111.7434944819997
+   }
+  },
+  {
+   "event_id": "c1d59aba04b3f270ab6ccd379a324ec471974edfb95033ae0ac7de0273eee4fb",
+   "date": "2026-11-10",
+   "mark": "wb:c1d59aba04b3f270ab6ccd379a324ec471974edfb95033ae0ac7de0273eee4fb",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:c1d59aba04b3f270ab6ccd379a324ec471974edfb95033ae0ac7de0273eee4fb",
+    "ledger_reason": "the recording engine wrote ما هي؟ مم.; you said Mine, mhm. (TR-22)"
+   },
+   "expected": {
+    "word_key": "mA",
+    "t_start": 3311.791494482
+   }
+  },
+  {
+   "event_id": "4214ae71a60a1d16d9167dee7e0bcc5486f658b2fa0c2c6d5934e6ea1cb22a25",
+   "date": "2026-11-10",
+   "mark": "wb:4214ae71a60a1d16d9167dee7e0bcc5486f658b2fa0c2c6d5934e6ea1cb22a25",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:4214ae71a60a1d16d9167dee7e0bcc5486f658b2fa0c2c6d5934e6ea1cb22a25",
+    "ledger_reason": "the recording engine wrote أو الـ; you said والـ (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 3374.231494482
+   }
+  },
+  {
+   "event_id": "5ef15594f83461ccadc8348db6d2e9255f985370640909b4d0a8fce2bb6f6a76",
+   "date": "2026-11-10",
+   "mark": "ra:FA-cfd2c3a4",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "ra:FA-cfd2c3a4",
+    "ledger_reason": "Said here, another word intended: Amal says no (حافز)"
+   },
+   "expected": {
+    "word_key": "mitshaje3",
+    "t_start": 2277.015494482
+   }
+  },
+  {
+   "event_id": "1221abe5c61b0147249788e34efabff7e4413fd6c3cd643083e840848319645a",
+   "date": "2026-11-10",
+   "mark": "ra:FA-a6461c18",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "ra:FA-a6461c18",
+    "ledger_reason": "Said here, another word intended: Amal says no (مضغوط)"
    },
    "expected": {
     "word_key": "mitwater",
