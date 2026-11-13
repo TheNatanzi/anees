@@ -438,9 +438,15 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
                 rep["carets"] = rep.get("carets", 0) + 1
                 return
 
-    def scored_item(t, chip, needle=None, what=""):
+    def scored_item(t, chip, needle=None, what="", tutor_ok=False):
         rep["scored"] += 1
         p = place(turns, t, "Medi", needle)
+        if not p and tutor_ok:
+            # WS-39 (Medi 2026-11-13): his line is not in the transcript (a hole in his track); the slip's chip goes on her
+            # line at that time (her "No.") so every counted slip is shown - same rule as scripts/lesson_ledger.py
+            p = place(turns, t, "Amal")
+            if p:
+                chip["on_tutor_line"] = True
         if not p:
             rep["missed"].append({"t": t, "what": what})
             return None
@@ -538,7 +544,7 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
                 "said": g.get("wrong") or g.get("said"), "said_az": g.get("wrong_arabizi"),
                 "right": g.get("right") or g.get("fix"), "right_az": g.get("right_arabizi"),
                 "signal": g.get("signal"), "sig": SIGNAL_WORDS.get(g.get("signal")), **_src(g, g.get("id"))}
-        i = scored_item(t, chip, g.get("wrong"), "grammar " + str(g.get("id")))
+        i = scored_item(t, chip, g.get("wrong"), "grammar " + str(g.get("id")), tutor_ok=True)
         slips_by_b.setdefault(g.get("bucket"), []).append(t)
         if i is not None:
             underline(i, g.get("wrong"), "wrong", chip["id"], "grammar " + str(g.get("id")))

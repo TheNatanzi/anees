@@ -427,6 +427,12 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                  "wrong": g.get("wrong"), "fix": g.get("right"), "signal": g.get("signal"), "confidence": g.get("confidence"),
                  "scored_rule": g.get("bucket") in scored_rules,
                  "by": {"producer": _producer(g), "ref": g["id"]}}, g.get("wrong"))
+        if m["turn"] is None and m.get("t") is not None:
+            # WS-39 (Medi 2026-11-13, 11-11 / 11-12 blocked the publish): his line is not in the transcript (a hole in his
+            # track - only her "No." was heard). The slip is real; its chip goes on her line at that time so it is shown
+            p = TM.place(turns, m["t"], "Amal")
+            if p:
+                m.update(turn=p[0], placed="tutor-line")
         slips_by_b[g.get("bucket")].append(m)
     for g in detail.get("grammar_not_counted") or []:
         add({"id": "rg:" + g["id"], "kind": "grammar", "verdict": "not-scored", "t": g.get("t"), "bucket": g.get("bucket"),

@@ -387,7 +387,13 @@ def check_budget(root, raw):
     if not p.exists():
         return res("H4-budget", "block", "Paid calls stop at 90 % of the budget", "ai_rules H4", skip="data/budget.json missing")
     L = J(p)
-    bad = [f"{k}: {float(L.get(k, 0)):.2f} of {c:.0f} USD (>= 90 %)" for k, c in CAPS.items() if float(L.get(k, 0) or 0) >= 0.9 * c]
+    # ElevenLabs is a monthly cap since 2026-11-12 (Medi: $8 a calendar month) - read it the way pipeline_ext spends it
+    try:
+        sys.path.insert(0, str(root / "scripts")); import pipeline_ext as PX
+        spent = {k: PX.spent(k, L) for k in CAPS}; caps = {k: PX.cap(k) for k in CAPS}
+    except Exception:  # noqa: BLE001
+        spent = {k: float(L.get(k, 0) or 0) for k in CAPS}; caps = dict(CAPS)
+    bad = [f"{k}: {spent[k]:.2f} of {caps[k]:.0f} USD (>= 90 %)" for k in CAPS if spent[k] >= 0.9 * caps[k]]
     return res("H4-budget", "block", "Paid calls stop at 90 % of the budget", "ai_rules H4", bad)
 
 

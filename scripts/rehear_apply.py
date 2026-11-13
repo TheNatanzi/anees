@@ -25,6 +25,9 @@ planned lines to exactly the planned text and no other line (Codex audit 2026-10
 import copy, difflib, json, os, re, sys, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+# his own corrections, and (2026-11-13) the misheard check's word fixes proven by the tutor's own words (TR-31 / TR-32, e.g.
+# 11-02 21:17 'أسر' -> her 'أسألها'), win over the second listen; that re-hear row then lands on no line by design
+MISHEARD_WINS = ("medi", "claude-misheard", "gemini-misheard")
 sys.path.insert(0, HERE)
 import bench_common as BC  # noqa: E402
 import bench_score as BS  # noqa: E402
@@ -147,7 +150,7 @@ def verify(date, rows, others=None):
     # Medi 2026-10-04 (transcript_fixes.apply): a line HE corrects keeps his correction and loses the second listen's text -
     # that row lands on no line by design (10-08 01:25 'ok Jaahez not a7san': his جاهز over the re-hear's أحسن)
     eng = {u["_id"]: u for u in builder_turns(date)}
-    his = lambda r: any(o.get("by") == "medi" and not o.get("heard_line") and TF._lands(o, u) for o in others for u in eng.values()
+    his = lambda r: any(o.get("by") in MISHEARD_WINS and not o.get("heard_line") and TF._lands(o, u) for o in others for u in eng.values()
                         if u["who"] == r["who"] and abs(float(r["t"]) - float(u["t"])) <= 1.0 and u.get("text") == r["line"])
     # 2026-10-21 (AM-36): the tutor's own whole-line row ('wins') owns its line; the re-hear row for it lands nowhere by design
     hers = lambda r: any(o.get("wins") and o.get("heard_line") is not None and o.get("who") == r["who"] and abs(float(o["t"]) - float(r["t"])) <= 1.0

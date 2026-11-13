@@ -86,7 +86,8 @@ def test_PG_20_every_scored_item_lands_on_exactly_one_medi_turn():
                     assert turn["who"] == "Medi", (f, k, c)          # WS-31 / GR-32 / PG-39: a repeat or a new word is shown, never scored
                 elif c["k"] in ("vocab", "grammar") and c["s"] != "na":
                     scored_chips += 1
-                    assert turn["who"] == "Medi", (f, k, c)
+                    # 2026-11-13: a slip whose line of his is not in the transcript sits on the tutor's line, marked so
+                    assert turn["who"] == "Medi" or (c["k"] == "grammar" and c.get("on_tutor_line")), (f, k, c)
                 if c["k"] == "fix":
                     assert turn["who"] in ("Amal", "chat"), (f, k, c)
         assert len(ids) == len(set(ids)), f
