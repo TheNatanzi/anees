@@ -36,7 +36,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-11-02 | 97.7 | 263 | 86.9 | 35 | 229 | 2 / 0 |
 | 2026-11-04 | 98.1 | 268 | 91.9 | 27 | 209 | 2 / 0 |
 | 2026-11-05 | 96.2 | 117 | 91.9 | 7 | 86 | 1 / 1 |
-| 2026-11-10 | 97.0 | 304 | 89.2 | 27 | 222 | 1 / 1 |
+| 2026-11-10 | 97.0 -> **96.3** | 304 -> **323** | 89.2 -> **90.5** | 27 -> **25** | 222 -> **220** | 2 / 1 |
 | 2026-11-11 | 98.4 -> **98.1** | 224 -> **262** | 86.1 -> **86.6** | 26 | 180 -> **179** | 1 / 2 |
 | 2026-11-12 | 98.3 | 151 | 88.9 | 21 | 171 | 0 / 1 |
 
@@ -168,8 +168,8 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-11-05 26:00 C1q Medi?: زياد (word-bank right) vs زياد -> زيادة (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-11-10 11:11 C1p both stand: إشي (word-bank right) vs إشي مختلف -> إشي تاني (readers wrong) - slip elsewhere in the phrase: the word stays right
 - 2026-11-10 11:11 C1q Medi?: مختلف. (word-bank right) vs إشي مختلف -> إشي تاني (readers wrong) - which word of the phrase was wrong: Medi
-- 2026-11-10 37:57 C1p both stand: متشجع (word-bank right) vs Motivation is متشجع ... motivated is حافز -> motivation = حافز, motivated = متشجع (readers not-scored) - slip elsewhere in the phrase: the word stays right
-- 2026-11-10 40:33 C1 settled: متوترة (word-bank right) vs متوترة -> مضغوط (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-11-10 37:57 C1 settled: متشجع (word-bank right) vs متشجع -> حافز (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-11-10 40:33 C1 settled: متوتر (word-bank right) vs متوتر -> مضغوط (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-11-11 02:10 C1q Medi?: ليل (word-bank right) vs ليل -> ليلة (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-11-11 04:16 C1a both stand: بالأخيرة (word-bank right) vs بالأخيرة -> وأخيرًا (readers asked) - he asked for another word: both stand
 - 2026-11-11 36:57 C1q Medi?: وقف (word-bank right) vs وقف -> بتتضايقي (readers not-scored) - which word of the phrase was wrong: Medi
