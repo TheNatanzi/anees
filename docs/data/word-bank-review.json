@@ -129841,7 +129841,7 @@
       },
       "changes": {
         "assessment": "helped",
-        "reason": "Repeat of the tutor's fix of a counted slip at 18:50 («بلوزة.»): not credited, not a mistake (WS-31)",
+        "reason": "Repeat of the tutor's recast of his line at 18:50 («بلوزة.»): not credited, not a mistake (WS-31)",
         "by": "word-coverage",
         "rule": "WS-31",
         "immediate_repeat": true,
@@ -129865,31 +129865,7 @@
       },
       "changes": {
         "assessment": "helped",
-        "reason": "Repeat of the tutor's fix of a counted slip at 18:50 («بلوزة.»): not credited, not a mistake (WS-31)",
-        "by": "word-coverage",
-        "rule": "WS-31",
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 1130.68,
-          "text": "بلوزة."
-        }
-      }
-    },
-    "3a651133107eb977c161d622bed7040724ea611247182c799566be8a652dfde5": {
-      "expected": {
-        "source_sha256": "667d1ee739afbd2bbac56d15317ff4945b3aeaa3f908841e279167ee7e471c89",
-        "row_id": "anees-20261111-recall-medi:row:713",
-        "word_key": "azra2",
-        "text": "أزرق",
-        "t_start": 1142.1611021259998,
-        "t_end": 1142.561102126,
-        "assessment": "independent",
-        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
-      },
-      "changes": {
-        "assessment": "helped",
-        "reason": "Repeat of the tutor's fix of a counted slip at 18:50 («بلوزة.»): not credited, not a mistake (WS-31)",
+        "reason": "Repeat of the tutor's recast of his line at 18:50 («بلوزة.»): not credited, not a mistake (WS-31)",
         "by": "word-coverage",
         "rule": "WS-31",
         "immediate_repeat": true,
@@ -428210,6 +428186,52 @@
       "anchor_id": "853e745da392bb4785775a281b28bd994cac32b12c80b2b3aae04127f88ddc49",
       "expected_source": "667d1ee739afbd2bbac56d15317ff4945b3aeaa3f908841e279167ee7e471c89",
       "event": {
+        "id": "ab749678914643c7c56be8a843f27757bd50b02803a46f9ca48f45df8a9a8e0e",
+        "lesson_date": "2026-11-11",
+        "word_key": "soat",
+        "local_start": 491.153,
+        "local_end": 492.693,
+        "candidate_keys": [
+          "soat"
+        ],
+        "source_id": "anees-20261111-recall-medi",
+        "source_sha256": "667d1ee739afbd2bbac56d15317ff4945b3aeaa3f908841e279167ee7e471c89",
+        "row_id": "cover:2026-11-11:491.54",
+        "item_ids": [],
+        "t_start": 491.54,
+        "t_end": 493.08,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "صوتك",
+        "original_text": "‫فوتة، فوتة شو؟‬",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-11:491.54",
+            "speaker": "Medi",
+            "text": "‫صوتك، فوتة شو؟‬",
+            "timeline_start": 491.54,
+            "timeline_end": 493.08
+          }
+        ],
+        "reason": "Her question used the word; he used it in his own new answer (3+ words)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "853e745da392bb4785775a281b28bd994cac32b12c80b2b3aae04127f88ddc49",
+      "expected_source": "667d1ee739afbd2bbac56d15317ff4945b3aeaa3f908841e279167ee7e471c89",
+      "event": {
         "id": "a4a3b2e7d55945cc3d054ce164b0c625abf4f2feba8a14c3a47e60cbbd65bc06",
         "lesson_date": "2026-11-11",
         "word_key": "shu",
@@ -428239,7 +428261,7 @@
           {
             "row_id": "cover:2026-11-11:491.54",
             "speaker": "Medi",
-            "text": "‫فوتة، فوتة شو؟‬",
+            "text": "‫صوتك، فوتة شو؟‬",
             "timeline_start": 491.54,
             "timeline_end": 493.08
           }
@@ -428709,7 +428731,7 @@
           {
             "row_id": "cover:2026-11-11:575.08",
             "speaker": "Medi",
-            "text": "يوم إمني.‬ ‫آآآ،",
+            "text": "يوم مني.‬ ‫آآآ،",
             "timeline_start": 575.08,
             "timeline_end": 578.08
           }
@@ -429768,7 +429790,7 @@
         "text": "نص",
         "original_text": "بلوزة، بلوزة نوسكوم isn't it describing؟",
         "match_method": "word_coverage",
-        "assessment": "helped",
+        "assessment": "independent",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -429783,16 +429805,11 @@
             "timeline_end": 1135.1
           }
         ],
-        "reason": "Repeat of the tutor's fix of a counted slip at 18:50 («بلوزة.»): not credited, not a mistake (WS-31)",
-        "rule": "WS-31",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
         "classification": "lexical",
         "coverage": true,
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 1130.68,
-          "text": "بلوزة."
-        }
+        "vocab_points": 1
       },
       "by": "word-coverage"
     },
@@ -429819,7 +429836,7 @@
         "text": "نص",
         "original_text": "Yeah، بلوزة نوسكوم.",
         "match_method": "word_coverage",
-        "assessment": "helped",
+        "assessment": "unresolved",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -429834,16 +429851,14 @@
             "timeline_end": 1137.54
           }
         ],
-        "reason": "Repeat of the tutor's fix of a counted slip at 18:50 («بلوزة.»): not credited, not a mistake (WS-31)",
-        "rule": "WS-31",
-        "classification": "lexical",
+        "reason": "said again right after his own نص at 18:52 with nothing from the tutor between: one try, counted once (WS-36)",
+        "rule": "WS-36",
+        "classification": "ignored",
         "coverage": true,
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 1130.68,
-          "text": "بلوزة."
-        }
+        "vocab_points": null,
+        "ignored": true,
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat"
       },
       "by": "word-coverage"
     },
@@ -430618,7 +430633,7 @@
         "text": "راح",
         "original_text": "Oh, oh yeah, it's feminine. Okay, \"هادي راح تكون",
         "match_method": "word_coverage",
-        "assessment": "helped",
+        "assessment": "independent",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -430633,16 +430648,11 @@
             "timeline_end": 1649.27
           }
         ],
-        "reason": "Repeat of the tutor's fix of a counted slip at 27:23 («It's kun.»): not credited, not a mistake (WS-31)",
-        "rule": "WS-31",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
         "classification": "lexical",
         "coverage": true,
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 1643.07,
-          "text": "It's kun."
-        }
+        "vocab_points": 1
       },
       "by": "word-coverage"
     },
@@ -431841,6 +431851,52 @@
       "anchor_id": "853e745da392bb4785775a281b28bd994cac32b12c80b2b3aae04127f88ddc49",
       "expected_source": "667d1ee739afbd2bbac56d15317ff4945b3aeaa3f908841e279167ee7e471c89",
       "event": {
+        "id": "a329b8efb5065f5bd76a7118baf8999120ceacf78525d3882fbb2cebe5cc8775",
+        "lesson_date": "2026-11-11",
+        "word_key": "aimta",
+        "local_start": 2533.453,
+        "local_end": 2535.373,
+        "candidate_keys": [
+          "aimta"
+        ],
+        "source_id": "anees-20261111-recall-medi",
+        "source_sha256": "667d1ee739afbd2bbac56d15317ff4945b3aeaa3f908841e279167ee7e471c89",
+        "row_id": "cover:2026-11-11:2533.84",
+        "item_ids": [],
+        "t_start": 2533.84,
+        "t_end": 2535.76,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "إمتى",
+        "original_text": "Im-imta",
+        "match_method": "word_coverage",
+        "assessment": "independent",
+        "assessment_status": "provisional",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "version": "speaking-evidence-1",
+        "context": [
+          {
+            "row_id": "cover:2026-11-11:2533.84",
+            "speaker": "Medi",
+            "text": "Im-إمتى",
+            "timeline_start": 2533.84,
+            "timeline_end": 2535.76
+          }
+        ],
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
+        "coverage": true,
+        "vocab_points": 1
+      },
+      "by": "word-coverage"
+    },
+    {
+      "anchor_id": "853e745da392bb4785775a281b28bd994cac32b12c80b2b3aae04127f88ddc49",
+      "expected_source": "667d1ee739afbd2bbac56d15317ff4945b3aeaa3f908841e279167ee7e471c89",
+      "event": {
         "id": "dead900230194500d05af6543602c02edbe0484ea40d4e578234393562d77933",
         "lesson_date": "2026-11-11",
         "word_key": "ab",
@@ -432139,7 +432195,7 @@
         "text": "il mahal",
         "original_text": "Ashan il mahal...",
         "match_method": "word_coverage",
-        "assessment": "helped",
+        "assessment": "independent",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -432154,16 +432210,11 @@
             "timeline_end": 2723.13
           }
         ],
-        "reason": "Repeat of the tutor's fix of a counted slip at 45:15 («بكون، Malan.»): not credited, not a mistake (WS-31)",
-        "rule": "WS-31",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
         "classification": "lexical",
         "coverage": true,
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 2715.62,
-          "text": "بكون، Malan."
-        }
+        "vocab_points": 1
       },
       "by": "word-coverage"
     },
@@ -432282,7 +432333,7 @@
         "text": "Lama",
         "original_text": "Lama makan andi,",
         "match_method": "word_coverage",
-        "assessment": "helped",
+        "assessment": "independent",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -432297,16 +432348,11 @@
             "timeline_end": 2839.63
           }
         ],
-        "reason": "Repeat of the tutor's fix of a counted slip at 47:16 («When I didn't have.»): not credited, not a mistake (WS-31)",
-        "rule": "WS-31",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
         "classification": "lexical",
         "coverage": true,
-        "immediate_repeat": true,
-        "repeat": true,
-        "repeat_of": {
-          "t": 2836.1,
-          "text": "When I didn't have."
-        }
+        "vocab_points": 1
       },
       "by": "word-coverage"
     },
@@ -433101,7 +433147,7 @@
             "timeline_end": 3030.98
           }
         ],
-        "reason": "Repeat of the tutor's fix of a counted slip at 50:28 («شهر العسل.»): not credited, not a mistake (WS-31)",
+        "reason": "Repeat of the tutor's recast of his line at 50:28 («شهر العسل.»): not credited, not a mistake (WS-31)",
         "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,

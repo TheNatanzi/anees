@@ -9,11 +9,11 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | Grammar fixes Amal voiced (A) | **995** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 130 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 35 |
-| Vocab fixes Amal voiced (A) | **456** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 233, '0': 150, '2': 105, '3': 8} |
+| Vocab fixes Amal voiced (A) | **455** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 232, '0': 150, '2': 105, '3': 8} |
 | Vocab she let pass (B, to Amal) | **43** by tier {'1': 32, '2': 8, '3': 3} |
 | Listening-drill misreads (kept apart) | 74 |
-| Rows the readers found that the sweep did not have | 1301 |
+| Rows the readers found that the sweep did not have | 1300 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -56,7 +56,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-11-04 | 27 | 0 | 8 | 0 | 0 | 0 | 0 | 60.0 % |
 | 2026-11-05 | 7 | 0 | 4 | 1 | 0 | 0 | 0 | 56.0 % |
 | 2026-11-10 | 20 | 8 | 12 | 0 | 0 | 0 | 0 | 42.0 % |
-| 2026-11-11 | 26 | 0 | 9 | 0 | 0 | 0 | 0 | 60.4 % |
+| 2026-11-11 | 26 | 0 | 8 | 0 | 0 | 0 | 0 | 45.9 % |
 | 2026-11-12 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | - % |
 
 ## Reader passes (the loop)
@@ -94,7 +94,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-11-04**: pass 1: r1 50 r2 52 agreed 36 disputed 24 (60.0 %), r3 kept 15 dropped 9 -> 43 rows
 - **2026-11-05**: pass 1: r1 20 r2 21 agreed 14 disputed 11 (56.0 %), r3 kept 8 dropped 3 -> 19 rows
 - **2026-11-10**: pass 1: r1 63 r2 47 agreed 29 disputed 40 (42.0 %), r3 kept 34 dropped 6 -> 41 rows
-- **2026-11-11**: pass 1: r1 47 r2 41 agreed 32 disputed 21 (60.4 %), r3 kept 17 dropped 4 -> 34 rows
+- **2026-11-11**: pass 1: r1 55 r2 40 agreed 28 disputed 33 (45.9 %), r3 kept 18 dropped 15 -> 34 rows
 
 ## Grammar by bucket (A, speaking)
 
@@ -105,12 +105,12 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | B5 | past tense | 68 |
 | A8 | gender on adjectives | 66 |
 | B12 | make-X vs get-X | 63 |
+| A7 | noun + adjective | 47 |
 | A9 | plurals | 47 |
-| A7 | noun + adjective | 46 |
 | D4 | endings on verbs | 43 |
 | D1 | prepositions | 43 |
 | B1 | present with b- | 40 |
-| A2 | idafa (possession) | 37 |
+| A2 | idafa (possession) | 35 |
 | A4 | possessive endings | 35 |
 | PROPOSE | ? | 35 |
 | A1 | el- (the) | 33 |
@@ -123,7 +123,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | C2 | the pointer rule | 17 |
 | A10 | hada / hadi | 16 |
 | C7 | illi | 16 |
-| A15 | aa5er / a5eer: before or after the noun | 16 |
+| A15 | aa5er / a5eer: before or after the noun | 15 |
 | B15 | participles | 13 |
 | B11 | negative commands | 13 |
 | E2 | clock time | 12 |
@@ -144,11 +144,11 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | B16 | kan laazem | 5 |
 | B9 | person on ykoon | 5 |
 | C1 | no word for 'to be' | 5 |
+| A5 | chain possession | 5 |
 | A16 | 8eir: other / different, no el- | 5 |
 | C6 | iza / lamma | 4 |
 | B7 | kaan + verb = used to / was doing | 4 |
 | E3 | time units, two-of and many-of | 4 |
-| A5 | chain possession | 4 |
 | A10b | demonstrative keeps el- | 3 |
 | A9b | broken plurals are patterns | 3 |
 | E5 | kam + singular | 3 |
@@ -167,6 +167,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | C4b | words that drag a ma along | 1 |
 | E6 | ago = qabel + number + noun | 1 |
 | E7 | hundreds: miyya becomes meet | 1 |
+| B4 | the drop carries down a chain | 1 |
 
 ## Sweep rows the readers did not list (kept, not dropped)
 
@@ -2276,42 +2277,41 @@ _48:18-49:25 English phone call with a vendor (not lesson). Engine sound-alikes:
 
 ### 2026-11-11
 
-_No echo-candidates file for 2026-11-11. HOLE 12:07-18:15: Medi's lines are missing (only Amal shown) - rows at 14:36, 15:19, 15:42, 16:53, 17:48 rely on Amal's echo and are low confidence. 36:48 and 36:59 his Arabic shows only as [speaking Arabic]. 42:14-48:20 Medi's Arabic is in Latin letters. 20:00-34:12 is homework review: only lines he said aloud are rowed (written-only slips such as the سلارة spelling and the plural أخرين he named himself are left out). Self-fixes not rowed: 09:12 حفلة -> 09:40 عطلة (before Amal voiced anything); 27:58 هون -> 28:05 هناك; 52:16 أكون -> كنت. Unclear and skipped: 05:51 'ما ندري', 09:35 'يوم إمني', 19:29 'قماش ربي' (chat: kundara binniyye - engine). Engine: 35:22 هذا = 7ada; 58:22 أمي = 3ammi; 06:01 Amal 'سوء نعم' = su2na; 06:03 سوينا = su2na; 25:15 حاجتنا = 7ajezna; 50:30 الأصل = العسل. Questions not rowed: 11:54 فادي, 46:30 ala la?, 53:05 أرجعت?, 40:55 An?. / Medi's voice is missing or empty 13:04-17:36 and 18:00-18:09 (Amal asks, no answers; rows 1111-8 to 1111-10 are built from her side only). Lines 35:09-48:20, 49:37-50:10 are partly Latin-transliterated. Many Medi stretches are English (homework talk 20:00-34:00). Engine echoes: واجهة = wa7da (04:41); هذا / آدي = 7ada (35:25, 43:32); وحشي read as said. Self-fixed, not filed: حفلة -> عطلة (09:40, he fixed before Amal); هون -> هناك (28:05). Skipped: سا-سعينا/سوينا (S4 ق letter; Amal chat su2na); بيدة (S4); واظف (S4); قماش ربي (19:29, chat shows kundara binniyye, can't read). No echo-candidates file for 2026-11-11._
+_Hole: Medi's turns 12:07-17:36 are missing (only Amal heard: review, ba'ad/ba2addi, past, bat2assaf la/min, date) - rows there use her quotes. 36:48-37:01 his Arabic is '[speaking Arabic]' (untranscribed). 42:14-48:20 his Arabic is Latin-transliterated. 20:00-34:12 mostly English homework talk (he reads written answers). Engine: 04:41 واجهة = wa7da (one); 06:03 سوينا = su2na; 25:15 حاجتنا = 7ajezna; 35:22 هذا = 7ada (someone); 50:30 شهر الأصل = shahar el-3asal; 18:28/18:35 تنتين وتوك = tentain u tult; 54:11 أمانة للبيت = mbaare7 billail (repeat); 11:54 فادي = faadi (S4). Echo candidates: all real English, none an Arabic sound-alike. laazem_noun at 10:19/10:32: he said laazem ykoon (verb present) - no B2 slip; 10:32 is a meta question. Self-fixes skipped: 09:40 حفلة->عطلة, 52:16 أكون->كنت, 28:05 هون->هناك (asked). Not slips: 04:37 Amal 'a new one' (help mid-sentence), 32:05 la- prompt mid-sentence, 50:38 'happy for' la (target collocation prompt), 53:05 أرجعت? (question). / Medi's lines are missing from the transcript at about 12:17-17:20 (Amal talks about homework review, ba'ad = spend, apologize + la/min); only the ba'ad row is written. Several Medi lines are Latin-letter Arabic from 41:00 on (chat-like lines such as lama makan andi, ijazti) and I used them as spoken Arabic. Engine mishearings: 'السهى/سنتين وتوك' = el-saa3a tentain u tult; 'حاجتنا' = حجزنا; 'قماش ربي' = قندرة بني; 'يوم مني/ملاه' = yoam malan; 'عجب' near 11:02; 'ولا' at 59:19 may be ولاد (plural cousins); 'ابن أمي' may be ابن عمي; 'واجهة' = wa7da. Self-fixes not written: 02:10 الليل الماضي -> ليلة الماضية, 09:12-09:40 حفلة -> عطلة (his own fix before Amal). Not written: 'headphones' (08:22) and 'van' (02:49) because neither is on her sheet. No 'echo' lines beyond the engine's Latin 'Okay/No/Mm' noise in echo-candidates. Unclear and skipped: 22:55 'في تانيا' (she said التاني is right), 44:26 byet7ammas person form (she said 'In past.' but chat is present), 14:07-16:20 'راجعت/رجعت' exchange (his lines missing)._
 
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
-| FA-10b1d5d5 | 02:10 | vocab-A | tier 2 | آآ، الليل الماضي، آآم، ليلة الماضية. | ليلة. | الليل الماضي -> ليلة (el-leile el-maadye / lailet mbaare7) | He used el-leil (night, mass noun) for 'last night'; he shifted to ليلة at the same second Amal said ليلة, so it may be his own self-fix (both at 02:15). | medium | judge panel (Opus + Argon, p 0.65) |
-| FA-1c300c88 | 03:35 | grammar | D3 | عمل ما حادث. | عمل معها، السيارة معها حادث. | عمل ما حادث -> عمل معها حادث | He dropped the -ha ending on ma3 (the car); Amal recast عمل معها at once (he repeated 'ما حادث' again at 03:59). | medium | judge panel (Opus + Argon, p 0.68) |
-| FA-0839abcb | 05:20 | grammar | D4 | Yep. the جيب come. / لا the جيب come؟ | to bring it. ... صح، لا، نجيبها. | the جيب come -> نجيبها (la-njeebha) | He used bare جيب with no person prefix and no object ending for 'to bring it'; Amal voiced نجيبها. | medium | judge panel (Opus + Argon, p 0.68) |
-| FA-02b49e2f | 05:59 | grammar | B5 | سا-سعينا. | سوء نعم. | سا-سعينا -> سقنا (su2na) | Past 'we drove' of hollow verb saa2 is su2na; he said sa2eina, Amal said su2na (engine 'سوء نعم') and his next line (engine سوينا) repeats it; chat su2na. | medium | judge panel (Opus + Argon, p 0.77) |
-| FA-a28b2aea | 10:24 | vocab-A | tier 1 | لازم يكون مفتاح. ... open لازم مفتاح؟ ... المفتوح. | No، مش ده Key. Just, just fix the vowel. ... مفتوح. | مفتاح -> مفتوح | He said miftaa7 (key) for maftoo7 (open); Amal: 'No, not that, Key ... fix the vowel', then مفتوح. Sheet: 'open / Maftoo7 / مفتوح'. | high | judge panel (Opus + Argon, p 0.95) |
-| FA-07eddbc6 | 15:19 | vocab-A | tier 1 | (Medi's line not in transcript - Amal quotes 'ba'ad') | What do you mean "ba'ad"? Do you wanna say sit or spend? ... "Ba'ad" is to sit. "Ba'addi". | ba'ad -> بقضّي (ba2addi) | He used 2a3ad (sit) for 'spend (time)'; Amal: 'Ba'ad is to sit', gave ba2addi. His line is missing; Amal's echo is the evidence. | high | judge panel (Opus + Argon, p 0.85) |
-| FA-92eb17af | 15:42 | grammar | B5 | (Medi's line not in transcript) | No, but when you make it past it's very different. ... So update. | (past of ba2addi) -> قضّيت (addait) | His past form of 2adda was wrong; Amal: 'No, but when you make it past it's very different', chat addait. | medium | judge panel (Opus + Argon, p 0.70) |
-| FA-26a6fe1b | 16:53 | grammar | D2 | (Medi's line not in transcript - he gave بتأسف + علا) | لا. There's two of them. You can use two، بس مش علا. | بتأسف علا -> بتأسف لـ / من | Apologise takes la- or min; Amal: 'not 3ala' - he gave 3ala (Medi's words missing from the transcript). | high | judge panel (Opus + Argon, p 0.80) |
-| FA-a5e5c8f7 | 17:48 | vocab-A | tier 1 | (Medi's line not in transcript - he gave the date) | 11، 11. You put us in Se-December already. | (month 12) -> إحدعش (11) | He said the month as December (12) for November; Amal: '11, 11. You put us in December already'. His words are missing. | medium | judge panel (Opus + Argon, p 0.75) |
-| FA-3541a5ad | 18:44 | grammar | A8 | بلبس بلوزة نص كم أزرق أو | بلوزة. ... بلوزة. So أزرق or something else. | بلوزة نص كم أزرق -> بلوزة نص كم زرقا | bluze is feminine so blue is zar2a; Amal repeated بلوزة twice and 'So أزرق or something else' - he switched to قميص instead of fixing; chat zar2a. | high | judge panel (Opus + Argon, p 0.88) |
-| FA-2bff2794 | 23:14 | grammar | A2 | So مش نفس المكان. This one مش نفس المكان. | No, wait. So the place of this one, we're gonna treat this as one thing, and then you say نفس 'cause this is إضافة مكان and this one. | مش نفس المكان -> مش نفس مكان هذا | 'The place of this one' is idafa (makaan haada), so makaan takes no el-; Amal 'No, wait ... إضافة', he then said نفس مكان. | high | judge panel (Opus + Argon, p 0.88) |
-| FA-ae397660 | 24:22 | grammar | A10 | آدي. | هذا هذا 'cause حجوز. | آدي -> هذا | He said hadi (feminine) for a masculine thing; Amal gave هذا and the reason (engine wrote آدي). | high | judge panel (Opus + Argon, p 0.85) |
-| FA-0c052cfe | 25:24 | grammar | A10 | مش نفس مكان هادي. | هذا. | هادي -> هذا | makaan is masculine so 'this' is haada; Amal recast هذا, he repeated it. | high | judge panel (Opus + Argon, p 0.82) |
-| FA-92558e83 | 25:54 | grammar | A10 | So, "هذا." | Well first why hada? Cuz wha-what's time? ... Time ... it's marra. | هذا -> هادي | 'This (time)' refers to marra (feminine), so haadi; Amal 'why hada? what's time?', he later said هادي. | high | judge panel (Opus + Argon, p 0.88) |
-| FA-6499fe95 | 27:06 | grammar | B9 | So "هادي راح يكون." Does that make sense or no? | It's kun. | راح يكون -> راح تكون | With haadi (feminine) the verb is tkoon; Amal 'It's (t)kun', he: 'Oh yeah it's feminine. هادي راح تكون'. | high | judge panel (Opus + Argon, p 0.85) |
-| FA-5c42fd42 | 27:58 | grammar | D1 | أخر مرة إندي هون | Ili. | إندي -> إلي | 'My last time' uses ili (for me), not 3indi (I have); Amal said Ili twice and he repeated it. | high | judge panel (Opus + Argon, p 0.82) |
-| FA-c351a40a | 28:15 | grammar | A15 | مرة الأخيرة إندي هناك | You said ili, but marra al akhira, which is doesn't make sense. You could say il marra al akhira | مرة الأخيرة -> آخر مرة / المرة الأخيرة | Noun + el-adjective without el- on the noun; Amal: 'marra al akhira doesn't make sense ... il marra al akhira'. | high | judge panel (Opus + Argon, p 0.88) |
-| FA-b16a7696 | 30:42 | grammar | B6 | تكون / يكون. | No, it was. ... Was... | تكون -> كانت | 'Was blue' needs kaanat; he said tkoon then ykoon, Amal 'No, it was' until he said كانت. | high | judge panel (Opus + Argon, p 0.95) |
-| FA-b5953ac1 | 34:04 | grammar | B18 | بـ-بتعب. It-- Yes. Yeah، بتعب. | it's "بيـ." | بتعب -> بيتعب | The job (it) tires: beyta33eb, he-form; he said bat3ab (I-form); Amal 'it's بيـ'. | high | judge panel (Opus + Argon, p 0.88) |
-| FA-37c6d23f | 35:14 | vocab-A | tier 2 | آسفي | Mm-hmm. | آسفي -> تأسفي | He used the adjective 'aasef' instead of the verb command 't2assafi' for 'apologize'. Her typed chat corrects it. | medium | judge panel (Opus + Argon, p 0.75) |
-| FA-72a95196 | 35:25 | grammar | C7 | آسفي لا أول هذا إلي | ليش؟ ... Do I need "اللي"؟ | أول هذا إلي -> أول حدا | awal 7ada is indefinite, so no illi; Amal 'Why? Do I need اللي?', he: 'Oh no, it's not definitive' and dropped it. (هذا = engine for 7ada.) | high | judge panel (Opus + Argon, p 0.88) |
-| FA-56d07101 | 35:51 | grammar | B1 | إنت تشوفي. | بتشوفي. | تشوفي -> بتشوفي | Plain present needs b-; Amal recast بتشوفي, he: 'Oh, I put the B?'. | high | judge panel (Opus + Argon, p 0.93) |
-| FA-d3a5e248 | 36:48 | vocab-A | tier 1 | Uh, [speaking Arabic] Uh, [speaking Arabic] | That's angry. | (engine dropped his word - a word for 'angry') -> بتتضايقي (btetdaaya2i) | He used a word meaning angry for 'upset'; Amal: 'That's angry'. Sheet: 'upset / bothered / Mitdaayeq'. His Arabic is missing. | high | judge panel (Opus + Argon, p 0.80) |
-| FA-f7fdc007 | 37:16 | grammar | D2 | La? / Or ala? | No. / No. / من. | La / ala -> من (minno) | Amal prompted 'it takes...'; he guessed la, then 3ala, she said No to each and gave min. | medium | judge panel (Opus + Argon, p 0.77) |
-| FA-77a72ce3 | 42:42 | grammar | B12 | So, uh, za-zajti. Zajti. ... so bezaaj is to inflict | Did you-- No. No. This is you annoyed. ... No. It's an N verb. | zajti -> انزعجتي (enza3ajti) | 'You got annoyed' is the n- form enza3ajti; za3ajti means you annoyed someone; Amal 'No ... It's an N verb', he then said inzajti. | high | judge panel (Opus + Argon, p 0.93) |
-| FA-9ede75c1 | 45:06 | grammar | B8 | ashan il mahal, uh, malan. | بكون، Malan. ... بكون. Because it's a habit. | il mahal malan -> المحل بكون مليان | A habitual state needs bikoon; Amal said بكون twice and 'Because it's a habit'. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-08979a0e | 46:49 | grammar | A9 | ijaz-ijazti, my vacations. | Vacations. إجازاتي، إذن. | ijazti -> إجازاتي (ijaazaati) | He gave the singular ijazti and said 'my vacations' in English; Amal supplied the plural إجازاتي. | medium | judge panel (Opus + Argon, p 0.77) |
-| FA-c740cb03 | 47:08 | grammar | B6 | lama ma'andi... | Mal. ... When I didn't have. | lama ma'andi -> لما ما كان عندي | Past 'didn't have' needs ma kaan 3indi; Amal prompted 'When I didn't have', he said 'Lama makan andi'. | high | judge panel (Opus + Argon, p 0.85) |
-| FA-6458c3fd | 48:20 | grammar | A8 | sharikati tabayi or sharikat, sharikat tabayi. | لا، لا، لا. ... بس شركة because it's feminine, you would say تبعتي. | tabayi -> تبعتي | tab3 agrees with the feminine شركة: tab3iti; Amal 'لا لا لا ... because it's feminine, you would say تبعتي'. | high | judge panel (Opus + Argon, p 0.93) |
-| FA-9aa1954d | 50:20 | grammar | A2 | ونقدر نخطط الشهر العسل. | شهر العسل. | الشهر العسل -> شهر العسل | Idafa: the first word takes no el-; Amal recast شهر العسل. Sheet: 'honeymoon / Shahar 3asal'. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-9ed47e29 | 52:03 | vocab-A | tier 1 | آخر ليلة أنا، أنا أكون، أنا كنت متحمس | بس how do you say last night؟ 'cause this آخر ليلة means the last night يعني it doesn't indicate do you mean yesterday. | آخر ليلة -> ليلة امبارح / امبارح بالليل | aa5er = last in a sequence, not 'last' meaning past; Amal said آخر ليلة means 'the last night' and gave ليلة امبارح. | high | judge panel (Opus + Argon, p 0.88) |
-| FA-9ff43b5c | 52:31 | grammar | B3 | لـ رجعت، لرجعت، أرجع، أرجعت | لا. ... To get back to، so it's present. | لرجعت -> لأرجع (la-arja3) | After la- (to) use the bare present, not the past; Amal 'لا ... so it's present'. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-48da3482 | 57:17 | grammar | D2 | عن... | No. ... No. علا. | عن -> على | 5aaf takes 3ala for 'worry about someone'; Amal 'No ... علا', and after discussion he said على. | high | judge panel (Opus + Argon, p 0.90) |
-| FA-4cde73d8 | 58:18 | vocab-A | tier 1 | ولا أم، uh، أمي. ... و-ولا أمي، ولا، | Did you wanna say cousin؟ ... How do you say cousin؟ ... لا. ... No. | ولا أمي -> ابن عمي | For cousin he said wala/walad 3ammi; Amal 'How do you say cousin?', 'لا', 'No' until ابن. Sheet: 'cousin (male, paternal) / Eben 3am'. أمي = engine for 3ammi. | high | judge panel (Opus + Argon, p 0.82) |
-| FA-a725c426 | 58:56 | vocab-A | tier 1 | هو وحشي. هم، هم وحشي. | هم، هم إيه؟ إيش يعني وحشي؟ ... وحش. No. It doesn't mean as the same as being wild. | وحشي -> (مش مؤدب / مش زكي) | He used wa7shi (wild/savage) for a badly-behaved person; Amal 'What does وحشي mean? ... No. It doesn't mean the same as being wild'; he switched to مش مؤدب. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-d8a3e36b | 03:35 | grammar | D3 | عمل / ما حادث. | عمل معها، السيارة معها حادث. | ما حادث -> معها حادث | Repeating her phrase he dropped the -ha ending on ma3 (engine ما); she repeated معها with the car as referent (D3); he said ما again at 04:02. | medium | judge panel (Opus + Argon, p 0.70) |
+| FA-e63ea722 | 05:25 | grammar | D4 | لا the جيب come؟ | صح، لا، نجيبها. | جيب -> نجيبها | He used bare جيب with no person prefix or object; Amal confirmed la and recast نجيبها (we bring it). | medium | judge panel (Opus + Argon, p 0.65) |
+| FA-f6bda26c | 05:59 | grammar | B5 | سا-سعينا. | سوء نعم. | سعينا -> سقنا (su2na) | Wrong past of ساق (drive); Amal said su2na (engine سوء) and he repeated it at 06:03 (engine سوينا = su2na). | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-a28b2aea | 10:24 | vocab-A | tier 2 | لازم يكون / مفتاح. | No، مش ده Key. / Just, just fix the vowel. / مفتوح. | مفتاح -> مفتوح | He said مفتاح (key) for مفتوح (open); Amal: 'No, that's key, just fix the vowel' and he said مفتوح. | high | judge panel (Opus + Argon, p 0.95) |
+| FA-44c7cf70 | 15:19 | vocab-A | tier 1 | (his line missing; Amal quotes 'ba'ad') | What do you mean "ba'ad"? Do you wanna say sit or spend? ... "Ba'ad" is to sit. "Ba'addi". | بقعد (ba'ad) -> بقضي (ba2addi) | He used ba2'ud (sit) for spend time; sheet 'i spend time / Ana ba2addi wa2et'; Amal named both and gave ba2addi. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-db8c08db | 15:42 | grammar | B5 | (his line missing) | No, but when you make it past it's very different. / So update. Update. | (past of ba2addi - his form not in transcript) -> قضيت (addait) | Amal said No and that the past is very different, then gave addait; his wrong past form is not in the transcript. | medium | judge panel (Opus + Argon, p 0.70) |
+| FA-accfa28a | 16:53 | grammar | D2 | (his line missing) | لا. There's two of them. You can use two، بس مش علا. | على (after bat2assaf) -> لـ / من | He gave على as the preposition for apologise; Amal: 'not على', it is la or min. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-1c648ab6 | 17:48 | vocab-A | tier 1 | (his line missing) | 11، 11. / You put us in Se-December already. | (month said as December - his words missing) -> e7da3sh (11) | Amal said 11, 11 and that he put them in December, so he gave the wrong month number; his words are not in the transcript. | medium | judge panel (Opus + Argon, p 0.75) |
+| FA-26e47bc4 | 18:49 | grammar | A8 | بلبس بلوزة نص كم / أزرق أو | بلوزة. / بلوزة. So أزرق or something else. | بلوزة نص كم أزرق -> بلوزة نص كم زرقا | Feminine بلوزة with masculine أزرق; Amal repeated بلوزة twice and questioned أزرق, chat zar2a; he repeated أزرق at 18:59. | high | judge panel (Opus + Argon, p 0.84) |
+| FA-2bff2794 | 23:14 | grammar | A5 | So مش نفس المكان. This one مش نفس المكان. | No, wait. So the place of this one, we're gonna treat this as one thing ... نفس مكان this. | مش نفس المكان -> مش نفس مكان هذا | nafs + makaan + haada is a chain, so makaan takes no el-; Amal said No and built نفس مكان هذا. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-ae397660 | 24:22 | grammar | A10 | آدي. | هذا هذا 'cause حجوز. | آدي -> هذا | Feminine hadi for 7ajez (booking, masculine); she said hada hada 'cause حجوز. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-0c052cfe | 25:24 | grammar | A10 | مش نفس مكان هادي. | هذا. | هادي -> هذا | 'This one' refers to the booking (حجز, masculine) so it is هذا; Amal recast and he repeated هذا. | high | judge panel (Opus + Argon, p 0.86) |
+| FA-92558e83 | 25:54 | grammar | A10 | So, "هذا." | Well first why hada? Cuz wha-what's time? / You put marra, yes, but mish hada. What should it be? | هذا -> هادي | For 'this will be my last time' (marra, feminine) he said هذا; Amal 'why hada... mish hada', he then said هادي at 27:06. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-e493eeed | 27:10 | grammar | B9 | "هادي راح يكون." | It's kun. | يكون -> تكون | ykoon must match feminine هادي; Amal said it's -kun and he fixed to تكون ('oh it's feminine'). | high | judge panel (Opus + Argon, p 0.86) |
+| FA-5c42fd42 | 27:58 | grammar | D1 | إندي هون، uh, | Ili. | إندي -> إلي | 'My last time there' uses ili not 3indi; Amal recast Ili twice and he repeated إلي. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-c351a40a | 28:15 | grammar | A7 | مرة الأخيرة / إندي هناك. | You said ili, but marra al akhira, which is doesn't make sense. You could say il marra al akhira | مرة الأخيرة -> آخر مرة / المرة الأخيرة | Noun without el- before el-adjective (A7); Amal said it doesn't make sense, use il-marra il-a5eera or aa5er marra. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-b16a7696 | 30:42 | grammar | B6 | تكون | No, it was. | تكون -> كانت | 'Was' needs past kaanat, not tkoon; Amal 'No, it was', and after يكون he said كانت. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-b5953ac1 | 34:04 | grammar | B18 | بـ-بتعب. It-- Yes. Yeah، بتعب. | it's "بيـ." | بتعب -> بيتعب | The job (he/it) takes the y- form bi-yta33eb; he said b-t-, Amal: it's بيـ. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-37c6d23f | 35:14 | vocab-A | tier 2 | آسفي | Mm-hmm. | آسفي -> تأسفي | He used the adjective 'aasef' instead of the verb command 't2assafi' for 'apologize'. Her typed chat corrects it. | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-310038d6 | 35:25 | grammar | C7 | إلي | ليش؟ / Mm-hmm. Do I need "اللي"؟ | إلي -> (no illi) أول حدا | No illi after an indefinite noun; Amal 'ليش؟ do I need اللي?', he: 'not definitive' and dropped it. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-56d07101 | 35:51 | grammar | B1 | تشوفي. | Mm-hmm. بتشوفي. | تشوفي -> بتشوفي | Plain present needs b-; Amal recast بتشوفي and he said 'Oh, I put the B?'. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-05594907 | 36:48 | vocab-A | tier 1 | Uh, [speaking Arabic] Uh, [speaking Arabic] | That's angry. | (a word for 'angry' - engine [speaking Arabic]) -> تتضايقي (btetdaaya2i) | He used a word meaning angry for upset; Amal: 'That's angry'; sheet 'upset / bothered / Mitdaayeq'. His word was not transcribed. | medium | judge panel (Opus + Argon, p 0.78) |
+| FA-f7fdc007 | 37:16 | grammar | D2 | La? / Or ala? | No. / No. / من. | La / ala -> من (minno) | After her 'it takes...' he guessed la then ala, she said No to both and gave min; guesses were in question form, so low. | high | judge panel (Opus + Argon, p 0.80) |
+| FA-77a72ce3 | 42:42 | grammar | B12 | So, uh, za-zajti. / Zajti. | Did you-- No. / No. / This is you annoyed. / No. It's an N verb. | zajti -> inzajti (enza3ajti) | za3ajti = you annoyed someone; 'you got annoyed' is the n-form; Amal said No, 'it's an N verb', he fixed to inzajti. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-9ede75c1 | 45:06 | grammar | B8 | ashan / il mahal, / uh, malan. | بكون، Malan. / بكون. / Because it's a habit. | il mahal malan -> el-ma7al beykoon malaan | A habit needs bikoon; Amal inserted بكون twice: 'because it's a habit'. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-08979a0e | 46:49 | grammar | A9 | ijaz-ijazti, my vacations. | Vacations. / إجازاتي، إذن. | ijazti -> إجازاتي | He meant 'my vacations' but said singular ijazti; Amal recast plural إجازاتي and he repeated Ijazati. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-dc1324d8 | 47:08 | grammar | B6 | lama / ma'andi... | Mal. / When I didn't have. | ma'andi -> ma kaan 3indi | Past 'didn't have' needs kaan; Amal prompted 'When I didn't have' and he said Lama makan andi. | high | judge panel (Opus + Argon, p 0.84) |
+| FA-85d8ee5a | 48:20 | grammar | A8 | sharikati tabayi or sharikat, sharikat tabayi. | لا، لا، لا. / بس شركة because it's feminine, you would say تبعتي. | sharikat tabayi -> شركة تبعتي | تبع must agree with feminine شركة -> تبعتي; Amal: 'no no no ... because it's feminine'. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-ca4cb924 | 50:10 | grammar | B4 | بنقدر / نخطط الشهر | ونقدر، / ونقدر نخطط. | بنقدر -> ونقدر | After lamma the b-drop carries across u; Amal recast ونقدر and he repeated it. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-9ed47e29 | 52:03 | vocab-A | tier 1 | آخر / ليلة | بس how do you say last night؟ 'cause this آخر ليلة means the last night ... it doesn't indicate do you mean yesterday. | آخر ليلة -> ليلة امبارح | aa5er = last in sequence, not 'previous'; Amal said آخر ليلة means the final night and gave ليلة امبارح. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-a7359984 | 52:31 | grammar | B3 | لـ / رجعت، / لرجعت، أرجع، أرجعت | لا. / To get back to، so it's present. | لـ رجعت -> لأرجع (la-arja3) | After la- (to) a bare present verb, not past; Amal: لا, 'to get back to, so it's present'. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-48da3482 | 57:17 | grammar | D2 | عن... | No. / No. علا. | عن -> على | Worry for someone is خاف على; Amal said No to عن and gave على. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-1d55c244 | 58:18 | vocab-A | tier 1 | ولا أم، uh، أمي. / و-ولا أمي، ولا، | Did you wanna say cousin؟ ... How do you say cousin؟ / لا. | ولا -> ابن | For cousin he said walad (engine ولا) + 3ammi; Amal asked how you say cousin and said لا, then he said ابن; sheet 'cousin (male, paternal) / Eben 3am'. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-a725c426 | 58:56 | vocab-A | tier 1 | هو وحشي. هم، هم وحشي. | هم، هم إيه؟ / إيش يعني وحشي؟ ... وحش. No. It doesn't mean as the same as being wild. | وحشي -> مش مؤدب / مش زكي (his later words) | He used وحشي for a badly-behaved person; Amal asked what it means and said it does not mean wild that way. | high | judge panel (Opus + Argon, p 0.82) |

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T23:10:49-08:00",
+ "updated": "2026-11-12T23:46:43-08:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -4697,25 +4697,6 @@
    "audit_uid": "FA-fc724b45"
   },
   {
-   "id": "audit:FA-10b1d5d5",
-   "word_key": "alaile",
-   "entry_id": "alaile:word",
-   "lesson_date": "2026-11-11",
-   "t_start": 130,
-   "t_end": 130,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "الليل الماضي",
-   "said": "آآ، الليل الماضي، آآم، ليلة الماضية.",
-   "reason": "He used el-leil (night, mass noun) for 'last night'; he shifted to ليلة at the same second Amal said ليلة, so it may be his own self-fix (both at 02:15).",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-10b1d5d5"
-  },
-  {
    "id": "audit:FA-a28b2aea",
    "word_key": "maftU7",
    "entry_id": "maftU7:singular",
@@ -4729,10 +4710,29 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "مفتاح",
-   "said": "لازم يكون مفتاح. ... open لازم مفتاح؟ ... المفتوح.",
-   "reason": "He said miftaa7 (key) for maftoo7 (open); Amal: 'No, not that, Key ... fix the vowel', then مفتوح. Sheet: 'open | Maftoo7 | مفتوح'.",
+   "said": "لازم يكون / مفتاح.",
+   "reason": "He said مفتاح (key) for مفتوح (open); Amal: 'No, that's key, just fix the vowel' and he said مفتوح.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-a28b2aea"
+  },
+  {
+   "id": "audit:FA-1d55c244",
+   "word_key": "eben",
+   "entry_id": "eben:singular",
+   "lesson_date": "2026-11-11",
+   "t_start": 3498,
+   "t_end": 3498,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "ولا",
+   "said": "ولا أم، uh، أمي. / و-ولا أمي، ولا،",
+   "reason": "For cousin he said walad (engine ولا) + 3ammi; Amal asked how you say cousin and said لا, then he said ابن; sheet 'cousin (male, paternal) | Eben 3am'.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-1d55c244"
   }
  ],
  "unplaced": [
@@ -9330,11 +9330,26 @@
    "changes": {
     "observation_only": true,
     "ledger": "ra:FA-9ed47e29",
-    "ledger_reason": "Said here, another word intended: Amal says no (ليلة امبارح / امبارح بالليل); her word is not on her list, so neither counts"
+    "ledger_reason": "Said here, another word intended: Amal says no (ليلة امبارح); her word is not on her list, so neither counts"
    },
    "expected": {
     "word_key": "2A5er",
     "t_start": 3122.54
+   }
+  },
+  {
+   "event_id": "36d4d64de0ddd4286f2a490bef70cf1545e50cf918b2582cd6554ddb00d6ae07",
+   "date": "2026-11-11",
+   "mark": "ra:FA-1d55c244",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "ra:FA-1d55c244",
+    "ledger_reason": "Said here, another word intended: Amal says no (ابن)"
+   },
+   "expected": {
+    "word_key": "wla",
+    "t_start": 3497.871102126
    }
   },
   {
