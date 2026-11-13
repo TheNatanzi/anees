@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T11:17:21-08:00",
+ "updated": "2026-11-13T12:49:31-08:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -4621,42 +4621,42 @@
    "audit_uid": "FA-f83533c5"
   },
   {
-   "id": "audit:FA-a28b2aea",
-   "word_key": "maftU7",
-   "entry_id": "maftU7:singular",
+   "id": "audit:FA-86d62fbe",
+   "word_key": "alaile",
+   "entry_id": "alaile:word",
    "lesson_date": "2026-11-11",
-   "t_start": 624,
-   "t_end": 624,
+   "t_start": 130,
+   "t_end": 130,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "مفتاح",
-   "said": "لازم يكون / مفتاح.",
-   "reason": "He said مفتاح (key) for مفتوح (open); Amal: 'No, that's key, just fix the vowel' and he said مفتوح.",
+   "text": "ليل",
+   "said": "آآم، ليل الماضي، / آآم، ليلة الماضي",
+   "reason": "He said ليل (night-time) for 'last night'; Amal said ليلة at the same second he restarted with ليلة, so it reads as her recast (not a clear self-fix before her).",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-a28b2aea"
+   "audit_uid": "FA-86d62fbe"
   },
   {
-   "id": "audit:FA-1d55c244",
-   "word_key": "eben",
-   "entry_id": "eben:singular",
+   "id": "audit:FA-8d9d9a9c",
+   "word_key": "wa a5Iran",
+   "entry_id": "wa a5Iran:word",
    "lesson_date": "2026-11-11",
-   "t_start": 3498,
-   "t_end": 3498,
+   "t_start": 256,
+   "t_end": 256,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "ولا",
-   "said": "ولا أم، uh، أمي. / و-ولا أمي، ولا،",
-   "reason": "For cousin he said walad (engine ولا) + 3ammi; Amal asked how you say cousin and said لا, then he said ابن; sheet 'cousin (male, paternal) | Eben 3am'.",
+   "assessment": "helped",
+   "vocab_points": 0.5,
+   "text": "بالأخيرة",
+   "said": "Was it بالأخيرة finally بالأخيرة؟",
+   "reason": "He asked 'was it بالأخيرة' for finally; she supplied وأخيرًا (sheet: finally | wa-a5eeran | وأخيرًا). A question = didn't-know, tier 0.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-1d55c244"
+   "audit_uid": "FA-8d9d9a9c"
   },
   {
    "id": "audit:FA-784b2948",
@@ -5424,6 +5424,17 @@
    "kind": "wrong",
    "said": "آآآ، إشي مختلف.",
    "wrong": "إشي مختلف",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
+  },
+  {
+   "uid": "FA-1a0dc604",
+   "date": "2026-11-11",
+   "t": 2208,
+   "key": "ana batdAya2",
+   "kind": "wrong",
+   "said": "Uh, [speaking Arabic] Uh, [speaking Arabic]",
+   "wrong": "[speaking Arabic] (angry word)",
    "why": "which list word it is waits for a reader (the automatic match was part)",
    "keyed_by": "auto-part"
   },
@@ -9236,33 +9247,168 @@
    }
   },
   {
-   "event_id": "0a4c7a9b17d0b9f1a1adbc151c04d9e6fdc20a6ebbfd1120c330b81471eeb69c",
+   "event_id": "11afa3d68d3143afd63e7f5988727e126586bc9080a094383b1d98b34c6dae4b",
    "date": "2026-11-11",
-   "mark": "ra:FA-9ed47e29",
+   "mark": "wb:11afa3d68d3143afd63e7f5988727e126586bc9080a094383b1d98b34c6dae4b",
+   "was": "partial",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:11afa3d68d3143afd63e7f5988727e126586bc9080a094383b1d98b34c6dae4b",
+    "ledger_reason": "the recording engine wrote صح لسانك.; you said عشان هيك تعبان (TR-22)"
+   },
+   "expected": {
+    "word_key": "sa7",
+    "t_start": 341.547102126
+   }
+  },
+  {
+   "event_id": "632943374d046e3ac43bce9c5d4aa67876af0369238e46b9793ac38c30213375",
+   "date": "2026-11-11",
+   "mark": "wb:632943374d046e3ac43bce9c5d4aa67876af0369238e46b9793ac38c30213375",
    "was": "right",
    "changes": {
     "observation_only": true,
-    "ledger": "ra:FA-9ed47e29",
-    "ledger_reason": "Said here, another word intended: Amal says no (ليلة امبارح); her word is not on her list, so neither counts"
+    "ledger": "wb:632943374d046e3ac43bce9c5d4aa67876af0369238e46b9793ac38c30213375",
+    "ledger_reason": "the recording engine wrote إيه،; you said Yeah, um, ah, واحد. Mhm. (TR-22)"
    },
    "expected": {
-    "word_key": "2A5er",
-    "t_start": 3122.54
+    "word_key": "eh",
+    "t_start": 670.363102126
+   }
+  },
+  {
+   "event_id": "e31224507abe978f4f16ea2cb8ef7a1e8b168034ff8b9b000e00945af72619a6",
+   "date": "2026-11-11",
+   "mark": "wb:e31224507abe978f4f16ea2cb8ef7a1e8b168034ff8b9b000e00945af72619a6",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:e31224507abe978f4f16ea2cb8ef7a1e8b168034ff8b9b000e00945af72619a6",
+    "ledger_reason": "the recording engine wrote آه، واحد.‬ ‫أهم.‬ ‫آآآ،; you said  (TR-22)"
+   },
+   "expected": {
+    "word_key": "Ah",
+    "t_start": 671.4031021259999
+   }
+  },
+  {
+   "event_id": "9e2a694a09c6d9a89f9ad33ca498f33cc988046440b155737258696045b14570",
+   "date": "2026-11-11",
+   "mark": "wb:9e2a694a09c6d9a89f9ad33ca498f33cc988046440b155737258696045b14570",
+   "was": "partial",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:9e2a694a09c6d9a89f9ad33ca498f33cc988046440b155737258696045b14570",
+    "ledger_reason": "the recording engine wrote لا صحابي،; you said لصحابي، (TR-22)"
+   },
+   "expected": {
+    "word_key": "lA",
+    "t_start": 1930.2471021259998
+   }
+  },
+  {
+   "event_id": "d7b7877bc9b7b67d05650988a8f82ea1871b87b2d1deb8f7014238b119811fdd",
+   "date": "2026-11-11",
+   "mark": "wb:d7b7877bc9b7b67d05650988a8f82ea1871b87b2d1deb8f7014238b119811fdd",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:d7b7877bc9b7b67d05650988a8f82ea1871b87b2d1deb8f7014238b119811fdd",
+    "ledger_reason": "the recording engine wrote آسفي لا أول هذا; you said تأسفي لأول حدا (TR-22)"
+   },
+   "expected": {
+    "word_key": "lA",
+    "t_start": 2142.027102126
+   }
+  },
+  {
+   "event_id": "0deef860955cc3ae0cb19e4eacf67f8eb27deec596511e9306563beabb35657d",
+   "date": "2026-11-11",
+   "mark": "wb:0deef860955cc3ae0cb19e4eacf67f8eb27deec596511e9306563beabb35657d",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:0deef860955cc3ae0cb19e4eacf67f8eb27deec596511e9306563beabb35657d",
+    "ledger_reason": "the recording engine wrote in-inzajti min hada?; you said إن- انزعجتي من حدا؟ (TR-22)"
+   },
+   "expected": {
+    "word_key": "hada",
+    "t_start": 2628.0711021260004
    }
   },
   {
    "event_id": "36d4d64de0ddd4286f2a490bef70cf1545e50cf918b2582cd6554ddb00d6ae07",
    "date": "2026-11-11",
-   "mark": "ra:FA-1d55c244",
+   "mark": "wb:36d4d64de0ddd4286f2a490bef70cf1545e50cf918b2582cd6554ddb00d6ae07",
    "was": "right",
    "changes": {
     "observation_only": true,
-    "ledger": "ra:FA-1d55c244",
-    "ledger_reason": "Said here, another word intended: Amal says no (ابن)"
+    "ledger": "wb:36d4d64de0ddd4286f2a490bef70cf1545e50cf918b2582cd6554ddb00d6ae07",
+    "ledger_reason": "the recording engine wrote ولا أم،; you said ولاد، um، (TR-22)"
    },
    "expected": {
     "word_key": "wla",
     "t_start": 3497.871102126
+   }
+  },
+  {
+   "event_id": "4e9298f8199ed69f2ba4a23760019bcb8b1a074b3aa28be96b6beef52be47434",
+   "date": "2026-11-11",
+   "mark": "wb:4e9298f8199ed69f2ba4a23760019bcb8b1a074b3aa28be96b6beef52be47434",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:4e9298f8199ed69f2ba4a23760019bcb8b1a074b3aa28be96b6beef52be47434",
+    "ledger_reason": "the recording engine wrote ولا.; you said ولد. (TR-22)"
+   },
+   "expected": {
+    "word_key": "wla",
+    "t_start": 3585.911102126
+   }
+  },
+  {
+   "event_id": "66a9af0fd27477c23ec943319aa06a70058d977dcb777711cd4161916c9b7cc6",
+   "date": "2026-11-11",
+   "mark": "wb:66a9af0fd27477c23ec943319aa06a70058d977dcb777711cd4161916c9b7cc6",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:66a9af0fd27477c23ec943319aa06a70058d977dcb777711cd4161916c9b7cc6",
+    "ledger_reason": "the recording engine wrote و-ولا أمي، ولا،; you said و- ولد عمي؟ ولد... (TR-22)"
+   },
+   "expected": {
+    "word_key": "wla",
+    "t_start": 3596.371102126
+   }
+  },
+  {
+   "event_id": "6ea8fc9840223115e2522142ef91fade7ff496891cd924621b589ce43564517f",
+   "date": "2026-11-11",
+   "mark": "ra:FA-86d62fbe",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "ra:FA-86d62fbe",
+    "ledger_reason": "One utterance, one judgment: ليل here is the counted slip (ليلة), not also a right use, until the tutor answers (WS-39)"
+   },
+   "expected": {
+    "word_key": "bilail",
+    "t_start": 130.25
+   }
+  },
+  {
+   "event_id": "585b5eaaa0cc04a4cbbc4f10daacf41a6dfbfb55292eb07cf4eb92d46d1ef169",
+   "date": "2026-11-11",
+   "mark": "ra:FA-4f7ebe41",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "ra:FA-4f7ebe41",
+    "ledger_reason": "Said here, another word intended: Amal says no (ابن عمي); her word is not on her list, so neither counts"
+   },
+   "expected": {
+    "word_key": "walad",
+    "t_start": 3593.59
    }
   }
  ]
