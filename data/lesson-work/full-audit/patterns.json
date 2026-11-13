@@ -2,6 +2,34 @@
  "built": "2026-10-30",
  "patterns": [
   {
+   "id": "p-fem-noun-masc-adj",
+   "kind": "grammar",
+   "bucket": "A8",
+   "tier": null,
+   "title": "Masculine adjective on a feminine noun (lugha jdeed, khadra mukhtalef, ed-dunya baared, madeena haadi)",
+   "wrong": "lugha jdeed / khadra mukhtalef / dunya baared / madeenti haadi",
+   "right": "lugha jdeede / khadra mukhtalfe / ed-dunya baarda / madeenti haadye",
+   "wrong_arabic": "لغة جديد / خضرا مختلف / دنيا بارد / مدينتي هادي",
+   "right_arabic": "لغة جديدة / خضرا مختلفة / الدنيا باردة / مدينتي هادية",
+   "wrong_arabizi": "Baared",
+   "right_arabizi": "Baarda",
+   "why": "When the noun is feminine (lugha, khadra, ed-dunya, madeena) he keeps the adjective masculine, and the adjective should take the feminine -a ending.",
+   "english": "a new language / different vegetables / the weather is cold / my city is quiet / a big table",
+   "rows": [
+    "FA-2ac2dc3d",
+    "FA-57edc8bd",
+    "FA-d94a33e0",
+    "FA-d94a33e0",
+    "FA-0d04f674",
+    "FA-688c6a35",
+    "FA-7b4748c3",
+    "FA-545da78e",
+    "FA-1a8d64e1",
+    "FA-aeebd206",
+    "FA-2357ec63"
+   ]
+  },
+  {
    "id": "p-present-no-b",
    "kind": "grammar",
    "bucket": "B1",
@@ -26,33 +54,6 @@
     "FA-c6dd2687",
     "FA-f826c9d7",
     "FA-2f59da44"
-   ]
-  },
-  {
-   "id": "p-fem-noun-masc-adj",
-   "kind": "grammar",
-   "bucket": "A8",
-   "tier": null,
-   "title": "Masculine adjective on a feminine noun (lugha jdeed, khadra mukhtalef, ed-dunya baared, madeena haadi)",
-   "wrong": "lugha jdeed / khadra mukhtalef / dunya baared / madeenti haadi",
-   "right": "lugha jdeede / khadra mukhtalfe / ed-dunya baarda / madeenti haadye",
-   "wrong_arabic": "لغة جديد / خضرا مختلف / دنيا بارد / مدينتي هادي",
-   "right_arabic": "لغة جديدة / خضرا مختلفة / الدنيا باردة / مدينتي هادية",
-   "wrong_arabizi": "Baared",
-   "right_arabizi": "Baarda",
-   "why": "When the noun is feminine (lugha, khadra, ed-dunya, madeena) he keeps the adjective masculine, and the adjective should take the feminine -a ending.",
-   "english": "a new language / different vegetables / the weather is cold / my city is quiet / a big table",
-   "rows": [
-    "FA-2ac2dc3d",
-    "FA-57edc8bd",
-    "FA-d94a33e0",
-    "FA-d94a33e0",
-    "FA-0d04f674",
-    "FA-688c6a35",
-    "FA-7b4748c3",
-    "FA-545da78e",
-    "FA-1a8d64e1",
-    "FA-aeebd206"
    ]
   },
   {
@@ -417,6 +418,26 @@
    ]
   },
   {
+   "id": "p-el-missing-on-noun",
+   "kind": "grammar",
+   "bucket": "A7",
+   "tier": null,
+   "title": "el- on the adjective but not on the noun (min usboo3 el-maadi -> min el-usboo3 el-maadi)",
+   "wrong": "usboo3 el-maadi",
+   "right": "el-usboo3 el-maadi",
+   "wrong_arabic": "أسبوع الماضي",
+   "right_arabic": "الأسبوع الماضي",
+   "wrong_arabizi": null,
+   "right_arabizi": null,
+   "why": "In 'last week' he drops el- from the noun but keeps it on the adjective; both need el- (she had just said min el-usboo3 el-maadi).",
+   "english": "since last week",
+   "rows": [
+    "FA-7838fd1e",
+    "FA-d32b9d22",
+    "FA-1bd24c84"
+   ]
+  },
+  {
    "id": "p-ma-plus-bare-present",
    "kind": "grammar",
    "bucket": "B1",
@@ -588,25 +609,6 @@
    ]
   },
   {
-   "id": "p-el-missing-on-noun",
-   "kind": "grammar",
-   "bucket": "A7",
-   "tier": null,
-   "title": "el- on the adjective but not on the noun (min usboo3 el-maadi -> min el-usboo3 el-maadi)",
-   "wrong": "usboo3 el-maadi",
-   "right": "el-usboo3 el-maadi",
-   "wrong_arabic": "أسبوع الماضي",
-   "right_arabic": "الأسبوع الماضي",
-   "wrong_arabizi": null,
-   "right_arabizi": null,
-   "why": "In 'last week' he drops el- from the noun but keeps it on the adjective; both need el- (she had just said min el-usboo3 el-maadi).",
-   "english": "since last week",
-   "rows": [
-    "FA-7838fd1e",
-    "FA-d32b9d22"
-   ]
-  },
-  {
    "id": "p-mit2akked-for-verb",
    "kind": "vocab",
    "bucket": null,
@@ -700,6 +702,25 @@
    "rows": [
     "FA-7ad77653",
     "FA-2a2d94b7"
+   ]
+  },
+  {
+   "id": "p-aktar-before-adjective",
+   "kind": "grammar",
+   "bucket": "C3",
+   "tier": null,
+   "title": "aktar put before the adjective (aktar sehle -> sehle aktar, aktar sahel -> sahel aktar)",
+   "wrong": "aktar sehle / aktar sahel",
+   "right": "sehle aktar / sahel aktar",
+   "wrong_arabic": "أكتر سهلة / أكثر سهل",
+   "right_arabic": "سهلة أكتر / سهل أكتر",
+   "wrong_arabizi": null,
+   "right_arabizi": null,
+   "why": "He puts aktar (more) before the adjective like English 'more easy', but the comparative goes adjective + aktar (her chat: sehla aktar, sehel aktar).",
+   "english": "easier / I must make it easier for you",
+   "rows": [
+    "FA-79518a36",
+    "FA-7a93d354"
    ]
   },
   {
@@ -2014,6 +2035,78 @@
    "english": "do they collect rainwater?",
    "rows": [
     "FA-4902e9aa"
+   ]
+  },
+  {
+   "id": "p-3ind-no-owner-ending",
+   "kind": "grammar",
+   "bucket": "D3",
+   "tier": null,
+   "title": "3ind without the owner ending for 'we have' (3ind ez-zabaayen -> 3indna zabaayen)",
+   "wrong": "3ind ez-zabaayen",
+   "right": "3indna zabaayen",
+   "wrong_arabic": "عند الزباين",
+   "right_arabic": "عندنا زباين",
+   "wrong_arabizi": null,
+   "right_arabizi": null,
+   "why": "For 'we have' 3ind needs the owner ending -na, and new customers take no el- (her chat: 3indna zabaayen).",
+   "english": "I told you we have customers",
+   "rows": [
+    "FA-6ec47ca8"
+   ]
+  },
+  {
+   "id": "p-3alai-wrong-gender-ending",
+   "kind": "grammar",
+   "bucket": "D3",
+   "tier": null,
+   "title": "Masculine ending on 3ala for a feminine thing (3alaih -> 3alaiha, the tree)",
+   "wrong": "3alaih",
+   "right": "3alaiha",
+   "wrong_arabic": "عليه",
+   "right_arabic": "عليها",
+   "wrong_arabizi": null,
+   "right_arabizi": null,
+   "why": "The tree (shajara) is feminine, so 3ala should take -ha, not -h (her chat: 3alaiha).",
+   "english": "We put everything on it (the tree)",
+   "rows": [
+    "FA-0a54e66f"
+   ]
+  },
+  {
+   "id": "p-mufaddal-agreement",
+   "kind": "grammar",
+   "bucket": "A23",
+   "tier": null,
+   "title": "mufaddal not matched to its noun (5areef el-mufaddala -> el-5areef el-mufaddal)",
+   "wrong": "5areef el-mufaddala",
+   "right": "el-5areef el-mufaddal",
+   "wrong_arabic": "خريف المفضلة",
+   "right_arabic": "الخريف المفضل",
+   "wrong_arabizi": "5areef",
+   "right_arabizi": "El-5areef",
+   "why": "5areef is masculine and is the known thing, so it takes el- and mufaddal stays masculine; she praised it.",
+   "english": "fall is my favorite",
+   "rows": [
+    "FA-ffaa5414"
+   ]
+  },
+  {
+   "id": "p-fem-adjective-for-himself",
+   "kind": "grammar",
+   "bucket": "A8",
+   "tier": null,
+   "title": "Feminine adjective about himself (ana shwai mitwattra -> ana shwai mitwatter)",
+   "wrong": "mitwattra",
+   "right": "mitwatter",
+   "wrong_arabic": "متوترة",
+   "right_arabic": "متوتر",
+   "wrong_arabizi": null,
+   "right_arabizi": "Mitwatter",
+   "why": "He is male, so an adjective about himself stays masculine (mitwatter); the -a may be the transcript's error.",
+   "english": "I'm a bit nervous",
+   "rows": [
+    "FA-53eeeffc"
    ]
   }
  ],
