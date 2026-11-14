@@ -38,7 +38,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-11-05 | 96.2 | 117 | 91.9 | 7 | 86 | 1 / 1 |
 | 2026-11-10 | 97.0 -> **96.3** | 304 -> **323** | 89.2 -> **90.5** | 27 -> **25** | 222 -> **220** | 2 / 1 |
 | 2026-11-11 | 98.4 -> **98.1** | 224 -> **262** | 86.1 -> **86.6** | 26 | 180 -> **179** | 1 / 2 |
-| 2026-11-12 | 98.3 | 151 | 88.9 | 21 | 171 | 0 / 1 |
+| 2026-11-12 | 98.3 -> **97.6** | 151 -> **147** | 88.9 -> **87.3** | 21 -> **25** | 171 -> **173** | 1 / 1 |
 
 
 ## Conflicts
@@ -174,7 +174,8 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-11-11 04:16 C1a both stand: بالأخيرة (word-bank right) vs بالأخيرة -> وأخيرًا (readers asked) - he asked for another word: both stand
 - 2026-11-11 36:57 C1q Medi?: وقف (word-bank right) vs وقف -> بتتضايقي (readers not-scored) - which word of the phrase was wrong: Medi
 - 2026-11-11 59:54 C1 settled: ولد (word-bank right) vs ولد عمي -> ابن عمي (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
-- 2026-11-12 36:11 C1q Medi?: أي (word-bank right) vs أي أدج -> كل أدّيش (readers not-scored) - which word of the phrase was wrong: Medi
+- 2026-11-12 04:43 C1q Medi?: بالليل (word-bank right) vs بالليل -> الليلة (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-11-12 36:11 C1 settled: أي (word-bank right) vs أي أدج -> كل أدج (kul addaish) (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
 
 ## Medi's corrections (PR-15)
 
