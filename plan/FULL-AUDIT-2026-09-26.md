@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **1021** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 133 |
+| Grammar fixes Amal voiced (A) | **1025** (sweep had 312) |
+| Grammar she let pass (B, to Amal) | 131 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 35 |
-| Vocab fixes Amal voiced (A) | **460** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 233, '0': 153, '2': 106, '3': 8} |
-| Vocab she let pass (B, to Amal) | **45** by tier {'1': 33, '2': 8, '3': 4} |
+| Vocab fixes Amal voiced (A) | **459** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 235, '0': 151, '2': 105, '3': 8} |
+| Vocab she let pass (B, to Amal) | **44** by tier {'1': 32, '2': 8, '3': 4} |
 | Listening-drill misreads (kept apart) | 74 |
-| Rows the readers found that the sweep did not have | 1337 |
+| Rows the readers found that the sweep did not have | 1338 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -55,7 +55,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-11-05 | 7 | 0 | 4 | 1 | 0 | 0 | 0 | 56.0 % |
 | 2026-11-10 | 25 | 5 | 10 | 0 | 0 | 0 | 0 | 50.8 % |
 | 2026-11-11 | 26 | 4 | 8 | 0 | 0 | 0 | 0 | 55.9 % |
-| 2026-11-12 | 21 | 2 | 7 | 2 | 0 | 0 | 0 | 48.3 % |
+| 2026-11-12 | 25 | 0 | 6 | 1 | 0 | 0 | 0 | 49.0 % |
 
 ## Reader passes (the loop)
 
@@ -93,23 +93,23 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-11-05**: pass 1: r1 20 r2 21 agreed 14 disputed 11 (56.0 %), r3 kept 8 dropped 3 -> 19 rows
 - **2026-11-10**: pass 1: r1 55 r2 44 agreed 31 disputed 30 (50.8 %), r3 kept 23 dropped 7 -> 41 rows
 - **2026-11-11**: pass 1: r1 50 r2 47 agreed 33 disputed 26 (55.9 %), r3 kept 18 dropped 8 -> 39 rows
-- **2026-11-12**: pass 1: r1 49 r2 46 agreed 29 disputed 31 (48.3 %), r3 kept 14 dropped 17 -> 32 rows
+- **2026-11-12**: pass 1: r1 40 r2 40 agreed 25 disputed 26 (49.0 %), r3 kept 15 dropped 11 -> 30 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
-| D2 | verb + its fixed preposition | 90 |
+| D2 | verb + its fixed preposition | 92 |
 | B18 | verb matches its subject | 84 |
 | B5 | past tense | 68 |
-| A8 | gender on adjectives | 67 |
+| A8 | gender on adjectives | 66 |
 | B12 | make-X vs get-X | 63 |
 | A7 | noun + adjective | 51 |
 | A9 | plurals | 47 |
-| D4 | endings on verbs | 46 |
-| B1 | present with b- | 43 |
+| D4 | endings on verbs | 45 |
 | D1 | prepositions | 42 |
-| A2 | idafa (possession) | 37 |
+| B1 | present with b- | 41 |
+| A2 | idafa (possession) | 38 |
 | A1 | el- (the) | 35 |
 | A4 | possessive endings | 35 |
 | PROPOSE | ? | 35 |
@@ -123,22 +123,22 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A15 | aa5er / a5eer: before or after the noun | 18 |
 | A10 | hada / hadi | 16 |
 | C7 | illi | 16 |
+| B11 | negative commands | 14 |
 | B15 | participles | 13 |
-| B11 | negative commands | 13 |
+| A13 | awal / oola: before or after the noun | 13 |
 | E2 | clock time | 12 |
+| A12 | pronoun matches who you mean | 12 |
 | C3 | comparatives | 12 |
 | B8 | bakoon / ykoon | 12 |
-| A13 | awal / oola: before or after the noun | 12 |
 | A14 | taani: before or after the noun | 12 |
 | B3 | b-drop after time words | 11 |
-| A12 | pronoun matches who you mean | 11 |
 | A3 | feminine -t in idafa | 10 |
 | A20 | awal / aa5er with el- | 10 |
 | A11 | kul: all vs every | 9 |
 | E4 | calendar | 9 |
 | B13 | future with ra7 | 9 |
-| C10 | preposition goes in front | 8 |
-| C9 | word order | 7 |
+| C9 | word order | 8 |
+| C10 | preposition goes in front | 7 |
 | D5 | preposition keeps el- | 7 |
 | B16 | kan laazem | 5 |
 | B9 | person on ykoon | 5 |
@@ -2324,39 +2324,40 @@ _HOLE: Medi's voice turns 12:07-17:36 and 18:00-18:15 are missing (Amal-only); r
 
 ### 2026-11-12
 
-_Long Latin-transliterated stretches 12:31-16:57, 17:35-31:01 and 41:12-49:00 (engine heard Arabic as English): 'Kendra/Kunetra Asalik'=kunt ra7 as2alek, 'yumil kamis'=yoam el-5amis, 'Elijah Awaktir'=el-jaww hawa kteer, 'rejeke'=jakait, 'bijasta bi'=bet3asbi, 'the most active issue'=aktar ishi, 'Petra / Hello, Petra' at 43:34-43:43 = btraww7i (3ala beitek), not the place. echo: 'هو and home' (09:31, 10:54) = humme 3indhom; 'I'm gonna go...' (05:20) looks like real English. HOLE: Medi's lines missing 54:54-1:01:01 (only Amal's corrections survive: 55:21-55:29, 57:12 'Two Ts', 57:45, 59:05-59:50, 1:00:33-1:00:55) - 3 low rows written from her side only. 54:41-55:02 Medi lines are background speech, not him. نانا = na3na3 throughout (engine, also in her lines). تفاق (1:02:03, 1:03:16) = dafa3 (engine). Time answer 14:08 'twelve' vs her 'talaat illa tult' unclear (time zones) - not filed. 28:02 and 34:23 word-order preferences (sarlna + time first) not filed as errors. 42:24-42:43 3an vs min with ishtaka: she said 3an could work - not a slip. / Medi has NO transcribed lines from 55:03 to 1:01:01 (only Amal's side and chat), so the 'Two Ts' (57:12) and 'the order' (1:00:38) rows are read from her voice only; nafs / 8eir / next-Sunday corrections at 56:28-1:00:55 cannot be judged without his words (59:05 'before نفس. No.' left out). Engine notes: 'أكل' at 06:33/06:39/06:49 = a8lab (Amal answers 'Most of شو؟'), so no error there; 'نانا' = na3na3 with the ع dropped (S4, not scored); 'Awaktir' = hawa kteer; 'Elijah' = el-jaww; 'banani' = stannini (wait for me); 'Kendra Asalik' = kunt ra7 as2alek; 'Mocha' = mawqe3; 'ay/Aisa' = ay saa3a; 'تفاق' = dafa3. Echo candidates (TR-19): I'm gonna go... = بحب (05:20); Today, = اليوم (13:46); Uh-huh. = answer to كيف الجو (14:23); who is very, = very windy (English) ; Command pen. = still the stanni slip (16:57); echo-candidate lines 61:20-61:36 (The tissue? / Wait.) are English reactions to Amal's 'pay'. Left out as not defensible: ما تعسفي (38:26, engine for ما تتأسفي, 'How many Ts' hint but he did not change; pronunciation), 'cam what' (29:14, unclear fix), taani/thani (21:08, MSA vs Levantine sound, Amal said ممتاز), 'min vs 3an' (42:24, a question she answered, 3an also works), 'sarly conjugate?' questions (26:20 meta). Self-fixes not written: خريف من -> الخريف على (37:43), شو شكيت -> شكتي (41:36), كم سالك (32:25). Many Medi turns are English or Latin-script Arabic (long English stretches at 07:08-07:55, 09:41-10:48, 17:24-17:35, 18:44-19:30, 33:09-34:15, 54:41-55:03)._
+_Medi's turns 54:53-55:56 (why didn't you answer me) are only [حديث متقاطع] and 56:06-1:01:01 are missing entirely: Amal voiced fixes there with no Medi line - 57:12 'No. Two Ts. قططنا' (5a66a6na, shadda/F-family), 59:05-59:14 'before نفس ... No. No.' (nafs placement, his words unknown), 1:00:33 C10 order (row 1112-36). Latin-engine stretches 12:31-16:57, 19:32-30:25, 43:24-47:43. echo: Kendra = كنت راح; Asalik = أسألك; yumil kamis = اليوم الخميس; Elijah Awaktir = الجو هوا كتير; banani = استنني; So, Aisa = أي ساعة; Petra = بتروحي (43:34/43:43, not the place); bijasta bi = بتعصبي; beabseft = بيبسط; بالداخل = بيضحّك; كيف الماضي = الصيف الماضي; طلقت = اطّلعت; تفاق = دفع; أشانا = عشانا; نانا = نعناع (dropped ع, S4). 08:18 and 09:18 lines unintelligible, skipped. Repeats not scored: 06:39 أحب, 25:04 السؤال الأخير اللي, 1:03:14 sentence repeat. / Many Medi lines are Latin-transliterated Arabic or English. Echo: Kendra = كنت راح (12:31, 12:59). برن at 27:28 is the engine write of the verb (also a place name per the lesson list), not flagged. Medi side missing at 54:53-56:20 (answer to 'Why didn't you answer me'), 56:45-59:55 (plan + 8eir, meet + nafs: Amal said 'Two Ts' and 'before nafs' with no Medi line) and 1:00:21-1:00:55; only one row written there (1:00:38). Left out: نانا for نعناع (dropped ع, S4); tid/tib3at D-for-B (S4); 'Is it X or Y' questions (37:43; 42:24 where she said 3an could work); كلاب at 1:05:14 is probably the engine for طلاب; تتضار at 40:13 probably the engine for بتخاف. Tier 3 not written for pizza, hamburger, Middle Eastern, email (not on sheet)._
 
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
-| FA-78d50d82 | 06:31 | grammar | B1 | أحب أكل إشي... | بحب. | أحب -> بحب | Plain present 'I like' needs b-; she recast أحب -> بحب right after. | high | r1+r2 |
-| FA-a4147a3a | 08:48 | vocab-B | tier 3 | آآآ حليب. آآآ cheese. آآآ تفاح. |  | cheese -> جبنة | English word inside his Arabic list; sheet row 'cheese / Jebneh / جبنة / jebneh'. Pre-ruled AR-1933 (ok to switch), not scored. | medium | r1+r2 |
-| FA-f31c21a6 | 11:31 | grammar | A1 | هناك أحسن من أكل عربي. | أحسن من. ... من شو؟ ... الـ. | أكل عربي -> الأكل العربي | A known thing: noun + adjective both need el-; she prompted 'min shu?' and 'el-' until he said الأكل العربي (11:56). | high | r1+r2 |
-| FA-f104d1bc | 12:31 | vocab-A | tier 0 | I was Will, right? And, uh, and, uh, Kendra | كنت راح. | I was Will -> كنت راح | English filler for 'I was going to'; Amal supplied كنت راح (and repeated أنا كنت راح at 12:57); chat spells ana kunet ra7 as2alek 3anno. | medium | r1+r2 |
-| FA-f978e1b4 | 14:59 | grammar | B18 | Ma-ma-matehtaj, | بحتاج. | matehtaj -> ما بحتاج | For 'I don't need' he said ma-te7taaj (you/she form, no b-); Amal recast بحتاج. The earlier 'ma lazem' (engine 'ma zum') is fine Arabic - her 'ما I don't need' only steered to the verb she wanted, so no vocab row. | medium | r3 |
-| FA-4de25a63 | 16:53 | grammar | D4 | banani. | That's wait for me. | استنني -> استني | He gave stanneeni (wait for ME; engine wrote banani, Amal at 17:26 says he said استنني); she said 'That's wait for me' - the -ni object ending does not belong. | high | r1+r2 |
-| FA-24794860 | 17:43 | grammar | A7 | hijaye el... | No. The guy is an adjective, it's not a tool. So where do we put it? | el-jaaye el-... -> الطيارة الجاية | He put the adjective el-jaaye before the noun; she said no, it is an adjective - it goes after (el-tayyaara el-jaaye). | high | r1+r2 |
-| FA-784b2948 | 19:32 | vocab-A | tier 0 | So azimi... Wait, what was the word for location? I want to remember. | Mocha. (engine; chat mawqe3) | what was the word for location? -> موقع (mawqe3) | He asked for the word 'location'; Amal supplied it (engine wrote 'Mocha'), chat mawqe3; sheet: location / Mawqe3 / موقع. | high | r1+r2 |
-| FA-f8b8eaed | 19:44 | grammar | D4 | azimni | Invite them. | azimni -> اعزميهم | He put -ni (me) on the verb for 'invite them'; she prompted 'Invite them.' | high | r1+r2 |
-| FA-93e6a631 | 19:53 | grammar | D4 | Uh, it would be azimni alayhim. | No. That's invite to them. | azimni alayhim -> اعزميهم على | He put 'them' on the preposition (3alayhim) instead of the verb; she said no, that's 'invite to them', and he fixed to azimhom على (20:04). | high | r1+r2 |
-| FA-cdc180a7 | 22:11 | vocab-A | tier 1 | سؤالي la. | No, it's not ask a question. | سؤالي -> اطلبي | For 'ask (your manager for)' he used su2aal (ask a question); she said no, it's not 'ask a question', and he switched to 6alab. | high | r1+r2 |
-| FA-8783652d | 22:20 | grammar | B10 | Thalabi. | Mm. Fix the command. | Thalabi -> اطلبي | He said 6alabi (not the command shape); she said 'Fix the command' and he gave Ithlabi. | high | r1+r2 |
-| FA-c2b8266a | 24:07 | grammar | B5 | Ma tajawabi. | Past. | Ma tajawabi -> ما جاوبتي | 'You didn't answer' needs the past -ti ending; she said 'Past.' and he gave ma tajawabti. | high | r1+r2 |
-| FA-04ffc8fa | 24:35 | grammar | A20 | السؤال الأخير اللي... | No, that's a mixed way to say it. | السؤال الأخير اللي -> سؤالي الأخير / آخر سؤال إلي | He mixed both patterns (noun + el-a5eer AND illi); she said no, that's mixed - use su2aali el-a5eer or aa5er su2aal ili. | high | r1+r2 |
-| FA-42544c1f | 24:59 | grammar | A15 | السؤال اللي... هذا آخر السؤال اللي، | That's the end. | آخر السؤال -> آخر سؤال | aa5er + el- means 'the end of'; she said 'That's the end.' He then said سؤالي الأخير (25:07). | high | r1+r2 |
-| FA-ea031ec6 | 27:05 | grammar-B | B17 | Okay, sarna. / Uh, sarna. | (26:58) No, you conjugate the li, so sarli, sarlak, sarlna. ... (28:02) You would hear it a lot more sarlna. | sarna -> صارلنا | Right after she listed sarli/sarlak/sarlna he said sarna (no l); she did not voice a fix of the l (her 28:02 sarlna is about word order), so grammar-B; engine Latin may have dropped the l. | low | r3 |
-| FA-5dd75b99 | 27:16 | grammar | B1 | Um, nerun, neran. | Binrin. | nerun -> بنرن | Present 'we call' needs b-; she said Binrin and he said 'Oh, that's right. You put the B there.' | high | r1+r2 |
-| FA-64ea3ca9 | 27:31 | grammar | D2 | barin nick. | No. | barin nick -> بنرن عليك | rann (call) takes 3ala; he put the object on the verb (rinnak); Amal said No and he fixed it to 'barin aleik', which she accepted. | medium | r3 |
-| FA-ffbfa1ce | 30:38 | grammar | D2 | Yeah، علي | No. | علي -> لي | ba3at (send) to someone takes li-: bteb3atili; he said 3alay, she said No and he gave لي. | high | r1+r2 |
-| FA-11ee151f | 30:47 | vocab-A | tier 1 | تبدأ، تبدأي علي، تبدأي. ببدأ، isn't it؟ بدء، بدأت | No. No. No D. ... Babat. | تبدأي -> تبعتي | He swapped ba3at (send) for bada2 (start) - he even says 'isn't it ببدأ / بدء'; she said 'No D. Bab3at' (she already asked 'B or D?' at 30:18 on his tid3ati). | high | r1+r2 |
-| FA-3541a25e | 36:10 | vocab-A | tier 1 | A أي أدج؟ | Every. | أي أدج -> كل أدّيش | 'How often' is kul addaish; he said ay addaish, she said 'Every.' and he said كل أدج. | high | r1+r2 |
-| FA-5935f820 | 40:13 | vocab-B | tier 1 | تتضار | Mm-hmm. ... Nice. | تتضار -> بتخاف | For 'gets scared' he said an unknown verb (engine تتضار); her chat has bet5aaf; she let it pass (could be engine). | low | r1+r2 |
-| FA-c7d4e540 | 41:51 | grammar | C10 | شو شكتي لـ-- لشيلو؟ | You're still missing the first step I told you about. | شو شكتي لو -> من شو شكيتيلو | The preposition of 'complain about' goes in front of shu; she said he was missing the first step and he put أن شو / من شو in front. | high | r1+r2 |
-| FA-90144d54 | 44:55 | grammar | D2 | this mini? | No. | mini -> ـلي | ishta2 (miss) takes li-: shta2tili; he tried minni then 3alay, she said No twice and supplied Shta'teeli. | high | r1+r2 |
-| FA-dd4a9ff3 | 49:25 | grammar | B18 | Uh, كان. Uh, كان. | Was ليلة. | كان -> كانت | ليلة is feminine so 'was' is kaanat; she hinted 'Was ليلة' (chat kaanat), he did not voice the fix. | medium | r1+r2 |
-| FA-41a1f812 | 49:34 | grammar | A8 | Uh, متعب. ... Is it متعب؟ | متعبة. | متعب -> متعبة | ليلة is feminine, so the adjective is mut3ebe; she said متعبة and he said 'That's right.' | high | r1+r2 |
-| FA-72e35dea | 52:22 | vocab-A | tier 1 | It would be شوفي. | شوفي see. | شوفي -> اطّلعي | For 'look at' he gave shoofi; she said 'shoofi = see', and he switched to طلقت على (et6alla3). | high | r1+r2 |
-| FA-7469488e | 57:12 | vocab-A | tier 2 | (Medi's line missing from the transcript 54:54-1:01:01) | No. Two Ts. قططنا. | (not in transcript) خطتنا -> خططنا | Medi's lines are missing here; she said 'No. Two Ts' for 5a66a6na (planned) - he used the wrong form of the verb. | low | r1+r2 |
-| FA-e582741f | 1:00:38 | grammar | C10 | (Medi's line missing from the transcript 54:54-1:01:01) | No. You, you said في صح، بس the order. ... في شو؟ Yes. | (not in transcript) order of في شو -> في شو بتفكري | Medi's line is missing; she said his في is right but the order is wrong - the preposition goes in front of shu. | low | r1+r2 |
-| FA-feddaed1 | 1:02:42 | grammar | A18 | أش-- أشعتنا، or is it أشانا؟ | No. عشان. عشان is masculine. | أشعتنا -> عشانا | 3asha (dinner) looks feminine but is masculine, so no -t before the ending; she said No, 3asha is masculine. | high | r1+r2 |
-| FA-7c4b9133 | 1:03:02 | grammar | A1 | أخي-- uh, آخر. | الـ. | آخر -> الأخير | After the noun 'last' is el-a5eer; her whole reply was 'el-' and he said الأخير. | high | r1+r2 |
-| FA-c552afba | 1:06:01 | grammar-B | B1 | شكرًا، أشوفك. | بشوفك. Bye. | أشوفك -> بشوفك | 'See you' is bashoofak with b-; he said ashoofak, she just said بشوفك as her goodbye. | low | r1+r2 |
+| FA-af9f510b | 04:43 | vocab-A | tier 1 | It's tonight, right؟ بالليل ليل. | بالليل at night، بس عادي. | بالليل -> الليلة | Medi used 'بالليل' (at night) to mean 'tonight' (الليلة; sheet: 'tonight / ellaile / الليلة'); Amal clarified that بالليل means 'at night'. | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-78d50d82 | 06:31 | grammar | B1 | أحب أكل إشي... | بحب. | أحب -> بحب | Plain present 'I like' needs b-: she recast أحب as بحب right after. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-a4147a3a | 08:48 | vocab-B | tier 3 | آآآ حليب. آآآ cheese. آآآ تفاح. |  | cheese -> جبنة (jebneh) | English word in an Arabic list; sheet row 'cheese / Jebneh / جبنة'. Pre-ruled AR-1933 'ok to switch sometimes'. | low | r1+r2 |
+| FA-479caccf | 09:31 | grammar | A12 | آآآ، آآآ هو and home | طيب عندهم شو؟ | هو and home -> هم عندهم | Chat 12:05 types humme 3indhom for what he was saying; he used هو (he) for 'they' and she restated with عندهم; engine garbled the rest. | medium | judge panel (Opus + Argon, p 0.60) |
+| FA-96a53939 | 11:31 | grammar | A1 | هناك أحسن من أكل / عربي. | أحسن من. ... من شو؟ ... الـ. | من أكل -> من الأكل العربي | Known food in general takes el- on noun and adjective; she prompted 'من شو؟' then 'الـ' and he said الأكل العربي. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-f978e1b4 | 14:59 | grammar | B18 | Ma-ma-matehtaj, | بحتاج. | matehtaj -> بحتاج | He said the t- (you) form without b- for 'I need'; she recast بحتاج (engine Latin). | medium | judge panel (Opus + Argon, p 0.74) |
+| FA-b5263127 | 16:53 | grammar | D4 | banani. / Command pen. | That's wait for me. ... Wait for the next flight, no me. ... استنني. | banani -> استني (stanni) | Engine wrote banani; Amal said he said استنني ('wait for ME') - an object ending that is not in the sentence 'wait for the next flight'. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-e83d63ab | 17:43 | grammar | A7 | hijaye el... | No. The guy is an adjective, it's not a tool. So where do we put it? | hijaye el... -> الطيارة الجاية | He put jaaye (next, an adjective) before the noun; she said No, it is an adjective, where does it go. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-93e6a631 | 19:53 | grammar | D4 | Uh, it would be azimni alayhim. | No. That's invite to them. Invite them to. | azimni alayhim -> اعزميهم على | He moved 'them' onto على instead of the verb; she said No, that's 'invite to them'; he fixed to Azimhom على. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-9b74bcb0 | 22:04 | vocab-A | tier 1 | سألي / Ala. / سؤالي la. | No, it's not ask a question. | سألي -> اطلبي (e6lubi) | He used sa2al (ask a question) for 'ask for / request'; she said it is not ask a question and he switched to talab. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-8783652d | 22:20 | grammar | B10 | Thalabi. | Fix the command. | Thalabi -> اطلبي | He used the past form talabi; she said 'Fix the command' and he said اطلبي. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-814145ff | 24:07 | grammar | B5 | ما تجاوبي | Past. | ما تجاوبي -> ما جاوبتي | 'You didn't answer' needs the past; she said 'Past.' and he said ma tajawabti. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-04ffc8fa | 24:35 | grammar | A20 | السؤال / الأخير / اللي... | No, that's a mixed way to say it. ... My last question. My question that is last or the last question to me. | السؤال الأخير اللي -> سؤالي الأخير / آخر سؤال إلي | He mixed el-noun el-a5eer with illi and dropped 'my'; she said it is a mixed way and gave both right forms. | high | judge panel (Opus + Argon, p 0.88) |
+| FA-42544c1f | 24:59 | grammar | A15 | السؤال اللي... هذا آخر السؤال اللي، | That's the end. | آخر السؤال -> آخر سؤال / سؤالي الأخير | aa5er + el- means 'the end of'; she said 'That's the end.' | medium | judge panel (Opus + Argon, p 0.77) |
+| FA-ea031ec6 | 27:05 | grammar | B17 | Okay, sarna. / Uh, sarna. | You would hear it a lot more sarlna. | sarna -> صارلنا (saarelna) | She had just said conjugate the li (sarli, sarlna); he said sarna without -l-; she voiced sarlna later (engine Latin). | high | judge panel (Opus + Argon, p 0.85) |
+| FA-64ea3ca9 | 27:31 | grammar | D2 | barin nick. | No. | barin nick -> بنرن عليك | ranna (call) takes 3ala; he put -ak on the verb, she said No and he said barin aleik. | high | judge panel (Opus + Argon, p 0.89) |
+| FA-ffbfa1ce | 30:38 | grammar | D2 | Yeah، علي | No. | علي -> لي (bteb3atili) | ba3at (send) takes la-/li, not 3ala; she said No and he said لي. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-11ee151f | 30:47 | vocab-A | tier 1 | تبدأ، تبدأي علي، / تبدأي.‬ ‫ببدأ، isn't it؟ بدء، بدأت | No. No. No D. Babat. | تبدأي -> تبعتي | He used بدأ (start) for بعت (send); she said 'No D. Babat.' and he said 'start. Okay، تبعتي'. Same moment as 29:59 'tid at' (B or D?). | medium | judge panel (Opus + Argon, p 0.76) |
+| FA-47dd244b | 34:20 | grammar | C9 | Oh my God. For لا فاتحة؟ | Yeah. بس make it the other way. Put it not here. What's the other way? | ينزعج منا ... لا فاتحة -> سال فاتحة ينزعج منا | He put 'for a while' at the end with لا; Amal said put it the other way and he fixed it to سال فاتحة ينزعج منا. | medium | judge panel (Opus + Argon, p 0.69) |
+| FA-3541a25e | 36:10 | vocab-A | tier 1 | A أي أدج؟ | Every. | أي أدج -> كل أدج (kul addaish) | 'How often' is kul addaish (every how much); he said ay addaish and she prompted 'Every.' | high | judge panel (Opus + Argon, p 0.82) |
+| FA-948d3b5e | 38:26 | grammar | B11 | ما تعسفي. / ما تـ-ما تعسفي، no. | Ma? ... How many Ts are there? | ما تعسفي -> ما تتأسفي | Negative command needs the full you-form tet2assafi; she asked 'How many Ts are there?'; he kept ما تعسفي. | medium | judge panel (Opus + Argon, p 0.77) |
+| FA-e4a5cef9 | 41:36 | rejected | C10 | Is this internal for thing? No. No, شو-شو شكيت؟ | You're still missing the first step I told you about. | شو شكيت؟ -> من شو شكيتيلو؟ | The preposition goes in front of shu; she said he is missing the first step and he put أن (3an) / من in front. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-d0a1abbe | 42:08 | grammar | D2 | So أن شو شكتي لو. | But you complain about... How do you say, 'I complain about something'? ... Min. | عن شو -> من شو | Medi used 'عن شو' (engine: أن شو) with shaka instead of the fixed preposition 'من' (sheet: 'i complain / i complain about / Ana bashki (min)'); Amal corrected 'Min'. | medium | judge panel (Opus + Argon, p 0.62) |
+| FA-7e16aaac | 44:55 | grammar | D2 | this mini? / Alay? | No. ... No. ... Shta'teeli. | this mini -> اشتقتيلي (shta2tili) | eshta2 (miss) takes la-; he tried minni then 3alay, she said No twice and gave shta2tili. Engine Latin. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-82ab1313 | 46:56 | grammar | D2 | in انبسطت ti. | انبسطت؟ | انبسطت ti -> انبسطتي بـ/في | enbasa6 takes bi/fi; she repeated انبسطت؟ and he then added bi. Could be her just modelling the question. | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-683e594c | 48:42 | grammar | A2 | the layli mbareh or mbareh layli? | You could, you could, you could, you could use the two versions, but you need some adjustments. Yesterday's night or yesterday at night. | the layli mbareh -> ليلة امبارح | He tried to say 'last night' using English word order or placing 'el-' incorrectly; Amal prompts him to construct an idafa 'lailet mbaare7'. | medium | judge panel (Opus + Argon, p 0.65) |
+| FA-dd4a9ff3 | 49:25 | grammar | B18 | Uh, كان. Uh, كان. | Was ليلة. | كان -> كانت | ليلة is feminine so 'was' is kaanat; she prompted 'Was ليلة.' He did not change it. | high | judge panel (Opus + Argon, p 0.92) |
+| FA-9bbfb15d | 50:56 | vocab-A | tier 1 | بالداخل. | That's funny. ... It was fun making. Fun causing. | بالداخل -> بيبسط (byebse6) | Engine wrote بالداخل; he said bidahhek (sheet 'funny / Beyda77ek') for 'fun'; she said 'That's funny ... fun causing' and he said beabseft; he confirmed 'that would have been it's funny'. | high | judge panel (Opus + Argon, p 0.85) |
+| FA-72e35dea | 52:22 | vocab-A | tier 1 | It would be شوفي. | شوفي see. | شوفي -> اطّلع على (et6alla3 3ala) | شوفي means 'see', not 'look at'; she said so and he switched to طلقت على (engine for et6alla3). | high | judge panel (Opus + Argon, p 0.82) |
+| FA-a231b348 | 52:38 | grammar | A13 | أول-- No. على إيميلي ال-- أو، uh, أول. | Yeah you said it right. الأول بس. The only correction is أول not أول. ... only the female version is أولى. It stays أول for male. | أو -> الأول | He started el-oola (feminine) after masculine email; she said the only correction is awwal, oola is the female version. | medium | judge panel (Opus + Argon, p 0.68) |
+| FA-1992e435 | 1:00:33 | grammar | C10 | (his line is not in the transcript: Medi turns 56:06-1:01:01 are missing) | No. You, you said في صح، بس the order. | في (wrong place) -> في شو بتفكري | He used في but not in front of shu; she said 'you said في right, but the order'. His exact words are missing. | high | judge panel (Opus + Argon, p 0.82) |
+| FA-feddaed1 | 1:02:42 | grammar | A18 | أش-- أشعتنا، or is it أشانا؟ | No. عشان. عشان is masculine. | أشعتنا -> عشانا (3ashaana) | 3asha (dinner) looks feminine but is masculine, so no -t before -na; she said No, it is masculine. | high | judge panel (Opus + Argon, p 0.90) |
+| FA-7c4b9133 | 1:03:02 | grammar | A1 | الـ / أخي-- uh, آخر. | الـ. | آخر -> الأخير | After the noun 'last' is el-a5eer; her whole reply was 'الـ' and he said الأخير. | high | judge panel (Opus + Argon, p 0.90) |

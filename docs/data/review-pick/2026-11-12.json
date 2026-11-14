@@ -1,15 +1,15 @@
 {
  "about": "Fast review mode (PG-50): the student's lines that hold Arabic in three tiers (1 unsure, 2 changed by the second listen, 3 confident; why listed), shown tier by tier; blind = the first 50 shown, without chips. Built by scripts/review_picker.py; display only.",
  "date": "2026-11-12",
- "all": 140,
- "unsure": 36,
- "unsure_n": 36,
- "changed_n": 0,
- "confident_n": 104,
+ "all": 143,
+ "unsure": 120,
+ "unsure_n": 120,
+ "changed_n": 4,
+ "confident_n": 19,
  "tier_n": {
-  "1": 36,
-  "2": 0,
-  "3": 104
+  "1": 120,
+  "2": 4,
+  "3": 19
  },
  "tiers": {
   "1": "unsure: a ✗ chip, the two readers disagree, the second listen held a change or no 2 of its 3 runs agree, or one of 5 random confident lines",
@@ -18,8 +18,8 @@
  },
  "blind_n": 50,
  "random_n": 5,
- "secs": 950.4,
- "unsure_secs": 293.1,
+ "secs": 964.2,
+ "unsure_secs": 921.1,
  "lines": [
   {
    "i": 1,
@@ -39,8 +39,8 @@
     "right": null,
     "from": "chip"
    },
-   "order": 37,
-   "blind": true
+   "order": 125,
+   "blind": false
   },
   {
    "i": 3,
@@ -54,7 +54,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "random check: one of 5 confident lines picked by the date"
+    "second listen held a change"
    ],
    "propose": {
     "k": "vocab",
@@ -62,7 +62,6 @@
     "right": null,
     "from": "chip"
    },
-   "random": true,
    "order": 1,
    "blind": true
   },
@@ -84,8 +83,8 @@
     "right": null,
     "from": "chip"
    },
-   "order": 38,
-   "blind": true
+   "order": 126,
+   "blind": false
   },
   {
    "i": 8,
@@ -96,16 +95,18 @@
    "end": 239.35,
    "mmss": "03:57",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "هيك، إم، يا؟",
     "right": null,
     "from": "chip"
    },
-   "order": 39,
+   "order": 2,
    "blind": true
   },
   {
@@ -126,8 +127,8 @@
     "right": null,
     "from": "chip"
    },
-   "order": 40,
-   "blind": true
+   "order": 127,
+   "blind": false
   },
   {
    "i": 14,
@@ -139,16 +140,19 @@
    "end": 267.19,
    "mmss": "04:13",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "يا، إم، إم. إم.",
     "right": null,
     "from": "chip"
    },
-   "order": 41,
+   "order": 3,
    "blind": true
   },
   {
@@ -164,15 +168,17 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D1: matched but differ on kind)"
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree",
+    "✗ chip on it (الليلة)"
    ],
    "propose": {
-    "k": "grammar",
-    "said": "بـ ليل",
-    "right": "بالليل",
+    "k": "vocab",
+    "said": "ليل",
+    "right": "الليلة (el-laile)",
     "from": "readers"
    },
-   "order": 2,
+   "order": 4,
    "blind": true
   },
   {
@@ -184,16 +190,18 @@
    "end": 289.69,
    "mmss": "04:47",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
-    "said": "Oh, tonight is a ليلة؟",
+    "said": "ليلة",
     "right": null,
     "from": "chip"
    },
-   "order": 42,
+   "order": 5,
    "blind": true
   },
   {
@@ -211,16 +219,19 @@
    "end": 311.11,
    "mmss": "04:51",
    "words": 8,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "الليلة",
     "right": null,
     "from": "chip"
    },
-   "order": 43,
+   "order": 6,
    "blind": true
   },
   {
@@ -234,16 +245,18 @@
    "end": 339.73,
    "mmss": "05:30",
    "words": 3,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "بحب-- بحب حنكتير.",
     "right": null,
     "from": "chip"
    },
-   "order": 44,
+   "order": 7,
    "blind": true
   },
   {
@@ -258,16 +271,19 @@
    "end": 369.59,
    "mmss": "05:53",
    "words": 9,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "آآآ، بحب،",
     "right": null,
     "from": "chip"
    },
-   "order": 45,
+   "order": 8,
    "blind": true
   },
   {
@@ -280,16 +296,19 @@
    "end": 376.63,
    "mmss": "06:12",
    "words": 3,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "نانا",
     "right": null,
     "from": "chip"
    },
-   "order": 46,
+   "order": 9,
    "blind": true
   },
   {
@@ -301,16 +320,19 @@
    "end": 381.45,
    "mmss": "06:18",
    "words": 3,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "لمون. لمون.‬ شفت.",
     "right": null,
     "from": "chip"
    },
-   "order": 47,
+   "order": 10,
    "blind": true
   },
   {
@@ -326,6 +348,8 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree",
     "✗ chip on it (أحب)"
    ],
    "propose": {
@@ -334,7 +358,7 @@
     "right": "بحب",
     "from": "readers"
    },
-   "order": 3,
+   "order": 11,
    "blind": true
   },
   {
@@ -351,16 +375,15 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D2: only r1 found it)",
-    "the two readers disagreed (D3: only r1 found it)"
+    "second listen held a change"
    ],
    "propose": {
     "k": "vocab",
-    "said": "أكل الـ إشي",
-    "right": "أغلب الأشياء",
-    "from": "readers"
+    "said": "أحب أكل الـ إشي",
+    "right": null,
+    "from": "chip"
    },
-   "order": 4,
+   "order": 12,
    "blind": true
   },
   {
@@ -374,16 +397,19 @@
    "end": 423.23,
    "mmss": "06:48",
    "words": 6,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "‫أو آآآ أكل الـ أشياء ما...",
     "right": null,
     "from": "chip"
    },
-   "order": 48,
+   "order": 13,
    "blind": true
   },
   {
@@ -395,16 +421,19 @@
    "end": 449.41,
    "mmss": "07:20",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "‫ Wait.‬ ‫ Wait.‬ ‫ كمن مرة؟‬ Wait. Okay.",
     "right": null,
     "from": "chip"
    },
-   "order": 49,
+   "order": 14,
    "blind": true
   },
   {
@@ -417,16 +446,18 @@
    "end": 459.63,
    "mmss": "07:33",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "بيكون بكل",
     "right": null,
     "from": "chip"
    },
-   "order": 50,
+   "order": 15,
    "blind": true
   },
   {
@@ -441,7 +472,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "random check: one of 5 confident lines picked by the date"
+    "second listen held a change"
    ],
    "propose": {
     "k": "vocab",
@@ -449,8 +480,7 @@
     "right": null,
     "from": "chip"
    },
-   "random": true,
-   "order": 5,
+   "order": 16,
    "blind": true
   },
   {
@@ -463,17 +493,19 @@
    "end": 473.61,
    "mmss": "07:48",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "بيكون for everything.‬",
     "right": null,
     "from": "chip"
    },
-   "order": 51,
-   "blind": false
+   "order": 17,
+   "blind": true
   },
   {
    "i": 85,
@@ -488,15 +520,16 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D4: only r1 found it)"
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
    ],
    "propose": {
-    "k": "grammar",
-    "said": "لـ طعم لـ لمنا",
-    "right": "طعم الليمون",
-    "from": "readers"
+    "k": "vocab",
+    "said": "لنسوان",
+    "right": null,
+    "from": "chip"
    },
-   "order": 6,
+   "order": 18,
    "blind": true
   },
   {
@@ -513,17 +546,20 @@
    "end": 534.55,
    "mmss": "08:31",
    "words": 12,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "cheese",
-    "right": "جبنة",
+    "right": "جبنة (jebneh)",
     "from": "readers"
    },
-   "order": 52,
-   "blind": false
+   "order": 19,
+   "blind": true
   },
   {
    "i": 100,
@@ -534,17 +570,19 @@
    "end": 562.47,
    "mmss": "09:17",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "متى",
     "right": null,
     "from": "line"
    },
-   "order": 53,
-   "blind": false
+   "order": 20,
+   "blind": true
   },
   {
    "i": 104,
@@ -559,15 +597,17 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D21: only r2 found it)"
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree",
+    "the two readers disagreed (D17: only r2 found it)"
    ],
    "propose": {
     "k": "vocab",
-    "said": "some (asked)",
-    "right": "كم (kam) = some",
+    "said": "(asked for 'some')",
+    "right": "كم",
     "from": "readers"
    },
-   "order": 7,
+   "order": 21,
    "blind": true
   },
   {
@@ -579,19 +619,17 @@
    "end": 601.85,
    "mmss": "09:56",
    "words": 1,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "the two readers disagreed (D5: only r1 found it)"
-   ],
+   "tier": 3,
+   "unsure": false,
+   "why": [],
    "propose": {
     "k": "vocab",
-    "said": "some",
-    "right": "كم",
-    "from": "readers"
+    "said": "So شوي is a few. How do I say like some which is a little bit more than a few?",
+    "right": null,
+    "from": "chip"
    },
-   "order": 8,
-   "blind": true
+   "order": 128,
+   "blind": false
   },
   {
    "i": 113,
@@ -611,7 +649,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 54,
+   "order": 129,
    "blind": false
   },
   {
@@ -624,17 +662,20 @@
    "end": 628.53,
    "mmss": "10:21",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "كمني",
     "right": null,
     "from": "line"
    },
-   "order": 55,
-   "blind": false
+   "order": 22,
+   "blind": true
   },
   {
    "i": 126,
@@ -649,17 +690,20 @@
    "end": 674.91,
    "mmss": "10:51",
    "words": 6,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "menu nos آآآ أكل،",
     "right": null,
     "from": "chip"
    },
-   "order": 56,
-   "blind": false
+   "order": 23,
+   "blind": true
   },
   {
    "i": 132,
@@ -672,17 +716,20 @@
    "end": 685.21,
    "mmss": "11:19",
    "words": 3,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "الأكل الأمريكي",
     "right": null,
     "from": "chip"
    },
-   "order": 57,
-   "blind": false
+   "order": 24,
+   "blind": true
   },
   {
    "i": 136,
@@ -702,7 +749,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 58,
+   "order": 130,
    "blind": false
   },
   {
@@ -718,15 +765,17 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (أكل عربي)"
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree",
+    "✗ chip on it (من أكل)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "أكل عربي",
-    "right": "الأكل العربي",
+    "said": "من أكل",
+    "right": "من الأكل العربي",
     "from": "readers"
    },
-   "order": 9,
+   "order": 25,
    "blind": true
   },
   {
@@ -747,7 +796,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 59,
+   "order": 131,
    "blind": false
   },
   {
@@ -759,17 +808,20 @@
    "end": 710.57,
    "mmss": "11:48",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "random check: one of 5 confident lines picked by the date"
+   ],
    "propose": {
     "k": "grammar",
     "said": "الأكل",
     "right": null,
     "from": "chip"
    },
-   "order": 60,
-   "blind": false
+   "random": true,
+   "order": 26,
+   "blind": true
   },
   {
    "i": 147,
@@ -780,17 +832,19 @@
    "end": 724.53,
    "mmss": "11:55",
    "words": 5,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "الأكل",
     "right": null,
     "from": "chip"
    },
-   "order": 61,
-   "blind": false
+   "order": 27,
+   "blind": true
   },
   {
    "i": 160,
@@ -802,17 +856,19 @@
    "end": 761.65,
    "mmss": "12:37",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "كنت",
     "right": null,
     "from": "chip"
    },
-   "order": 62,
-   "blind": false
+   "order": 28,
+   "blind": true
   },
   {
    "i": 167,
@@ -824,17 +880,21 @@
    "end": 782.03,
    "mmss": "12:59",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen changed it",
+    "second listen: 2 of 3 runs agree",
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
-    "said": "Asalik.",
+    "said": "أسألك",
     "right": null,
     "from": "chip"
    },
-   "order": 63,
-   "blind": false
+   "order": 29,
+   "blind": true
   },
   {
    "i": 172,
@@ -849,17 +909,21 @@
    "end": 809.99,
    "mmss": "13:10",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen changed it",
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "grammar",
     "said": "عسلك",
     "right": null,
     "from": "chip"
    },
-   "order": 64,
-   "blind": false
+   "order": 30,
+   "blind": true
   },
   {
    "i": 256,
@@ -876,41 +940,16 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (el-jaaye el-...)"
+    "second listen held a change",
+    "✗ chip on it (hijaye el...)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "el-jaaye el-...",
+    "said": "hijaye el...",
     "right": "الطيارة الجاية",
     "from": "readers"
    },
-   "order": 10,
-   "blind": true
-  },
-  {
-   "i": 299,
-   "parts": [
-    299,
-    300,
-    302,
-    303
-   ],
-   "t": 1177.52,
-   "end": 1187.34,
-   "mmss": "19:37",
-   "words": 1,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "✗ chip on it (azimni)"
-   ],
-   "propose": {
-    "k": "grammar",
-    "said": "azimni",
-    "right": "اعزميهم",
-    "from": "readers"
-   },
-   "order": 11,
+   "order": 31,
    "blind": true
   },
   {
@@ -922,17 +961,19 @@
    "end": 1205.46,
    "mmss": "20:03",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "على",
     "right": null,
     "from": "line"
    },
-   "order": 65,
-   "blind": false
+   "order": 32,
+   "blind": true
   },
   {
    "i": 315,
@@ -949,7 +990,8 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "random check: one of 5 confident lines picked by the date"
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
    ],
    "propose": {
     "k": "vocab",
@@ -957,8 +999,7 @@
     "right": null,
     "from": "line"
    },
-   "random": true,
-   "order": 12,
+   "order": 33,
    "blind": true
   },
   {
@@ -972,17 +1013,21 @@
    "end": 1272.1,
    "mmss": "21:02",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen changed it",
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "grammar",
     "said": "المكان",
     "right": null,
     "from": "chip"
    },
-   "order": 66,
-   "blind": false
+   "order": 34,
+   "blind": true
   },
   {
    "i": 337,
@@ -994,18 +1039,21 @@
    "t": 1318.82,
    "end": 1328.82,
    "mmss": "21:58",
-   "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "words": 2,
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen changed it",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
-    "said": "Ala",
-    "right": null,
-    "from": "line"
+    "said": "سألي",
+    "right": "اطلبي (e6lubi)",
+    "from": "readers"
    },
-   "order": 67,
-   "blind": false
+   "order": 35,
+   "blind": true
   },
   {
    "i": 341,
@@ -1016,16 +1064,42 @@
    "end": 1332.68,
    "mmss": "22:10",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "random check: one of 5 confident lines picked by the date"
+   ],
    "propose": {
     "k": "vocab",
-    "said": "سؤالي",
-    "right": "اطلبي",
-    "from": "readers"
+    "said": "سؤالي la.",
+    "right": null,
+    "from": "chip"
    },
-   "order": 68,
+   "random": true,
+   "order": 36,
+   "blind": true
+  },
+  {
+   "i": 347,
+   "parts": [
+    347
+   ],
+   "t": 1350.06,
+   "end": 1350.8,
+   "mmss": "22:30",
+   "words": 1,
+   "tier": 2,
+   "unsure": false,
+   "why": [
+    "second listen changed it"
+   ],
+   "propose": {
+    "k": "vocab",
+    "said": "اطلبي",
+    "right": null,
+    "from": "chip"
+   },
+   "order": 121,
    "blind": false
   },
   {
@@ -1037,18 +1111,21 @@
    "t": 1352.94,
    "end": 1358.46,
    "mmss": "22:32",
-   "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "words": 2,
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen changed it",
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
-    "said": "min",
+    "said": "اطلبي",
     "right": null,
-    "from": "line"
+    "from": "chip"
    },
-   "order": 69,
-   "blind": false
+   "order": 37,
+   "blind": true
   },
   {
    "i": 352,
@@ -1061,17 +1138,19 @@
    "end": 1367.92,
    "mmss": "22:40",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
-    "said": "min modhiirik.",
+    "said": "min",
     "right": null,
-    "from": "chip"
+    "from": "line"
    },
-   "order": 70,
-   "blind": false
+   "order": 38,
+   "blind": true
   },
   {
    "i": 363,
@@ -1083,17 +1162,19 @@
    "end": 1402.82,
    "mmss": "23:17",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "ithlabi min modhiirik",
     "right": null,
     "from": "chip"
    },
-   "order": 71,
-   "blind": false
+   "order": 39,
+   "blind": true
   },
   {
    "i": 366,
@@ -1104,17 +1185,46 @@
    "end": 1406.22,
    "mmss": "23:24",
    "words": 2,
-   "tier": 3,
+   "tier": 2,
    "unsure": false,
-   "why": [],
+   "why": [
+    "second listen changed it"
+   ],
    "propose": {
     "k": "vocab",
-    "said": "maktab ahsan.",
+    "said": "مكتب أحسن",
     "right": null,
     "from": "chip"
    },
-   "order": 72,
+   "order": 122,
    "blind": false
+  },
+  {
+   "i": 374,
+   "parts": [
+    374,
+    375,
+    376
+   ],
+   "t": 1437.62,
+   "end": 1448.36,
+   "mmss": "23:57",
+   "words": 1,
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen changed it",
+    "second listen held a change",
+    "✗ chip on it (ما تجاوبي)"
+   ],
+   "propose": {
+    "k": "grammar",
+    "said": "ما تجاوبي",
+    "right": "ما جاوبتي",
+    "from": "readers"
+   },
+   "order": 40,
+   "blind": true
   },
   {
    "i": 382,
@@ -1130,6 +1240,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "second listen held a change",
     "✗ chip on it (السؤال الأخير اللي)"
    ],
    "propose": {
@@ -1138,7 +1249,7 @@
     "right": "سؤالي الأخير / آخر سؤال إلي",
     "from": "readers"
    },
-   "order": 13,
+   "order": 41,
    "blind": true
   },
   {
@@ -1150,17 +1261,19 @@
    "end": 1498.8,
    "mmss": "24:46",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "آخر السؤال",
-    "right": "آخر سؤال",
+    "right": "آخر سؤال / سؤالي الأخير",
     "from": "readers"
    },
-   "order": 73,
-   "blind": false
+   "order": 42,
+   "blind": true
   },
   {
    "i": 389,
@@ -1174,15 +1287,16 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "second listen held a change",
     "✗ chip on it (آخر السؤال)"
    ],
    "propose": {
     "k": "grammar",
     "said": "آخر السؤال",
-    "right": "آخر سؤال",
+    "right": "آخر سؤال / سؤالي الأخير",
     "from": "readers"
    },
-   "order": 14,
+   "order": 43,
    "blind": true
   },
   {
@@ -1194,17 +1308,20 @@
    "end": 1505.66,
    "mmss": "25:04",
    "words": 5,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "grammar",
     "said": "آخر سؤال",
     "right": null,
     "from": "chip"
    },
-   "order": 74,
-   "blind": false
+   "order": 44,
+   "blind": true
   },
   {
    "i": 393,
@@ -1216,17 +1333,50 @@
    "end": 1509.14,
    "mmss": "25:06",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "سؤالي",
     "right": null,
     "from": "chip"
    },
-   "order": 75,
-   "blind": false
+   "order": 45,
+   "blind": true
+  },
+  {
+   "i": 424,
+   "parts": [
+    424,
+    425,
+    426,
+    427,
+    428
+   ],
+   "t": 1640.2,
+   "end": 1651.92,
+   "mmss": "27:20",
+   "words": 1,
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen changed it, but no 2 of 3 runs agree",
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree",
+    "the two readers disagreed (D3: matched but differ on bucket)",
+    "✗ chip on it (barin nick)"
+   ],
+   "propose": {
+    "k": "grammar",
+    "said": "barin nick",
+    "right": "بنرن عليك",
+    "from": "readers"
+   },
+   "order": 46,
+   "blind": true
   },
   {
    "i": 434,
@@ -1237,17 +1387,20 @@
    "end": 1667.2,
    "mmss": "27:46",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "random check: one of 5 confident lines picked by the date"
+   ],
    "propose": {
     "k": "vocab",
     "said": "ساعات.",
     "right": null,
     "from": "chip"
    },
-   "order": 76,
-   "blind": false
+   "random": true,
+   "order": 47,
+   "blind": true
   },
   {
    "i": 456,
@@ -1266,15 +1419,15 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D26: only r2 found it)"
+    "second listen held a change"
    ],
    "propose": {
-    "k": "grammar",
-    "said": "Cam sa... How you?",
-    "right": "كم سارلك",
-    "from": "readers"
+    "k": "vocab",
+    "said": "Cam",
+    "right": null,
+    "from": "line"
    },
-   "order": 15,
+   "order": 48,
    "blind": true
   },
   {
@@ -1288,17 +1441,20 @@
    "end": 1836.0,
    "mmss": "30:24",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "the two readers disagreed (D4: only r1 found it)"
+   ],
    "propose": {
     "k": "grammar",
     "said": "تبعتي",
-    "right": null,
-    "from": "chip"
+    "right": "بتبعتي",
+    "from": "readers"
    },
-   "order": 77,
-   "blind": false
+   "order": 49,
+   "blind": true
   },
   {
    "i": 478,
@@ -1317,10 +1473,10 @@
    "propose": {
     "k": "grammar",
     "said": "علي",
-    "right": "لي",
+    "right": "لي (bteb3atili)",
     "from": "readers"
    },
-   "order": 16,
+   "order": 50,
    "blind": true
   },
   {
@@ -1341,7 +1497,7 @@
     "right": null,
     "from": "line"
    },
-   "order": 78,
+   "order": 132,
    "blind": false
   },
   {
@@ -1355,16 +1511,18 @@
    "end": 1862.74,
    "mmss": "30:45",
    "words": 7,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "تبدأي",
     "right": "تبعتي",
     "from": "readers"
    },
-   "order": 79,
+   "order": 51,
    "blind": false
   },
   {
@@ -1380,16 +1538,17 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D24: only r2 found it)"
+    "second listen held a change",
+    "the two readers disagreed (D20: only r2 found it)"
    ],
    "propose": {
     "k": "vocab",
-    "said": "Messages please",
+    "said": "Messages",
     "right": "رسائل",
     "from": "readers"
    },
-   "order": 17,
-   "blind": true
+   "order": 52,
+   "blind": false
   },
   {
    "i": 494,
@@ -1400,16 +1559,18 @@
    "end": 1900.42,
    "mmss": "31:37",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "‫الرسائل، رسائل.‬ Okay.",
     "right": null,
     "from": "chip"
    },
-   "order": 80,
+   "order": 53,
    "blind": false
   },
   {
@@ -1421,16 +1582,19 @@
    "end": 1933.32,
    "mmss": "32:06",
    "words": 8,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "‫هل، هذا، this هذه الجملة؟ هذه الجملة، هذه الجملة.‬ Um,",
     "right": null,
     "from": "chip"
    },
-   "order": 81,
+   "order": 54,
    "blind": false
   },
   {
@@ -1447,16 +1611,19 @@
    "end": 1958.14,
    "mmss": "32:17",
    "words": 8,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "سال-- No، um، كم سالك؟",
     "right": null,
     "from": "chip"
    },
-   "order": 82,
+   "order": 55,
    "blind": false
   },
   {
@@ -1477,7 +1644,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 83,
+   "order": 133,
    "blind": false
   },
   {
@@ -1490,16 +1657,19 @@
    "end": 2000.4,
    "mmss": "33:14",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "Wait, what؟ كم مرة؟",
     "right": null,
     "from": "chip"
    },
-   "order": 84,
+   "order": 56,
    "blind": false
   },
   {
@@ -1517,7 +1687,9 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D30: only r2 found it)"
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree",
+    "the two readers disagreed (D5: only r1 found it)"
    ],
    "propose": {
     "k": "grammar",
@@ -1525,8 +1697,8 @@
     "right": "بينزعج",
     "from": "readers"
    },
-   "order": 18,
-   "blind": true
+   "order": 57,
+   "blind": false
   },
   {
    "i": 534,
@@ -1547,7 +1719,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 85,
+   "order": 134,
    "blind": false
   },
   {
@@ -1564,16 +1736,18 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D27: only r2 found it)"
+    "second listen held a change",
+    "the two readers disagreed (D21: only r2 found it)",
+    "✗ chip on it (ينزعج منا ... لا فاتحة)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "لا فاتحة (for a while, at the end)",
+    "said": "ينزعج منا ... لا فاتحة",
     "right": "سال فاتحة ينزعج منا",
     "from": "readers"
    },
-   "order": 19,
-   "blind": true
+   "order": 58,
+   "blind": false
   },
   {
    "i": 541,
@@ -1584,16 +1758,18 @@
    "end": 2072.02,
    "mmss": "34:28",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
-    "said": "Oh, oh, okay. سال فاتحة،",
+    "said": "سال",
     "right": null,
     "from": "chip"
    },
-   "order": 86,
+   "order": 59,
    "blind": false
   },
   {
@@ -1608,16 +1784,18 @@
    "end": 2083.18,
    "mmss": "34:34",
    "words": 4,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "سال فاتحة",
     "right": null,
     "from": "chip"
    },
-   "order": 87,
+   "order": 60,
    "blind": false
   },
   {
@@ -1630,16 +1808,19 @@
    "end": 2123.6,
    "mmss": "35:17",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "the two readers disagreed (D22: only r2 found it)"
+   ],
    "propose": {
-    "k": "grammar",
+    "k": "vocab",
     "said": "كم ديش",
-    "right": null,
-    "from": "chip"
+    "right": "كل أدّيش",
+    "from": "readers"
    },
-   "order": 88,
+   "order": 61,
    "blind": false
   },
   {
@@ -1651,16 +1832,19 @@
    "end": 2171.78,
    "mmss": "36:10",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "the two readers disagreed (D6: only r1 found it)"
+   ],
    "propose": {
     "k": "vocab",
     "said": "أي أدج",
-    "right": "كل أدّيش",
+    "right": "كل أدج (kul addaish)",
     "from": "readers"
    },
-   "order": 89,
+   "order": 62,
    "blind": false
   },
   {
@@ -1673,16 +1857,19 @@
    "end": 2182.52,
    "mmss": "36:17",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "كل",
     "right": null,
     "from": "line"
    },
-   "order": 90,
+   "order": 63,
    "blind": false
   },
   {
@@ -1698,16 +1885,19 @@
    "end": 2203.11,
    "mmss": "36:25",
    "words": 4,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "grammar",
     "said": "كل أدج",
     "right": null,
     "from": "chip"
    },
-   "order": 91,
+   "order": 64,
    "blind": false
   },
   {
@@ -1728,7 +1918,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 92,
+   "order": 135,
    "blind": false
   },
   {
@@ -1744,16 +1934,18 @@
    "end": 2288.21,
    "mmss": "37:41",
    "words": 10,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "خريف من الـ خريف من...",
     "right": null,
     "from": "chip"
    },
-   "order": 93,
+   "order": 65,
    "blind": false
   },
   {
@@ -1768,16 +1960,18 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D12: only r1 found it)"
+    "second listen held a change",
+    "the two readers disagreed (D7: matched but differ on bucket)",
+    "✗ chip on it (ما تعسفي)"
    ],
    "propose": {
-    "k": "vocab",
+    "k": "grammar",
     "said": "ما تعسفي",
     "right": "ما تتأسفي",
     "from": "readers"
    },
-   "order": 20,
-   "blind": true
+   "order": 66,
+   "blind": false
   },
   {
    "i": 594,
@@ -1788,16 +1982,18 @@
    "end": 2319.13,
    "mmss": "38:34",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "ما تـ-ما تعسفي، no.",
     "right": null,
     "from": "chip"
    },
-   "order": 94,
+   "order": 67,
    "blind": false
   },
   {
@@ -1809,16 +2005,18 @@
    "end": 2322.93,
    "mmss": "38:41",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "ما تعسفي",
     "right": null,
     "from": "chip"
    },
-   "order": 95,
+   "order": 68,
    "blind": false
   },
   {
@@ -1830,16 +2028,18 @@
    "end": 2340.43,
    "mmss": "38:58",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "إلي",
     "right": null,
     "from": "chip"
    },
-   "order": 96,
+   "order": 69,
    "blind": false
   },
   {
@@ -1860,7 +2060,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 97,
+   "order": 136,
    "blind": false
   },
   {
@@ -1872,16 +2072,18 @@
    "end": 2351.65,
    "mmss": "39:09",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "ما تعسفي مني.",
     "right": null,
     "from": "chip"
    },
-   "order": 98,
+   "order": 70,
    "blind": false
   },
   {
@@ -1897,7 +2099,8 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D13: only r1 found it)"
+    "second listen held a change",
+    "the two readers disagreed (D8: only r1 found it)"
    ],
    "propose": {
     "k": "vocab",
@@ -1905,8 +2108,8 @@
     "right": "بتخاف",
     "from": "readers"
    },
-   "order": 21,
-   "blind": true
+   "order": 71,
+   "blind": false
   },
   {
    "i": 619,
@@ -1920,16 +2123,16 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D31: only r2 found it)"
+    "second listen held a change"
    ],
    "propose": {
-    "k": "grammar",
-    "said": "من الحيوانات",
-    "right": "من كل الحيوانات",
-    "from": "readers"
+    "k": "vocab",
+    "said": "الـ-من الحيوانات.",
+    "right": null,
+    "from": "chip"
    },
-   "order": 22,
-   "blind": true
+   "order": 72,
+   "blind": false
   },
   {
    "i": 626,
@@ -1940,16 +2143,18 @@
    "end": 2454.53,
    "mmss": "40:53",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "كما",
     "right": null,
     "from": "line"
    },
-   "order": 99,
+   "order": 73,
    "blind": false
   },
   {
@@ -1962,16 +2167,18 @@
    "end": 2486.89,
    "mmss": "41:23",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "شو",
     "right": null,
     "from": "chip"
    },
-   "order": 100,
+   "order": 74,
    "blind": false
   },
   {
@@ -1983,16 +2190,18 @@
    "end": 2499.67,
    "mmss": "41:35",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
-    "k": "vocab",
-    "said": "Is this internal for thing? No. No, شو-شو شكيت؟",
-    "right": null,
-    "from": "chip"
+    "k": "grammar",
+    "said": "شو شكيت؟",
+    "right": "من شو شكيتيلو؟",
+    "from": "readers"
    },
-   "order": 101,
+   "order": 75,
    "blind": false
   },
   {
@@ -2005,16 +2214,20 @@
    "end": 2506.73,
    "mmss": "41:42",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree",
+    "the two readers disagreed (D9: only r1 found it)"
+   ],
    "propose": {
-    "k": "vocab",
+    "k": "grammar",
     "said": "شو شكتي؟",
-    "right": null,
-    "from": "chip"
+    "right": "شو شكيتيلو",
+    "from": "readers"
    },
-   "order": 102,
+   "order": 76,
    "blind": false
   },
   {
@@ -2031,16 +2244,17 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (شو شكتي لو)"
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
    ],
    "propose": {
     "k": "grammar",
-    "said": "شو شكتي لو",
-    "right": "من شو شكيتيلو",
-    "from": "readers"
+    "said": "شو شكتي لـ",
+    "right": null,
+    "from": "chip"
    },
-   "order": 23,
-   "blind": true
+   "order": 77,
+   "blind": false
   },
   {
    "i": 646,
@@ -2053,16 +2267,20 @@
    "end": 2530.99,
    "mmss": "42:02",
    "words": 6,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree",
+    "✗ chip on it (عن شو)"
+   ],
    "propose": {
     "k": "grammar",
     "said": "شو",
     "right": null,
     "from": "chip"
    },
-   "order": 103,
+   "order": 78,
    "blind": false
   },
   {
@@ -2078,7 +2296,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "random check: one of 5 confident lines picked by the date"
+    "second listen held a change"
    ],
    "propose": {
     "k": "vocab",
@@ -2086,9 +2304,8 @@
     "right": null,
     "from": "chip"
    },
-   "random": true,
-   "order": 24,
-   "blind": true
+   "order": 79,
+   "blind": false
   },
   {
    "i": 654,
@@ -2098,17 +2315,19 @@
    "t": 2550.85,
    "end": 2554.41,
    "mmss": "42:30",
-   "words": 3,
-   "tier": 3,
+   "words": 4,
+   "tier": 2,
    "unsure": false,
-   "why": [],
+   "why": [
+    "second listen changed it"
+   ],
    "propose": {
     "k": "grammar",
     "said": "من من شو",
     "right": null,
     "from": "chip"
    },
-   "order": 104,
+   "order": 123,
    "blind": false
   },
   {
@@ -2120,16 +2339,18 @@
    "end": 2556.97,
    "mmss": "42:36",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "Not أن شو؟",
     "right": null,
     "from": "chip"
    },
-   "order": 105,
+   "order": 80,
    "blind": false
   },
   {
@@ -2149,16 +2370,18 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D23: only r2 found it)"
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree",
+    "the two readers disagreed (D24: only r2 found it)"
    ],
    "propose": {
     "k": "vocab",
-    "said": "sha'at",
-    "right": "shta2t (شتقت)",
+    "said": "Sha'at",
+    "right": "shta2et",
     "from": "readers"
    },
-   "order": 25,
-   "blind": true
+   "order": 81,
+   "blind": false
   },
   {
    "i": 690,
@@ -2170,16 +2393,18 @@
    "end": 2687.42,
    "mmss": "44:41",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "شطي",
     "right": null,
     "from": "chip"
    },
-   "order": 106,
+   "order": 82,
    "blind": false
   },
   {
@@ -2191,16 +2416,18 @@
    "end": 2755.28,
    "mmss": "45:53",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "على من",
     "right": null,
     "from": "chip"
    },
-   "order": 107,
+   "order": 83,
    "blind": false
   },
   {
@@ -2214,16 +2441,20 @@
    "end": 2769.74,
    "mmss": "45:59",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen changed it, but no 2 of 3 runs agree",
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "grammar",
     "said": "على من",
     "right": null,
     "from": "chip"
    },
-   "order": 108,
+   "order": 84,
    "blind": false
   },
   {
@@ -2236,16 +2467,20 @@
    "end": 2818.14,
    "mmss": "46:54",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "the two readers disagreed (D10: only r1 found it)",
+    "✗ chip on it (انبسطت ti)"
+   ],
    "propose": {
-    "k": "vocab",
-    "said": "in انبسطت ti.",
-    "right": null,
-    "from": "chip"
+    "k": "grammar",
+    "said": "انبسطت ti",
+    "right": "انبسطتي بـ/في",
+    "from": "readers"
    },
-   "order": 109,
+   "order": 85,
    "blind": false
   },
   {
@@ -2259,16 +2494,18 @@
    "end": 2829.16,
    "mmss": "47:01",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
-    "said": "In انبسطت ti,",
+    "said": "انبسطت",
     "right": null,
     "from": "chip"
    },
-   "order": 110,
+   "order": 86,
    "blind": false
   },
   {
@@ -2280,16 +2517,41 @@
    "end": 2836.56,
    "mmss": "47:14",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "In انبسطت ti bi,",
     "right": null,
     "from": "chip"
    },
-   "order": 111,
+   "order": 87,
+   "blind": false
+  },
+  {
+   "i": 735,
+   "parts": [
+    735
+   ],
+   "t": 2857.22,
+   "end": 2857.64,
+   "mmss": "47:37",
+   "words": 1,
+   "tier": 2,
+   "unsure": false,
+   "why": [
+    "second listen changed it"
+   ],
+   "propose": {
+    "k": "vocab",
+    "said": "رحلة؟",
+    "right": null,
+    "from": "chip"
+   },
+   "order": 124,
    "blind": false
   },
   {
@@ -2305,16 +2567,19 @@
    "end": 2948.11,
    "mmss": "48:55",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "ليلة",
     "right": null,
     "from": "chip"
    },
-   "order": 112,
+   "order": 88,
    "blind": false
   },
   {
@@ -2326,16 +2591,18 @@
    "end": 2950.87,
    "mmss": "49:09",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "Okay. So ليلة،",
     "right": null,
     "from": "chip"
    },
-   "order": 113,
+   "order": 89,
    "blind": false
   },
   {
@@ -2350,16 +2617,19 @@
    "end": 2963.99,
    "mmss": "49:12",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "ليلة امبارح.",
     "right": null,
     "from": "chip"
    },
-   "order": 114,
+   "order": 90,
    "blind": false
   },
   {
@@ -2374,6 +2644,8 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "second listen held a change",
+    "the two readers disagreed (D11: matched but differ on A/B)",
     "✗ chip on it (كان)"
    ],
    "propose": {
@@ -2382,8 +2654,8 @@
     "right": "كانت",
     "from": "readers"
    },
-   "order": 26,
-   "blind": true
+   "order": 91,
+   "blind": false
   },
   {
    "i": 771,
@@ -2397,7 +2669,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (متعب)"
+    "random check: one of 5 confident lines picked by the date"
    ],
    "propose": {
     "k": "grammar",
@@ -2405,8 +2677,9 @@
     "right": "متعبة",
     "from": "readers"
    },
-   "order": 27,
-   "blind": true
+   "random": true,
+   "order": 92,
+   "blind": false
   },
   {
    "i": 773,
@@ -2426,7 +2699,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 115,
+   "order": 137,
    "blind": false
   },
   {
@@ -2438,16 +2711,19 @@
    "end": 2983.45,
    "mmss": "49:42",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "random check: one of 5 confident lines picked by the date"
+   ],
    "propose": {
     "k": "vocab",
     "said": "متعب",
     "right": null,
     "from": "chip"
    },
-   "order": 116,
+   "random": true,
+   "order": 93,
    "blind": false
   },
   {
@@ -2468,7 +2744,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 117,
+   "order": 138,
    "blind": false
   },
   {
@@ -2483,16 +2759,19 @@
    "end": 3006.85,
    "mmss": "49:51",
    "words": 3,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "متعب",
     "right": null,
     "from": "chip"
    },
-   "order": 118,
+   "order": 94,
    "blind": false
   },
   {
@@ -2506,16 +2785,19 @@
    "end": 3046.23,
    "mmss": "50:35",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "كيف الماضي؟",
     "right": null,
     "from": "chip"
    },
-   "order": 119,
+   "order": 95,
    "blind": false
   },
   {
@@ -2532,16 +2814,19 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D15: matched but differ on kind, tier)"
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree",
+    "the two readers disagreed (D12: only r1 found it)",
+    "✗ chip on it (بيبسط (byebse6))"
    ],
    "propose": {
     "k": "vocab",
     "said": "بالداخل",
-    "right": "بيبسط",
+    "right": "بيبسط (byebse6)",
     "from": "readers"
    },
-   "order": 28,
-   "blind": true
+   "order": 96,
+   "blind": false
   },
   {
    "i": 795,
@@ -2553,16 +2838,19 @@
    "end": 3065.57,
    "mmss": "51:01",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "Oh, uh, كان.",
     "right": null,
     "from": "chip"
    },
-   "order": 120,
+   "order": 97,
    "blind": false
   },
   {
@@ -2581,10 +2869,10 @@
    "propose": {
     "k": "vocab",
     "said": "شوفي",
-    "right": "اطّلعي",
+    "right": "اطّلع على (et6alla3 3ala)",
     "from": "readers"
    },
-   "order": 121,
+   "order": 139,
    "blind": false
   },
   {
@@ -2597,16 +2885,19 @@
    "end": 3149.65,
    "mmss": "52:26",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "The عل. Okay. طلقت.",
     "right": null,
     "from": "chip"
    },
-   "order": 122,
+   "order": 98,
    "blind": false
   },
   {
@@ -2621,16 +2912,16 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D16: same moment, different piece)"
+    "second listen held a change"
    ],
    "propose": {
-    "k": "grammar",
+    "k": "vocab",
     "said": "طلقت",
-    "right": "اطّلعي",
-    "from": "readers"
+    "right": null,
+    "from": "line"
    },
-   "order": 29,
-   "blind": true
+   "order": 99,
+   "blind": false
   },
   {
    "i": 816,
@@ -2644,16 +2935,17 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D16: same moment, different piece)"
+    "second listen held a change",
+    "✗ chip on it (أو)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "إيميلي ... أول",
-    "right": "إيميلي الأول",
+    "said": "أو",
+    "right": "الأول",
     "from": "readers"
    },
-   "order": 30,
-   "blind": true
+   "order": 100,
+   "blind": false
   },
   {
    "i": 818,
@@ -2673,7 +2965,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 123,
+   "order": 140,
    "blind": false
   },
   {
@@ -2685,16 +2977,18 @@
    "end": 3176.29,
    "mmss": "52:51",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "إيميلي",
     "right": null,
     "from": "chip"
    },
-   "order": 124,
+   "order": 101,
    "blind": false
   },
   {
@@ -2712,16 +3006,16 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D17: only r1 found it)"
+    "second listen held a change"
    ],
    "propose": {
-    "k": "grammar",
-    "said": "ال-- أول",
-    "right": "الأول",
-    "from": "readers"
+    "k": "vocab",
+    "said": "إيميلي",
+    "right": null,
+    "from": "chip"
    },
-   "order": 31,
-   "blind": true
+   "order": 102,
+   "blind": false
   },
   {
    "i": 832,
@@ -2733,16 +3027,18 @@
    "end": 3204.43,
    "mmss": "53:16",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "I thought it was أول and أو-- uh, أولى.",
     "right": null,
     "from": "chip"
    },
-   "order": 125,
+   "order": 103,
    "blind": false
   },
   {
@@ -2755,16 +3051,18 @@
    "end": 3210.17,
    "mmss": "53:25",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "أول",
     "right": null,
     "from": "chip"
    },
-   "order": 126,
+   "order": 104,
    "blind": false
   },
   {
@@ -2779,16 +3077,19 @@
    "end": 3228.45,
    "mmss": "53:38",
    "words": 4,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "طلقت، طلقت",
     "right": null,
     "from": "chip"
    },
-   "order": 127,
+   "order": 105,
    "blind": false
   },
   {
@@ -2800,16 +3101,18 @@
    "end": 3233.31,
    "mmss": "53:51",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "لي",
     "right": null,
     "from": "line"
    },
-   "order": 128,
+   "order": 106,
    "blind": false
   },
   {
@@ -2822,16 +3125,18 @@
    "end": 3246.65,
    "mmss": "54:02",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "على شو؟",
     "right": null,
     "from": "chip"
    },
-   "order": 129,
+   "order": 107,
    "blind": false
   },
   {
@@ -2848,16 +3153,18 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D18: only r1 found it)"
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree",
+    "the two readers disagreed (D25: only r2 found it)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "طلقت",
-    "right": "بتطّلعي",
+    "said": "على شو طلقت",
+    "right": "على شو بتطلعي",
     "from": "readers"
    },
-   "order": 32,
-   "blind": true
+   "order": 108,
+   "blind": false
   },
   {
    "i": 929,
@@ -2871,16 +3178,19 @@
    "end": 3706.76,
    "mmss": "1:01:37",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "أخوي",
     "right": null,
     "from": "line"
    },
-   "order": 130,
+   "order": 109,
    "blind": false
   },
   {
@@ -2896,16 +3206,18 @@
    "end": 3737.04,
    "mmss": "1:01:58",
    "words": 4,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "uh, ليلة مبارك.",
     "right": null,
     "from": "chip"
    },
-   "order": 131,
+   "order": 110,
    "blind": false
   },
   {
@@ -2925,16 +3237,19 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree",
+    "the two readers disagreed (D13: only r1 found it)",
     "✗ chip on it (أشعتنا)"
    ],
    "propose": {
     "k": "grammar",
     "said": "أشعتنا",
-    "right": "عشانا",
+    "right": "عشانا (3ashaana)",
     "from": "readers"
    },
-   "order": 33,
-   "blind": true
+   "order": 111,
+   "blind": false
   },
   {
    "i": 949,
@@ -2945,16 +3260,19 @@
    "end": 3771.78,
    "mmss": "1:02:48",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "أشانا",
     "right": null,
     "from": "line"
    },
-   "order": 132,
+   "order": 112,
    "blind": false
   },
   {
@@ -2971,6 +3289,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "second listen held a change",
     "✗ chip on it (آخر)"
    ],
    "propose": {
@@ -2979,8 +3298,8 @@
     "right": "الأخير",
     "from": "readers"
    },
-   "order": 34,
-   "blind": true
+   "order": 113,
+   "blind": false
   },
   {
    "i": 956,
@@ -3000,7 +3319,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 133,
+   "order": 141,
    "blind": false
   },
   {
@@ -3015,16 +3334,18 @@
    "end": 3804.18,
    "mmss": "1:03:13",
    "words": 4,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "الأخير",
     "right": null,
     "from": "chip"
    },
-   "order": 134,
+   "order": 114,
    "blind": false
   },
   {
@@ -3045,7 +3366,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 135,
+   "order": 142,
    "blind": false
   },
   {
@@ -3066,7 +3387,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 136,
+   "order": 143,
    "blind": false
   },
   {
@@ -3079,16 +3400,19 @@
    "end": 3892.54,
    "mmss": "1:04:42",
    "words": 8,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change",
+    "second listen: no 2 of 3 runs agree"
+   ],
    "propose": {
     "k": "vocab",
     "said": "بنتبه، okay. انتبرش، that was it, okay، فانتبرش. Um,",
     "right": null,
     "from": "chip"
    },
-   "order": 137,
+   "order": 115,
    "blind": false
   },
   {
@@ -3101,16 +3425,18 @@
    "end": 3906.64,
    "mmss": "1:04:58",
    "words": 3,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "grammar",
     "said": "بالك",
     "right": null,
     "from": "chip"
    },
-   "order": 138,
+   "order": 116,
    "blind": false
   },
   {
@@ -3122,16 +3448,18 @@
    "end": 3916.4,
    "mmss": "1:05:13",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "أقلب الـ كلاب، I don't know.",
     "right": null,
     "from": "chip"
    },
-   "order": 139,
+   "order": 117,
    "blind": false
   },
   {
@@ -3146,7 +3474,8 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D28: only r2 found it)"
+    "second listen held a change",
+    "the two readers disagreed (D26: only r2 found it)"
    ],
    "propose": {
     "k": "grammar",
@@ -3154,8 +3483,8 @@
     "right": "إنت اختار",
     "from": "readers"
    },
-   "order": 35,
-   "blind": true
+   "order": 118,
+   "blind": false
   },
   {
    "i": 996,
@@ -3168,16 +3497,18 @@
    "end": 3950.34,
    "mmss": "1:05:40",
    "words": 3,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "second listen held a change"
+   ],
    "propose": {
     "k": "vocab",
     "said": "uh, فكرت،",
     "right": null,
     "from": "chip"
    },
-   "order": 140,
+   "order": 119,
    "blind": false
   },
   {
@@ -3193,7 +3524,8 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "random check: one of 5 confident lines picked by the date"
+    "second listen: no 2 of 3 runs agree",
+    "the two readers disagreed (D15: only r1 found it)"
    ],
    "propose": {
     "k": "grammar",
@@ -3201,9 +3533,8 @@
     "right": "بشوفك",
     "from": "readers"
    },
-   "random": true,
-   "order": 36,
-   "blind": true
+   "order": 120,
+   "blind": false
   }
  ]
 }

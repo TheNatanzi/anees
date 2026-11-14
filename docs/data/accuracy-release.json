@@ -13,24 +13,24 @@
    "verified_avg_pct": null,
    "unverified_avg_pct": 95.0,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 7861,
+   "eligible": 7857,
    "excluded": 30,
-   "pending": 5
+   "pending": 4
   },
   "grammar": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 85.9,
+   "unverified_avg_pct": 85.8,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 2,
-   "eligible": 1000,
+   "eligible": 1004,
    "excluded": 53,
-   "pending": 17
+   "pending": 12
   },
-  "verification_queue": 22,
+  "verification_queue": 16,
   "word_bank": {
-   "occurrences": 13146,
-   "eligible": 7568,
-   "excluded_not_scored": 4631,
+   "occurrences": 13152,
+   "eligible": 7564,
+   "excluded_not_scored": 4641,
    "pending_needs_review": 947,
    "other": 0,
    "pct": 98.6,
@@ -1925,35 +1925,35 @@
    "date": "2026-11-12",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 48.3 %; 2 consecutive passes at >= 95 % are needed",
+    "reader agreement: pass 1 49.0 %; 2 consecutive passes at >= 95 % are needed",
     "coverage: Medi not transcribed 55:03-1:01:01 while the other person talks",
     "coverage: Medi talks 54:35-1:00:58 (94 s of speech on their own track) with no transcript line",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3972 s) compared with a second model",
-    "checks: 6 scored rows need an audio or human check (1 words, 5 grammar)"
+    "grammar % provisional: re-read, but the recording has no separate microphone track, so almost no line was re-heard",
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3972 s) compared with a second model"
    ],
    "words": {
-    "pct": 98.3,
-    "eligible_pct": 98.3,
+    "pct": 97.6,
+    "eligible_pct": 97.6,
     "verified_pct": null,
-    "scored": 151,
-    "eligible": 151,
+    "scored": 147,
+    "eligible": 147,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 88.9,
+    "pct": 87.3,
     "verified_pct": null,
-    "mistakes": 21,
-    "uses": 171,
-    "eligible": 20,
+    "mistakes": 25,
+    "uses": 173,
+    "eligible": 24,
     "excluded": 1,
-    "pending": 5,
+    "pending": 0,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
-     "7 slips are in rules the counter found 0 uses of in this lesson",
-     "4 rules have more slips than counted uses (A18, A20, B18, D4)"
+     "9 slips are in rules the counter found 0 uses of in this lesson",
+     "7 rules have more slips than counted uses (A12, A13, A18, A20, B17, B18, D4)"
     ]
    },
    "coverage": {
@@ -1973,7 +1973,7 @@
     "timing": "engine"
    },
    "agreement": [
-    48.3
+    49.0
    ],
    "between_passes": []
   }

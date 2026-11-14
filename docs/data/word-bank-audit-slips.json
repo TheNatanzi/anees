@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T15:46:29-08:00",
+ "updated": "2026-11-13T16:58:44-08:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -4678,23 +4678,42 @@
    "audit_uid": "FA-8d9d9a9c"
   },
   {
-   "id": "audit:FA-784b2948",
-   "word_key": "maw2e3",
-   "entry_id": "maw2e3:word",
+   "id": "audit:FA-af9f510b",
+   "word_key": "alaile",
+   "entry_id": "alaile:word",
    "lesson_date": "2026-11-12",
-   "t_start": 1172,
-   "t_end": 1172,
+   "t_start": 283,
+   "t_end": 283,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "what was the word for location?",
-   "said": "So azimi... Wait, what was the word for location? I want to remember.",
-   "reason": "He asked for the word 'location'; Amal supplied it (engine wrote 'Mocha'), chat mawqe3; sheet: location | Mawqe3 | موقع.",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "بالليل",
+   "said": "It's tonight, right؟ بالليل ليل.",
+   "reason": "Medi used 'بالليل' (at night) to mean 'tonight' (الليلة; sheet: 'tonight | ellaile | الليلة'); Amal clarified that بالليل means 'at night'.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-784b2948"
+   "audit_uid": "FA-af9f510b"
+  },
+  {
+   "id": "audit:FA-9bbfb15d",
+   "word_key": "byebse6",
+   "entry_id": "ana babse6:present",
+   "lesson_date": "2026-11-12",
+   "t_start": 3056,
+   "t_end": 3056,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "بالداخل",
+   "said": "بالداخل.",
+   "reason": "Engine wrote بالداخل; he said bidahhek (sheet 'funny | Beyda77ek') for 'fun'; she said 'That's funny ... fun causing' and he said beabseft; he confirmed 'that would have been it's funny'.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-9bbfb15d"
   }
  ],
  "unplaced": [
@@ -5467,17 +5486,6 @@
    "wrong": "[speaking Arabic] (angry word)",
    "why": "which list word it is waits for a reader (the automatic match was part)",
    "keyed_by": "auto-part"
-  },
-  {
-   "uid": "FA-f104d1bc",
-   "date": "2026-11-12",
-   "t": 751,
-   "key": null,
-   "kind": "asked",
-   "said": "I was Will, right? And, uh, and, uh, Kendra",
-   "wrong": "I was Will",
-   "why": "which list word it is waits for a reader (the automatic match was taught-earlier)",
-   "keyed_by": "taught-earlier"
   }
  ],
  "overrides": [
@@ -9619,6 +9627,36 @@
    "expected": {
     "word_key": "walad",
     "t_start": 3593.59
+   }
+  },
+  {
+   "event_id": "061bff8908c68cff7d1ddd124f1e2424c8e895f39201523e2899db129c14fe97",
+   "date": "2026-11-12",
+   "mark": "ra:FA-af9f510b",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "ra:FA-af9f510b",
+    "ledger_reason": "One utterance, one judgment: بالليل here is the counted slip (الليلة), not also a right use, until the tutor answers (WS-39)"
+   },
+   "expected": {
+    "word_key": "bilail",
+    "t_start": 282.64
+   }
+  },
+  {
+   "event_id": "da8447e3e3d41c46116ff6f8eb02d91061d3363f1a5c422024ac60eabee933fa",
+   "date": "2026-11-12",
+   "mark": "ra:FA-3541a25e",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "ra:FA-3541a25e",
+    "ledger_reason": "Said here, another word intended: Amal prompts you, then gives it (كل أدج (kul addaish)); her word is not on her list, so neither counts"
+   },
+   "expected": {
+    "word_key": "ai",
+    "t_start": 2171.017036241
    }
   }
  ]
