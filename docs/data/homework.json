@@ -1,5 +1,5 @@
 {
- "built": "2026-11-16T13:47:02-08:00",
+ "built": "2026-11-16T14:01:48-08:00",
  "tasks": [
   {
    "id": "d9bbdc34-52c8-4199-be07-f4c50fc2f24e",
@@ -679,6 +679,40 @@
    },
    "ai_at": "2026-11-16T21:46:32.024555+00:00",
    "created_at": "2026-11-16T21:45:41.537+00:00"
+  },
+  {
+   "id": "4115041a-6f25-4b5a-8739-cd1424fba26c",
+   "task_id": "ae59f718-b189-4d8c-b734-a84d56124828",
+   "answer": "8urfeti el tani dwow a7san min hadol",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "adwiyet 8urfti el-tanye a7san min hadoal",
+    "model": "claude-sonnet-5-5",
+    "reason": "Lights are the subject, so use idafa: adwiyet 8urfti. Also 8urfa is feminine, so el-tanye, not tani. Say hadol/hadoal.",
+    "verdict": "wrong",
+    "cost_usd": 0,
+    "examples": 5
+   },
+   "ai_at": "2026-11-16T22:01:45.664708+00:00",
+   "created_at": "2026-11-16T21:47:23.765+00:00"
+  },
+  {
+   "id": "5a177dbb-0b40-4a5d-9644-b7f9c42f781c",
+   "task_id": "775fce81-fb8d-404d-9fa1-751c05e1afe7",
+   "answer": "8ayeri su2alik el awal 3ashan mish wade7",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "8ayyeri su2aalek el-awwal la2anno ma wade7",
+    "model": "claude-sonnet-5-5",
+    "reason": "Tmm, 8ayyeri is right. Say la2anno, not 3ashan, and ma wade7, not mish wade7. Su2aalek.",
+    "verdict": "close",
+    "cost_usd": 0,
+    "examples": 5
+   },
+   "ai_at": "2026-11-16T22:01:30.767294+00:00",
+   "created_at": "2026-11-16T21:48:22.036+00:00"
   }
  ],
  "verdicts": [
@@ -847,9 +881,9 @@
   "wrong": 8,
   "points": 4.0,
   "pct": 30.8,
-  "waiting": 3,
+  "waiting": 5,
   "checking": 0,
-  "todo": 2,
+  "todo": 0,
   "agreed": 8,
   "overruled": 5
  },
