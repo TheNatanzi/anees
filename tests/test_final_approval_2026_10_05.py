@@ -90,7 +90,9 @@ def test_the_second_listen_marks_say_ai_agreement_and_name_the_mixed_recordings(
     assert label == "Second listen: limited (mixed recording)" and "Only alphabet-only changes were applied" in tip and "Word changes wait for a check" in tip
     doc = RH.load(ROOT)
     lim = sorted(d for d, r in doc["lessons"].items() if r["status"] == "applied-limited")
-    assert lim == ["2026-08-25", "2026-09-04", "2026-09-18"]
+    # 2026-11-16: 11-12's second listen was frozen on 11-13 01:48 by a manual run that read the tracks from the wrong
+    # folder, so it really ran on the mixed recording ($3.44 of its $4.00 Gemini allowance spent); a redo needs Medi's OK
+    assert lim == ["2026-08-25", "2026-09-04", "2026-09-18", "2026-11-12"]
     applied = 0
     for d, r in doc["lessons"].items():
         if r["status"] == "pending":                                     # 2026-10-07: 10-05 and 10-06 are on the list, not re-heard yet - no plan, no mark
@@ -143,7 +145,7 @@ def test_grammar_pct_is_provisional_on_the_three_lessons_with_no_microphone_trac
     why = "re-read, but the recording has no separate microphone track, so almost no line was re-heard"
     for d, x in L.items():
         prov = x["grammar"].get("provisional")
-        if d in ("2026-08-25", "2026-09-04", "2026-09-18"):
+        if d in ("2026-08-25", "2026-09-04", "2026-09-18", "2026-11-12"):    # 11-12: see the limited-listen test above
             assert prov.startswith(why) and any(why in n for n in x["notes"]) and ("grammar % provisional: " + prov) in x["release"]["reasons"], d
         else:
             # 09-10 .. 09-23: the counter reads the delivered text now (blocker 1); the only flag a lesson may carry is round 4's
