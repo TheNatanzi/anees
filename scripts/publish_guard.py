@@ -377,10 +377,14 @@ def run_checks(root=ROOT, config=None, step_failures=(), run=subprocess.run, clo
             ok, detail = False, 'unknown check id (not built in, not in "commands")'
         checks.append({'id': cid, 'required': cid in required, 'ok': bool(ok), 'secs': round(clock() - s0, 1),
                        'what': (spec or {}).get('what') or _WHAT.get(cid, ''), 'detail': detail})
-    failed = [c for c in checks if c['required'] and not c['ok']]
-    return {'ok': not failed, 'at': now_iso(), 'sha': sha.strip()[:40] or None, 'secs': round(clock() - t0, 1), 'checks': checks,
+    soft = set(config.get('soft') or [])
+    for c in checks:
+        c['soft'] = c['id'] in soft
+    failed = [c for c in checks if c['required'] and not c['ok'] and not c['soft']]
+    soft_failed = [c for c in checks if c['required'] and not c['ok'] and c['soft']]
+    return {'ok': not failed, 'soft_failed': [f"{c['id']}: {c['detail']}" for c in soft_failed], 'at': now_iso(), 'sha': sha.strip()[:40] or None, 'secs': round(clock() - t0, 1), 'checks': checks,
             'reason': '; '.join(f"{c['id']}: {c['detail']}" for c in failed)[:1500],
-            'warnings': [f"{c['id']}: {c['detail']}" for c in checks if not c['required'] and not c['ok']]}
+            'warnings': [f"{c['id']}: {c['detail']}" for c in checks if not c['ok'] and (not c['required'] or c['soft'])]}
 
 
 _WHAT = {'step_failures': 'no build step failed in this run', 'clean_tree': 'what is checked is exactly what gets published',
@@ -417,6 +421,13 @@ def record(root, result, source, outcome, reason=None, waiting=None):
              'reason': reason if reason is not None else result.get('reason') or '', 'secs': result.get('secs'),
              'commits_waiting': waiting}
     st['last_check'] = {**entry, 'checks': result.get('checks', []), 'warnings': result.get('warnings', [])}
+    # soft failures (Medi 2026-11-16): published anyway, kept here for scripts/auto_fix_guard.py until a check passes again
+    sf = result.get('soft_failed') or []
+    if sf:
+        prev = st.get('soft_failures') or {}
+        st['soft_failures'] = {'since': prev.get('since') or entry['at'], 'last': entry['at'], 'failures': sf}
+    elif result.get('checks'):
+        st.pop('soft_failures', None)
     if outcome in ('blocked', 'rebase_failed', 'push_failed'):
         st['last_block'] = entry
         st['blocks_since_last_pass'] = int(st.get('blocks_since_last_pass') or 0) + 1

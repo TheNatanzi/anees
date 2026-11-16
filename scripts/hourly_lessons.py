@@ -791,6 +791,14 @@ def _main():
             what = ('lessons ' + ', '.join(done)) if done else 'retry ' + ', '.join(batch) if batch else f'{ahead} local commit(s)'
             res = publish(f'hourly: {what}', run_failures)
             blocked = not res.get('pushed')
+    # self-repair (Medi 2026-11-16 "fix this once and for all"): a blocked or soft-failing guard -> one claude -p fix on his
+    # plan (max 2 a day), then one more guarded push this same hour; a lesson not live 12 h after recording -> one email to Medi
+    if not a.no_push and '--dry-run' not in sys.argv:
+        import auto_fix_guard as AF
+        fixed = AF.step(log=log)
+        if fixed and blocked:
+            res = publish('hourly: after auto-fix', [])
+            blocked = not res.get('pushed')
     try:                                     # the stall alarm (docs/data/pipeline-health.json): every run, pass or fail
         import pipeline_health as PH
         PH.write(ROOT)
