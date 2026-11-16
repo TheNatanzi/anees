@@ -98,13 +98,20 @@ def fix(fails, log, dry=False):
     save(st)
     log('auto-fix: claude -p on', '; '.join(f.split(':', 1)[0] for f in fails))
     t0 = time.time()
+    import track                              # rule AI-logged: every AI call path logs a run (data/runs); $0 on the plan
+    cmd = [CLAUDE, '-p', '--output-format', 'json', '--permission-mode', 'bypassPermissions', '--add-dir', str(ROOT)] + track.claude_model_args()
     try:
-        r = subprocess.run([CLAUDE, '-p', '--output-format', 'text', '--permission-mode', 'bypassPermissions', '--add-dir', str(ROOT)],
-                           input=prompt, cwd=str(ROOT), capture_output=True, text=True, encoding='utf-8', errors='replace',
-                           timeout=TIMEOUT_S, env={**os.environ, 'PYTHONIOENCODING': 'utf-8', 'ANEES_RAW': raw})
-        out = (r.stdout or '') + (r.stderr or '')
+        with track.run('auto_fix_guard', None, kind='inference', provider='anthropic', request_model=track.CLAUDE_MODEL,
+                       params={'failures': len(fails), 'prompt_arg_sha': track.sha256_text(prompt), 'timeout_s': TIMEOUT_S}) as run:
+            r = subprocess.run(cmd, input=prompt, cwd=str(ROOT), capture_output=True, text=True, encoding='utf-8', errors='replace',
+                               timeout=TIMEOUT_S, env={**os.environ, 'PYTHONIOENCODING': 'utf-8', 'ANEES_RAW': raw})
+            parsed = track.parse_claude_output(r.stdout)
+            run.claude(parsed)
+            out = (parsed.get('text') or r.stdout or '') + (r.stderr or '')
     except subprocess.TimeoutExpired:
         out = 'timed out after %d min' % (TIMEOUT_S // 60)
+    except Exception as e:  # noqa: BLE001
+        out = 'claude -p failed: %s %s' % (type(e).__name__, str(e)[:200])
     lines = [x for x in out.splitlines() if re.match(r'\s*(NOT )?FIXED\b', x)] or [out.strip()[-300:]]
     for x in lines:
         log('auto-fix:', x.strip()[:300])
