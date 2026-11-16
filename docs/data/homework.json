@@ -1,5 +1,5 @@
 {
- "built": "2026-11-16T13:15:57-08:00",
+ "built": "2026-11-16T13:47:02-08:00",
  "tasks": [
   {
    "id": "d9bbdc34-52c8-4199-be07-f4c50fc2f24e",
@@ -628,6 +628,57 @@
    },
    "ai_at": "2026-11-11T22:01:28.391762+00:00",
    "created_at": "2026-11-11T21:57:29.26+00:00"
+  },
+  {
+   "id": "f0d7411b-7593-4fea-9eca-b3e700082830",
+   "task_id": "ee676cdc-316f-441e-97cf-13790c5f436e",
+   "answer": "kul addeish byzuruk",
+   "script": "english",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "kul addeish bizuruki",
+    "model": "claude-sonnet-5-5",
+    "reason": "The idea is right. You're talking to a woman, so use the feminine ending: byzuruki, not byzuruk.",
+    "verdict": "close",
+    "cost_usd": 0,
+    "examples": 5
+   },
+   "ai_at": "2026-11-16T21:47:00.331091+00:00",
+   "created_at": "2026-11-16T21:42:12.973+00:00"
+  },
+  {
+   "id": "4a35bac2-b45d-46dd-854f-baf7fabcd4fa",
+   "task_id": "40bd7a03-8213-45ac-bcab-1998b54a10d6",
+   "answer": "sba7a el mufadal ishi 3ndi",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "Aktar shi mufaddal 3indi el-sba7a",
+    "model": "claude-sonnet-5-5",
+    "reason": "Word order is off and 'most' is missing. Say aktar shi mufaddal 3indi, then el-sba7a. No 'el' on mufaddal.",
+    "verdict": "wrong",
+    "cost_usd": 0,
+    "examples": 5
+   },
+   "ai_at": "2026-11-16T21:46:46.245018+00:00",
+   "created_at": "2026-11-16T21:44:04.913+00:00"
+  },
+  {
+   "id": "05726273-813f-4b53-a1bf-5b35f101665e",
+   "task_id": "d4d7ad8e-e150-4238-bc20-5477dabc2a42",
+   "answer": "barnamej el yoam 8eir min 5atatena la leile mbare7",
+   "script": "arabizi",
+   "ai": {
+    "via": "claude-plan",
+    "fixed": "barnamej el-yoom mukhtalif 3an illi 5ateatna 3alayh/ma 5a66atna la leilet mbare7",
+    "model": "claude-sonnet-5-5",
+    "reason": "Barnamej el-yoom 8eir 3an illi 5at6atna... 'min' is wrong here: different FROM = mukhtalif 3an. 'la' also wrong: use 'la' only for purpose; say 'lal-leile'. Fix those.",
+    "verdict": "close",
+    "cost_usd": 0,
+    "examples": 5
+   },
+   "ai_at": "2026-11-16T21:46:32.024555+00:00",
+   "created_at": "2026-11-16T21:45:41.537+00:00"
   }
  ],
  "verdicts": [
@@ -796,9 +847,9 @@
   "wrong": 8,
   "points": 4.0,
   "pct": 30.8,
-  "waiting": 0,
+  "waiting": 3,
   "checking": 0,
-  "todo": 5,
+  "todo": 2,
   "agreed": 8,
   "overruled": 5
  },
