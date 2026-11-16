@@ -59,8 +59,12 @@ def failures_now(gst):
     """The failing checks of the last guard run: hard (blocked) first, then soft (published anyway)."""
     lc = gst.get('last_check') or {}
     out = []
-    if lc.get('outcome') in ('blocked',) and lc.get('reason'):
-        out += [x.strip() for x in str(lc['reason']).split('; ') if x.strip()]
+    if lc.get('outcome') in ('blocked',):
+        hard = [c for c in lc.get('checks') or [] if c.get('required') and not c.get('ok') and not c.get('soft')]
+        if hard:                              # one entry per failed check (a detail can itself hold '; ')
+            out += [f"{c['id']}: {c.get('detail') or ''}" for c in hard]
+        elif lc.get('reason'):
+            out += [x.strip() for x in re.split(r'; (?=[a-z_]+: )', str(lc['reason'])) if x.strip()]
     out += list((gst.get('soft_failures') or {}).get('failures') or [])
     seen, uniq = set(), []
     for f in out:

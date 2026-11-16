@@ -27,6 +27,12 @@ def test_failures_now_takes_hard_then_soft_once_each():
           'soft_failures': {'failures': ['tests_py: exit 1: a', 'rehear_rows: 1 problem']}}
     assert [f.split(':')[0] for f in AF.failures_now(st)] == ['check_numbers', 'tests_py', 'rehear_rows']
     assert AF.failures_now({'last_check': {'outcome': 'pushed', 'reason': ''}}) == []
+    # a check's detail can hold '; ' itself (lesson_coverage: '09-04 missing from ...; 09-05 missing from ...')
+    st = {'last_check': {'outcome': 'blocked', 'reason': 'lesson_coverage: 09-04 missing; 09-05 missing; tests_py: exit 1'}}
+    assert [f.split(':')[0] for f in AF.failures_now(st)] == ['lesson_coverage', 'tests_py']
+    st['last_check']['checks'] = [{'id': 'lesson_coverage', 'required': True, 'ok': False, 'detail': 'a; b'},
+                                  {'id': 'tests_py', 'required': True, 'ok': False, 'soft': True, 'detail': 'x'}]
+    assert AF.failures_now(st) == ['lesson_coverage: a; b']
 
 
 def test_late_lessons_are_recorded_over_12h_ago_and_not_live(tmp_path):
