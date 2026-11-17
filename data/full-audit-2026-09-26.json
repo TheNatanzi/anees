@@ -1,5 +1,5 @@
 {
- "built": "2026-11-16T17:46:02-08:00",
+ "built": "2026-11-17T11:31:14-08:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -26037,6 +26037,34 @@
     "bucket": "A8",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-9f1935c2",
+    "date": "2026-11-16",
+    "t": "09:10",
+    "t_amal": null,
+    "medi_said": "الحيوان اه بيعملوا الـ ألبان",
+    "amal_said": "From it.",
+    "chat": "el-7aywaan illi bye3malo minno albaan",
+    "wrong": "الحيوان اه بيعملوا",
+    "right": "الحيوان اللي بيعملوا",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-9f1935c2",
+    "sweep_id": null,
+    "mistake": "A defining clause after el-7aywaan needs illi (her chat); she did not voice it.",
+    "bucket": "C7",
+    "bucket2": null,
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-11-17T19:30:37.521942+00:00",
+     "pattern": "p-illi-dropped-relative",
+     "rule_id": 110502
+    }
    },
    {
     "id": "FA-c0bfe272",
@@ -106475,7 +106503,7 @@
    "chat": "sehla aktar",
    "wrong": "اكتر سهل",
    "right": "سهلة أكتر",
-   "kind": "grammar-B",
+   "kind": "dropped-by-amal",
    "tier": null,
    "bucket": "C3",
    "bucket2": null,
@@ -106498,7 +106526,19 @@
    "machine_had": false,
    "bucket_name": "comparatives",
    "uid": "FA-4922fcb5",
-   "n": 1745
+   "n": 1745,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "p-aktar-before-adjective",
+    "reason": "We haven’t introduced  comparatives  yet, so he doesn’t know much about the right order. It can be counted a mistake after that lesson is explained",
+    "at": "2026-11-17T19:29:45.087084+00:00",
+    "rule_id": 110482,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A27",
@@ -109690,13 +109730,13 @@
    "chat": "el-7aywaan illi bye3malo minno albaan",
    "wrong": "الحيوان اه بيعملوا",
    "right": "الحيوان اللي بيعملوا",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "C7",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "A defining clause after el-7aywaan needs illi (her chat); she did not voice it.",
    "english": "the animal that they make dairy from",
    "ids": [
@@ -109713,7 +109753,18 @@
    "machine_had": false,
    "bucket_name": "illi",
    "uid": "FA-9f1935c2",
-   "n": 1834
+   "n": 1834,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-illi-dropped-relative",
+    "at": "2026-11-17T19:30:37.521942+00:00",
+    "rule_id": 110502,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A9",
@@ -111053,13 +111104,13 @@
    "chat": "bye7taaju shu8ul",
    "wrong": "بحتاج",
    "right": "بيحتاجوا",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B18",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "Right after drilling يحتاجوا he said بحتاج (I need) for the horses needing work; Amal's voiced fix was on ديرو بالكو only. Could be the engine.",
    "english": "they need a lot of work",
    "ids": [
@@ -111076,7 +111127,19 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-1e854857",
-   "n": 1874
+   "n": 1874,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-i-form-for-they-form",
+    "at": "2026-11-17T19:30:20.873417+00:00",
+    "rule_id": 110495,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   },
+   "compat_same_moment_as": "FA-4d4c25cd"
   },
   {
    "id": "1116-r3-30",
@@ -111558,7 +111621,7 @@
  ],
  "rulings_applied": [
   {
-   "at": "2026-11-17T01:46:04.536551+00:00",
+   "at": "2026-11-17T19:31:15.891209+00:00",
    "rules": [
     1928,
     1929,
@@ -111630,6 +111693,9 @@
     38618,
     84138,
     106262,
+    110482,
+    110495,
+    110502,
     2026,
     2027,
     2028,
