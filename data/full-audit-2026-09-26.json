@@ -1,5 +1,5 @@
 {
- "built": "2026-11-17T11:31:14-08:00",
+ "built": "2026-11-17T11:46:14-08:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -26111,6 +26111,34 @@
     "bucket": "B9",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-32ea9783",
+    "date": "2026-11-16",
+    "t": "14:55",
+    "t_amal": "14:53",
+    "medi_said": "Yeah، إحنا محظوظ كتير أنا.",
+    "amal_said": "(14:50 آه، محظوظين.)",
+    "chat": null,
+    "wrong": "إحنا محظوظ",
+    "right": "إحنا محظوظين",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "amal-ruling",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-32ea9783",
+    "sweep_id": null,
+    "mistake": "With إحنا the adjective is plural (Amal had just said محظوظين); she let his singular pass.",
+    "bucket": "A8",
+    "bucket2": "A9",
+    "new_bucket_group": null,
+    "amal_confirmed": {
+     "at": "2026-11-17T19:33:09.342386+00:00",
+     "pattern": "p-sing-adj-plural-subject",
+     "rule_id": 110557
+    }
    },
    {
     "id": "FA-b119aeb5",
@@ -109912,13 +109940,13 @@
    "chat": null,
    "wrong": "إحنا محظوظ",
    "right": "إحنا محظوظين",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A8",
    "bucket2": "A9",
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "With إحنا the adjective is plural (Amal had just said محظوظين); she let his singular pass.",
    "english": "we are very lucky",
    "ids": [
@@ -109935,7 +109963,18 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-32ea9783",
-   "n": 1839
+   "n": 1839,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-sing-adj-plural-subject",
+    "at": "2026-11-17T19:33:09.342386+00:00",
+    "rule_id": 110557,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "1116-r3-38",
@@ -111423,7 +111462,7 @@
    "chat": "saaken 3ala el-shajar",
    "wrong": "سكن",
    "right": "ساكن",
-   "kind": "grammar-B",
+   "kind": "dropped-by-amal",
    "tier": null,
    "bucket": "B15",
    "bucket2": null,
@@ -111446,7 +111485,19 @@
    "machine_had": false,
    "bucket_name": "participles",
    "uid": "FA-c464fa7a",
-   "n": 1883
+   "n": 1883,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "p-past-for-habit",
+    "reason": "He said saaken. Wrong transcription",
+    "at": "2026-11-17T19:31:59.433494+00:00",
+    "rule_id": 110532,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A38",
@@ -111621,7 +111672,7 @@
  ],
  "rulings_applied": [
   {
-   "at": "2026-11-17T19:31:15.891209+00:00",
+   "at": "2026-11-17T19:46:16.437770+00:00",
    "rules": [
     1928,
     1929,
@@ -111696,6 +111747,8 @@
     110482,
     110495,
     110502,
+    110532,
+    110557,
     2026,
     2027,
     2028,
