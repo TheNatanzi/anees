@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T11:20:05-08:00",
+ "updated": "2026-11-16T16:17:07-08:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -15375,6 +15375,478 @@
      "_lesson_s": 3972.0,
      "first_t": 160.66,
      "last_t": 3965.07,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-11-16",
+   "start_local": "2026-11-16T15:04:44-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 64.2,
+   "type": "review-words",
+   "review_mode": "both",
+   "type_why": "Mostly a review of animal and food words: 06:48-55:08 (~48 min of ~63) is a guess-the-animal game ('06:48 بدنا نلعب لعبة اليوم') where she describes and he names, then he describes ('12:17 Okay, you studied. Great job', '55:08 You reviewed everything well'); a few new words came up ('40:13 guess two new words today: مكسرات', '07:06 We don't know this verb احزر'). 00:18-06:08 is warm-up talk (lazy weather, brother's birthday, date and time) and 56:21-1:02:50 is a homework check.",
+   "type_source": "claude-read",
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Guess-the-animal game reviewing animal and food words, plus new words: nuts, pistachio, tail, guess",
+    "rules": [
+     {
+      "title": "Future or 'would' with بدنا: بيكون بدنا نضل بالبيت",
+      "pattern": "بيكون + بدي / بدنا + verb",
+      "bullets": [
+       "بيكون goes first, then بدنا",
+       "Past is the same shape: كان بدي",
+       "Not بدنا بيكون"
+      ],
+      "examples": [
+       {
+        "t": "02:57",
+        "line": "بيكون بدنا نضل بالبيت - we'd want to stay home"
+       },
+       {
+        "t": "03:11",
+        "line": "كان بدي، بيكون بدي - I wanted, I'll want"
+       }
+      ]
+     },
+     {
+      "title": "Will have = بيكون عندي (not just عندي)",
+      "pattern": "بيكون + عندي + noun",
+      "bullets": [
+       "عندي alone means I have now",
+       "For later, put بيكون (or يكون) before it"
+      ],
+      "examples": [
+       {
+        "t": "45:04",
+        "line": "not now, then it needs a بكون"
+       },
+       {
+        "t": "45:28",
+        "line": "بيكون عندي جاجات كتير - I'll have lots of chickens"
+       }
+      ]
+     },
+     {
+      "title": "غير takes عن: غير عن = other than / different from",
+      "bullets": [
+       "Not غير من",
+       "Use it for 'different from what...'"
+      ],
+      "examples": [
+       {
+        "t": "15:49",
+        "line": "No, it's عن - غير عن"
+       },
+       {
+        "t": "59:59",
+        "line": "برنامج اليوم غير عن شو خططنا ليلة امبارح - today's plan is different from what we planned last night"
+       }
+      ]
+     },
+     {
+      "title": "General plural vs one: جاج, بقر, فواكه vs فاكهة",
+      "pattern": "general plural -> one (often + ة)",
+      "bullets": [
+       "Some animal and food words are already a general plural",
+       "For one, ask 'what's one?'",
+       "فواكه = fruits, فاكهة = one fruit"
+      ],
+      "examples": [
+       {
+        "t": "09:37",
+        "line": "But it's general plural so what's one?"
+       },
+       {
+        "t": "43:23",
+        "line": "جاج is chicken in general, general plural"
+       },
+       {
+        "t": "53:28",
+        "line": "one fruit is فاكهة"
+       }
+      ]
+     },
+     {
+      "title": "A kind of X = نوع من أنواع الـ + plural",
+      "pattern": "نوع من أنواع الـ + plural noun",
+      "bullets": [
+       "Literally 'a type of the types of'",
+       "Plural of طير is طيور"
+      ],
+      "examples": [
+       {
+        "t": "33:43",
+        "line": "نوع من أنواع الطيور - a kind of bird"
+       },
+       {
+        "t": "36:41",
+        "line": "نوع من أنواع الطيور (Medi, roadrunner)"
+       }
+      ]
+     },
+     {
+      "title": "Gender agrees with the main noun: حشرة -> لونها, countries are feminine",
+      "bullets": [
+       "الجو is masculine",
+       "Describe an insect with feminine forms (حشرة)",
+       "All countries are feminine: إيران مشهورة",
+       "كلبة = a female dog only; dogs = كلاب"
+      ],
+      "examples": [
+       {
+        "t": "01:30",
+        "line": "الجو is masculine? Yeah"
+       },
+       {
+        "t": "31:13",
+        "line": "لأنه حشرة، so we have to stick to حشرة"
+       },
+       {
+        "t": "42:29",
+        "line": "Iran is a feminine. All countries are - مشهورة"
+       },
+       {
+        "t": "45:50",
+        "line": "كلبة is feminine only - كلاب"
+       }
+      ]
+     },
+     {
+      "title": "Most favourite: أكتر إشي مفضل عندي (no ال)",
+      "pattern": "أكتر + إشي + مفضل + عندي",
+      "bullets": [
+       "My favourite = المفضل عندي",
+       "Most favourite: أكتر with no ال before it"
+      ],
+      "examples": [
+       {
+        "t": "41:03",
+        "line": "المفضل عندي - my favourite"
+       },
+       {
+        "t": "1:01:27",
+        "line": "السباحة أكتر إشي مفضل عندي - swimming is my most favourite thing"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up talk: lazy rainy weather, his brother's birthday, date and time (ten minutes = عشر دقايق)",
+     "Animal review: snake, cow, mouse, bee, sheep, chick, spider, donkey, pig, rooster, horse, cockroach, bird, squirrel, monkey",
+     "Plurals checked: فيران, حيطان, خنازير, طيور, سناجب, قرود, كلاب",
+     "Small fixes: عنده not على عنده, أدير بالي على, صوت عالي, proper nouns take no ال",
+     "Dairy review: لبن, جبنة, بوظة, زبدة, لبنة, حليب",
+     "Homework check at the end: غرفة تانية, كل قديش بيزوروك, عشان or لأن"
+    ]
+   },
+   "words": {
+    "unique": 170,
+    "right": 360,
+    "wrong": 10,
+    "partial": 10,
+    "pct": 96.1,
+    "scored": 380,
+    "audit_wrong": 10,
+    "audit_partial": 1,
+    "not_on_sheet": 5,
+    "rehear_word_conflicts": 0,
+    "unique_rows": 164,
+    "eligible": 380,
+    "excluded": 0,
+    "pending": 5,
+    "eligible_pct": 96.1,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 318,
+    "mistakes": 36,
+    "pct": 90.6,
+    "estimate": false,
+    "scored_mistakes": 30,
+    "unscored_mistakes": 6,
+    "eligible": 36,
+    "excluded": 0,
+    "pending": 10,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "12 slips are in rules the counter found 0 uses of in this lesson",
+      "9 rules have more slips than counted uses (A17, A18, A21, A23, A26, B18, B9, C2)"
+     ],
+     "uses": 296,
+     "slips": 36,
+     "slips_latin": 0,
+     "slips_in_zero_use_rules": 12,
+     "rules_slips_over_uses": [
+      "A17",
+      "A18",
+      "A21",
+      "A23",
+      "A26",
+      "B18",
+      "B9",
+      "C2",
+      "F2"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1205.7,
+    "amal_s": 771.7,
+    "speak_pct": 61.0,
+    "listen_pct": 39.0,
+    "window": [
+     0.0,
+     3789.1
+    ]
+   },
+   "fillers": {
+    "count": 196,
+    "per_min": 9.75,
+    "top": [
+     [
+      "آآ",
+      102
+     ],
+     [
+      "uh",
+      35
+     ],
+     [
+      "امم",
+      20
+     ],
+     [
+      "um",
+      15
+     ],
+     [
+      "آه",
+      6
+     ],
+     [
+      "ممم",
+      6
+     ]
+    ],
+    "in_turns": 196,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.23,
+    "p75_s": 1.99,
+    "n": 331
+   },
+   "flow": {
+    "wpm": 64.4,
+    "n_turns": 271,
+    "arabic_words": 805
+   },
+   "new_words": [],
+   "taught": [],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "احزر",
+     "english": "guess!",
+     "t": "07:06"
+    },
+    {
+     "latin": null,
+     "arabic": "حيطان",
+     "english": "walls (plural of حيط)",
+     "t": "11:41"
+    },
+    {
+     "latin": null,
+     "arabic": "هس هس",
+     "english": "mosquito",
+     "t": "14:22"
+    },
+    {
+     "latin": "Ma7zooz",
+     "arabic": "محظوظين",
+     "english": "lucky (plural)",
+     "t": "14:50"
+    },
+    {
+     "latin": null,
+     "arabic": "غير عن",
+     "english": "other than / different from",
+     "t": "15:49"
+    },
+    {
+     "latin": "Zahri",
+     "arabic": "زهري",
+     "english": "pink",
+     "t": "24:11"
+    },
+    {
+     "latin": null,
+     "arabic": "ذكر",
+     "english": "male (for animals, not زلمة)",
+     "t": "26:46"
+    },
+    {
+     "latin": null,
+     "arabic": "نوع من أنواع الطيور",
+     "english": "a kind of bird",
+     "t": "33:43"
+    },
+    {
+     "latin": null,
+     "arabic": "ديل",
+     "english": "tail",
+     "t": "39:03"
+    },
+    {
+     "latin": null,
+     "arabic": "ناعم",
+     "english": "soft",
+     "t": "39:24"
+    },
+    {
+     "latin": null,
+     "arabic": "مكسرات",
+     "english": "nuts",
+     "t": "40:13"
+    },
+    {
+     "latin": null,
+     "arabic": "فستق حلبي",
+     "english": "pistachio",
+     "t": "41:14"
+    },
+    {
+     "latin": "Ana ba7taaj",
+     "arabic": "بحتاجوا",
+     "english": "they need",
+     "t": "46:54"
+    },
+    {
+     "latin": "Dubaane",
+     "arabic": "دبانة",
+     "english": "fly",
+     "t": "48:20"
+    },
+    {
+     "latin": "8aabe",
+     "arabic": "غابة",
+     "english": "forest",
+     "t": "52:41"
+    },
+    {
+     "latin": "Fawakeh",
+     "arabic": "فواكه",
+     "english": "fruits",
+     "t": "53:04"
+    },
+    {
+     "latin": null,
+     "arabic": "فاكهة",
+     "english": "one fruit",
+     "t": "53:28"
+    },
+    {
+     "latin": null,
+     "arabic": "أكتر إشي مفضل عندي",
+     "english": "my most favourite thing",
+     "t": "1:01:19"
+    }
+   ],
+   "coverage": "Whole file read. Not filed: 01:16 بتكون باردة for الجو and 26:16 دايما يكون - both asked as questions; 16:40 English 'so' (Amal said فا) - 'so' not on her sheet; 37:05 cartoon not on sheet; 49:14 مزوجة->مزعجة self-fixed in his own line; 50:06 مزوّج = مزعج with dropped ع (S4). Engine: 34:56 ما بكثير = ما بيطير; 35:03 بيركود = بيركض; 20:10 moose = صوص; 22:07 Amar/Amir = حمار/حمير; 52:21 ورود = قرود; 58:21 دواء likely ضواو (lights), Amal is commenting on the homework checker. 55:40-1:02 homework review, mostly English. No echo-candidates file exists for this date. / Whole file read. Names skipped: Iraq at 11:39 (engine for a plural attempt for walls, Amal then gave حيطان - not flagged), عمان مرة 22:41 = echo: عمان مرة = كمان مرة (kaman marra), Aleppo, Iran, Syria, America, New Zealand. Echo: ثرثور = صرصور (cockroach, 29:57), ورود = قرود (52:21), بابي = غابة? (52:39), دواء الغرفة = ضوء/أضواء الغرفة (58:21), أخلصت may be وخلصت. Not rows: mid-sentence help (غير 59:53, عزومة 04:27), questions about gender of weather (01:23) and the cartoon talk. كل أديش / بزوروك (1:02:07) left out as pronunciation. Many Latin/English stretches; no chat lines in this lesson. echo-candidates file for this date was not present.",
+   "notes": [
+    "grammar: 6 of the 36 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "one ledger (LS-11): 2 moment(s) where two judges disagreed were settled by the existing rules: 27:20 Word Bank said right, Amal said no to that word: her no counts; 46:38 Word Bank said right, Amal said no to that word: her no counts."
+   ],
+   "page": "lessons/2026-11-16.html",
+   "detail": "data/lessons/2026-11-16.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-11-16",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 1176,
+    "chat_lines": 0,
+    "vocab_errors": 16,
+    "vocab_correct": 369,
+    "grammar_errors": 36,
+    "grammar_not_counted": 0,
+    "vocab_errors_split": {
+     "wrong": 10,
+     "half": 1,
+     "off_list": 5
+    }
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-11-16.json",
+    "marks": 754,
+    "conflicts": 4,
+    "resolved": 2,
+    "needs_medi": 0,
+    "mode": "on",
+    "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 49.4 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3852 s) compared with a second model",
+     "checks: 15 scored rows need an audio or human check (5 words, 10 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 76,
+       "r2": 68,
+       "agreed": 41,
+       "disputed": 42,
+       "agreement_pct": 49.4
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3852.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3852.0,
+     "first_t": 2.87,
+     "last_t": 3787.33,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3852.0,
+     "first_t": 5.29,
+     "last_t": 3788.82,
      "missing": [],
      "holes": [],
      "missing_s": 0,
