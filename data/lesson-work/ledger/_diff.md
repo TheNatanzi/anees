@@ -39,7 +39,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-11-10 | 96.3 | 323 | 91.1 | 25 | 235 | 2 / 1 |
 | 2026-11-11 | 98.1 | 262 | 88.0 | 26 | 200 | 1 / 2 |
 | 2026-11-12 | 97.6 | 147 | 87.4 | 25 | 175 | 1 / 1 |
-| 2026-11-16 | None -> **96.1** | None -> **380** | None -> **89.8** | None -> **36** | None -> **295** | 2 / 0 |
+| 2026-11-16 | 96.1 -> **95.1** | 380 -> **377** | 89.8 -> **89.4** | 36 -> **34** | 295 -> **293** | 2 / 1 |
 
 
 ## Conflicts
@@ -177,10 +177,13 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-11-11 59:54 C1 settled: ولد (word-bank right) vs ولد عمي -> ابن عمي (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
 - 2026-11-12 04:43 C1q Medi?: بالليل (word-bank right) vs بالليل -> الليلة (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-11-12 36:11 C1 settled: أي (word-bank right) vs أي أدج -> كل أدج (kul addaish) (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
-- 2026-11-16 14:20 C1r both stand: حشيش. (word-bank right) vs حشيش -> هس هس (readers not-scored) - the Word Bank's context review already settled it: unchanged
+- 2026-11-16 04:20 C1a both stand: لا، (word-bank right) vs الـ-- لا، عذرًا -> عزومة (readers asked) - he asked for another word: both stand
+- 2026-11-16 26:26 C1q Medi?: زلمة. (word-bank right) vs زلمة -> ذكر (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-11-16 27:20 C1 settled: طويل. (word-bank right) vs طويل -> عالي (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
-- 2026-11-16 46:38 C1 settled: يشتغلوا (word-bank right) vs يشتغلوا -> شغل كتير (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
-- 2026-11-16 46:39 C1r both stand: لازم (word-bank right) vs لازم -> بحتاجوا (readers not-scored) - the Word Bank's context review already settled it: unchanged
+- 2026-11-16 45:42 C1 settled: كلبات (word-bank right) vs كلبات -> كلاب (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-11-16 46:39 C1r both stand: لازم (word-bank right) vs لازم -> بيحتاجوا (readers wrong) - the Word Bank's context review already settled it: unchanged
+- 2026-11-16 46:39 C1r both stand: أشتغل (word-bank right) vs أشتغل كتير -> شغل كتير (readers wrong) - the Word Bank's context review already settled it: unchanged
+- 2026-11-16 46:40 C1p both stand: كتير. (word-bank right) vs أشتغل كتير -> شغل كتير (readers wrong) - slip elsewhere in the phrase: the word stays right
 
 ## Medi's corrections (PR-15)
 
