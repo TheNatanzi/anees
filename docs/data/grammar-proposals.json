@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T15:50:53-08:00",
+ "updated": "2026-11-16T17:46:02-08:00",
  "rule": "GR-18",
  "about": "Grammar corrections Amal made that fit no existing rule. Each is a proposed new rule for Medi's yes or no; nothing here is scored until he says yes. Built by scripts/full_audit_build.py from the audit rows and data/lesson-work/full-audit/proposed-buckets.json.",
  "proposals": [
@@ -1241,6 +1241,64 @@
      "bucket": "PROPOSE",
      "confidence": "high",
      "why": "In the -ish negation drill he left the -ish off; Amal said No, Where's your ish? (again at 26:05) until he said ما تنبسطيش; no bucket covers the -ish negative.",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
+   "id": "P-FA-f4b526bf",
+   "name": null,
+   "proposed_rule": "'X is a kind of Y' = noa3 / waa7ad min anwaa3 el-Y (singular noa3 + min + plural anwaa3 + el-plural): el-3asfoor noa3 min anwaa3 el-9yoor.",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-f4b526bf (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-f4b526bf",
+     "date": "2026-11-16",
+     "t": "33:00",
+     "t_amal": "33:32",
+     "medi_said": "آآآ بيكون أنواع من، أنواع من آآآ طيور",
+     "amal_said": "we either say that it's one of the types of birds ... واحد or نوع من أنواع الـ",
+     "chat": "el-3asfoor waa7ad/noaa3 min anwaa3 el-9yoor",
+     "wrong": "أنواع من طيور",
+     "right": "نوع من أنواع الطيور",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "medium",
+     "why": "Amal rebuilt his 'kinds of birds' as واحد/نوع من أنواع الطيور (one kind of the kinds of birds).",
+     "also_counted_as": [
+      {
+       "uid": "FA-555320f3",
+       "kind": "grammar-B",
+       "bucket": "C1"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P-FA-542ba347",
+   "name": null,
+   "proposed_rule": "To say how an action is done use bi + the noun (byerkod bisur3a), not the adjective (saree3a).",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-542ba347 (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-542ba347",
+     "date": "2026-11-16",
+     "t": "35:03",
+     "t_amal": "35:13",
+     "medi_said": "بيركود سريعة. [ضحك] بيركود سريعة.",
+     "amal_said": "So now هو نوع من-- بسرعة.",
+     "chat": "byerkod",
+     "wrong": "بيركود سريعة",
+     "right": "بيركض بسرعة",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "high",
+     "why": "How a verb is done takes bi + noun (bisur3a), not the adjective سريعة; Amal recast بسرعة and he repeated it.",
      "also_counted_as": []
     }
    ]

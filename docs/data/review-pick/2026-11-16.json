@@ -2,14 +2,14 @@
  "about": "Fast review mode (PG-50): the student's lines that hold Arabic in three tiers (1 unsure, 2 changed by the second listen, 3 confident; why listed), shown tier by tier; blind = the first 50 shown, without chips. Built by scripts/review_picker.py; display only.",
  "date": "2026-11-16",
  "all": 256,
- "unsure": 73,
- "unsure_n": 73,
+ "unsure": 76,
+ "unsure_n": 76,
  "changed_n": 0,
- "confident_n": 183,
+ "confident_n": 180,
  "tier_n": {
-  "1": 73,
+  "1": 76,
   "2": 0,
-  "3": 183
+  "3": 180
  },
  "tiers": {
   "1": "unsure: a ✗ chip, the two readers disagree, the second listen held a change or no 2 of its 3 runs agree, or one of 5 random confident lines",
@@ -19,7 +19,7 @@
  "blind_n": 50,
  "random_n": 5,
  "secs": 1667.5,
- "unsure_secs": 631.4,
+ "unsure_secs": 722.3,
  "lines": [
   {
    "i": 7,
@@ -43,7 +43,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 74,
+   "order": 77,
    "blind": false
   },
   {
@@ -61,9 +61,9 @@
     "the two readers disagreed (D1: only r1 found it)"
    ],
    "propose": {
-    "k": "vocab",
-    "said": "مطار",
-    "right": "ماطر / بتمطر (rainy)",
+    "k": "grammar",
+    "said": "لما الجو برد",
+    "right": "لما الجو يكون برد",
     "from": "readers"
    },
    "order": 1,
@@ -88,7 +88,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 75,
+   "order": 78,
    "blind": false
   },
   {
@@ -110,7 +110,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 76,
+   "order": 79,
    "blind": false
   },
   {
@@ -122,17 +122,19 @@
    "end": 71.97,
    "mmss": "01:10",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "the two readers disagreed (D2: only r1 found it)"
+   ],
    "propose": {
-    "k": "vocab",
-    "said": "Oh, بكون، آآآ، بكون،",
-    "right": null,
-    "from": "chip"
+    "k": "grammar",
+    "said": "بكون",
+    "right": "يكون",
+    "from": "readers"
    },
-   "order": 77,
-   "blind": false
+   "order": 2,
+   "blind": true
   },
   {
    "i": 25,
@@ -154,7 +156,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 78,
+   "order": 80,
    "blind": false
   },
   {
@@ -175,7 +177,7 @@
     "right": null,
     "from": "chip"
    },
-   "order": 79,
+   "order": 81,
    "blind": false
   },
   {
@@ -191,23 +193,25 @@
    "end": 122.39,
    "mmss": "01:30",
    "words": 10,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "the two readers disagreed (D54: only r2 found it)"
+   ],
    "propose": {
     "k": "vocab",
-    "said": "Okay. الجو برد، أو",
-    "right": null,
-    "from": "chip"
+    "said": "مطار",
+    "right": "مطر",
+    "from": "readers"
    },
-   "order": 80,
-   "blind": false
+   "order": 3,
+   "blind": true
   },
   {
-   "i": 38,
+   "i": 39,
    "parts": [
-    38,
-    39
+    39,
+    40
    ],
    "t": 123.23,
    "end": 129.09,
@@ -222,13 +226,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 81,
+   "order": 82,
    "blind": false
   },
   {
-   "i": 41,
+   "i": 42,
    "parts": [
-    41
+    42
    ],
    "t": 131.25,
    "end": 139.69,
@@ -237,24 +241,24 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (بمطر)"
+    "✗ chip on it (لما بمطر)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "بمطر",
-    "right": "بتمطر",
+    "said": "لما بمطر",
+    "right": "لما بتمطر",
     "from": "readers"
    },
-   "order": 2,
+   "order": 4,
    "blind": true
   },
   {
-   "i": 43,
+   "i": 44,
    "parts": [
-    43,
     44,
     45,
-    46
+    46,
+    47
    ],
    "t": 142.17,
    "end": 155.85,
@@ -263,7 +267,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D2: matched but differ on kind, tier)"
+    "the two readers disagreed (D3: only r1 found it)"
    ],
    "propose": {
     "k": "vocab",
@@ -271,18 +275,18 @@
     "right": "بيكون بدنا نضل بالبيت",
     "from": "readers"
    },
-   "order": 3,
+   "order": 5,
    "blind": true
   },
   {
-   "i": 48,
+   "i": 49,
    "parts": [
-    48,
     49,
     50,
     51,
     52,
-    53
+    53,
+    54
    ],
    "t": 158.19,
    "end": 175.71,
@@ -297,14 +301,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 82,
+   "order": 83,
    "blind": false
   },
   {
-   "i": 55,
+   "i": 56,
    "parts": [
-    55,
-    56
+    56,
+    57
    ],
    "t": 180.05,
    "end": 185.47,
@@ -321,13 +325,13 @@
     "right": "بيكون بدنا نضل",
     "from": "readers"
    },
-   "order": 4,
+   "order": 6,
    "blind": true
   },
   {
-   "i": 58,
+   "i": 59,
    "parts": [
-    58
+    59
    ],
    "t": 186.77,
    "end": 190.07,
@@ -342,16 +346,16 @@
     "right": null,
     "from": "chip"
    },
-   "order": 83,
+   "order": 84,
    "blind": false
   },
   {
-   "i": 68,
+   "i": 70,
    "parts": [
-    68,
-    69,
     70,
-    71
+    71,
+    72,
+    73
    ],
    "t": 220.61,
    "end": 236.55,
@@ -366,13 +370,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 84,
+   "order": 85,
    "blind": false
   },
   {
-   "i": 74,
+   "i": 76,
    "parts": [
-    74
+    76
    ],
    "t": 239.25,
    "end": 247.69,
@@ -387,15 +391,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 85,
+   "order": 86,
    "blind": false
   },
   {
-   "i": 76,
+   "i": 78,
    "parts": [
-    76,
-    77,
-    78
+    78,
+    79,
+    80
    ],
    "t": 249.05,
    "end": 261.33,
@@ -406,19 +410,19 @@
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "آآآ، كانوا في بيت أخوي،",
-    "right": null,
-    "from": "chip"
+    "said": "الـ-- لا، عذرًا",
+    "right": "عزومة",
+    "from": "readers"
    },
-   "order": 86,
+   "order": 87,
    "blind": false
   },
   {
-   "i": 82,
+   "i": 85,
    "parts": [
-    82,
-    83,
-    84
+    85,
+    86,
+    87
    ],
    "t": 273.61,
    "end": 283.15,
@@ -427,6 +431,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "the two readers disagreed (D4: only r1 found it)",
     "✗ chip on it (بعض)"
    ],
    "propose": {
@@ -435,13 +440,13 @@
     "right": "بعض",
     "from": "readers"
    },
-   "order": 5,
+   "order": 7,
    "blind": true
   },
   {
-   "i": 86,
+   "i": 89,
    "parts": [
-    86
+    89
    ],
    "t": 285.13,
    "end": 289.29,
@@ -456,13 +461,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 87,
+   "order": 88,
    "blind": false
   },
   {
-   "i": 88,
+   "i": 91,
    "parts": [
-    88
+    91
    ],
    "t": 291.35,
    "end": 292.51,
@@ -479,13 +484,13 @@
     "right": "هدايا",
     "from": "readers"
    },
-   "order": 6,
+   "order": 8,
    "blind": true
   },
   {
-   "i": 90,
+   "i": 93,
    "parts": [
-    90
+    93
    ],
    "t": 295.13,
    "end": 296.27,
@@ -500,14 +505,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 88,
+   "order": 89,
    "blind": false
   },
   {
-   "i": 96,
+   "i": 100,
    "parts": [
-    96,
-    97
+    100,
+    101
    ],
    "t": 311.01,
    "end": 317.47,
@@ -516,7 +521,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D3: matched but differ on kind)"
+    "the two readers disagreed (D5: matched but differ on kind)"
    ],
    "propose": {
     "k": "grammar",
@@ -524,13 +529,13 @@
     "right": "وخلصت",
     "from": "readers"
    },
-   "order": 7,
+   "order": 9,
    "blind": true
   },
   {
-   "i": 99,
+   "i": 103,
    "parts": [
-    99
+    103
    ],
    "t": 319.55,
    "end": 331.23,
@@ -545,15 +550,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 89,
+   "order": 90,
    "blind": false
   },
   {
-   "i": 101,
+   "i": 105,
    "parts": [
-    101,
-    102,
-    103
+    105,
+    106,
+    107
    ],
    "t": 333.01,
    "end": 341.75,
@@ -568,13 +573,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 90,
+   "order": 91,
    "blind": false
   },
   {
-   "i": 105,
+   "i": 109,
    "parts": [
-    105
+    109
    ],
    "t": 344.43,
    "end": 350.11,
@@ -589,13 +594,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 91,
+   "order": 92,
    "blind": false
   },
   {
-   "i": 107,
+   "i": 112,
    "parts": [
-    107
+    112
    ],
    "t": 358.37,
    "end": 360.15,
@@ -612,13 +617,13 @@
     "right": "عشر دقايق",
     "from": "readers"
    },
-   "order": 8,
+   "order": 10,
    "blind": true
   },
   {
-   "i": 109,
+   "i": 114,
    "parts": [
-    109
+    114
    ],
    "t": 362.63,
    "end": 363.57,
@@ -633,13 +638,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 92,
+   "order": 93,
    "blind": false
   },
   {
-   "i": 112,
+   "i": 118,
    "parts": [
-    112
+    118
    ],
    "t": 371.44,
    "end": 371.94,
@@ -654,14 +659,14 @@
     "right": null,
     "from": "line"
    },
-   "order": 93,
+   "order": 94,
    "blind": false
   },
   {
-   "i": 115,
+   "i": 121,
    "parts": [
-    115,
-    116
+    121,
+    122
    ],
    "t": 375.5,
    "end": 384.08,
@@ -678,15 +683,15 @@
     "right": "بلوزة رسمية",
     "from": "readers"
    },
-   "order": 9,
+   "order": 11,
    "blind": true
   },
   {
-   "i": 118,
+   "i": 124,
    "parts": [
-    118,
-    119,
-    120
+    124,
+    125,
+    126
    ],
    "t": 385.78,
    "end": 400.74,
@@ -701,13 +706,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 94,
+   "order": 95,
    "blind": false
   },
   {
-   "i": 122,
+   "i": 129,
    "parts": [
-    122
+    129
    ],
    "t": 412.74,
    "end": 414.84,
@@ -722,13 +727,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 95,
+   "order": 96,
    "blind": false
   },
   {
-   "i": 137,
+   "i": 144,
    "parts": [
-    137
+    144
    ],
    "t": 466.88,
    "end": 469.48,
@@ -743,14 +748,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 96,
+   "order": 97,
    "blind": false
   },
   {
-   "i": 142,
+   "i": 149,
    "parts": [
-    142,
-    143
+    149,
+    150
    ],
    "t": 478.06,
    "end": 483.06,
@@ -765,14 +770,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 97,
+   "order": 98,
    "blind": false
   },
   {
-   "i": 151,
+   "i": 158,
    "parts": [
-    151,
-    152
+    158,
+    159
    ],
    "t": 515.98,
    "end": 521.76,
@@ -783,18 +788,18 @@
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "اه is it",
+    "said": "اه حيايا؟ هاية؟",
     "right": null,
     "from": "chip"
    },
-   "order": 98,
+   "order": 99,
    "blind": false
   },
   {
-   "i": 154,
+   "i": 161,
    "parts": [
-    154,
-    155
+    161,
+    162
    ],
    "t": 523.08,
    "end": 526.44,
@@ -809,16 +814,16 @@
     "right": null,
     "from": "chip"
    },
-   "order": 99,
+   "order": 100,
    "blind": false
   },
   {
-   "i": 159,
+   "i": 167,
    "parts": [
-    159,
-    160,
-    161,
-    162
+    167,
+    168,
+    169,
+    170
    ],
    "t": 543.02,
    "end": 556.4,
@@ -831,17 +836,17 @@
    ],
    "propose": {
     "k": "grammar",
-    "said": "بيعملوا الـ ألبان",
-    "right": "بيعملوا منه الألبان",
+    "said": "الحيوان اه بيعملوا",
+    "right": "الحيوان اللي بيعملوا",
     "from": "readers"
    },
-   "order": 10,
+   "order": 12,
    "blind": true
   },
   {
-   "i": 164,
+   "i": 172,
    "parts": [
-    164
+    172
    ],
    "t": 560.88,
    "end": 562.0,
@@ -856,13 +861,13 @@
     "right": null,
     "from": "line"
    },
-   "order": 100,
+   "order": 101,
    "blind": false
   },
   {
-   "i": 168,
+   "i": 176,
    "parts": [
-    168
+    176
    ],
    "t": 572.58,
    "end": 574.94,
@@ -877,13 +882,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 101,
+   "order": 102,
    "blind": false
   },
   {
-   "i": 170,
+   "i": 178,
    "parts": [
-    170
+    178
    ],
    "t": 580.44,
    "end": 580.8,
@@ -898,13 +903,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 102,
+   "order": 103,
    "blind": false
   },
   {
-   "i": 183,
+   "i": 192,
    "parts": [
-    183
+    192
    ],
    "t": 643.96,
    "end": 645.02,
@@ -915,17 +920,17 @@
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "اه، اه بار.",
+    "said": "اه، اه فار.",
     "right": null,
     "from": "chip"
    },
-   "order": 103,
+   "order": 104,
    "blind": false
   },
   {
-   "i": 185,
+   "i": 194,
    "parts": [
-    185
+    194
    ],
    "t": 649.58,
    "end": 651.42,
@@ -940,13 +945,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 104,
+   "order": 105,
    "blind": false
   },
   {
-   "i": 188,
+   "i": 198,
    "parts": [
-    188
+    198
    ],
    "t": 660.44,
    "end": 661.14,
@@ -961,14 +966,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 105,
+   "order": 106,
    "blind": false
   },
   {
-   "i": 190,
+   "i": 200,
    "parts": [
-    190,
-    191
+    200,
+    201
    ],
    "t": 665.18,
    "end": 673.1,
@@ -983,13 +988,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 106,
+   "order": 107,
    "blind": false
   },
   {
-   "i": 203,
+   "i": 215,
    "parts": [
-    203
+    215
    ],
    "t": 709.58,
    "end": 710.08,
@@ -1004,14 +1009,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 107,
+   "order": 108,
    "blind": false
   },
   {
-   "i": 209,
+   "i": 221,
    "parts": [
-    209,
-    210
+    221,
+    222
    ],
    "t": 727.14,
    "end": 732.04,
@@ -1026,15 +1031,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 108,
+   "order": 109,
    "blind": false
   },
   {
-   "i": 215,
+   "i": 228,
    "parts": [
-    215,
-    216,
-    217
+    228,
+    229,
+    230
    ],
    "t": 753.67,
    "end": 774.61,
@@ -1049,13 +1054,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 109,
+   "order": 110,
    "blind": false
   },
   {
-   "i": 219,
+   "i": 232,
    "parts": [
-    219
+    232
    ],
    "t": 779.25,
    "end": 781.47,
@@ -1070,13 +1075,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 110,
+   "order": 111,
    "blind": false
   },
   {
-   "i": 222,
+   "i": 235,
    "parts": [
-    222
+    235
    ],
    "t": 784.83,
    "end": 793.31,
@@ -1085,21 +1090,22 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "the two readers disagreed (D6: matched but differ on bucket)",
     "✗ chip on it (إلي يكون)"
    ],
    "propose": {
     "k": "grammar",
     "said": "إلي يكون",
-    "right": "إلي تكون",
+    "right": "اللي تكون",
     "from": "readers"
    },
-   "order": 11,
+   "order": 13,
    "blind": true
   },
   {
-   "i": 226,
+   "i": 239,
    "parts": [
-    226
+    239
    ],
    "t": 797.57,
    "end": 798.23,
@@ -1114,15 +1120,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 111,
+   "order": 112,
    "blind": false
   },
   {
-   "i": 228,
+   "i": 241,
    "parts": [
-    228,
-    229,
-    230
+    241,
+    242,
+    243
    ],
    "t": 804.61,
    "end": 811.15,
@@ -1131,8 +1137,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D5: matched but differ on tier)",
-    "✗ chip on it (مزعجة)"
+    "✗ chip on it (مزعجة (muz3eje, annoying))"
    ],
    "propose": {
     "k": "vocab",
@@ -1140,13 +1145,13 @@
     "right": "مزعجة (muz3eje, annoying)",
     "from": "readers"
    },
-   "order": 12,
+   "order": 14,
    "blind": true
   },
   {
-   "i": 232,
+   "i": 245,
    "parts": [
-    232
+    245
    ],
    "t": 814.27,
    "end": 815.39,
@@ -1161,14 +1166,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 112,
+   "order": 113,
    "blind": false
   },
   {
-   "i": 235,
+   "i": 248,
    "parts": [
-    235,
-    236
+    248,
+    249
    ],
    "t": 824.23,
    "end": 830.95,
@@ -1183,39 +1188,37 @@
     "right": null,
     "from": "chip"
    },
-   "order": 113,
+   "order": 114,
    "blind": false
   },
   {
-   "i": 238,
+   "i": 251,
    "parts": [
-    238,
-    239,
-    240,
-    241
+    251,
+    252,
+    253,
+    254
    ],
    "t": 832.89,
    "end": 844.35,
    "mmss": "13:52",
    "words": 2,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "the two readers disagreed (D36: only r2 found it)"
-   ],
+   "tier": 3,
+   "unsure": false,
+   "why": [],
    "propose": {
-    "k": "vocab",
-    "said": "بتهب الدم",
-    "right": "بتمص / بتشرب الدم",
-    "from": "readers"
+    "k": "grammar",
+    "said": "الدم",
+    "right": null,
+    "from": "chip"
    },
-   "order": 13,
-   "blind": true
+   "order": 115,
+   "blind": false
   },
   {
-   "i": 243,
+   "i": 256,
    "parts": [
-    243
+    256
    ],
    "t": 852.35,
    "end": 856.45,
@@ -1230,13 +1233,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 114,
+   "order": 116,
    "blind": false
   },
   {
-   "i": 246,
+   "i": 259,
    "parts": [
-    246
+    259
    ],
    "t": 859.97,
    "end": 860.89,
@@ -1245,21 +1248,21 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D6: matched but differ on tier)"
+    "the two readers disagreed (D7: only r1 found it)"
    ],
    "propose": {
     "k": "vocab",
     "said": "حشيش",
-    "right": "هس هس",
+    "right": "هس هس (hishis)",
     "from": "readers"
    },
-   "order": 14,
+   "order": 15,
    "blind": true
   },
   {
-   "i": 248,
+   "i": 262,
    "parts": [
-    248
+    262
    ],
    "t": 863.27,
    "end": 865.61,
@@ -1274,15 +1277,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 115,
+   "order": 117,
    "blind": false
   },
   {
-   "i": 249,
+   "i": 263,
    "parts": [
-    249,
-    250,
-    251
+    263,
+    264,
+    266
    ],
    "t": 873.27,
    "end": 880.39,
@@ -1297,14 +1300,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 116,
+   "order": 118,
    "blind": false
   },
   {
-   "i": 253,
+   "i": 268,
    "parts": [
-    253,
-    254
+    268,
+    269
    ],
    "t": 881.73,
    "end": 889.09,
@@ -1319,15 +1322,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 117,
+   "order": 119,
    "blind": false
   },
   {
-   "i": 258,
+   "i": 273,
    "parts": [
-    258,
-    259,
-    260
+    273,
+    274,
+    275
    ],
    "t": 895.15,
    "end": 905.97,
@@ -1336,7 +1339,8 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (أغلب California)"
+    "the two readers disagreed (D38: only r2 found it)",
+    "✗ chip on it (أغلب California (he said ال))"
    ],
    "propose": {
     "k": "grammar",
@@ -1344,15 +1348,15 @@
     "right": "إحنا محظوظين",
     "from": "readers"
    },
-   "order": 15,
+   "order": 16,
    "blind": true
   },
   {
-   "i": 262,
+   "i": 277,
    "parts": [
-    262,
-    263,
-    264
+    277,
+    278,
+    279
    ],
    "t": 907.45,
    "end": 919.89,
@@ -1367,37 +1371,39 @@
     "right": null,
     "from": "chip"
    },
-   "order": 118,
+   "order": 120,
    "blind": false
   },
   {
-   "i": 266,
+   "i": 281,
    "parts": [
-    266,
-    267,
-    268
+    281,
+    282,
+    283
    ],
    "t": 923.03,
    "end": 929.81,
    "mmss": "15:23",
    "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "the two readers disagreed (D39: only r2 found it)"
+   ],
    "propose": {
     "k": "vocab",
     "said": "بدون",
-    "right": null,
-    "from": "line"
+    "right": "غير",
+    "from": "readers"
    },
-   "order": 119,
-   "blind": false
+   "order": 17,
+   "blind": true
   },
   {
-   "i": 271,
+   "i": 286,
    "parts": [
-    271,
-    272
+    286,
+    287
    ],
    "t": 931.19,
    "end": 935.23,
@@ -1412,13 +1418,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 120,
+   "order": 121,
    "blind": false
   },
   {
-   "i": 274,
+   "i": 289,
    "parts": [
-    274
+    289
    ],
    "t": 936.57,
    "end": 937.03,
@@ -1435,14 +1441,14 @@
     "right": "غير عن",
     "from": "readers"
    },
-   "order": 16,
+   "order": 18,
    "blind": true
   },
   {
-   "i": 275,
+   "i": 290,
    "parts": [
-    275,
-    276
+    290,
+    291
    ],
    "t": 944.09,
    "end": 948.43,
@@ -1457,15 +1463,15 @@
     "right": null,
     "from": "line"
    },
-   "order": 121,
+   "order": 122,
    "blind": false
   },
   {
-   "i": 278,
+   "i": 293,
    "parts": [
-    278,
-    279,
-    280
+    293,
+    294,
+    295
    ],
    "t": 950.13,
    "end": 965.09,
@@ -1480,15 +1486,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 122,
+   "order": 123,
    "blind": false
   },
   {
-   "i": 282,
+   "i": 297,
    "parts": [
-    282,
-    283,
-    284
+    297,
+    298,
+    300
    ],
    "t": 969.41,
    "end": 980.47,
@@ -1497,21 +1503,21 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (صاحبي)"
+    "the two readers disagreed (D8: matched but differ on kind, bucket)"
    ],
    "propose": {
-    "k": "vocab",
-    "said": "صحابي",
-    "right": "صاحبي",
+    "k": "grammar",
+    "said": "صحابي ساكن",
+    "right": "صاحبي ساكن",
     "from": "readers"
    },
-   "order": 17,
+   "order": 19,
    "blind": true
   },
   {
-   "i": 286,
+   "i": 302,
    "parts": [
-    286
+    302
    ],
    "t": 981.99,
    "end": 982.65,
@@ -1526,13 +1532,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 123,
+   "order": 124,
    "blind": false
   },
   {
-   "i": 288,
+   "i": 304,
    "parts": [
-    288
+    304
    ],
    "t": 988.53,
    "end": 995.95,
@@ -1547,15 +1553,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 124,
+   "order": 125,
    "blind": false
   },
   {
-   "i": 293,
+   "i": 309,
    "parts": [
-    293,
-    294,
-    295
+    309,
+    310,
+    311
    ],
    "t": 1004.51,
    "end": 1010.77,
@@ -1566,41 +1572,39 @@
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "فا",
-    "right": null,
-    "from": "line"
+    "said": "Hate. Oh my God, hate was...",
+    "right": "بكره",
+    "from": "chip"
    },
-   "order": 125,
+   "order": 126,
    "blind": false
   },
   {
-   "i": 297,
+   "i": 313,
    "parts": [
-    297,
-    298
+    313,
+    314
    ],
    "t": 1017.05,
    "end": 1028.07,
    "mmss": "16:57",
    "words": 2,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "the two readers disagreed (D7: matched but differ on tier)"
-   ],
+   "tier": 3,
+   "unsure": false,
+   "why": [],
    "propose": {
-    "k": "vocab",
-    "said": "بشتاح",
-    "right": "بكره",
-    "from": "readers"
+    "k": "grammar",
+    "said": "هات",
+    "right": null,
+    "from": "chip"
    },
-   "order": 18,
-   "blind": true
+   "order": 127,
+   "blind": false
   },
   {
-   "i": 300,
+   "i": 316,
    "parts": [
-    300
+    316
    ],
    "t": 1028.13,
    "end": 1034.07,
@@ -1615,14 +1619,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 126,
+   "order": 128,
    "blind": false
   },
   {
-   "i": 303,
+   "i": 319,
    "parts": [
-    303,
-    304
+    319,
+    320
    ],
    "t": 1035.89,
    "end": 1041.85,
@@ -1637,13 +1641,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 127,
+   "order": 129,
    "blind": false
   },
   {
-   "i": 308,
+   "i": 324,
    "parts": [
-    308
+    324
    ],
    "t": 1048.39,
    "end": 1049.33,
@@ -1660,13 +1664,13 @@
     "right": "عنده",
     "from": "readers"
    },
-   "order": 19,
+   "order": 20,
    "blind": true
   },
   {
-   "i": 310,
+   "i": 326,
    "parts": [
-    310
+    326
    ],
    "t": 1051.81,
    "end": 1052.75,
@@ -1681,13 +1685,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 128,
+   "order": 130,
    "blind": false
   },
   {
-   "i": 319,
+   "i": 336,
    "parts": [
-    319
+    336
    ],
    "t": 1100.71,
    "end": 1102.75,
@@ -1702,14 +1706,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 129,
+   "order": 131,
    "blind": false
   },
   {
-   "i": 321,
+   "i": 338,
    "parts": [
-    321,
-    322
+    338,
+    339
    ],
    "t": 1105.93,
    "end": 1109.26,
@@ -1724,14 +1728,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 130,
+   "order": 132,
    "blind": false
   },
   {
-   "i": 368,
+   "i": 388,
    "parts": [
-    368,
-    369
+    388,
+    389
    ],
    "t": 1261.11,
    "end": 1265.84,
@@ -1746,43 +1750,46 @@
     "right": null,
     "from": "chip"
    },
-   "order": 131,
+   "order": 133,
    "blind": false
   },
   {
-   "i": 374,
+   "i": 395,
    "parts": [
-    374,
-    375,
-    376,
-    377,
-    378,
-    379,
-    380,
-    381,
-    382,
-    383
+    395,
+    396,
+    397,
+    398,
+    399,
+    400,
+    401,
+    402,
+    403,
+    404
    ],
    "t": 1281.31,
    "end": 1310.56,
    "mmss": "21:21",
    "words": 6,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "the two readers disagreed (D9: only r1 found it)",
+    "the two readers disagreed (D10: only r1 found it)"
+   ],
    "propose": {
     "k": "grammar",
     "said": "يستعمل",
-    "right": "بنستعملها (بمعنى سيء)",
+    "right": "بتستعمل",
     "from": "readers"
    },
-   "order": 132,
-   "blind": false
+   "order": 21,
+   "blind": true
   },
   {
-   "i": 389,
+   "i": 410,
    "parts": [
-    389
+    410
    ],
    "t": 1327.43,
    "end": 1327.88,
@@ -1797,14 +1804,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 133,
+   "order": 134,
    "blind": false
   },
   {
-   "i": 391,
+   "i": 412,
    "parts": [
-    391,
-    392
+    412,
+    413
    ],
    "t": 1331.57,
    "end": 1345.56,
@@ -1819,13 +1826,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 134,
+   "order": 135,
    "blind": false
   },
   {
-   "i": 396,
+   "i": 417,
    "parts": [
-    396
+    417
    ],
    "t": 1361.47,
    "end": 1363.36,
@@ -1840,17 +1847,17 @@
     "right": null,
     "from": "chip"
    },
-   "order": 135,
+   "order": 136,
    "blind": false
   },
   {
-   "i": 403,
+   "i": 424,
    "parts": [
-    403,
-    404,
-    405,
-    406,
-    407
+    424,
+    425,
+    426,
+    427,
+    428
    ],
    "t": 1386.49,
    "end": 1399.74,
@@ -1865,65 +1872,66 @@
     "right": null,
     "from": "chip"
    },
-   "order": 136,
+   "order": 137,
    "blind": false
   },
   {
-   "i": 417,
+   "i": 438,
    "parts": [
-    417
+    438
    ],
    "t": 1448.11,
    "end": 1449.54,
    "mmss": "24:08",
    "words": 1,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "the two readers disagreed (D9: only r1 found it)"
-   ],
-   "propose": {
-    "k": "vocab",
-    "said": "(did not know pink)",
-    "right": "زهري",
-    "from": "readers"
-   },
-   "order": 20,
-   "blind": true
-  },
-  {
-   "i": 419,
-   "parts": [
-    419,
-    420,
-    421,
-    422,
-    423
-   ],
-   "t": 1451.65,
-   "end": 1470.58,
-   "mmss": "24:11",
-   "words": 6,
    "tier": 3,
    "unsure": false,
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "زهبي.",
+    "said": "I don't remember. نسيت.",
     "right": null,
     "from": "chip"
    },
-   "order": 137,
+   "order": 138,
    "blind": false
   },
   {
-   "i": 426,
+   "i": 440,
    "parts": [
-    426,
-    427,
-    428,
-    429,
-    430
+    440,
+    441,
+    442,
+    443,
+    444
+   ],
+   "t": 1451.65,
+   "end": 1470.58,
+   "mmss": "24:11",
+   "words": 6,
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "the two readers disagreed (D12: matched but differ on bucket)",
+    "✗ chip on it (بكل)"
+   ],
+   "propose": {
+    "k": "grammar",
+    "said": "بكل",
+    "right": "بياكل",
+    "from": "readers"
+   },
+   "order": 22,
+   "blind": true
+  },
+  {
+   "i": 447,
+   "parts": [
+    447,
+    448,
+    449,
+    450,
+    451
    ],
    "t": 1472.85,
    "end": 1490.65,
@@ -1932,22 +1940,22 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D10: matched but differ on A/B)"
+    "the two readers disagreed (D12: matched but differ on bucket)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "ياكل",
-    "right": "بياكل",
+    "said": "ياكل كل إشي",
+    "right": "بياكل كل إشي",
     "from": "readers"
    },
-   "order": 21,
+   "order": 23,
    "blind": true
   },
   {
-   "i": 432,
+   "i": 453,
    "parts": [
-    432,
-    433
+    453,
+    454
    ],
    "t": 1492.33,
    "end": 1501.99,
@@ -1962,14 +1970,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 138,
+   "order": 139,
    "blind": false
   },
   {
-   "i": 436,
+   "i": 458,
    "parts": [
-    436,
-    437
+    458,
+    459
    ],
    "t": 1507.85,
    "end": 1512.59,
@@ -1984,15 +1992,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 139,
+   "order": 140,
    "blind": false
   },
   {
-   "i": 441,
+   "i": 463,
    "parts": [
-    441,
-    442,
-    443
+    463,
+    464,
+    465
    ],
    "t": 1525.95,
    "end": 1533.57,
@@ -2007,23 +2015,45 @@
     "right": null,
     "from": "chip"
    },
-   "order": 140,
+   "order": 141,
    "blind": false
   },
   {
-   "i": 447,
+   "i": 469,
    "parts": [
-    447,
-    448
+    469,
+    470
    ],
    "t": 1540.89,
    "end": 1547.21,
    "mmss": "25:40",
    "words": 3,
+   "tier": 3,
+   "unsure": false,
+   "why": [],
+   "propose": {
+    "k": "vocab",
+    "said": "خنازير",
+    "right": null,
+    "from": "chip"
+   },
+   "order": 142,
+   "blind": false
+  },
+  {
+   "i": 472,
+   "parts": [
+    472,
+    474
+   ],
+   "t": 1548.83,
+   "end": 1553.69,
+   "mmss": "25:48",
+   "words": 2,
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D11: matched but differ on kind, bucket)"
+    "the two readers disagreed (D41: only r2 found it)"
    ],
    "propose": {
     "k": "grammar",
@@ -2031,36 +2061,14 @@
     "right": "خنازير",
     "from": "readers"
    },
-   "order": 22,
+   "order": 24,
    "blind": true
   },
   {
-   "i": 450,
+   "i": 476,
    "parts": [
-    450,
-    451
-   ],
-   "t": 1548.83,
-   "end": 1553.69,
-   "mmss": "25:48",
-   "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
-   "propose": {
-    "k": "vocab",
-    "said": "خنازر",
-    "right": null,
-    "from": "line"
-   },
-   "order": 141,
-   "blind": false
-  },
-  {
-   "i": 453,
-   "parts": [
-    453,
-    454
+    476,
+    477
    ],
    "t": 1555.73,
    "end": 1560.85,
@@ -2075,17 +2083,17 @@
     "right": null,
     "from": "chip"
    },
-   "order": 142,
+   "order": 143,
    "blind": false
   },
   {
-   "i": 459,
+   "i": 482,
    "parts": [
-    459,
-    460,
-    461,
-    462,
-    463
+    482,
+    483,
+    484,
+    485,
+    486
    ],
    "t": 1568.61,
    "end": 1581.65,
@@ -2094,24 +2102,24 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D37: only r2 found it)"
+    "the two readers disagreed (D13: matched but differ on kind, tier)"
    ],
    "propose": {
-    "k": "grammar",
-    "said": "دايما يكون",
-    "right": "دايما بيكون",
+    "k": "vocab",
+    "said": "زلمة",
+    "right": "ذكر",
     "from": "readers"
    },
-   "order": 23,
+   "order": 25,
    "blind": true
   },
   {
-   "i": 465,
+   "i": 488,
    "parts": [
-    465,
-    466,
-    467,
-    468
+    488,
+    489,
+    490,
+    491
    ],
    "t": 1583.45,
    "end": 1596.87,
@@ -2120,7 +2128,8 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D12: only r1 found it)"
+    "the two readers disagreed (D42: only r2 found it)",
+    "✗ chip on it (ذكر)"
    ],
    "propose": {
     "k": "vocab",
@@ -2128,19 +2137,19 @@
     "right": "ذكر",
     "from": "readers"
    },
-   "order": 24,
+   "order": 26,
    "blind": true
   },
   {
-   "i": 472,
+   "i": 495,
    "parts": [
-    472,
-    473,
-    474,
-    475,
-    476,
-    477,
-    478
+    495,
+    496,
+    497,
+    498,
+    499,
+    500,
+    501
    ],
    "t": 1612.07,
    "end": 1640.05,
@@ -2149,24 +2158,26 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D13: matched but differ on tier)",
     "the two readers disagreed (D14: only r1 found it)",
+    "the two readers disagreed (D15: only r1 found it)",
+    "the two readers disagreed (D43: only r2 found it)",
+    "✗ chip on it (بيغني)",
     "✗ chip on it (عالي)"
    ],
    "propose": {
     "k": "vocab",
-    "said": "يقش",
-    "right": "بيغني (engine: شياني)",
+    "said": "طويل",
+    "right": "عالي",
     "from": "readers"
    },
-   "order": 25,
+   "order": 27,
    "blind": true
   },
   {
-   "i": 491,
+   "i": 514,
    "parts": [
-    491,
-    492
+    514,
+    515
    ],
    "t": 1671.51,
    "end": 1678.37,
@@ -2175,7 +2186,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D38: only r2 found it)"
+    "the two readers disagreed (D44: only r2 found it)"
    ],
    "propose": {
     "k": "vocab",
@@ -2183,13 +2194,13 @@
     "right": "عالي",
     "from": "readers"
    },
-   "order": 26,
+   "order": 28,
    "blind": true
   },
   {
-   "i": 497,
+   "i": 520,
    "parts": [
-    497
+    520
    ],
    "t": 1687.65,
    "end": 1688.05,
@@ -2204,15 +2215,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 143,
+   "order": 144,
    "blind": false
   },
   {
-   "i": 504,
+   "i": 528,
    "parts": [
-    504,
-    505,
-    506
+    528,
+    529,
+    530
    ],
    "t": 1704.57,
    "end": 1715.47,
@@ -2227,16 +2238,16 @@
     "right": null,
     "from": "chip"
    },
-   "order": 144,
+   "order": 145,
    "blind": false
   },
   {
-   "i": 508,
+   "i": 532,
    "parts": [
-    508,
-    509,
-    510,
-    511
+    532,
+    533,
+    534,
+    535
    ],
    "t": 1718.23,
    "end": 1731.37,
@@ -2250,16 +2261,16 @@
    "propose": {
     "k": "grammar",
     "said": "بيكون",
-    "right": "(nothing) حصان حيوان كبير",
+    "right": "(no verb) حيوان كبير",
     "from": "readers"
    },
-   "order": 27,
+   "order": 29,
    "blind": true
   },
   {
-   "i": 513,
+   "i": 537,
    "parts": [
-    513
+    537
    ],
    "t": 1732.79,
    "end": 1733.17,
@@ -2270,47 +2281,49 @@
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "كبير؟",
+    "said": "كبير",
     "right": null,
     "from": "chip"
    },
-   "order": 145,
+   "order": 146,
    "blind": false
   },
   {
-   "i": 515,
+   "i": 539,
    "parts": [
-    515,
-    516,
-    517,
-    518,
-    519,
-    520,
-    521,
-    522,
-    523
+    539,
+    540,
+    541,
+    542,
+    543,
+    544,
+    545,
+    546,
+    547
    ],
    "t": 1734.41,
    "end": 1765.03,
    "mmss": "28:54",
    "words": 7,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "the two readers disagreed (D16: only r1 found it)"
+   ],
    "propose": {
     "k": "grammar",
     "said": "سريعة",
     "right": "سريع",
     "from": "readers"
    },
-   "order": 146,
-   "blind": false
+   "order": 30,
+   "blind": true
   },
   {
-   "i": 525,
+   "i": 549,
    "parts": [
-    525,
-    526
+    549,
+    550
    ],
    "t": 1767.65,
    "end": 1771.77,
@@ -2319,21 +2332,24 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (إشي مختلف)"
+    "the two readers disagreed (D17: matched but differ on bucket)",
+    "the two readers disagreed (D18: only r1 found it)",
+    "✗ chip on it (إشي مختلف كتير)",
+    "✗ chip on it (إشي)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "إشي مختلف",
-    "right": "أشيا مختلفة",
+    "said": "إشي مختلف كتير",
+    "right": "لأشيا مختلفين كتير",
     "from": "readers"
    },
-   "order": 28,
+   "order": 31,
    "blind": true
   },
   {
-   "i": 530,
+   "i": 554,
    "parts": [
-    530
+    554
    ],
    "t": 1777.73,
    "end": 1779.91,
@@ -2352,9 +2368,9 @@
    "blind": false
   },
   {
-   "i": 532,
+   "i": 556,
    "parts": [
-    532
+    556
    ],
    "t": 1781.35,
    "end": 1782.49,
@@ -2373,32 +2389,30 @@
    "blind": false
   },
   {
-   "i": 534,
+   "i": 558,
    "parts": [
-    534
+    558
    ],
    "t": 1784.99,
    "end": 1786.89,
    "mmss": "29:44",
    "words": 2,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "the two readers disagreed (D39: only r2 found it)"
-   ],
+   "tier": 3,
+   "unsure": false,
+   "why": [],
    "propose": {
-    "k": "grammar",
+    "k": "vocab",
     "said": "مختلفين",
-    "right": "مختلفة",
-    "from": "readers"
+    "right": null,
+    "from": "chip"
    },
-   "order": 29,
-   "blind": true
+   "order": 149,
+   "blind": false
   },
   {
-   "i": 537,
+   "i": 562,
    "parts": [
-    537
+    562
    ],
    "t": 1797.13,
    "end": 1808.49,
@@ -2413,14 +2427,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 149,
+   "order": 150,
    "blind": false
   },
   {
-   "i": 539,
+   "i": 564,
    "parts": [
-    539,
-    540
+    564,
+    565
    ],
    "t": 1808.63,
    "end": 1813.77,
@@ -2435,15 +2449,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 150,
+   "order": 151,
    "blind": false
   },
   {
-   "i": 542,
+   "i": 567,
    "parts": [
-    542,
-    543,
-    544
+    567,
+    568,
+    569
    ],
    "t": 1818.57,
    "end": 1829.47,
@@ -2452,21 +2466,21 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (حشرة كبير)"
+    "✗ chip on it (كب-كبير)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "حشرة كبير",
-    "right": "حشرة كبيرة",
+    "said": "كب-كبير",
+    "right": "كبيرة",
     "from": "readers"
    },
-   "order": 30,
+   "order": 32,
    "blind": true
   },
   {
-   "i": 547,
+   "i": 572,
    "parts": [
-    547
+    572
    ],
    "t": 1832.73,
    "end": 1833.65,
@@ -2481,40 +2495,42 @@
     "right": null,
     "from": "chip"
    },
-   "order": 151,
+   "order": 152,
    "blind": false
   },
   {
-   "i": 549,
+   "i": 574,
    "parts": [
-    549,
-    550,
-    551,
-    552,
-    553
+    574,
+    575,
+    576,
+    577,
+    578
    ],
    "t": 1835.73,
    "end": 1852.26,
    "mmss": "30:35",
    "words": 7,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "the two readers disagreed (D19: only r1 found it)"
+   ],
    "propose": {
-    "k": "vocab",
-    "said": "مكان، أو no مكان",
-    "right": null,
-    "from": "chip"
+    "k": "grammar",
+    "said": "سكن، سكنا في مكان",
+    "right": "ساكنة في أماكن",
+    "from": "readers"
    },
-   "order": 152,
-   "blind": false
+   "order": 33,
+   "blind": true
   },
   {
-   "i": 555,
+   "i": 580,
    "parts": [
-    555,
-    556,
-    557
+    580,
+    581,
+    582
    ],
    "t": 1855.72,
    "end": 1867.44,
@@ -2533,9 +2549,9 @@
    "blind": false
   },
   {
-   "i": 559,
+   "i": 584,
    "parts": [
-    559
+    584
    ],
    "t": 1868.86,
    "end": 1869.78,
@@ -2544,22 +2560,21 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D15: matched but differ on A/B)",
-    "✗ chip on it (لونا (masc. owner, for سرسور))"
+    "the two readers disagreed (D45: only r2 found it)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "لونا",
-    "right": "لونها",
+    "said": "لونا أسود",
+    "right": "لونها أسود",
     "from": "readers"
    },
-   "order": 31,
+   "order": 34,
    "blind": true
   },
   {
-   "i": 561,
+   "i": 586,
    "parts": [
-    561
+    586
    ],
    "t": 1877.9,
    "end": 1880.12,
@@ -2578,11 +2593,11 @@
    "blind": false
   },
   {
-   "i": 563,
+   "i": 588,
    "parts": [
-    563,
-    564,
-    565
+    588,
+    589,
+    590
    ],
    "t": 1882.22,
    "end": 1889.74,
@@ -2591,24 +2606,24 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D16: only r1 found it)"
+    "the two readers disagreed (D20: only r1 found it)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "سودا",
-    "right": "أسود",
+    "said": "لونا سودا",
+    "right": "لونها أسود",
     "from": "readers"
    },
-   "order": 32,
+   "order": 35,
    "blind": true
   },
   {
-   "i": 569,
+   "i": 594,
    "parts": [
-    569,
-    570,
-    571,
-    572
+    594,
+    596,
+    597,
+    598
    ],
    "t": 1894.54,
    "end": 1904.66,
@@ -2627,11 +2642,11 @@
    "blind": false
   },
   {
-   "i": 578,
+   "i": 604,
    "parts": [
-    578,
-    579,
-    580
+    604,
+    605,
+    606
    ],
    "t": 1923.02,
    "end": 1935.16,
@@ -2650,10 +2665,10 @@
    "blind": false
   },
   {
-   "i": 582,
+   "i": 608,
    "parts": [
-    582,
-    583
+    608,
+    609
    ],
    "t": 1940.06,
    "end": 1944.24,
@@ -2672,33 +2687,31 @@
    "blind": false
   },
   {
-   "i": 585,
+   "i": 611,
    "parts": [
-    585
+    611
    ],
    "t": 1947.28,
    "end": 1949.24,
    "mmss": "32:27",
    "words": 3,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "the two readers disagreed (D40: only r2 found it)"
-   ],
+   "tier": 3,
+   "unsure": false,
+   "why": [],
    "propose": {
     "k": "grammar",
-    "said": "أنواع طير",
-    "right": "نوع من أنواع الطيور",
-    "from": "readers"
+    "said": "أنواع",
+    "right": null,
+    "from": "chip"
    },
-   "order": 33,
-   "blind": true
+   "order": 158,
+   "blind": false
   },
   {
-   "i": 587,
+   "i": 613,
    "parts": [
-    587,
-    588
+    613,
+    614
    ],
    "t": 1951.7,
    "end": 1954.42,
@@ -2713,14 +2726,14 @@
     "right": null,
     "from": "line"
    },
-   "order": 158,
+   "order": 159,
    "blind": false
   },
   {
-   "i": 592,
+   "i": 618,
    "parts": [
-    592,
-    593
+    618,
+    619
    ],
    "t": 1970.08,
    "end": 1975.8,
@@ -2735,17 +2748,17 @@
     "right": null,
     "from": "chip"
    },
-   "order": 159,
+   "order": 160,
    "blind": false
   },
   {
-   "i": 595,
+   "i": 621,
    "parts": [
-    595,
-    596,
-    597,
-    598,
-    599
+    621,
+    622,
+    623,
+    624,
+    625
    ],
    "t": 1979.76,
    "end": 1995.52,
@@ -2754,7 +2767,10 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D17: only r1 found it)"
+    "the two readers disagreed (D21: only r1 found it)",
+    "the two readers disagreed (D22: only r1 found it)",
+    "the two readers disagreed (D46: only r2 found it)",
+    "✗ chip on it (طير، طير)"
    ],
    "propose": {
     "k": "grammar",
@@ -2762,13 +2778,13 @@
     "right": "نوع من أنواع الطيور",
     "from": "readers"
    },
-   "order": 34,
+   "order": 36,
    "blind": true
   },
   {
-   "i": 604,
+   "i": 630,
    "parts": [
-    604
+    630
    ],
    "t": 2012.58,
    "end": 2016.1,
@@ -2783,13 +2799,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 160,
+   "order": 161,
    "blind": false
   },
   {
-   "i": 608,
+   "i": 634,
    "parts": [
-    608
+    634
    ],
    "t": 2029.22,
    "end": 2029.54,
@@ -2804,15 +2820,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 161,
+   "order": 162,
    "blind": false
   },
   {
-   "i": 616,
+   "i": 643,
    "parts": [
-    616,
-    617,
-    618
+    643,
+    644,
+    645
    ],
    "t": 2054.18,
    "end": 2065.5,
@@ -2827,15 +2843,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 162,
+   "order": 163,
    "blind": false
   },
   {
-   "i": 624,
+   "i": 651,
    "parts": [
-    624,
-    625,
-    626
+    651,
+    652,
+    653
    ],
    "t": 2074.14,
    "end": 2086.52,
@@ -2850,13 +2866,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 163,
+   "order": 164,
    "blind": false
   },
   {
-   "i": 628,
+   "i": 655,
    "parts": [
-    628
+    655
    ],
    "t": 2086.58,
    "end": 2093.92,
@@ -2871,39 +2887,37 @@
     "right": null,
     "from": "line"
    },
-   "order": 164,
+   "order": 165,
    "blind": false
   },
   {
-   "i": 630,
+   "i": 657,
    "parts": [
-    630,
-    631,
-    632
+    657,
+    658,
+    659
    ],
    "t": 2095.56,
    "end": 2111.78,
    "mmss": "34:55",
    "words": 6,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "✗ chip on it (بسرعة)"
-   ],
+   "tier": 3,
+   "unsure": false,
+   "why": [],
    "propose": {
-    "k": "vocab",
-    "said": "سريعة",
-    "right": "بسرعة",
+    "k": "grammar",
+    "said": "بيركود سريعة",
+    "right": "بيركض بسرعة",
     "from": "readers"
    },
-   "order": 35,
-   "blind": true
+   "order": 166,
+   "blind": false
   },
   {
-   "i": 635,
+   "i": 662,
    "parts": [
-    635,
-    636
+    662,
+    663
    ],
    "t": 2113.04,
    "end": 2118.24,
@@ -2918,14 +2932,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 165,
+   "order": 167,
    "blind": false
   },
   {
-   "i": 638,
+   "i": 665,
    "parts": [
-    638,
-    639
+    665,
+    666
    ],
    "t": 2124.84,
    "end": 2132.88,
@@ -2940,14 +2954,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 166,
+   "order": 168,
    "blind": false
   },
   {
-   "i": 641,
+   "i": 668,
    "parts": [
-    641,
-    642
+    668,
+    669
    ],
    "t": 2134.86,
    "end": 2142.82,
@@ -2962,14 +2976,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 167,
+   "order": 169,
    "blind": false
   },
   {
-   "i": 644,
+   "i": 671,
    "parts": [
-    644,
-    645
+    671,
+    672
    ],
    "t": 2147.72,
    "end": 2153.22,
@@ -2984,14 +2998,14 @@
     "right": null,
     "from": "line"
    },
-   "order": 168,
+   "order": 170,
    "blind": false
   },
   {
-   "i": 656,
+   "i": 683,
    "parts": [
-    656,
-    657
+    683,
+    684
    ],
    "t": 2176.06,
    "end": 2184.36,
@@ -3006,39 +3020,41 @@
     "right": null,
     "from": "chip"
    },
-   "order": 169,
+   "order": 171,
    "blind": false
   },
   {
-   "i": 660,
+   "i": 687,
    "parts": [
-    660,
-    661,
-    662
+    687,
+    688,
+    689
    ],
    "t": 2189.04,
    "end": 2205.46,
    "mmss": "36:29",
    "words": 10,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "the two readers disagreed (D23: only r1 found it)"
+   ],
    "propose": {
     "k": "vocab",
-    "said": "Yeah. [ضحك] Yeah. في الصحراء الأمريكية، أمريكا،",
-    "right": null,
-    "from": "chip"
+    "said": "أن هناك",
+    "right": "عندنا / في",
+    "from": "readers"
    },
-   "order": 170,
-   "blind": false
+   "order": 37,
+   "blind": true
   },
   {
-   "i": 664,
+   "i": 691,
    "parts": [
-    664,
-    665,
-    666,
-    667
+    691,
+    692,
+    693,
+    694
    ],
    "t": 2206.98,
    "end": 2220.67,
@@ -3055,14 +3071,14 @@
     "right": "بيركض",
     "from": "readers"
    },
-   "order": 36,
+   "order": 38,
    "blind": true
   },
   {
-   "i": 670,
+   "i": 697,
    "parts": [
-    670,
-    671
+    697,
+    698
    ],
    "t": 2222.19,
    "end": 2234.87,
@@ -3077,13 +3093,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 171,
+   "order": 172,
    "blind": false
   },
   {
-   "i": 673,
+   "i": 700,
    "parts": [
-    673
+    700
    ],
    "t": 2236.33,
    "end": 2238.99,
@@ -3098,13 +3114,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 172,
+   "order": 173,
    "blind": false
   },
   {
-   "i": 675,
+   "i": 702,
    "parts": [
-    675
+    702
    ],
    "t": 2240.93,
    "end": 2245.39,
@@ -3119,13 +3135,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 173,
+   "order": 174,
    "blind": false
   },
   {
-   "i": 677,
+   "i": 704,
    "parts": [
-    677
+    704
    ],
    "t": 2247.43,
    "end": 2248.69,
@@ -3142,13 +3158,13 @@
     "right": "نفس الـ cartoon",
     "from": "readers"
    },
-   "order": 37,
+   "order": 39,
    "blind": true
   },
   {
-   "i": 683,
+   "i": 710,
    "parts": [
-    683
+    710
    ],
    "t": 2261.53,
    "end": 2262.83,
@@ -3159,18 +3175,18 @@
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "نفس",
+    "said": "Oh، نفس الـ cartoon.",
     "right": null,
     "from": "chip"
    },
-   "order": 174,
+   "order": 175,
    "blind": false
   },
   {
-   "i": 694,
+   "i": 722,
    "parts": [
-    694,
-    695
+    722,
+    723
    ],
    "t": 2285.05,
    "end": 2289.95,
@@ -3185,14 +3201,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 175,
+   "order": 176,
    "blind": false
   },
   {
-   "i": 697,
+   "i": 725,
    "parts": [
-    697,
-    698
+    725,
+    726
    ],
    "t": 2301.05,
    "end": 2306.99,
@@ -3201,24 +3217,23 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D18: same moment, different piece)",
-    "✗ chip on it (سنجيب)"
+    "✗ chip on it (سناجب)"
    ],
    "propose": {
-    "k": "grammar",
+    "k": "vocab",
     "said": "سنجيب",
     "right": "سناجب",
     "from": "readers"
    },
-   "order": 38,
+   "order": 40,
    "blind": true
   },
   {
-   "i": 701,
+   "i": 729,
    "parts": [
-    701,
-    702,
-    703
+    729,
+    730,
+    731
    ],
    "t": 2310.35,
    "end": 2323.47,
@@ -3227,7 +3242,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D18: same moment, different piece)"
+    "the two readers disagreed (D24: only r1 found it)"
    ],
    "propose": {
     "k": "grammar",
@@ -3235,15 +3250,15 @@
     "right": "ما بعرف",
     "from": "readers"
    },
-   "order": 39,
+   "order": 41,
    "blind": true
   },
   {
-   "i": 705,
+   "i": 733,
    "parts": [
-    705,
-    706,
-    707
+    733,
+    734,
+    735
    ],
    "t": 2324.99,
    "end": 2330.35,
@@ -3258,13 +3273,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 176,
+   "order": 177,
    "blind": false
   },
   {
-   "i": 709,
+   "i": 737,
    "parts": [
-    709
+    737
    ],
    "t": 2332.45,
    "end": 2333.81,
@@ -3279,13 +3294,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 177,
+   "order": 178,
    "blind": false
   },
   {
-   "i": 716,
+   "i": 744,
    "parts": [
-    716
+    744
    ],
    "t": 2346.43,
    "end": 2346.71,
@@ -3300,13 +3315,13 @@
     "right": null,
     "from": "line"
    },
-   "order": 178,
+   "order": 179,
    "blind": false
   },
   {
-   "i": 718,
+   "i": 746,
    "parts": [
-    718
+    746
    ],
    "t": 2348.87,
    "end": 2350.43,
@@ -3321,14 +3336,14 @@
     "right": null,
     "from": "line"
    },
-   "order": 179,
+   "order": 180,
    "blind": false
   },
   {
-   "i": 721,
+   "i": 749,
    "parts": [
-    721,
-    722
+    749,
+    750
    ],
    "t": 2352.49,
    "end": 2360.91,
@@ -3337,7 +3352,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (نعم)"
+    "the two readers disagreed (D47: only r2 found it)"
    ],
    "propose": {
     "k": "grammar",
@@ -3345,13 +3360,13 @@
     "right": "ناعم",
     "from": "readers"
    },
-   "order": 40,
+   "order": 42,
    "blind": true
   },
   {
-   "i": 724,
+   "i": 752,
    "parts": [
-    724
+    752
    ],
    "t": 2363.21,
    "end": 2363.79,
@@ -3366,13 +3381,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 180,
+   "order": 181,
    "blind": false
   },
   {
-   "i": 729,
+   "i": 757,
    "parts": [
-    729
+    757
    ],
    "t": 2374.95,
    "end": 2376.11,
@@ -3387,17 +3402,17 @@
     "right": null,
     "from": "chip"
    },
-   "order": 181,
+   "order": 182,
    "blind": false
   },
   {
-   "i": 731,
+   "i": 759,
    "parts": [
-    731,
-    732,
-    733,
-    734,
-    735
+    759,
+    760,
+    761,
+    762,
+    763
    ],
    "t": 2378.87,
    "end": 2400.91,
@@ -3410,19 +3425,19 @@
    ],
    "propose": {
     "k": "vocab",
-    "said": "(did not know nuts)",
-    "right": "مكسرات",
-    "from": "readers"
+    "said": "كتـ-- آآآ كتير.",
+    "right": null,
+    "from": "chip"
    },
    "random": true,
-   "order": 41,
+   "order": 43,
    "blind": true
   },
   {
-   "i": 737,
+   "i": 765,
    "parts": [
-    737,
-    738
+    765,
+    766
    ],
    "t": 2405.39,
    "end": 2413.01,
@@ -3437,13 +3452,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 182,
+   "order": 183,
    "blind": false
   },
   {
-   "i": 740,
+   "i": 768,
    "parts": [
-    740
+    768
    ],
    "t": 2417.67,
    "end": 2418.59,
@@ -3458,14 +3473,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 183,
+   "order": 184,
    "blind": false
   },
   {
-   "i": 744,
+   "i": 773,
    "parts": [
-    744,
-    745
+    773,
+    774
    ],
    "t": 2430.59,
    "end": 2434.33,
@@ -3480,57 +3495,57 @@
     "right": null,
     "from": "chip"
    },
-   "order": 184,
+   "order": 185,
    "blind": false
   },
   {
-   "i": 747,
+   "i": 776,
    "parts": [
-    747
+    776
    ],
    "t": 2439.25,
    "end": 2440.65,
    "mmss": "40:39",
    "words": 2,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "the two readers disagreed (D19: only r1 found it)"
-   ],
-   "propose": {
-    "k": "grammar",
-    "said": "بحب",
-    "right": "بحبهم",
-    "from": "readers"
-   },
-   "order": 42,
-   "blind": true
-  },
-  {
-   "i": 749,
-   "parts": [
-    749
-   ],
-   "t": 2446.09,
-   "end": 2451.07,
-   "mmss": "40:46",
-   "words": 4,
    "tier": 3,
    "unsure": false,
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "أنا بحب الكل بس المفضل،",
+    "said": "أنا بحب كتير.",
     "right": null,
     "from": "chip"
    },
-   "order": 185,
+   "order": 186,
    "blind": false
   },
   {
-   "i": 751,
+   "i": 778,
    "parts": [
-    751
+    778
+   ],
+   "t": 2446.09,
+   "end": 2451.07,
+   "mmss": "40:46",
+   "words": 4,
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "the two readers disagreed (D48: only r2 found it)"
+   ],
+   "propose": {
+    "k": "grammar",
+    "said": "أنا بحب الكل",
+    "right": "أنا بحبهم كلهم",
+    "from": "readers"
+   },
+   "order": 44,
+   "blind": true
+  },
+  {
+   "i": 780,
+   "parts": [
+    780
    ],
    "t": 2453.59,
    "end": 2456.87,
@@ -3547,13 +3562,13 @@
     "right": "المفضل عندي",
     "from": "readers"
    },
-   "order": 43,
+   "order": 45,
    "blind": true
   },
   {
-   "i": 753,
+   "i": 782,
    "parts": [
-    753
+    782
    ],
    "t": 2458.35,
    "end": 2460.57,
@@ -3568,13 +3583,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 186,
+   "order": 187,
    "blind": false
   },
   {
-   "i": 755,
+   "i": 784,
    "parts": [
-    755
+    784
    ],
    "t": 2462.65,
    "end": 2464.71,
@@ -3589,14 +3604,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 187,
+   "order": 188,
    "blind": false
   },
   {
-   "i": 762,
+   "i": 791,
    "parts": [
-    762,
-    763
+    791,
+    792
    ],
    "t": 2477.61,
    "end": 2484.33,
@@ -3611,14 +3626,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 188,
+   "order": 189,
    "blind": false
   },
   {
-   "i": 765,
+   "i": 795,
    "parts": [
-    765,
-    766
+    795,
+    796
    ],
    "t": 2487.57,
    "end": 2493.45,
@@ -3636,14 +3651,14 @@
     "from": "chip"
    },
    "random": true,
-   "order": 44,
+   "order": 46,
    "blind": true
   },
   {
-   "i": 775,
+   "i": 805,
    "parts": [
-    775,
-    776
+    805,
+    806
    ],
    "t": 2517.95,
    "end": 2525.41,
@@ -3658,13 +3673,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 189,
+   "order": 190,
    "blind": false
   },
   {
-   "i": 779,
+   "i": 809,
    "parts": [
-    779
+    809
    ],
    "t": 2537.15,
    "end": 2539.49,
@@ -3679,14 +3694,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 190,
+   "order": 191,
    "blind": false
   },
   {
-   "i": 781,
+   "i": 811,
    "parts": [
-    781,
-    782
+    811,
+    812
    ],
    "t": 2541.79,
    "end": 2547.71,
@@ -3695,10 +3710,9 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D21: only r1 found it)",
+    "the two readers disagreed (D25: matched but differ on bucket)",
     "✗ chip on it (إيران مشهور)",
-    "✗ chip on it (لـ)",
-    "✗ chip on it (فستق حلبي)"
+    "✗ chip on it (لـ فستق حلبي)"
    ],
    "propose": {
     "k": "grammar",
@@ -3706,13 +3720,13 @@
     "right": "إيران مشهورة",
     "from": "readers"
    },
-   "order": 45,
+   "order": 47,
    "blind": true
   },
   {
-   "i": 784,
+   "i": 814,
    "parts": [
-    784
+    814
    ],
    "t": 2553.85,
    "end": 2554.61,
@@ -3727,35 +3741,38 @@
     "right": null,
     "from": "chip"
    },
-   "order": 191,
+   "order": 192,
    "blind": false
   },
   {
-   "i": 788,
+   "i": 818,
    "parts": [
-    788
+    818
    ],
    "t": 2559.65,
    "end": 2563.75,
    "mmss": "42:39",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "the two readers disagreed (D25: matched but differ on bucket)",
+    "the two readers disagreed (D49: only r2 found it)"
+   ],
    "propose": {
-    "k": "vocab",
-    "said": "لفستان-- لفست-- فيه فستق.",
-    "right": null,
-    "from": "chip"
+    "k": "grammar",
+    "said": "فيه فستق",
+    "right": "في الفستق الحلبي",
+    "from": "readers"
    },
-   "order": 192,
-   "blind": false
+   "order": 48,
+   "blind": true
   },
   {
-   "i": 791,
+   "i": 821,
    "parts": [
-    791,
-    792
+    821,
+    822
    ],
    "t": 2566.71,
    "end": 2569.71,
@@ -3774,9 +3791,9 @@
    "blind": false
   },
   {
-   "i": 794,
+   "i": 824,
    "parts": [
-    794
+    824
    ],
    "t": 2572.05,
    "end": 2575.19,
@@ -3795,9 +3812,9 @@
    "blind": false
   },
   {
-   "i": 798,
+   "i": 829,
    "parts": [
-    798
+    829
    ],
    "t": 2587.96,
    "end": 2588.56,
@@ -3816,9 +3833,9 @@
    "blind": false
   },
   {
-   "i": 800,
+   "i": 831,
    "parts": [
-    800
+    831
    ],
    "t": 2591.44,
    "end": 2594.5,
@@ -3827,22 +3844,22 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D22: matched but differ on kind)"
+    "✗ chip on it (جاج)"
    ],
    "propose": {
-    "k": "grammar",
+    "k": "vocab",
     "said": "جيجان",
     "right": "جاج",
     "from": "readers"
    },
-   "order": 46,
+   "order": 49,
    "blind": true
   },
   {
-   "i": 805,
+   "i": 836,
    "parts": [
-    805,
-    806
+    836,
+    837
    ],
    "t": 2598.72,
    "end": 2603.56,
@@ -3861,9 +3878,9 @@
    "blind": false
   },
   {
-   "i": 808,
+   "i": 839,
    "parts": [
-    808
+    839
    ],
    "t": 2605.48,
    "end": 2612.94,
@@ -3882,9 +3899,9 @@
    "blind": false
   },
   {
-   "i": 820,
+   "i": 851,
    "parts": [
-    820
+    851
    ],
    "t": 2641.84,
    "end": 2646.14,
@@ -3903,41 +3920,39 @@
    "blind": false
   },
   {
-   "i": 822,
+   "i": 853,
    "parts": [
-    822,
-    823,
-    824,
-    825,
-    826,
-    827
+    853,
+    854,
+    855,
+    856,
+    857,
+    858
    ],
    "t": 2647.54,
    "end": 2670.6,
    "mmss": "44:07",
    "words": 8,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "the two readers disagreed (D41: only r2 found it)"
-   ],
+   "tier": 3,
+   "unsure": false,
+   "why": [],
    "propose": {
-    "k": "grammar",
-    "said": "بحب لا",
-    "right": "بحب",
-    "from": "readers"
+    "k": "vocab",
+    "said": "آآآ أنا بدي جاج آآآ",
+    "right": null,
+    "from": "chip"
    },
-   "order": 47,
-   "blind": true
+   "order": 199,
+   "blind": false
   },
   {
-   "i": 829,
+   "i": 860,
    "parts": [
-    829,
-    830,
-    831,
-    832,
-    833
+    860,
+    861,
+    862,
+    863,
+    864
    ],
    "t": 2673.4,
    "end": 2691.98,
@@ -3951,17 +3966,17 @@
    "propose": {
     "k": "grammar",
     "said": "عندي جاج",
-    "right": "بيكون عندي جاج",
+    "right": "يكون عندي جاجات",
     "from": "readers"
    },
-   "order": 48,
+   "order": 50,
    "blind": true
   },
   {
-   "i": 835,
+   "i": 866,
    "parts": [
-    835,
-    836
+    866,
+    867
    ],
    "t": 2695.28,
    "end": 2699.44,
@@ -3976,23 +3991,45 @@
     "right": null,
     "from": "chip"
    },
-   "order": 199,
+   "order": 200,
    "blind": false
   },
   {
-   "i": 839,
+   "i": 870,
    "parts": [
-    839,
-    840
+    870,
+    871
    ],
    "t": 2707.56,
    "end": 2714.12,
    "mmss": "45:07",
    "words": 3,
+   "tier": 3,
+   "unsure": false,
+   "why": [],
+   "propose": {
+    "k": "grammar",
+    "said": "بيكون",
+    "right": null,
+    "from": "chip"
+   },
+   "order": 201,
+   "blind": false
+  },
+  {
+   "i": 874,
+   "parts": [
+    874,
+    875
+   ],
+   "t": 2723.74,
+   "end": 2726.7,
+   "mmss": "45:23",
+   "words": 1,
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D23: only r1 found it)"
+    "the two readers disagreed (D26: only r1 found it)"
    ],
    "propose": {
     "k": "grammar",
@@ -4000,35 +4037,13 @@
     "right": "ويكون عندي",
     "from": "readers"
    },
-   "order": 49,
-   "blind": true
-  },
-  {
-   "i": 843,
-   "parts": [
-    843,
-    844
-   ],
-   "t": 2723.74,
-   "end": 2726.7,
-   "mmss": "45:23",
-   "words": 1,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
-   "propose": {
-    "k": "grammar",
-    "said": "عندي",
-    "right": null,
-    "from": "chip"
-   },
-   "order": 200,
+   "order": 51,
    "blind": false
   },
   {
-   "i": 846,
+   "i": 877,
    "parts": [
-    846
+    877
    ],
    "t": 2728.22,
    "end": 2732.04,
@@ -4043,15 +4058,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 201,
+   "order": 202,
    "blind": false
   },
   {
-   "i": 849,
+   "i": 880,
    "parts": [
-    849,
-    850,
-    851
+    880,
+    881,
+    882
    ],
    "t": 2736.36,
    "end": 2748.52,
@@ -4060,22 +4075,22 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D24: matched but differ on kind)"
+    "✗ chip on it (كلاب)"
    ],
    "propose": {
-    "k": "grammar",
+    "k": "vocab",
     "said": "كلبات",
     "right": "كلاب",
     "from": "readers"
    },
-   "order": 50,
-   "blind": true
+   "order": 52,
+   "blind": false
   },
   {
-   "i": 854,
+   "i": 885,
    "parts": [
-    854,
-    855
+    885,
+    886
    ],
    "t": 2750.0,
    "end": 2754.74,
@@ -4086,17 +4101,17 @@
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "Oh، okay. آآآ كلاب،",
+    "said": "كلاب",
     "right": null,
     "from": "chip"
    },
-   "order": 202,
+   "order": 203,
    "blind": false
   },
   {
-   "i": 857,
+   "i": 888,
    "parts": [
-    857
+    888
    ],
    "t": 2756.74,
    "end": 2759.78,
@@ -4107,18 +4122,18 @@
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "كلاب و بساس. Ooh.",
+    "said": "كلاب",
     "right": null,
     "from": "chip"
    },
-   "order": 203,
+   "order": 204,
    "blind": false
   },
   {
-   "i": 859,
+   "i": 890,
    "parts": [
-    859,
-    860
+    890,
+    891
    ],
    "t": 2761.94,
    "end": 2766.46,
@@ -4133,18 +4148,18 @@
     "right": null,
     "from": "chip"
    },
-   "order": 204,
+   "order": 205,
    "blind": false
   },
   {
-   "i": 864,
+   "i": 895,
    "parts": [
-    864,
-    865,
-    866,
-    867,
-    868,
-    869
+    895,
+    897,
+    898,
+    899,
+    900,
+    901
    ],
    "t": 2773.48,
    "end": 2796.44,
@@ -4153,21 +4168,21 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D25: only r1 found it)"
+    "the two readers disagreed (D27: matched but differ on tier)"
    ],
    "propose": {
-    "k": "grammar",
-    "said": "الـ عائلتي",
-    "right": "عيلتي",
+    "k": "vocab",
+    "said": "أشتغل كتير",
+    "right": "شغل كتير",
     "from": "readers"
    },
-   "order": 51,
+   "order": 53,
    "blind": false
   },
   {
-   "i": 871,
+   "i": 903,
    "parts": [
-    871
+    903
    ],
    "t": 2798.46,
    "end": 2804.04,
@@ -4176,23 +4191,24 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D26: matched but differ on tier)",
-    "the two readers disagreed (D27: only r1 found it)",
-    "✗ chip on it (شغل كتير)"
+    "the two readers disagreed (D27: matched but differ on tier)",
+    "the two readers disagreed (D28: only r1 found it)",
+    "✗ chip on it (شغل كتير)",
+    "✗ chip on it (بيحتاجوا)"
    ],
    "propose": {
     "k": "vocab",
-    "said": "يشتغلوا",
-    "right": "شغل كتير",
+    "said": "لازم يشتغلوا",
+    "right": "بيحتاجوا شغل كتير",
     "from": "readers"
    },
-   "order": 52,
+   "order": 54,
    "blind": false
   },
   {
-   "i": 873,
+   "i": 905,
    "parts": [
-    873
+    905
    ],
    "t": 2811.14,
    "end": 2812.02,
@@ -4207,15 +4223,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 205,
+   "order": 206,
    "blind": false
   },
   {
-   "i": 877,
+   "i": 909,
    "parts": [
-    877,
-    878,
-    879
+    909,
+    910,
+    911
    ],
    "t": 2816.12,
    "end": 2823.32,
@@ -4226,18 +4242,18 @@
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "يحتاجوا",
+    "said": "أحتاج",
     "right": null,
     "from": "chip"
    },
-   "order": 206,
+   "order": 207,
    "blind": false
   },
   {
-   "i": 881,
+   "i": 914,
    "parts": [
-    881,
-    882
+    914,
+    915
    ],
    "t": 2832.76,
    "end": 2846.24,
@@ -4246,21 +4262,24 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (ديرو بالكو)"
+    "the two readers disagreed (D29: only r1 found it)",
+    "the two readers disagreed (D30: only r1 found it)",
+    "✗ chip on it (ديرو بالكو)",
+    "✗ chip on it (ديرو بالكو (no على))"
    ],
    "propose": {
     "k": "grammar",
     "said": "ديرو بالكو",
-    "right": "أدير بالي عليهم",
+    "right": "أدير بالي",
     "from": "readers"
    },
-   "order": 53,
+   "order": 55,
    "blind": false
   },
   {
-   "i": 884,
+   "i": 917,
    "parts": [
-    884
+    917
    ],
    "t": 2854.02,
    "end": 2858.14,
@@ -4275,13 +4294,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 207,
+   "order": 208,
    "blind": false
   },
   {
-   "i": 888,
+   "i": 921,
    "parts": [
-    888
+    921
    ],
    "t": 2864.74,
    "end": 2865.06,
@@ -4296,13 +4315,13 @@
     "right": null,
     "from": "line"
    },
-   "order": 208,
+   "order": 209,
    "blind": false
   },
   {
-   "i": 890,
+   "i": 923,
    "parts": [
-    890
+    923
    ],
    "t": 2869.68,
    "end": 2870.32,
@@ -4317,13 +4336,13 @@
     "right": null,
     "from": "line"
    },
-   "order": 209,
+   "order": 210,
    "blind": false
   },
   {
-   "i": 893,
+   "i": 927,
    "parts": [
-    893
+    927
    ],
    "t": 2883.9,
    "end": 2885.56,
@@ -4332,6 +4351,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "the two readers disagreed (D31: matched but differ on tier)",
     "✗ chip on it (دبانة)"
    ],
    "propose": {
@@ -4340,13 +4360,13 @@
     "right": "دبانة",
     "from": "readers"
    },
-   "order": 54,
+   "order": 56,
    "blind": false
   },
   {
-   "i": 901,
+   "i": 935,
    "parts": [
-    901
+    935
    ],
    "t": 2900.64,
    "end": 2908.16,
@@ -4364,13 +4384,13 @@
     "from": "chip"
    },
    "random": true,
-   "order": 55,
+   "order": 57,
    "blind": false
   },
   {
-   "i": 903,
+   "i": 937,
    "parts": [
-    903
+    937
    ],
    "t": 2912.82,
    "end": 2917.56,
@@ -4385,13 +4405,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 210,
+   "order": 211,
    "blind": false
   },
   {
-   "i": 907,
+   "i": 941,
    "parts": [
-    907
+    941
    ],
    "t": 2926.3,
    "end": 2929.66,
@@ -4406,18 +4426,18 @@
     "right": null,
     "from": "chip"
    },
-   "order": 211,
+   "order": 212,
    "blind": false
   },
   {
-   "i": 909,
+   "i": 943,
    "parts": [
-    909,
-    910,
-    911,
-    912,
-    913,
-    914
+    943,
+    944,
+    945,
+    946,
+    947,
+    948
    ],
    "t": 2934.02,
    "end": 2947.19,
@@ -4426,22 +4446,23 @@
    "tier": 1,
    "unsure": true,
    "why": [
+    "the two readers disagreed (D32: matched but differ on bucket)",
     "✗ chip on it (بكون)"
    ],
    "propose": {
     "k": "grammar",
     "said": "بكون",
-    "right": "تكون",
+    "right": "بتكون",
     "from": "readers"
    },
-   "order": 56,
+   "order": 58,
    "blind": false
   },
   {
-   "i": 916,
+   "i": 950,
    "parts": [
-    916,
-    917
+    950,
+    951
    ],
    "t": 2948.67,
    "end": 2952.01,
@@ -4456,39 +4477,37 @@
     "right": null,
     "from": "line"
    },
-   "order": 212,
+   "order": 213,
    "blind": false
   },
   {
-   "i": 919,
+   "i": 953,
    "parts": [
-    919
+    953
    ],
    "t": 2953.67,
    "end": 2959.57,
    "mmss": "49:13",
    "words": 4,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "the two readers disagreed (D42: only r2 found it)"
-   ],
+   "tier": 3,
+   "unsure": false,
+   "why": [],
    "propose": {
     "k": "vocab",
-    "said": "مزوجة",
-    "right": "مزعجة",
-    "from": "readers"
+    "said": "مزوجة أو ما، ما، Yeah، مزعجة، مزعجة.",
+    "right": null,
+    "from": "chip"
    },
-   "order": 57,
+   "order": 214,
    "blind": false
   },
   {
-   "i": 922,
+   "i": 956,
    "parts": [
-    922,
-    923,
-    924,
-    925
+    956,
+    957,
+    958,
+    959
    ],
    "t": 2961.67,
    "end": 2973.23,
@@ -4497,21 +4516,21 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (ساكن)"
+    "✗ chip on it (ساكن في الزبال)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "ساكن",
-    "right": "ساكنة",
+    "said": "ساكن في الزبال",
+    "right": "ساكنة في الزبالة",
     "from": "readers"
    },
-   "order": 58,
+   "order": 59,
    "blind": false
   },
   {
-   "i": 927,
+   "i": 961,
    "parts": [
-    927
+    961
    ],
    "t": 2976.41,
    "end": 2977.21,
@@ -4526,13 +4545,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 213,
+   "order": 215,
    "blind": false
   },
   {
-   "i": 929,
+   "i": 963,
    "parts": [
-    929
+    963
    ],
    "t": 2978.43,
    "end": 2980.51,
@@ -4543,20 +4562,20 @@
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "في الزبالة.",
+    "said": "الزبالة",
     "right": null,
     "from": "chip"
    },
-   "order": 214,
+   "order": 216,
    "blind": false
   },
   {
-   "i": 933,
+   "i": 967,
    "parts": [
-    933,
-    934,
-    935,
-    936
+    967,
+    968,
+    969,
+    970
    ],
    "t": 2986.53,
    "end": 3000.85,
@@ -4571,35 +4590,37 @@
     "right": null,
     "from": "chip"
    },
-   "order": 215,
+   "order": 217,
    "blind": false
   },
   {
-   "i": 940,
+   "i": 974,
    "parts": [
-    940
+    974
    ],
    "t": 3006.17,
    "end": 3011.11,
    "mmss": "50:06",
    "words": 4,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "the two readers disagreed (D33: only r1 found it)"
+   ],
    "propose": {
-    "k": "vocab",
-    "said": "آه، مزوّجة كمان. So مزوّج كمان.",
-    "right": null,
-    "from": "chip"
+    "k": "grammar",
+    "said": "مزعجة كمان",
+    "right": "(صوتها) مزعج كمان",
+    "from": "readers"
    },
-   "order": 216,
+   "order": 60,
    "blind": false
   },
   {
-   "i": 943,
+   "i": 977,
    "parts": [
-    943,
-    944
+    977,
+    978
    ],
    "t": 3013.55,
    "end": 3015.69,
@@ -4614,15 +4635,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 217,
+   "order": 218,
    "blind": false
   },
   {
-   "i": 946,
+   "i": 981,
    "parts": [
-    946,
-    947,
-    948
+    981,
+    982,
+    983
    ],
    "t": 3027.69,
    "end": 3037.79,
@@ -4637,13 +4658,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 218,
+   "order": 219,
    "blind": false
   },
   {
-   "i": 950,
+   "i": 985,
    "parts": [
-    950
+    985
    ],
    "t": 3039.59,
    "end": 3042.05,
@@ -4658,13 +4679,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 219,
+   "order": 220,
    "blind": false
   },
   {
-   "i": 952,
+   "i": 987,
    "parts": [
-    952
+    987
    ],
    "t": 3045.49,
    "end": 3046.45,
@@ -4679,14 +4700,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 220,
+   "order": 221,
    "blind": false
   },
   {
-   "i": 954,
+   "i": 989,
    "parts": [
-    954,
-    955
+    989,
+    990
    ],
    "t": 3048.71,
    "end": 3057.21,
@@ -4701,14 +4722,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 221,
+   "order": 222,
    "blind": false
   },
   {
-   "i": 957,
+   "i": 992,
    "parts": [
-    957,
-    958
+    992,
+    993
    ],
    "t": 3060.47,
    "end": 3067.99,
@@ -4725,13 +4746,13 @@
     "right": "كان الكلب",
     "from": "readers"
    },
-   "order": 59,
+   "order": 61,
    "blind": false
   },
   {
-   "i": 960,
+   "i": 995,
    "parts": [
-    960
+    995
    ],
    "t": 3071.49,
    "end": 3072.61,
@@ -4746,16 +4767,16 @@
     "right": null,
     "from": "chip"
    },
-   "order": 222,
+   "order": 223,
    "blind": false
   },
   {
-   "i": 962,
+   "i": 997,
    "parts": [
-    962,
-    963,
-    964,
-    965
+    997,
+    998,
+    999,
+    1000
    ],
    "t": 3074.73,
    "end": 3086.27,
@@ -4770,13 +4791,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 223,
+   "order": 224,
    "blind": false
   },
   {
-   "i": 971,
+   "i": 1006,
    "parts": [
-    971
+    1006
    ],
    "t": 3103.33,
    "end": 3105.31,
@@ -4793,13 +4814,13 @@
     "right": "هي صارت",
     "from": "readers"
    },
-   "order": 60,
+   "order": 62,
    "blind": false
   },
   {
-   "i": 973,
+   "i": 1008,
    "parts": [
-    973
+    1008
    ],
    "t": 3111.61,
    "end": 3113.91,
@@ -4814,13 +4835,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 224,
+   "order": 225,
    "blind": false
   },
   {
-   "i": 975,
+   "i": 1010,
    "parts": [
-    975
+    1010
    ],
    "t": 3116.53,
    "end": 3121.01,
@@ -4835,14 +4856,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 225,
+   "order": 226,
    "blind": false
   },
   {
-   "i": 982,
+   "i": 1018,
    "parts": [
-    982,
-    983
+    1018,
+    1019
    ],
    "t": 3139.29,
    "end": 3141.53,
@@ -4857,15 +4878,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 226,
+   "order": 227,
    "blind": false
   },
   {
-   "i": 986,
+   "i": 1022,
    "parts": [
-    986,
-    987,
-    988
+    1022,
+    1023,
+    1024
    ],
    "t": 3153.19,
    "end": 3159.83,
@@ -4880,13 +4901,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 227,
+   "order": 228,
    "blind": false
   },
   {
-   "i": 990,
+   "i": 1026,
    "parts": [
-    990
+    1026
    ],
    "t": 3161.87,
    "end": 3163.41,
@@ -4901,15 +4922,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 228,
+   "order": 229,
    "blind": false
   },
   {
-   "i": 992,
+   "i": 1029,
    "parts": [
-    992,
-    993,
-    994
+    1029,
+    1030,
+    1031
    ],
    "t": 3166.79,
    "end": 3175.69,
@@ -4918,9 +4939,8 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D28: matched but differ on bucket)",
-    "the two readers disagreed (D29: matched but differ on tier)",
-    "✗ chip on it (فواكه)"
+    "the two readers disagreed (D34: only r1 found it)",
+    "the two readers disagreed (D35: matched but differ on kind, bucket)"
    ],
    "propose": {
     "k": "grammar",
@@ -4928,14 +4948,14 @@
     "right": "بياكل",
     "from": "readers"
    },
-   "order": 61,
+   "order": 63,
    "blind": false
   },
   {
-   "i": 996,
+   "i": 1033,
    "parts": [
-    996,
-    997
+    1033,
+    1034
    ],
    "t": 3180.51,
    "end": 3183.45,
@@ -4950,13 +4970,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 229,
+   "order": 230,
    "blind": false
   },
   {
-   "i": 999,
+   "i": 1036,
    "parts": [
-    999
+    1036
    ],
    "t": 3185.51,
    "end": 3188.71,
@@ -4965,7 +4985,8 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D30: same moment, different piece)",
+    "the two readers disagreed (D35: matched but differ on kind, bucket)",
+    "the two readers disagreed (D50: only r2 found it)",
     "✗ chip on it (فواكه مختلف)"
    ],
    "propose": {
@@ -4974,37 +4995,35 @@
     "right": "فواكه مختلفين",
     "from": "readers"
    },
-   "order": 62,
+   "order": 64,
    "blind": false
   },
   {
-   "i": 1001,
+   "i": 1038,
    "parts": [
-    1001
+    1038
    ],
    "t": 3191.23,
    "end": 3192.35,
    "mmss": "53:11",
    "words": 1,
-   "tier": 1,
-   "unsure": true,
-   "why": [
-    "the two readers disagreed (D30: same moment, different piece)"
-   ],
+   "tier": 3,
+   "unsure": false,
+   "why": [],
    "propose": {
-    "k": "grammar",
+    "k": "vocab",
     "said": "مختلفين",
-    "right": "مختلفة",
-    "from": "readers"
+    "right": null,
+    "from": "chip"
    },
-   "order": 63,
+   "order": 231,
    "blind": false
   },
   {
-   "i": 1007,
+   "i": 1044,
    "parts": [
-    1007,
-    1008
+    1044,
+    1045
    ],
    "t": 3210.05,
    "end": 3213.37,
@@ -5019,14 +5038,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 230,
+   "order": 232,
    "blind": false
   },
   {
-   "i": 1010,
+   "i": 1047,
    "parts": [
-    1010,
-    1011
+    1047,
+    1048
    ],
    "t": 3216.45,
    "end": 3222.29,
@@ -5035,22 +5054,22 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D31: only r1 found it)",
+    "the two readers disagreed (D36: only r1 found it)",
     "✗ chip on it (في الشجرة)"
    ],
    "propose": {
     "k": "grammar",
     "said": "في الشجرة",
-    "right": "على الشجرة",
+    "right": "على الشجر",
     "from": "readers"
    },
-   "order": 64,
+   "order": 65,
    "blind": false
   },
   {
-   "i": 1013,
+   "i": 1050,
    "parts": [
-    1013
+    1050
    ],
    "t": 3224.37,
    "end": 3225.17,
@@ -5065,15 +5084,15 @@
     "right": null,
     "from": "line"
    },
-   "order": 231,
+   "order": 233,
    "blind": false
   },
   {
-   "i": 1015,
+   "i": 1052,
    "parts": [
-    1015,
-    1016,
-    1017
+    1052,
+    1053,
+    1054
    ],
    "t": 3227.35,
    "end": 3234.31,
@@ -5088,13 +5107,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 232,
+   "order": 234,
    "blind": false
   },
   {
-   "i": 1021,
+   "i": 1059,
    "parts": [
-    1021
+    1059
    ],
    "t": 3243.55,
    "end": 3244.13,
@@ -5109,15 +5128,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 233,
+   "order": 235,
    "blind": false
   },
   {
-   "i": 1023,
+   "i": 1061,
    "parts": [
-    1023,
-    1024,
-    1025
+    1061,
+    1062,
+    1063
    ],
    "t": 3250.95,
    "end": 3257.93,
@@ -5132,14 +5151,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 234,
+   "order": 236,
    "blind": false
   },
   {
-   "i": 1027,
+   "i": 1065,
    "parts": [
-    1027,
-    1028
+    1065,
+    1066
    ],
    "t": 3259.67,
    "end": 3264.49,
@@ -5157,13 +5176,13 @@
     "from": "chip"
    },
    "random": true,
-   "order": 65,
+   "order": 66,
    "blind": false
   },
   {
-   "i": 1030,
+   "i": 1068,
    "parts": [
-    1030
+    1068
    ],
    "t": 3268.37,
    "end": 3269.71,
@@ -5178,13 +5197,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 235,
+   "order": 237,
    "blind": false
   },
   {
-   "i": 1032,
+   "i": 1070,
    "parts": [
-    1032
+    1070
    ],
    "t": 3275.39,
    "end": 3276.65,
@@ -5199,15 +5218,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 236,
+   "order": 238,
    "blind": false
   },
   {
-   "i": 1034,
+   "i": 1072,
    "parts": [
-    1034,
-    1035,
-    1036
+    1072,
+    1073,
+    1074
    ],
    "t": 3282.27,
    "end": 3291.79,
@@ -5222,14 +5241,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 237,
+   "order": 239,
    "blind": false
   },
   {
-   "i": 1038,
+   "i": 1076,
    "parts": [
-    1038,
-    1039
+    1076,
+    1077
    ],
    "t": 3294.53,
    "end": 3301.97,
@@ -5244,15 +5263,15 @@
     "right": null,
     "from": "chip"
    },
-   "order": 238,
+   "order": 240,
    "blind": false
   },
   {
-   "i": 1057,
+   "i": 1095,
    "parts": [
-    1057,
-    1058,
-    1059
+    1095,
+    1096,
+    1097
    ],
    "t": 3357.18,
    "end": 3364.22,
@@ -5269,14 +5288,14 @@
     "right": "دقيقتين",
     "from": "readers"
    },
-   "order": 66,
+   "order": 67,
    "blind": false
   },
   {
-   "i": 1061,
+   "i": 1099,
    "parts": [
-    1061,
-    1062
+    1099,
+    1100
    ],
    "t": 3365.72,
    "end": 3369.2,
@@ -5291,13 +5310,13 @@
     "right": null,
     "from": "line"
    },
-   "order": 239,
+   "order": 241,
    "blind": false
   },
   {
-   "i": 1064,
+   "i": 1102,
    "parts": [
-    1064
+    1102
    ],
    "t": 3371.38,
    "end": 3377.98,
@@ -5312,13 +5331,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 240,
+   "order": 242,
    "blind": false
   },
   {
-   "i": 1067,
+   "i": 1105,
    "parts": [
-    1067
+    1105
    ],
    "t": 3380.2,
    "end": 3380.84,
@@ -5333,13 +5352,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 241,
+   "order": 243,
    "blind": false
   },
   {
-   "i": 1078,
+   "i": 1116,
    "parts": [
-    1078
+    1116
    ],
    "t": 3436.48,
    "end": 3443.72,
@@ -5354,13 +5373,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 242,
+   "order": 244,
    "blind": false
   },
   {
-   "i": 1080,
+   "i": 1118,
    "parts": [
-    1080
+    1118
    ],
    "t": 3450.78,
    "end": 3458.66,
@@ -5375,14 +5394,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 243,
+   "order": 245,
    "blind": false
   },
   {
-   "i": 1086,
+   "i": 1124,
    "parts": [
-    1086,
-    1087
+    1124,
+    1125
    ],
    "t": 3480.38,
    "end": 3489.28,
@@ -5391,7 +5410,7 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (غرفة تاني)"
+    "the two readers disagreed (D37: only r1 found it)"
    ],
    "propose": {
     "k": "grammar",
@@ -5399,14 +5418,14 @@
     "right": "غرفة تانية",
     "from": "readers"
    },
-   "order": 67,
+   "order": 68,
    "blind": false
   },
   {
-   "i": 1089,
+   "i": 1127,
    "parts": [
-    1089,
-    1090
+    1127,
+    1128
    ],
    "t": 3491.06,
    "end": 3494.72,
@@ -5417,17 +5436,17 @@
    "why": [],
    "propose": {
     "k": "vocab",
-    "said": "تانية",
+    "said": "Oh، تانية.",
     "right": null,
     "from": "chip"
    },
-   "order": 244,
+   "order": 246,
    "blind": false
   },
   {
-   "i": 1094,
+   "i": 1132,
    "parts": [
-    1094
+    1132
    ],
    "t": 3501.1,
    "end": 3503.04,
@@ -5442,17 +5461,17 @@
     "right": null,
     "from": "chip"
    },
-   "order": 245,
+   "order": 247,
    "blind": false
   },
   {
-   "i": 1096,
+   "i": 1134,
    "parts": [
-    1096,
-    1097,
-    1098,
-    1099,
-    1100
+    1134,
+    1135,
+    1136,
+    1137,
+    1138
    ],
    "t": 3505.08,
    "end": 3529.96,
@@ -5461,44 +5480,46 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "✗ chip on it (الغرفة تاني)"
+    "the two readers disagreed (D51: only r2 found it)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "الغرفة تاني",
-    "right": "الغرفة التانية",
+    "said": "دواء الغرفة تاني",
+    "right": "ضو الغرفة التانية",
     "from": "readers"
    },
-   "order": 68,
+   "order": 69,
    "blind": false
   },
   {
-   "i": 1102,
+   "i": 1140,
    "parts": [
-    1102
+    1140
    ],
    "t": 3532.94,
    "end": 3536.5,
    "mmss": "58:52",
    "words": 4,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "the two readers disagreed (D52: only r2 found it)"
+   ],
    "propose": {
-    "k": "grammar",
-    "said": "التانية",
-    "right": null,
-    "from": "chip"
+    "k": "vocab",
+    "said": "دول",
+    "right": "هدول",
+    "from": "readers"
    },
-   "order": 246,
+   "order": 70,
    "blind": false
   },
   {
-   "i": 1111,
+   "i": 1149,
    "parts": [
-    1111,
-    1112,
-    1113
+    1149,
+    1150,
+    1151
    ],
    "t": 3576.6,
    "end": 3592.1,
@@ -5513,14 +5534,14 @@
     "right": null,
     "from": "chip"
    },
-   "order": 247,
+   "order": 248,
    "blind": false
   },
   {
-   "i": 1116,
+   "i": 1154,
    "parts": [
-    1116,
-    1117
+    1154,
+    1155
    ],
    "t": 3593.48,
    "end": 3601.2,
@@ -5535,16 +5556,16 @@
     "right": null,
     "from": "chip"
    },
-   "order": 248,
+   "order": 249,
    "blind": false
   },
   {
-   "i": 1119,
+   "i": 1157,
    "parts": [
-    1119,
-    1120,
-    1121,
-    1122
+    1157,
+    1158,
+    1159,
+    1160
    ],
    "t": 3604.4,
    "end": 3616.38,
@@ -5553,21 +5574,21 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D32: matched but differ on kind)"
+    "the two readers disagreed (D53: only r2 found it)"
    ],
    "propose": {
-    "k": "grammar",
-    "said": "شو",
-    "right": "اللي خططنا (engine: لا شو)",
+    "k": "vocab",
+    "said": "حطتنا",
+    "right": "خططنا",
     "from": "readers"
    },
-   "order": 69,
+   "order": 71,
    "blind": false
   },
   {
-   "i": 1126,
+   "i": 1164,
    "parts": [
-    1126
+    1164
    ],
    "t": 3627.16,
    "end": 3631.12,
@@ -5582,13 +5603,13 @@
     "right": null,
     "from": "chip"
    },
-   "order": 249,
+   "order": 250,
    "blind": false
   },
   {
-   "i": 1128,
+   "i": 1166,
    "parts": [
-    1128
+    1166
    ],
    "t": 3633.34,
    "end": 3634.56,
@@ -5606,16 +5627,16 @@
     "from": "chip"
    },
    "random": true,
-   "order": 70,
+   "order": 72,
    "blind": false
   },
   {
-   "i": 1129,
+   "i": 1167,
    "parts": [
-    1129,
-    1130,
-    1131,
-    1132
+    1167,
+    1168,
+    1169,
+    1170
    ],
    "t": 3641.0,
    "end": 3656.3,
@@ -5624,25 +5645,21 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D33: matched but differ on bucket)",
-    "the two readers disagreed (D34: only r1 found it)",
-    "the two readers disagreed (D35: matched but differ on bucket)",
-    "✗ chip on it (المفضل إشي عندي سباحة)",
     "✗ chip on it (سباحة)"
    ],
    "propose": {
     "k": "grammar",
-    "said": "المفضل إشي عندي سباحة",
-    "right": "السباحة أكتر إشي مفضل عندي",
+    "said": "سباحة",
+    "right": "السباحة",
     "from": "readers"
    },
-   "order": 71,
+   "order": 73,
    "blind": false
   },
   {
-   "i": 1135,
+   "i": 1173,
    "parts": [
-    1135
+    1173
    ],
    "t": 3664.58,
    "end": 3669.48,
@@ -5659,13 +5676,13 @@
     "right": "أكتر",
     "from": "readers"
    },
-   "order": 72,
+   "order": 74,
    "blind": false
   },
   {
-   "i": 1137,
+   "i": 1175,
    "parts": [
-    1137
+    1175
    ],
    "t": 3672.22,
    "end": 3674.04,
@@ -5674,7 +5691,6 @@
    "tier": 1,
    "unsure": true,
    "why": [
-    "the two readers disagreed (D35: matched but differ on bucket)",
     "✗ chip on it (الـ أكتر)"
    ],
    "propose": {
@@ -5683,35 +5699,37 @@
     "right": "أكتر",
     "from": "readers"
    },
-   "order": 73,
+   "order": 75,
    "blind": false
   },
   {
-   "i": 1139,
+   "i": 1177,
    "parts": [
-    1139
+    1177
    ],
    "t": 3676.68,
    "end": 3678.42,
    "mmss": "1:01:16",
    "words": 2,
-   "tier": 3,
-   "unsure": false,
-   "why": [],
+   "tier": 1,
+   "unsure": true,
+   "why": [
+    "✗ chip on it (أكتر المفضل)"
+   ],
    "propose": {
     "k": "grammar",
-    "said": "أكتر",
-    "right": null,
-    "from": "chip"
+    "said": "أكتر المفضل",
+    "right": "أكتر إشي مفضل عندي",
+    "from": "readers"
    },
-   "order": 250,
+   "order": 76,
    "blind": false
   },
   {
-   "i": 1151,
+   "i": 1189,
    "parts": [
-    1151,
-    1152
+    1189,
+    1190
    ],
    "t": 3711.19,
    "end": 3715.09,
@@ -5730,11 +5748,11 @@
    "blind": false
   },
   {
-   "i": 1154,
+   "i": 1192,
    "parts": [
-    1154,
-    1155,
-    1156
+    1192,
+    1193,
+    1194
    ],
    "t": 3719.23,
    "end": 3730.97,
@@ -5753,9 +5771,9 @@
    "blind": false
   },
   {
-   "i": 1161,
+   "i": 1199,
    "parts": [
-    1161
+    1199
    ],
    "t": 3744.03,
    "end": 3745.75,
@@ -5774,9 +5792,9 @@
    "blind": false
   },
   {
-   "i": 1163,
+   "i": 1201,
    "parts": [
-    1163
+    1201
    ],
    "t": 3752.49,
    "end": 3754.07,
@@ -5795,9 +5813,9 @@
    "blind": false
   },
   {
-   "i": 1172,
+   "i": 1210,
    "parts": [
-    1172
+    1210
    ],
    "t": 3782.67,
    "end": 3784.47,
@@ -5816,9 +5834,9 @@
    "blind": false
   },
   {
-   "i": 1174,
+   "i": 1212,
    "parts": [
-    1174
+    1212
    ],
    "t": 3787.33,
    "end": 3788.25,

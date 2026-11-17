@@ -13,25 +13,25 @@
    "verified_avg_pct": null,
    "unverified_avg_pct": 95.0,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 8237,
+   "eligible": 8234,
    "excluded": 30,
-   "pending": 9
+   "pending": 11
   },
   "grammar": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 86.1,
+   "unverified_avg_pct": 86.0,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 2,
-   "eligible": 1040,
+   "eligible": 1038,
    "excluded": 53,
-   "pending": 22
+   "pending": 23
   },
-  "verification_queue": 31,
+  "verification_queue": 34,
   "word_bank": {
    "occurrences": 13801,
-   "eligible": 7933,
-   "excluded_not_scored": 4838,
-   "pending_needs_review": 1030,
+   "eligible": 7922,
+   "excluded_not_scored": 4861,
+   "pending_needs_review": 1018,
    "other": 0,
    "pct": 98.6,
    "lessons_in_audit": 36,
@@ -1981,33 +1981,33 @@
    "date": "2026-11-16",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 49.4 %; 2 consecutive passes at >= 95 % are needed",
+    "reader agreement: pass 1 43.8 %; 2 consecutive passes at >= 95 % are needed",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3852 s) compared with a second model",
-    "checks: 15 scored rows need an audio or human check (5 words, 10 grammar)"
+    "checks: 18 scored rows need an audio or human check (7 words, 11 grammar)"
    ],
    "words": {
-    "pct": 96.1,
-    "eligible_pct": 96.1,
+    "pct": 95.1,
+    "eligible_pct": 95.1,
     "verified_pct": null,
-    "scored": 380,
-    "eligible": 380,
+    "scored": 377,
+    "eligible": 377,
     "excluded": 0,
-    "pending": 5,
+    "pending": 7,
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 89.8,
+    "pct": 89.4,
     "verified_pct": null,
-    "mistakes": 36,
-    "uses": 295,
-    "eligible": 36,
+    "mistakes": 34,
+    "uses": 293,
+    "eligible": 34,
     "excluded": 0,
-    "pending": 10,
+    "pending": 11,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
-     "14 slips are in rules the counter found 0 uses of in this lesson",
-     "11 rules have more slips than counted uses (A17, A18, A21, A23, A26, B18, B9, C2)"
+     "11 slips are in rules the counter found 0 uses of in this lesson",
+     "9 rules have more slips than counted uses (A17, A18, A21, A23, B18, B9, C3, C7)"
     ]
    },
    "coverage": {
@@ -2027,7 +2027,7 @@
     "timing": "engine"
    },
    "agreement": [
-    49.4
+    43.8
    ],
    "between_passes": []
   }

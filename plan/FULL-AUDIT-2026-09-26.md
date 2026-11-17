@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **1061** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 139 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 35 |
-| Vocab fixes Amal voiced (A) | **475** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 242, '0': 155, '2': 110, '3': 8} |
+| Grammar fixes Amal voiced (A) | **1059** (sweep had 312) |
+| Grammar she let pass (B, to Amal) | 138 |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 37 |
+| Vocab fixes Amal voiced (A) | **478** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 242, '0': 157, '2': 111, '3': 8} |
 | Vocab she let pass (B, to Amal) | **44** by tier {'1': 32, '2': 8, '3': 4} |
 | Listening-drill misreads (kept apart) | 74 |
-| Rows the readers found that the sweep did not have | 1398 |
+| Rows the readers found that the sweep did not have | 1401 |
 | Sweep rows the readers did not list (kept) | 129 |
 | Machine audit already had | 105 |
 
@@ -56,7 +56,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-11-10 | 25 | 5 | 10 | 0 | 0 | 0 | 0 | 50.8 % |
 | 2026-11-11 | 26 | 4 | 8 | 0 | 0 | 0 | 0 | 55.9 % |
 | 2026-11-12 | 25 | 0 | 6 | 1 | 0 | 0 | 0 | 49.0 % |
-| 2026-11-16 | 36 | 8 | 16 | 0 | 0 | 0 | 0 | 49.4 % |
+| 2026-11-16 | 34 | 7 | 19 | 0 | 0 | 0 | 0 | 43.8 % |
 
 ## Reader passes (the loop)
 
@@ -95,40 +95,40 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-11-10**: pass 1: r1 55 r2 44 agreed 31 disputed 30 (50.8 %), r3 kept 23 dropped 7 -> 41 rows
 - **2026-11-11**: pass 1: r1 50 r2 47 agreed 33 disputed 26 (55.9 %), r3 kept 18 dropped 8 -> 39 rows
 - **2026-11-12**: pass 1: r1 40 r2 40 agreed 25 disputed 26 (49.0 %), r3 kept 15 dropped 11 -> 30 rows
-- **2026-11-16**: pass 1: r1 76 r2 68 agreed 41 disputed 42 (49.4 %), r3 kept 35 dropped 7 -> 60 rows
+- **2026-11-16**: pass 1: r1 79 r2 70 agreed 42 disputed 54 (43.8 %), r3 kept 41 dropped 13 -> 63 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
-| D2 | verb + its fixed preposition | 93 |
-| B18 | verb matches its subject | 87 |
-| A8 | gender on adjectives | 71 |
+| D2 | verb + its fixed preposition | 94 |
+| B18 | verb matches its subject | 88 |
+| A8 | gender on adjectives | 72 |
 | B5 | past tense | 69 |
 | B12 | make-X vs get-X | 63 |
-| A7 | noun + adjective | 53 |
-| A9 | plurals | 51 |
-| D4 | endings on verbs | 46 |
-| B1 | present with b- | 45 |
-| D1 | prepositions | 44 |
+| A7 | noun + adjective | 51 |
+| A9 | plurals | 50 |
+| D4 | endings on verbs | 45 |
+| D1 | prepositions | 45 |
+| B1 | present with b- | 42 |
 | A2 | idafa (possession) | 38 |
 | A1 | el- (the) | 38 |
-| A4 | possessive endings | 36 |
-| PROPOSE | ? | 35 |
+| PROPOSE | ? | 37 |
+| A4 | possessive endings | 35 |
 | E1 | number + noun | 25 |
+| D3 | endings on prepositions | 23 |
 | B2 | b-drop after modals | 23 |
-| D3 | endings on prepositions | 22 |
 | C4 | saying no | 20 |
 | B10 | commands | 19 |
-| C2 | the pointer rule | 19 |
+| C7 | illi | 18 |
 | B6 | kaan = was / were | 18 |
+| C2 | the pointer rule | 18 |
 | A15 | aa5er / a5eer: before or after the noun | 18 |
-| C7 | illi | 17 |
 | A10 | hada / hadi | 16 |
+| B15 | participles | 14 |
+| C3 | comparatives | 14 |
 | B8 | bakoon / ykoon | 14 |
 | B11 | negative commands | 14 |
-| B15 | participles | 13 |
-| C3 | comparatives | 13 |
 | A13 | awal / oola: before or after the noun | 13 |
 | E2 | clock time | 12 |
 | A12 | pronoun matches who you mean | 12 |
@@ -142,17 +142,17 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | C9 | word order | 8 |
 | B9 | person on ykoon | 7 |
 | C10 | preposition goes in front | 7 |
+| C1 | no word for 'to be' | 7 |
 | D5 | preposition keeps el- | 7 |
-| C1 | no word for 'to be' | 6 |
 | B16 | kan laazem | 5 |
 | E3 | time units, two-of and many-of | 5 |
 | A16 | 8eir: other / different, no el- | 5 |
 | A18 | hidden gender nouns | 5 |
-| A23 | mufaddal + 3ind | 5 |
 | C6 | iza / lamma | 4 |
 | A10b | demonstrative keeps el- | 4 |
 | B7 | kaan + verb = used to / was doing | 4 |
 | A5 | chain possession | 4 |
+| A23 | mufaddal + 3ind | 4 |
 | A9b | broken plurals are patterns | 3 |
 | E5 | kam + singular | 3 |
 | A22 | a8lab and nafs + definite noun | 3 |
@@ -171,8 +171,6 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | B4 | the drop carries down a chain | 1 |
 | A27 | aa5er = last in order, maadi = past | 1 |
 | B17 | sarli | 1 |
-| F2 | vowel length | 1 |
-| A26 | non-human plurals act feminine | 1 |
 
 ## Sweep rows the readers did not list (kept, not dropped)
 
@@ -2368,67 +2366,70 @@ _Medi's turns 54:53-55:56 (why didn't you answer me) are only [حديث متقا
 
 ### 2026-11-16
 
-_Whole file read. Not filed: 01:16 بتكون باردة for الجو and 26:16 دايما يكون - both asked as questions; 16:40 English 'so' (Amal said فا) - 'so' not on her sheet; 37:05 cartoon not on sheet; 49:14 مزوجة->مزعجة self-fixed in his own line; 50:06 مزوّج = مزعج with dropped ع (S4). Engine: 34:56 ما بكثير = ما بيطير; 35:03 بيركود = بيركض; 20:10 moose = صوص; 22:07 Amar/Amir = حمار/حمير; 52:21 ورود = قرود; 58:21 دواء likely ضواو (lights), Amal is commenting on the homework checker. 55:40-1:02 homework review, mostly English. No echo-candidates file exists for this date. / Whole file read. Names skipped: Iraq at 11:39 (engine for a plural attempt for walls, Amal then gave حيطان - not flagged), عمان مرة 22:41 = echo: عمان مرة = كمان مرة (kaman marra), Aleppo, Iran, Syria, America, New Zealand. Echo: ثرثور = صرصور (cockroach, 29:57), ورود = قرود (52:21), بابي = غابة? (52:39), دواء الغرفة = ضوء/أضواء الغرفة (58:21), أخلصت may be وخلصت. Not rows: mid-sentence help (غير 59:53, عزومة 04:27), questions about gender of weather (01:23) and the cartoon talk. كل أديش / بزوروك (1:02:07) left out as pronunciation. Many Latin/English stretches; no chat lines in this lesson. echo-candidates file for this date was not present._
+_Whole file read. Echo: 'Sure.' (00:07) = real English; 'And I keep,' (21:10) = عناكب; 'Amar.' (22:07) = حمار; 'Amir.' (22:12) = حمير; 'Low numbers.' / 'moose.' (20:00-20:10) = صوص; 'Sisan' (20:27) = صيصان; 'uh, mabada.' (55:40) = unclear. Engine: عمان مرة (22:41) = كمان مرة (not the place); إنسان (46:21) = حصن (horses, chat 7usun); بتمثل (02:21) = بتمطر; بعقل (24:32) = بياكل; شياني (27:21, 27:30) = بيغني; مشهدة (06:01) = مش عشرة; بابي / البابا (52:39-42) = غابة; مطار (00:45) = مطر; 'Is it Iraq؟' (11:39) = his try at the plural of حيط (name not counted). Pronunciation only, not filed (S4/F2): نعم for ناعم (39:19), خنازر (25:49), ثرثور (29:57), أسفور (32:10), وسكين (30:51), فوافة (53:02), حطتنا (1:00:09). Long English stretches: 18:51-19:34, 34:18-36:20, 55:14-56:00 and the homework review 56:21-1:02:57 (mostly English; the Arabic lines there are filed). Questions about a rule, not filed: 01:16 الجو gender, 26:16 دايما يكون / بيكون, 44:28 بحب لا, 58:48 الـ تانية (his right form before hers). / Whole file read. Engine echoes: 'Is it Iraq' (11:39) is his guess at a plural, name not flagged; عمان مرة (22:41) = كمان مرة (engine, not a slip); 'Sisan' = صيصان; 'Amar/Amir' = حمار (Amal gave no plural); حشيش (14:20/14:23) = هس هس his-his (sheet: mosquito); ثرثور = صرصور; 'Is it bakosh/bakani' English-Latin guesses. Many Latin and English stretches (rules chat). MSA bits (عذرًا, أن هناك, لم) left out. Tier 3 candidates cartoon/crema not filed (cartoon used by Amal too; crema is a question). مزعج/مزعوج repeats (49:14, 50:06) are one row at 13:30. 1:02 كل أديش fix was Medi's own homework correction, not filed._
 
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
-| FA-913a61bd | 02:11 | grammar | B18 | أنا الكل لما بمطر-- | بتمثل. | بمطر -> بتمطر | Amal recast the verb to the she-form (engine wrote بتمثل) and he repeated بتمطر at 02:22. | high | r1+r2 |
-| FA-ede11446 | 03:02 | grammar | B8 | بكون نضل، right؟ بالبيت. | بيكون بدنا. | بكون نضل -> بيكون بدنا نضل | Repeating her 02:57 line he dropped بدنا after bikoon; she fixed it again (بيكون بدنا), so it is its own slip. | medium | r1+r2 |
-| FA-1a8ac0be | 04:38 | vocab-A | tier 1 | أخوي وأنا ما، ما نعطي علينا. | نعطي each other. | علينا -> بعض | علينا (on us) for 'each other'; Amal said 'each other' and he then said ما أتي بعد (engine for ما نعطي بعض); sheet: each other / Ba3ad / بعض. | medium | r1+r2 |
-| FA-9274dc54 | 04:51 | grammar | A9 | آآآ، هدية. | Gifts. | هدية -> هدايا | Amal prompted the plural in English ('Gifts') and he fixed it to هدايا at 04:55. | high | r1+r2 |
-| FA-0526c96b | 05:58 | grammar | E1 | عشرة دقايق. | مشهدة | عشرة دقايق -> عشر دقايق | Amal asked how to say ten minutes, reacted (engine مشهدة) and he gave عشر دقايق; sheet 'ten seconds 3asher sawaani'. | high | r1+r2 |
-| FA-2440f492 | 06:16 | grammar | A8 | اه اليوم بلبس بلوزة رسمي. | بلوزة رسمية. | بلوزة رسمي -> بلوزة رسمية | Feminine noun بلوزة needs the feminine adjective; Amal recast and he repeated it. | high | r1+r2 |
-| FA-c0bfe272 | 09:15 | grammar | C2 | الحيوان اه بيعملوا الـ ألبان | From it. | بيعملوا الـ ألبان -> بيعملوا منه الألبان | The fronted noun needs a pronoun pointing back (منه); Amal supplied 'From it' / منو. | medium | r1+r2 |
-| FA-3a71ecc9 | 13:05 | grammar | B9 | إلي يكون، | It's حشرة، so. | إلي يكون -> إلي تكون | The insect (حشرة) is feminine so ykoon must be تكون; Amal pointed to حشرة and he said تكون at 13:18. | high | r1+r2 |
-| FA-4159b127 | 13:27 | vocab-A | tier 2 | مزعجة، is that right? | No، that's... It's annoyed. | مزعجة (engine; he said مزعوجة) -> مزعجة | Amal says his word means 'annoyed', so he said the maz3ooj form; sheet: annoyed / Maz3ooj / مزعوج and annoying / Muz3ej / مزعج; she gave مزعجة at 13:44 - wrong form of a word on the sheet. | medium | r3 |
-| FA-2a534679 | 14:20 | vocab-A | tier 2 | Uh, حشيش. | هس هس، اس. That's why I put a dash، هس. | حشيش -> هس هس | He ran her sheet word together as حشيش (hashish); sheet: mosquito (general) / His-his; Amal laughed, repeated هس هس and explained the dash. | medium | r3 |
-| FA-32ea9783 | 14:55 | grammar-B | A9 | Yeah، إحنا محظوظ كتير أنا. | آه، محظوظين. | إحنا محظوظ -> إحنا محظوظين | With إحنا the adjective is plural محظوظين (Amal had just said محظوظين); she let it pass. | medium | r1+r2 |
-| FA-2f113415 | 15:02 | grammar | A1 | آآآ، آه، كل-- أغلب California | أغلب؟ California is a like a proper noun، so it doesn't need ال. | أغلب California -> أغلب California (no ال) | Amal named the rule: no ال before a proper noun; engine does not show his ال, he repeated without it. | medium | r1+r2 |
-| FA-0c8bedf1 | 15:37 | grammar | A21 | غير من؟ | No، it's عن. | غير من -> غير عن | Amal asked what غير takes and said no, it is عن; he repeated غير عن. | high | r1+r2 |
-| FA-21c6713a | 16:16 | vocab-A | tier 2 | صحابي ساكن في-- ساكن حوال | صحابي أو صاحبي. | صحابي -> صاحبي | صحابي is 'my friends' but he meant one friend (ساكن singular); Amal asked which and he chose صاحبي. | medium | r1+r2 |
-| FA-4638b08a | 17:00 | vocab-A | tier 0 | Is it بشتاح؟ No. بشتاح is second-- No. I miss. | No، remember read؟ | (could not recall hate) -> بكره | He asked 'What was hate?'; he rejected بشتاح himself ('I miss') before her 'No', and she hinted 'remember read' until he got بكره (sheet: hate / ekrah). | medium | r3 |
-| FA-b4bd25b0 | 17:28 | grammar | D1 | على عنده. | No على، just عنده. | على عنده -> عنده | 'To his place' is just عنده with no على; Amal said so explicitly. | high | r1+r2 |
-| FA-17060f5a | 21:44 | grammar-B | B1 | الـ كلمة، مرات، يستعمل، معنى سيء. |  | يستعمل -> بنستعملها (بمعنى سيء) | Present verb lacks b- and the right person/object (we use it); Amal let it pass and moved to donkey. | low | r1+r2 |
-| FA-1d6958e1 | 24:00 | vocab-A | tier 1 | zahad. | Very close. ... زهري. | zahad -> زهري | He did not remember pink (sheet Zahri); Amal said very close and gave زهري; he then said زهبي. | medium | r1+r2 |
-| FA-35e0f441 | 24:33 | grammar-B | B1 | ياكل كل إشي. | بعقل. | ياكل -> بياكل | Present habit needs b- (بياكل); Amal's بعقل came before this line (reacting to his بكل), and she did not fix ياكل; the engine may have dropped the b-. | low | r3 |
-| FA-888ebc0a | 27:16 | vocab-A | tier 0 | يقش ما صوت آآآ، طويل. | شياني. | يقش -> (her verb for sings; engine wrote شياني) | He did not know 'sings', explained it in English ('every morning he sings with a loud voice') and guessed bakosh / bakani; Amal supplied the verb the engine wrote شياني. | low | r3 |
-| FA-42d36cb1 | 27:16 | vocab-A | tier 1 | يقش ما صوت آآآ، طويل. | We say a high voice. | طويل -> عالي | طويل (long/tall) for 'loud'; Amal said 'we say a high voice' and he reached عالي at 28:08; sheet: high / 3aali. | high | r3 |
-| FA-b4c802d2 | 28:49 | grammar | C1 | حسن بيكون حيوان كبير؟ | لا، لا، بس حيوان كبير. | بيكون -> (nothing) حصان حيوان كبير | No 'to be' in a plain present fact; Amal said لا and gave just حيوان كبير. | high | r1+r2 |
-| FA-e795d970 | 29:01 | grammar-B | A8 | Okay، حيوان كبير و سريعة. |  | سريعة -> سريع | حصان / حيوان is masculine so the adjective is سريع; Amal let it pass. | medium | r1+r2 |
-| FA-b50505f9 | 29:30 | grammar | A9 | إشي مختلف كتير. | Four different things. | إشي مختلف -> أشيا مختلفة | Amal prompted 'different things' (plural) twice and he changed to أشيا مختلفين. | high | r1+r2 |
-| FA-7eac86f7 | 30:21 | grammar | A8 | الـ ثرثور حشرة كب-كبير | حشرة؟ لا، حشرة بس شو؟ | حشرة كبير -> حشرة كبيرة | حشرة is feminine; Amal prompted and he said عشرة كبيرة (engine for حشرة كبيرة). | high | r1+r2 |
-| FA-004f5d56 | 31:09 | grammar | A4 | لونا أسود. | لأنه حشرة. So we have to stick to حشرة. So لون. | لونا (masc. owner, for سرسور) -> لونها | Amal said the owner ending must point to حشرة (-ha); his 'I don't stick to سرسور?' shows he had used the masculine ending; the engine writes لونا for both. | low | r3 |
-| FA-3b6ae0ae | 35:03 | vocab-A | tier 2 | بيركود سريعة. | So now هو نوع من-- بسرعة. | سريعة -> بسرعة | After a verb 'fast' is the adverb بسرعة, not the adjective; Amal said بسرعة and he repeated it. | high | r1+r2 |
-| FA-ee93f9ee | 36:56 | grammar | C7 | إن-- آآآ اللي، آآآ اللي بيركض. | No need for لي. | اللي بيركض -> بيركض | After an indefinite noun (نوع من أنواع الطيور) there is no illi; Amal said 'No need for لي'. | high | r1+r2 |
-| FA-dbc5f6fc | 37:27 | grammar | A17 | آآآ نفس cartoon. | نفس شو؟ ... Yeah، بس نفس takes شو؟ | نفس cartoon -> نفس الـ cartoon | nafs + el- + noun; Amal asked what nafs takes and he said نفس الـ cartoon. | high | r1+r2 |
-| FA-16836904 | 38:24 | grammar | A9 | آآآ سنجاب and سنجيب. | nice. Yes. أو السناجب. | سنجيب -> سناجب | سنجيب is not the plural of سنجاب; Amal said yes but added أو السناجب, the real plural - soft recast. | low | r3 |
-| FA-edcd5371 | 38:33 | grammar-B | B1 | ما أعرف. آآآ السنجاب لونه |  | ما أعرف -> ما بعرف | r2's half of D18: present needs b- (sheet: ana ba3raf); Amal let it pass; the engine may have dropped the b-. | low | r3-added |
-| FA-e70f2ede | 39:00 | vocab-A | tier 0 | I should learn tale. | ديل. | (did not know tail) -> ديل | He did not know 'tail' and Amal supplied ديل. | high | r1+r2 |
-| FA-7b797e73 | 39:19 | grammar | F2 | نعم هو كبير. | ناعم. | نعم -> ناعم | Short vowel turned soft (ناعم) into 'yes' (نعم); Amal said ناعم twice and 'long A'. | medium | r1+r2 |
-| FA-1d6563d8 | 39:53 | vocab-A | tier 0 | Oh my God, I don't know how to say nuts. | Okay, guess two new words today: مكسرات. | (did not know nuts) -> مكسرات | He said he did not know 'nuts'; Amal taught مكسرات. | high | r1+r2 |
-| FA-8806bf5b | 40:39 | grammar-B | D4 | أنا بحب كتير. |  | بحب -> بحبهم / بحبها | Answer to 'تحب المكسرات؟' needs the object ending (بحبها for a non-human plural); Amal let it pass. | low | r3 |
-| FA-9df43e48 | 40:54 | grammar | A23 | المفضل مكـ-- آآآ مكسرة. | لا، لا، لا، لا، لا. To me. My favorite. | المفضل مكسرة -> المفضل عندي | 'My favorite' = المفضل عندي; Amal said no and 'to me' and he said المفضل عندي. | high | r1+r2 |
+| FA-1b2f6dd0 | 02:11 | grammar | B18 | أنا الكل لما بمطر-- | بتمثل. (engine; she said بتمطر) | لما بمطر -> لما بتمطر | Rain / the weather takes the she-form; Amal said betma66er (engine wrote بتمثل) and he repeated بتمطر at 02:22. | medium | r1+r2 |
+| FA-40ab7ac2 | 03:00 | grammar | B8 | بكون نضل، right؟ بالبيت. | بيكون بدنا. | بكون نضل -> بيكون بدنا نضل | He dropped biddna from her frame (bikoon + biddi + verb); she repeated 'بيكون بدنا' and he said it back. | medium | r1+r2 |
+| FA-17b2f74d | 04:19 | vocab-A | tier 0 | اممم، الـ-- لا، عذرًا. | عزومك. (engine; = عزومة) | الـ-- لا، عذرًا -> عزومة | He stalled at the word for the family gathering (engine wrote عذرًا); Amal supplied 3azoome (sheet: house gathering / invitation / 3azoome / عزومة). | low | r1+r2 |
+| FA-1a8ac0be | 04:38 | vocab-A | tier 1 | أخوي وأنا ما، ما نعطي علينا. | نعطي each other. | علينا -> بعض | علينا (on us) is the wrong word for 'each other'; Amal echoed نعطي + 'each other' and he then tried بعد (sheet: each other / Ba3ad / بعض). | medium | r1+r2 |
+| FA-cf179b35 | 04:38 | grammar-B | B1 | ما، ما نعطي / علينا. | نعطي each other. | ما نعطي -> ما بنعطي | Plain present needs b- (her chat bne3ti); Amal's voiced fix was only about علينا -> each other (A4), so the b- passed. | low | r3 |
+| FA-9274dc54 | 04:51 | grammar | A9 | آآآ، هدية. | Gifts. | هدية -> هدايا | He used the singular; Amal said 'Gifts.' and he switched to هدايا at 04:55. | high | r1+r2 |
+| FA-0526c96b | 05:58 | grammar | E1 | عشرة دقايق. | مشهدة (engine; = مش عشرة) | عشرة دقايق -> عشر دقايق | Before a plural noun 3-10 take the short form; Amal objected and he fixed to عشر دقايق at 06:03, chat 3ashar da2aaye2. | high | r1+r2 |
+| FA-2440f492 | 06:16 | grammar | A8 | اه اليوم بلبس بلوزة رسمي. | بلوزة رسمية. | بلوزة رسمي -> بلوزة رسمية | Feminine noun takes the feminine adjective; he said it in his sentence, doubted it, and Amal recast رسمية. | high | r1+r2 |
+| FA-9f1935c2 | 09:10 | grammar-B | C7 | الحيوان اه بيعملوا الـ ألبان | From it. | الحيوان اه بيعملوا -> الحيوان اللي بيعملوا | A defining clause after el-7aywaan needs illi (her chat); she did not voice it. | medium | r1+r2 |
+| FA-c0bfe272 | 09:15 | grammar | D3 | اه بيعملوا الـ ألبان | From it. / منو. | بيعملوا الـ ألبان -> بيعملوا منو ألبان | The clause needs 'minno' (from it); Amal said 'From it', he tried من, she gave منو. | medium | r1+r2 |
+| FA-45a46b11 | 11:42 | vocab-A | tier 0 | Oh، I'm not sure. | حيطان. | Oh، I'm not sure. -> حيطان | Amal asked the plural of حيط; he did not know (engine wrote 'Is it Iraq' for his guess - not flagged) and she gave حيطان. | medium | r1+r2 |
+| FA-3a71ecc9 | 13:05 | grammar | B9 | Does إلي take أكون؟ ... Okay. إلي يكون، | It's حشرة، so. | إلي يكون -> اللي تكون | ykoon must match the feminine insect (حشرة); Amal said 'It's حشرة، so.' and he said تكون at 13:18. | high | r3 |
+| FA-14dc6d60 | 13:27 | vocab-A | tier 2 | مزعجة، is that right? | No، that's... It's annoyed. / مزعجة. | مزعجة -> مزعجة (muz3eje, annoying) | He gave the 'annoyed' form; Amal said 'No, that's annoyed' and gave muz3eje (sheet: annoyed / Maz3ooj / مزعوج; annoying / Muz3ej / مزعج). The engine writes both the same. | medium | r1+r2 |
+| FA-32ea9783 | 14:55 | grammar-B | A8 | Yeah، إحنا محظوظ كتير أنا. | (14:50 آه، محظوظين.) | إحنا محظوظ -> إحنا محظوظين | With إحنا the adjective is plural (Amal had just said محظوظين); she let his singular pass. | medium | r1+r2 |
+| FA-b119aeb5 | 15:02 | grammar | A1 | um, كل-- أغلب California | أغلب؟ California is a like a proper noun، so it doesn't need ال. | أغلب California (he said ال) -> أغلب California | Amal named the rule: a proper noun does not take ال; the engine dropped his ال but her reply shows it; he then said أغلب California. | medium | r3 |
+| FA-0c8bedf1 | 15:37 | grammar | A21 | غير من؟ ... I thought it was من. | No، it's عن. | غير من -> غير عن | 8eir takes 3an for 'different from'; Amal said no and gave عن. | high | r1+r2 |
+| FA-3a103ea0 | 16:49 | vocab-A | tier 0 | Hate. Oh my God, hate was... | Remember read؟ ... replace the to with H. |  -> بكره | He could not find 'hate'; Amal hinted until he said بكره - a didn't-know. | medium | r1+r2 |
+| FA-b4bd25b0 | 17:28 | grammar | D1 | على عنده. | No على، just عنده. | على عنده -> عنده | 'To his place' is عنده alone; Amal said 'No على'. | high | r1+r2 |
+| FA-0c2c443e | 20:18 | vocab-A | tier 2 | seasas. | No. Very close. [تضحك] No. | seasas -> صيصان | Invented plural of صوص; Amal said no and gave صيصان 'like فيران'. | medium | r1+r2 |
+| FA-ef5b0b05 | 24:26 | grammar | B18 | بكل-- بكون-- No، بكل، كل | بعقل. (engine; = بياكل) | بكل -> بياكل | بكل is 'I eat'; the pig needs he-form byaakul (her chat); Amal recast (engine wrote بعقل) and he said ياكل كل إشي. | medium | r3 |
+| FA-986be248 | 26:23 | vocab-A | tier 1 | Okay، it is دايما بيكون. Okay، دايما بيكون زلمة. | ذكر is masculine أو like male. It's better than زلمة because زلمة indicates a human man. | زلمة -> ذكر | زلمة is a human man; for a male animal Amal said ذكر is better. | medium | r3 |
+| FA-8d1e71fa | 27:09 | vocab-A | tier 1 | آآآ، يقش-- يقش صو-- ما-- آآآ، يقش ما صوت آآآ، طويل. / 27:33 Is it bakosh؟ | شياني (engine; = بيغني) sings. / الدغوش is a cheat. [تضحك] | يقش -> بيغني | He tried يغش (cheats) for 'sings'; Amal gave bey8anni and laughed that his word means 'cheat'. | high | r3 |
+| FA-42d36cb1 | 27:16 | vocab-A | tier 1 | يقش ما صوت آآآ، طويل. | We say a high voice. / 28:00 No. / It's very close بس we end it with ie | طويل -> عالي | A loud voice is صوت عالي, not طويل (long); Amal said 'we say a high voice', he tried علا, she said no, he got عالي (sheet: high / 3aali / عالي). | high | r1+r2 |
+| FA-b9c642bd | 28:38 | grammar | C1 | Wait، حسن بيكون حيوان كبير؟ | لا. / لا، لا، بس حيوان كبير. | بيكون -> (no verb) حيوان كبير | No 'to be' in a plain present description; Amal said لا, just حيوان كبير. | high | r1+r2 |
+| FA-e795d970 | 29:01 | grammar-B | A8 | Okay، حيوان كبير و سريعة. | Mm-hmm. | سريعة -> سريع | حيوان is masculine (كبير), so سريع; Amal let it pass. | medium | r1+r2 |
+| FA-b6703b09 | 29:30 | grammar | D1 | آآآ، إشي مختلف كتير. | Four (= For) different things. / Four | إشي مختلف كتير -> لأشيا مختلفين كتير | 'Uses it FOR things' needs la-; Amal said 'For different things' twice (engine: Four) and he added لا: لا إشي, لا أشيا. | medium | r3 |
+| FA-164c8fee | 29:30 | grammar | A9 | إشي مختلف كتير. / لا إشي مختلف كتير. | things. | إشي -> أشيا | Many different things needs the plural; Amal stressed 'things' and he said أشيا مختلفين. | high | r3 |
+| FA-a0015f59 | 30:24 | grammar | A8 | الـ ثرثور حشرة كب-كبير و عش-عشر | حشرة؟ / لا، حشرة بس شو؟ | كب-كبير -> كبيرة | حشرة is feminine; Amal prompted 'حشرة بس شو?' and he said حشرة كبيرة at 30:33. | high | r1+r2 |
+| FA-f4b526bf | 33:00 | grammar-propose | PROPOSE | آآآ بيكون أنواع من، أنواع من آآآ طيور | we either say that it's one of the types of birds ... واحد or نوع من أنواع الـ | أنواع من طيور -> نوع من أنواع الطيور | Amal rebuilt his 'kinds of birds' as واحد/نوع من أنواع الطيور (one kind of the kinds of birds). | medium | r3 |
+| FA-555320f3 | 33:00 | grammar-B | C1 | آآآ بيكون أنواع من | (her rebuild drops it) | بيكون -> (no verb) | Plain present description needs no 'to be' (A18 same lesson); her rebuild and chat drop بيكون but she never pointed at it. | low | r3 |
+| FA-31149780 | 33:13 | grammar | A9 | طيور؟ لا، طير، طير. | من أنواع الـ. What's، uh، plural of طير؟ | طير، طير -> طيور | After أنواع he switched to singular طير; Amal asked for the plural and he gave طيور. | medium | r3 |
+| FA-542ba347 | 35:03 | grammar-propose | PROPOSE | بيركود سريعة. [ضحك] بيركود سريعة. | So now هو نوع من-- بسرعة. | بيركود سريعة -> بيركض بسرعة | How a verb is done takes bi + noun (bisur3a), not the adjective سريعة; Amal recast بسرعة and he repeated it. | high | r1+r2 |
+| FA-ee93f9ee | 36:56 | grammar | C7 | إن-- آآآ اللي آآآ اللي بيركض. | No need for لي. | اللي بيركض -> بيركض | After an indefinite noun no illi; Amal said 'No need for لي'. | high | r1+r2 |
+| FA-dbc5f6fc | 37:27 | grammar | A17 | آآآ نفس cartoon. | نفس. / نفس شو؟ / نفس takes شو؟ | نفس cartoon -> نفس الـ cartoon | nafs + el- + noun; Amal asked what نفس takes and he said نفس الـ cartoon. | high | r1+r2 |
+| FA-7d2b0896 | 38:24 | vocab-A | tier 2 | آآآ سنجاب and سنجيب. | nice. Yes. أو السناجب. | سنجيب -> سناجب | Invented plural; Amal gave السناجب (chat snaajeb). | medium | r1+r2 |
+| FA-8d30bc0d | 39:00 | vocab-A | tier 0 | I should learn tale. | ديل. |  -> ديل | He did not know 'tail'; Amal supplied ديل. | high | r1+r2 |
+| FA-020e6af1 | 39:53 | vocab-A | tier 0 | Oh my God, I don't know how to say nuts. | guess two new words today: مكسرات. |  -> مكسرات | He said he did not know 'nuts'; Amal taught مكسرات. | high | r1+r2 |
+| FA-4b31a0ab | 40:46 | rejected | A11 | أنا بحب الكل بس المفضل، | آه، أها. | أنا بحب الكل -> أنا بحبهم كلهم | el-kull means everyone (A11 as Amal teaches it); for all kinds of nuts it is بحبهم كلهم; she let it pass. | low | r3 |
+| FA-9df43e48 | 40:54 | grammar | A23 | المفضل مكـ-- آآآ مكسرة. / المكسرة was | المفضل. / لا، لا، لا، لا، لا. To me. My favorite. | المفضل مكسرة -> المفضل عندي | Standing alone mufaddal needs 3ind + person; Amal said 'To me. My favorite' and he said المفضل عندي. | high | r1+r2 |
+| FA-fe1654ed | 41:12 | vocab-A | tier 0 | how do you say pistachio؟ | فستق. / فستق حلبي. |  -> فستق حلبي | He asked; Amal supplied فستق حلبي. | medium | r1+r2 |
 | FA-37229f9b | 42:24 | grammar | A18 | إيران مشهور لـ فستق حلبي. | Yeah، بس actually Iran is a feminine. All countries are. | إيران مشهور -> إيران مشهورة | Countries are feminine; Amal named the rule and he said مشهورة. | high | r1+r2 |
-| FA-c61a8fcc | 42:24 | grammar | D2 | إيران مشهور لـ فستق حلبي. | Yes، في الـ فستق الحلبي. | لـ -> في / بـ | 'Famous for' does not take لـ; Amal said في (prob. بـ) and he said فيه الفستق الحلبي. | medium | r1+r2 |
-| FA-5644efec | 42:24 | grammar | A7 | إيران مشهور لـ فستق حلبي. | Yes، في الـ فستق الحلبي. | فستق حلبي -> الفستق الحلبي | A known noun + adjective both take el-; Amal said الـ فستق الحلبي, he said فيه الفستق الحلبي at 42:48 and she echoed الحلبي at 42:51; separate piece from A28 (the preposition). | medium | r3 |
-| FA-7f4dd9ed | 44:48 | grammar | B8 | آآآ عن-عندي جاج، جاج كتير. | No. Will have. ... not now، then it needs a بكون. | عندي جاج -> بيكون عندي جاج | Future 'I will have' needs bikoon before 3indi; Amal said no and named it. | high | r1+r2 |
-| FA-5f27d27c | 46:38 | vocab-A | tier 2 | Okay، لازم أشتغل كتير. لازم يشتغلوا. | لا. They need a lot of work. | يشتغلوا -> شغل كتير | Verb 'work' used for the noun 'work'; Amal said لا, he offered شغل كتير and she said أها. | high | r3 |
-| FA-5ae359af | 46:38 | vocab-A | tier 1 | Okay، لازم أشتغل كتير. لازم يشتغلوا. | بس بحتاجوا better. | لازم -> بحتاجوا | 'They need (work)' is بحتاجوا, not laazem; Amal said بحتاجوا is better and he tried أحتاج / يحتاجوا; sheet: i need / Ana ba7taaj. | medium | r3 |
-| FA-2fa9054d | 47:21 | grammar | B18 | دي-ديرو بالكو. | أه؟ No. You are take caring-- taking care of them. | ديرو بالكو -> أدير بالي عليهم | He used the you-plural command (ديرو بالكو) for 'I take care of them'; Amal said no and gave أدير بالي + على -> عليهم; sheet: i take care of / Ana badir baali 3ala. | high | r1+r2 |
-| FA-31653c25 | 48:04 | vocab-A | tier 1 | آآآ بار؟ | What is mouse؟ | بار -> دبانة | فار (mouse, engine بار) for fly; Amal asked 'what is mouse?' and gave دبانة; sheet: fly / Dubaane. | medium | r1+r2 |
-| FA-32cf7f41 | 49:05 | grammar | B9 | حشرة بكون، | حشرة. So. | بكون -> تكون | حشرة is feminine so ykoon is تكون; Amal pointed to حشرة and he said 'That كون' (تكون). | high | r1+r2 |
-| FA-f2a6c6dd | 49:30 | grammar | A8 | ساكن في الزبال. | Say. | ساكن -> ساكنة | الدبانة is feminine so ساكنة; Amal prompted and he said ساكنة في الزبالة. | high | r1+r2 |
-| FA-bd9cac43 | 51:05 | grammar | A1 | آه، كان كلب. | Can the dog. | كان كلب -> كان الكلب | A known thing takes el-; Amal prompted 'the dog' and he said كان الكلب. | high | r1+r2 |
-| FA-cbaf31bf | 51:43 | grammar | B5 | هي بتصير. | No became. | هي بتصير -> هي صارت | She became = past صارت; Amal said 'No, became' and he said هي صارت. | high | r1+r2 |
-| FA-5e6e69aa | 52:47 | grammar-B | B18 | باكل، |  | باكل -> بياكل | Answer to 'شو بياكل؟' about the monkey uses the I-form; Amal let it pass; the engine may have squashed بياكل. | low | r3 |
-| FA-ad1961b0 | 52:53 | vocab-A | tier 1 | آه، فوافة مختلف. | فواكه. | فوافة -> فواكه | Non-word for fruits; Amal asked 'شو هو؟' and supplied فواكه after he asked 'فوافة fruit?'; sheet: fruits / Fawakeh. | medium | r3 |
-| FA-d7530d9e | 53:06 | grammar | A26 | آه، فواكه. فواكه مختلف. | مختلف. | فواكه مختلف -> فواكه مختلفين (she accepted; A26 form مختلفة) | The adjective must agree with plural فواكه; Amal echoed مختلف as a prompt and he changed to مختلفين, which she accepted. | medium | r3 |
-| FA-135caac5 | 53:36 | grammar | D1 | وسكن في الشجرة، الشجر. | In the trees ولا on the trees؟ | في الشجرة -> على الشجرة | Monkeys live on trees: على; Amal asked in or on and he said على الشجرة. | high | r1+r2 |
-| FA-c464fa7a | 53:36 | grammar-B | B1 | وسكن في الشجرة، الشجر. |  | سكن -> ساكن / بيسكن | سكن is past; a habit needs بيسكن or ساكن; Amal's 53:42 ثانٍ may be ساكن (unclear), and her voiced fix was only the preposition (A36). | low | r3 |
-| FA-be70a74c | 56:01 | grammar | E3 | تنين، د-- uh, تنين داي | No. How do you say two minutes؟ | تنين داي -> دقيقتين | Two minutes uses the dual دقيقتين, not تنين + noun; Amal said no three times (engine 'They 10' / دي تين). | medium | r1+r2 |
-| FA-4abbe91c | 58:06 | grammar | A8 | uh, غرفة تاني. | My other room's lights. | غرفة تاني -> غرفة تانية | غرفة is feminine so تانية; Amal rephrased in English and he said 'Oh، تانية'. | medium | r1+r2 |
-| FA-ea91c1ff | 58:39 | grammar | A7 | دواء الغرفة تاني. | التانية، كز غرفة. | الغرفة تاني -> الغرفة التانية | Amal recast التانية; he said الـ تانية; engine wrote دواء for the lights. | high | r1+r2 |
-| FA-34712037 | 1:00:49 | grammar | A23 | المفضل إشي عندي سباحة | السباحة most favorite thing. | المفضل إشي عندي سباحة -> السباحة أكتر إشي مفضل عندي | mufaddal follows its noun; Amal rebuilt the sentence starting السباحة and ending أكتر إشي مفضل عندي (1:01:19, 1:01:27-32). | high | r3 |
-| FA-68c772d3 | 1:00:55 | grammar | A1 | سباحة. | السباحة. | سباحة -> السباحة | Swimming in general takes el-; Amal said السباحة twice and spelled it out: 'No L بس للسباحة' (1:01:32). | medium | r3 |
-| FA-e4894658 | 1:01:05 | vocab-A | tier 1 | uh، السباحة الـ أحسن-- | Most مش best. | أحسن -> أكتر | أحسن (best) for 'most'; Amal said most, not best. | high | r1+r2 |
-| FA-35be70d1 | 1:01:12 | grammar | C3 | uh، الـ أكتر، | No L just أكتر. | الـ أكتر -> أكتر | Comparative takes no el-. | high | r1+r2 |
+| FA-e83b64c8 | 42:24 | grammar | D2 | إيران مشهور لـ فستق حلبي. / 42:40 لفستان-- لفست-- فيه فستق. | في. / Yes، في الـ فستق الحلبي. | لـ فستق حلبي -> في الفستق الحلبي | 'Famous for' takes في here and the phrase takes el- on noun and adjective; his فيه came after her 'في.' (42:41), then she recast في الـ فستق الحلبي and stressed الحلبي. | medium | r3 |
+| FA-4cb88d9e | 43:11 | vocab-A | tier 2 | جاج and جيجان. | No. / It's actually just جاج ... general plural | جيجان -> جاج | Invented plural; Amal said no, جاج is already the general plural (he then said جاجات). | high | r1+r2 |
+| FA-aed223f1 | 44:43 | grammar | B8 | أنا بحب، بحب أشتري آآآ بيت كبير و آآآ عن-عندي جاج، جاج كتير. | No. Will have. ... not now، then it needs a بكون. | عندي جاج -> يكون عندي جاجات | A future / wished 'have' needs ykoon + 3indi; Amal said 'No. Will have... needs a بكون'. | high | r1+r2 |
+| FA-28151f86 | 45:42 | vocab-A | tier 2 | آآآ كلبات، بسا-- آآآ بساس. | No. / كلبة is like feminine only. Feminine dogs. | كلبات -> كلاب | كلبات means female dogs only; Amal said no and he fixed to كلاب. (He wavered at 43:25 as a question.) | high | r1+r2 |
+| FA-e81c7f51 | 46:38 | vocab-A | tier 2 | Okay، لازم أشتغل كتير. لازم يشتغلوا. | لا. They need a lot of work. | أشتغل كتير -> شغل كتير | He used the verb (I work / they work) where the noun 'work' is needed; Amal said لا and he gave شغل كتير at 46:51 - verb used as a noun is tier 2. | high | r3 |
+| FA-5ae359af | 46:38 | vocab-A | tier 1 | لازم أشتغل كتير. لازم يشتغلوا. | بس بحتاجوا better. | لازم -> بيحتاجوا | لازم (must) for 'they need'; Amal said بيحتاجوا is better and he repeated يحتاجوا. | medium | r3 |
+| FA-4d4c25cd | 47:13 | grammar | B18 | بحتاج شغل كتير لـ دي-ديرو بالكو. | No. You are take caring-- taking care of them. / أدير، أدير بالي. | ديرو بالكو -> أدير بالي | He used the 'you all' command form; it is he who takes care - Amal said no and gave أدير بالي. | high | r1+r2 |
+| FA-1e854857 | 47:13 | grammar-B | B18 | آآآ okay، بح-بحتاج شغل كتير لـ | No. You are take caring-- taking care of them. | بحتاج -> بيحتاجوا | Right after drilling يحتاجوا he said بحتاج (I need) for the horses needing work; Amal's voiced fix was on ديرو بالكو only. Could be the engine. | low | r3 |
+| FA-e805c745 | 47:21 | grammar | D2 | دي-ديرو بالكو. | What does أدير بالي take؟ / أها. So of them. | ديرو بالكو (no على) -> أدير بالي عليهم | دار بالو takes 3ala; Amal asked what it takes and he said على, then عليهم. | high | r3 |
+| FA-31653c25 | 48:04 | vocab-A | tier 1 | آآآ بار؟ / Was flies was, was it far؟ | What is mouse؟ / 48:20 دبانة. | بار -> دبانة | He tried فار (mouse) for 'fly'; Amal asked 'What is mouse?' and supplied دبانة. | medium | r3 |
+| FA-32cf7f41 | 49:05 | grammar | B9 | حشرة بكون، | حشرة. So. | بكون -> بتكون | ykoon must match the feminine insect; Amal repeated 'حشرة. So.' and he said 'That كون' (تكون). | medium | r3 |
+| FA-42f9a120 | 49:30 | grammar | A8 | ساكن في الزبال. | Say. | ساكن في الزبال -> ساكنة في الزبالة | The fly (feminine) takes saakne; Amal prompted and he said ساكنة في الزبالة at 49:36. | medium | r1+r2 |
+| FA-bd9cac43 | 51:05 | grammar | A1 | آه، أنا الـ الـ حيوان المفضل عندي، آه، كان كلب. | Can the dog. | كان كلب -> كان الكلب | The known animal (dogs in general) takes el-; Amal said 'kaan the dog' and he said كان الكلب. | high | r1+r2 |
+| FA-cbaf31bf | 51:43 | grammar | B5 | هي بتصير. | He yes it became. / No became. | هي بتصير -> هي صارت | She already became his favorite - past; Amal said 'No, became' and he said صارت. | high | r1+r2 |
+| FA-d7530d9e | 53:06 | grammar | A8 | آه، فواكه. فواكه مختلف. | مختلف. | فواكه مختلف -> فواكه مختلفين | Plural fruits need the plural adjective; Amal echoed مختلف as a question and he said مختلفين. | high | r3 |
+| FA-135caac5 | 53:36 | grammar | D1 | وسكن في الشجرة، الشجر. | In the trees ولا on the trees؟ | في الشجرة -> على الشجر | Monkeys live ON trees (3ala); Amal asked 'in or on?' and he said على الشجرة. | high | r1+r2 |
+| FA-c464fa7a | 53:36 | grammar-B | B15 | وسكن في الشجرة، الشجر. | (53:42 ثانٍ - garbled) | سكن -> ساكن | 'Lives' is the participle saaken (her chat); her 53:42 word is garbled so treat as not voiced. Preposition fix is A37. | low | r3 |
+| FA-be70a74c | 56:01 | grammar | E3 | تنين، د-- uh, تنين داي | No. How do you say two minutes؟ | تنين داي -> دقيقتين | Two of a time unit uses the dual (da2ee2tain), not tnain + noun; Amal said no repeatedly. | high | r1+r2 |
+| FA-ac67a7e3 | 1:00:49 | grammar | A1 | Oh، I said this wrong. المفضل إشي عندي سباحة. | السباحة most favorite thing. | سباحة -> السباحة | Missing el- on swimming; Amal said السباحة first and he repeated it. | high | r1+r2 |
+| FA-e4894658 | 1:01:05 | vocab-A | tier 1 | uh، السباحة الـ أحسن-- | Most مش best. | أحسن -> أكتر | أحسن is 'best'; for 'most favorite' Amal said 'most, not best' and he said أكتر. | high | r1+r2 |
+| FA-35be70d1 | 1:01:12 | grammar | C3 | uh، الـ أكتر، | No L just أكتر. | الـ أكتر -> أكتر | Comparatives never take el- in front; Amal said 'No L just أكتر'. | high | r1+r2 |
+| FA-b2cea2c5 | 1:01:17 | grammar | C3 | أكتر المفضل | أكتر إشي مفضل عندي. | أكتر المفضل -> أكتر إشي مفضل عندي | aktar + indefinite noun + mufaddal with no el- ('No L'); Amal recast the whole phrase. | high | r1+r2 |
