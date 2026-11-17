@@ -1,18 +1,19 @@
 {
  "about": "Is the hourly robot publishing? Written by scripts/pipeline_health.py (publish guard + hourly job); read by js/stale.js. stalled = no hourly publish for more than 2 h while work waits.",
  "last_publish_utc": "2026-11-17T01:19:03Z",
- "last_publish_sha": "e15d482e2236b1554c6350902481a1297e9248b4",
- "last_block_reason": null,
- "last_block_utc": null,
- "first_block_reason": null,
- "blocked_since_utc": null,
+ "last_publish_sha": "1cae3a1e8ad0f504202a62c98f19290cdb3bda90",
+ "last_block_reason": "lesson_ledger: exit 1: 2026-11-16: Word Bank audit has 349 Correct, the ledger 353 | ledger: FAIL 1 problem(s); accuracy_gates: exit 1: PROBLEM 2026-11-16: Lessons words.right=353 but the Word Bank audit has 349 Correct | accuracy check: 1 problem(s) - do not publish. First: 2026-11-16: Lessons words.right=353 but the Word Bank audit has 349 Correct; check_numbers: exit 1: numbers: FAIL 2026-11...",
+ "last_block_utc": "2026-11-17T02:18:32Z",
+ "first_block_reason": "lesson_ledger: exit 1: 2026-11-16: Word Bank audit has 349 Correct, the ledger 353 | ledger: FAIL 1 problem(s); accuracy_gates: exit 1: PROBLEM 2026-11-16: Lessons words.right=353 but the Word Bank audit has 349 Correct | accuracy check: 1 problem(s) - do not publish. First: 2026-11-16: Lessons words.right=353 but the Word Bank audit has 349 Correct; check_numbers: exit 1: numbers: FAIL 2026-11...",
+ "blocked_since_utc": "2026-11-17T02:18:32Z",
  "open_failures": [],
  "pending": [
   "lesson day (2026-11-16)",
+  "1 blocked push(es) since the last publish",
   "second listen not applied: 2026-10-26, 2026-11-16"
  ],
- "hours_since_publish": 0.0,
+ "hours_since_publish": 1.0,
  "stalled": false,
- "generated_at": "2026-11-17T01:19:03Z",
- "plain_reason": "waiting: lesson day (2026-11-16); second listen not applied: 2026-10-26, 2026-11-16"
+ "generated_at": "2026-11-17T02:18:32Z",
+ "plain_reason": "the lesson ledger check failed"
 }
