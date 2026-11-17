@@ -570,7 +570,21 @@ def main():
     # candidates -> one by-meaning reader -> docs/data/amal-new-words.json (Tutor hub item: add to the Doc / later / forget).
     # Unjudged candidates are never shown to Amal; a reader that fails leaves them unjudged (counted) and fails the run.
     new_words_step(d, a.dry_run, failures)
+    lt_path = os.path.join(REPO, "data", "lesson-work", "lesson-types", d + ".json")
+    lt_read = lambda: open(lt_path, "rb").read() if os.path.exists(lt_path) else None  # noqa: E731
+    lt_before = lt_read()
     taught_cross_step(d, a.dry_run, failures)
+    if not a.dry_run and lt_read() != lt_before:
+        # 2026-11-16: the cross-check reader added صحراء to taught_words AFTER step 7d had judged the taught words and the
+        # page data (ledger) had been built: the word stayed unjudged (AM-19) and the ledger was older than its input
+        # (LS-11). A changed type read is judged again and the page data rebuilt from it.
+        log("taught words changed by the cross-check: judging the new ones and rebuilding the page data")
+        more = []
+        new_words_step(d, a.dry_run, more)
+        failures += [x for x in more if x not in failures]
+        rc = py(os.path.join(HERE, "build_lessons_page_data.py"), check=False).returncode
+        if rc:
+            failures.append(f"build_lessons_page_data.py (after the taught-words cross-check) exit {rc}")
     heard_grammar_step(d, a.dry_run)
     # 7e the lesson audit's checks (scripts/lesson_audit.py, plan/LESSON-AUDIT-RUNBOOK.md): logged every run so a missing
     # mark, Latin on an Arabic line or a word credited twice is seen the same day; it reports, it never blocks
@@ -586,6 +600,7 @@ def main():
     if not a.dry_run:
         subprocess.run(["git", "add", "-A", "data/full-audit-2026-09-26.json", "plan/FULL-AUDIT-2026-09-26.md", "docs", "data/lesson-work/full-audit",
                         "data/lesson-work/amal-new-words", "data/lesson-work/amal-new-words-verdicts.json", "data/lesson-work/lesson-types",
+                        "data/lesson-work/taught-words-verdicts.json",   # AM-19 verdicts: were never committed (2026-11-16)
                         "data/lesson-work/tutor-grammar"], cwd=REPO)
         subprocess.run(["git", "commit", "-q", "-m", f"Same-day review {d}: two readers + third reader, pages fed, Amal's items\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"], cwd=REPO)
         if failures:

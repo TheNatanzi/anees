@@ -295,6 +295,10 @@ def _cards_citing_audit_size():
     out = []
     for c in J(DOCS / "data" / "ai_reports.json")["reports"]:
         s = json.dumps({k: v for k, v in c.items() if k not in ("links", "source_md")}, ensure_ascii=False)
+        # 2026-11-16: the audit grew to 1,885 rows, so the +-10% window reached 2026 and every ISO date
+        # ("2026-10-21") and citation year ("Schmitt 2013)") was read as a row count. Dates and years are not counts.
+        s = re.sub(r"\d{4}-\d{2}-\d{2}", " ", s)
+        s = re.sub(r"\b(?:19|20)\d{2}(?=\))", " ", s)
         nums = {int(x.replace(",", "")) for x in re.findall(r"(?<![\d.,])(\d,\d{3}|\d{3,4})(?![\d.%,])", s)}
         near = sorted(n for n in nums if abs(n - rows) <= 0.1 * rows)       # a number that claims to be the audit size
         if near:
