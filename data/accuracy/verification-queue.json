@@ -1,10 +1,11 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 16,
+ "count": 31,
  "by_date": {
   "2026-09-26": 1,
   "2026-11-10": 11,
-  "2026-11-11": 4
+  "2026-11-11": 4,
+  "2026-11-16": 15
  },
  "rows": [
   {
@@ -346,6 +347,323 @@
    "second_judge": null,
    "listen_from": "32:41",
    "listen_to": "33:19"
+  },
+  {
+   "uid": "FA-913a61bd",
+   "date": "2026-11-16",
+   "t": "02:11",
+   "t_amal": "02:21",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "B18",
+   "medi_said": "أنا الكل لما بمطر--",
+   "amal_said": "بتمثل.",
+   "wrong": "بمطر",
+   "right": "بتمطر",
+   "why_check": [
+    "the transcript under it is disputed (engine wrote something else)"
+   ],
+   "check": "audio",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "02:01",
+   "listen_to": "02:41"
+  },
+  {
+   "uid": "FA-0526c96b",
+   "date": "2026-11-16",
+   "t": "05:58",
+   "t_amal": "06:01",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "E1",
+   "medi_said": "عشرة دقايق.",
+   "amal_said": "مشهدة",
+   "wrong": "عشرة دقايق",
+   "right": "عشر دقايق",
+   "why_check": [
+    "both readers found it but the third reader challenged it"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "05:48",
+   "listen_to": "06:21"
+  },
+  {
+   "uid": "FA-4159b127",
+   "date": "2026-11-16",
+   "t": "13:27",
+   "t_amal": "13:32",
+   "kind": "vocab-A",
+   "tier": 2,
+   "bucket": null,
+   "medi_said": "مزعجة، is that right?",
+   "amal_said": "No، that's... It's annoyed.",
+   "wrong": "مزعجة (engine; he said مزعوجة)",
+   "right": "مزعجة",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "13:17",
+   "listen_to": "13:52"
+  },
+  {
+   "uid": "FA-2f113415",
+   "date": "2026-11-16",
+   "t": "15:02",
+   "t_amal": "15:07",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A1",
+   "medi_said": "آآآ، آه، كل-- أغلب California",
+   "amal_said": "أغلب؟ California is a like a proper noun، so it doesn't need ال.",
+   "wrong": "أغلب California",
+   "right": "أغلب California (no ال)",
+   "why_check": [
+    "both readers found it but the third reader challenged it"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "14:52",
+   "listen_to": "15:27"
+  },
+  {
+   "uid": "FA-4638b08a",
+   "date": "2026-11-16",
+   "t": "17:00",
+   "t_amal": "17:06",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "medi_said": "Is it بشتاح؟ No. بشتاح is second-- No. I miss.",
+   "amal_said": "No، remember read؟",
+   "wrong": "(could not recall hate)",
+   "right": "بكره",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "16:50",
+   "listen_to": "17:26"
+  },
+  {
+   "uid": "FA-42d36cb1",
+   "date": "2026-11-16",
+   "t": "27:16",
+   "t_amal": "27:49",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "medi_said": "يقش ما صوت آآآ، طويل.",
+   "amal_said": "We say a high voice.",
+   "wrong": "طويل",
+   "right": "عالي",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "27:06",
+   "listen_to": "28:09"
+  },
+  {
+   "uid": "FA-004f5d56",
+   "date": "2026-11-16",
+   "t": "31:09",
+   "t_amal": "31:13",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A4",
+   "medi_said": "لونا أسود.",
+   "amal_said": "لأنه حشرة. So we have to stick to حشرة. So لون.",
+   "wrong": "لونا (masc. owner, for سرسور)",
+   "right": "لونها",
+   "why_check": [
+    "reader confidence low",
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "30:59",
+   "listen_to": "31:33"
+  },
+  {
+   "uid": "FA-16836904",
+   "date": "2026-11-16",
+   "t": "38:24",
+   "t_amal": "38:30",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A9",
+   "medi_said": "آآآ سنجاب and سنجيب.",
+   "amal_said": "nice. Yes. أو السناجب.",
+   "wrong": "سنجيب",
+   "right": "سناجب",
+   "why_check": [
+    "reader confidence low",
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "38:14",
+   "listen_to": "38:50"
+  },
+  {
+   "uid": "FA-5644efec",
+   "date": "2026-11-16",
+   "t": "42:24",
+   "t_amal": "42:44",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A7",
+   "medi_said": "إيران مشهور لـ فستق حلبي.",
+   "amal_said": "Yes، في الـ فستق الحلبي.",
+   "wrong": "فستق حلبي",
+   "right": "الفستق الحلبي",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "42:14",
+   "listen_to": "43:04"
+  },
+  {
+   "uid": "FA-5f27d27c",
+   "date": "2026-11-16",
+   "t": "46:38",
+   "t_amal": "46:44",
+   "kind": "vocab-A",
+   "tier": 2,
+   "bucket": null,
+   "medi_said": "Okay، لازم أشتغل كتير. لازم يشتغلوا.",
+   "amal_said": "لا. They need a lot of work.",
+   "wrong": "يشتغلوا",
+   "right": "شغل كتير",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "46:28",
+   "listen_to": "47:04"
+  },
+  {
+   "uid": "FA-ad1961b0",
+   "date": "2026-11-16",
+   "t": "52:53",
+   "t_amal": "53:04",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "medi_said": "آه، فوافة مختلف.",
+   "amal_said": "فواكه.",
+   "wrong": "فوافة",
+   "right": "فواكه",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "52:43",
+   "listen_to": "53:24"
+  },
+  {
+   "uid": "FA-d7530d9e",
+   "date": "2026-11-16",
+   "t": "53:06",
+   "t_amal": "53:09",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A26",
+   "medi_said": "آه، فواكه. فواكه مختلف.",
+   "amal_said": "مختلف.",
+   "wrong": "فواكه مختلف",
+   "right": "فواكه مختلفين (she accepted; A26 form مختلفة)",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "52:56",
+   "listen_to": "53:29"
+  },
+  {
+   "uid": "FA-ea91c1ff",
+   "date": "2026-11-16",
+   "t": "58:39",
+   "t_amal": "58:51",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A7",
+   "medi_said": "دواء الغرفة تاني.",
+   "amal_said": "التانية، كز غرفة.",
+   "wrong": "الغرفة تاني",
+   "right": "الغرفة التانية",
+   "why_check": [
+    "the transcript under it is disputed (engine wrote something else)"
+   ],
+   "check": "audio",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "58:29",
+   "listen_to": "59:11"
+  },
+  {
+   "uid": "FA-34712037",
+   "date": "2026-11-16",
+   "t": "1:00:49",
+   "t_amal": "1:00:59",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A23",
+   "medi_said": "المفضل إشي عندي سباحة",
+   "amal_said": "السباحة most favorite thing.",
+   "wrong": "المفضل إشي عندي سباحة",
+   "right": "السباحة أكتر إشي مفضل عندي",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "1:00:39",
+   "listen_to": "1:01:19"
+  },
+  {
+   "uid": "FA-68c772d3",
+   "date": "2026-11-16",
+   "t": "1:00:55",
+   "t_amal": "1:01:04",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A1",
+   "medi_said": "سباحة.",
+   "amal_said": "السباحة.",
+   "wrong": "سباحة",
+   "right": "السباحة",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "1:00:45",
+   "listen_to": "1:01:24"
   }
  ]
 }

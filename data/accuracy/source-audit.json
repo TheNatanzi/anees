@@ -3235,6 +3235,91 @@
     "human_listened_s": 0
    },
    "gap_fill": []
+  },
+  "2026-11-16": {
+   "date": "2026-11-16",
+   "lesson_s": 3852.0,
+   "attribution": "per-speaker-tracks",
+   "timing": "engine",
+   "people": {
+    "Medi": {
+     "segments": [
+      {
+       "offset": 0.035,
+       "duration_s": 3792.6,
+       "status": "ok",
+       "file": "Medi_Natanzi-e7b94f3f0c975277.mp3"
+      }
+     ],
+     "audio_s": 3792.6,
+     "audio_pct": 98.5,
+     "no_audio": [
+      [
+       3792.6,
+       3852.1
+      ]
+     ],
+     "lost_segments": [],
+     "lines": 706,
+     "first_line": 2.87,
+     "speech_s": 1227.2,
+     "speech_transcribed_pct": 99.2,
+     "untranscribed_s": 9.4,
+     "holes": [],
+     "empty_audio": []
+    },
+    "Amal": {
+     "segments": [
+      {
+       "offset": 0.015,
+       "duration_s": 3850.8,
+       "status": "ok",
+       "file": "Amal_Abusrour-ba6b7f96eed9becc.mp3"
+      }
+     ],
+     "audio_s": 3850.7,
+     "audio_pct": 100.0,
+     "no_audio": [],
+     "lost_segments": [],
+     "lines": 470,
+     "first_line": 5.29,
+     "speech_s": 782.0,
+     "speech_transcribed_pct": 98.4,
+     "untranscribed_s": 12.9,
+     "holes": [],
+     "empty_audio": []
+    }
+   },
+   "flags": [],
+   "recording": "per-person tracks",
+   "swap_check": {
+    "method": "own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?)",
+    "checked": 991,
+    "agree_pct": 96.3,
+    "by_person": {
+     "Medi": {
+      "own_track_louder": 584,
+      "other_track_louder": 28
+     },
+     "Amal": {
+      "own_track_louder": 370,
+      "other_track_louder": 9
+     }
+    },
+    "caption_agree_pct": 61.1,
+    "caption_checked": 1020,
+    "caption_offset_s": -9,
+    "cutoffs": {
+     "swapped_below": 50.0,
+     "doubtful_below": 90.0
+    }
+   },
+   "asr_review": {
+    "second_model_excerpts": 0,
+    "second_model_s": 0,
+    "human_listened_s": 0
+   },
+   "gap_fill": []
   }
  },
  "about": "Per lesson x per person source audit (scripts/source_audit.py): audio present, speech on each person's own track, untranscribed speech, independent speaker-label check, ASR review. Read by scripts/accuracy_gates.py.",
@@ -3245,5 +3330,5 @@
   "loud_db": 6.0,
   "speech": "own-track frame energy > max(20th percentile + 15 dB, -50 dBFS), 0.1-s frames"
  },
- "built": "2026-11-13T16:56:14-08:00"
+ "built": "2026-11-16T16:03:22-08:00"
 }
