@@ -70,6 +70,6 @@
   if (typeof document === 'undefined' || document.querySelector('script[src*="js/stale.js"]')) return;
   var me = document.querySelector('script[src*="js/phone-nav.js"]');
   var s = document.createElement('script');
-  s.src = (me ? me.getAttribute('src').replace(/js\/phone-nav\.js.*$/, '') : '') + 'js/stale.js?v=fresh1';
+  s.src = (me ? me.getAttribute('src').replace(/js\/phone-nav\.js.*$/, '') : '') + 'js/stale.js?v=quiet2';
   document.body.appendChild(s);
 })();

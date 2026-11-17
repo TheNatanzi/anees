@@ -30,7 +30,13 @@ def test_banner_appears_when_build_changes(tmp_path, rest_stub):
         b = pw.chromium.launch(); pg = b.new_page(viewport={'width': 375, 'height': 812}); rest_stub.attach(pg.context)   # FC-08
         pg.goto(f'http://127.0.0.1:{port}/cards.html'); pg.wait_for_selector('[data-t="cat:topics"]', state='attached', timeout=20000)   # home is the category menu since 4facdef (2026-09-22); #start only appears inside a set
         assert pg.evaluate('AneesStale.check()') is not None and pg.locator('#stale-bar').count() == 0
-        (site / 'data' / 'build.json').write_text('{"build": "20991231-000000-newer"}', encoding='utf-8')
+        # Medi 2026-11-17: new DATA only (same code hash) -> no bar; the page reloads itself quietly once he is idle
+        code = json.loads((site / 'data' / 'build.json').read_text(encoding='utf-8')).get('code')
+        (site / 'data' / 'build.json').write_text(json.dumps({'build': '20991231-000000-data', 'code': code}), encoding='utf-8')
+        pg.evaluate('AneesStale.check()'); pg.wait_for_timeout(500)
+        assert pg.locator('#stale-bar').count() == 0 and pg.evaluate('AneesStale.dataWaiting') is True
+        # a new CODE version -> the bar
+        (site / 'data' / 'build.json').write_text('{"build": "20991231-000000-newer", "code": "different0000"}', encoding='utf-8')
         pg.evaluate('AneesStale.check()'); pg.wait_for_selector('#stale-bar', timeout=5000)
         txt = pg.text_content('#stale-bar')
         assert 'out of date' in txt and pg.locator('#stale-reload').count() == 1
@@ -94,7 +100,7 @@ def test_pr_24_every_page_with_the_shared_menu_gets_the_stall_banner():
     import glob
     root = os.path.join(os.path.dirname(__file__), '..', 'docs')
     nav = open(os.path.join(root, 'js', 'phone-nav.js'), encoding='utf-8').read()
-    assert "document.querySelector('script[src*=\"js/stale.js\"]')" in nav and "js/stale.js?v=fresh1" in nav
+    assert "document.querySelector('script[src*=\"js/stale.js\"]')" in nav and "js/stale.js?v=quiet2" in nav
     pages = [p for p in glob.glob(os.path.join(root, '*.html')) if 'js/phone-nav.js' in open(p, encoding='utf-8').read()]
     assert len(pages) >= 10
 

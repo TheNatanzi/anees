@@ -49,13 +49,25 @@ if (typeof module !== 'undefined' && module.exports) module.exports = { stallTex
     // cache-busting reload: a new URL makes the browser fetch the page (and its versioned scripts) again
     document.getElementById('stale-reload').onclick = () => { const u = new URL(location.href); u.searchParams.set('v', String(theirs).slice(-7)); location.replace(u.toString()); };
   }
+  // Medi 2026-11-17 ("out of date refresh alerts when we arent changing anything... only for version updates. Information
+  // should automatically load"): build.json carries 'code' (a hash of scripts/styles/page shells, scripts/write_build.py).
+  // A new CODE version -> the bar. New DATA only (the hourly job's publishes) -> no bar: the page reloads itself quietly
+  // when he comes back to the tab, or after 3 min with no tap/typing and nothing playing.
+  let mineCode = '', dataWaiting = false, lastTouch = Date.now();
+  ['pointerdown', 'keydown', 'wheel', 'touchstart', 'input'].forEach(ev => addEventListener(ev, () => { lastTouch = Date.now(); }, { passive: true }));
+  function busy() {
+    if ([...document.querySelectorAll('audio,video')].some(m => !m.paused)) return true;
+    if ([...document.querySelectorAll('textarea,input[type=text],input:not([type])')].some(x => String(x.value || '').trim())) return true;
+    return Date.now() - lastTouch < 180000;
+  }
   async function check() {
     try {
       const r = await fetch(base + 'data/build.json?t=' + Date.now(), { cache: 'no-store' });
       if (!r.ok) return null;
       const j = await r.json();
-      if (!mine) { mine = j.build || ''; return j.build; }        // first read = the version this page opened with
-      if (mine && j.build && j.build !== mine) show(j.build);
+      if (!mine) { mine = j.build || ''; mineCode = j.code || ''; return j.build; }   // first read = what this page opened with
+      if (j.code && mineCode && j.code !== mineCode) show(j.build);                    // a real version update
+      else if (j.build && j.build !== mine) { dataWaiting = true; if (!document.hidden && !busy()) location.reload(); }
       return j.build;
     } catch (e) { return null; }
   }
@@ -79,8 +91,12 @@ if (typeof module !== 'undefined' && module.exports) module.exports = { stallTex
   }
   setInterval(check, 60000);
   setInterval(checkStall, 600000);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) { check(); checkStall(); } });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) return;
+    if (dataWaiting && !busy()) { location.reload(); return; }     // back on the tab: fresh data, no bar
+    check(); checkStall();
+  });
   check();                                         // baseline now; later checks compare against it
   checkStall();
-  window.AneesStale = { check, checkStall, stallText, get build() { return mine; } };
+  window.AneesStale = { check, checkStall, stallText, get build() { return mine; }, get dataWaiting() { return dataWaiting; } };
 })();
