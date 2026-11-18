@@ -1,5 +1,5 @@
 {
- "built": "2026-11-17T15:41:16-08:00",
+ "built": "2026-11-18T05:01:15-08:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -112503,7 +112503,7 @@
    "chat": null,
    "wrong": "يرجعوا شمس",
    "right": "رجعت الشمس",
-   "kind": "grammar-B",
+   "kind": "dropped-by-amal",
    "tier": null,
    "bucket": "B18",
    "bucket2": "A1",
@@ -112527,7 +112527,19 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-cbdde12d",
-   "n": 1890
+   "n": 1890,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "p-plural-verb-singular-subject",
+    "reason": "He said el-jaww",
+    "at": "2026-11-18T12:59:14.106973+00:00",
+    "rule_id": 110840,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A2",
@@ -112639,7 +112651,7 @@
    "chat": null,
    "wrong": "أبو الحيوان",
    "right": "أول حيوان",
-   "kind": "grammar-B",
+   "kind": "dropped-by-amal",
    "tier": null,
    "bucket": "A20",
    "bucket2": null,
@@ -112662,7 +112674,19 @@
    "machine_had": false,
    "bucket_name": "awal / aa5er with el-",
    "uid": "FA-f0be9ec8",
-   "n": 1894
+   "n": 1894,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "p-el-after-awal-first",
+    "reason": "He said awal 7aywaan",
+    "at": "2026-11-18T12:58:00.560114+00:00",
+    "rule_id": 110837,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A5",
@@ -112947,7 +112971,7 @@
    "chat": null,
    "wrong": "ما أحبوا",
    "right": "ما كانوا يحبوا / ما حبوا",
-   "kind": "grammar-B",
+   "kind": "dropped-by-amal",
    "tier": null,
    "bucket": "B7",
    "bucket2": null,
@@ -112970,7 +112994,19 @@
    "machine_had": false,
    "bucket_name": "kaan + verb = used to / was doing",
    "uid": "FA-744a0b74",
-   "n": 1903
+   "n": 1903,
+   "amal_ruling": {
+    "kind": "skip",
+    "pattern": "p-a7abbu-for-7abbu",
+    "reason": "He said ma 7abbu",
+    "at": "2026-11-18T12:56:44.74024+00:00",
+    "rule_id": 110836,
+    "before": {
+     "kind": "grammar-B",
+     "signal": "none",
+     "confidence": "low"
+    }
+   }
   },
   {
    "id": "A9",
@@ -113758,7 +113794,7 @@
  ],
  "rulings_applied": [
   {
-   "at": "2026-11-17T23:41:18.683161+00:00",
+   "at": "2026-11-18T13:01:17.256215+00:00",
    "rules": [
     1928,
     1929,
@@ -113835,6 +113871,9 @@
     110502,
     110532,
     110557,
+    110836,
+    110837,
+    110840,
     2026,
     2027,
     2028,
