@@ -1,9 +1,9 @@
 {
- "updated": "2026-11-17T16:10:42-08:00",
+ "updated": "2026-11-17T16:49:25-08:00",
  "result": "pass",
- "source": "hourly: lessons 2026-11-17",
- "checked_commit": "15f11d78f8e3",
- "secs": 181.5,
+ "source": "amal trigger",
+ "checked_commit": "2997777256c0",
+ "secs": 181.8,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 2.6,
+   "secs": 2.2,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "198 JSON files parse"
   },
@@ -33,7 +33,7 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 1.8,
+   "secs": 0.3,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
    "detail": "rule_registry: OK - 286 rules: enforced 194 (code 185, brief 9), written 72, moment-only 12, needs Medi 0, superseded 8"
   },
@@ -41,7 +41,7 @@
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.8,
+   "secs": 0.9,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 37 lessons reach every page"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 6.8,
+   "secs": 6.7,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 7.4,
+   "secs": 6.0,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...4 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 9.1,
+   "secs": 9.6,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 91 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 1.8,
+   "secs": 2.6,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -121,31 +121,31 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.8,
+   "secs": 1.1,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
   {
    "id": "tests_py",
    "required": true,
-   "ok": false,
-   "secs": 128.0,
+   "ok": true,
+   "secs": 130.9,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "exit 1: FAILED tests/test_build_student_data.py::test_the_committed_shaky_words_file_matches_the_last_two_lessons_on_disk | FAILED tests/test_meet_chat.py::test_pg_47_meet_chat_is_in_the_transcript_in_its_own_colour | 2 failed, 982 passed, 1 skipped, 3 xfailed in 123.04s (0:02:03)"
+   "detail": ".................. [ 94%] | ....................................................                     [100%] | 984 passed, 1 skipped, 3 xfailed in 125.67s (0:02:05)"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 6.5,
+   "secs": 6.1,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 6469.6963"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 5989.2702"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 8.3,
+   "secs": 8.0,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -155,7 +155,7 @@
    "ok": false,
    "secs": 0.5,
    "what": "the two readers read the transcript the pages show now",
-   "detail": "2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it; 2026-10-10: transcript changed after the readers read it; 2026-10-12: transcript changed after the readers read it; 2026-10-14: transcript changed after the readers read it; 2026-10-27: transcript changed after the readers read it; 2026-10-28: transcript changed after the readers read it"
+   "detail": "2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it; 2026-10-10: transcript changed after the readers read it; 2026-10-12: transcript changed after the readers read it; 2026-10-14: transcript changed after the readers read it; 2026-10-27: transcript changed after the readers read it; 2026-10-28: transcript changed after the readers read it; 2026-11-17: transcript changed after the readers read it"
   },
   {
    "id": "data_freshness",
@@ -183,19 +183,18 @@
   }
  ],
  "warnings": [
-  "tests_py: exit 1: FAILED tests/test_build_student_data.py::test_the_committed_shaky_words_file_matches_the_last_two_lessons_on_disk | FAILED tests/test_meet_chat.py::test_pg_47_meet_chat_is_in_the_transcript_in_its_own_colour | 2 failed, 982 passed, 1 skipped, 3 xfailed in 123.04s (0:02:03)",
-  "review_freshness: 2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it; 2026-10-10: transcript changed after the readers read it; 2026-10-12: transcript changed after the readers read it; 2026-10-14: transcript changed after the readers read it; 2026-10-27: transcript changed after the readers read it; 2026-10-28: transcript changed after the readers read it",
+  "review_freshness: 2026-10-05: transcript changed after the readers read it; 2026-10-06: transcript changed after the readers read it; 2026-10-08: transcript changed after the readers read it; 2026-10-09: transcript changed after the readers read it; 2026-10-10: transcript changed after the readers read it; 2026-10-12: transcript changed after the readers read it; 2026-10-14: transcript changed after the readers read it; 2026-10-27: transcript changed after the readers read it; 2026-10-28: transcript changed after the readers read it; 2026-11-17: transcript changed after the readers read it",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'; 2026-10-28 817.16 'إنت 言 っ て أنا flipping ده بخرب one.'; 2026-10-30 4037.7 'السودا сода is قهوة، right? على، sorry، '"
  ],
  "last_block": {
-  "at": "2026-11-17T12:05:44-08:00",
-  "source": "amal trigger",
+  "at": "2026-11-17T16:18:29-08:00",
+  "source": "lesson_pipeline: Lesson 2099-01-01: report page + clips",
   "outcome": "blocked",
-  "sha": "7e6caa8f6ab06ecfde18940da76027e8610b5fd3",
-  "reason": "lesson_ledger: exit 1: ...s older than its inputs (docs/data/grammar-usage.json, docs/data/grammar-buckets.json): rebuild (build_lessons_page_data.py) | 2026-11-16: ledger is older than its inputs (docs/data/grammar-usage.json, docs/data/grammar-buckets.json): rebuild (build_lessons_page_data.py) | ledger: FAIL 36 problem(s)",
-  "secs": 170.5,
-  "commits_waiting": "1"
+  "sha": null,
+  "reason": "lesson_coverage: 37 gap(s): 2026-08-25 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-04 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-05 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-10 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-11 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-14 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/) (+31 more)",
+  "secs": 3.9,
+  "commits_waiting": ""
  },
- "blocks_before_this_pass": 0,
+ "blocks_before_this_pass": 2,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
