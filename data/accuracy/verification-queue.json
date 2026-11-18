@@ -1,11 +1,12 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 34,
+ "count": 41,
  "by_date": {
   "2026-09-26": 1,
   "2026-11-10": 11,
   "2026-11-11": 4,
-  "2026-11-16": 18
+  "2026-11-16": 18,
+  "2026-11-17": 7
  },
  "rows": [
   {
@@ -727,6 +728,154 @@
    "second_judge": null,
    "listen_from": "52:56",
    "listen_to": "53:29"
+  },
+  {
+   "uid": "FA-0ca0b7c7",
+   "date": "2026-11-17",
+   "t": "13:53",
+   "t_amal": "13:55",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "medi_said": "Oh, الأرض. And what's ground?",
+   "amal_said": "الأرض. Earth. ... Ground. أرض.",
+   "wrong": "ground",
+   "right": "أرض",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "13:43",
+   "listen_to": "14:15"
+  },
+  {
+   "uid": "FA-165581fc",
+   "date": "2026-11-17",
+   "t": "17:17",
+   "t_amal": "17:19",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A8",
+   "medi_said": "كانت أبيض.",
+   "amal_said": "كانت.",
+   "wrong": "أبيض",
+   "right": "بيضا",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "17:07",
+   "listen_to": "17:39"
+  },
+  {
+   "uid": "FA-a716aff5",
+   "date": "2026-11-17",
+   "t": "21:38",
+   "t_amal": "21:43",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A1",
+   "medi_said": "ما أحبوا، اه، حيوانات.",
+   "amal_said": "كل الحيوانات.",
+   "wrong": "حيوانات",
+   "right": "الحيوانات",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "21:28",
+   "listen_to": "22:03"
+  },
+  {
+   "uid": "FA-0718596a",
+   "date": "2026-11-17",
+   "t": "24:24",
+   "t_amal": "24:27",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "B5",
+   "medi_said": "كان صغير،",
+   "amal_said": "لما م-- أم.",
+   "wrong": "كان صغير",
+   "right": "كنت صغير",
+   "why_check": [
+    "reader confidence low",
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "24:14",
+   "listen_to": "24:47"
+  },
+  {
+   "uid": "FA-f1f03be7",
+   "date": "2026-11-17",
+   "t": "31:49",
+   "t_amal": "31:53",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "D5",
+   "medi_said": "bi shaara.",
+   "amal_said": "الشاة.",
+   "wrong": "bi shaara",
+   "right": "bil-shaare3 (El shaara)",
+   "why_check": [
+    "the transcript under it is disputed (engine wrote something else)"
+   ],
+   "check": "audio",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "31:39",
+   "listen_to": "32:13"
+  },
+  {
+   "uid": "FA-4b7bf96d",
+   "date": "2026-11-17",
+   "t": "32:11",
+   "t_amal": "32:11",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "medi_said": "Is it,",
+   "amal_said": "سنعجب.",
+   "wrong": "(squirrels)",
+   "right": "سناجب",
+   "why_check": [
+    "the transcript under it is disputed (engine wrote something else)"
+   ],
+   "check": "audio",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "32:01",
+   "listen_to": "32:31"
+  },
+  {
+   "uid": "FA-f134376d",
+   "date": "2026-11-17",
+   "t": "33:11",
+   "t_amal": "33:14",
+   "kind": "vocab-A",
+   "tier": 2,
+   "bucket": null,
+   "medi_said": "Hassan.",
+   "amal_said": "حسن. ... Yes, حسن is one, حسن is multiple.",
+   "wrong": "Hassan",
+   "right": "حُصُن",
+   "why_check": [
+    "the transcript under it is disputed (engine wrote something else)"
+   ],
+   "check": "audio",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "33:01",
+   "listen_to": "33:34"
   }
  ]
 }
