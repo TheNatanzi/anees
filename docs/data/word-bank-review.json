@@ -141047,12 +141047,16 @@
         "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error"
       },
       "changes": {
-        "assessment": "independent",
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other) (WS-30)",
+        "assessment": "helped",
+        "reason": "Repeat of the tutor's typed line in the chat at 38:53 («7aywaani el-mufaddal el-taani el-deek (dyook)»): not credited, not a mistake (WS-31)",
         "by": "word-coverage",
-        "rule": "WS-30",
-        "classification": "lexical",
-        "vocab_points": 1
+        "rule": "WS-31",
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 2333.15,
+          "text": "7aywaani el-mufaddal el-taani el-deek (dyook)"
+        }
       }
     },
     "e1e13a44f5bdb92c073f39d3894b3e8a6975c2bb438771fce4a4c264a99f9bf0": {
@@ -141100,6 +141104,30 @@
         "repeat_of": {
           "t": 2344.99,
           "text": "تاني حيوان. Favorite."
+        }
+      }
+    },
+    "e4c9122f6896067f942e381ec1e349cf9a330d9b37490786bb19dbc0e70d61ca": {
+      "expected": {
+        "source_sha256": "cf351627556ba02556e767aa99d7c2f80914f1721092ab181360c75d5bac580b",
+        "row_id": "anees-20261117-recall-medi:row:2818",
+        "word_key": "mufadal",
+        "text": "مفضل",
+        "t_start": 2375.504637625,
+        "t_end": 2376.144637625,
+        "assessment": "independent",
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
+      },
+      "changes": {
+        "assessment": "helped",
+        "reason": "Repeat of the tutor's typed line in the chat at 39:23 («taani 7aywaan mufaddal 3indi el-deek»): not credited, not a mistake (WS-31)",
+        "by": "word-coverage",
+        "rule": "WS-31",
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 2363.15,
+          "text": "taani 7aywaan mufaddal 3indi el-deek"
         }
       }
     },
@@ -472919,7 +472947,7 @@
         "text": "نفس",
         "original_text": "مش نفس الـ إشي، that's a punctor.",
         "match_method": "word_coverage",
-        "assessment": "independent",
+        "assessment": "helped",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -472934,11 +472962,16 @@
             "timeline_end": 2623.57
           }
         ],
-        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
-        "rule": "WS-30",
+        "reason": "Repeat of the tutor's typed line in the chat at 43:36 («el-7ameer u el-2rood mish nafs el-ishi»): not credited, not a mistake (WS-31)",
+        "rule": "WS-31",
         "classification": "lexical",
         "coverage": true,
-        "vocab_points": 1
+        "immediate_repeat": true,
+        "repeat": true,
+        "repeat_of": {
+          "t": 2616.15,
+          "text": "el-7ameer u el-2rood mish nafs el-ishi"
+        }
       },
       "by": "word-coverage"
     },
@@ -473899,7 +473932,7 @@
         "text": "صباح",
         "original_text": "كل صباح.",
         "match_method": "word_coverage",
-        "assessment": "unresolved",
+        "assessment": "independent",
         "assessment_status": "provisional",
         "spoken": true,
         "wording_status": "asr",
@@ -473914,14 +473947,11 @@
             "timeline_end": 3520.07
           }
         ],
-        "reason": "said again right after his own صباح at 58:35 with nothing from the tutor between: one try, counted once (WS-36)",
-        "rule": "WS-36",
-        "classification": "ignored",
+        "reason": "Word he said on his own (WS-30: a word said alone counts like any other)",
+        "rule": "WS-30",
+        "classification": "lexical",
         "coverage": true,
-        "vocab_points": null,
-        "ignored": true,
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat"
+        "vocab_points": 1
       },
       "by": "word-coverage"
     },
