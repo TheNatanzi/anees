@@ -2,6 +2,36 @@
  "built": "2026-11-16",
  "patterns": [
   {
+   "id": "p-present-no-b",
+   "kind": "grammar",
+   "bucket": "B1",
+   "tier": null,
+   "title": "Plain present verb said without b- (yebsetu -> byebsetu, akhalli -> bakhalli, adfa3 -> badfa3)",
+   "wrong": "yebsetu / yeksaru / khalli / adfa3 / tista3mel / yikoon",
+   "right": "byebsetu / byeksaru / bakhalli / badfa3 / btista3mli / bikoon",
+   "wrong_arabic": "يبسطوا / يكسروا / خلي / أدفع / تستعمل / يكون",
+   "right_arabic": "بيبسطوا / بيكسروا / بخلي / بدفع / بتستعملي / بيكون",
+   "wrong_arabizi": null,
+   "right_arabizi": "ana bashteghel",
+   "why": "In an ordinary present statement (no want/must/lamma/iza before it) he leaves the b- off the verb, and every ordinary present verb starts with b-.",
+   "english": "they make (someone) happy / they break / I let / then I pay / you use the phone / it rains",
+   "rows": [
+    "FA-4916a145",
+    "FA-84555d4f",
+    "FA-5337bfdb",
+    "FA-c7d9a3fb",
+    "FA-6a189634",
+    "FA-cb73ffba",
+    "FA-407ececa",
+    "FA-c6dd2687",
+    "FA-f826c9d7",
+    "FA-2f59da44",
+    "FA-17060f5a",
+    "FA-35e0f441",
+    "FA-f9b6268c"
+   ]
+  },
+  {
    "id": "p-fem-noun-masc-adj",
    "kind": "grammar",
    "bucket": "A8",
@@ -28,35 +58,6 @@
     "FA-aeebd206",
     "FA-2357ec63",
     "FA-fe9dfec3"
-   ]
-  },
-  {
-   "id": "p-present-no-b",
-   "kind": "grammar",
-   "bucket": "B1",
-   "tier": null,
-   "title": "Plain present verb said without b- (yebsetu -> byebsetu, akhalli -> bakhalli, adfa3 -> badfa3)",
-   "wrong": "yebsetu / yeksaru / khalli / adfa3 / tista3mel / yikoon",
-   "right": "byebsetu / byeksaru / bakhalli / badfa3 / btista3mli / bikoon",
-   "wrong_arabic": "يبسطوا / يكسروا / خلي / أدفع / تستعمل / يكون",
-   "right_arabic": "بيبسطوا / بيكسروا / بخلي / بدفع / بتستعملي / بيكون",
-   "wrong_arabizi": null,
-   "right_arabizi": "ana bashteghel",
-   "why": "In an ordinary present statement (no want/must/lamma/iza before it) he leaves the b- off the verb, and every ordinary present verb starts with b-.",
-   "english": "they make (someone) happy / they break / I let / then I pay / you use the phone / it rains",
-   "rows": [
-    "FA-4916a145",
-    "FA-84555d4f",
-    "FA-5337bfdb",
-    "FA-c7d9a3fb",
-    "FA-6a189634",
-    "FA-cb73ffba",
-    "FA-407ececa",
-    "FA-c6dd2687",
-    "FA-f826c9d7",
-    "FA-2f59da44",
-    "FA-17060f5a",
-    "FA-35e0f441"
    ]
   },
   {
@@ -154,7 +155,8 @@
     "FA-dbd555f6",
     "FA-f5de9971",
     "FA-a0e94e92",
-    "FA-6b9b6fbf"
+    "FA-6b9b6fbf",
+    "FA-0a352b94"
    ]
   },
   {
@@ -759,6 +761,25 @@
    "rows": [
     "FA-958908ea",
     "FA-e795d970"
+   ]
+  },
+  {
+   "id": "p-plural-verb-singular-subject",
+   "kind": "grammar",
+   "bucket": "B18",
+   "tier": null,
+   "title": "Plural verb on a singular thing (jaa2u esh-shob -> ija esh-shob)",
+   "wrong": "jaa2u esh-shob",
+   "right": "ija esh-shob",
+   "wrong_arabic": "جاؤوا الشوب",
+   "right_arabic": "إجا الشوب",
+   "wrong_arabizi": null,
+   "right_arabizi": null,
+   "why": "esh-shob (the heat) is one thing, so the verb should be ija, not the plural (MSA) jaa2u.",
+   "english": "because the heat came",
+   "rows": [
+    "FA-877eb514",
+    "FA-cbdde12d"
    ]
   },
   {
@@ -1806,24 +1827,6 @@
    ]
   },
   {
-   "id": "p-plural-verb-singular-subject",
-   "kind": "grammar",
-   "bucket": "B18",
-   "tier": null,
-   "title": "Plural verb on a singular thing (jaa2u esh-shob -> ija esh-shob)",
-   "wrong": "jaa2u esh-shob",
-   "right": "ija esh-shob",
-   "wrong_arabic": "جاؤوا الشوب",
-   "right_arabic": "إجا الشوب",
-   "wrong_arabizi": null,
-   "right_arabizi": null,
-   "why": "esh-shob (the heat) is one thing, so the verb should be ija, not the plural (MSA) jaa2u.",
-   "english": "because the heat came",
-   "rows": [
-    "FA-877eb514"
-   ]
-  },
-  {
    "id": "p-tafattatli-non-word-planned",
    "kind": "vocab",
    "bucket": null,
@@ -2289,6 +2292,42 @@
    "english": "they need a lot of work",
    "rows": [
     "FA-1e854857"
+   ]
+  },
+  {
+   "id": "p-el-after-awal-first",
+   "kind": "grammar",
+   "bucket": "A20",
+   "tier": null,
+   "title": "el- put on the noun after awal when he means 'the first X' (awal el-7aywaan -> awal 7aywaan)",
+   "wrong": "awal el-7aywaan",
+   "right": "awal 7aywaan",
+   "wrong_arabic": "أول الحيوان",
+   "right_arabic": "أول حيوان",
+   "wrong_arabizi": "awal alnoun",
+   "right_arabizi": "awal noun",
+   "why": "awal + el- + noun means 'the beginning of', so 'the first animal' needs awal 7aywaan with no el- (the el- may be the engine).",
+   "english": "The first animal I think of.",
+   "rows": [
+    "FA-f0be9ec8"
+   ]
+  },
+  {
+   "id": "p-a7abbu-for-7abbu",
+   "kind": "grammar",
+   "bucket": "B7",
+   "tier": null,
+   "title": "'They didn't like' said as ma a7abbu (-> ma kaanu y7ebbu / ma 7abbu)",
+   "wrong": "ma a7abbu",
+   "right": "ma kaanu y7ebbu / ma 7abbu",
+   "wrong_arabic": "ما أحبوا",
+   "right_arabic": "ما كانوا يحبوا / ما حبوا",
+   "wrong_arabizi": null,
+   "right_arabizi": "hume 7abu",
+   "why": "a7abbu is neither past nor present; a lasting past dislike is ma kaanu y7ebbu (or plain past ma 7abbu) - the engine may have added the a-.",
+   "english": "My family didn't like animals in the house.",
+   "rows": [
+    "FA-744a0b74"
    ]
   }
  ],

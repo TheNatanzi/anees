@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T14:09:10-08:00",
+ "updated": "2026-11-17T16:00:49-08:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -15891,6 +15891,537 @@
      "_lesson_s": 3852.0,
      "first_t": 5.29,
      "last_t": 3788.82,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "start_local": "2026-11-17T15:03:27-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 62.8,
+   "type": "review-grammar",
+   "review_mode": "speaking",
+   "type_why": "A planned drill of which preposition each verb takes, told through animal sentences: 06:16-35:30 she goes over his homework questions ('07:14 No. ابعت does. Send to me', '09:16 You said it right... you wrote عن') plus an animal-plurals round, and 35:49-1:02:04 he translates her English sentences ('50:47 Now maybe it's a repeat, but let's see how would you do with it this time'). A few words were given back when he was stuck (ذيل 23:51, فترة 1:01:40, مكسرات 1:02:28); 00:53-06:16 is warm-up talk (Meet, sunny but cold, the date).",
+   "type_source": "claude-read",
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Which little word each verb takes (send to, look at, miss, ask from, complain to), drilled with animal sentences",
+    "rules": [
+     {
+      "title": "ابعت takes لـ: ابعتيلي, بعتولنا (send TO me)",
+      "pattern": "ابعت + لـ + person",
+      "bullets": [
+       "Send always takes لـ, like 'send to me'",
+       "The ب is part of the verb: بعت, not أعطى"
+      ],
+      "examples": [
+       {
+        "t": "07:14",
+        "line": "ابعت does. Send to me"
+       },
+       {
+        "t": "07:20",
+        "line": "ابعتيلي صورة - send me a picture"
+       },
+       {
+        "t": "52:04",
+        "line": "always think of it as to me, send to me"
+       },
+       {
+        "t": "52:38",
+        "line": "بعثونا - they sent us"
+       }
+      ]
+     },
+     {
+      "title": "غير takes عن: غير عن = different from / other than",
+      "pattern": "غير + عن",
+      "bullets": [
+       "Not غير من - always عن"
+      ],
+      "examples": [
+       {
+        "t": "09:16",
+        "line": "غير عن العصافير - different from the birds"
+       },
+       {
+        "t": "27:32",
+        "line": "غير عن البس - other than the cat"
+       },
+       {
+        "t": "42:32",
+        "line": "الحصان غير عن الحمار - the horse is different from the donkey"
+       }
+      ]
+     },
+     {
+      "title": "طلّع takes على: اتطلعت على = I looked at",
+      "bullets": [
+       "Looked at = طلّع على",
+       "In the past add كان: آخر حيوان كان..."
+      ],
+      "examples": [
+       {
+        "t": "22:47",
+        "line": "What does طلع take? - على"
+       },
+       {
+        "t": "23:04",
+        "line": "على - looked at the animal"
+       }
+      ]
+     },
+     {
+      "title": "اشتاق takes لـ: بشتاق لـ = I miss",
+      "bullets": [
+       "Not على, not من"
+      ],
+      "examples": [
+       {
+        "t": "26:51",
+        "line": "you said right, لـ"
+       },
+       {
+        "t": "26:58",
+        "line": "أنا بشتاق لسمكاتي - I miss my fish"
+       }
+      ]
+     },
+     {
+      "title": "طلب takes من; دير باله takes على (no بـ after طلبت)",
+      "pattern": "طلبت من + person + يدير باله على + thing",
+      "bullets": [
+       "طلبت من جاري = I asked my neighbour",
+       "The next verb is plain present: يدير باله, no بـ",
+       "دير باله على = take care of"
+      ],
+      "examples": [
+       {
+        "t": "48:52",
+        "line": "من - طلبت من"
+       },
+       {
+        "t": "49:40",
+        "line": "no be 'cause it's talabit"
+       },
+       {
+        "t": "49:53",
+        "line": "بدير باله takes على"
+       },
+       {
+        "t": "50:25",
+        "line": "طلبت من جاري يدير باله على عصافيري"
+       }
+      ]
+     },
+     {
+      "title": "بيشكوا لـ = complain to; من = about; على = against",
+      "bullets": [
+       "لـ = the person you tell",
+       "من = what it is about",
+       "على = a complaint against someone"
+      ],
+      "examples": [
+       {
+        "t": "57:53",
+        "line": "بيشكوا لي - they complain to me"
+       },
+       {
+        "t": "58:58",
+        "line": "من is about"
+       },
+       {
+        "t": "59:08",
+        "line": "على is more serious, like filing a complaint"
+       },
+       {
+        "t": "59:42",
+        "line": "بيشكوا علي - they complain against me"
+       }
+      ]
+     },
+     {
+      "title": "خاف على = worry for; خاف من = scared of",
+      "bullets": [
+       "بخاف على خروفي المريض = I worry for my sick sheep",
+       "بتخاف من = she is scared of"
+      ],
+      "examples": [
+       {
+        "t": "30:28",
+        "line": "بتخاف من سرسور - she is scared of a cockroach"
+       },
+       {
+        "t": "56:02",
+        "line": "أنا بخاف على - I worry for"
+       },
+       {
+        "t": "56:35",
+        "line": "المريض - the sick one (el- on the adjective)"
+       }
+      ]
+     },
+     {
+      "title": "Second favourite: تاني حيوان مفضل عندي (no ال) or الحيوان المفضل التاني",
+      "bullets": [
+       "Both are right",
+       "تاني before the noun = second",
+       "مفضل عندي = my favourite, no ال"
+      ],
+      "examples": [
+       {
+        "t": "38:08",
+        "line": "Flip it. المفضل التاني"
+       },
+       {
+        "t": "39:08",
+        "line": "تاني حيوان المفضل عندي"
+       },
+       {
+        "t": "39:28",
+        "line": "No El"
+       },
+       {
+        "t": "40:23",
+        "line": "both are right"
+       }
+      ]
+     },
+     {
+      "title": "A feminine noun takes feminine words: كانت, التانية, الأخيرة",
+      "bullets": [
+       "سمكة is feminine, so كانت, not كان",
+       "The other one = التانية; the last one = الأخيرة or آخر واحدة",
+       "لون is masculine: لون أسود"
+      ],
+      "examples": [
+       {
+        "t": "17:16",
+        "line": "كانت - she (the fish) was"
+       },
+       {
+        "t": "17:39",
+        "line": "you could just say التانية"
+       },
+       {
+        "t": "18:21",
+        "line": "أخيرة - the last one"
+       },
+       {
+        "t": "18:54",
+        "line": "أسود, 'cause now we're describing the لون"
+       }
+      ]
+     },
+     {
+      "title": "Plurals: سمكة one, سمك in general, سمكات with a number",
+      "bullets": [
+       "Same for نحل, نمل: general plural without a number"
+      ],
+      "examples": [
+       {
+        "t": "16:07",
+        "line": "سمكة is one. سمك is general. سمكات is like if you wanna say number"
+       },
+       {
+        "t": "34:12",
+        "line": "You could just say نحل ونمل if you're not saying numbers"
+       },
+       {
+        "t": "32:48",
+        "line": "شوارع - streets"
+       },
+       {
+        "t": "35:23",
+        "line": "حيايا - snakes"
+       }
+      ]
+     },
+     {
+      "title": "صار لها فترة + present verb = she has been ... for a while",
+      "bullets": [
+       "No لـ before فترة",
+       "صار لها فترة بتجرب تشتري حصان"
+      ],
+      "examples": [
+       {
+        "t": "1:01:40",
+        "line": "فترة - a while"
+       },
+       {
+        "t": "1:01:52",
+        "line": "No لا just فترة. صار لها فترة"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up 00:53-06:16: Meet let her in, sunny but cold, today's date, homework done",
+     "Words given back when he was stuck: ذيل (tail), مكسرات (nuts), سناجب (squirrels), شوارع (streets), فترة (a while)",
+     "Short aside 13:53-14:43: أرض (earth) vs إرد/قرد (monkey) in her accent",
+     "Already right: رنت عليك (rang you) and ما رديتي علي (you didn't answer me) at 54:08-54:50"
+    ]
+   },
+   "words": {
+    "unique": 103,
+    "right": 253,
+    "wrong": 3,
+    "partial": 10,
+    "pct": 97.0,
+    "scored": 266,
+    "audit_wrong": 3,
+    "audit_partial": 3,
+    "not_on_sheet": 2,
+    "rehear_word_conflicts": 0,
+    "unique_rows": 101,
+    "eligible": 266,
+    "excluded": 0,
+    "pending": 3,
+    "eligible_pct": 97.0,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 220,
+    "mistakes": 24,
+    "pct": 90.5,
+    "estimate": false,
+    "scored_mistakes": 21,
+    "unscored_mistakes": 3,
+    "eligible": 24,
+    "excluded": 0,
+    "pending": 4,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "5 slips are in rules the counter found 0 uses of in this lesson",
+      "6 rules have more slips than counted uses (A21, A23, A7, B17, B18, C11)"
+     ],
+     "uses": 200,
+     "slips": 24,
+     "slips_latin": 2,
+     "slips_in_zero_use_rules": 5,
+     "rules_slips_over_uses": [
+      "A21",
+      "A23",
+      "A7",
+      "B17",
+      "B18",
+      "C11"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1020.2,
+    "amal_s": 694.6,
+    "speak_pct": 59.5,
+    "listen_pct": 40.5,
+    "window": [
+     0.0,
+     3767.4
+    ]
+   },
+   "fillers": {
+    "count": 164,
+    "per_min": 9.65,
+    "top": [
+     [
+      "uh",
+      94
+     ],
+     [
+      "um",
+      31
+     ],
+     [
+      "آآ",
+      17
+     ],
+     [
+      "امم",
+      8
+     ],
+     [
+      "اه",
+      7
+     ],
+     [
+      "ah",
+      2
+     ]
+    ],
+    "in_turns": 165,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.36,
+    "p75_s": 2.17,
+    "n": 299
+   },
+   "flow": {
+    "wpm": 69.0,
+    "n_turns": 165,
+    "arabic_words": 480
+   },
+   "new_words": [],
+   "taught": [],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "التانية",
+     "english": "the other one / the second one (feminine)",
+     "t": "17:39"
+    },
+    {
+     "latin": null,
+     "arabic": "الأخيرة / آخر واحدة",
+     "english": "the last one (feminine)",
+     "t": "18:21"
+    },
+    {
+     "latin": null,
+     "arabic": "ذيل",
+     "english": "tail (taught yesterday, he forgot it)",
+     "t": "23:51"
+    },
+    {
+     "latin": null,
+     "arabic": "بالغلط",
+     "english": "by mistake",
+     "t": "25:38"
+    },
+    {
+     "latin": null,
+     "arabic": "سرّع",
+     "english": "thief (as heard; he asked how to say robber)",
+     "t": "30:56"
+    },
+    {
+     "latin": null,
+     "arabic": "سناجب",
+     "english": "squirrels",
+     "t": "32:11"
+    },
+    {
+     "latin": null,
+     "arabic": "شوارع",
+     "english": "streets",
+     "t": "32:48"
+    },
+    {
+     "latin": null,
+     "arabic": "حمامي",
+     "english": "my bathroom",
+     "t": "54:30"
+    },
+    {
+     "latin": null,
+     "arabic": "بيشكوا لي",
+     "english": "they complain to me",
+     "t": "57:53"
+    },
+    {
+     "latin": null,
+     "arabic": "فترة",
+     "english": "a while (صار لها فترة = she has been ... for a while)",
+     "t": "1:01:40"
+    },
+    {
+     "latin": null,
+     "arabic": "مكسرات",
+     "english": "nuts (from yesterday, he forgot it)",
+     "t": "1:02:28"
+    }
+   ],
+   "coverage": "Homework-review stretch 06:44-11:15 (written slips she voiced, filed as speaking). Latin-transliterated stretch 31:23-35:28 and 47:00 (plurals list). Garbled engine lines left out: 03:06-03:26, 11:35-11:42, 20:21, 23:18, 25:13-25:31, 28:45, 30:33-30:56 (thief - Amal's word unclear). Engine sound-alikes: أبو = أول (12:30), هدية = حديقة (13:01, 47:38), الأرض = إرد (13:50, 42:38), سنعجب = سناجب, حسن = حصان/حُصُن, الشاة = الشارع, أمامتي = حمامتي, ذي رو بالو = دير بالو, بيشغلي = بيشكولي, سار = صار, بدا = بيضا (17:22), أبي للدرس = قبل الدرس (11:30). No echo-candidates file for this date. 19:06-19:39 ثايه/سايه is a Persian name (Shadow), not an error. Questions about prepositions (05:34, 26:41 بشتاق ل, 51:34 بعت, 58:04) not filed as slips. 1:02:10 بيل for ذيل (recall) not fixed by Amal, likely engine. / Engine garbled many lines (ثايه/صاية, سأت, اللي and home يا, بشتا); 31:20-36:00 is mostly Latin-transliterated. Not filed as errors: 09:13 غير من-- self-fixed to غير عن before/while she spoke (GR-22); 03:50 أنا أمشي->أنا بمشي self-fix; 57:30 هو->هم self-fix; 49:18 ذي رو بالو = command-tense question; 44:27 أناكب (S4); 01:31-02:00 questions on preposition for سأل; 51:34/57:04 questions on preposition. Unresolved: 04:47-05:00 Amal قد إسا / تن تنين أو أشادير (time/age unclear); 21:19 أربعين; 11:30 أبي للدرس (engine, likely قبل الدرس); 1:02:10 بيل for tail (engine; she moved on). Echo-candidates file missing for this date.",
+   "notes": [
+    "grammar: 3 of the 24 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+   ],
+   "page": "lessons/2026-11-17.html",
+   "detail": "data/lessons/2026-11-17.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-11-17",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 1121,
+    "chat_lines": 0,
+    "vocab_errors": 8,
+    "vocab_correct": 260,
+    "grammar_errors": 24,
+    "grammar_not_counted": 0,
+    "vocab_errors_split": {
+     "wrong": 3,
+     "half": 3,
+     "off_list": 2
+    }
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-11-17.json",
+    "marks": 533,
+    "conflicts": 0,
+    "resolved": 0,
+    "needs_medi": 0,
+    "mode": "on",
+    "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 50.0 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3768 s) compared with a second model",
+     "checks: 7 scored rows need an audio or human check (3 words, 4 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 51,
+       "r2": 50,
+       "agreed": 31,
+       "disputed": 31,
+       "agreement_pct": 50.0
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3768.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3768.0,
+     "first_t": 54.87,
+     "last_t": 3766.09,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3768.0,
+     "first_t": 53.23,
+     "last_t": 3767.11,
      "missing": [],
      "holes": [],
      "missing_s": 0,
